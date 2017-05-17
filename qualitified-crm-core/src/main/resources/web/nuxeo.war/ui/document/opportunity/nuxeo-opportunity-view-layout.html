@@ -1,0 +1,98 @@
+<dom-module id="nuxeo-opportunity-view-layout">
+  <template>
+    <style>
+      *[role=widget] {
+        padding: 5px;
+      }
+    </style>
+    <paper-card role="widget">
+      <h1>
+        [[document.properties.dc:title]]
+      </h1>
+
+      <div role="widget">
+        <label>Amount</label>
+        <div>[[_formatCurrency(document.properties.opportunity:amount)]] €</div>
+      </div>
+
+      <div role="widget">
+        <label>Step</label>
+        <div directory-name="OppStep">[[formatDirectory(document.properties.opportunity:step)]]</div>
+      </div>
+
+      <div role="widget">
+        <label>Close Date</label>
+        <div>[[_formatDate(document.properties.opportunity:closeDate)]]</div>
+      </div>
+
+      <div role="widget">
+        <label>Description</label>
+        <div>[[document.properties.dc:description]]</div>
+      </div>
+
+      <h2>
+        Activities 
+      </h2>
+
+      <nuxeo-page-provider
+                           role="widget"
+                           id="interactionProvider"
+                           auto
+                           query="select * from Interaction where ecm:currentLifeCycleState != 'deleted' and ecm:parentId = '[[document.uid]]'"
+                           page-size="100"
+                           params="[[params]]"
+                           aggregations="{{interactionAggregations}}"
+                           current-page="{{interactions}}"/>
+        <template is="dom-repeat" items="{{employees}}">
+          <div># <span>{{index}}</span></div>
+          <div>First name: <span>{{item.first}}</span></div>
+          <div>Last name: <span>{{item.last}}</span></div>
+        </template>
+
+        <h2>
+          Attachments 
+        </h2>
+        <nuxeo-document-content document="[[document]]"></nuxeo-document-content>
+        </paper-card>
+      </template>
+
+    <script>
+    (function() {
+      'use strict';
+      Polymer({
+        is: 'nuxeo-opportunity-view-layout',
+        properties: {
+
+          /**
+           * @doctype Opportunity
+           */
+          document: {
+            type: Object
+          },
+
+        },
+        /**
+       * Returns the label for the given directory entry.
+       */
+        formatDirectory: function(value) {
+          if (value && value['entity-type'] && value['entity-type'] === 'directoryEntry') {
+            if (value.properties && value.properties.label) {
+              return value.properties.label;
+            } else {
+              var label = 'label_' + ((window.nuxeo.I18n.language) ? window.nuxeo.I18n.language.split('-')[0] : 'en');
+              return value.properties[label] || value.properties['label_en']
+            }
+          } else {
+            return value;
+          }
+        },
+        _formatDate: function(date) {
+          return moment(date).format('MMMM D, YYYY');
+        },
+        _formatCurrency: function(val) {
+          return val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+        }
+      });
+    })();
+    </script>
+    </dom-module>

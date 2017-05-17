@@ -1,0 +1,36 @@
+<!-- Imports -->
+<link rel="import" href="document/custom-document-page.html">
+<link rel="import" href="document/sales/nuxeo-sales-settings-button.html">
+
+<!-- Contribution of element 'custom-document-page' for slot 'DOCUMENT_VIEWS_PAGES' -->
+<nuxeo-slot-content name="myViewPage" slot="DOCUMENT_VIEWS_PAGES" >
+  <template>
+    <nuxeo-filter document="[[document]]" type="Sales,Marketing,Services,Admin,Root">
+    <template>
+      <custom-document-page name="view" document="[[document]]"></custom-document-page>
+    </template>
+    </nuxeo-filter>
+  </template>
+</nuxeo-slot-content>
+<!-- Contribution of element 'nuxeo-search-form' for slot 'DRAWER_PAGES' -->
+<nuxeo-slot-content name="opportunity-list" slot="DRAWER_PAGES" >
+  <template>
+    <nuxeo-search-form provider="opportunity_list" schemas="opportunity" name="opportunity-list"></nuxeo-search-form>
+  </template>
+</nuxeo-slot-content>
+<!-- Contribution of element 'nuxeo-menu-icon' for slot 'SEARCH_MENU_BUTTONS' -->
+<nuxeo-slot-content name="opportunity-list" slot="SEARCH_MENU_BUTTONS" >
+  <template>
+    <nuxeo-menu-icon icon="icons:work" name="opportunity-list" label="Opportunities"></nuxeo-menu-icon>
+  </template>
+</nuxeo-slot-content>
+<!-- Contribution of element 'nuxeo-sales-settings-button' for slot 'DOCUMENT_ACTIONS' -->
+<nuxeo-slot-content name="Settings" slot="DOCUMENT_ACTIONS" >
+  <template>
+    <nuxeo-filter document="[[document]]" type="Sales">
+    <template>
+      <nuxeo-sales-settings-button document="[[document]]"></nuxeo-sales-settings-button>
+    </template>
+    </nuxeo-filter>
+  </template>
+</nuxeo-slot-content>

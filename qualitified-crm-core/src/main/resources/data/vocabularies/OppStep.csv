@@ -1,0 +1,8 @@
+"id","label","obsolete","ordering"
+"New","New","0","10"
+"Proposal Sent","Proposal Sent","0","20"
+"Negociation","Negociation","0","30"
+"Won","Won","0","40"
+"Lost","Lost","0","50"
+"Limbo","Limbo","0","60"
+"No go","No go","0","70"

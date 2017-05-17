@@ -1,0 +1,37 @@
+<!--
+`nuxeo-sales-edit-layout`
+@group Nuxeo UI
+@element nuxeo-sales-edit-layout
+-->
+<dom-module id="nuxeo-sales-edit-layout">
+  <template>
+    <style>
+      *[role=widget] {
+        padding: 5px;
+      }
+    </style>
+    <paper-input role="widget" value="{{document.properties.dc:title}}" label="Title"></paper-input>
+
+    <paper-textarea role="widget" value="{{document.properties.dc:description}}" label="Description"></paper-textarea>
+
+  </template>
+
+  <script>
+    (function() {
+      'use strict';
+      Polymer({
+        is: 'nuxeo-sales-edit-layout',
+        properties: {
+
+          /**
+           * @doctype Sales
+           */
+          document: {
+            type: Object
+          },
+
+        }
+      });
+    })();
+  </script>
+</dom-module>

@@ -1,0 +1,37 @@
+<!--
+`nuxeo-services-create-layout`
+@group Nuxeo UI
+@element nuxeo-services-create-layout
+-->
+<dom-module id="nuxeo-services-create-layout">
+  <template>
+    <style>
+      *[role=widget] {
+        padding: 5px;
+      }
+    </style>
+    <paper-input role="widget" value="{{document.properties.dc:title}}" label="Title"></paper-input>
+
+    <paper-textarea role="widget" value="{{document.properties.dc:description}}" label="Description"></paper-textarea>
+
+  </template>
+
+  <script>
+    (function() {
+      'use strict';
+      Polymer({
+        is: 'nuxeo-services-create-layout',
+        properties: {
+
+          /**
+           * @doctype Services
+           */
+          document: {
+            type: Object
+          },
+
+        }
+      });
+    })();
+  </script>
+</dom-module>

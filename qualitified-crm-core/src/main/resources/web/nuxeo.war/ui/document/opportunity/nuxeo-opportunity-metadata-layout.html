@@ -1,0 +1,41 @@
+<dom-module id="nuxeo-opportunity-metadata-layout">
+  <template>
+    <style>
+      *[role=widget] {
+        padding: 5px;
+      }
+    </style>
+    <paper-input role="widget" value="{{document.properties.dc:title}}" label="Title"></paper-input>
+
+    <paper-textarea role="widget" value="{{document.properties.dc:description}}" label="Description"></paper-textarea>
+
+    <paper-input role="widget" value="{{document.properties.opportunity:amount}}" label="Amount"></paper-input>
+
+    <nuxeo-directory-suggestion role="widget" value="{{document.properties.opportunity:step}}" label="Step" directory-name="OppStep"></nuxeo-directory-suggestion>
+
+    <nuxeo-date-picker value="{{document.properties.opportunity:closeDate}}" label="Close Date" role="widget"></nuxeo-date-picker>
+
+  </template>
+
+  <script>
+  (function() {
+    'use strict';
+    Polymer({
+      is: 'nuxeo-opportunity-metadata-layout',
+      properties: {
+
+        /**
+           * @doctype Opportunity
+           */
+        document: {
+          type: Object
+        },
+        _formatDate: function(date) {
+          return moment(date).format('MMMM D, YYYY');
+        }
+
+      }
+    });
+  })();
+  </script>
+</dom-module>

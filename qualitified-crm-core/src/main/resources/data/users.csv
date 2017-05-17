@@ -1,0 +1,3 @@
+"username","password","firstName","lastName","company","email"
+"Administrator","Administrator","Admin","Istrator","","administrator@example.com"
+"SecondUser","SecondUser","SecondUser","SecondUser","nuxeo","su@nuxeo.com"

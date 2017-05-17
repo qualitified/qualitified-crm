@@ -1,0 +1,9 @@
+Manifest-Version: 1.0
+Require-Bundle: org.nuxeo.runtime
+Bundle-Vendor: Nuxeo
+Bundle-Version: 1.0.0
+Bundle-Name: Nuxeo Studio Extension - studio.extensions.crm
+Nuxeo-Component: OSGI-INF/extensions.xml
+Bundle-ManifestVersion: 2
+Created-By: Qualitified
+Bundle-SymbolicName: studio.extensions.crm

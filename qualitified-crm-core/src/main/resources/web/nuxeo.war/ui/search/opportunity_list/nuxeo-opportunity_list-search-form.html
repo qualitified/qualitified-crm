@@ -1,0 +1,44 @@
+<!--
+`nuxeo-opportunity_list-search-form`
+@group Nuxeo UI
+@element nuxeo-opportunity_list-search-form
+-->
+<dom-module id="nuxeo-opportunity_list-search-form">
+  <template>
+    <style>
+      *[role=widget] {
+        padding: 5px;
+      }
+    </style>
+    <div role="widget">
+      <label>Opportunity Step Agg</label>
+      <nuxeo-dropdown-aggregation value="{{params.opportunity_step_agg}}" data="[[aggregations.opportunity_step_agg]]"></nuxeo-dropdown-aggregation>
+    </div>
+
+  </template>
+
+  <script>
+  Polymer({
+    is: 'nuxeo-opportunity_list-search-form',
+    behaviors: [Nuxeo.LayoutBehavior],
+    properties: {
+
+      /**
+         * @search opportunity_list
+         */
+      params: {
+        type: Object,
+        value: {},
+        notify: true,
+      },
+
+      aggregations: {
+        type: Object,
+        value: {},
+        notify: true,
+      },
+
+    }
+  });
+  </script>
+</dom-module>
