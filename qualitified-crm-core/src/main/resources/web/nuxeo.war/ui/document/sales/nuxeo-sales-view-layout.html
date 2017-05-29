@@ -63,8 +63,9 @@
         return val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
       },
       _calculatePercentage: function(val) {
-        
-        return Math.trunc((val / this.document.properties["sales:goal"]) * 100);
+        if(this.document){
+          return Math.trunc((val / this.document.properties["sales:goal"]) * 100);
+        }
       }
      });
   })();

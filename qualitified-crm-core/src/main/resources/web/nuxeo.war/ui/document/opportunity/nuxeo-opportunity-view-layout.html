@@ -5,6 +5,7 @@
         padding: 5px;
       }
     </style>
+    <nuxeo-connection id="nxcon"></nuxeo-connection>
     <paper-card role="widget">
       <h1>
         [[document.properties.dc:title]]
@@ -30,29 +31,77 @@
         <div>[[document.properties.dc:description]]</div>
       </div>
 
-      <h2>
-        Activities 
-      </h2>
+      <h3>
+        Activities
+      </h3>
 
-      <nuxeo-page-provider
-                           role="widget"
-                           id="interactionProvider"
-                           auto
-                           query="select * from Interaction where ecm:currentLifeCycleState != 'deleted' and ecm:parentId = '[[document.uid]]'"
-                           page-size="100"
-                           params="[[params]]"
-                           aggregations="{{interactionAggregations}}"
-                           current-page="{{interactions}}"/>
-        <template is="dom-repeat" items="{{employees}}">
-          <div># <span>{{index}}</span></div>
-          <div>First name: <span>{{item.first}}</span></div>
-          <div>Last name: <span>{{item.last}}</span></div>
+      <div class="dataTable">
+        <nuxeo-page-provider
+                             role="widget"
+                             id="interactionProvider"
+                             auto
+                             query="SELECT * FROM Interaction WHERE ecm:currentLifeCycleState != 'deleted' and ecm:parentId = '[[document.uid]]' ORDER BY interaction:date DESC"
+                             page-size="5"
+                             params="[[params]]"
+                             aggregations="{{interactionAggregations}}"
+                             current-page="{{interactions}}">
+        </nuxeo-page-provider>
+
+        <template is="dom-repeat" items="[[interactions]]">
+          <div>[[_formatDate(item.properties.interaction:date)]]</div>
+          <div>[[formatDirectory(item.properties.interaction:activity)]] - [[item.title]]</div>
+          <div>[[item.properties.dc:description]]</div>
+          <br/>
         </template>
 
-        <h2>
-          Attachments 
-        </h2>
-        <nuxeo-document-content document="[[document]]"></nuxeo-document-content>
+      <h3>
+        Attachments
+      </h3>
+      <div class="dataTable">
+        <nuxeo-page-provider
+                             role="widget"
+                             id="documentProvider"
+                             auto
+                             query="select * from Document where ecm:primaryType in ('File', 'Folder') and ecm:currentLifeCycleState != 'deleted' and ecm:parentId = '[[document.uid]]'"
+                             page-size="5"
+                             params="[[params]]"
+                             aggregations="{{documentAggregations}}"
+                             current-page="{{documents}}">
+        </nuxeo-page-provider>
+        <nuxeo-data-table role="widget" id="datatable" items="[[documents]]" on-row-clicked="_navigate">
+          <nuxeo-data-table-column name="Full text search" flex="100" filter-by="ecm_fulltext" sort-by="dc:title">
+            <template>
+              <img class="queue-thumbnail" src="[[_thumbnail(item)]]">
+              [[item.title]]
+            </template>
+          </nuxeo-data-table-column>
+          <nuxeo-data-table-column filter-by="dc_modified_agg" flex="50" sort-by="dc:modified">
+            <template is="header">
+              <nuxeo-dropdown-aggregation
+                                          placeholder="Modified"
+                                          data="[[documentAggregations.dc_modified_agg]]"
+                                          value="{{column.filterValue}}" multiple>
+              </nuxeo-dropdown-aggregation>
+            </template>
+            <template>
+              [[_formatDate(item.properties.dc:modified)]]
+            </template>
+          </nuxeo-data-table-column>
+          <nuxeo-data-table-column filter-by="dc_creator_agg" flex="50">
+            <template is="header">
+              <nuxeo-dropdown-aggregation
+                                          placeholder="Author"
+                                          data="[[documentAggregations.dc_creator_agg]]"
+                                          value="{{column.filterValue}}" multiple>
+              </nuxeo-dropdown-aggregation>
+            </template>
+            <template>
+              <nuxeo-user-tag user="[[item.properties.dc:creator]]"></nuxeo-user-tag>
+            </template>
+          </nuxeo-data-table-column>
+        </nuxeo-data-table>
+      </div>
+
         </paper-card>
       </template>
 
@@ -69,6 +118,12 @@
           document: {
             type: Object
           },
+
+          params: {
+            type: Object,
+            value: {},
+            notify: true
+          }
 
         },
         /**
@@ -90,7 +145,26 @@
           return moment(date).format('MMMM D, YYYY');
         },
         _formatCurrency: function(val) {
+          if(val == null){
+            return "";
+          }
           return val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+        },
+        _navigate: function(e) {
+          var detail = {
+            doc: e.detail.item,
+          };
+          page('/browse' + detail.doc.path);
+        },
+        _thumbnail: function(doc) {
+          if (doc && doc.uid) {
+            if (doc.contextParameters && doc.contextParameters.thumbnail.url) {
+              return doc.contextParameters.thumbnail.url;
+            } else {
+              var baseUrl = this.$.nxcon.url;
+              return baseUrl + '/api/v1/id/' + doc.uid + '/@rendition/thumbnail';
+            }
+          }
         }
       });
     })();

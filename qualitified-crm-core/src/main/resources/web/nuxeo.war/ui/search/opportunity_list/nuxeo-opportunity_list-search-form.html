@@ -6,13 +6,56 @@
 <dom-module id="nuxeo-opportunity_list-search-form">
   <template>
     <style>
-      *[role=widget] {
-        padding: 5px;
+      :host {
+        display: block;
+      }
+
+      .row {
+        box-sizing: border-box;
+        margin-bottom: 1rem;
+        padding: 0 1rem;
+        width: 100%;
+      }
+
+      label {
+        color: #434343;
+        font-size: 0.8em;
+        font-weight: 700;
+        margin-bottom: 5px;
+      }
+
+      input {
+        background-color: #fff;
+        border: 1px solid #ddd;
+        border-radius: .2em;
+        box-sizing: border-box;
+        color: rgba(0,0,0,.75);
+        display: block;
+        font-size: 0.8em;
+        height: 2rem;
+        margin: 0;
+        padding: .5rem;
+        width: 100%;
       }
     </style>
-    <div role="widget">
-      <label>Opportunity Step Agg</label>
-      <nuxeo-dropdown-aggregation value="{{params.opportunity_step_agg}}" data="[[aggregations.opportunity_step_agg]]"></nuxeo-dropdown-aggregation>
+
+    <!-- Full Text -->
+    <div class="layout vertical row">
+      <label>[[i18n('assetsSearch.fullText', 'Full Text')]]</label>
+      <paper-input id="searchInput" autofocus="true"
+                   value="{{searchTerm}}" tabindex="0"
+                   type="search"
+                   placeholder="[[i18n('assetsSearch.fullText.placeholder', 'Search something ...')]]"
+                   no-label-float>
+      </paper-input>
+    </div>
+
+    <div class="layout vertical row">
+      <label>Opportunity Step</label>
+      <nuxeo-checkbox-aggregation
+        data="[[aggregations.opportunity_step_agg]]"
+        value="{{params.opportunity_step_agg}}">
+      </nuxeo-checkbox-aggregation>
     </div>
 
   </template>
@@ -31,13 +74,35 @@
         value: {},
         notify: true,
       },
-
       aggregations: {
         type: Object,
         value: {},
         notify: true,
       },
+      searchTerm: {
+        type: String,
+        notify: true,
+        observer: '_addFullTextSearch'
+      }
+    },
 
+    behaviors: [Nuxeo.I18nBehavior],
+
+    _addFullTextSearch: function() {
+      if (this.searchTerm) {
+        this.set('params.ecm_fulltext', this.searchTerm + '*');
+      } else {
+        if (this.params.ecm_fulltext) {
+          this.set('params.ecm_fulltext', '');
+          // dirty but needed, the above line for
+          // ecm_fulltext removal being observed
+          delete this.params.ecm_fulltext;
+        }
+      }
+    },
+
+    clear: function() {
+      this.searchTerm = '';
     }
   });
   </script>

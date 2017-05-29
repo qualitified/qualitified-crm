@@ -22,10 +22,9 @@ import org.nuxeo.ecm.directory.sql.SQLDirectoryFeature;
 import org.nuxeo.ecm.core.api.DocumentModel;
 
 @RunWith(FeaturesRunner.class)
-@Features({SQLDirectoryFeature.class, CoreFeature.class, RuntimeFeature.class, AutomationFeature.class})
+@Features({CoreFeature.class, RuntimeFeature.class, AutomationFeature.class})
 @RepositoryConfig(cleanup = Granularity.METHOD)
-@LocalDeploy("org.nuxeo.ecm.directory.sql.tests:test-sql-directories-bundle.xml")
-@Deploy({"studio.extensions.cgisweden"})
+@Deploy({"studio.extensions.crm"})
 public class TestStudioBundle {
 
     @Inject
@@ -41,10 +40,4 @@ public class TestStudioBundle {
         assertNotNull(runtime);
     }
 
-    @Test
-    public void shouldHaveAPublicationDate() {
-        DocumentModel doc = coreSession.createDocumentModel("/", "myDoc", "bp-participant");
-        assertNotNull(doc);
-        //assertNotNull(doc.getPropertyValue("book:publicationDate"));
-    }
 }
