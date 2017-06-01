@@ -1,5 +1,6 @@
 <!-- Imports -->
 <link rel="import" href="document/custom-document-page.html">
+<link rel="import" href="document/qualitified-document-page.html">
 <link rel="import" href="document/sales/nuxeo-sales-settings-button.html">
 
 <!-- Contribution of element 'custom-document-page' for slot 'DOCUMENT_VIEWS_PAGES' -->
@@ -8,6 +9,15 @@
     <nuxeo-filter document="[[document]]" type="Sales,Marketing,Services,Admin,Root">
     <template>
       <custom-document-page name="view" document="[[document]]"></custom-document-page>
+    </template>
+    </nuxeo-filter>
+  </template>
+</nuxeo-slot-content>
+<nuxeo-slot-content name="myQualitifiedViewPage" slot="DOCUMENT_VIEWS_PAGES" >
+  <template>
+    <nuxeo-filter document="[[document]]" type="Account,Opportunity,Contact,Sollicitation">
+    <template>
+      <qualitified-document-page name="view" document="[[document]]"></qualitified-document-page>
     </template>
     </nuxeo-filter>
   </template>
