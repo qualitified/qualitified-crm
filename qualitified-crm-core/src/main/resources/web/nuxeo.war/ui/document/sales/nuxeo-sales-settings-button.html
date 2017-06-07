@@ -43,7 +43,7 @@ Contributors:
                     headers="[[headers]]">
         </nuxeo-document>
 
-        <nuxeo-error id="error"></nuxeo-error>
+        <!--nuxeo-error id="error"></nuxeo-error-->
         <h2>Settings</h2>
         <form id="form" is="iron-form">
           <div class="container layout vertical">
@@ -98,7 +98,7 @@ Contributors:
           "entity-type": "document",
           "properties": {"sales:startDate" : "2017-05-31T22:00:00.000Z", "sales:endDate" : "2017-12-30T23:00:00.000Z", "sales:goal": "100000"}
         }*/
-        
+
         //delete this.document.properties['dc:contributors'];
         this.$.doc.put().then(this._refresh.bind(this));
 
