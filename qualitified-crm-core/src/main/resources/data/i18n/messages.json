@@ -1,3 +1,8 @@
 {
-  
+  "label.document.type.interaction":"Interaction",
+  "label.document.type.account":"Account",
+  "label.document.type.opportunity":"Opportunity",
+  "label.document.type.contact":"Contact",
+  "label.document.type.sollicitation":"Sollicitation",
+  "label.document.type.interaction":"Interaction"
 }

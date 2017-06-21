@@ -848,12 +848,18 @@
     	Document.FollowLifecycleTransition(input, {'value': 'to_ongoing'});
       	Document.FollowLifecycleTransition(input, {'value': 'to_lost'});
     }
+    if(oppStatus === 'ongoing'){
+      Document.FollowLifecycleTransition(input, {'value': 'to_lost'});
+    }
   }
 
    if(oppStep === 'No go'){
     if(oppStatus === 'new'  || oppStatus === 'limbo' || oppStatus === 'won'){
     	Document.FollowLifecycleTransition(input, {'value': 'to_ongoing'});
       	Document.FollowLifecycleTransition(input, {'value': 'to_nogo'});
+    }
+    if(oppStatus === 'ongoing'){
+      Document.FollowLifecycleTransition(input, {'value': 'to_nogo'});
     }
   }
 

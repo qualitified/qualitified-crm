@@ -1,5 +1,7 @@
 "id","label","obsolete","ordering"
 "Call","Call","0","10"
+"Chat","Chat","0","15"
 "Email","Email","0","20"
 "Meeting","Meeting","0","30"
 "Note","Note","0","40"
+"SMS","SMS","0","50"
