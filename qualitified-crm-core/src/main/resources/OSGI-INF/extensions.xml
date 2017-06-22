@@ -951,6 +951,17 @@
       <table>studio_vocabulary_Role</table>
       <dataFile>data/vocabularies/Role.csv</dataFile>
     </directory>
+    <directory name="AccountType">
+      <schema>vocabulary</schema>
+      <dataSource>java:/nxsqldirectory</dataSource>
+      <cacheTimeout>3600</cacheTimeout>
+      <cacheMaxSize>1000</cacheMaxSize>
+      <idField>id</idField>
+      <autoincrementIdField>false</autoincrementIdField>
+      <createTablePolicy>always</createTablePolicy>
+      <table>studio_vocabulary_AccountType</table>
+      <dataFile>data/vocabularies/AccountType.csv</dataFile>
+    </directory>
   </extension>
   <extension target="org.nuxeo.ecm.platform.routing.service" point="routeModelImporter">
     <template-resource id="interactionWorkflow" path="data/interactionWorkflow.zip"/>

@@ -10,8 +10,26 @@
         padding: 5px;
       }
     </style>
-    <paper-input role="widget" value="{{document.properties.dc:title}}" label="Title"></paper-input>
-
+    <paper-input role="widget" value="{{document.properties.dc:title}}" label="Name"></paper-input>
+    <nuxeo-directory-suggestion
+      role="widget"
+      value="{{document.properties.account:accountType}}"
+      label="Type"
+      required="false"
+      directory-name="AccountType"
+      min-chars="0">
+    </nuxeo-directory-suggestion>
+    <paper-input role="widget" value="{{document.properties.account:turnover}}" label="Turnover"></paper-input>
+    <paper-input role="widget" value="{{document.properties.account:website}}" label="Web Site"></paper-input>
+    <paper-input role="widget" value="{{document.properties.account:nbEmployees}}" label="Number of Employees"></paper-input>
+    <paper-input role="widget" value="{{document.properties.account:phoneNumber}}" label="Phone Number"></paper-input>
+    <paper-input role="widget" value="{{document.properties.account:email}}" label="E-mail"></paper-input>
+    <paper-input role="widget" value="{{document.properties.account:address1}}" label="Address"></paper-input>
+    <paper-input role="widget" value="{{document.properties.account:address2}}" label=""></paper-input>
+    <paper-input role="widget" value="{{document.properties.account:address3}}" label=""></paper-input>
+    <paper-input role="widget" value="{{document.properties.account:zipCode}}" label="Postal Code"></paper-input>
+    <paper-input role="widget" value="{{document.properties.account:city}}" label="City"></paper-input>
+    <paper-input role="widget" value="{{document.properties.account:country}}" label="Country"></paper-input>
     <paper-textarea role="widget" value="{{document.properties.dc:description}}" label="Description"></paper-textarea>
 
   </template>
