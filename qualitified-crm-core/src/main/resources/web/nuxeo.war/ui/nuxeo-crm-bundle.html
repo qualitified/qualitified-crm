@@ -22,6 +22,7 @@
     </nuxeo-filter>
   </template>
 </nuxeo-slot-content>
+
 <!-- Contribution of element 'nuxeo-search-form' for slot 'DRAWER_PAGES' -->
 <nuxeo-slot-content name="opportunity-list" slot="DRAWER_PAGES" >
   <template>
@@ -29,7 +30,7 @@
   </template>
 </nuxeo-slot-content>
 <!-- Contribution of element 'nuxeo-menu-icon' for slot 'SEARCH_MENU_BUTTONS' -->
-<nuxeo-slot-content name="opportunity-list" slot="SEARCH_MENU_BUTTONS">
+<nuxeo-slot-content name="opportunity-list" slot="DRAWER_ITEMS" order="2">
   <template>
     <nuxeo-menu-icon icon="icons:work" name="opportunity-list" label="Opportunities"></nuxeo-menu-icon>
   </template>
@@ -42,9 +43,16 @@
   </template>
 </nuxeo-slot-content>
 <!-- Contribution of element 'nuxeo-menu-icon' for slot 'SEARCH_MENU_BUTTONS' -->
-<nuxeo-slot-content name="account-list" slot="SEARCH_MENU_BUTTONS">
+<nuxeo-slot-content name="account-list" slot="DRAWER_ITEMS" order="1">
   <template>
     <nuxeo-menu-icon icon="icons:account-balance" name="account-list" label="Accounts"></nuxeo-menu-icon>
+  </template>
+</nuxeo-slot-content>
+
+<!-- Contribution of element 'nuxeo-menu-icon' for slot 'DRAWER_ITEMS' -->
+<nuxeo-slot-content name="defaultSearchMenuButton" slot="DRAWER_ITEMS" order="30" disabled>
+  <template>
+    <nuxeo-menu-icon label="app.search" name="defaultSearch" icon="icons:search"></nuxeo-menu-icon>
   </template>
 </nuxeo-slot-content>
 
