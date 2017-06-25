@@ -34,6 +34,20 @@
     <nuxeo-menu-icon icon="icons:work" name="opportunity-list" label="Opportunities"></nuxeo-menu-icon>
   </template>
 </nuxeo-slot-content>
+
+<!-- Contribution of element 'nuxeo-search-form' for slot 'DRAWER_PAGES' -->
+<nuxeo-slot-content name="account-list" slot="DRAWER_PAGES" >
+  <template>
+    <nuxeo-search-form provider="account_list" schemas="account" search-name="account_list" name="account-list" auto="true"></nuxeo-search-form>
+  </template>
+</nuxeo-slot-content>
+<!-- Contribution of element 'nuxeo-menu-icon' for slot 'SEARCH_MENU_BUTTONS' -->
+<nuxeo-slot-content name="account-list" slot="SEARCH_MENU_BUTTONS">
+  <template>
+    <nuxeo-menu-icon icon="icons:account-balance" name="account-list" label="Accounts"></nuxeo-menu-icon>
+  </template>
+</nuxeo-slot-content>
+
 <!-- Contribution of element 'nuxeo-sales-settings-button' for slot 'DOCUMENT_ACTIONS' -->
 <nuxeo-slot-content name="Settings" slot="DOCUMENT_ACTIONS" >
   <template>

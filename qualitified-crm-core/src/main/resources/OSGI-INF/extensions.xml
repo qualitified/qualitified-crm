@@ -18,6 +18,7 @@
     <schema name="workspace_schema" prefix="workspace_schema" override="true" src="data/schemas/workspace_schema.xsd"/>
     <schema name="person" prefix="person" override="true" src="data/schemas/person.xsd"/>
     <schema name="opportunity_list_pp" prefix="opportunity_list_pp" override="true" src="data/schemas/opportunity_list_pp.xsd"/>
+    <schema name="account_list_pp" prefix="account_list_pp" override="true" src="data/schemas/account_list_pp.xsd"/>
     <schema name="var_global_Task13ce" prefix="var_global_Task13ce" override="true" src="data/schemas/var_global_Task13ce.xsd"/>
     <schema name="var_Task13ce" prefix="var_Task13ce" override="true" src="data/schemas/var_Task13ce.xsd"/>
     <schema name="var_start-node" prefix="var_start-node" override="true" src="data/schemas/var_start-node.xsd"/>
@@ -238,6 +239,12 @@
       <facet name="SavedSearch"/>
       <facet name="HiddenInNavigation"/>
       <schema name="opportunity_list_pp"/>
+    </doctype>
+    <doctype name="account_list_pp" extends="Document">
+      <facet name="ContentViewDisplay"/>
+      <facet name="SavedSearch"/>
+      <facet name="HiddenInNavigation"/>
+      <schema name="account_list_pp"/>
     </doctype>
     <facet name="facet-var_global_Task13ce">
       <schema name="var_global_Task13ce"/>
@@ -767,8 +774,36 @@
             <property name="size">0</property>
           </properties>
         </aggregate>
+        <aggregate id="opportunity_amount_agg" type="range" parameter="opportunity:amount">
+          <field schema="opportunity_list_pp" name="opportunity_amount_agg"/>
+          <properties/>
+          <ranges>
+            <range key="to_10000" to="10000.0"/>
+            <range key="from_10000_to_25000" from="10000.0" to="25000.0"/>
+            <range key="from_25000_to_50000" from="25000.0" to="50000.0"/>
+            <range key="from_50000" from="50000.0"/>
+          </ranges>
+        </aggregate>
       </aggregates>
       <sort column="opportunity:amount" ascending="false"/>
+      <pageSize>10</pageSize>
+    </genericPageProvider>
+    <genericPageProvider class="org.nuxeo.elasticsearch.provider.ElasticSearchNxqlPageProvider" name="account_list">
+      <property name="coreSession">#{documentManager}</property>
+      <whereClause>
+        <fixedPart>ecm:mixinType != 'HiddenInNavigation' AND ecm:isCheckedInVersion = 0 AND ecm:currentLifeCycleState != 'deleted' AND ecm:primaryType = 'Account'</fixedPart>
+      </whereClause>
+      <searchDocumentType>account_list_pp</searchDocumentType>
+      <aggregates>
+        <aggregate id="account_type_agg" type="terms" parameter="account:accountType">
+          <field schema="account_list_pp" name="account_type_agg"/>
+          <properties>
+            <property name="order">count desc</property>
+            <property name="size">0</property>
+          </properties>
+        </aggregate>
+      </aggregates>
+      <sort column="dc:title" ascending="true"/>
       <pageSize>10</pageSize>
     </genericPageProvider>
   </extension>
