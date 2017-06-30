@@ -2,7 +2,7 @@
 
 This plugin adds all the necessary features for your nuxeo instance to become a CRM (Customer Relationship Management) solution.
 It provides everything to handle Accounts, Opportunities, Contacts, Interactions etc.
-The User Inteface is based on Web UI.
+The User Interface is based on Web UI.
 In addition of handling your customer base in nuxeo you will also benefit of the document management capability. This brings you a platform that is capable to handle both your customers and their related documents (Contracts, Specifications, Invoices etc.) but also media files (Video, Picture, Audio).
 You will have everything in one place, giving you a 360 view of everything related to your customers.
 
