@@ -10,7 +10,7 @@ You will have everything in one place, giving you a 360 view of everything relat
 Assuming Apache Maven version 3.2.3 minimum and git is installed on your computer: 
 ```
   cd /PATH/TO/YOUR/MAIN/FOLDER 
-  git clone https://github.com/michaelgena/qualitified-crm.git 
+  git clone https://github.com/qualitified/qualitified-crm.git 
   cd qualitified-crm 
   mvn clean install 
 ```
