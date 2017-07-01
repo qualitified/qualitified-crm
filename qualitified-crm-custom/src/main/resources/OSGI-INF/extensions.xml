@@ -1,0 +1,236 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<component name="studio.extensions.crm.custom" version="1.0.0">
+  <require>studio.extensions.crm</require>
+  <extension target="org.nuxeo.ecm.core.schema.TypeService" point="schema">
+    <!--schema name="account_custom" prefix="aaccount_custom" override="true" src="data/schemas/account_custom.xsd"/-->
+  </extension>
+  <extension target="org.nuxeo.ecm.core.schema.TypeService" point="doctype">
+    <!--doctype name="Account_Custom" extends="Document">
+      <schema name="account_custom"/>
+      <schema name="dublincore"/>
+      <schema name="common"/>
+      <schema name="uid"/>
+      <facet name="Folderish"/>
+      <subtypes>
+        <type>Contact_Custom</type>
+      </subtypes>
+    </doctype>
+    <doctype name="Domain" append="true">
+      <subtypes>
+        <type>Account_Custom</type>
+      </subtypes>
+    </doctype-->
+  </extension>
+  <extension target="org.nuxeo.ecm.core.lifecycle.LifeCycleService" point="types">
+    <!--types>
+      <type name="Account_Custom">custom</type>
+    </types-->
+  </extension>
+  <extension target="org.nuxeo.ecm.platform.types.TypeService" point="types">
+    <!--type id="Account_Custom">
+      <label>label.account.custom</label>
+      <icon>/img/ic_business_black_24dp_2x.png</icon>
+      <bigIcon>/img/ic_business_black_24dp_1x.png</bigIcon>
+      <description></description>
+    </type-->
+  </extension>
+  <extension target="org.nuxeo.ecm.core.versioning.VersioningService" point="versioningRules">
+    <!--versioningRule typeName="Account_Custom">
+      <initialState major="0" minor="0"/>
+      <options lifeCycleState="*">
+        <none default="true"/>
+        <minor/>
+        <major/>
+      </options>
+    </versioningRule-->
+  </extension>
+  <extension target="org.nuxeo.ecm.platform.ui.web.auth.service.PluggableAuthenticationService" point="loginScreen">
+    <!--loginScreenConfig>
+      <backgroundImage>no_poster_image</backgroundImage>
+      <bodyBackgroundStyle>url("${org.nuxeo.ecm.contextPath}/img/1672144-poster-1280-orange-graphic_1.jpg") 0px 0px no-repeat #000</bodyBackgroundStyle>
+      <disableBackgroundSizeCover>false</disableBackgroundSizeCover>
+      <removeNews>true</removeNews>
+      <footerStyle>display: none;</footerStyle>
+      <loginBoxBackgroundStyle>none 0 0 null</loginBoxBackgroundStyle>
+      <loginBoxWidth>300px</loginBoxWidth>
+      <loginButtonBackgroundColor>#ff7f00</loginButtonBackgroundColor>
+      <videos loop="false" muted="true">
+        <video src=""/>
+      </videos>
+      <logoUrl>${org.nuxeo.ecm.contextPath}/img/qualitified.png</logoUrl>
+      <logoWidth>185</logoWidth>
+      <logoHeight>50</logoHeight>
+    </loginScreenConfig-->
+  </extension>
+
+  <extension target="org.nuxeo.ecm.core.operation.OperationServiceComponent" point="event-handlers">
+    <!--handler chainId="interactionPostSaveCustom">
+      <event>documentCreated</event>
+      <event>documentModified</event>
+      <filters>
+        <doctype>Interaction</doctype>
+        <attribute>Regular Document</attribute>
+      </filters>
+    </handler-->
+  </extension>
+
+  <extension target="org.nuxeo.ecm.core.lifecycle.LifeCycleService" point="lifecycle">
+    <!--lifecycle name="custom" defaultInitial="project">
+      <transitions>
+        <transition name="approve" destinationState="approved">
+          <description></description>
+        </transition>
+        <transition name="obsolete" destinationState="obsolete">
+          <description></description>
+        </transition>
+        <transition name="delete" destinationState="deleted">
+          <description></description>
+        </transition>
+        <transition name="backToProject" destinationState="project">
+          <description></description>
+        </transition>
+        <transition name="delete" destinationState="deleted">
+          <description></description>
+        </transition>
+        <transition name="delete" destinationState="deleted">
+          <description></description>
+        </transition>
+        <transition name="undelete" destinationState="project">
+          <description></description>
+        </transition>
+      </transitions>
+      <states>
+        <state name="project" description="Default state" initial="true">
+          <transitions>
+            <transition>approve</transition>
+            <transition>obsolete</transition>
+            <transition>delete</transition>
+          </transitions>
+        </state>
+        <state name="approved" description="Content has been approved">
+          <transitions>
+            <transition>delete</transition>
+            <transition>backToProject</transition>
+          </transitions>
+        </state>
+        <state name="obsolete" description="Content becomes obsolete">
+          <transitions>
+            <transition>delete</transition>
+          </transitions>
+        </state>
+        <state name="deleted" description="Content is in the trash (before real deletion)">
+          <transitions>
+            <transition>undelete</transition>
+          </transitions>
+        </state>
+      </states>
+    </lifecycle-->
+  </extension>
+
+  <extension target="org.nuxeo.ecm.platform.ec.notification.service.NotificationService" point="templates">
+    <!--template name="customNotification" src="data/templates/customNotification.ftl"/-->
+  </extension>
+
+  <extension target="org.nuxeo.ecm.core.operation.OperationServiceComponent" point="chains">
+    <!--chain id="interactionPostSaveCustom">
+      <operation id="Context.FetchDocument"/>
+      <operation id="Context.SetVar">
+        <param type="string" name="name">intStatus</param>
+        <param type="object" name="value">expr:Document.lifeCycle</param>
+      </operation>
+      <operation id="javascript.interactionSaved"/>
+    </chain-->
+  </extension>
+
+  <extension target="org.nuxeo.ecm.platform.query.api.PageProviderService" point="providers">
+    <!--genericPageProvider class="org.nuxeo.elasticsearch.provider.ElasticSearchNxqlPageProvider" name="opportunity_list_custom">
+      <property name="coreSession">#{documentManager}</property>
+      <whereClause>
+        <fixedPart>ecm:mixinType != 'HiddenInNavigation' AND ecm:isCheckedInVersion = 0 AND ecm:currentLifeCycleState != 'deleted' AND ecm:primaryType = 'Opportunity'</fixedPart>
+      </whereClause>
+      <searchDocumentType>opportunity_list_pp</searchDocumentType>
+      <aggregates>
+        <aggregate id="opportunity_step_agg" type="terms" parameter="opportunity:step">
+          <field schema="opportunity_list_pp" name="opportunity_step_agg"/>
+          <properties>
+            <property name="order">count desc</property>
+            <property name="size">0</property>
+          </properties>
+        </aggregate>
+        <aggregate id="opportunity_amount_agg" type="range" parameter="opportunity:amount">
+          <field schema="opportunity_list_pp" name="opportunity_amount_agg"/>
+          <properties/>
+          <ranges>
+            <range key="to_10000" to="10000.0"/>
+            <range key="from_10000_to_25000" from="10000.0" to="25000.0"/>
+            <range key="from_25000_to_50000" from="25000.0" to="50000.0"/>
+            <range key="from_50000" from="50000.0"/>
+          </ranges>
+        </aggregate>
+      </aggregates>
+      <sort column="opportunity:amount" ascending="false"/>
+      <pageSize>10</pageSize>
+    </genericPageProvider-->
+  </extension>
+
+  <extension target="org.nuxeo.automation.scripting.internals.AutomationScriptingComponent" point="operation">
+    <!--scriptedOperation id="javascript.interactionSavedCustom">
+      <inputType>document</inputType>
+      <outputType>document</outputType>
+      <category>javascript</category>
+      <description></description>
+      <script>
+        <![CDATA[function run(input, params) {
+          var intStatus = ctx.get('intStatus');
+
+          if(intStatus ==='todo'){
+            //Workflow.ResumeNode(input, {});
+          }
+
+          return input;
+        }]]>
+      </script>
+    </scriptedOperation-->
+  </extension>
+
+  <require>org.nuxeo.ecm.directory.sql.storage</require>
+  <extension target="org.nuxeo.ecm.directory.sql.SQLDirectoryFactory" point="directories">
+    <!--directory name="userDirectory">
+      <passwordField>password</passwordField>
+      <dataFile>data/users.csv</dataFile>
+      <createTablePolicy>never</createTablePolicy>
+      <references>
+        <inverseReference field="groups" directory="groupDirectory" dualReferenceField="members"/>
+      </references>
+    </directory>
+    <directory name="groupDirectory">
+      <dataFile>data/groups.csv</dataFile>
+      <createTablePolicy>never</createTablePolicy>
+      <references>
+        <inverseReference field="parentGroups" directory="groupDirectory" dualReferenceField="subGroups"/>
+        <tableReference field="members" directory="userDirectory" table="user2group" sourceColumn="groupId" targetColumn="userId" schema="user2group" dataFile="data/user2group.csv"/>
+        <tableReference field="subGroups" directory="groupDirectory" table="group2group" sourceColumn="parentGroupId" targetColumn="childGroupId" schema="group2group"/>
+      </references>
+    </directory>
+    <directory name="Civility">
+      <schema>vocabulary</schema>
+      <dataSource>java:/nxsqldirectory</dataSource>
+      <cacheTimeout>3600</cacheTimeout>
+      <cacheMaxSize>1000</cacheMaxSize>
+      <idField>id</idField>
+      <autoincrementIdField>false</autoincrementIdField>
+      <createTablePolicy>on_missing_columns</createTablePolicy>
+      <table>studio_vocabulary_Civility</table>
+      <dataFile>data/vocabularies/Civility.csv</dataFile>
+    </directory-->
+  </extension>
+
+  <extension target="org.nuxeo.ecm.platform.WebResources" point="bundles">
+    <bundle name="web-ui">
+      <resources append="true">
+        <resource>nuxeo-crm-custom-bundle.html</resource>
+      </resources>
+    </bundle>
+  </extension>
+</component>

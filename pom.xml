@@ -16,6 +16,7 @@
 
   <modules>
     <module>qualitified-crm-core</module>
+    <module>qualitified-crm-custom</module>
     <module>qualitified-crm-package</module>
   </modules>
 
@@ -72,6 +73,11 @@
       <dependency>
         <groupId>org.qualitified.crm</groupId>
         <artifactId>qualitified-crm-core</artifactId>
+        <version>1.0-SNAPSHOT</version>
+      </dependency>
+      <dependency>
+        <groupId>org.qualitified.crm</groupId>
+        <artifactId>qualitified-crm-custom</artifactId>
         <version>1.0-SNAPSHOT</version>
       </dependency>
       <dependency>
