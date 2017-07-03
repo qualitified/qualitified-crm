@@ -517,7 +517,10 @@
       </startupPages>
 
     </loginScreenConfig>
-  </extension>  <extension target="org.nuxeo.ecm.core.operation.OperationServiceComponent" point="event-handlers">    <handler chainId="interactionPostSave">      <event>documentCreated</event>
+  </extension>
+  <extension target="org.nuxeo.ecm.core.operation.OperationServiceComponent" point="event-handlers">
+    <handler chainId="interactionPostSave">
+      <event>documentCreated</event>
       <event>documentModified</event>
       <filters>
         <doctype>Interaction</doctype>
@@ -530,6 +533,18 @@
       <filters>
         <doctype>Opportunity</doctype>
         <attribute>Regular Document</attribute>
+      </filters>
+    </handler>
+    <handler chainId="javascript.contactPostSave">
+      <event>beforeDocumentModification</event>
+      <filters>
+        <doctype>Contact</doctype>
+        <attribute>Regular Document</attribute>
+        <condition>
+          Document.doc.getProperty('person:civility').isDirty()
+          || Document.doc.getProperty('person:firstName').isDirty()
+          || Document.doc.getProperty('person:lastName').isDirty()
+        </condition>
       </filters>
     </handler>
   </extension>
@@ -833,7 +848,7 @@
   var oppStep = input['opportunity:step'];
   var oppStatus = ctx.get('oppStatus');
 
-  Log(input, {'level': 'error', 'message': "oppStep ["+oppStep+"] oppStatus ["+oppStatus+"]"});
+  //Log(input, {'level': 'error', 'message': "oppStep ["+oppStep+"] oppStatus ["+oppStatus+"]"});
 
 
   if(oppStep === 'New'){
@@ -900,6 +915,26 @@
 
   return input;
 }]]></script>
+    </scriptedOperation>
+    <scriptedOperation id="javascript.contactPostSave">
+      <inputType>document</inputType>
+      <outputType>document</outputType>
+      <category>javascript</category>
+      <description></description>
+      <script><![CDATA[function run(input, params) {
+        var civility = input['person:civility'];
+        var firstName = input['person:firstName'];
+        var lastName = input['person:lastName'];
+        var title = "";
+        title += (civility !== null)? civility+" " : "";
+        title += (firstName !== null)? firstName+" " : "";
+        title += (lastName !== null)? lastName : "";
+        Log(input, {'level': 'ERROR' ,'message': 'title: '+ title});
+
+        Document.SetProperty(input, {'xpath': 'dc:title','save': true,'value': title.trim()});
+        return input;
+        }]]>
+      </script>
     </scriptedOperation>
   </extension>
   <extension target="org.nuxeo.ecm.platform.content.template.service.ContentTemplateService" point="factoryBinding">

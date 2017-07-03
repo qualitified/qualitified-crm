@@ -5,6 +5,7 @@
         padding: 5px;
       }
     </style>
+<!--paper-input value="{{document.properties.dc:title}}" label="Title" role="widget"></paper-input-->
 
 <nuxeo-directory-suggestion value="{{document.properties.person:civility}}" label="Civility" directory-name="Civility" role="widget" min-chars="0"></nuxeo-directory-suggestion>
 
@@ -17,7 +18,8 @@
 <paper-input value="{{document.properties.person:email}}" label="Email" pattern="^[a-z0-9!#$%&amp;'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&amp;'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$" role="widget"></paper-input>
 
 <paper-input value="{{document.properties.person:phoneNumber}}" label="Phone Number" role="widget"></paper-input>
-    <paper-textarea role="widget" value="{{document.properties.dc:description}}" label="Note"></paper-textarea>
+
+<paper-textarea role="widget" value="{{document.properties.dc:description}}" label="Note"></paper-textarea>
 
 <div role="widget">
 <label>Picture</label>
@@ -38,8 +40,8 @@
            */
           document: {
             type: Object
-          },
-
+          }
+        }
         }
       });
     })();
