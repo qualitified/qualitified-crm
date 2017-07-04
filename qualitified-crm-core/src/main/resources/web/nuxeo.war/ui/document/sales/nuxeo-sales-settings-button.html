@@ -34,6 +34,8 @@ Contributors:
         fill: var(--nuxeo-link-hover-color);
       }
     </style>
+      <nuxeo-connection id="nxcon"></nuxeo-connection>
+      <nuxeo-operation id="updateSettings" op="updateSettings" input="[[document.uid]]" params="[[params]]"></nuxeo-operation>
       <paper-icon-button id="button" icon="icons:settings" on-tap="_toggleDialog"></paper-icon-button>
       <paper-tooltip for="button">Settings</paper-tooltip>
 
@@ -72,7 +74,13 @@ Contributors:
     Polymer({
       is: 'nuxeo-sales-settings-button',
       properties: {
-        document: Object
+        document: {
+          type: Object
+        },
+        params:{
+          type: Object,
+          value: {}
+        }
       },
 
       _toggleDialog: function(){
@@ -93,6 +101,16 @@ Contributors:
         if (!this._validate()) {
             return;
         }
+        this.params = {
+          context: {
+            startDate: this.document.properties['sales:startDate'],
+            endDate: this.document.properties['sales:endDate'],
+            goal: this.document.properties['sales:goal']
+          }
+        };
+        this.$.updateSettings.execute().then(function(doc) {
+          this.$.dialog.close();
+        }.bind(this));
 
         /*{
           "entity-type": "document",
@@ -100,7 +118,7 @@ Contributors:
         }*/
 
         //delete this.document.properties['dc:contributors'];
-        this.$.doc.put().then(this._refresh.bind(this));
+        //this.$.doc.put().then(this._refresh.bind(this));
 
       },
 

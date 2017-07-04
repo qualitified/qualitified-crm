@@ -773,6 +773,24 @@
       </operation>
       <operation id="javascript.opportunitySaved"/>
     </chain>
+    <chain id="updateSettings">
+      <operation id="Context.FetchDocument"/>
+      <operation id="Document.SetProperty">
+        <param type="string" name="xpath">sales:startDate</param>
+        <param type="boolean" name="save">false</param>
+        <param type="serializable" name="value">expr:@{Context["startDate"]}</param>
+      </operation>
+      <operation id="Document.SetProperty">
+        <param type="string" name="xpath">sales:endDate</param>
+        <param type="boolean" name="save">false</param>
+        <param type="serializable" name="value">expr:@{Context["endDate"]}</param>
+      </operation>
+      <operation id="Document.SetProperty">
+        <param type="string" name="xpath">sales:goal</param>
+        <param type="boolean" name="save">true</param>
+        <param type="serializable" name="value">expr:@{Context["goal"]}</param>
+      </operation>
+    </chain>
   </extension>
   <extension target="org.nuxeo.ecm.platform.query.api.PageProviderService" point="providers">
     <genericPageProvider class="org.nuxeo.elasticsearch.provider.ElasticSearchNxqlPageProvider" name="opportunity_list">
@@ -936,7 +954,27 @@
         }]]>
       </script>
     </scriptedOperation>
+    <scriptedOperation id="javascript.editGoal">
+      <inputType>document</inputType>
+      <outputType>document</outputType>
+      <category>javascript</category>
+      <description></description>
+      <script><![CDATA[function run(input, params) {
+        Log(input, {'level': 'ERROR' ,'message': 'startDate: '+ params.startDate});
+        Document.SetProperty(input, {'xpath': 'sales:startDate','save': false,'value': params.startDate});
+        Document.Update(
+          input, {
+	        'properties': {
+                        "sales:endDate": params.endDate,
+                        "sales:goal": params.goal
+                       },
+	        'save': true});
+        return input;
+        }]]>
+      </script>
+    </scriptedOperation>
   </extension>
+
   <extension target="org.nuxeo.ecm.platform.content.template.service.ContentTemplateService" point="factoryBinding">
     <factoryBinding name="AdminFactory" factoryName="SimpleTemplateFactory" targetType="Admin">
       <template>
