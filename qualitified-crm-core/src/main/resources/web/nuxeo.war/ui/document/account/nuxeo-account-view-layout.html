@@ -88,7 +88,7 @@
                                aggregations="{{opportunityAggregations}}"
                                current-page="{{opportunities}}">
           </nuxeo-page-provider>
-          <nuxeo-data-table role="widget" id="datatable" items="[[opportunities]]" on-row-clicked="_navigate">
+          <nuxeo-data-table role="widget" id="datatable" items="[[opportunities]]" on-row-clicked="_navigate" selection-enabled>
             <nuxeo-data-table-column name="Full text search" flex="100" filter-by="ecm_fulltext" sort-by="dc:title">
               <template>
                 <img class="queue-thumbnail" src="[[_thumbnail(item)]]">
@@ -132,7 +132,7 @@
                                aggregations="{{contactAggregations}}"
                                current-page="{{contacts}}">
           </nuxeo-page-provider>
-          <nuxeo-data-table role="widget" id="datatable" items="[[contacts]]" on-row-clicked="_navigate">
+          <nuxeo-data-table role="widget" id="datatable" items="[[contacts]]" on-row-clicked="_navigate" selection-enabled>
             <nuxeo-data-table-column name="Full text search" flex="100" filter-by="ecm_fulltext" sort-by="dc:title">
               <template>
                 <img class="queue-thumbnail" src="[[_thumbnail(item)]]">
@@ -179,7 +179,7 @@
                                aggregations="{{interactionAggregations}}"
                                current-page="{{interactions}}">
           </nuxeo-page-provider>
-          <nuxeo-data-table role="widget" id="datatable" items="[[interactions]]" on-row-clicked="_navigate">
+          <nuxeo-data-table role="widget" id="datatable" items="[[interactions]]" on-row-clicked="_navigate" selection-enabled>
             <nuxeo-data-table-column name="Full text search" flex="100" filter-by="ecm_fulltext" sort-by="dc:title">
               <template>
                 <img class="queue-thumbnail" src="[[_thumbnail(item)]]">
@@ -225,7 +225,7 @@
                                aggregations="{{solicitationaggregations}}"
                                current-page="{{solicitations}}">
           </nuxeo-page-provider>
-          <nuxeo-data-table role="widget" id="datatable" items="[[solicitations]]" on-row-clicked="_navigate">
+          <nuxeo-data-table role="widget" id="datatable" items="[[solicitations]]" on-row-clicked="_navigate" selection-enabled>
             <nuxeo-data-table-column name="Full text search" flex="100" filter-by="ecm_fulltext" sort-by="dc:title">
               <template>
                 <img class="queue-thumbnail" src="[[_thumbnail(item)]]">
@@ -270,7 +270,7 @@
                                aggregations="{{documentAggregations}}"
                                current-page="{{documents}}">
           </nuxeo-page-provider>
-          <nuxeo-data-table role="widget" id="datatable" items="[[documents]]">
+          <nuxeo-data-table role="widget" id="datatable" items="[[documents]]" selection-enabled>
             <nuxeo-data-table-column name="Full text search" flex="100" filter-by="ecm_fulltext" sort-by="dc:title">
               <template>
                 <img class="queue-thumbnail" src="[[_thumbnail(item)]]">

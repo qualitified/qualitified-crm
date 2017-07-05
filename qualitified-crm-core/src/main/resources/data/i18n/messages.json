@@ -8,5 +8,13 @@
   "label.ui.aggregate.to_10000":"Up to 10,000 €",
   "label.ui.aggregate.from_10000_to_25000":"From 10,000 to 25,000 €",
   "label.ui.aggregate.from_25000_to_50000":"From 25,000 to 50,000 €",
-  "label.ui.aggregate.from_50000":"From 50,000 €"
+  "label.ui.aggregate.from_50000":"From 50,000 €",
+  "label.ui.aggregate.to_now":"Up to Today",
+  "label.ui.aggregate.from_now_to_now7d":"In the coming 7 days",
+  "label.ui.aggregate.from_now7d_to_now30d":"In the coming 30 days",
+  "label.ui.aggregate.from_now1M":"Later",
+  "label.ui.aggregate.from_now-1y_to_now-1M":"More than 30 days",
+  "label.ui.aggregate.from_now-1M_to_now-7d":"Last 30 days",
+  "label.ui.aggregate.from_now-7d_to_now-24h":"Last 7 days",
+  "label.ui.aggregate.from_now-24h_to_now":"Last 24 hours"
 }

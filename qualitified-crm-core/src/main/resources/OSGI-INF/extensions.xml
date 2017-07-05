@@ -547,6 +547,19 @@
         </condition>
       </filters>
     </handler>
+    <handler chainId="javascript.updateLastInteractionDate">
+      <event>documentCreated</event>
+      <event>documentModified</event>
+      <filters>
+        <doctype>Interaction</doctype>
+        <lifeCycle>done</lifeCycle>
+        <attribute>Regular Document</attribute>
+        <condition>
+          Document['interaction:activity'] != 'Note'
+        </condition>
+      </filters>
+    </handler>
+
   </extension>
   <extension target="org.nuxeo.ecm.core.lifecycle.LifeCycleService" point="lifecycle">
     <lifecycle name="default" defaultInitial="project">
@@ -817,6 +830,26 @@
             <range key="from_50000" from="50000.0"/>
           </ranges>
         </aggregate>
+        <aggregate id="opportunity_closeDate_agg" type="date_range" parameter="opportunity:closeDate">
+          <field schema="opportunity_list_pp" name="opportunity_closeDate_agg"/>
+          <properties/>
+          <dateRanges>
+            <dateRange key="to_now" fromDate="now-9999y" toDate="now"/>
+            <dateRange key="from_now_to_now7d" fromDate="now" toDate="now+7d"/>
+            <dateRange key="from_now7d_to_now30d" fromDate="now+7d" toDate="now+1M"/>
+            <dateRange key="from_now1M" fromDate="now+1M" toDate="now+9999y"/>
+          </dateRanges>
+        </aggregate>
+        <aggregate id="opportunity_lastInteractionDate_agg" type="date_range" parameter="opportunity:lastInteractionDate">
+          <field schema="opportunity_list_pp" name="opportunity_lastInteractionDate_agg"/>
+          <properties/>
+          <dateRanges>
+            <dateRange key="from_now-1y_to_now-1M" fromDate="now-1y" toDate="now-1M"/>
+            <dateRange key="from_now-1M_to_now-7d" fromDate="now-1M" toDate="now-7d"/>
+            <dateRange key="from_now-7d_to_now-24h" fromDate="now-7d" toDate="now-24h"/>
+            <dateRange key="from_now-24h_to_now" fromDate="now-24h" toDate="now"/>
+          </dateRanges>
+        </aggregate>
       </aggregates>
       <sort column="opportunity:amount" ascending="false"/>
       <pageSize>10</pageSize>
@@ -847,14 +880,18 @@
       <category>javascript</category>
       <description></description>
       <script><![CDATA[function run(input, params) {
-  var intStatus = ctx.get('intStatus');
-
-  if(intStatus ==='todo'){
-    //Workflow.ResumeNode(input, {});
-  }
-
-  return input;
-}]]></script>
+        Console.error('intStatus: '+ ctx.get('intStatus'));
+        var intStatus = ctx.get('intStatus');
+        var status = input['interaction:status'];
+        if(intStatus ==='todo' && status === 'DONE'){
+          Document.FollowLifecycleTransition(input, {'value': 'to_done'});
+        }
+        if(intStatus ==='done' && status === 'TODO'){
+          Document.FollowLifecycleTransition(input, {'value': 'to_todo'});
+        }
+        return input;
+        }]]>
+      </script>
     </scriptedOperation>
     <scriptedOperation id="javascript.opportunitySaved">
       <inputType>document</inputType>
@@ -954,21 +991,23 @@
         }]]>
       </script>
     </scriptedOperation>
-    <scriptedOperation id="javascript.editGoal">
+    <scriptedOperation id="javascript.updateLastInteractionDate">
       <inputType>document</inputType>
       <outputType>document</outputType>
       <category>javascript</category>
       <description></description>
       <script><![CDATA[function run(input, params) {
-        Log(input, {'level': 'ERROR' ,'message': 'startDate: '+ params.startDate});
-        Document.SetProperty(input, {'xpath': 'sales:startDate','save': false,'value': params.startDate});
-        Document.Update(
-          input, {
-	        'properties': {
-                        "sales:endDate": params.endDate,
-                        "sales:goal": params.goal
-                       },
-	        'save': true});
+        var interactionDate = input['interaction:date'];
+        Console.error('intDate: '+ interactionDate);
+        var opp = Document.GetParent(input, {'type': 'Opportunity'});
+        if(opp != null){
+          var lastInteractionDate = opp['opportunity:lastInteractionDate'];
+          Console.error('oppLastIntDate: '+ lastInteractionDate);
+          if(lastInteractionDate == null || Fn.calendar(input['interaction:date']).format("yyyy-MM-dd")>Fn.calendar(lastInteractionDate).format("yyyy-MM-dd")){
+            Console.error('condition is true');
+            Document.SetProperty(opp, {'xpath': 'opportunity:lastInteractionDate','save': true,'value': Fn.calendar(input['interaction:date']).format("yyyy-MM-dd")+"T00:00:00.000Z"});
+          }
+        }
         return input;
         }]]>
       </script>
@@ -1036,6 +1075,17 @@
       <createTablePolicy>on_missing_columns</createTablePolicy>
       <table>studio_vocabulary_IntActivity</table>
       <dataFile>data/vocabularies/IntActivity.csv</dataFile>
+    </directory>
+    <directory name="IntStatus">
+      <schema>vocabulary</schema>
+      <dataSource>java:/nxsqldirectory</dataSource>
+      <cacheTimeout>3600</cacheTimeout>
+      <cacheMaxSize>1000</cacheMaxSize>
+      <idField>id</idField>
+      <autoincrementIdField>false</autoincrementIdField>
+      <createTablePolicy>on_missing_columns</createTablePolicy>
+      <table>studio_vocabulary_IntStatus</table>
+      <dataFile>data/vocabularies/IntStatus.csv</dataFile>
     </directory>
     <directory name="OppStep">
       <schema>vocabulary</schema>

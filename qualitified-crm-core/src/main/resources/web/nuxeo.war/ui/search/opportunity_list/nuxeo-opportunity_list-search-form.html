@@ -51,19 +51,34 @@
     </div>
 
     <div class="layout vertical row">
-      <label>Opportunity Step</label>
+      <label>Step</label>
       <nuxeo-checkbox-aggregation
         data="[[aggregations.opportunity_step_agg]]"
         value="{{params.opportunity_step_agg}}">
       </nuxeo-checkbox-aggregation>
     </div>
     <div class="layout vertical row">
-      <label>Opportunity Amount</label>
+      <label>Amount</label>
       <nuxeo-checkbox-aggregation
         data="[[aggregations.opportunity_amount_agg]]"
         value="{{params.opportunity_amount_agg}}">
       </nuxeo-checkbox-aggregation>
     </div>
+    <div class="layout vertical row">
+      <label>Close Date</label>
+      <nuxeo-checkbox-aggregation
+        data="[[aggregations.opportunity_closeDate_agg]]"
+        value="{{params.opportunity_closeDate_agg}}">
+      </nuxeo-checkbox-aggregation>
+    </div>
+    <div class="layout vertical row">
+      <label>Last Interaction Date</label>
+      <nuxeo-checkbox-aggregation
+        data="[[aggregations.opportunity_lastInteractionDate_agg]]"
+        value="{{params.opportunity_lastInteractionDate_agg}}">
+      </nuxeo-checkbox-aggregation>
+    </div>
+
   </template>
 
   <script>

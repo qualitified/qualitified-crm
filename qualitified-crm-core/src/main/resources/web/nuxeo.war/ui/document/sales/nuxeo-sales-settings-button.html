@@ -110,6 +110,7 @@ Contributors:
         };
         this.$.updateSettings.execute().then(function(doc) {
           this.$.dialog.close();
+          page('/browse/'+doc.path+'/'+this.document.properties['dc:title']);
         }.bind(this));
 
         /*{
