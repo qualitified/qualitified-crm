@@ -13,33 +13,7 @@
       }
     </style>
     <paper-card role="widget">
-      <div role="widget">
-        <h1>
-          <template is="dom-if" if="[[_hasProfileImg(document.properties.file:content)]]">
-          <img style="vertical-align: bottom;" class="account-view-layout" src="/nuxeo/nxfile/default/[[document.uid]]/file:content/">
-          </template>
-          [[document.properties.dc:title]]</h1>
-      </div>
 
-      <div role="widget">
-        <label> Role</label>
-        <div directory-name="Role">[[formatDirectory(document.properties.person:Role)]]</div>
-      </div>
-
-      <div role="widget">
-        <label>Email</label>
-        <div>[[document.properties.person:email]]</div>
-      </div>
-
-      <div role="widget">
-        <label>Phone Number</label>
-        <div>[[document.properties.person:phoneNumber]]</div>
-      </div>
-
-      <div role="widget">
-        <label>Notes</label>
-        <div>[[document.properties.dc:description]]</div>
-      </div>
 
     </paper-card>
   </template>

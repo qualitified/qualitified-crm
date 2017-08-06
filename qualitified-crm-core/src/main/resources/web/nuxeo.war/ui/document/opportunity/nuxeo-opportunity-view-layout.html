@@ -7,29 +7,6 @@
     </style>
     <nuxeo-connection id="nxcon"></nuxeo-connection>
     <paper-card role="widget">
-      <h1>
-        [[document.properties.dc:title]]
-      </h1>
-
-      <div role="widget">
-        <label>Amount</label>
-        <div>[[_formatCurrency(document.properties.opportunity:amount)]] €</div>
-      </div>
-
-      <div role="widget">
-        <label>Step</label>
-        <div directory-name="OppStep">[[formatDirectory(document.properties.opportunity:step)]]</div>
-      </div>
-
-      <div role="widget">
-        <label>Close Date</label>
-        <div>[[_formatDate(document.properties.opportunity:closeDate)]]</div>
-      </div>
-
-      <div role="widget">
-        <label>Description</label>
-        <div>[[document.properties.dc:description]]</div>
-      </div>
 
       <h3>
         Activities
@@ -49,7 +26,7 @@
 
         <template is="dom-repeat" items="[[interactions]]">
           <div>[[_formatDate(item.properties.interaction:date)]]</div>
-          <div>[[formatDirectory(item.properties.interaction:activity)]] - [[item.title]]</div>
+          <div><a href$="#!/browse[[item.path]]">[[formatDirectory(item.properties.interaction:activity)]] - [[item.title]]</a></div>
           <div>[[item.properties.dc:description]]</div>
           <br/>
         </template>
@@ -165,7 +142,10 @@
               return baseUrl + '/api/v1/id/' + doc.uid + '/@rendition/thumbnail';
             }
           }
-        }
+        },
+        _href: function(item) {
+          return this.urlFor('user', item.id);
+        },
       });
     })();
     </script>

@@ -10,9 +10,41 @@
         padding: 5px;
       }
     </style>
-    <paper-input role="widget" value="{{document.properties.dc:title}}" label="Title"></paper-input>
-
-    <paper-textarea role="widget" value="{{document.properties.dc:description}}" label="Description"></paper-textarea>
+    <div role="widget">
+      <h1>[[document.properties.dc:title]]</h1>
+    </div>
+    <div role="widget">
+      <label>Type</label>
+      <div>[[formatDirectory(document.properties.account:accountType)]]</div>
+    </div>
+    <div role="widget">
+      <label>Turnover</label>
+      <div>[[document.properties.account:turnover]]</div>
+    </div>
+    <div role="widget">
+      <label>Web Site</label>
+      <div>[[document.properties.account:website]]</div>
+    </div>
+    <div role="widget">
+      <label>Number of Employees</label>
+      <div>[[document.properties.account:nbEmployees]]</div>
+    </div>
+    <div role="widget">
+      <label>Phone Number</label>
+      <div>[[document.properties.account:phoneNumber]]</div>
+    </div>
+    <div role="widget">
+      <label>E-mail</label>
+      <div>[[document.properties.account:email]]</div>
+    </div>
+    <div role="widget">
+      <label>Address</label>
+      <div>[[document.properties.account:address1]]</div>
+      <div>[[document.properties.account:address2]]</div>
+      <div>[[document.properties.account:address3]]</div>
+      <div>[[document.properties.account:zipCode]] [[document.properties.account:city]]</div>
+      <div>[[document.properties.account:country]]</div>
+    </div>
 
   </template>
 
@@ -30,6 +62,21 @@
             type: Object
           },
 
+        },
+        /**
+         * Returns the label for the given directory entry.
+         */
+        formatDirectory: function(value) {
+          if (value && value['entity-type'] && value['entity-type'] === 'directoryEntry') {
+            if (value.properties && value.properties.label) {
+              return value.properties.label;
+            } else {
+              var label = 'label_' + ((window.nuxeo.I18n.language) ? window.nuxeo.I18n.language.split('-')[0] : 'en');
+              return value.properties[label] || value.properties['label_en']
+            }
+          } else {
+            return value;
+          }
         }
       });
     })();

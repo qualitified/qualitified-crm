@@ -33,41 +33,7 @@
     </style>
     <nuxeo-connection id="nxcon"></nuxeo-connection>
     <paper-card role="widget">
-      <div role="widget">
-        <h1>[[document.properties.dc:title]]</h1>
-      </div>
-      <div role="widget">
-        <label>Type</label>
-        <div>[[formatDirectory(document.properties.account:accountType)]]</div>
-      </div>
-      <div role="widget">
-        <label>Turnover</label>
-        <div>[[document.properties.account:turnover]]</div>
-      </div>
-      <div role="widget">
-        <label>Web Site</label>
-        <div>[[document.properties.account:website]]</div>
-      </div>
-      <div role="widget">
-        <label>Number of Employees</label>
-        <div>[[document.properties.account:nbEmployees]]</div>
-      </div>
-      <div role="widget">
-        <label>Phone Number</label>
-        <div>[[document.properties.account:phoneNumber]]</div>
-      </div>
-      <div role="widget">
-        <label>E-mail</label>
-        <div>[[document.properties.account:email]]</div>
-      </div>
-      <div role="widget">
-        <label>Address</label>
-        <div>[[document.properties.account:address1]]</div>
-        <div>[[document.properties.account:address2]]</div>
-        <div>[[document.properties.account:address3]]</div>
-        <div>[[document.properties.account:zipCode]] [[document.properties.account:city]]</div>
-        <div>[[document.properties.account:country]]</div>
-      </div>
+
       <paper-tabs selected="{{selected}}" scrollable>
         <paper-tab>Opportunities</paper-tab>
         <paper-tab>Contacts</paper-tab>

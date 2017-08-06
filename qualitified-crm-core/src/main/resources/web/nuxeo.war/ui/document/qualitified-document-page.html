@@ -35,8 +35,7 @@ Contributors:
       .page .main {
         @apply(--layout-vertical);
         @apply(--layout-flex-2);
-        padding-right: 1.3rem;
-        max-width: 65%;
+        padding-right: 16px;
       }
 
       .page .side {
@@ -77,27 +76,20 @@ Contributors:
     <div class="page">
 
       <div class="main">
-        <nuxeo-document-view document="[[document]]"></nuxeo-document-view>
-      </div>
-
-      <div class="side">
-
-        <!-- info -->
         <paper-card>
-          <nuxeo-document-info document="[[document]]"></nuxeo-document-info>
-        </paper-card>
-
-        <!-- metadata / edit -->
-        <paper-card>
+          <!-- metadata / edit -->
           <div hidden$="[[edit]]">
             <paper-icon-button noink id="edit" icon="editor:mode-edit" on-tap="_editMode" hidden$="[[!_canEdit(document)]]"></paper-icon-button>
             <nuxeo-document-metadata document="[[document]]"></nuxeo-document-metadata>
           </div>
           <nuxeo-document-edit document="[[document]]" hidden$="[[!edit]]"></nuxeo-document-edit>
+          <nuxeo-document-view document="[[document]]"></nuxeo-document-view>
+          <nuxeo-document-info document="[[document]]"></nuxeo-document-info>
         </paper-card>
 
-
       </div>
+
+
     </div>
 
   </template>
