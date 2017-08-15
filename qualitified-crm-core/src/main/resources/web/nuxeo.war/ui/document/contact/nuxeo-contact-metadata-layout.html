@@ -4,21 +4,21 @@
       *[role=widget] {
         padding: 5px;
       }
+      .account-view-layout {
+        height: 32px;
+        width: 32px;
+        border-radius: 20px;
+        box-sizing: border-box;
+        margin-right: 8px;
+      }
+
     </style>
-    
-<div role="widget">
-<label>Civility</label>
-<div directory-name="Civility">[[formatDirectory(document.properties.person:civility)]]</div>
-</div>
 
 <div role="widget">
-<label>First Name</label>
-<div>[[document.properties.person:firstName]]</div>
-</div>
-
-<div role="widget">
-<label>Last Name</label>
-<div>[[document.properties.person:lastName]]</div>
+      <h1>
+      <template is="dom-if" if="[[_hasProfileImg(document.properties.file:content)]]">
+      <img style="vertical-align: bottom;" class="account-view-layout" src="/nuxeo/nxfile/default/[[document.uid]]/file:content/">
+      </template>[[document.properties.dc:title]]</h1>
 </div>
 
 <div role="widget">
@@ -36,7 +36,10 @@
 <div>[[document.properties.person:phoneNumber]]</div>
 </div>
 
-    <paper-textarea role="widget" value="{{document.properties.dc:description}}" label="Description"></paper-textarea>
+<div role="widget">
+<label>Notes</label>
+<div>[[document.properties.dc:description]]</div>
+</div>
 
   </template>
 
@@ -69,6 +72,12 @@
           } else {
             return value;
           }
+        },
+        _hasProfileImg: function(value){
+          if(value != null){
+            return true;
+          }
+          return false;
         }
       });
     })();
