@@ -11,11 +11,12 @@ if [ "$TRAVIS_PULL_REQUEST" == "false" ]; then
   git config --global user.name "Travis"
 
   #using token clone gh-pages branch
-  git clone --quiet --branch=gh-pages https://${GH_TOKEN}@github.com/qualitified/qualitified.github.io.git  gh-pages > /dev/null
+  git clone --quiet https://${GH_TOKEN}@github.com/qualitified/qualitified.github.io.git  gh-pages > /dev/null
 
   #go into directory and copy data we're interested in to that directory
   cd gh-pages
   cp -Rf $HOME/package/* .
+  touch test.txt
 
   #add, commit and push files
   git add -f .
