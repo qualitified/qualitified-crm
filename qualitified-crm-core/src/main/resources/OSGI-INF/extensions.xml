@@ -34,6 +34,8 @@
       <facet name="Folderish"/>
       <subtypes>
         <type>Contact</type>
+        <type>Folder</type>
+        <type>File</type>
       </subtypes>
     </doctype>
     <doctype name="Domain" append="true">
