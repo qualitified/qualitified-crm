@@ -909,7 +909,7 @@
 
 
   if(oppStep === 'New'){
-    if(oppStatus === 'won' || oppStatus === 'limbo' || oppStatus === 'nogo'){
+    if(oppStatus === 'won' || oppStatus === 'limbo' || oppStatus === 'nogo' || oppStatus === 'lost'){
       	Document.FollowLifecycleTransition(input, {'value': 'to_ongoing'});
       	Document.FollowLifecycleTransition(input, {'value': 'to_new'});
     }
