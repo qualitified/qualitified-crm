@@ -1,0 +1,54 @@
+<dom-module id="nuxeo-opportunity-create-layout">
+  <template>
+    <style>
+      *[role=widget] {
+        padding: 5px;
+      }
+    </style>
+    <paper-input role="widget" value="{{document.properties.dc:title}}" label="Title"></paper-input>
+
+    <paper-input role="widget" value="{{document.properties.opportunity:amount}}" label="Amount"></paper-input>
+
+    <nuxeo-directory-suggestion role="widget" value="{{document.properties.opportunity:step}}" label="Step" directory-name="OppStep" min-chars="0"></nuxeo-directory-suggestion>
+
+    <nuxeo-date-picker value="{{_formatDate(document.properties.opportunity:closeDate)}}" label="Close Date" role="widget"></nuxeo-date-picker>
+
+    <paper-textarea role="widget" value="{{document.properties.dc:description}}" label="Description"></paper-textarea>
+
+    <nuxeo-data-table role="widget" items="{{document.properties.up:entite}}" orderable="true" editable="true">
+      <nuxeo-data-table-column name="Entité">
+        <template>
+          <div role="widget">[[item]]</div>
+        </template>
+      </nuxeo-data-table-column>
+
+      <nuxeo-data-table-form>
+        <template>
+          <nuxeo-input value="{{item}}" label="Entité" type="text"></nuxeo-input>
+        </template>
+      </nuxeo-data-table-form>
+    </nuxeo-data-table>
+
+  </template>
+
+  <script>
+  (function() {
+    'use strict';
+    Polymer({
+      is: 'nuxeo-opportunity-create-layout',
+      properties: {
+
+        /**
+           * @doctype Opportunity
+           */
+        document: {
+          type: Object
+        },
+        _formatDate: function(date) {
+          return moment(date).format('MMMM D, YYYY');
+        }
+      }
+      });
+    })();
+    </script>
+</dom-module>

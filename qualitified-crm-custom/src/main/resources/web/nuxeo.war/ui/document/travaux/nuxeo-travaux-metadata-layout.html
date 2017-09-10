@@ -1,0 +1,50 @@
+<dom-module id="nuxeo-travaux-metadata-layout">
+  <template>
+    <style>
+      *[role=widget] {
+        padding: 5px;
+      }
+    </style>
+    <div role="widget">
+      <h1>[[document.properties.dc:title]]</h1>
+    </div>
+
+    <div role="widget">
+      <label>Description</label>
+      <div>[[document.properties.dc:description]]</div>
+    </div>
+
+    <nuxeo-data-table role="widget" items="{{document.properties.up:entite}}" orderable="false" editable="false">
+      <nuxeo-data-table-column name="Entité">
+        <template>
+          <div role="widget">[[item]]</div>
+        </template>
+      </nuxeo-data-table-column>
+
+      <nuxeo-data-table-form>
+        <template>
+          <nuxeo-directory-suggestion role="widget" value="{{item.up:entite/nomEntite}}" label="Nom" directory-name="Entite" min-chars="0"></nuxeo-directory-suggestion>
+        </template>
+      </nuxeo-data-table-form>
+    </nuxeo-data-table>
+
+  </template>
+
+  <script>
+  (function() {
+    'use strict';
+    Polymer({
+      is: 'nuxeo-travaux-metadata-layout',
+      properties: {
+
+        /**
+           * @doctype Travaux
+           */
+        document: {
+          type: Object
+        }
+      }
+    });
+  })();
+  </script>
+</dom-module>

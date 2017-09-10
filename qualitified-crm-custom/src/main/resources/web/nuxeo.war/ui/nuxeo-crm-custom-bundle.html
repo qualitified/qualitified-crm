@@ -1,0 +1,22 @@
+<!-- Contribution of element 'nuxeo-search-form' for slot 'DRAWER_PAGES' -->
+<nuxeo-slot-content name="travaux-list" slot="DRAWER_PAGES" >
+  <template>
+    <nuxeo-search-form provider="travaux_list" schemas="travaux" search-name="travaux_list" name="travaux-list" auto="true"></nuxeo-search-form>
+  </template>
+</nuxeo-slot-content>
+<!-- Contribution of element 'nuxeo-menu-icon' for slot 'SEARCH_MENU_BUTTONS' -->
+<nuxeo-slot-content name="travaux-list" slot="DRAWER_ITEMS" order="2">
+  <template>
+    <nuxeo-menu-icon icon="icons:build" name="travaux-list" label="Travaux"></nuxeo-menu-icon>
+  </template>
+</nuxeo-slot-content>
+
+<nuxeo-slot-content name="myQualitifiedViewPage" slot="DOCUMENT_VIEWS_PAGES" >
+  <template>
+    <nuxeo-filter document="[[document]]" type="Travaux">
+    <template>
+      <qualitified-document-page name="view" document="[[document]]"></qualitified-document-page>
+    </template>
+    </nuxeo-filter>
+  </template>
+</nuxeo-slot-content>

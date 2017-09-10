@@ -1,0 +1,45 @@
+<dom-module id="nuxeo-travaux-create-layout">
+  <template>
+    <style>
+      *[role=widget] {
+        padding: 5px;
+      }
+    </style>
+    <paper-input role="widget" value="{{document.properties.dc:title}}" label="Title"></paper-input>
+
+    <paper-textarea role="widget" value="{{document.properties.dc:description}}" label="Description"></paper-textarea>
+
+    <nuxeo-data-table role="widget" items="{{document.properties.up:entite}}" orderable="true" editable="true">
+      <nuxeo-data-table-column name="Entité">
+        <template>
+          <div role="widget">[[item]]</div>
+        </template>
+      </nuxeo-data-table-column>
+
+      <nuxeo-data-table-form>
+        <template>
+          <nuxeo-input value="{{item}}" label="Entité" type="text"></nuxeo-input>
+        </template>
+      </nuxeo-data-table-form>
+    </nuxeo-data-table>
+
+  </template>
+
+  <script>
+  (function() {
+    'use strict';
+    Polymer({
+      is: 'nuxeo-travaux-create-layout',
+      properties: {
+
+        /**
+           * @doctype Travaux
+           */
+        document: {
+          type: Object
+        }
+      }
+      });
+    })();
+    </script>
+</dom-module>
