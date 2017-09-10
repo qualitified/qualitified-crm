@@ -35,11 +35,11 @@
     <paper-card role="widget">
 
       <paper-tabs selected="{{selected}}" scrollable>
-        <paper-tab>Opportunities</paper-tab>
-        <paper-tab>Contacts</paper-tab>
-        <paper-tab>Interactions</paper-tab>
-        <paper-tab>Solicitations</paper-tab>
-        <paper-tab>Attachments</paper-tab>
+        <paper-tab>[[i18n('Opportunities')]]</paper-tab>
+        <paper-tab>[[i18n('Contacts')]]</paper-tab>
+        <paper-tab>[[i18n('Interactions')]]</paper-tab>
+        <paper-tab>[[i18n('Solicitations')]]</paper-tab>
+        <paper-tab>[[i18n('Attachments')]]</paper-tab>
       </paper-tabs>
 
       <iron-pages selected="{{selected}}">
@@ -278,6 +278,7 @@
     'use strict';
     Polymer({
       is: 'nuxeo-account-view-layout',
+      behaviors: [Nuxeo.LayoutBehavior],
       properties: {
 
         /**

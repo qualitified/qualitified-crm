@@ -1096,7 +1096,7 @@
       <cacheMaxSize>1000</cacheMaxSize>
       <idField>id</idField>
       <autoincrementIdField>false</autoincrementIdField>
-      <createTablePolicy>always</createTablePolicy>
+      <createTablePolicy>on_missing_columns</createTablePolicy>
       <table>studio_vocabulary_OppStep</table>
       <dataFile>data/vocabularies/OppStep.csv</dataFile>
     </directory>
@@ -1107,7 +1107,7 @@
       <cacheMaxSize>1000</cacheMaxSize>
       <idField>id</idField>
       <autoincrementIdField>false</autoincrementIdField>
-      <createTablePolicy>always</createTablePolicy>
+      <createTablePolicy>on_missing_columns</createTablePolicy>
       <table>studio_vocabulary_Role</table>
       <dataFile>data/vocabularies/Role.csv</dataFile>
     </directory>
@@ -1118,7 +1118,7 @@
       <cacheMaxSize>1000</cacheMaxSize>
       <idField>id</idField>
       <autoincrementIdField>false</autoincrementIdField>
-      <createTablePolicy>always</createTablePolicy>
+      <createTablePolicy>on_missing_columns</createTablePolicy>
       <table>studio_vocabulary_AccountType</table>
       <dataFile>data/vocabularies/AccountType.csv</dataFile>
     </directory>
