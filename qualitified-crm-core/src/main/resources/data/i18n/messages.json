@@ -16,12 +16,5 @@
   "label.ui.aggregate.from_now-1y_to_now-1M":"More than 30 days",
   "label.ui.aggregate.from_now-1M_to_now-7d":"Last 30 days",
   "label.ui.aggregate.from_now-7d_to_now-24h":"Last 7 days",
-  "label.ui.aggregate.from_now-24h_to_now":"Last 24 hours",
-  "Accounts" : "Accounts",
-  "Opportunities" : "Opportunities",
-  "Sales" : "Sales",
-  "Contacts" : "Contacts",
-  "Interactions" : "Interactions",
-  "Solicitations" : "Sollicitations",
-  "Attachments" : "Attachments"
+  "label.ui.aggregate.from_now-24h_to_now":"Last 24 hours"
 }

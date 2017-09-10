@@ -1,0 +1,85 @@
+<dom-module id="nuxeo-contact-metadata-layout">
+  <template>
+    <style>
+      *[role=widget] {
+        padding: 5px;
+      }
+      .account-view-layout {
+        height: 32px;
+        width: 32px;
+        border-radius: 20px;
+        box-sizing: border-box;
+        margin-right: 8px;
+      }
+
+    </style>
+
+<div role="widget">
+      <h1>
+      <template is="dom-if" if="[[_hasProfileImg(document.properties.file:content)]]">
+      <img style="vertical-align: bottom;" class="account-view-layout" src="/nuxeo/nxfile/default/[[document.uid]]/file:content/">
+      </template>[[document.properties.dc:title]]</h1>
+</div>
+
+<div role="widget">
+<label> Role</label>
+<div directory-name="Role">[[formatDirectory(document.properties.person:Role)]]</div>
+</div>
+
+<div role="widget">
+<label>Email</label>
+<div>[[document.properties.person:email]]</div>
+</div>
+
+<div role="widget">
+<label>Phone Number</label>
+<div>[[document.properties.person:phoneNumber]]</div>
+</div>
+
+<div role="widget">
+<label>Notes</label>
+<div>[[document.properties.dc:description]]</div>
+</div>
+
+  </template>
+
+  <script>
+    (function() {
+      'use strict';
+      Polymer({
+        is: 'nuxeo-contact-metadata-layout',
+        properties: {
+
+          /**
+           * @doctype Contact
+           */
+          document: {
+            type: Object
+          },
+
+        },
+        /**
+         * Returns the label for the given directory entry.
+         */
+        formatDirectory: function(value) {
+          if (value && value['entity-type'] && value['entity-type'] === 'directoryEntry') {
+            if (value.properties && value.properties.label) {
+              return value.properties.label;
+            } else {
+              var label = 'label_' + ((window.nuxeo.I18n.language) ? window.nuxeo.I18n.language.split('-')[0] : 'en');
+              return value.properties[label] || value.properties['label_en']
+            }
+          } else {
+            return value;
+          }
+        },
+        _hasProfileImg: function(value){
+          if(value != null){
+            return true;
+          }
+          return false;
+        }
+      });
+    })();
+  </script>
+</dom-module>

@@ -1,0 +1,134 @@
+<!--
+(C) Copyright 2016 Nuxeo SA (http://nuxeo.com/) and others.
+
+Licensed under the Apache License, Version 2.0 (the 'License');
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+   http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an 'AS IS' BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+
+Contributors:
+   Adilio Araujo <aaraujo@nuxeo.com>
+-->
+
+<!--
+`nuxeo-sales-settings-layout`
+@group Nuxeo UI
+@element nuxeo-sales-settings-layout
+-->
+
+<dom-module id="nuxeo-sales-settings-button">
+  <template>
+    <style>
+      :host {
+        display: inline-block;
+      }
+
+      ::content iron-icon:hover {
+        fill: var(--nuxeo-link-hover-color);
+      }
+    </style>
+      <nuxeo-connection id="nxcon"></nuxeo-connection>
+      <nuxeo-operation id="updateSettings" op="updateSettings" input="[[document.uid]]" params="[[params]]"></nuxeo-operation>
+      <paper-icon-button id="button" icon="icons:settings" on-tap="_toggleDialog"></paper-icon-button>
+      <paper-tooltip for="button">Settings</paper-tooltip>
+
+      <paper-dialog id="dialog" modal on-iron-overlay-closed="_resetPopup" no-auto-focus>
+        <nuxeo-document id="doc" doc-id="[[document.uid]]"
+                    data="{{document}}" response="{{document}}"
+                    headers="[[headers]]">
+        </nuxeo-document>
+
+        <!--nuxeo-error id="error"></nuxeo-error-->
+        <h2>Settings</h2>
+        <form id="form" is="iron-form">
+          <div class="container layout vertical">
+            <div class="row layout horizontal">
+              <div id="document-edit">
+                <nuxeo-date-picker value="{{document.properties.sales:startDate}}" label="Start Date" role="widget"></nuxeo-date-picker>
+                <nuxeo-date-picker value="{{document.properties.sales:endDate}}" label="End Date" role="widget"></nuxeo-date-picker>
+                <paper-input value="{{document.properties.sales:goal}}" label="Goal" type="number" role="widget"></paper-input>
+              </div>
+            </div>
+          </div>
+          <div class="buttons horizontal end-justified layout">
+            <div class="flex start-justified">
+              <paper-button noink dialog-dismiss>Cancel</paper-button>
+            </div>
+            <paper-button noink class="primary" on-tap="_save">
+              Save
+            </paper-button>
+          </div>
+        </form>
+    </paper-dialog>
+
+  </template>
+
+  <script>
+    Polymer({
+      is: 'nuxeo-sales-settings-button',
+      properties: {
+        document: {
+          type: Object
+        },
+        params:{
+          type: Object,
+          value: {}
+        }
+      },
+
+      _toggleDialog: function(){
+        this.$.dialog.toggle();
+      },
+
+      _validate: function() {
+          var valid = true;
+
+          // fake submit to trigger native validation checks and UI
+          if (valid) {
+            this.$.form._doFakeSubmitForValidation();
+          }
+          return valid && this.$.form.validate() && this.$.form.checkValidity();
+      },
+
+      _save: function(){
+        if (!this._validate()) {
+            return;
+        }
+        this.params = {
+          context: {
+            startDate: this.document.properties['sales:startDate'],
+            endDate: this.document.properties['sales:endDate'],
+            goal: this.document.properties['sales:goal']
+          }
+        };
+        this.$.updateSettings.execute().then(function(doc) {
+          this.$.dialog.close();
+          page('/browse/'+doc.path+'/'+this.document.properties['dc:title']);
+        }.bind(this));
+
+        /*{
+          "entity-type": "document",
+          "properties": {"sales:startDate" : "2017-05-31T22:00:00.000Z", "sales:endDate" : "2017-12-30T23:00:00.000Z", "sales:goal": "100000"}
+        }*/
+
+        //delete this.document.properties['dc:contributors'];
+        //this.$.doc.put().then(this._refresh.bind(this));
+
+      },
+
+      _refresh: function() {
+          this.fire('document-updated');
+          this.$.dialog.close();
+        }
+
+    });
+  </script>
+
+</dom-module>

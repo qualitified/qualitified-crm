@@ -1,0 +1,52 @@
+<dom-module id="nuxeo-silhouette-view-layout">
+  <template>
+    <style>
+      *[role=widget] {
+        padding: 5px;
+      }
+    </style>
+  <div role="widget">
+<label>Title</label>
+<div>[[document.properties.dc:title]]</div>
+</div>
+
+<div role="widget">
+<label>Email</label>
+<div>[[document.properties.person:email]]</div>
+</div>
+
+<div role="widget">
+<label>Phone Number</label>
+<div>[[document.properties.person:phoneNumber]]</div>
+</div>
+
+<div role="widget">
+<label> Role</label>
+<div directory-name="Role">[[document.properties.person:Role]]</div>
+</div>
+
+<div role="widget">
+<label>Company</label>
+<div>[[document.properties.silhouette:company]]</div>
+</div>
+</template>
+
+  <script>
+    (function() {
+      'use strict';
+      Polymer({
+        is: 'nuxeo-silhouette-view-layout',
+        properties: {
+
+          /**
+           * @doctype Silhouette
+           */
+          document: {
+            type: Object
+          },
+
+        }
+      });
+    })();
+  </script>
+</dom-module>

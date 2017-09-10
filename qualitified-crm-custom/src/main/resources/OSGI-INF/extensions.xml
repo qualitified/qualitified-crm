@@ -3,36 +3,9 @@
 <component name="studio.extensions.crm.custom" version="1.0.0">
   <require>studio.extensions.crm</require>
   <extension target="org.nuxeo.ecm.core.schema.TypeService" point="schema">
-    <schema name="travaux" prefix="travaux" override="true" src="data/schemas/travaux.xsd"/>
-    <schema name="travaux_list_pp" prefix="travaux_list_pp" override="true" src="data/schemas/travaux_list_pp.xsd"/>
     <!--schema name="account_custom" prefix="aaccount_custom" override="true" src="data/schemas/account_custom.xsd"/-->
   </extension>
   <extension target="org.nuxeo.ecm.core.schema.TypeService" point="doctype">
-    <doctype name="Opportunity" append="true">
-      <schema name="userProfiles"/>
-    </doctype>
-    <doctype name="Folder" append="true">
-      <subtypes>
-        <type>Picture</type>
-      </subtypes>
-    </doctype>
-    <doctype name="Travaux" extends="Document">
-      <schema name="travau"/>
-      <schema name="dublincore"/>
-      <schema name="common"/>
-      <schema name="uid"/>
-      <facet name="Folderish"/>
-      <subtypes>
-        <type>File</type>
-        <type>Folder</type>
-        <type>Interaction</type>
-      </subtypes>
-    </doctype>
-    <doctype name="Account" append="true">
-      <subtypes>
-        <type>Travaux</type>
-      </subtypes>
-    </doctype>
     <!--doctype name="Account_Custom" extends="Document">
       <schema name="account_custom"/>
       <schema name="dublincore"/>
@@ -53,9 +26,6 @@
     <!--types>
       <type name="Account_Custom">custom</type>
     </types-->
-    <types>
-      <type name="Travaux">default</type>
-    </types>
   </extension>
   <extension target="org.nuxeo.ecm.platform.types.TypeService" point="types">
     <!--type id="Account_Custom">
@@ -76,22 +46,22 @@
     </versioningRule-->
   </extension>
   <extension target="org.nuxeo.ecm.platform.ui.web.auth.service.PluggableAuthenticationService" point="loginScreen">
-    <loginScreenConfig>
+    <!--loginScreenConfig>
       <backgroundImage>no_poster_image</backgroundImage>
-      <bodyBackgroundStyle>url("${org.nuxeo.ecm.contextPath}/img/background.jpg") 0px 0px no-repeat #000</bodyBackgroundStyle>
+      <bodyBackgroundStyle>url("${org.nuxeo.ecm.contextPath}/img/1672144-poster-1280-orange-graphic_1.jpg") 0px 0px no-repeat #000</bodyBackgroundStyle>
       <disableBackgroundSizeCover>false</disableBackgroundSizeCover>
       <removeNews>true</removeNews>
       <footerStyle>display: none;</footerStyle>
       <loginBoxBackgroundStyle>none 0 0 null</loginBoxBackgroundStyle>
       <loginBoxWidth>300px</loginBoxWidth>
-      <loginButtonBackgroundColor>#24195d</loginButtonBackgroundColor>
+      <loginButtonBackgroundColor>#ff7f00</loginButtonBackgroundColor>
       <videos loop="false" muted="true">
         <video src=""/>
       </videos>
-      <logoUrl>${org.nuxeo.ecm.contextPath}/img/logo.png</logoUrl>
-      <logoWidth>128</logoWidth>
-      <logoHeight>128</logoHeight>
-    </loginScreenConfig>
+      <logoUrl>${org.nuxeo.ecm.contextPath}/img/qualitified.png</logoUrl>
+      <logoWidth>185</logoWidth>
+      <logoHeight>50</logoHeight>
+    </loginScreenConfig-->
   </extension>
 
   <extension target="org.nuxeo.ecm.core.operation.OperationServiceComponent" point="event-handlers">
@@ -202,13 +172,6 @@
       <sort column="opportunity:amount" ascending="false"/>
       <pageSize>10</pageSize>
     </genericPageProvider-->
-    <genericPageProvider class="org.nuxeo.elasticsearch.provider.ElasticSearchNxqlPageProvider" name="travaux_list">
-      <property name="coreSession">#{documentManager}</property>
-      <whereClause>
-        <fixedPart>ecm:mixinType != 'HiddenInNavigation' AND ecm:isCheckedInVersion = 0 AND ecm:currentLifeCycleState != 'deleted' AND ecm:primaryType = 'Travaux'</fixedPart>
-      </whereClause>
-      <searchDocumentType>travaux_list_pp</searchDocumentType>
-    </genericPageProvider>
   </extension>
 
   <extension target="org.nuxeo.automation.scripting.internals.AutomationScriptingComponent" point="operation">
@@ -262,14 +225,7 @@
       <dataFile>data/vocabularies/Civility.csv</dataFile>
     </directory-->
   </extension>
-  <extension target="org.nuxeo.ecm.platform.WebResources" point="resources">
-    <!--resource name="nuxeo-menu-icon-custom.html" type="import" shrinkable="false">
-      <uri>/ui/nuxeo-menu-icon-custom.html</uri>
-    </resource-->
-    <resource name="nuxeo-crm-custom-bundle.html" type="import" shrinkable="false">
-      <uri>/ui/nuxeo-crm-custom-bundle.html</uri>
-    </resource>
-  </extension>
+
   <extension target="org.nuxeo.ecm.platform.WebResources" point="bundles">
     <bundle name="web-ui">
       <resources append="true">

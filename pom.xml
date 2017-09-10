@@ -15,6 +15,7 @@
   <packaging>pom</packaging>
 
   <modules>
+    <module>qualitified-crm-core</module>
     <module>qualitified-crm-custom</module>
     <module>qualitified-crm-package</module>
   </modules>

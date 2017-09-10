@@ -1,0 +1,109 @@
+<!--
+`nuxeo-account_list-search-form`
+@group Nuxeo UI
+@element nuxeo-account_list-search-form
+-->
+<dom-module id="nuxeo-account_list-search-form">
+  <template>
+    <style>
+      :host {
+        display: block;
+      }
+
+      .row {
+        box-sizing: border-box;
+        margin-bottom: 1rem;
+        padding: 0 1rem;
+        width: 100%;
+      }
+
+      label {
+        color: #434343;
+        font-size: 0.8em;
+        font-weight: 700;
+        margin-bottom: 5px;
+      }
+
+      input {
+        background-color: #fff;
+        border: 1px solid #ddd;
+        border-radius: .2em;
+        box-sizing: border-box;
+        color: rgba(0,0,0,.75);
+        display: block;
+        font-size: 0.8em;
+        height: 2rem;
+        margin: 0;
+        padding: .5rem;
+        width: 100%;
+      }
+    </style>
+
+    <!-- Full Text -->
+    <div class="layout vertical row">
+      <label>[[i18n('assetsSearch.fullText', 'Full Text')]]</label>
+      <paper-input id="searchInput" autofocus="true"
+                   value="{{searchTerm}}" tabindex="0"
+                   type="search"
+                   placeholder="[[i18n('assetsSearch.fullText.placeholder', 'Search something ...')]]"
+                   no-label-float>
+      </paper-input>
+    </div>
+
+    <div class="layout vertical row">
+      <label>Account Type</label>
+      <nuxeo-checkbox-aggregation
+        data="[[aggregations.account_type_agg]]"
+        value="{{params.account_type_agg}}">
+      </nuxeo-checkbox-aggregation>
+    </div>
+
+  </template>
+
+  <script>
+  Polymer({
+    is: 'nuxeo-account_list-search-form',
+    behaviors: [Nuxeo.LayoutBehavior],
+    properties: {
+
+      /**
+         * @search account_list
+         */
+      params: {
+        type: Object,
+        value: {},
+        notify: true,
+      },
+      aggregations: {
+        type: Object,
+        value: {},
+        notify: true,
+      },
+      searchTerm: {
+        type: String,
+        notify: true,
+        observer: '_addFullTextSearch'
+      }
+    },
+
+    behaviors: [Nuxeo.I18nBehavior],
+
+    _addFullTextSearch: function() {
+      if (this.searchTerm) {
+        this.set('params.ecm_fulltext', this.searchTerm + '*');
+      } else {
+        if (this.params.ecm_fulltext) {
+          this.set('params.ecm_fulltext', '');
+          // dirty but needed, the above line for
+          // ecm_fulltext removal being observed
+          delete this.params.ecm_fulltext;
+        }
+      }
+    },
+
+    clear: function() {
+      this.searchTerm = '';
+    }
+  });
+  </script>
+</dom-module>

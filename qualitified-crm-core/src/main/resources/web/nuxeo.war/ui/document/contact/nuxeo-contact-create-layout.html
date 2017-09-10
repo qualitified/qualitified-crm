@@ -1,0 +1,98 @@
+<dom-module id="nuxeo-contact-create-layout">
+  <template>
+    <style>
+      *[role=widget] {
+        padding: 5px;
+      }
+    </style>
+
+<nuxeo-directory-suggestion value="{{civility}}" label="Civility" directory-name="Civility" role="widget" min-chars="0"></nuxeo-directory-suggestion>
+
+<paper-input value="{{firstName}}" label="First Name" role="widget"></paper-input>
+
+<paper-input value="{{lastName}}" label="Last Name" role="widget"></paper-input>
+
+<nuxeo-directory-suggestion value="{{document.properties.person:Role}}" label=" Role" directory-name="Role" role="widget" min-chars="0"></nuxeo-directory-suggestion>
+
+<paper-input value="{{document.properties.person:email}}" label="Email" pattern="^[a-z0-9!#$%&amp;'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&amp;'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$" role="widget"></paper-input>
+
+<paper-input value="{{document.properties.person:phoneNumber}}" label="Phone Number" role="widget"></paper-input>
+
+<paper-input value="{{document.properties.dc:description}}" label="Description" role="widget"></paper-input>
+
+<nuxeo-dropzone role="widget" label="Picture" document="[[document]]"></nuxeo-dropzone>
+
+</template>
+
+  <script>
+    (function() {
+      'use strict';
+      Polymer({
+        is: 'nuxeo-contact-create-layout',
+        properties: {
+
+          /**
+           * @doctype Contact
+           */
+          document: {
+            type: Object
+          },
+          civility:{
+            notify:true,
+            observer: '_civilityChanged'
+          },
+          firstName:{
+            notify:true,
+            observer: '_firstNameChanged'
+          },
+          lastName:{
+            notify:true,
+            observer: '_lastNameChanged'
+          }
+        },
+        _civilityChanged: function(newValue){
+          let title = "";
+          if(newValue){
+            title = newValue;
+            this.document.properties['document.properties.person:civility'] = newValue;
+          }
+          if(this.document.properties['document.properties.person:firstName']){
+            title += " " + this.document.properties['document.properties.person:firstName'];
+          }
+          if(this.document.properties['document.properties.person:lastName']){
+            title += " " + this.document.properties['document.properties.person:lastName'];
+          }
+          this.document.properties['dc:title'] = title;
+        },
+        _firstNameChanged: function(newValue){
+          let title = "";
+          if(this.document.properties['document.properties.person:civility']){
+            title = this.document.properties['document.properties.person:civility'];
+          }
+          if(newValue){
+            title += " " + newValue;
+            this.document.properties['document.properties.person:firstName'] = newValue;
+          }
+          if(this.document.properties['document.properties.person:lastName']){
+            title += " " + this.document.properties['document.properties.person:lastName'];
+          }
+          this.document.properties['dc:title'] = title;
+        },
+        _lastNameChanged: function(newValue){
+          let title = "";
+          if(this.document.properties['document.properties.person:civility']){
+            title = this.document.properties['document.properties.person:civility'];
+          }
+          if(this.document.properties['document.properties.person:firstName']){
+            title += " " + this.document.properties['document.properties.person:firstName'];
+          }
+          if(newValue){
+            title += " " + newValue;
+            this.document.properties['document.properties.person:lastName'] = newValue;
+          }
+          this.document.properties['dc:title'] = title;
+        }
+      });
+    })();
+  </script>
+</dom-module>

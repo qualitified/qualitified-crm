@@ -1,0 +1,34 @@
+<!--
+`nuxeo-services-view-layout`
+@group Nuxeo UI
+@element nuxeo-services-view-layout
+-->
+<dom-module id="nuxeo-services-view-layout">
+  <template>
+    <style>
+      *[role=widget] {
+        padding: 5px;
+      }
+    </style>
+    <nuxeo-document-content document="[[document]]"></nuxeo-document-content>
+  </template>
+
+  <script>
+  (function() {
+    'use strict';
+    Polymer({
+      is: 'nuxeo-services-view-layout',
+      properties: {
+
+        /**
+           * @doctype Services
+           */
+        document: {
+          type: Object
+        },
+
+      }
+    });
+  })();
+  </script>
+</dom-module>

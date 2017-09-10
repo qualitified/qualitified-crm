@@ -1,0 +1,4 @@
+id,label,obsolete,ordering
+Customer,Customer,0,0
+Partner,Partner,0,10
+Prospect,Prospect,0,20
