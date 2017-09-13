@@ -225,7 +225,14 @@
       <dataFile>data/vocabularies/Civility.csv</dataFile>
     </directory-->
   </extension>
-
+  <extension target="org.nuxeo.ecm.platform.WebResources" point="resources">
+    <!--resource name="nuxeo-menu-icon-custom.html" type="import" shrinkable="false">
+      <uri>/ui/nuxeo-menu-icon-custom.html</uri>
+    </resource-->
+    <resource name="nuxeo-crm-custom-bundle.html" type="import" shrinkable="false">
+      <uri>/ui/nuxeo-crm-custom-bundle.html</uri>
+    </resource>
+  </extension>
   <extension target="org.nuxeo.ecm.platform.WebResources" point="bundles">
     <bundle name="web-ui">
       <resources append="true">
