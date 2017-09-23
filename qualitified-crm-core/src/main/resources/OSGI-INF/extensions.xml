@@ -308,8 +308,8 @@
   <extension target="org.nuxeo.ecm.platform.types.TypeService" point="types">
     <type id="Account">
       <label>label.account</label>
-      <icon>/img/ic_business_black_24dp_2x.png</icon>
-      <bigIcon>/img/ic_business_black_24dp_1x.png</bigIcon>
+      <icon>/img/ic_business_black_24dp_1x.png</icon>
+      <bigIcon>/img/ic_business_black_24dp_2x.png</bigIcon>
       <description></description>
     </type>
     <type id="Folder">
@@ -345,7 +345,7 @@
     </type>
     <type id="Interaction">
       <label>Interaction</label>
-      <icon>/img/ic_thumb_up_black_24dp_1x.png</icon>
+      <icon>/img/ic_thumb_up_black_24dp_2x.png</icon>
       <bigIcon>/img/ic_thumb_up_black_24dp_2x.png</bigIcon>
       <description></description>
     </type>
@@ -644,6 +644,9 @@
         </state>
         <state name="deleted" description="">
           <transitions/>
+        </state>
+        <state name="project" description="">
+          <transition>to_done</transition>
         </state>
       </states>
     </lifecycle>
@@ -1225,4 +1228,13 @@
       </filter>
     </action>
   </extension>
+  <extension point="configuration" target="org.nuxeo.runtime.ConfigurationService">
+    <property name="org.nuxeo.dnd.upload.timeout">300000</property>
+    <property name="org.nuxeo.dnd.exec.timeout">300000</property>
+  </extension>
+  <extension target="org.nuxeo.ecm.platform.web.common.requestcontroller.service.RequestControllerService" point="corsConfig">
+    <corsConfig name="foobar" supportedMethods ="GET,POST,HEAD,OPTIONS,DELETE,PUT">
+      <pattern>/nuxeo/.*</pattern>
+    </corsConfig>
+</extension>
 </component>

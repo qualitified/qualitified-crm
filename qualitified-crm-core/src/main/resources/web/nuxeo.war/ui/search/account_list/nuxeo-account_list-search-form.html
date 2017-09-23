@@ -3,13 +3,34 @@
 @group Nuxeo UI
 @element nuxeo-account_list-search-form
 -->
+<link rel="import" href="../../qualitified-icons.html">
 <dom-module id="nuxeo-account_list-search-form">
   <template>
     <style>
       :host {
         display: block;
+        @apply(--layout-flex);
+        @apply(--layout-vertical);
       }
 
+      .flex-layout {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: space-between;
+      }
+
+      paper-card {
+        min-width: 25em;
+        width: 49%;
+        height: 420px;
+      }
+
+      @media (max-width: 1024px) {
+        paper-card {
+          width: 100%;
+        }
+      }
       .row {
         box-sizing: border-box;
         margin-bottom: 1rem;
@@ -37,6 +58,96 @@
         padding: .5rem;
         width: 100%;
       }
+
+      #container {
+        @apply(--layout-vertical);
+        @apply(--layout-center);
+        @apply(--layout-flex);
+        @apply(--layout-center-justified);
+        border-radius: 2px;
+        border: 1px dashed var(--paper-input-container-color);
+        min-height: 64px;
+        height: calc(100% - 2px);
+      }
+
+      .container {
+        overflow: auto;
+        flex: 1 1 auto;
+        height: 400px;
+      }
+
+      .typeSelection {
+        overflow-y: auto;
+        margin: 1rem 0;
+        align-items: center;
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        min-height: 20em;
+        justify-content: flex-start;
+      }
+
+      .typeSelection paper-button {
+        width: var(--nuxeo-document-creation-form-button-width, 128px);
+        height: var(--nuxeo-document-creation-form-button-height, 128px);
+        box-shadow: none;
+        background-color: var(--nuxeo-dialog-buttons-bar);
+      }
+
+      .typeSelection paper-button:hover {
+        color: var(--nuxeo-link-hover-color);
+        filter: brightness(102%);
+        -webkit-filter: brightness(102%);
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.3), 0 -3px 0 var(--nuxeo-link-hover-color) inset;
+      }
+
+      .typeSelection iron-icon {
+        width: var(--nuxeo-document-creation-form-icon-width, 42px);
+        height: var(--nuxeo-document-creation-form-icon-height, 42px);
+        filter: brightness(1.5);
+        -webkit-filter: brightness(1.5);
+      }
+
+      .typeSelection span {
+        margin-top: 1em;
+        word-break: break-word;
+      }
+
+      .docTypeButton {
+        margin: 4px;
+        border: none;
+      }
+
+      .buttons {
+        @apply(--buttons-bar);
+      }
+
+      .heading {
+        text-transform: uppercase;
+        font-size: 1.1rem;
+        padding: 1.7rem 2.5rem;
+      }
+
+      .heading iron-icon {
+        width: 1.2rem;
+        height: 1.2rem;
+        margin-right: 8px;
+      }
+
+      .editor {
+        margin: 0 2rem;
+        overflow-y: auto;
+        padding: 0 1rem 0 0;
+      }
+
+      #document-create {
+        margin-bottom: 2.5em;
+      }
+
+      #createDocDialog {
+        width: calc(100% - 450px);
+      }
+
     </style>
 
     <!-- Full Text -->
@@ -58,12 +169,65 @@
       </nuxeo-checkbox-aggregation>
     </div>
 
+    <div class="actions layout vertical style-scope nuxeo-search-form">
+      <paper-button noink="" id="new" class="primary horizontal layout center" on-tap="_new" elevation="0">
+        <iron-icon icon="qualitified:account"></iron-icon> [[i18n('command.new.account')]]
+      </paper-button>
+    </div>
+
+    <paper-dialog id="createDocDialog" on-iron-overlay-closed="_resetPopup" no-auto-focus>
+      <nuxeo-document id="docRequest" doc-path="/Sales" data="[[document]]" headers="{&quot;nx_es_sync&quot;: &quot;true&quot;}" enrichers="permissions, subtypes" response="{{createResponse}}"></nuxeo-document>
+      <nuxeo-document-creation-stats id="creationStats"></nuxeo-document-creation-stats>
+      <iron-pages selected="[[stage]]" attr-for-selected="name" class="vertical layout flex">
+        <!--div name="choose" class="vertical layout flex">
+          <div class="editor flex container">
+            <div name="typeSelection" class="typeSelection">
+              <template is="dom-repeat" items="[[documentTypes]]" as="type">
+                <paper-button noink="" name$="[[type.type]]" class="docTypeButton vertical layout" on-tap="_selectType" data-args$="[[type]]">
+                  <iron-icon src="[[_getTypeIcon(type)]]"></iron-icon>
+                  <span>[[_getTypeLabel(type)]]</span>
+                </paper-button>
+              </template>
+            </div>
+          </div>
+          <div class="buttons horizontal end-justified layout">
+            <div class="flex start-justified">
+              <paper-button noink="" dialog-dismiss="" on-tap="_cancel">[[i18n('command.cancel')]]</paper-button>
+            </div>
+          </div>
+        </div-->
+        <div name="edit" class="vertical layout flex">
+          <div class="horizontal layout heading center">
+            <iron-icon src="[[_getTypeIcon(selectedDocType)]]"></iron-icon>
+            <span>[[_newDocumentLabel(selectedDocType)]]</span>
+          </div>
+          <div id="editor" class="editor flex container">
+            <form is="iron-form" id="form" class="form vertical layout flex">
+              <iron-a11y-keys keys="enter" on-keys-pressed="_submitKeyHandler"></iron-a11y-keys>
+              <nuxeo-document-layout id="document-create" layout="create" document="[[document]]"></nuxeo-document-layout>
+            </form>
+          </div>
+          <div class="buttons horizontal end-justified layout">
+            <div class="flex start-justified">
+              <paper-button noink="" dialog-dismiss="" on-tap="_cancel">[[i18n('command.cancel')]]</paper-button>
+            </div>
+            <!--paper-button noink="" on-tap="_back">[[i18n('command.back')]]</paper-button-->
+            <paper-button noink="" class="primary" on-tap="_create" disabled$="[[!canCreate]]">[[i18n('command.create')]]</paper-button>
+          </div>
+        </div>
+      </iron-pages>
+    </paper-dialog>
+    <!--Workaround to fix the modal issue with the paper-dialog
+    <template is="dom-if" if="[[dialogOpened]]">
+      <iron-overlay-backdrop class="x-scope iron-overlay-backdrop-0 opened" style="z-index: 102;" opened="">
+    </template>
+    -->
   </template>
 
   <script>
   Polymer({
     is: 'nuxeo-account_list-search-form',
-    behaviors: [Nuxeo.LayoutBehavior],
+    behaviors: [Nuxeo.LayoutBehavior,Nuxeo.RoutingBehavior, Nuxeo.FormatBehavior,Nuxeo.DocumentCreationBehavior],
     properties: {
 
       /**
@@ -83,11 +247,41 @@
         type: String,
         notify: true,
         observer: '_addFullTextSearch'
+      },
+      documentTypes: {
+        type: Array,
+        value: ['Account']
+      },
+      stage: {
+        type: String,
+        value: 'edit'
+      },
+      visible: {
+        type: Boolean
+      },
+      _showTabs: {
+        type: Boolean,
+        value: true
+      },
+      selectedTab: {
+        type: String,
+        value: ''
+      },
+      selectedDocType:{
+        type: String,
+        value:'Account'
+      },
+      dialogOpened:{
+        type: Boolean,
+        value: false
       }
     },
-
-    behaviors: [Nuxeo.I18nBehavior],
-
+    listeners: {
+      'nx-creation-wizard-hide-tabs': '_hideTabs',
+      'nx-creation-wizard-show-tabs': '_displayTabs',
+      'nx-document-creation-finished': '_close'
+    },
+    /*behaviors: [Nuxeo.I18nBehavior],*/
     _addFullTextSearch: function() {
       if (this.searchTerm) {
         this.set('params.ecm_fulltext', this.searchTerm + '*');
@@ -103,7 +297,193 @@
 
     clear: function() {
       this.searchTerm = '';
-    }
+    },
+    _new: function(){
+      this.newDocument(this.selectedDocType, this._getDocumentProperties()).then(function(document) {
+        //document.parentRef = this.parent.uid;
+        this.document = document;
+        //this.stage = 'edit';
+
+        this.$.createDocDialog.toggle();
+        this.dialogOpened = true;
+      }.bind(this));
+    },
+
+    _hideTabs: function() {
+      this._showTabs = false;
+    },
+
+    _displayTabs: function() {
+      this._showTabs = true;
+    },
+
+    _close: function() {
+      if (this.$.createDocDialog.opened) {
+        this.$.createDocDialog.toggle();
+        this._showTabs = true;
+        this.dialogOpened = false;
+      }
+    },
+
+    newDocument: function(type, properties) {
+      var doc = {
+        'entity-type': 'document',
+        'type': type,
+        'name': '',
+        'properties': {
+          'dc:title': '',
+          'dc:description': ''
+        }
+      };
+      var schemaFetcher = null;
+      var schemaRegistry = {};
+      // NXP-22300: initialize complex properties
+      if (!(type in schemaRegistry)) {
+        if (!schemaFetcher) {
+          schemaFetcher = document.createElement('nuxeo-resource');
+        }
+        schemaFetcher.path = '/config/types/' + this.selectedDocType;
+        return schemaFetcher.get().then(function(doctype) {
+          // cache doctype schemas
+          schemaRegistry[doctype.name] = doctype;
+          return this._newDocument(doctype, doc, properties);
+        }.bind(this));
+      } else {
+        return Promise.resolve(this._newDocument(schemaRegistry[type], doc, properties));
+      }
+    },
+
+    _newDocument: function(doctype, doc, properties) {
+      if (doctype.schemas) {
+        doctype.schemas.forEach(function(schema) {
+          this._initializeFields(doc, schema);
+        }.bind(this));
+      }
+      if (properties) {
+        for (var prop in properties) {
+          doc.properties[prop] = properties[prop];
+        }
+      }
+      return doc;
+    },
+
+    _initializeFields: function(doc, node, nodePath) {
+      if (typeof nodePath === 'undefined') {
+        nodePath = '';
+      }
+      var prefix = (node['@prefix'] ? node['@prefix'] : node['name']);
+      Object.keys(node.fields).forEach(function(fieldName) {
+        var field = node.fields[fieldName]
+        if (field !== null && typeof field === 'object' &&
+            field.type && field.type === 'complex') {
+          this._deepFind(doc.properties, nodePath)[prefix + ':' + fieldName] = {};
+          this._initializeFields(doc, field, field, nodePath === '' ? fieldName : nodePath + '.' + fieldName);
+        }
+      }.bind(this));
+    },
+
+    _deepFind: function(node, path) {
+      return path ? path.split('.').reduce(function(obj,p) { return obj[p]; }, node) : node;
+    },
+
+    // extension point
+    _getDocumentProperties: function() {
+      return null;
+    },
+
+    /*_selectType: function(e) {
+        this.selectedDocType = e.model.type;
+        this._updateDocument();
+        //this.fire('nx-creation-wizard-hide-tabs');
+    },
+
+    _updateDocument: function() {
+        /*if (!this._isValidType(this.selectedDocType) || !this.parent) {
+          this.document = null;
+          return;
+        }*/
+
+        /*this.newDocument(this.selectedDocType, this._getDocumentProperties()).then(function(document) {
+          //document.parentRef = this.parent.uid;
+          this.document = document;
+          this.stage = 'edit';
+    	}.bind(this));
+    },*/
+
+    _validate: function() {
+        // run our custom validation function first to allow setting custom native validity
+        var valid = this.$['document-create'].validate();
+
+        // fake submit to trigger native validation checks and UI
+        if (valid) {
+          this.$.form._doFakeSubmitForValidation();
+        }
+
+        // XXX: could rely on onsubmit to avoid rechecking for validity
+        return this.$.form.validate() && this.$.form.checkValidity() && valid;
+      },
+
+      _create: function() {
+        /*if (!this._validate() || !this.canCreate) {
+          return;
+        }*/
+        if (!this._validate()) {
+          return;
+        }
+        //set default value for x,y, width and height
+        if(!this.document.uuid){
+          this.document.properties['report:x'] = 0;
+          this.document.properties['report:y'] = 0;
+          this.document.properties['report:width'] = 4;
+          this.document.properties['report:height'] = 4;
+        }
+
+        this.document.name = this._sanitizeName(this.document.properties['dc:title']);
+        this.$.docRequest.post().then(function(response) {
+          this.$.creationStats.storeType(this.selectedDocType);
+          //this._clear();
+          this.navigateTo('browse', response.path);
+          this._notify(response);
+        }.bind(this));
+      },
+
+      /*_refresh: function() {
+        this._clear();
+        page('/');
+        //this.fire('document-updated');
+      },
+
+      _clear: function() {
+        this.stage = 'view';
+        this.$.dialog.close();
+      },*/
+
+      _back: function() {
+        this._clear();
+        this.fire('nx-creation-wizard-show-tabs');
+      },
+
+      _cancel: function() {
+        //this._clear();
+        this.fire('nx-creation-wizard-show-tabs');
+      },
+
+      _newDocumentLabel: function() {
+        return this.selectedDocType;
+      },
+
+      _clear: function() {
+        this.stage = 'choose';
+        this.selectedDocType = {};
+      },
+
+      _getTypeLabel: function(type) {
+        return type? this.i18n('label.document.type.' + type.toLowerCase()):'';
+      },
+
+      _getTypeIcon: function(type) {
+        return type? 'images/doctypes/' + type.toLowerCase() + '.svg' :'';
+      }
   });
   </script>
 </dom-module>
