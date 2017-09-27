@@ -54,41 +54,41 @@
           let title = "";
           if(newValue){
             title = newValue;
-            this.document.properties['document.properties.person:civility'] = newValue;
+            this.document.properties['person:civility'] = newValue;
           }
-          if(this.document.properties['document.properties.person:firstName']){
-            title += " " + this.document.properties['document.properties.person:firstName'];
+          if(this.document.properties['person:firstName']){
+            title += " " + this.document.properties['person:firstName'];
           }
-          if(this.document.properties['document.properties.person:lastName']){
-            title += " " + this.document.properties['document.properties.person:lastName'];
+          if(this.document.properties['person:lastName']){
+            title += " " + this.document.properties['person:lastName'];
           }
           this.document.properties['dc:title'] = title;
         },
         _firstNameChanged: function(newValue){
           let title = "";
-          if(this.document.properties['document.properties.person:civility']){
-            title = this.document.properties['document.properties.person:civility'];
+          if(this.document.properties['person:civility']){
+            title = this.document.properties['person:civility'];
           }
           if(newValue){
             title += " " + newValue;
-            this.document.properties['document.properties.person:firstName'] = newValue;
+            this.document.properties['person:firstName'] = newValue;
           }
-          if(this.document.properties['document.properties.person:lastName']){
-            title += " " + this.document.properties['document.properties.person:lastName'];
+          if(this.document.properties['person:lastName']){
+            title += " " + this.document.properties['person:lastName'];
           }
           this.document.properties['dc:title'] = title;
         },
         _lastNameChanged: function(newValue){
           let title = "";
-          if(this.document.properties['document.properties.person:civility']){
-            title = this.document.properties['document.properties.person:civility'];
+          if(this.document.properties['person:civility']){
+            title = this.document.properties['person:civility'];
           }
-          if(this.document.properties['document.properties.person:firstName']){
-            title += " " + this.document.properties['document.properties.person:firstName'];
+          if(this.document.properties['person:firstName']){
+            title += " " + this.document.properties['person:firstName'];
           }
           if(newValue){
             title += " " + newValue;
-            this.document.properties['document.properties.person:lastName'] = newValue;
+            this.document.properties['person:lastName'] = newValue;
           }
           this.document.properties['dc:title'] = title;
         }

@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<fragment version="1"> 
-  <extension target="application#MODULE"> 
-    <module> 
-      <java>${bundle.fileName}</java> 
-    </module> 
-  </extension>  
+<fragment version="1">
+  <extension target="application#MODULE">
+    <module>
+      <java>${bundle.fileName}</java>
+    </module>
+  </extension>
   <require>all</require>
   <install>
     <delete path="${bundle.fileName}.tmp"/>
@@ -14,6 +14,7 @@
     <append from="${bundle.fileName}.tmp/data/i18n/messages_en_US.properties" to="nuxeo.war/WEB-INF/classes/messages_en_US.properties" addNewLine="true"/>
     <append from="${bundle.fileName}.tmp/data/i18n/messages_en_US.properties" to="nuxeo.war/WEB-INF/classes/messages_en.properties" addNewLine="true"/>
     <append from="${bundle.fileName}.tmp/data/i18n/messages.json" to="nuxeo.war/ui/i18n/messages.json" addNewLine="true"/>
+    <append from="${bundle.fileName}.tmp/data/i18n/messages-fr.json" to="nuxeo.war/ui/i18n/messages-fr.json" addNewLine="true"/>
     <delete path="${bundle.fileName}.tmp"/>
   </install>
 </fragment>

@@ -36,6 +36,9 @@
         <type>Contact</type>
         <type>Folder</type>
         <type>File</type>
+        <type>Picture</type>
+        <type>Video</type>
+        <type>Audio</type>
       </subtypes>
     </doctype>
     <doctype name="Domain" append="true">
@@ -73,6 +76,9 @@
     <doctype name="Folder" append="true">
       <subtypes>
         <type>Folder</type>
+        <type>Picture</type>
+        <type>Video</type>
+        <type>Audio</type>
       </subtypes>
     </doctype>
     <doctype name="Workspace" append="true">
@@ -172,6 +178,9 @@
         <type>File</type>
         <type>Folder</type>
         <type>Interaction</type>
+        <type>Picture</type>
+        <type>Video</type>
+        <type>Audio</type>
       </subtypes>
     </doctype>
     <doctype name="Account" append="true">
@@ -308,8 +317,8 @@
   <extension target="org.nuxeo.ecm.platform.types.TypeService" point="types">
     <type id="Account">
       <label>label.account</label>
-      <icon>/img/ic_business_black_24dp_2x.png</icon>
-      <bigIcon>/img/ic_business_black_24dp_1x.png</bigIcon>
+      <icon>/img/ic_business_black_24dp_1x.png</icon>
+      <bigIcon>/img/ic_business_black_24dp_2x.png</bigIcon>
       <description></description>
     </type>
     <type id="Folder">
@@ -345,7 +354,7 @@
     </type>
     <type id="Interaction">
       <label>Interaction</label>
-      <icon>/img/ic_thumb_up_black_24dp_1x.png</icon>
+      <icon>/img/ic_thumb_up_black_24dp_2x.png</icon>
       <bigIcon>/img/ic_thumb_up_black_24dp_2x.png</bigIcon>
       <description></description>
     </type>
@@ -537,16 +546,28 @@
         <attribute>Regular Document</attribute>
       </filters>
     </handler>
-    <handler chainId="javascript.contactPostSave">
+    <handler chainId="javascript.contactPreSave">
       <event>beforeDocumentModification</event>
       <filters>
         <doctype>Contact</doctype>
         <attribute>Regular Document</attribute>
-        <condition>
+        <!--condition>
           Document.doc.getProperty('person:civility').isDirty()
           || Document.doc.getProperty('person:firstName').isDirty()
           || Document.doc.getProperty('person:lastName').isDirty()
-        </condition>
+        </condition-->
+      </filters>
+    </handler>
+    <handler chainId="javascript.contactPostSave">
+      <event>documentCreated</event>
+      <filters>
+        <doctype>Contact</doctype>
+        <attribute>Regular Document</attribute>
+        <!--condition>
+          Document.doc.getProperty('person:civility').isDirty()
+          || Document.doc.getProperty('person:firstName').isDirty()
+          || Document.doc.getProperty('person:lastName').isDirty()
+        </condition-->
       </filters>
     </handler>
     <handler chainId="javascript.updateLastInteractionDate">
@@ -644,6 +665,9 @@
         </state>
         <state name="deleted" description="">
           <transitions/>
+        </state>
+        <state name="project" description="">
+          <transition>to_done</transition>
         </state>
       </states>
     </lifecycle>
@@ -811,6 +835,9 @@
     <genericPageProvider class="org.nuxeo.elasticsearch.provider.ElasticSearchNxqlPageProvider" name="opportunity_list">
       <property name="coreSession">#{documentManager}</property>
       <whereClause>
+        <predicate id="system_fulltext" parameter="ecm:fulltext" operator="FULLTEXT ALL">
+          <field schema="opportunity_list_pp" name="system_fulltext"/>
+        </predicate>
         <fixedPart>ecm:mixinType != 'HiddenInNavigation' AND ecm:isCheckedInVersion = 0 AND ecm:currentLifeCycleState != 'deleted' AND ecm:primaryType = 'Opportunity'</fixedPart>
       </whereClause>
       <searchDocumentType>opportunity_list_pp</searchDocumentType>
@@ -859,6 +886,12 @@
     <genericPageProvider class="org.nuxeo.elasticsearch.provider.ElasticSearchNxqlPageProvider" name="account_list">
       <property name="coreSession">#{documentManager}</property>
       <whereClause>
+        <predicate id="system_fulltext" parameter="ecm:fulltext" operator="FULLTEXT ALL">
+          <field schema="account_list_pp" name="system_fulltext"/>
+        </predicate>
+        <predicate id="dublincore_title" parameter="dc:title" operator="ILIKE">
+          <field schema="account_list_pp" name="dublincore_title"/>
+        </predicate>
         <fixedPart>ecm:mixinType != 'HiddenInNavigation' AND ecm:isCheckedInVersion = 0 AND ecm:currentLifeCycleState != 'deleted' AND ecm:primaryType = 'Account'</fixedPart>
       </whereClause>
       <searchDocumentType>account_list_pp</searchDocumentType>
@@ -973,7 +1006,7 @@
   return input;
 }]]></script>
     </scriptedOperation>
-    <scriptedOperation id="javascript.contactPostSave">
+    <scriptedOperation id="javascript.contactPreSave">
       <inputType>document</inputType>
       <outputType>document</outputType>
       <category>javascript</category>
@@ -986,9 +1019,20 @@
         title += (civility !== null)? civility+" " : "";
         title += (firstName !== null)? firstName+" " : "";
         title += (lastName !== null)? lastName : "";
-        Log(input, {'level': 'ERROR' ,'message': 'title: '+ title});
-
-        Document.SetProperty(input, {'xpath': 'dc:title','save': true,'value': title.trim()});
+        Console.error('Title: '+ title);
+        input = Document.SetProperty(input, {'xpath': 'dc:title','save': false,'value': title.trim()});
+        return input;
+        }]]>
+      </script>
+    </scriptedOperation>
+    <scriptedOperation id="javascript.contactPostSave">
+      <inputType>document</inputType>
+      <outputType>document</outputType>
+      <category>javascript</category>
+      <description></description>
+      <script><![CDATA[function run(input, params) {
+        input = javascript.contactPreSave(input,{});
+        input = Document.Save(input, {});
         return input;
         }]]>
       </script>
@@ -1225,4 +1269,13 @@
       </filter>
     </action>
   </extension>
+  <extension point="configuration" target="org.nuxeo.runtime.ConfigurationService">
+    <property name="org.nuxeo.dnd.upload.timeout">300000</property>
+    <property name="org.nuxeo.dnd.exec.timeout">300000</property>
+  </extension>
+  <extension target="org.nuxeo.ecm.platform.web.common.requestcontroller.service.RequestControllerService" point="corsConfig">
+    <corsConfig name="foobar" supportedMethods ="GET,POST,HEAD,OPTIONS,DELETE,PUT">
+      <pattern>/nuxeo/.*</pattern>
+    </corsConfig>
+</extension>
 </component>

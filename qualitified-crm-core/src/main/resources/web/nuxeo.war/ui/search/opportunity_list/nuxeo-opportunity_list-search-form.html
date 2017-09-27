@@ -40,15 +40,15 @@
     </style>
 
     <!-- Full Text -->
-    <div class="layout vertical row">
-      <label>[[i18n('assetsSearch.fullText', 'Full Text')]]</label>
-      <paper-input id="searchInput" autofocus="true"
-                   value="{{searchTerm}}" tabindex="0"
-                   type="search"
-                   placeholder="[[i18n('assetsSearch.fullText.placeholder', 'Search something ...')]]"
-                   no-label-float>
-      </paper-input>
-    </div>
+    <nuxeo-input role="widget"
+                 id="searchInput"
+                 type="search"
+                 label="[[i18n('defaultSearch.fullText')]]"
+                 value="{{searchTerm}}"
+                 placeholder="[[i18n('defaultSearch.fullText.placeholder')]]"
+                 autofocus
+                 on-keydown="_checkForEnter">
+    </nuxeo-input>
 
     <div class="layout vertical row">
       <label>Step</label>
@@ -111,14 +111,18 @@
 
     _addFullTextSearch: function() {
       if (this.searchTerm) {
-        this.set('params.ecm_fulltext', this.searchTerm + '*');
+        console.log(this.searchTerm);
+        this.set('params.system_fulltext', this.searchTerm + '*');
       } else {
-        if (this.params.ecm_fulltext) {
-          this.set('params.ecm_fulltext', '');
-          // dirty but needed, the above line for
-          // ecm_fulltext removal being observed
-          delete this.params.ecm_fulltext;
+        if (this.params.system_fulltext) {
+          this.set('params.system_fulltext', '');
+          delete this.params.system_fulltext;
         }
+      }
+    },
+    _checkForEnter: function(e) {
+      if (e.keyCode === 13) {
+        this.fire('trigger-search');
       }
     },
 

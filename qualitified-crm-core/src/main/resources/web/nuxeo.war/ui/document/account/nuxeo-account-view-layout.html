@@ -29,6 +29,12 @@
         box-sizing: border-box;
         margin-right: 8px;
       }
+      .results {
+        @apply(--layout-vertical);
+        @apply(--layout-flex);
+        min-height: calc(60vh - 14em);
+        margin-top: 8px;
+      }
 
     </style>
     <nuxeo-connection id="nxcon"></nuxeo-connection>
@@ -36,6 +42,7 @@
 
       <paper-tabs selected="{{selected}}" scrollable>
         <paper-tab>[[i18n('Opportunities')]]</paper-tab>
+        <paper-tab>[[i18n('Travaux')]]</paper-tab>
         <paper-tab>[[i18n('Contacts')]]</paper-tab>
         <paper-tab>[[i18n('Interactions')]]</paper-tab>
         <paper-tab>[[i18n('Solicitations')]]</paper-tab>
@@ -43,232 +50,550 @@
       </paper-tabs>
 
       <iron-pages selected="{{selected}}">
+
         <div class="dataTable">
-          <nuxeo-page-provider
-                               role="widget"
-                               id="opportunityProvider"
-                               auto
-                               query="select * from Opportunity where ecm:currentLifeCycleState != 'deleted' and ecm:parentId = '[[document.uid]]'"
-                               page-size="5"
-                               params="[[params]]"
+          <nuxeo-page-provider id="opportunityProvider" auto
+                               query="select * from Opportunity where ecm:currentLifeCycleState != 'deleted' and ecm:parentId = '[[document.uid]]' ORDER BY dc:title ASC"
+                               page-size="40"
                                aggregations="{{opportunityAggregations}}"
-                               current-page="{{opportunities}}">
-          </nuxeo-page-provider>
-          <nuxeo-data-table role="widget" id="datatable" items="[[opportunities]]" on-row-clicked="_navigate" selection-enabled>
-            <nuxeo-data-table-column name="Full text search" flex="100" filter-by="ecm_fulltext" sort-by="dc:title">
-              <template>
-                <img class="queue-thumbnail" src="[[_thumbnail(item)]]">
-                [[item.title]]
-              </template>
-            </nuxeo-data-table-column>
-            <nuxeo-data-table-column filter-by="dc_modified_agg" flex="50" sort-by="dc:modified">
-              <template is="header">
-                <nuxeo-dropdown-aggregation
-                                            placeholder="Modified"
-                                            data="[[opportunityAggregations.dc_modified_agg]]"
-                                            value="{{column.filterValue}}" multiple>
-                </nuxeo-dropdown-aggregation>
-              </template>
-              <template>
-                [[_formatDate(item.properties.dc:modified)]]
-              </template>
-            </nuxeo-data-table-column>
-            <nuxeo-data-table-column filter-by="dc_creator_agg" flex="50">
-              <template is="header">
-                <nuxeo-dropdown-aggregation
-                                            placeholder="Author"
-                                            data="[[opportunityAggregations.dc_creator_agg]]"
-                                            value="{{column.filterValue}}" multiple>
-                </nuxeo-dropdown-aggregation>
-              </template>
-              <template>
-                <nuxeo-user-tag user="[[item.properties.dc:creator]]"></nuxeo-user-tag>
-              </template>
-            </nuxeo-data-table-column>
-          </nuxeo-data-table>
-        </div>
-        <div class="dataTable">
-          <nuxeo-page-provider
-                               role="widget"
-                               id="contactProvider"
-                               auto
-                               query="select * from Contact where ecm:currentLifeCycleState != 'deleted' and ecm:parentId = '[[document.uid]]'"
-                               page-size="5"
+                               enrichers="thumbnail, permissions"
+                               page="[[pageNumber]]"
                                params="[[params]]"
+                               schemas="dublincore,common,uid,file"
+                               headers='{"X-NXfetch.document": "properties", "X-NXtranslate.directoryEntry": "label"}'
+                               fetch-aggregates>
+          </nuxeo-page-provider>
+
+          <nuxeo-results name="[[document.uid]]" nx-provider="[[opportunityProvider]]" selected-items="{{selectedItems}}">
+            <div class="selectionActions">
+              <nuxeo-slot slot="BROWSE_ACTIONS" model="[[browseActionContext]]"></nuxeo-slot>
+            </div>
+
+
+            <!-- Table view -->
+            <nuxeo-data-table class="results" name="table" icon="nuxeo:view-list"
+                              settings-enabled
+                              empty-label="[[emptyLabel]]"
+                              empty-label-when-filtered="[[emptyLabelWhenFiltered]]"
+                              selection-enabled
+                              display-quick-filters
+                              on-row-clicked="_navigate">
+
+              <nuxeo-data-table-column name="[[i18n('documentContentView.datatable.header.title')]]"
+                                       field="dc:title" sort-by="dc:title" filter-by="title"  flex="100">
+                <template>
+
+                  <nuxeo-document-thumbnail document="[[item]]"></nuxeo-document-thumbnail>
+                  <a class="title ellipsis" href$="#!/browse[[item.path]]" on-tap="_navigate">[[item.title]]</a>
+                </template>
+              </nuxeo-data-table-column>
+              <nuxeo-data-table-column name="[[i18n('documentContentView.datatable.header.modified')]]"
+                                       field="dc:modified" sort-by="dc:modified"
+                                       filter-by="dc_modified_agg"
+                                       flex="50">
+                <template is="header">
+                  <nuxeo-dropdown-aggregation
+                                              placeholder="[[i18n('documentContentView.datatable.header.modified')]]"
+                                              data="[[opportunityAggregations.dc_modified_agg]]"
+                                              value="{{column.filterValue}}" multiple>
+                  </nuxeo-dropdown-aggregation>
+                </template>
+                <template>
+                  <nuxeo-date datetime="[[item.properties.dc:modified]]"></nuxeo-date>
+                </template>
+              </nuxeo-data-table-column>
+              <nuxeo-data-table-column name="[[i18n('documentContentView.datatable.header.lastContributor')]]"
+                                       filter-by="dc_last_contributor_agg" field="dc:lastContributor" sort-by="dc:lastContributor" flex="50">
+                <template is="header">
+                  <nuxeo-dropdown-aggregation
+                                              placeholder="[[i18n('documentContentView.datatable.header.lastContributor')]]"
+                                              data="[[opportunityAggregations.dc_last_contributor_agg]]"
+                                              value="{{column.filterValue}}" multiple>
+                  </nuxeo-dropdown-aggregation>
+                </template>
+                <template>
+                  <nuxeo-user-tag user="[[item.properties.dc:lastContributor]]"></nuxeo-user-tag>
+                </template>
+              </nuxeo-data-table-column>
+
+              <nuxeo-data-table-column name="[[i18n('documentContentView.datatable.header.state')]]"
+                                       field="currentLifeCycleState" hidden>
+                <template><span class="capitalize">[[item.state]]</span></template>
+              </nuxeo-data-table-column>
+
+              <nuxeo-data-table-column name="[[i18n('documentContentView.datatable.header.created')]]"
+                                       field="dc:created" sort-by="dc:created" flex="50" hidden>
+                <template>
+                  <nuxeo-date datetime="[[item.properties.dc:created]]"></nuxeo-date>
+                </template>
+              </nuxeo-data-table-column>
+
+              <nuxeo-data-table-column name="[[i18n('documentContentView.datatable.header.author')]]"
+                                       field="dc:creator" sort-by="dc:creator" hidden>
+                <template>
+                  <nuxeo-user-tag user="[[item.properties.dc:creator]]"></nuxeo-user-tag>
+                </template>
+              </nuxeo-data-table-column>
+
+              <!--Drag and drop here all the additional metadata columns from the right -->
+              <!-- add hidden attribute if you want them to be hidden by default-->
+
+            </nuxeo-data-table>
+          </nuxeo-results>
+        </div>
+
+        <div class="dataTable">
+          <nuxeo-page-provider id="travauxProvider" auto
+                               query="select * from Travaux where ecm:currentLifeCycleState != 'deleted' and ecm:parentId = '[[document.uid]]' ORDER BY dc:title ASC"
+                               page-size="40"
+                               aggregations="{{travauxAggregations}}"
+                               enrichers="thumbnail, permissions"
+                               page="[[pageNumber]]"
+                               params="[[params]]"
+                               schemas="dublincore,common,uid,file"
+                               headers='{"X-NXfetch.document": "properties", "X-NXtranslate.directoryEntry": "label"}'
+                               fetch-aggregates>
+          </nuxeo-page-provider>
+
+          <nuxeo-results name="[[document.uid]]" nx-provider="[[travauxProvider]]" selected-items="{{selectedItems}}">
+            <div class="selectionActions">
+              <nuxeo-slot slot="BROWSE_ACTIONS" model="[[browseActionContext]]"></nuxeo-slot>
+            </div>
+
+
+            <!-- Table view -->
+            <nuxeo-data-table class="results" name="table" icon="nuxeo:view-list"
+                              settings-enabled
+                              empty-label="[[emptyLabel]]"
+                              empty-label-when-filtered="[[emptyLabelWhenFiltered]]"
+                              selection-enabled
+                              display-quick-filters
+                              on-row-clicked="_navigate">
+
+              <nuxeo-data-table-column name="[[i18n('documentContentView.datatable.header.title')]]"
+                                       field="dc:title" sort-by="dc:title" filter-by="title"  flex="100">
+                <template>
+
+                  <nuxeo-document-thumbnail document="[[item]]"></nuxeo-document-thumbnail>
+                  <a class="title ellipsis" href$="#!/browse[[item.path]]" on-tap="_navigate">[[item.title]]</a>
+                </template>
+              </nuxeo-data-table-column>
+              <nuxeo-data-table-column name="[[i18n('documentContentView.datatable.header.modified')]]"
+                                       field="dc:modified" sort-by="dc:modified"
+                                       filter-by="dc_modified_agg"
+                                       flex="50">
+                <template is="header">
+                  <nuxeo-dropdown-aggregation
+                                              placeholder="[[i18n('documentContentView.datatable.header.modified')]]"
+                                              data="[[travauxAggregations.dc_modified_agg]]"
+                                              value="{{column.filterValue}}" multiple>
+                  </nuxeo-dropdown-aggregation>
+                </template>
+                <template>
+                  <nuxeo-date datetime="[[item.properties.dc:modified]]"></nuxeo-date>
+                </template>
+              </nuxeo-data-table-column>
+              <nuxeo-data-table-column name="[[i18n('documentContentView.datatable.header.lastContributor')]]"
+                                       filter-by="dc_last_contributor_agg" field="dc:lastContributor" sort-by="dc:lastContributor" flex="50">
+                <template is="header">
+                  <nuxeo-dropdown-aggregation
+                                              placeholder="[[i18n('documentContentView.datatable.header.lastContributor')]]"
+                                              data="[[travauxAggregations.dc_last_contributor_agg]]"
+                                              value="{{column.filterValue}}" multiple>
+                  </nuxeo-dropdown-aggregation>
+                </template>
+                <template>
+                  <nuxeo-user-tag user="[[item.properties.dc:lastContributor]]"></nuxeo-user-tag>
+                </template>
+              </nuxeo-data-table-column>
+
+              <nuxeo-data-table-column name="[[i18n('documentContentView.datatable.header.state')]]"
+                                       field="currentLifeCycleState" hidden>
+                <template><span class="capitalize">[[item.state]]</span></template>
+              </nuxeo-data-table-column>
+
+              <nuxeo-data-table-column name="[[i18n('documentContentView.datatable.header.created')]]"
+                                       field="dc:created" sort-by="dc:created" flex="50" hidden>
+                <template>
+                  <nuxeo-date datetime="[[item.properties.dc:created]]"></nuxeo-date>
+                </template>
+              </nuxeo-data-table-column>
+
+              <nuxeo-data-table-column name="[[i18n('documentContentView.datatable.header.author')]]"
+                                       field="dc:creator" sort-by="dc:creator" hidden>
+                <template>
+                  <nuxeo-user-tag user="[[item.properties.dc:creator]]"></nuxeo-user-tag>
+                </template>
+              </nuxeo-data-table-column>
+
+              <!--Drag and drop here all the additional metadata columns from the right -->
+              <!-- add hidden attribute if you want them to be hidden by default-->
+
+            </nuxeo-data-table>
+          </nuxeo-results>
+        </div>
+
+
+        <div class="dataTable">
+          <nuxeo-page-provider id="contactProvider" auto
+                               query="select * from Contact where ecm:currentLifeCycleState != 'deleted' and ecm:parentId = '[[document.uid]]' ORDER BY dc:title ASC"
+                               page-size="40"
                                aggregations="{{contactAggregations}}"
-                               current-page="{{contacts}}">
+                               enrichers="thumbnail, permissions"
+                               page="[[pageNumber]]"
+                               params="[[params]]"
+                               schemas="dublincore,common,uid,file"
+                               headers='{"X-NXfetch.document": "properties", "X-NXtranslate.directoryEntry": "label"}'
+                               fetch-aggregates>
           </nuxeo-page-provider>
-          <nuxeo-data-table role="widget" id="datatable" items="[[contacts]]" on-row-clicked="_navigate" selection-enabled>
-            <nuxeo-data-table-column name="Full text search" flex="100" filter-by="ecm_fulltext" sort-by="dc:title">
-              <template>
-                <img class="queue-thumbnail" src="[[_thumbnail(item)]]">
-                [[item.title]]
-              </template>
-            </nuxeo-data-table-column>
-            <nuxeo-data-table-column filter-by="dc_modified_agg" flex="50" sort-by="dc:modified">
-              <template is="header">
-                <nuxeo-dropdown-aggregation
-                                            placeholder="Modified"
-                                            data="[[contactAggregations.dc_modified_agg]]"
-                                            value="{{column.filterValue}}" multiple>
-                </nuxeo-dropdown-aggregation>
-              </template>
-              <template>
-                [[_formatDate(item.properties.dc:modified)]]
-              </template>
-            </nuxeo-data-table-column>
-            <nuxeo-data-table-column filter-by="dc_creator_agg" flex="50">
-              <template is="header">
-                <nuxeo-dropdown-aggregation
-                                            placeholder="Author"
-                                            data="[[contactAggregations.dc_creator_agg]]"
-                                            value="{{column.filterValue}}" multiple>
-                </nuxeo-dropdown-aggregation>
-              </template>
-              <template>
-                <nuxeo-user-tag user="[[item.properties.dc:creator]]"></nuxeo-user-tag>
-              </template>
-            </nuxeo-data-table-column>
-          </nuxeo-data-table>
+
+          <nuxeo-results name="[[document.uid]]" nx-provider="[[contactProvider]]" selected-items="{{selectedItems}}">
+            <div class="selectionActions">
+              <nuxeo-slot slot="BROWSE_ACTIONS" model="[[browseActionContext]]"></nuxeo-slot>
+            </div>
+
+
+            <!-- Table view -->
+            <nuxeo-data-table class="results" name="table" icon="nuxeo:view-list"
+                              settings-enabled
+                              empty-label="[[emptyLabel]]"
+                              empty-label-when-filtered="[[emptyLabelWhenFiltered]]"
+                              selection-enabled
+                              display-quick-filters
+                              on-row-clicked="_navigate">
+
+              <nuxeo-data-table-column name="[[i18n('documentContentView.datatable.header.title')]]"
+                                       field="dc:title" sort-by="dc:title" filter-by="title"  flex="100">
+                <template>
+                    <img class="queue-thumbnail" src="[[_thumbnail(item)]]">
+                  <a class="title ellipsis" href$="#!/browse[[item.path]]" on-tap="_navigate">[[item.title]]</a>
+                </template>
+              </nuxeo-data-table-column>
+              <nuxeo-data-table-column name="[[i18n('documentContentView.datatable.header.modified')]]"
+                                       field="dc:modified" sort-by="dc:modified"
+                                       filter-by="dc_modified_agg"
+                                       flex="50">
+                <template is="header">
+                  <nuxeo-dropdown-aggregation
+                                              placeholder="[[i18n('documentContentView.datatable.header.modified')]]"
+                                              data="[[contactAggregations.dc_modified_agg]]"
+                                              value="{{column.filterValue}}" multiple>
+                  </nuxeo-dropdown-aggregation>
+                </template>
+                <template>
+                  <nuxeo-date datetime="[[item.properties.dc:modified]]"></nuxeo-date>
+                </template>
+              </nuxeo-data-table-column>
+              <nuxeo-data-table-column name="[[i18n('documentContentView.datatable.header.lastContributor')]]"
+                                       filter-by="dc_last_contributor_agg" field="dc:lastContributor" sort-by="dc:lastContributor" flex="50">
+                <template is="header">
+                  <nuxeo-dropdown-aggregation
+                                              placeholder="[[i18n('documentContentView.datatable.header.lastContributor')]]"
+                                              data="[[contactAggregations.dc_last_contributor_agg]]"
+                                              value="{{column.filterValue}}" multiple>
+                  </nuxeo-dropdown-aggregation>
+                </template>
+                <template>
+                  <nuxeo-user-tag user="[[item.properties.dc:lastContributor]]"></nuxeo-user-tag>
+                </template>
+              </nuxeo-data-table-column>
+
+              <nuxeo-data-table-column name="[[i18n('documentContentView.datatable.header.state')]]"
+                                       field="currentLifeCycleState" hidden>
+                <template><span class="capitalize">[[item.state]]</span></template>
+              </nuxeo-data-table-column>
+
+              <nuxeo-data-table-column name="[[i18n('documentContentView.datatable.header.created')]]"
+                                       field="dc:created" sort-by="dc:created" flex="50" hidden>
+                <template>
+                  <nuxeo-date datetime="[[item.properties.dc:created]]"></nuxeo-date>
+                </template>
+              </nuxeo-data-table-column>
+
+              <nuxeo-data-table-column name="[[i18n('documentContentView.datatable.header.author')]]"
+                                       field="dc:creator" sort-by="dc:creator" hidden>
+                <template>
+                  <nuxeo-user-tag user="[[item.properties.dc:creator]]"></nuxeo-user-tag>
+                </template>
+              </nuxeo-data-table-column>
+
+              <!--Drag and drop here all the additional metadata columns from the right -->
+              <!-- add hidden attribute if you want them to be hidden by default-->
+
+            </nuxeo-data-table>
+          </nuxeo-results>
         </div>
 
-
         <div class="dataTable">
-
-          <nuxeo-page-provider
-                               role="widget"
-                               id="interactionProvider"
-                               auto
-                               query="select * from Interaction where ecm:currentLifeCycleState != 'deleted' and ecm:ancestorId = '[[document.uid]]'"
-                               page-size="5"
-                               params="[[params]]"
+          <nuxeo-page-provider id="interactionProvider" auto
+                               query="select * from Interaction where ecm:currentLifeCycleState != 'deleted' and ecm:ancestorId = '[[document.uid]]' ORDER BY interaction:date DESC"
+                               page-size="40"
                                aggregations="{{interactionAggregations}}"
-                               current-page="{{interactions}}">
+                               enrichers="thumbnail, permissions"
+                               page="[[pageNumber]]"
+                               params="[[params]]"
+                               schemas="dublincore,common,uid,file"
+                               headers='{"X-NXfetch.document": "properties", "X-NXtranslate.directoryEntry": "label"}'
+                               fetch-aggregates>
           </nuxeo-page-provider>
-          <nuxeo-data-table role="widget" id="datatable" items="[[interactions]]" on-row-clicked="_navigate" selection-enabled>
-            <nuxeo-data-table-column name="Full text search" flex="100" filter-by="ecm_fulltext" sort-by="dc:title">
-              <template>
-                <img class="queue-thumbnail" src="[[_thumbnail(item)]]">
-                [[item.title]]
-              </template>
-            </nuxeo-data-table-column>
-            <nuxeo-data-table-column filter-by="dc_modified_agg" flex="50" sort-by="dc:modified">
-              <template is="header">
-                <nuxeo-dropdown-aggregation
-                                            placeholder="Modified"
-                                            data="[[interactionAggregations.dc_modified_agg]]"
-                                            value="{{column.filterValue}}" multiple>
-                </nuxeo-dropdown-aggregation>
-              </template>
-              <template>
-                [[_formatDate(item.properties.dc:modified)]]
-              </template>
-            </nuxeo-data-table-column>
-            <nuxeo-data-table-column filter-by="dc_creator_agg" flex="50">
-              <template is="header">
-                <nuxeo-dropdown-aggregation
-                                            placeholder="Author"
-                                            data="[[interactionAggregations.dc_creator_agg]]"
-                                            value="{{column.filterValue}}" multiple>
-                </nuxeo-dropdown-aggregation>
-              </template>
-              <template>
-                <nuxeo-user-tag user="[[item.properties.dc:creator]]"></nuxeo-user-tag>
-              </template>
-            </nuxeo-data-table-column>
-          </nuxeo-data-table>
 
+          <nuxeo-results name="[[document.uid]]" nx-provider="[[interactionProvider]]" selected-items="{{selectedItems}}">
+            <div class="selectionActions">
+              <nuxeo-slot slot="BROWSE_ACTIONS" model="[[browseActionContext]]"></nuxeo-slot>
+            </div>
+
+
+            <!-- Table view -->
+            <nuxeo-data-table class="results" name="table" icon="nuxeo:view-list"
+                              settings-enabled
+                              empty-label="[[emptyLabel]]"
+                              empty-label-when-filtered="[[emptyLabelWhenFiltered]]"
+                              selection-enabled
+                              display-quick-filters
+                              on-row-clicked="_navigate">
+
+              <nuxeo-data-table-column name="[[i18n('documentContentView.datatable.header.title')]]"
+                                       field="dc:title" sort-by="dc:title" filter-by="title"  flex="100">
+                <template>
+                    <img class="queue-thumbnail" src="[[_thumbnail(item)]]">
+                  <a class="title ellipsis" href$="#!/browse[[item.path]]" on-tap="_navigate">[[item.title]]</a>
+                </template>
+              </nuxeo-data-table-column>
+              <nuxeo-data-table-column name="[[i18n('documentContentView.datatable.header.modified')]]"
+                                       field="dc:modified" sort-by="dc:modified"
+                                       filter-by="dc_modified_agg"
+                                       flex="50">
+                <template is="header">
+                  <nuxeo-dropdown-aggregation
+                                              placeholder="[[i18n('documentContentView.datatable.header.modified')]]"
+                                              data="[[interactionAggregations.dc_modified_agg]]"
+                                              value="{{column.filterValue}}" multiple>
+                  </nuxeo-dropdown-aggregation>
+                </template>
+                <template>
+                  <nuxeo-date datetime="[[item.properties.dc:modified]]"></nuxeo-date>
+                </template>
+              </nuxeo-data-table-column>
+              <nuxeo-data-table-column name="[[i18n('documentContentView.datatable.header.lastContributor')]]"
+                                       filter-by="dc_last_contributor_agg" field="dc:lastContributor" sort-by="dc:lastContributor" flex="50">
+                <template is="header">
+                  <nuxeo-dropdown-aggregation
+                                              placeholder="[[i18n('documentContentView.datatable.header.lastContributor')]]"
+                                              data="[[interactionAggregations.dc_last_contributor_agg]]"
+                                              value="{{column.filterValue}}" multiple>
+                  </nuxeo-dropdown-aggregation>
+                </template>
+                <template>
+                  <nuxeo-user-tag user="[[item.properties.dc:lastContributor]]"></nuxeo-user-tag>
+                </template>
+              </nuxeo-data-table-column>
+
+              <nuxeo-data-table-column name="[[i18n('documentContentView.datatable.header.state')]]"
+                                       field="currentLifeCycleState" hidden>
+                <template><span class="capitalize">[[item.state]]</span></template>
+              </nuxeo-data-table-column>
+
+              <nuxeo-data-table-column name="[[i18n('documentContentView.datatable.header.created')]]"
+                                       field="dc:created" sort-by="dc:created" flex="50" hidden>
+                <template>
+                  <nuxeo-date datetime="[[item.properties.dc:created]]"></nuxeo-date>
+                </template>
+              </nuxeo-data-table-column>
+
+              <nuxeo-data-table-column name="[[i18n('documentContentView.datatable.header.author')]]"
+                                       field="dc:creator" sort-by="dc:creator" hidden>
+                <template>
+                  <nuxeo-user-tag user="[[item.properties.dc:creator]]"></nuxeo-user-tag>
+                </template>
+              </nuxeo-data-table-column>
+
+              <!--Drag and drop here all the additional metadata columns from the right -->
+              <!-- add hidden attribute if you want them to be hidden by default-->
+
+            </nuxeo-data-table>
+          </nuxeo-results>
         </div>
 
         <div class="dataTable">
-          <nuxeo-page-provider
-                               role="widget"
-                               id="solicitationProvider"
-                               auto
+          <nuxeo-page-provider id="sollicitationProvider" auto
                                query="select * from Document where 1=2 and ecm:currentLifeCycleState != 'deleted' and ecm:parentId = '[[document.uid]]'"
-                               page-size="5"
+                               page-size="40"
+                               aggregations="{{sollicitationAggregations}}"
+                               enrichers="thumbnail, permissions"
+                               page="[[pageNumber]]"
                                params="[[params]]"
-                               aggregations="{{solicitationaggregations}}"
-                               current-page="{{solicitations}}">
+                               schemas="dublincore,common,uid,file"
+                               headers='{"X-NXfetch.document": "properties", "X-NXtranslate.directoryEntry": "label"}'
+                               fetch-aggregates>
           </nuxeo-page-provider>
-          <nuxeo-data-table role="widget" id="datatable" items="[[solicitations]]" on-row-clicked="_navigate" selection-enabled>
-            <nuxeo-data-table-column name="Full text search" flex="100" filter-by="ecm_fulltext" sort-by="dc:title">
-              <template>
-                <img class="queue-thumbnail" src="[[_thumbnail(item)]]">
-                [[item.title]]
-              </template>
-            </nuxeo-data-table-column>
-            <nuxeo-data-table-column filter-by="dc_modified_agg" flex="50" sort-by="dc:modified">
-              <template is="header">
-                <nuxeo-dropdown-aggregation
-                                            placeholder="Modified"
-                                            data="[[solicitationaggregations.dc_modified_agg]]"
-                                            value="{{column.filterValue}}" multiple>
-                </nuxeo-dropdown-aggregation>
-              </template>
-              <template>
-                [[_formatDate(item.properties.dc:modified)]]
-              </template>
-            </nuxeo-data-table-column>
-            <nuxeo-data-table-column filter-by="dc_creator_agg" flex="50">
-              <template is="header">
-                <nuxeo-dropdown-aggregation
-                                            placeholder="Author"
-                                            data="[[solicitationaggregations.dc_creator_agg]]"
-                                            value="{{column.filterValue}}" multiple>
-                </nuxeo-dropdown-aggregation>
-              </template>
-              <template>
-                <nuxeo-user-tag user="[[item.properties.dc:creator]]"></nuxeo-user-tag>
-              </template>
-            </nuxeo-data-table-column>
-          </nuxeo-data-table>
+
+          <nuxeo-results name="[[document.uid]]" nx-provider="[[sollicitationProvider]]" selected-items="{{selectedItems}}">
+            <div class="selectionActions">
+              <nuxeo-slot slot="BROWSE_ACTIONS" model="[[browseActionContext]]"></nuxeo-slot>
+            </div>
+
+
+            <!-- Table view -->
+            <nuxeo-data-table class="results" name="table" icon="nuxeo:view-list"
+                              settings-enabled
+                              empty-label="[[emptyLabel]]"
+                              empty-label-when-filtered="[[emptyLabelWhenFiltered]]"
+                              selection-enabled
+                              display-quick-filters
+                              on-row-clicked="_navigate">
+
+              <nuxeo-data-table-column name="[[i18n('documentContentView.datatable.header.title')]]"
+                                       field="dc:title" sort-by="dc:title" filter-by="title"  flex="100">
+                <template>
+                    <img class="queue-thumbnail" src="[[_thumbnail(item)]]">
+                  <a class="title ellipsis" href$="#!/browse[[item.path]]" on-tap="_navigate">[[item.title]]</a>
+                </template>
+              </nuxeo-data-table-column>
+              <nuxeo-data-table-column name="[[i18n('documentContentView.datatable.header.modified')]]"
+                                       field="dc:modified" sort-by="dc:modified"
+                                       filter-by="dc_modified_agg"
+                                       flex="50">
+                <template is="header">
+                  <nuxeo-dropdown-aggregation
+                                              placeholder="[[i18n('documentContentView.datatable.header.modified')]]"
+                                              data="[[sollicitationAggregations.dc_modified_agg]]"
+                                              value="{{column.filterValue}}" multiple>
+                  </nuxeo-dropdown-aggregation>
+                </template>
+                <template>
+                  <nuxeo-date datetime="[[item.properties.dc:modified]]"></nuxeo-date>
+                </template>
+              </nuxeo-data-table-column>
+              <nuxeo-data-table-column name="[[i18n('documentContentView.datatable.header.lastContributor')]]"
+                                       filter-by="dc_last_contributor_agg" field="dc:lastContributor" sort-by="dc:lastContributor" flex="50">
+                <template is="header">
+                  <nuxeo-dropdown-aggregation
+                                              placeholder="[[i18n('documentContentView.datatable.header.lastContributor')]]"
+                                              data="[[sollicitationAggregations.dc_last_contributor_agg]]"
+                                              value="{{column.filterValue}}" multiple>
+                  </nuxeo-dropdown-aggregation>
+                </template>
+                <template>
+                  <nuxeo-user-tag user="[[item.properties.dc:lastContributor]]"></nuxeo-user-tag>
+                </template>
+              </nuxeo-data-table-column>
+
+              <nuxeo-data-table-column name="[[i18n('documentContentView.datatable.header.state')]]"
+                                       field="currentLifeCycleState" hidden>
+                <template><span class="capitalize">[[item.state]]</span></template>
+              </nuxeo-data-table-column>
+
+              <nuxeo-data-table-column name="[[i18n('documentContentView.datatable.header.created')]]"
+                                       field="dc:created" sort-by="dc:created" flex="50" hidden>
+                <template>
+                  <nuxeo-date datetime="[[item.properties.dc:created]]"></nuxeo-date>
+                </template>
+              </nuxeo-data-table-column>
+
+              <nuxeo-data-table-column name="[[i18n('documentContentView.datatable.header.author')]]"
+                                       field="dc:creator" sort-by="dc:creator" hidden>
+                <template>
+                  <nuxeo-user-tag user="[[item.properties.dc:creator]]"></nuxeo-user-tag>
+                </template>
+              </nuxeo-data-table-column>
+
+              <!--Drag and drop here all the additional metadata columns from the right -->
+              <!-- add hidden attribute if you want them to be hidden by default-->
+
+            </nuxeo-data-table>
+          </nuxeo-results>
         </div>
 
         <div class="dataTable">
-          <nuxeo-page-provider
-                               role="widget"
-                               id="documentProvider"
-                               auto
-                               query="select * from Document where ecm:primaryType in ('File', 'Folder') and ecm:currentLifeCycleState != 'deleted' and ecm:parentId = '[[document.uid]]'"
-                               page-size="5"
-                               params="[[params]]"
+          <nuxeo-page-provider id="documentProvider" auto
+                               query="select * from Document where ecm:primaryType in ('File', 'Folder', 'Picture', 'Video', 'Audio') and ecm:currentLifeCycleState != 'deleted' and ecm:parentId = '[[document.uid]]' ORDER BY dc:title ASC"
+                               page-size="40"
                                aggregations="{{documentAggregations}}"
-                               current-page="{{documents}}">
+                               enrichers="thumbnail, permissions"
+                               page="[[pageNumber]]"
+                               params="[[params]]"
+                               schemas="dublincore,common,uid,file"
+                               headers='{"X-NXfetch.document": "properties", "X-NXtranslate.directoryEntry": "label"}'
+                               fetch-aggregates>
           </nuxeo-page-provider>
-          <nuxeo-data-table role="widget" id="datatable" items="[[documents]]" selection-enabled>
-            <nuxeo-data-table-column name="Full text search" flex="100" filter-by="ecm_fulltext" sort-by="dc:title">
-              <template>
-                <img class="queue-thumbnail" src="[[_thumbnail(item)]]">
-                [[item.title]]
-              </template>
-            </nuxeo-data-table-column>
-            <nuxeo-data-table-column filter-by="dc_modified_agg" flex="50" sort-by="dc:modified">
-              <template is="header">
-                <nuxeo-dropdown-aggregation
-                                            placeholder="Modified"
-                                            data="[[documentAggregations.dc_modified_agg]]"
-                                            value="{{column.filterValue}}" multiple>
-                </nuxeo-dropdown-aggregation>
-              </template>
-              <template>
-                [[_formatDate(item.properties.dc:modified)]]
-              </template>
-            </nuxeo-data-table-column>
-            <nuxeo-data-table-column filter-by="dc_creator_agg" flex="50">
-              <template is="header">
-                <nuxeo-dropdown-aggregation
-                                            placeholder="Author"
-                                            data="[[documentAggregations.dc_creator_agg]]"
-                                            value="{{column.filterValue}}" multiple>
-                </nuxeo-dropdown-aggregation>
-              </template>
-              <template>
-                <nuxeo-user-tag user="[[item.properties.dc:creator]]"></nuxeo-user-tag>
-              </template>
-            </nuxeo-data-table-column>
-          </nuxeo-data-table>
+
+          <nuxeo-results name="[[document.uid]]" nx-provider="[[documentProvider]]" selected-items="{{selectedItems}}">
+            <div class="selectionActions">
+              <nuxeo-slot slot="BROWSE_ACTIONS" model="[[browseActionContext]]"></nuxeo-slot>
+            </div>
+
+
+            <!-- Table view -->
+            <nuxeo-data-table class="results" name="table" icon="nuxeo:view-list"
+                              settings-enabled
+                              empty-label="[[emptyLabel]]"
+                              empty-label-when-filtered="[[emptyLabelWhenFiltered]]"
+                              selection-enabled
+                              display-quick-filters
+                              on-row-clicked="_navigate">
+
+              <nuxeo-data-table-column name="[[i18n('documentContentView.datatable.header.title')]]"
+                                       field="dc:title" sort-by="dc:title" filter-by="title"  flex="100">
+                <template>
+                    <img class="queue-thumbnail" src="[[_thumbnail(item)]]">
+                  <a class="title ellipsis" href$="#!/browse[[item.path]]" on-tap="_navigate">[[item.title]]</a>
+                </template>
+              </nuxeo-data-table-column>
+              <nuxeo-data-table-column name="[[i18n('documentContentView.datatable.header.modified')]]"
+                                       field="dc:modified" sort-by="dc:modified"
+                                       filter-by="dc_modified_agg"
+                                       flex="50">
+                <template is="header">
+                  <nuxeo-dropdown-aggregation
+                                              placeholder="[[i18n('documentContentView.datatable.header.modified')]]"
+                                              data="[[documentAggregations.dc_modified_agg]]"
+                                              value="{{column.filterValue}}" multiple>
+                  </nuxeo-dropdown-aggregation>
+                </template>
+                <template>
+                  <nuxeo-date datetime="[[item.properties.dc:modified]]"></nuxeo-date>
+                </template>
+              </nuxeo-data-table-column>
+              <nuxeo-data-table-column name="[[i18n('documentContentView.datatable.header.lastContributor')]]"
+                                       filter-by="dc_last_contributor_agg" field="dc:lastContributor" sort-by="dc:lastContributor" flex="50">
+                <template is="header">
+                  <nuxeo-dropdown-aggregation
+                                              placeholder="[[i18n('documentContentView.datatable.header.lastContributor')]]"
+                                              data="[[documentAggregations.dc_last_contributor_agg]]"
+                                              value="{{column.filterValue}}" multiple>
+                  </nuxeo-dropdown-aggregation>
+                </template>
+                <template>
+                  <nuxeo-user-tag user="[[item.properties.dc:lastContributor]]"></nuxeo-user-tag>
+                </template>
+              </nuxeo-data-table-column>
+
+              <nuxeo-data-table-column name="[[i18n('documentContentView.datatable.header.state')]]"
+                                       field="currentLifeCycleState" hidden>
+                <template><span class="capitalize">[[item.state]]</span></template>
+              </nuxeo-data-table-column>
+
+              <nuxeo-data-table-column name="[[i18n('documentContentView.datatable.header.created')]]"
+                                       field="dc:created" sort-by="dc:created" flex="50" hidden>
+                <template>
+                  <nuxeo-date datetime="[[item.properties.dc:created]]"></nuxeo-date>
+                </template>
+              </nuxeo-data-table-column>
+
+              <nuxeo-data-table-column name="[[i18n('documentContentView.datatable.header.author')]]"
+                                       field="dc:creator" sort-by="dc:creator" hidden>
+                <template>
+                  <nuxeo-user-tag user="[[item.properties.dc:creator]]"></nuxeo-user-tag>
+                </template>
+              </nuxeo-data-table-column>
+
+              <!--Drag and drop here all the additional metadata columns from the right -->
+              <!-- add hidden attribute if you want them to be hidden by default-->
+
+            </nuxeo-data-table>
+          </nuxeo-results>
         </div>
+
       </iron-pages>
     </paper-card>
   </template>
@@ -304,6 +629,12 @@
           this.params = {'ecm_parentId': this.document.uid};
         }
 
+        this.opportunityProvider = this.$.opportunityProvider;
+        this.travauxProvider = this.$.travauxProvider;
+        this.contactProvider = this.$.contactProvider;
+        this.interactionProvider = this.$.interactionProvider;
+        this.sollicitationProvider = this.$.sollicitationProvider;
+        this.documentProvider = this.$.documentProvider;
       },
       _observeDocument: function() {
         if (this.document) {
