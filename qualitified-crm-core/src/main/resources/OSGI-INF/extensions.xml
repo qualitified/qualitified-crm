@@ -102,6 +102,8 @@
       <schema name="admin"/>
       <subtypes>
         <type>TemplateRoot</type>
+        <type>File</type>
+        <type>Note</type>
       </subtypes>
     </doctype>
     <doctype name="Root" append="true">
