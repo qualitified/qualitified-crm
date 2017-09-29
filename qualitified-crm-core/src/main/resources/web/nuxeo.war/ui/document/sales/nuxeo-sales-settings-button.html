@@ -34,7 +34,7 @@ Contributors:
         fill: var(--nuxeo-link-hover-color);
       }
     </style>
-      <nuxeo-connection id="nxcon"></nuxeo-connection>
+      <nuxeo-connection id="nxcon" user="{{currentUser}}"></nuxeo-connection>
       <nuxeo-operation id="updateSettings" op="updateSettings" input="[[document.uid]]" params="[[params]]"></nuxeo-operation>
       <paper-icon-button id="button" icon="icons:settings" on-tap="_toggleDialog"></paper-icon-button>
       <paper-tooltip for="button">Settings</paper-tooltip>
@@ -110,7 +110,7 @@ Contributors:
         };
         this.$.updateSettings.execute().then(function(doc) {
           this.$.dialog.close();
-          page('/browse/'+doc.path+'/'+this.document.properties['dc:title']);
+          page('/browse/'+doc.path);
         }.bind(this));
 
         /*{

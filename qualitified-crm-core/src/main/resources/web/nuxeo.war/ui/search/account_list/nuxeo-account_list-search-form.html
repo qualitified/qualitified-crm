@@ -149,7 +149,7 @@
       }
 
     </style>
-
+    <nuxeo-connection id="nxcon" user="{{currentUser}}"></nuxeo-connection>
     <!-- Full Text -->
     <nuxeo-input role="widget"
                  id="searchInput"
@@ -176,7 +176,7 @@
     </div>
 
     <paper-dialog id="createDocDialog" on-iron-overlay-closed="_resetPopup" no-auto-focus>
-      <nuxeo-document id="docRequest" doc-path="/Sales" data="[[document]]" headers="{&quot;nx_es_sync&quot;: &quot;true&quot;}" enrichers="permissions, subtypes" response="{{createResponse}}"></nuxeo-document>
+      <nuxeo-document id="docRequest" doc-path="[[currentUser.properties.company]]/Sales" data="[[document]]" headers="{&quot;nx_es_sync&quot;: &quot;true&quot;}" enrichers="permissions, subtypes" response="{{createResponse}}"></nuxeo-document>
       <nuxeo-document-creation-stats id="creationStats"></nuxeo-document-creation-stats>
       <iron-pages selected="[[stage]]" attr-for-selected="name" class="vertical layout flex">
         <!--div name="choose" class="vertical layout flex">

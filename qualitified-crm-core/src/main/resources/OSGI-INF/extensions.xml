@@ -1082,6 +1082,20 @@
         <templateItem typeName="Admin" id="Admin" title="Admin" description=""/>
       </template>
     </factoryBinding>
+    <factoryBinding name="DomainFactory" factoryName="SimpleTemplateRootFactory" targetType="Domain">
+      <acl>
+        <ace principal="Administrator" permission="Everything" granted="true"/>
+        <ace principal="administrators" permission="Everything" granted="true"/>
+        <ace principal="members" permission="Read" granted="false"/>
+        <ace principal="members" permission="Version" granted="false"/>
+      </acl>
+      <template>
+        <templateItem typeName="Sales" id="Sales" title="Sales" description=""/>
+        <templateItem typeName="Marketing" id="Marketing" title="Marketing" description=""/>
+        <templateItem typeName="Services" id="Services" title="Services" description=""/>
+        <templateItem typeName="Admin" id="Admin" title="Admin" description=""/>
+      </template>
+    </factoryBinding>
   </extension>
   <require>org.nuxeo.ecm.directory.sql.storage</require>
   <extension target="org.nuxeo.ecm.directory.sql.SQLDirectoryFactory" point="directories">
@@ -1211,54 +1225,9 @@
     </filter>
   </extension>
   <extension target="org.nuxeo.ecm.platform.web.common.requestcontroller.service.RequestControllerService" point="corsConfig">
-
     <corsConfig name="fooly" allowGenericHttpRequests="true" allowOrigin="*" allowSubdomains="true">
-
       <pattern>.*</pattern>
-
     </corsConfig>
-  </extension>  <extension target="org.nuxeo.ecm.platform.WebResources" point="resources">
-
-    <resource name="nuxeo-opportunity-list.html" type="import" shrinkable="false">
-
-      <uri>/ui/nuxeo-opportunity-list.html</uri>
-
-    </resource>
-
-
-    <resource name="nuxeo-menu-icon-custom.html" type="import" shrinkable="false">
-
-      <uri>/ui/nuxeo-menu-icon-custom.html</uri>
-
-    </resource>
-    <resource name="nuxeo-crm-bundle.html" type="import" shrinkable="false">      <uri>/ui/nuxeo-crm-bundle.html</uri>
-    </resource>
-  </extension>
-  <extension target="org.nuxeo.ecm.platform.WebResources" point="bundles">
-
-    <bundle name="web-ui">
-
-      <resources append="true">
-
-        <resource>nuxeo-opportunity-list.html</resource>
-
-      </resources>
-
-    </bundle>
-
-
-    <bundle name="web-ui">
-
-      <resources append="true">
-
-        <resource>nuxeo-menu-icon-custom.html</resource>
-
-      </resources>
-
-    </bundle>
-    <bundle name="web-ui">      <resources append="true">        <resource>nuxeo-crm-bundle.html</resource>
-      </resources>
-    </bundle>
   </extension>
   <extension target="org.nuxeo.ecm.platform.actions.ActionService" point="actions">
     <action id="TAB_VIEW_FOLDERISH" link="/incl/tabs/document_view.xhtml" order="11" label="action.view.summary" icon="/icons/file.gif">
@@ -1279,5 +1248,33 @@
     <corsConfig name="foobar" supportedMethods ="GET,POST,HEAD,OPTIONS,DELETE,PUT">
       <pattern>/nuxeo/.*</pattern>
     </corsConfig>
+  </extension>
+  <extension target="org.nuxeo.ecm.platform.WebResources" point="resources">
+    <resource name="nuxeo-opportunity-list.html" type="import" shrinkable="false">
+      <uri>/ui/nuxeo-opportunity-list.html</uri>
+    </resource>
+    <resource name="nuxeo-menu-icon-custom.html" type="import" shrinkable="false">
+        <uri>/ui/nuxeo-menu-icon-custom.html</uri>
+    </resource>
+    <resource name="nuxeo-crm-bundle.html" type="import" shrinkable="false">
+      <uri>/ui/nuxeo-crm-bundle.html</uri>
+    </resource>
+  </extension>
+  <extension target="org.nuxeo.ecm.platform.WebResources" point="bundles">
+    <bundle name="web-ui">
+      <resources append="true">
+        <resource>nuxeo-opportunity-list.html</resource>
+      </resources>
+    </bundle>
+    <bundle name="web-ui">
+      <resources append="true">
+        <resource>nuxeo-menu-icon-custom.html</resource>
+      </resources>
+    </bundle>
+    <bundle name="web-ui">
+      <resources append="true">
+        <resource>nuxeo-crm-bundle.html</resource>
+      </resources>
+    </bundle>
 </extension>
 </component>

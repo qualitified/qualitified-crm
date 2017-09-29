@@ -28,5 +28,7 @@
   "Interactions" : "Interactions",
   "Solicitations" : "Sollicitations",
   "Attachments" : "Pièces jointes",
-  "command.new.account": "Nouveau"
+  "command.new.account": "Nouveau",
+  "editUser.domain": "Domaine",
+  "viewUser.domain": "Domaine"
 }
