@@ -15,6 +15,7 @@
     <schema name="sales" prefix="sales" override="true" src="data/schemas/sales.xsd"/>
     <schema name="services" prefix="services" override="true" src="data/schemas/services.xsd"/>
     <schema name="silhouette" prefix="silhouette" override="true" src="data/schemas/silhouette.xsd"/>
+    <schema name="scriptnote" prefix="scriptnote" override="true" src="data/schemas/scriptnote.xsd"/>
     <schema name="workspace_schema" prefix="workspace_schema" override="true" src="data/schemas/workspace_schema.xsd"/>
     <schema name="person" prefix="person" override="true" src="data/schemas/person.xsd"/>
     <schema name="opportunity_list_pp" prefix="opportunity_list_pp" override="true" src="data/schemas/opportunity_list_pp.xsd"/>
@@ -104,6 +105,7 @@
         <type>TemplateRoot</type>
         <type>File</type>
         <type>Note</type>
+        <type>ScriptNote</type>
       </subtypes>
     </doctype>
     <doctype name="Root" append="true">
@@ -224,6 +226,9 @@
         <type>Silhouette</type>
       </subtypes>
     </doctype>
+    <doctype name="ScriptNote" extends="Note">
+      <schema name="scriptnote"/>
+    </doctype>
     <doctype name="Workspace" extends="Folder">
       <schema name="workspace_schema"/>
       <schema name="publishing"/>
@@ -313,6 +318,9 @@
       <type name="Silhouette">default</type>
     </types>
     <types>
+      <type name="ScriptNote">default</type>
+    </types>
+    <types>
       <type name="Workspace">default</type>
     </types>
   </extension>
@@ -387,6 +395,12 @@
       <label>Silhouette</label>
       <icon>/img/ic_perm_identity_black_24dp_1x.png</icon>
       <bigIcon>/img/ic_perm_identity_black_24dp_2x.png</bigIcon>
+      <description></description>
+    </type>
+    <type id="ScriptNote">
+      <label>Script</label>
+      <icon>/img/ic_code_black_24dp_1x.png</icon>
+      <bigIcon>/img/ic_code_black_24dp_2x.png</bigIcon>
       <description></description>
     </type>
     <type id="Workspace">

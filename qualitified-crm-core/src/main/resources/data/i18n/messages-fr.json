@@ -10,6 +10,7 @@
   "label.document.type.contact":"Contact",
   "label.document.type.sollicitation":"Sollicitation",
   "label.document.type.interaction":"Interaction",
+  "label.document.type.scriptnote":"Script",
   "label.ui.aggregate.to_10000":"Jusqu'à 10 000 €",
   "label.ui.aggregate.from_10000_to_25000":"De 10 000 à 25 000 €",
   "label.ui.aggregate.from_25000_to_50000":"De 25 000 à 50 000 €",
