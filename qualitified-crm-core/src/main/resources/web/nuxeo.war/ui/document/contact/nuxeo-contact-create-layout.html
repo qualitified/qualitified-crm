@@ -6,19 +6,19 @@
       }
     </style>
 
-<nuxeo-directory-suggestion value="{{civility}}" label="Civility" directory-name="Civility" role="widget" min-chars="0"></nuxeo-directory-suggestion>
+<nuxeo-directory-suggestion value="{{civility}}" label="[[i18n('label.metadata.civility')]]" directory-name="Civility" role="widget" min-chars="0"></nuxeo-directory-suggestion>
 
-<paper-input value="{{firstName}}" label="First Name" role="widget"></paper-input>
+<paper-input value="{{firstName}}" label="[[i18n('label.metadata.firstname')]]" role="widget"></paper-input>
 
-<paper-input value="{{lastName}}" label="Last Name" role="widget"></paper-input>
+<paper-input value="{{lastName}}" label="[[i18n('label.metadata.lastname')]]" role="widget"></paper-input>
 
-<nuxeo-directory-suggestion value="{{document.properties.person:Role}}" label=" Role" directory-name="Role" role="widget" min-chars="0"></nuxeo-directory-suggestion>
+<nuxeo-directory-suggestion value="{{document.properties.person:Role}}" label="[[i18n('label.metadata.role')]]" directory-name="Role" role="widget" min-chars="0"></nuxeo-directory-suggestion>
 
-<paper-input value="{{document.properties.person:email}}" label="Email" pattern="^[a-z0-9!#$%&amp;'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&amp;'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$" role="widget"></paper-input>
+<paper-input value="{{document.properties.person:email}}" label="[[i18n('label.metadata.email')]]" pattern="^[a-z0-9!#$%&amp;'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&amp;'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$" role="widget"></paper-input>
 
-<paper-input value="{{document.properties.person:phoneNumber}}" label="Phone Number" role="widget"></paper-input>
+<paper-input value="{{document.properties.person:phoneNumber}}" label="[[i18n('label.metadata.phone')]]" role="widget"></paper-input>
 
-<paper-input value="{{document.properties.dc:description}}" label="Description" role="widget"></paper-input>
+<paper-input value="{{document.properties.dc:description}}" label="[[i18n('label.metadata.description')]]" role="widget"></paper-input>
 
 <nuxeo-dropzone role="widget" label="Picture" document="[[document]]"></nuxeo-dropzone>
 
@@ -29,6 +29,7 @@
       'use strict';
       Polymer({
         is: 'nuxeo-contact-create-layout',
+        behaviors: [Nuxeo.LayoutBehavior],
         properties: {
 
           /**

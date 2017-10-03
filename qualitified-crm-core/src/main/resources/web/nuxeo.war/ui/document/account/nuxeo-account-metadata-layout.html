@@ -14,31 +14,31 @@
       <h1>[[document.properties.dc:title]]</h1>
     </div>
     <div role="widget">
-      <label>Type</label>
+      <label>[[i18n('label.metadata.type')]]</label>
       <div>[[formatDirectory(document.properties.account:accountType)]]</div>
     </div>
     <div role="widget">
-      <label>Turnover</label>
-      <div>[[document.properties.account:turnover]]</div>
+      <label>[[i18n('label.metadata.turnover')]]</label>
+      <div>[[_formatCurrency(document.properties.account:turnover)]] €</div>
     </div>
     <div role="widget">
-      <label>Web Site</label>
-      <div>[[document.properties.account:website]]</div>
+      <label>[[i18n('label.metadata.website')]]</label>
+      <div><a href="[[document.properties.account:website]]">[[document.properties.account:website]]</a></div>
     </div>
     <div role="widget">
-      <label>Number of Employees</label>
+      <label>[[i18n('label.metadata.nbemployees')]]</label>
       <div>[[document.properties.account:nbEmployees]]</div>
     </div>
     <div role="widget">
-      <label>Phone Number</label>
+      <label>[[i18n('label.metadata.phone')]]</label>
       <div>[[document.properties.account:phoneNumber]]</div>
     </div>
     <div role="widget">
-      <label>E-mail</label>
+      <label>[[i18n('label.metadata.email')]]</label>
       <div>[[document.properties.account:email]]</div>
     </div>
     <div role="widget">
-      <label>Address</label>
+      <label>[[i18n('label.metadata.address')]]</label>
       <div>[[document.properties.account:address1]]</div>
       <div>[[document.properties.account:address2]]</div>
       <div>[[document.properties.account:address3]]</div>
@@ -53,6 +53,7 @@
       'use strict';
       Polymer({
         is: 'nuxeo-account-metadata-layout',
+        behaviors: [Nuxeo.LayoutBehavior],
         properties: {
 
           /**
@@ -77,7 +78,13 @@
           } else {
             return value;
           }
-        }
+        },
+        _formatCurrency: function(val) {
+          if(val == null){
+            return "";
+          }
+          return val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ");
+        },
       });
     })();
   </script>

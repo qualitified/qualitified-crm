@@ -5,19 +5,19 @@
         padding: 5px;
       }
     </style>
-    <paper-input role="widget" value="{{document.properties.dc:title}}" label="Title"></paper-input>
+    <paper-input role="widget" value="{{document.properties.dc:title}}" label="[[i18n('label.metadata.interaction.title')]]"></paper-input>
 
-    <paper-textarea role="widget" value="{{document.properties.dc:description}}" label="Description"></paper-textarea>
+    <paper-textarea role="widget" value="{{document.properties.dc:description}}" label="[[i18n('label.metadata.interaction.description')]]"></paper-textarea>
 
-    <nuxeo-directory-suggestion role="widget" value="{{document.properties.interaction:status}}" label="Status" required="true" directory-name="IntStatus" min-chars="0"></nuxeo-directory-suggestion>
+    <nuxeo-directory-suggestion role="widget" value="{{document.properties.interaction:status}}" label="[[i18n('label.metadata.interaction.status')]]" required="true" directory-name="IntStatus" min-chars="0"></nuxeo-directory-suggestion>
 
-    <nuxeo-directory-suggestion role="widget" value="{{document.properties.interaction:activity}}" label="Activity" required="true" directory-name="IntActivity" min-chars="0"></nuxeo-directory-suggestion>
+    <nuxeo-directory-suggestion role="widget" value="{{document.properties.interaction:activity}}" label="[[i18n('label.metadata.interaction.activity')]]" required="true" directory-name="IntActivity" min-chars="0"></nuxeo-directory-suggestion>
 
-<nuxeo-date-picker value="{{document.properties.interaction:date}}" required="true" label="Date" role="widget"></nuxeo-date-picker>
+    <nuxeo-date-picker value="{{document.properties.interaction:date}}" label="[[i18n('label.metadata.interaction.date')]]" required="true" role="widget"></nuxeo-date-picker>
 
-    <nuxeo-document-suggestion role="widget" value="{{document.properties.interaction:contact}}" label="Contact" schemas="[Contact]"></nuxeo-document-suggestion>
+    <nuxeo-document-suggestion role="widget" value="{{document.properties.interaction:contact}}" label="[[i18n('label.metadata.interaction.contact')]]" schemas="[Contact]"></nuxeo-document-suggestion>
 
-    <nuxeo-document-suggestion role="widget" value="{{document.properties.interaction:opportunity}}" label="Opportunity" schemas="[Opportunity]"></nuxeo-document-suggestion>
+    <nuxeo-document-suggestion role="widget" value="{{document.properties.interaction:opportunity}}" label="[[i18n('label.metadata.interaction.opportunity')]]" schemas="[Opportunity]"></nuxeo-document-suggestion>
 
   </template>
 
@@ -26,6 +26,7 @@
       'use strict';
       Polymer({
         is: 'nuxeo-interaction-edit-layout',
+        behaviors: [Nuxeo.LayoutBehavior],
         properties: {
 
           /**

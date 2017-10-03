@@ -12,12 +12,12 @@
       </div>
 
       <div role="widget">
-        <label>Date</label>
+        <label>[[i18n('label.metadata.interaction.date')]]</label>
         <div>[[formatDate(document.properties.interaction:date)]]</div>
       </div>
 
       <div role="widget">
-        <label>Description</label>
+        <label>[[i18n('label.metadata.interaction.description')]]</label>
         <div>[[document.properties.dc:description]]</div>
       </div>
 
@@ -28,6 +28,7 @@
       'use strict';
       Polymer({
         is: 'nuxeo-interaction-metadata-layout',
+        behaviors: [Nuxeo.LayoutBehavior],
         properties: {
 
           /**

@@ -22,22 +22,22 @@
 </div>
 
 <div role="widget">
-<label> Role</label>
+<label>[[i18n('label.metadata.role')]]</label>
 <div directory-name="Role">[[formatDirectory(document.properties.person:Role)]]</div>
 </div>
 
 <div role="widget">
-<label>Email</label>
+<label>[[i18n('label.metadata.email')]]</label>
 <div>[[document.properties.person:email]]</div>
 </div>
 
 <div role="widget">
-<label>Phone Number</label>
+<label>[[i18n('label.metadata.phone')]]</label>
 <div>[[document.properties.person:phoneNumber]]</div>
 </div>
 
 <div role="widget">
-<label>Notes</label>
+<label>[[i18n('label.metadata.description')]]</label>
 <div>[[document.properties.dc:description]]</div>
 </div>
 
@@ -48,6 +48,7 @@
       'use strict';
       Polymer({
         is: 'nuxeo-contact-metadata-layout',
+        behaviors: [Nuxeo.LayoutBehavior],
         properties: {
 
           /**

@@ -9,22 +9,22 @@
       <h1>[[document.properties.dc:title]]</h1>
     </div>
     <div role="widget">
-      <label>Amount</label>
+      <label>[[i18n('label.metadata.amount')]]</label>
       <div>[[_formatCurrency(document.properties.opportunity:amount)]] €</div>
     </div>
 
     <div role="widget">
-      <label>Step</label>
+      <label>[[i18n('label.metadata.step')]]</label>
       <div directory-name="OppStep">[[formatDirectory(document.properties.opportunity:step)]]</div>
     </div>
 
     <div role="widget">
-      <label>Close Date</label>
+      <label>[[i18n('label.metadata.closedate')]]</label>
       <div>[[_formatDate(document.properties.opportunity:closeDate)]]</div>
     </div>
 
     <div role="widget">
-      <label>Description</label>
+      <label>[[i18n('label.metadata.description')]]</label>
       <div>[[document.properties.dc:description]]</div>
     </div>
 
@@ -35,6 +35,7 @@
     'use strict';
     Polymer({
       is: 'nuxeo-opportunity-metadata-layout',
+      behaviors: [Nuxeo.LayoutBehavior],
       properties: {
 
         /**

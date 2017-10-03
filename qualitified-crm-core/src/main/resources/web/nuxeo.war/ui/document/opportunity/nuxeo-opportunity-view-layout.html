@@ -9,7 +9,7 @@
     <paper-card role="widget">
 
       <h3>
-        Activities
+        [[i18n('label.activities')]]
       </h3>
 
       <div class="dataTable">
@@ -32,7 +32,7 @@
         </template>
 
       <h3>
-        Attachments
+        [[i18n('label.attachments')]]
       </h3>
       <div class="dataTable">
         <nuxeo-page-provider
@@ -87,6 +87,7 @@
       'use strict';
       Polymer({
         is: 'nuxeo-opportunity-view-layout',
+        behaviors: [Nuxeo.LayoutBehavior],
         properties: {
 
           /**
