@@ -27,7 +27,7 @@
         <template is="dom-repeat" items="[[interactions]]">
           <div>[[_formatDate(item.properties.interaction:date)]]</div>
           <div><a href$="#!/browse[[item.path]]">[[formatDirectory(item.properties.interaction:activity)]] - [[item.title]]</a></div>
-          <div>[[item.properties.dc:description]]</div>
+          <div><pre>[[item.properties.dc:description]]</pre></div>
           <br/>
         </template>
 
