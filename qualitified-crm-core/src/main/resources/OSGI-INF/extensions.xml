@@ -154,6 +154,7 @@
       <schema name="dublincore"/>
       <schema name="common"/>
       <schema name="uid"/>
+      <schema name="files"/>
     </doctype>
     <doctype name="Account" append="true">
       <subtypes>

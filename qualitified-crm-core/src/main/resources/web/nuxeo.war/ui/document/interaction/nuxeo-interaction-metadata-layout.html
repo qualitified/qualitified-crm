@@ -12,15 +12,15 @@
       </div>
 
       <div role="widget">
-        <label>[[i18n('label.metadata.interaction.date')]]</label>
+        <label>[[i18n('label.metadata.date')]]</label>
         <div>[[formatDate(document.properties.interaction:date)]]</div>
       </div>
 
       <div role="widget">
         <label>[[i18n('label.metadata.interaction.description')]]</label>
-        <div>[[document.properties.dc:description]]</div>
+        <div><pre>[[document.properties.dc:description]]</pre></div>
       </div>
-
+      <nuxeo-document-attachments role="widget" document="[[document]]"></nuxeo-document-attachments>
   </template>
 
   <script>
