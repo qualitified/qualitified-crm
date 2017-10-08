@@ -26,6 +26,7 @@
     <paper-input role="widget" value="{{document.properties.account:city}}" label="[[i18n('label.metadata.city')]]"></paper-input>
     <paper-input role="widget" value="{{document.properties.account:country}}" label="[[i18n('label.metadata.country')]]"></paper-input>
     <paper-textarea role="widget" value="{{document.properties.dc:description}}" label="[[i18n('label.metadata.description')]]"></paper-textarea>
+    <nuxeo-dropzone role="widget" label="[[i18n('label.metadata.logo')]]" document="[[document]]"></nuxeo-dropzone>
   </template>
 
   <script>

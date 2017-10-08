@@ -62,5 +62,7 @@
   "label.account.type":"Type de compte",
   "label.last.interaction.date": "Date de dernière interaction",
   "true": "Oui",
-  "false": "Non"
+  "false": "Non",
+  "label.metadata.contact.picture": "Photo",
+  "label.metadata.logo": "Logo"
 }

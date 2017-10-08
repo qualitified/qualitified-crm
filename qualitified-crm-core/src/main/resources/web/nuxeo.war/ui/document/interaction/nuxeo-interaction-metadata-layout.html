@@ -19,6 +19,7 @@
       <div role="widget">
         <label>[[i18n('label.metadata.interaction.description')]]</label>
         <div><pre>[[document.properties.dc:description]]</pre></div>
+        <div><pre>[[document.properties.note:note]]</pre></div>
       </div>
       <nuxeo-document-attachments role="widget" document="[[document]]"></nuxeo-document-attachments>
   </template>
@@ -55,6 +56,9 @@
         },
         formatDate: function(date) {
           return moment(date).format('MMMM D, YYYY');
+        },
+        _hasNote: function(doc){
+          return doc && doc.properties['note:note'] !== null;
         }
       });
     })();

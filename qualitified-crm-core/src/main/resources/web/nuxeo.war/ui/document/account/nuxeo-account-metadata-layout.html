@@ -9,9 +9,18 @@
       *[role=widget] {
         padding: 5px;
       }
+      .account-view-layout {
+        height: 32px;
+        width: 32px;
+        border-radius: 20px;
+        box-sizing: border-box;
+        margin-right: 8px;
+      }
     </style>
     <div role="widget">
-      <h1>[[document.properties.dc:title]]</h1>
+      <h1><template is="dom-if" if="[[_hasProfileImg(document.properties.file:content)]]">
+      <img style="vertical-align: text-bottom;" class="account-view-layout" src="/nuxeo/nxfile/default/[[document.uid]]/file:content/">
+      </template>[[document.properties.dc:title]]</h1>
     </div>
     <div role="widget">
       <label>[[i18n('label.metadata.type')]]</label>
@@ -85,6 +94,12 @@
           }
           return val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ");
         },
+        _hasProfileImg: function(value){
+          if(value != null){
+            return true;
+          }
+          return false;
+        }
       });
     })();
   </script>
