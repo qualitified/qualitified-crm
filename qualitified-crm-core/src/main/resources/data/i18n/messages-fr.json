@@ -15,7 +15,7 @@
   "label.ui.aggregate.from_10000_to_25000":"De 10 000 à 25 000 €",
   "label.ui.aggregate.from_25000_to_50000":"De 25 000 à 50 000 €",
   "label.ui.aggregate.from_50000":"A partir de 50 000 €",
-  "label.ui.aggregate.to_now":"Jusqu'aujourd'ui",
+  "label.ui.aggregate.to_now":"Jusqu'aujourd'hui",
   "label.ui.aggregate.from_now_to_now7d":"Dans les 7 jours",
   "label.ui.aggregate.from_now7d_to_now30d":"Dans les 30 jours",
   "label.ui.aggregate.from_now1M":"Plus tard",
