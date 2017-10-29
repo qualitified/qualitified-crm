@@ -14,51 +14,177 @@
      current-page="{{custom}}">
     </nuxeo-page-provider>
 
-    <paper-input hidden$="[[!stringField1Visibility]]" role="widget" value="{{document.properties.custom:stringField1}}" label="[[stringField1Label]]"></paper-input>
-    <paper-input hidden$="[[!stringField2Visibility]]" role="widget" value="{{document.properties.custom:stringField2}}" label="[[stringField2Label]]"></paper-input>
-    <paper-input hidden$="[[!stringField3Visibility]]" role="widget" value="{{document.properties.custom:stringField3}}" label="[[stringField3Label]]"></paper-input>
-    <paper-input hidden$="[[!stringField4Visibility]]" role="widget" value="{{document.properties.custom:stringField4}}" label="[[stringField4Label]]"></paper-input>
-    <paper-input hidden$="[[!stringField5Visibility]]" role="widget" value="{{document.properties.custom:stringField5}}" label="[[stringField5Label]]"></paper-input>
-    <paper-input hidden$="[[!stringField6Visibility]]" role="widget" value="{{document.properties.custom:stringField6}}" label="[[stringField6Label]]"></paper-input>
-    <paper-input hidden$="[[!stringField7Visibility]]" role="widget" value="{{document.properties.custom:stringField7}}" label="[[stringField7Label]]"></paper-input>
-    <paper-input hidden$="[[!stringField8Visibility]]" role="widget" value="{{document.properties.custom:stringField8}}" label="[[stringField8Label]]"></paper-input>
-    <paper-input hidden$="[[!stringField9Visibility]]" role="widget" value="{{document.properties.custom:stringField9}}" label="[[stringField9Label]]"></paper-input>
-    <paper-input hidden$="[[!stringField10Visibility]]" role="widget" value="{{document.properties.custom:stringField10}}" label="[[stringField10Label]]"></paper-input>
+    <template is="dom-if" if="[[edit]]">
+      <paper-input hidden$="[[!stringField1Visibility]]" role="widget" value="{{document.properties.custom:stringField1}}" label="[[stringField1Label]]"></paper-input>
+      <paper-input hidden$="[[!stringField2Visibility]]" role="widget" value="{{document.properties.custom:stringField2}}" label="[[stringField2Label]]"></paper-input>
+      <paper-input hidden$="[[!stringField3Visibility]]" role="widget" value="{{document.properties.custom:stringField3}}" label="[[stringField3Label]]"></paper-input>
+      <paper-input hidden$="[[!stringField4Visibility]]" role="widget" value="{{document.properties.custom:stringField4}}" label="[[stringField4Label]]"></paper-input>
+      <paper-input hidden$="[[!stringField5Visibility]]" role="widget" value="{{document.properties.custom:stringField5}}" label="[[stringField5Label]]"></paper-input>
+      <paper-input hidden$="[[!stringField6Visibility]]" role="widget" value="{{document.properties.custom:stringField6}}" label="[[stringField6Label]]"></paper-input>
+      <paper-input hidden$="[[!stringField7Visibility]]" role="widget" value="{{document.properties.custom:stringField7}}" label="[[stringField7Label]]"></paper-input>
+      <paper-input hidden$="[[!stringField8Visibility]]" role="widget" value="{{document.properties.custom:stringField8}}" label="[[stringField8Label]]"></paper-input>
+      <paper-input hidden$="[[!stringField9Visibility]]" role="widget" value="{{document.properties.custom:stringField9}}" label="[[stringField9Label]]"></paper-input>
+      <paper-input hidden$="[[!stringField10Visibility]]" role="widget" value="{{document.properties.custom:stringField10}}" label="[[stringField10Label]]"></paper-input>
 
-    <paper-input hidden$="[[!doubleField1Visibility]]" role="widget" value="{{document.properties.custom:doubleField1}}" label="[[doubleField1Label]]"></paper-input>
-    <paper-input hidden$="[[!doubleField2Visibility]]" role="widget" value="{{document.properties.custom:doubleField2}}" label="[[doubleField2Label]]"></paper-input>
-    <paper-input hidden$="[[!doubleField3Visibility]]" role="widget" value="{{document.properties.custom:doubleField3}}" label="[[doubleField3Label]]"></paper-input>
-    <paper-input hidden$="[[!doubleField4Visibility]]" role="widget" value="{{document.properties.custom:doubleField4}}" label="[[doubleField4Label]]"></paper-input>
-    <paper-input hidden$="[[!doubleField5Visibility]]" role="widget" value="{{document.properties.custom:doubleField5}}" label="[[doubleField5Label]]"></paper-input>
-    <paper-input hidden$="[[!doubleField6Visibility]]" role="widget" value="{{document.properties.custom:doubleField6}}" label="[[doubleField6Label]]"></paper-input>
-    <paper-input hidden$="[[!doubleField7Visibility]]" role="widget" value="{{document.properties.custom:doubleField7}}" label="[[doubleField7Label]]"></paper-input>
-    <paper-input hidden$="[[!doubleField8Visibility]]" role="widget" value="{{document.properties.custom:doubleField8}}" label="[[doubleField8Label]]"></paper-input>
-    <paper-input hidden$="[[!doubleField9Visibility]]" role="widget" value="{{document.properties.custom:doubleField9}}" label="[[doubleField9Label]]"></paper-input>
-    <paper-input hidden$="[[!doubleField10Visibility]]" role="widget" value="{{document.properties.custom:doubleField10}}" label="[[doubleField10Label]]"></paper-input>
+      <paper-input hidden$="[[!doubleField1Visibility]]" role="widget" value="{{document.properties.custom:doubleField1}}" label="[[doubleField1Label]]"></paper-input>
+      <paper-input hidden$="[[!doubleField2Visibility]]" role="widget" value="{{document.properties.custom:doubleField2}}" label="[[doubleField2Label]]"></paper-input>
+      <paper-input hidden$="[[!doubleField3Visibility]]" role="widget" value="{{document.properties.custom:doubleField3}}" label="[[doubleField3Label]]"></paper-input>
+      <paper-input hidden$="[[!doubleField4Visibility]]" role="widget" value="{{document.properties.custom:doubleField4}}" label="[[doubleField4Label]]"></paper-input>
+      <paper-input hidden$="[[!doubleField5Visibility]]" role="widget" value="{{document.properties.custom:doubleField5}}" label="[[doubleField5Label]]"></paper-input>
+      <paper-input hidden$="[[!doubleField6Visibility]]" role="widget" value="{{document.properties.custom:doubleField6}}" label="[[doubleField6Label]]"></paper-input>
+      <paper-input hidden$="[[!doubleField7Visibility]]" role="widget" value="{{document.properties.custom:doubleField7}}" label="[[doubleField7Label]]"></paper-input>
+      <paper-input hidden$="[[!doubleField8Visibility]]" role="widget" value="{{document.properties.custom:doubleField8}}" label="[[doubleField8Label]]"></paper-input>
+      <paper-input hidden$="[[!doubleField9Visibility]]" role="widget" value="{{document.properties.custom:doubleField9}}" label="[[doubleField9Label]]"></paper-input>
+      <paper-input hidden$="[[!doubleField10Visibility]]" role="widget" value="{{document.properties.custom:doubleField10}}" label="[[doubleField10Label]]"></paper-input>
 
 
-    <paper-input hidden$="[[!dateField1Visibility]]" role="widget" value="{{document.properties.custom:dateField1}}" label="[[dateField1Label]]"></paper-input>
-    <paper-input hidden$="[[!dateField2Visibility]]" role="widget" value="{{document.properties.custom:dateField2}}" label="[[dateField2Label]]"></paper-input>
-    <paper-input hidden$="[[!dateField3Visibility]]" role="widget" value="{{document.properties.custom:dateField3}}" label="[[dateField3Label]]"></paper-input>
-    <paper-input hidden$="[[!dateField4Visibility]]" role="widget" value="{{document.properties.custom:dateField4}}" label="[[dateField4Label]]"></paper-input>
-    <paper-input hidden$="[[!dateField5Visibility]]" role="widget" value="{{document.properties.custom:dateField5}}" label="[[dateField5Label]]"></paper-input>
-    <paper-input hidden$="[[!dateField6Visibility]]" role="widget" value="{{document.properties.custom:dateField6}}" label="[[dateField6Label]]"></paper-input>
-    <paper-input hidden$="[[!dateField7Visibility]]" role="widget" value="{{document.properties.custom:dateField7}}" label="[[dateField7Label]]"></paper-input>
-    <paper-input hidden$="[[!dateField8Visibility]]" role="widget" value="{{document.properties.custom:dateField8}}" label="[[dateField8Label]]"></paper-input>
-    <paper-input hidden$="[[!dateField9Visibility]]" role="widget" value="{{document.properties.custom:dateField9}}" label="[[dateField9Label]]"></paper-input>
-    <paper-input hidden$="[[!dateField10Visibility]]" role="widget" value="{{document.properties.custom:dateField10}}" label="[[dateField10Label]]"></paper-input>
+      <paper-input hidden$="[[!dateField1Visibility]]" role="widget" value="{{document.properties.custom:dateField1}}" label="[[dateField1Label]]"></paper-input>
+      <paper-input hidden$="[[!dateField2Visibility]]" role="widget" value="{{document.properties.custom:dateField2}}" label="[[dateField2Label]]"></paper-input>
+      <paper-input hidden$="[[!dateField3Visibility]]" role="widget" value="{{document.properties.custom:dateField3}}" label="[[dateField3Label]]"></paper-input>
+      <paper-input hidden$="[[!dateField4Visibility]]" role="widget" value="{{document.properties.custom:dateField4}}" label="[[dateField4Label]]"></paper-input>
+      <paper-input hidden$="[[!dateField5Visibility]]" role="widget" value="{{document.properties.custom:dateField5}}" label="[[dateField5Label]]"></paper-input>
+      <paper-input hidden$="[[!dateField6Visibility]]" role="widget" value="{{document.properties.custom:dateField6}}" label="[[dateField6Label]]"></paper-input>
+      <paper-input hidden$="[[!dateField7Visibility]]" role="widget" value="{{document.properties.custom:dateField7}}" label="[[dateField7Label]]"></paper-input>
+      <paper-input hidden$="[[!dateField8Visibility]]" role="widget" value="{{document.properties.custom:dateField8}}" label="[[dateField8Label]]"></paper-input>
+      <paper-input hidden$="[[!dateField9Visibility]]" role="widget" value="{{document.properties.custom:dateField9}}" label="[[dateField9Label]]"></paper-input>
+      <paper-input hidden$="[[!dateField10Visibility]]" role="widget" value="{{document.properties.custom:dateField10}}" label="[[dateField10Label]]"></paper-input>
 
-    <paper-input hidden$="[[!integerField1Visibility]]" role="widget" value="{{document.properties.custom:integerField1}}" label="[[integerField1Label]]"></paper-input>
-    <paper-input hidden$="[[!integerField2Visibility]]" role="widget" value="{{document.properties.custom:integerField2}}" label="[[integerField2Label]]"></paper-input>
-    <paper-input hidden$="[[!integerField3Visibility]]" role="widget" value="{{document.properties.custom:integerField3}}" label="[[integerField3Label]]"></paper-input>
-    <paper-input hidden$="[[!integerField4Visibility]]" role="widget" value="{{document.properties.custom:integerField4}}" label="[[integerField4Label]]"></paper-input>
-    <paper-input hidden$="[[!integerField5Visibility]]" role="widget" value="{{document.properties.custom:integerField5}}" label="[[integerField5Label]]"></paper-input>
-    <paper-input hidden$="[[!integerField6Visibility]]" role="widget" value="{{document.properties.custom:integerField6}}" label="[[integerField6Label]]"></paper-input>
-    <paper-input hidden$="[[!integerField7Visibility]]" role="widget" value="{{document.properties.custom:integerField7}}" label="[[integerField7Label]]"></paper-input>
-    <paper-input hidden$="[[!integerField8Visibility]]" role="widget" value="{{document.properties.custom:integerField8}}" label="[[integerField8Label]]"></paper-input>
-    <paper-input hidden$="[[!integerField9Visibility]]" role="widget" value="{{document.properties.custom:integerField9}}" label="[[integerField9Label]]"></paper-input>
-    <paper-input hidden$="[[!integerField10Visibility]]" role="widget" value="{{document.properties.custom:integerField10}}" label="[[integerField10Label]]"></paper-input>
+      <paper-input hidden$="[[!integerField1Visibility]]" role="widget" value="{{document.properties.custom:integerField1}}" label="[[integerField1Label]]"></paper-input>
+      <paper-input hidden$="[[!integerField2Visibility]]" role="widget" value="{{document.properties.custom:integerField2}}" label="[[integerField2Label]]"></paper-input>
+      <paper-input hidden$="[[!integerField3Visibility]]" role="widget" value="{{document.properties.custom:integerField3}}" label="[[integerField3Label]]"></paper-input>
+      <paper-input hidden$="[[!integerField4Visibility]]" role="widget" value="{{document.properties.custom:integerField4}}" label="[[integerField4Label]]"></paper-input>
+      <paper-input hidden$="[[!integerField5Visibility]]" role="widget" value="{{document.properties.custom:integerField5}}" label="[[integerField5Label]]"></paper-input>
+      <paper-input hidden$="[[!integerField6Visibility]]" role="widget" value="{{document.properties.custom:integerField6}}" label="[[integerField6Label]]"></paper-input>
+      <paper-input hidden$="[[!integerField7Visibility]]" role="widget" value="{{document.properties.custom:integerField7}}" label="[[integerField7Label]]"></paper-input>
+      <paper-input hidden$="[[!integerField8Visibility]]" role="widget" value="{{document.properties.custom:integerField8}}" label="[[integerField8Label]]"></paper-input>
+      <paper-input hidden$="[[!integerField9Visibility]]" role="widget" value="{{document.properties.custom:integerField9}}" label="[[integerField9Label]]"></paper-input>
+      <paper-input hidden$="[[!integerField10Visibility]]" role="widget" value="{{document.properties.custom:integerField10}}" label="[[integerField10Label]]"></paper-input>
+    </template>
 
+    <template is="dom-if" if="[[!edit]]">
+      <div role="widget">
+        <label>[[stringField1Label]]</label>
+        <div>[[document.properties.custom:stringField1]]</div>
+      </div>
+      <div role="widget">
+        <label>[[stringField2Label]]</label>
+        <div>[[document.properties.custom:stringField2]]</div>
+      </div>
+      <div role="widget">
+        <label>[[stringField3Label]]</label>
+        <div>[[document.properties.custom:stringField3]]</div>
+      </div>
+      <div role="widget">
+        <label>[[stringField4Label]]</label>
+        <div>[[document.properties.custom:stringField4]]</div>
+      </div>
+      <div role="widget">
+        <label>[[stringField5Label]]</label>
+        <div>[[document.properties.custom:stringField5]]</div>
+      </div>
+      <div role="widget">
+        <label>[[stringField6Label]]</label>
+        <div>[[document.properties.custom:stringField6]]</div>
+      </div>
+      <div role="widget">
+        <label>[[stringField7Label]]</label>
+        <div>[[document.properties.custom:stringField7]]</div>
+      </div>
+      <div role="widget">
+        <label>[[stringField8Label]]</label>
+        <div>[[document.properties.custom:stringField8]]</div>
+      </div>
+      <div role="widget">
+        <label>[[stringField9Label]]</label>
+        <div>[[document.properties.custom:stringField9]]</div>
+      </div>
+      <div role="widget">
+        <label>[[stringField10Label]]</label>
+        <div>[[document.properties.custom:stringField10]]</div>
+      </div>
+
+      <div role="widget">
+        <label>[[dateField1Label]]</label>
+        <div>[[document.properties.custom:dateField1]]</div>
+      </div>
+      <div role="widget">
+        <label>[[dateField2Label]]</label>
+        <div>[[document.properties.custom:dateField2]]</div>
+      </div>
+      <div role="widget">
+        <label>[[dateField3Label]]</label>
+        <div>[[document.properties.custom:dateField3]]</div>
+      </div>
+      <div role="widget">
+        <label>[[dateField4Label]]</label>
+        <div>[[document.properties.custom:dateField4]]</div>
+      </div>
+      <div role="widget">
+        <label>[[dateField5Label]]</label>
+        <div>[[document.properties.custom:dateField5]]</div>
+      </div>
+      <div role="widget">
+        <label>[[dateField6Label]]</label>
+        <div>[[document.properties.custom:dateField6]]</div>
+      </div>
+      <div role="widget">
+        <label>[[dateField7Label]]</label>
+        <div>[[document.properties.custom:dateField7]]</div>
+      </div>
+      <div role="widget">
+        <label>[[dateField8Label]]</label>
+        <div>[[document.properties.custom:dateField8]]</div>
+      </div>
+      <div role="widget">
+        <label>[[dateField9Label]]</label>
+        <div>[[document.properties.custom:dateField9]]</div>
+      </div>
+      <div role="widget">
+        <label>[[dateField10Label]]</label>
+        <div>[[document.properties.custom:dateField10]]</div>
+      </div>
+
+      <div role="widget">
+        <label>[[integerField1Label]]</label>
+        <div>[[document.properties.custom:integerField1]]</div>
+      </div>
+      <div role="widget">
+        <label>[[integerField2Label]]</label>
+        <div>[[document.properties.custom:integerField2]]</div>
+      </div>
+      <div role="widget">
+        <label>[[integerField3Label]]</label>
+        <div>[[document.properties.custom:integerField3]]</div>
+      </div>
+      <div role="widget">
+        <label>[[integerField4Label]]</label>
+        <div>[[document.properties.custom:integerField4]]</div>
+      </div>
+      <div role="widget">
+        <label>[[integerField5Label]]</label>
+        <div>[[document.properties.custom:integerField5]]</div>
+      </div>
+      <div role="widget">
+        <label>[[integerField6Label]]</label>
+        <div>[[document.properties.custom:integerField6]]</div>
+      </div>
+      <div role="widget">
+        <label>[[integerField7Label]]</label>
+        <div>[[document.properties.custom:integerField7]]</div>
+      </div>
+      <div role="widget">
+        <label>[[integerField8Label]]</label>
+        <div>[[document.properties.custom:integerField8]]</div>
+      </div>
+      <div role="widget">
+        <label>[[integerField9Label]]</label>
+        <div>[[document.properties.custom:integerField9]]</div>
+      </div>
+      <div role="widget">
+        <label>[[integerField10Label]]</label>
+        <div>[[document.properties.custom:integerField10]]</div>
+      </div>
+    </template>
   </template>
   <script>
     Polymer({
@@ -67,17 +193,19 @@
       properties: {
         document: {
           type: Object,
-          notify:true,
-          reflectAttributeValue:true
+          notify:true
         },
         custom: {
           type: Array,
           observer: '_customLoaded'
         },
+        edit:{
+          type: Boolean,
+          value: true
+        },
         stringField1Visibility : {
           type: Boolean,
-          value: false,
-          notify:true
+          value: false
         },
         stringField1Label : {
           type: String
@@ -361,6 +489,7 @@
       _customLoaded: function(){
         var qcf=document.querySelector("qualitified-custom-field");
         if(this.custom && this.custom[0] && this.custom[0].properties){
+          console.log(JSON.stringify(this.custom[0].properties['custom:field']));
           this.custom[0].properties['custom:field'].forEach(function(field) {
             if(field.fieldName === 'stringField1'){
               qcf.stringField1Visibility = true;
