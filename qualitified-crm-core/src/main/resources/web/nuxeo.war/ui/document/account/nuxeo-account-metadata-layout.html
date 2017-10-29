@@ -3,6 +3,7 @@
 @group Nuxeo UI
 @element nuxeo-account-metadata-layout
 -->
+<link rel="import" href="../qualitified-custom-field.html">
 <dom-module id="nuxeo-account-metadata-layout">
   <template>
     <style>
@@ -54,7 +55,7 @@
       <div>[[document.properties.account:zipCode]] [[document.properties.account:city]]</div>
       <div>[[document.properties.account:country]]</div>
     </div>
-
+    <qualitified-custom-field document="{{document}}"></qualitified-custom-field>
   </template>
 
   <script>

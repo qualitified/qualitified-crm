@@ -124,6 +124,8 @@ Contributors:
 
       _editMode: function() {
         this.edit = true;
+        //bug fix for the display of complex metadata grid in edit mode
+        window.dispatchEvent(new Event('resize'));
       },
 
       _showCollections: function (doc) {

@@ -1,0 +1,56 @@
+<!--
+`nuxeo-custom-metadata-layout`
+@group Nuxeo UI
+@element nuxeo-custom-metadata-layout
+-->
+<dom-module id="nuxeo-custom-metadata-layout">
+  <template>
+    <style>
+      *[role=widget] {
+        padding: 5px;
+      }
+      .results {
+        @apply(--layout-vertical);
+        @apply(--layout-flex);
+        min-height: calc(100vh - 14em);
+        margin-top: 8px;
+      }
+
+    </style>
+    <div role="widget">
+      <h1>[[document.properties.dc:title]]</h1>
+    </div>
+    <nuxeo-data-table class="results" role="widget" items="{{document.properties.custom:field}}">
+      <nuxeo-data-table-column name="[[i18n('label.metadata.custom.label')]]">
+        <template>
+          <div>[[item.label]] (custom:[[item.fieldName]])</div>
+        </template>
+      </nuxeo-data-table-column>
+      <nuxeo-data-table-column name="[[i18n('label.metadata.custom.type')]]">
+        <template>
+          <div>[[item.type]]</div>
+        </template>
+      </nuxeo-data-table-column>
+    </nuxeo-data-table>
+  </template>
+
+  <script>
+    (function() {
+      'use strict';
+      Polymer({
+        is: 'nuxeo-custom-metadata-layout',
+        behaviors: [Nuxeo.LayoutBehavior],
+        properties: {
+
+          /**
+           * @doctype Custom
+           */
+          document: {
+            type: Object
+          },
+
+        }
+      });
+    })();
+  </script>
+</dom-module>

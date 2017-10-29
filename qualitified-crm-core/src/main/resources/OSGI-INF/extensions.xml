@@ -16,6 +16,9 @@
     <schema name="services" prefix="services" override="true" src="data/schemas/services.xsd"/>
     <schema name="silhouette" prefix="silhouette" override="true" src="data/schemas/silhouette.xsd"/>
     <schema name="scriptnote" prefix="scriptnote" override="true" src="data/schemas/scriptnote.xsd"/>
+
+    <schema name="custom" prefix="custom" override="true" src="data/schemas/custom.xsd"/>
+
     <schema name="workspace_schema" prefix="workspace_schema" override="true" src="data/schemas/workspace_schema.xsd"/>
     <schema name="person" prefix="person" override="true" src="data/schemas/person.xsd"/>
     <schema name="opportunity_list_pp" prefix="opportunity_list_pp" override="true" src="data/schemas/opportunity_list_pp.xsd"/>
@@ -33,6 +36,7 @@
       <schema name="common"/>
       <schema name="uid"/>
       <schema name="picture"/>
+      <schema name="custom"/>
       <facet name="Picture"/>
       <facet name="Folderish"/>
       <subtypes>
@@ -69,6 +73,7 @@
       <schema name="dublincore"/>
       <schema name="common"/>
       <schema name="uid"/>
+      <schema name="custom"/>
       <facet name="Folderish"/>
       <subtypes>
         <type>File</type>
@@ -108,6 +113,7 @@
         <type>File</type>
         <type>Note</type>
         <type>ScriptNote</type>
+        <type>Custom</type>
       </subtypes>
     </doctype>
     <doctype name="Root" append="true">
@@ -122,6 +128,7 @@
       <schema name="uid"/>
       <schema name="person"/>
       <schema name="picture"/>
+      <schema name="custom"/>
       <facet name="Picture"/>
     </doctype>
     <doctype name="Account" append="true">
@@ -136,6 +143,7 @@
       <schema name="uid"/>
       <schema name="file"/>
       <schema name="files"/>
+      <schema name="custom"/>
       <facet name="Commentable"/>
       <facet name="Versionable"/>
       <facet name="Publishable"/>
@@ -158,6 +166,7 @@
       <schema name="uid"/>
       <schema name="files"/>
       <schema name="note"/>
+      <schema name="custom"/>
     </doctype>
     <doctype name="Account" append="true">
       <subtypes>
@@ -181,6 +190,7 @@
       <schema name="dublincore"/>
       <schema name="common"/>
       <schema name="uid"/>
+      <schema name="custom"/>
       <facet name="Folderish"/>
       <subtypes>
         <type>File</type>
@@ -224,6 +234,7 @@
       <schema name="common"/>
       <schema name="uid"/>
       <schema name="person"/>
+      <schema name="custom"/>
     </doctype>
     <doctype name="Marketing" append="true">
       <subtypes>
@@ -232,6 +243,12 @@
     </doctype>
     <doctype name="ScriptNote" extends="Note">
       <schema name="scriptnote"/>
+    </doctype>
+    <doctype name="Custom" extends="Document">
+      <schema name="dublincore"/>
+      <schema name="common"/>
+      <schema name="uid"/>
+      <schema name="custom"/>
     </doctype>
     <doctype name="Workspace" extends="Folder">
       <schema name="workspace_schema"/>
@@ -325,6 +342,9 @@
       <type name="ScriptNote">default</type>
     </types>
     <types>
+      <type name="Custom">default</type>
+    </types>
+    <types>
       <type name="Workspace">default</type>
     </types>
   </extension>
@@ -405,6 +425,12 @@
       <label>Script</label>
       <icon>/img/ic_code_black_24dp_1x.png</icon>
       <bigIcon>/img/ic_code_black_24dp_2x.png</bigIcon>
+      <description></description>
+    </type>
+    <type id="Custom">
+      <label>Custom</label>
+      <icon>/img/ic_text_fields_black_24dp_1x.png</icon>
+      <bigIcon>/img/ic_text_fields_black_24dp_2x.png</bigIcon>
       <description></description>
     </type>
     <type id="Workspace">

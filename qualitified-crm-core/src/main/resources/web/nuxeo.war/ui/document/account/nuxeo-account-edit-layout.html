@@ -3,6 +3,7 @@
 @group Nuxeo UI
 @element nuxeo-account-edit-layout
 -->
+<link rel="import" href="../qualitified-custom-field.html">
 <dom-module id="nuxeo-account-edit-layout">
   <template>
     <style>
@@ -30,8 +31,8 @@
     <paper-input role="widget" value="{{document.properties.account:zipCode}}" label="[[i18n('label.metadata.postalcode')]]"></paper-input>
     <paper-input role="widget" value="{{document.properties.account:city}}" label="[[i18n('label.metadata.city')]]"></paper-input>
     <paper-input role="widget" value="{{document.properties.account:country}}" label="[[i18n('label.metadata.country')]]"></paper-input>
+    <qualitified-custom-field document="{{document}}"></qualitified-custom-field>
     <paper-textarea role="widget" value="{{document.properties.dc:description}}" label="[[i18n('label.metadata.description')]]"></paper-textarea>
-
     <div role="widget">
     <label>[[i18n('label.metadata.logo')]]</label>
     <nuxeo-file value="{{document.properties.file:content}}"></nuxeo-file>
