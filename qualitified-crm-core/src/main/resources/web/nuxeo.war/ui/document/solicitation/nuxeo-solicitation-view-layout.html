@@ -1,0 +1,38 @@
+<dom-module id="nuxeo-solicitation-view-layout">
+  <template>
+    <style>
+      *[role=widget] {
+        padding: 5px;
+      }
+      .account-view-layout {
+        height: 32px;
+        width: 32px;
+        border-radius: 20px;
+        box-sizing: border-box;
+        margin-right: 8px;
+      }
+    </style>
+    <paper-card role="widget">
+
+
+    </paper-card>
+  </template>
+
+  <script>
+  (function() {
+    'use strict';
+    Polymer({
+      is: 'nuxeo-solicitation-view-layout',
+      behaviors: [Nuxeo.LayoutBehavior],
+      properties: {
+        /**
+           * @doctype Solicitation
+           */
+        document: {
+          type: Object
+        },
+      }
+    });
+  })();
+  </script>
+</dom-module>

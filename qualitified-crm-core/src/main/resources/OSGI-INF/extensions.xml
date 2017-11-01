@@ -16,6 +16,7 @@
     <schema name="services" prefix="services" override="true" src="data/schemas/services.xsd"/>
     <schema name="silhouette" prefix="silhouette" override="true" src="data/schemas/silhouette.xsd"/>
     <schema name="scriptnote" prefix="scriptnote" override="true" src="data/schemas/scriptnote.xsd"/>
+    <schema name="solicitation" prefix="solicitation" override="true" src="data/schemas/solicitation.xsd"/>
     <schema name="workspace_schema" prefix="workspace_schema" override="true" src="data/schemas/workspace_schema.xsd"/>
     <schema name="person" prefix="person" override="true" src="data/schemas/person.xsd"/>
     <schema name="opportunity_list_pp" prefix="opportunity_list_pp" override="true" src="data/schemas/opportunity_list_pp.xsd"/>
@@ -42,6 +43,8 @@
         <type>Picture</type>
         <type>Video</type>
         <type>Audio</type>
+        <type>Note</type>
+        <type>Solicitation</type>
       </subtypes>
     </doctype>
     <doctype name="Domain" append="true">
@@ -189,6 +192,7 @@
         <type>Picture</type>
         <type>Video</type>
         <type>Audio</type>
+        <type>Note</type>
       </subtypes>
     </doctype>
     <doctype name="Account" append="true">
@@ -212,6 +216,9 @@
     </doctype>
     <doctype name="Services" extends="Domain">
       <schema name="services"/>
+      <subtypes>
+        <type>Solicitation</type>
+      </subtypes>
     </doctype>
     <doctype name="Root" append="true">
       <subtypes>
@@ -232,6 +239,24 @@
     </doctype>
     <doctype name="ScriptNote" extends="Note">
       <schema name="scriptnote"/>
+    </doctype>
+    <doctype name="Solicitation" extends="Document">
+      <schema name="solicitation"/>
+      <schema name="dublincore"/>
+      <schema name="common"/>
+      <schema name="uid"/>
+      <schema name="note"/>
+      <schema name="files"/>
+      <facet name="Folderish"/>
+      <subtypes>
+        <type>File</type>
+        <type>Note</type>
+        <type>Folder</type>
+        <type>Interaction</type>
+        <type>Picture</type>
+        <type>Video</type>
+        <type>Audio</type>
+      </subtypes>
     </doctype>
     <doctype name="Workspace" extends="Folder">
       <schema name="workspace_schema"/>
@@ -325,6 +350,9 @@
       <type name="ScriptNote">default</type>
     </types>
     <types>
+      <type name="Solicitation">default</type>
+    </types>
+    <types>
       <type name="Workspace">default</type>
     </types>
   </extension>
@@ -405,6 +433,12 @@
       <label>Script</label>
       <icon>/img/ic_code_black_24dp_1x.png</icon>
       <bigIcon>/img/ic_code_black_24dp_2x.png</bigIcon>
+      <description></description>
+    </type>
+    <type id="Solicitation">
+      <label>Solicitation</label>
+      <icon>/img/service.png</icon>
+      <bigIcon>/img/service.png</bigIcon>
       <description></description>
     </type>
     <type id="Workspace">
@@ -1199,6 +1233,17 @@
       <createTablePolicy>on_missing_columns</createTablePolicy>
       <table>studio_vocabulary_AccountType</table>
       <dataFile>data/vocabularies/AccountType.csv</dataFile>
+    </directory>
+    <directory name="SolicitationCategory">
+      <schema>vocabulary</schema>
+      <dataSource>java:/nxsqldirectory</dataSource>
+      <cacheTimeout>3600</cacheTimeout>
+      <cacheMaxSize>1000</cacheMaxSize>
+      <idField>id</idField>
+      <autoincrementIdField>false</autoincrementIdField>
+      <createTablePolicy>always</createTablePolicy>
+      <table>studio_vocabulary_SolicitationCategory</table>
+      <dataFile>data/vocabularies/SolicitationCategory.csv</dataFile>
     </directory>
   </extension>
   <extension target="org.nuxeo.ecm.platform.routing.service" point="routeModelImporter">

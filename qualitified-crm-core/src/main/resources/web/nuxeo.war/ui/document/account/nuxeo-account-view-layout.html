@@ -323,7 +323,7 @@
 
         <div class="dataTable">
           <nuxeo-page-provider id="sollicitationProvider" auto
-                               query="select * from Document where 1=2 and ecm:currentLifeCycleState != 'deleted' and ecm:parentId = '[[document.uid]]'"
+                               query="select * from Solicitation where ecm:currentLifeCycleState != 'deleted' and ecm:parentId = '[[document.uid]]'"
                                page-size="40"
                                aggregations="{{sollicitationAggregations}}"
                                enrichers="thumbnail, permissions"

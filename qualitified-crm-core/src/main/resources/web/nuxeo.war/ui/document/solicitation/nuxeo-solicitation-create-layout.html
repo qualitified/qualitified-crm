@@ -1,0 +1,33 @@
+<dom-module id="nuxeo-solicitation-create-layout">
+  <template>
+    <style>
+      *[role=widget] {
+        padding: 5px;
+      }
+    </style>
+
+<nuxeo-directory-suggestion value="{{document.properties.solicitation:category}}" label="[[i18n('label.metadata.category')]]" directory-name="SolicitationCategory" role="widget" min-chars="0"></nuxeo-directory-suggestion>
+<paper-input value="{{document.properties.dc:title}}" label="[[i18n('label.metadata.title')]]" role="widget"></paper-input>
+<paper-textarea value="{{document.properties.dc:description}}" label="[[i18n('label.metadata.description')]]" role="widget"></paper-textarea>
+
+</template>
+
+  <script>
+    (function() {
+      'use strict';
+      Polymer({
+        is: 'nuxeo-solicitation-create-layout',
+        behaviors: [Nuxeo.LayoutBehavior],
+        properties: {
+
+          /**
+           * @doctype Solicitation
+           */
+          document: {
+            type: Object
+          }
+        }
+      });
+    })();
+  </script>
+</dom-module>
