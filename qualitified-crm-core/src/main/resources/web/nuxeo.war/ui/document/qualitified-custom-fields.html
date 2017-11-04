@@ -39,16 +39,16 @@
       <paper-input hidden$="[[!doubleField9Visibility]]" role="widget" value="{{document.properties.custom:doubleField9}}" label="[[doubleField9Label]]"></paper-input>
       <paper-input hidden$="[[!doubleField10Visibility]]" role="widget" value="{{document.properties.custom:doubleField10}}" label="[[doubleField10Label]]"></paper-input>
 
-      <paper-input hidden$="[[!dateField1Visibility]]" role="widget" value="{{document.properties.custom:dateField1}}" label="[[dateField1Label]]"></paper-input>
-      <paper-input hidden$="[[!dateField2Visibility]]" role="widget" value="{{document.properties.custom:dateField2}}" label="[[dateField2Label]]"></paper-input>
-      <paper-input hidden$="[[!dateField3Visibility]]" role="widget" value="{{document.properties.custom:dateField3}}" label="[[dateField3Label]]"></paper-input>
-      <paper-input hidden$="[[!dateField4Visibility]]" role="widget" value="{{document.properties.custom:dateField4}}" label="[[dateField4Label]]"></paper-input>
-      <paper-input hidden$="[[!dateField5Visibility]]" role="widget" value="{{document.properties.custom:dateField5}}" label="[[dateField5Label]]"></paper-input>
-      <paper-input hidden$="[[!dateField6Visibility]]" role="widget" value="{{document.properties.custom:dateField6}}" label="[[dateField6Label]]"></paper-input>
-      <paper-input hidden$="[[!dateField7Visibility]]" role="widget" value="{{document.properties.custom:dateField7}}" label="[[dateField7Label]]"></paper-input>
-      <paper-input hidden$="[[!dateField8Visibility]]" role="widget" value="{{document.properties.custom:dateField8}}" label="[[dateField8Label]]"></paper-input>
-      <paper-input hidden$="[[!dateField9Visibility]]" role="widget" value="{{document.properties.custom:dateField9}}" label="[[dateField9Label]]"></paper-input>
-      <paper-input hidden$="[[!dateField10Visibility]]" role="widget" value="{{document.properties.custom:dateField10}}" label="[[dateField10Label]]"></paper-input>
+      <nuxeo-date-picker hidden$="[[!dateField1Visibility]]" role="widget" value="{{document.properties.custom:dateField1}}" label="[[dateField1Label]]"></nuxeo-date-picker>
+      <nuxeo-date-picker hidden$="[[!dateField2Visibility]]" role="widget" value="{{document.properties.custom:dateField2}}" label="[[dateField2Label]]"></nuxeo-date-picker>
+      <nuxeo-date-picker hidden$="[[!dateField3Visibility]]" role="widget" value="{{document.properties.custom:dateField3}}" label="[[dateField3Label]]"></nuxeo-date-picker>
+      <nuxeo-date-picker hidden$="[[!dateField4Visibility]]" role="widget" value="{{document.properties.custom:dateField4}}" label="[[dateField4Label]]"></nuxeo-date-picker>
+      <nuxeo-date-picker hidden$="[[!dateField5Visibility]]" role="widget" value="{{document.properties.custom:dateField5}}" label="[[dateField5Label]]"></nuxeo-date-picker>
+      <nuxeo-date-picker hidden$="[[!dateField6Visibility]]" role="widget" value="{{document.properties.custom:dateField6}}" label="[[dateField6Label]]"></nuxeo-date-picker>
+      <nuxeo-date-picker hidden$="[[!dateField7Visibility]]" role="widget" value="{{document.properties.custom:dateField7}}" label="[[dateField7Label]]"></nuxeo-date-picker>
+      <nuxeo-date-picker hidden$="[[!dateField8Visibility]]" role="widget" value="{{document.properties.custom:dateField8}}" label="[[dateField8Label]]"></nuxeo-date-picker>
+      <nuxeo-date-picker hidden$="[[!dateField9Visibility]]" role="widget" value="{{document.properties.custom:dateField9}}" label="[[dateField9Label]]"></nuxeo-date-picker>
+      <nuxeo-date-picker hidden$="[[!dateField10Visibility]]" role="widget" value="{{document.properties.custom:dateField10}}" label="[[dateField10Label]]"></nuxeo-date-picker>
 
       <paper-input hidden$="[[!integerField1Visibility]]" role="widget" value="{{document.properties.custom:integerField1}}" label="[[integerField1Label]]"></paper-input>
       <paper-input hidden$="[[!integerField2Visibility]]" role="widget" value="{{document.properties.custom:integerField2}}" label="[[integerField2Label]]"></paper-input>
@@ -106,43 +106,43 @@
 
       <div role="widget">
         <label>[[dateField1Label]]</label>
-        <div>[[document.properties.custom:dateField1]]</div>
+        <div>[[formatDate(document.properties.custom:dateField1)]]</div>
       </div>
       <div role="widget">
         <label>[[dateField2Label]]</label>
-        <div>[[document.properties.custom:dateField2]]</div>
+        <div>[[formatDate(document.properties.custom:dateField2)]]</div>
       </div>
       <div role="widget">
         <label>[[dateField3Label]]</label>
-        <div>[[document.properties.custom:dateField3]]</div>
+        <div>[[formatDate(document.properties.custom:dateField3)]]</div>
       </div>
       <div role="widget">
         <label>[[dateField4Label]]</label>
-        <div>[[document.properties.custom:dateField4]]</div>
+        <div>[[formatDate(document.properties.custom:dateField4)]]</div>
       </div>
       <div role="widget">
         <label>[[dateField5Label]]</label>
-        <div>[[document.properties.custom:dateField5]]</div>
+        <div>[[formatDate(document.properties.custom:dateField5)]]</div>
       </div>
       <div role="widget">
         <label>[[dateField6Label]]</label>
-        <div>[[document.properties.custom:dateField6]]</div>
+        <div>[[formatDate(document.properties.custom:dateField6)]]</div>
       </div>
       <div role="widget">
         <label>[[dateField7Label]]</label>
-        <div>[[document.properties.custom:dateField7]]</div>
+        <div>[[formatDate(document.properties.custom:dateField7)]]</div>
       </div>
       <div role="widget">
         <label>[[dateField8Label]]</label>
-        <div>[[document.properties.custom:dateField8]]</div>
+        <div>[[formatDate(document.properties.custom:dateField8)]]</div>
       </div>
       <div role="widget">
         <label>[[dateField9Label]]</label>
-        <div>[[document.properties.custom:dateField9]]</div>
+        <div>[[formatDate(document.properties.custom:dateField9)]]</div>
       </div>
       <div role="widget">
         <label>[[dateField10Label]]</label>
-        <div>[[document.properties.custom:dateField10]]</div>
+        <div>[[formatDate(document.properties.custom:dateField10)]]</div>
       </div>
 
       <div role="widget">
