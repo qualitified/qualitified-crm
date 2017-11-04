@@ -1,20 +1,22 @@
 <!--
-`qualitified-custom-field`
+`qualitified-custom-fields`
 @group Nuxeo UI
-@element qualitified-custom-field
+@element qualitified-custom-fields
 -->
-<dom-module id="qualitified-custom-field">
+<dom-module id="qualitified-custom-fields">
   <template>
-    <nuxeo-page-provider
+    <nuxeo-operation id="getCustomFields" op="getCustomFieldsChain" input="[[document.uid]]" params="[[params]]"></nuxeo-operation>
+
+    <!--nuxeo-page-provider
      role="widget"
      id="customProvider"
      auto
      query="select * from Custom where dc:title='[[document.type]]'"
      params="[[params]]"
      current-page="{{custom}}">
-    </nuxeo-page-provider>
+   </nuxeo-page-provider-->
 
-    <template is="dom-if" if="[[edit]]">
+    <template is="dom-if" if="[[isEditMode]]">
       <paper-input hidden$="[[!stringField1Visibility]]" role="widget" value="{{document.properties.custom:stringField1}}" label="[[stringField1Label]]"></paper-input>
       <paper-input hidden$="[[!stringField2Visibility]]" role="widget" value="{{document.properties.custom:stringField2}}" label="[[stringField2Label]]"></paper-input>
       <paper-input hidden$="[[!stringField3Visibility]]" role="widget" value="{{document.properties.custom:stringField3}}" label="[[stringField3Label]]"></paper-input>
@@ -36,7 +38,6 @@
       <paper-input hidden$="[[!doubleField8Visibility]]" role="widget" value="{{document.properties.custom:doubleField8}}" label="[[doubleField8Label]]"></paper-input>
       <paper-input hidden$="[[!doubleField9Visibility]]" role="widget" value="{{document.properties.custom:doubleField9}}" label="[[doubleField9Label]]"></paper-input>
       <paper-input hidden$="[[!doubleField10Visibility]]" role="widget" value="{{document.properties.custom:doubleField10}}" label="[[doubleField10Label]]"></paper-input>
-
 
       <paper-input hidden$="[[!dateField1Visibility]]" role="widget" value="{{document.properties.custom:dateField1}}" label="[[dateField1Label]]"></paper-input>
       <paper-input hidden$="[[!dateField2Visibility]]" role="widget" value="{{document.properties.custom:dateField2}}" label="[[dateField2Label]]"></paper-input>
@@ -61,7 +62,7 @@
       <paper-input hidden$="[[!integerField10Visibility]]" role="widget" value="{{document.properties.custom:integerField10}}" label="[[integerField10Label]]"></paper-input>
     </template>
 
-    <template is="dom-if" if="[[!edit]]">
+    <template is="dom-if" if="[[!isEditMode]]">
       <div role="widget">
         <label>[[stringField1Label]]</label>
         <div>[[document.properties.custom:stringField1]]</div>
@@ -188,20 +189,26 @@
   </template>
   <script>
     Polymer({
-      is: 'qualitified-custom-field',
+      is: 'qualitified-custom-fields',
       behaviors: [Nuxeo.LayoutBehavior],
       properties: {
         document: {
           type: Object,
-          notify:true
+          notify:true,
+          observer:'_getCustomFields'
+        },
+        params:{
+          type: Object,
+          value: {}
         },
         custom: {
           type: Array,
           observer: '_customLoaded'
         },
-        edit:{
+        isEditMode:{
           type: Boolean,
-          value: true
+          value: false,
+          observer:'_customLoaded'
         },
         stringField1Visibility : {
           type: Boolean,
@@ -486,10 +493,19 @@
       },
       ready: function(){
       },
+      _getCustomFields: function(){
+        this.params = {
+          documentType:this.document.type
+        };
+        this.$.getCustomFields.execute().then(function(doc) {
+          //console.log(JSON.stringify(doc.entries[0].properties['custom:field']));
+          this.custom = doc.entries;
+        }.bind(this));
+      },
       _customLoaded: function(){
-        var qcf=document.querySelector("qualitified-custom-field");
+        var qcf=document.querySelector("qualitified-custom-fields");
         if(this.custom && this.custom[0] && this.custom[0].properties){
-          console.log(JSON.stringify(this.custom[0].properties['custom:field']));
+          //console.log(JSON.stringify(this.custom[0].properties['custom:field']));
           this.custom[0].properties['custom:field'].forEach(function(field) {
             if(field.fieldName === 'stringField1'){
               qcf.stringField1Visibility = true;

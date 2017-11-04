@@ -876,6 +876,9 @@
         <param type="serializable" name="value">expr:@{Context["goal"]}</param>
       </operation>
     </chain>
+    <chain id="getCustomFieldsChain">
+      <operation id="javascript.getCustomFields"/>
+    </chain>
   </extension>
   <extension target="org.nuxeo.ecm.platform.query.api.PageProviderService" point="providers">
     <genericPageProvider class="org.nuxeo.elasticsearch.provider.ElasticSearchNxqlPageProvider" name="opportunity_list">
@@ -1101,6 +1104,18 @@
           }
         }
         return input;
+        }]]>
+      </script>
+    </scriptedOperation>
+    <scriptedOperation id="javascript.getCustomFields">
+      <inputType>void</inputType>
+      <outputType>documents</outputType>
+      <category>javascript</category>
+      <description></description>
+      <script><![CDATA[function run(input, params) {
+        Console.error('SELECT * FROM Custom WHERE ecm:isProxy = 0 AND ecm:isCheckedInVersion = 0 AND ecm:currentLifeCycleState != \'deleted\' AND dc:title=\''+params.documentType+'\'');
+        var customFields = Repository.Query(null, {'query': 'SELECT * FROM Custom WHERE ecm:isProxy = 0 AND ecm:isCheckedInVersion = 0 AND ecm:currentLifeCycleState != \'deleted\' AND dc:title=\''+params.documentType+'\''});
+        return customFields;
         }]]>
       </script>
     </scriptedOperation>
