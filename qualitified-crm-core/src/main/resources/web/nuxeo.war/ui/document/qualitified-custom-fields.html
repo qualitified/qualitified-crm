@@ -15,8 +15,8 @@
      params="[[params]]"
      current-page="{{custom}}">
    </nuxeo-page-provider-->
-
-    <template is="dom-if" if="[[isEditMode]]">
+   <iron-pages selected="[[mode]]" attr-for-selected="name" class="vertical layout flex">
+     <div name="edit" class="vertical layout flex">
       <paper-input hidden$="[[!stringField1Visibility]]" role="widget" value="{{document.properties.custom:stringField1}}" label="[[stringField1Label]]"></paper-input>
       <paper-input hidden$="[[!stringField2Visibility]]" role="widget" value="{{document.properties.custom:stringField2}}" label="[[stringField2Label]]"></paper-input>
       <paper-input hidden$="[[!stringField3Visibility]]" role="widget" value="{{document.properties.custom:stringField3}}" label="[[stringField3Label]]"></paper-input>
@@ -60,132 +60,174 @@
       <paper-input hidden$="[[!integerField8Visibility]]" role="widget" value="{{document.properties.custom:integerField8}}" label="[[integerField8Label]]"></paper-input>
       <paper-input hidden$="[[!integerField9Visibility]]" role="widget" value="{{document.properties.custom:integerField9}}" label="[[integerField9Label]]"></paper-input>
       <paper-input hidden$="[[!integerField10Visibility]]" role="widget" value="{{document.properties.custom:integerField10}}" label="[[integerField10Label]]"></paper-input>
-    </template>
+    </div>
 
-    <template is="dom-if" if="[[!isEditMode]]">
-      <div role="widget">
+    <div name="view" class="vertical layout flex">
+      <div hidden$="[[!stringField1Visibility]]" role="widget">
         <label>[[stringField1Label]]</label>
         <div>[[document.properties.custom:stringField1]]</div>
       </div>
-      <div role="widget">
+      <div hidden$="[[!stringField2Visibility]]" role="widget">
         <label>[[stringField2Label]]</label>
         <div>[[document.properties.custom:stringField2]]</div>
       </div>
-      <div role="widget">
+      <div hidden$="[[!stringField3Visibility]]" role="widget">
         <label>[[stringField3Label]]</label>
         <div>[[document.properties.custom:stringField3]]</div>
       </div>
-      <div role="widget">
+      <div hidden$="[[!stringField4Visibility]]" role="widget">
         <label>[[stringField4Label]]</label>
         <div>[[document.properties.custom:stringField4]]</div>
       </div>
-      <div role="widget">
+      <div hidden$="[[!stringField5Visibility]]" role="widget">
         <label>[[stringField5Label]]</label>
         <div>[[document.properties.custom:stringField5]]</div>
       </div>
-      <div role="widget">
+      <div hidden$="[[!stringField6Visibility]]" role="widget">
         <label>[[stringField6Label]]</label>
         <div>[[document.properties.custom:stringField6]]</div>
       </div>
-      <div role="widget">
+      <div hidden$="[[!stringField7Visibility]]" role="widget">
         <label>[[stringField7Label]]</label>
         <div>[[document.properties.custom:stringField7]]</div>
       </div>
-      <div role="widget">
+      <div hidden$="[[!stringField8Visibility]]" role="widget">
         <label>[[stringField8Label]]</label>
         <div>[[document.properties.custom:stringField8]]</div>
       </div>
-      <div role="widget">
+      <div hidden$="[[!stringField9Visibility]]" role="widget">
         <label>[[stringField9Label]]</label>
         <div>[[document.properties.custom:stringField9]]</div>
       </div>
-      <div role="widget">
+      <div hidden$="[[!stringField10Visibility]]" role="widget">
         <label>[[stringField10Label]]</label>
         <div>[[document.properties.custom:stringField10]]</div>
       </div>
 
-      <div role="widget">
+      <div hidden$="[[!doubleField1Visibility]]" role="widget">
+        <label>[[doubleField1Label]]</label>
+        <div>[[document.properties.custom:doubleField1]]</div>
+      </div>
+      <div hidden$="[[!doubleField2Visibility]]" role="widget">
+        <label>[[doubleField2Label]]</label>
+        <div>[[document.properties.custom:doubleField2]]</div>
+      </div>
+      <div hidden$="[[!doubleField3Visibility]]" role="widget">
+        <label>[[doubleField3Label]]</label>
+        <div>[[document.properties.custom:doubleField3]]</div>
+      </div>
+      <div hidden$="[[!doubleField4Visibility]]" role="widget">
+        <label>[[doubleField4Label]]</label>
+        <div>[[document.properties.custom:doubleField4]]</div>
+      </div>
+      <div hidden$="[[!doubleField5Visibility]]" role="widget">
+        <label>[[doubleField5Label]]</label>
+        <div>[[document.properties.custom:doubleField5]]</div>
+      </div>
+      <div hidden$="[[!doubleField6Visibility]]" role="widget">
+        <label>[[doubleField6Label]]</label>
+        <div>[[document.properties.custom:doubleField6]]</div>
+      </div>
+      <div hidden$="[[!doubleField7Visibility]]" role="widget">
+        <label>[[doubleField7Label]]</label>
+        <div>[[document.properties.custom:doubleField7]]</div>
+      </div>
+      <div hidden$="[[!doubleField8Visibility]]" role="widget">
+        <label>[[doubleField8Label]]</label>
+        <div>[[document.properties.custom:doubleField8]]</div>
+      </div>
+      <div hidden$="[[!doubleField9Visibility]]" role="widget">
+        <label>[[doubleField9Label]]</label>
+        <div>[[document.properties.custom:doubleField9]]</div>
+      </div>
+      <div hidden$="[[!doubleField10Visibility]]" role="widget">
+        <label>[[doubleField10Label]]</label>
+        <div>[[document.properties.custom:doubleField10]]</div>
+      </div>
+
+      <div hidden$="[[!dateField1Visibility]]" role="widget">
         <label>[[dateField1Label]]</label>
         <div>[[formatDate(document.properties.custom:dateField1)]]</div>
       </div>
-      <div role="widget">
+      <div hidden$="[[!dateField2Visibility]]" role="widget">
         <label>[[dateField2Label]]</label>
         <div>[[formatDate(document.properties.custom:dateField2)]]</div>
       </div>
-      <div role="widget">
+      <div hidden$="[[!dateField3Visibility]]" role="widget">
         <label>[[dateField3Label]]</label>
         <div>[[formatDate(document.properties.custom:dateField3)]]</div>
       </div>
-      <div role="widget">
+      <div hidden$="[[!dateField4Visibility]]" role="widget">
         <label>[[dateField4Label]]</label>
         <div>[[formatDate(document.properties.custom:dateField4)]]</div>
       </div>
-      <div role="widget">
+      <div hidden$="[[!dateField5Visibility]]" role="widget">
         <label>[[dateField5Label]]</label>
         <div>[[formatDate(document.properties.custom:dateField5)]]</div>
       </div>
-      <div role="widget">
+      <div hidden$="[[!dateField6Visibility]]" role="widget">
         <label>[[dateField6Label]]</label>
         <div>[[formatDate(document.properties.custom:dateField6)]]</div>
       </div>
-      <div role="widget">
+      <div hidden$="[[!dateField7Visibility]]" role="widget">
         <label>[[dateField7Label]]</label>
         <div>[[formatDate(document.properties.custom:dateField7)]]</div>
       </div>
-      <div role="widget">
+      <div hidden$="[[!dateField8Visibility]]" role="widget">
         <label>[[dateField8Label]]</label>
         <div>[[formatDate(document.properties.custom:dateField8)]]</div>
       </div>
-      <div role="widget">
+      <div hidden$="[[!dateField9Visibility]]" role="widget">
         <label>[[dateField9Label]]</label>
         <div>[[formatDate(document.properties.custom:dateField9)]]</div>
       </div>
-      <div role="widget">
+      <div hidden$="[[!dateField10Visibility]]" role="widget">
         <label>[[dateField10Label]]</label>
         <div>[[formatDate(document.properties.custom:dateField10)]]</div>
       </div>
 
-      <div role="widget">
+      <div hidden$="[[!integerField1Visibility]]" role="widget">
         <label>[[integerField1Label]]</label>
         <div>[[document.properties.custom:integerField1]]</div>
       </div>
-      <div role="widget">
+      <div hidden$="[[!integerField2Visibility]]" role="widget">
         <label>[[integerField2Label]]</label>
         <div>[[document.properties.custom:integerField2]]</div>
       </div>
-      <div role="widget">
+      <div hidden$="[[!integerField3Visibility]]" role="widget">
         <label>[[integerField3Label]]</label>
         <div>[[document.properties.custom:integerField3]]</div>
       </div>
-      <div role="widget">
+      <div hidden$="[[!integerField4Visibility]]" role="widget">
         <label>[[integerField4Label]]</label>
         <div>[[document.properties.custom:integerField4]]</div>
       </div>
-      <div role="widget">
+      <div hidden$="[[!integerField5Visibility]]" role="widget">
         <label>[[integerField5Label]]</label>
         <div>[[document.properties.custom:integerField5]]</div>
       </div>
-      <div role="widget">
+      <div hidden$="[[!integerField6Visibility]]" role="widget">
         <label>[[integerField6Label]]</label>
         <div>[[document.properties.custom:integerField6]]</div>
       </div>
-      <div role="widget">
+      <div hidden$="[[!integerField7Visibility]]" role="widget">
         <label>[[integerField7Label]]</label>
         <div>[[document.properties.custom:integerField7]]</div>
       </div>
-      <div role="widget">
+      <div hidden$="[[!integerField8Visibility]]" role="widget">
         <label>[[integerField8Label]]</label>
         <div>[[document.properties.custom:integerField8]]</div>
       </div>
-      <div role="widget">
+      <div hidden$="[[!integerField9Visibility]]" role="widget">
         <label>[[integerField9Label]]</label>
         <div>[[document.properties.custom:integerField9]]</div>
       </div>
-      <div role="widget">
+      <div hidden$="[[!integerField10Visibility]]" role="widget">
         <label>[[integerField10Label]]</label>
         <div>[[document.properties.custom:integerField10]]</div>
       </div>
-    </template>
+    </div>
+  </iron-pages>
   </template>
   <script>
     Polymer({
@@ -205,9 +247,9 @@
           type: Array,
           observer: '_customLoaded'
         },
-        isEditMode:{
-          type: Boolean,
-          value: false,
+        mode:{
+          type: String,
+          value: 'view',
           observer:'_customLoaded'
         },
         stringField1Visibility : {
@@ -502,7 +544,12 @@
           this.custom = doc.entries;
         }.bind(this));
       },
+      _isMode: function(value){
+        console.log(this.mode+' is '+value+'? ' + (this.mode === value));
+        return this.mode === value;
+      },
       _customLoaded: function(){
+        console.log('mode: '+ this.mode);
         var qcf=document.querySelector("qualitified-custom-fields");
         if(this.custom && this.custom[0] && this.custom[0].properties){
           //console.log(JSON.stringify(this.custom[0].properties['custom:field']));
