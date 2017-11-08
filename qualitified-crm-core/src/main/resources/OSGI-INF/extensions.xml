@@ -636,7 +636,14 @@
         </condition>
       </filters>
     </handler>
-
+    <handler chainId="filePostSaveChain">
+      <event>documentCreated</event>
+      <event>documentModified</event>
+      <filters>
+        <doctype>File</doctype>
+        <attribute>Regular Document</attribute>
+      </filters>
+    </handler>
   </extension>
   <extension target="org.nuxeo.ecm.core.lifecycle.LifeCycleService" point="lifecycle">
     <lifecycle name="default" defaultInitial="project">
@@ -884,6 +891,14 @@
         <param type="serializable" name="value">expr:@{Context["goal"]}</param>
       </operation>
     </chain>
+    <chain id="filePostSaveChain">
+      <operation id="Context.FetchDocument"/>
+      <operation id="Auth.LoginAs">
+        <param type="string" name="name">Administrator</param>
+      </operation>
+      <operation id="javascript.filePostSave"/>
+      <operation id="Auth.Logout"/>
+    </chain>
   </extension>
   <extension target="org.nuxeo.ecm.platform.query.api.PageProviderService" point="providers">
     <genericPageProvider class="org.nuxeo.elasticsearch.provider.ElasticSearchNxqlPageProvider" name="opportunity_list">
@@ -1107,6 +1122,25 @@
             Console.error('condition is true');
             Document.SetProperty(opp, {'xpath': 'opportunity:lastInteractionDate','save': true,'value': Fn.calendar(input['interaction:date']).format("yyyy-MM-dd")+"T00:00:00.000Z"});
           }
+        }
+        return input;
+        }]]>
+      </script>
+    </scriptedOperation>
+    <scriptedOperation id="javascript.filePostSave">
+      <inputType>document</inputType>
+      <outputType>document</outputType>
+      <category>javascript</category>
+      <description></description>
+      <script><![CDATA[function run(input, params) {
+        params.isCreation = input['dc:created'] == null && input['dc:modified'] == null || Fn.calendar(input['dc:created']).format("yyyy-MM-dd HH:mm:ss.SSS") == Fn.calendar(input['dc:modified']).format("yyyy-MM-dd HH:mm:ss.SSS");
+        var myScriptDoc = Repository.Query(null, {'query': 'SELECT * FROM ScriptNote WHERE ecm:isProxy = 0 AND ecm:isCheckedInVersion = 0 AND ecm:currentLifeCycleState != \'deleted\' AND dc:title=\'filePostSave\''});
+        var myScript = "";
+        if(myScriptDoc.length > 0){
+          myScript = myScriptDoc[0]['note:note'];
+        }
+        if(myScript !== ""){
+          eval(myScript);
         }
         return input;
         }]]>
