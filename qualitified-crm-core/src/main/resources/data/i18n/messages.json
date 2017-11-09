@@ -55,5 +55,6 @@
   "label.metadata.contact.picture": "Picture",
   "label.metadata.logo": "Logo",
   "label.metadata.solicitation.category": "Category",
-  "label.metadata.title": "Title"
+  "label.metadata.title": "Title",
+  "label.metadata.solicitation.category": "Category"
 }
