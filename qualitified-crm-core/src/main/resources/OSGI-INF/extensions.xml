@@ -16,6 +16,7 @@
     <schema name="services" prefix="services" override="true" src="data/schemas/services.xsd"/>
     <schema name="silhouette" prefix="silhouette" override="true" src="data/schemas/silhouette.xsd"/>
     <schema name="scriptnote" prefix="scriptnote" override="true" src="data/schemas/scriptnote.xsd"/>
+    <schema name="custom" prefix="custom" override="true" src="data/schemas/custom.xsd"/>
     <schema name="solicitation" prefix="solicitation" override="true" src="data/schemas/solicitation.xsd"/>
     <schema name="workspace_schema" prefix="workspace_schema" override="true" src="data/schemas/workspace_schema.xsd"/>
     <schema name="person" prefix="person" override="true" src="data/schemas/person.xsd"/>
@@ -34,6 +35,7 @@
       <schema name="common"/>
       <schema name="uid"/>
       <schema name="picture"/>
+      <schema name="custom"/>
       <facet name="Picture"/>
       <facet name="Folderish"/>
       <subtypes>
@@ -72,6 +74,7 @@
       <schema name="dublincore"/>
       <schema name="common"/>
       <schema name="uid"/>
+      <schema name="custom"/>
       <facet name="Folderish"/>
       <subtypes>
         <type>File</type>
@@ -108,9 +111,8 @@
       <schema name="admin"/>
       <subtypes>
         <type>TemplateRoot</type>
-        <type>File</type>
-        <type>Note</type>
-        <type>ScriptNote</type>
+        <type>Objects</type>
+        <type>Scripts</type>
       </subtypes>
     </doctype>
     <doctype name="Root" append="true">
@@ -125,6 +127,7 @@
       <schema name="uid"/>
       <schema name="person"/>
       <schema name="picture"/>
+      <schema name="custom"/>
       <facet name="Picture"/>
     </doctype>
     <doctype name="Account" append="true">
@@ -139,6 +142,7 @@
       <schema name="uid"/>
       <schema name="file"/>
       <schema name="files"/>
+      <schema name="custom"/>
       <facet name="Commentable"/>
       <facet name="Versionable"/>
       <facet name="Publishable"/>
@@ -161,6 +165,7 @@
       <schema name="uid"/>
       <schema name="files"/>
       <schema name="note"/>
+      <schema name="custom"/>
     </doctype>
     <doctype name="Account" append="true">
       <subtypes>
@@ -184,6 +189,7 @@
       <schema name="dublincore"/>
       <schema name="common"/>
       <schema name="uid"/>
+      <schema name="custom"/>
       <facet name="Folderish"/>
       <subtypes>
         <type>File</type>
@@ -231,6 +237,7 @@
       <schema name="common"/>
       <schema name="uid"/>
       <schema name="person"/>
+      <schema name="custom"/>
     </doctype>
     <doctype name="Marketing" append="true">
       <subtypes>
@@ -240,6 +247,22 @@
     <doctype name="ScriptNote" extends="Note">
       <schema name="scriptnote"/>
     </doctype>
+    <doctype name="Custom" extends="Document">
+      <schema name="dublincore"/>
+      <schema name="common"/>
+      <schema name="uid"/>
+      <schema name="custom"/>
+    </doctype>
+    <doctype name="Objects" extends="Folder">
+      <subtypes>
+        <type>Custom</type>
+      </subtypes>
+    </doctype>
+    <doctype name="Scripts" extends="Folder">
+      <subtypes>
+        <type>ScriptNote</type>
+      </subtypes>
+    </doctype>  
     <doctype name="Solicitation" extends="Document">
       <schema name="solicitation"/>
       <schema name="dublincore"/>
@@ -350,6 +373,15 @@
       <type name="ScriptNote">default</type>
     </types>
     <types>
+      <type name="Custom">default</type>
+    </types>
+    <types>
+      <type name="Objects">default</type>
+    </types>
+    <types>
+      <type name="Scripts">default</type>
+    </types>
+    <types>
       <type name="Solicitation">default</type>
     </types>
     <types>
@@ -433,6 +465,24 @@
       <label>Script</label>
       <icon>/img/ic_code_black_24dp_1x.png</icon>
       <bigIcon>/img/ic_code_black_24dp_2x.png</bigIcon>
+      <description></description>
+    </type>
+    <type id="Scripts">
+      <label>Scripts</label>
+      <icon>/img/ic_code_black_24dp_1x.png</icon>
+      <bigIcon>/img/ic_code_black_24dp_2x.png</bigIcon>
+      <description></description>
+    </type>
+    <type id="Custom">
+      <label>Custom</label>
+      <icon>/img/ic_text_fields_black_24dp_1x.png</icon>
+      <bigIcon>/img/ic_text_fields_black_24dp_2x.png</bigIcon>
+      <description></description>
+    </type>
+    <type id="Objects">
+      <label>Objects</label>
+      <icon>/img/ic_text_fields_black_24dp_1x.png</icon>
+      <bigIcon>/img/ic_text_fields_black_24dp_2x.png</bigIcon>
       <description></description>
     </type>
     <type id="Solicitation">
@@ -891,6 +941,9 @@
         <param type="serializable" name="value">expr:@{Context["goal"]}</param>
       </operation>
     </chain>
+    <chain id="getCustomFieldsChain">
+      <operation id="javascript.getCustomFields"/>
+    </chain>
     <chain id="filePostSaveChain">
       <operation id="Context.FetchDocument"/>
       <operation id="Auth.LoginAs">
@@ -1127,6 +1180,17 @@
         }]]>
       </script>
     </scriptedOperation>
+    <scriptedOperation id="javascript.getCustomFields">
+      <inputType>void</inputType>
+      <outputType>documents</outputType>
+      <category>javascript</category>
+      <description></description>
+      <script><![CDATA[function run(input, params) {
+        Console.error('SELECT * FROM Custom WHERE ecm:isProxy = 0 AND ecm:isCheckedInVersion = 0 AND ecm:currentLifeCycleState != \'deleted\' AND dc:title=\''+params.documentType+'\'');
+        var customFields = Repository.Query(null, {'query': 'SELECT * FROM Custom WHERE ecm:isProxy = 0 AND ecm:isCheckedInVersion = 0 AND ecm:currentLifeCycleState != \'deleted\' AND dc:title=\''+params.documentType+'\''});
+        return customFields;
+      </script>
+    </scriptedOperation>
     <scriptedOperation id="javascript.filePostSave">
       <inputType>document</inputType>
       <outputType>document</outputType>
@@ -1152,6 +1216,8 @@
     <factoryBinding name="AdminFactory" factoryName="SimpleTemplateFactory" targetType="Admin">
       <template>
         <templateItem typeName="TemplateRoot" id="Templates" title="Templates" description=""/>
+        <templateItem typeName="Objects" id="Objects" title="Objects" description=""/>
+        <templateItem typeName="Scripts" id="Scripts" title="Scripts" description=""/>
       </template>
     </factoryBinding>
     <factoryBinding name="RootFactory" factoryName="SimpleTemplateRootFactory" targetType="Root">

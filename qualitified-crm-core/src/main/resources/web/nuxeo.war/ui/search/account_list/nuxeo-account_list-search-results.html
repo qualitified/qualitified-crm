@@ -5,6 +5,7 @@
 -->
 <dom-module id="nuxeo-account_list-search-results">
   <template>
+    <nuxeo-operation id="getCustomFields" op="getCustomFieldsChain" params="[[params]]"></nuxeo-operation>
     <nuxeo-results name="account_list" nx-provider="[[nxProvider]]">
       <nuxeo-data-grid name="grid" icon="icons:apps" class="results" empty-label="[[i18n('searchResults.noResults')]]"
                        selection-enabled display-quick-filters>
@@ -35,6 +36,20 @@
           </template>
         </nuxeo-data-table-column>
 
+        <nuxeo-data-table-column hidden$="[[!stringField1Visibility]]" name="[[stringField1Label]]" field="custom:stringField1" sort-by="custom:stringField1"
+                                 flex="50" hidden>
+          <template>
+            [[formatDirectory(item.properties.custom:stringField1)]]
+          </template>
+        </nuxeo-data-table-column>
+
+        <nuxeo-data-table-column hidden$="[[!stringField2Visibility]]" name="[[stringField2Label]]" field="custom:stringField2" sort-by="custom:stringField2"
+                                 flex="50" hidden>
+          <template>
+            [[formatDirectory(item.properties.custom:stringField2)]]
+          </template>
+        </nuxeo-data-table-column>
+
       </nuxeo-data-table>
     </nuxeo-results>
   </template>
@@ -46,7 +61,57 @@
       /**
          * @schema dublincore
          */
-      nxProvider: Object
+      nxProvider: {
+        type: Object,
+        observer:'_getCustomFields'
+      },
+      params:{
+        type: Object,
+        value: {}
+      },
+      custom: {
+        type: Array,
+        observer: '_customLoaded'
+      },
+      stringField1Visibility : {
+        type: Boolean,
+        value: false
+      },
+      stringField1Label : {
+        type: String
+      },
+      stringField2Visibility : {
+        type: Boolean,
+        value: false
+      },
+      stringField2Label : {
+        type: String
+      }
+    },
+
+    _getCustomFields: function(){
+      this.params = {
+        documentType:'Account'
+      };
+      this.$.getCustomFields.execute().then(function(doc) {
+        //console.log(JSON.stringify(doc.entries[0].properties['custom:field']));
+        this.custom = doc.entries;
+      }.bind(this));
+    },
+    _customLoaded: function(){
+      if(this.custom && this.custom[0] && this.custom[0].properties){
+        //console.log(JSON.stringify(this.custom[0].properties['custom:field']));
+        this.custom[0].properties['custom:field'].forEach(function(field) {
+          if(field.fieldName === 'stringField1'){
+            this.stringField1Visibility = true;
+            this.stringField1Label = field.label;
+          }
+          if(field.fieldName === 'stringField2'){
+            this.stringField2Visibility = true;
+            this.stringField2Label = field.label;
+          }
+        }.bind(this));
+      }
     },
 
     _navigate: function(e) {

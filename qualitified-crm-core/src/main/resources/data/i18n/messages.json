@@ -6,6 +6,8 @@
   "label.document.type.solicitation":"Solicitation",
   "label.document.type.interaction":"Interaction",
   "label.document.type.scriptnote":"Script",
+  "label.document.type.objects":"Objects",
+  "label.document.type.scripts":"Scripts",
   "label.ui.aggregate.to_10000":"Up to 10,000 €",
   "label.ui.aggregate.from_10000_to_25000":"From 10,000 to 25,000 €",
   "label.ui.aggregate.from_25000_to_50000":"From 25,000 to 50,000 €",
