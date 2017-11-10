@@ -8,7 +8,7 @@
   "label.document.type.account":"Client",
   "label.document.type.opportunity":"Opportunité",
   "label.document.type.contact":"Contact",
-  "label.document.type.sollicitation":"Sollicitation",
+  "label.document.type.solicitation":"Sollicitation",
   "label.document.type.interaction":"Interaction",
   "label.document.type.scriptnote":"Script",
   "label.document.type.objects":"Objets",
@@ -66,5 +66,7 @@
   "true": "Oui",
   "false": "Non",
   "label.metadata.contact.picture": "Photo",
-  "label.metadata.logo": "Logo"
+  "label.metadata.logo": "Logo",
+  "label.metadata.solicitation.category": "Catégorie",
+  "label.metadata.title": "Titre"
 }

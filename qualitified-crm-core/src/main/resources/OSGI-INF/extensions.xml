@@ -16,9 +16,8 @@
     <schema name="services" prefix="services" override="true" src="data/schemas/services.xsd"/>
     <schema name="silhouette" prefix="silhouette" override="true" src="data/schemas/silhouette.xsd"/>
     <schema name="scriptnote" prefix="scriptnote" override="true" src="data/schemas/scriptnote.xsd"/>
-
     <schema name="custom" prefix="custom" override="true" src="data/schemas/custom.xsd"/>
-
+    <schema name="solicitation" prefix="solicitation" override="true" src="data/schemas/solicitation.xsd"/>
     <schema name="workspace_schema" prefix="workspace_schema" override="true" src="data/schemas/workspace_schema.xsd"/>
     <schema name="person" prefix="person" override="true" src="data/schemas/person.xsd"/>
     <schema name="opportunity_list_pp" prefix="opportunity_list_pp" override="true" src="data/schemas/opportunity_list_pp.xsd"/>
@@ -46,6 +45,8 @@
         <type>Picture</type>
         <type>Video</type>
         <type>Audio</type>
+        <type>Note</type>
+        <type>Solicitation</type>
       </subtypes>
     </doctype>
     <doctype name="Domain" append="true">
@@ -197,6 +198,7 @@
         <type>Picture</type>
         <type>Video</type>
         <type>Audio</type>
+        <type>Note</type>
       </subtypes>
     </doctype>
     <doctype name="Account" append="true">
@@ -220,6 +222,9 @@
     </doctype>
     <doctype name="Services" extends="Domain">
       <schema name="services"/>
+      <subtypes>
+        <type>Solicitation</type>
+      </subtypes>
     </doctype>
     <doctype name="Root" append="true">
       <subtypes>
@@ -256,6 +261,24 @@
     <doctype name="Scripts" extends="Folder">
       <subtypes>
         <type>ScriptNote</type>
+      </subtypes>
+    </doctype>  
+    <doctype name="Solicitation" extends="Document">
+      <schema name="solicitation"/>
+      <schema name="dublincore"/>
+      <schema name="common"/>
+      <schema name="uid"/>
+      <schema name="note"/>
+      <schema name="files"/>
+      <facet name="Folderish"/>
+      <subtypes>
+        <type>File</type>
+        <type>Note</type>
+        <type>Folder</type>
+        <type>Interaction</type>
+        <type>Picture</type>
+        <type>Video</type>
+        <type>Audio</type>
       </subtypes>
     </doctype>
     <doctype name="Workspace" extends="Folder">
@@ -359,6 +382,9 @@
       <type name="Scripts">default</type>
     </types>
     <types>
+      <type name="Solicitation">default</type>
+    </types>
+    <types>
       <type name="Workspace">default</type>
     </types>
   </extension>
@@ -457,6 +483,12 @@
       <label>Objects</label>
       <icon>/img/ic_text_fields_black_24dp_1x.png</icon>
       <bigIcon>/img/ic_text_fields_black_24dp_2x.png</bigIcon>
+      <description></description>
+    </type>
+    <type id="Solicitation">
+      <label>Solicitation</label>
+      <icon>/img/service.png</icon>
+      <bigIcon>/img/service.png</bigIcon>
       <description></description>
     </type>
     <type id="Workspace">
@@ -654,7 +686,14 @@
         </condition>
       </filters>
     </handler>
-
+    <handler chainId="filePostSaveChain">
+      <event>documentCreated</event>
+      <event>documentModified</event>
+      <filters>
+        <doctype>File</doctype>
+        <attribute>Regular Document</attribute>
+      </filters>
+    </handler>
   </extension>
   <extension target="org.nuxeo.ecm.core.lifecycle.LifeCycleService" point="lifecycle">
     <lifecycle name="default" defaultInitial="project">
@@ -905,6 +944,14 @@
     <chain id="getCustomFieldsChain">
       <operation id="javascript.getCustomFields"/>
     </chain>
+    <chain id="filePostSaveChain">
+      <operation id="Context.FetchDocument"/>
+      <operation id="Auth.LoginAs">
+        <param type="string" name="name">Administrator</param>
+      </operation>
+      <operation id="javascript.filePostSave"/>
+      <operation id="Auth.Logout"/>
+    </chain>
   </extension>
   <extension target="org.nuxeo.ecm.platform.query.api.PageProviderService" point="providers">
     <genericPageProvider class="org.nuxeo.elasticsearch.provider.ElasticSearchNxqlPageProvider" name="opportunity_list">
@@ -1142,6 +1189,24 @@
         Console.error('SELECT * FROM Custom WHERE ecm:isProxy = 0 AND ecm:isCheckedInVersion = 0 AND ecm:currentLifeCycleState != \'deleted\' AND dc:title=\''+params.documentType+'\'');
         var customFields = Repository.Query(null, {'query': 'SELECT * FROM Custom WHERE ecm:isProxy = 0 AND ecm:isCheckedInVersion = 0 AND ecm:currentLifeCycleState != \'deleted\' AND dc:title=\''+params.documentType+'\''});
         return customFields;
+      </script>
+    </scriptedOperation>
+    <scriptedOperation id="javascript.filePostSave">
+      <inputType>document</inputType>
+      <outputType>document</outputType>
+      <category>javascript</category>
+      <description></description>
+      <script><![CDATA[function run(input, params) {
+        params.isCreation = input['dc:created'] == null && input['dc:modified'] == null || Fn.calendar(input['dc:created']).format("yyyy-MM-dd HH:mm:ss.SSS") == Fn.calendar(input['dc:modified']).format("yyyy-MM-dd HH:mm:ss.SSS");
+        var myScriptDoc = Repository.Query(null, {'query': 'SELECT * FROM ScriptNote WHERE ecm:isProxy = 0 AND ecm:isCheckedInVersion = 0 AND ecm:currentLifeCycleState != \'deleted\' AND dc:title=\'filePostSave\''});
+        var myScript = "";
+        if(myScriptDoc.length > 0){
+          myScript = myScriptDoc[0]['note:note'];
+        }
+        if(myScript !== ""){
+          eval(myScript);
+        }
+        return input;
         }]]>
       </script>
     </scriptedOperation>
@@ -1268,6 +1333,17 @@
       <createTablePolicy>on_missing_columns</createTablePolicy>
       <table>studio_vocabulary_AccountType</table>
       <dataFile>data/vocabularies/AccountType.csv</dataFile>
+    </directory>
+    <directory name="SolicitationCategory">
+      <schema>vocabulary</schema>
+      <dataSource>java:/nxsqldirectory</dataSource>
+      <cacheTimeout>3600</cacheTimeout>
+      <cacheMaxSize>1000</cacheMaxSize>
+      <idField>id</idField>
+      <autoincrementIdField>false</autoincrementIdField>
+      <createTablePolicy>always</createTablePolicy>
+      <table>studio_vocabulary_SolicitationCategory</table>
+      <dataFile>data/vocabularies/SolicitationCategory.csv</dataFile>
     </directory>
   </extension>
   <extension target="org.nuxeo.ecm.platform.routing.service" point="routeModelImporter">

@@ -16,7 +16,7 @@
 </nuxeo-slot-content>
 <nuxeo-slot-content name="myQualitifiedViewPage" slot="DOCUMENT_VIEWS_PAGES" >
   <template>
-    <nuxeo-filter document="[[document]]" type="Account,Opportunity,Contact,Interaction,Sollicitation,File,Custom">
+    <nuxeo-filter document="[[document]]" type="Account,Opportunity,Contact,Interaction,Sollicitation,File,Custom,Objects,Scripts">
     <template>
       <qualitified-document-page name="view" document="[[document]]"></qualitified-document-page>
     </template>
@@ -131,7 +131,7 @@
 </nuxeo-slot-content>
 
 <!-- Contribution of element 'nuxeo-menu-icon' for slot 'DRAWER_ITEMS' -->
-<nuxeo-slot-content name="sales" slot="DRAWER_ITEMS" order="2" >
+<nuxeo-slot-content name="sales" slot="DRAWER_ITEMS" order="10" >
   <template>
     <nuxeo-menu-icon label="Sales" name="sales" icon="nuxeo:browse"></nuxeo-menu-icon>
   </template>

@@ -3,7 +3,7 @@
   "label.document.type.account":"Account",
   "label.document.type.opportunity":"Opportunity",
   "label.document.type.contact":"Contact",
-  "label.document.type.sollicitation":"Sollicitation",
+  "label.document.type.solicitation":"Solicitation",
   "label.document.type.interaction":"Interaction",
   "label.document.type.scriptnote":"Script",
   "label.document.type.objects":"Objects",
@@ -55,5 +55,8 @@
   "true": "true",
   "false": "false",
   "label.metadata.contact.picture": "Picture",
-  "label.metadata.logo": "Logo"
+  "label.metadata.logo": "Logo",
+  "label.metadata.solicitation.category": "Category",
+  "label.metadata.title": "Title",
+  "label.metadata.solicitation.category": "Category"
 }
