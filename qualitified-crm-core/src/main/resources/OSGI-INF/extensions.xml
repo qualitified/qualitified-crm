@@ -110,10 +110,8 @@
       <schema name="admin"/>
       <subtypes>
         <type>TemplateRoot</type>
-        <type>File</type>
-        <type>Note</type>
-        <type>ScriptNote</type>
-        <type>Custom</type>
+        <type>Objects</type>
+        <type>Scripts</type>
       </subtypes>
     </doctype>
     <doctype name="Root" append="true">
@@ -250,6 +248,16 @@
       <schema name="uid"/>
       <schema name="custom"/>
     </doctype>
+    <doctype name="Objects" extends="Folder">
+      <subtypes>
+        <type>Custom</type>
+      </subtypes>
+    </doctype>
+    <doctype name="Scripts" extends="Folder">
+      <subtypes>
+        <type>ScriptNote</type>
+      </subtypes>
+    </doctype>
     <doctype name="Workspace" extends="Folder">
       <schema name="workspace_schema"/>
       <schema name="publishing"/>
@@ -345,6 +353,12 @@
       <type name="Custom">default</type>
     </types>
     <types>
+      <type name="Objects">default</type>
+    </types>
+    <types>
+      <type name="Scripts">default</type>
+    </types>
+    <types>
       <type name="Workspace">default</type>
     </types>
   </extension>
@@ -427,8 +441,20 @@
       <bigIcon>/img/ic_code_black_24dp_2x.png</bigIcon>
       <description></description>
     </type>
+    <type id="Scripts">
+      <label>Scripts</label>
+      <icon>/img/ic_code_black_24dp_1x.png</icon>
+      <bigIcon>/img/ic_code_black_24dp_2x.png</bigIcon>
+      <description></description>
+    </type>
     <type id="Custom">
       <label>Custom</label>
+      <icon>/img/ic_text_fields_black_24dp_1x.png</icon>
+      <bigIcon>/img/ic_text_fields_black_24dp_2x.png</bigIcon>
+      <description></description>
+    </type>
+    <type id="Objects">
+      <label>Objects</label>
       <icon>/img/ic_text_fields_black_24dp_1x.png</icon>
       <bigIcon>/img/ic_text_fields_black_24dp_2x.png</bigIcon>
       <description></description>
@@ -1125,6 +1151,8 @@
     <factoryBinding name="AdminFactory" factoryName="SimpleTemplateFactory" targetType="Admin">
       <template>
         <templateItem typeName="TemplateRoot" id="Templates" title="Templates" description=""/>
+        <templateItem typeName="Objects" id="Objects" title="Objects" description=""/>
+        <templateItem typeName="Scripts" id="Scripts" title="Scripts" description=""/>
       </template>
     </factoryBinding>
     <factoryBinding name="RootFactory" factoryName="SimpleTemplateRootFactory" targetType="Root">
