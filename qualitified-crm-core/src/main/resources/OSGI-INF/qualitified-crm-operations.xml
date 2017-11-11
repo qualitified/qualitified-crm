@@ -1,0 +1,6 @@
+<component name="org.qualitified.crm.operations">
+    <extension target="org.nuxeo.ecm.core.operation.OperationServiceComponent"
+               point="operations" >
+        <operation class="org.qualitified.crm.GetCustomFields" />
+    </extension>
+ </component>

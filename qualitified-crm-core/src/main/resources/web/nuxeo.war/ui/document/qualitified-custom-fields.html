@@ -537,7 +537,9 @@
       },
       _getCustomFields: function(){
         this.params = {
-          documentType:this.document.type
+          context: {
+            documentType:this.document.type
+          }
         };
         this.$.getCustomFields.execute().then(function(doc) {
           //console.log(JSON.stringify(doc.entries[0].properties['custom:field']));

@@ -942,7 +942,9 @@
       </operation>
     </chain>
     <chain id="getCustomFieldsChain">
-      <operation id="javascript.getCustomFields"/>
+      <operation id="Qualitified.GetCustomFields">
+        <param type="string" name="documentType">expr:@{Context["documentType"]}</param>
+      </operation>
     </chain>
     <chain id="filePostSaveChain">
       <operation id="Context.FetchDocument"/>
