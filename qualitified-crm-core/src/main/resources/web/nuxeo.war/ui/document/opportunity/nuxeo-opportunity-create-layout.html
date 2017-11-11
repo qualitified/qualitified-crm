@@ -1,3 +1,4 @@
+<link rel="import" href="../qualitified-custom-fields.html">
 <dom-module id="nuxeo-opportunity-create-layout">
   <template>
     <style>
@@ -13,6 +14,8 @@
 
     <nuxeo-date-picker value="{{document.properties.opportunity:closeDate}}" label="[[i18n('label.metadata.closedate')]]" role="widget"></nuxeo-date-picker>
 
+    <qualitified-custom-fields document="{{document}}" mode="edit"></qualitified-custom-fields>
+    
     <paper-textarea role="widget" value="{{document.properties.dc:description}}" label="[[i18n('label.metadata.description')]]"></paper-textarea>
 
   </template>

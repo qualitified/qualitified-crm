@@ -16,27 +16,20 @@ limitations under the License.
 -->
 
 <!--
-`nuxeo-file-metadata-layout`
+`nuxeo-file-view-layout`
 @group Nuxeo UI
-@element nuxeo-file-metadata-layout
+@element nuxeo-file-view-layout
 -->
-<link rel="import" href="../qualitified-custom-fields.html">
-<dom-module id="nuxeo-file-metadata-layout">
+<dom-module id="nuxeo-file-view-layout">
 
   <template>
-    <div role="widget">
-      <h1>[[document.properties.dc:title]]</h1>
-    </div>
-    <qualitified-custom-fields document="{{document}}" mode="view"></qualitified-custom-fields>
-    <div role="widget" hidden$="[[!document.properties.dc:description]]">
-      <label>[[i18n('label.dublincore.description')]]</label>
-      <div name="description" class="multiline">[[document.properties.dc:description]]</div>
-    </div>
+    <nuxeo-document-viewer role="widget" document="[[document]]"></nuxeo-document-viewer>
+    <nuxeo-document-attachments role="widget" document="[[document]]"></nuxeo-document-attachments>
   </template>
 
   <script>
     Polymer({
-      is: 'nuxeo-file-metadata-layout',
+      is: 'nuxeo-file-view-layout',
       behaviors: [Nuxeo.LayoutBehavior],
       properties: {
         /**

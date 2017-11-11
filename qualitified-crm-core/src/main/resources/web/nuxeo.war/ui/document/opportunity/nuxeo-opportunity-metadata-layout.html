@@ -1,3 +1,4 @@
+<link rel="import" href="../qualitified-custom-fields.html">
 <dom-module id="nuxeo-opportunity-metadata-layout">
   <template>
     <style>
@@ -27,7 +28,7 @@
       <label>[[i18n('label.metadata.description')]]</label>
       <div>[[document.properties.dc:description]]</div>
     </div>
-
+    <qualitified-custom-fields document="{{document}}" mode="view"></qualitified-custom-fields>
   </template>
 
   <script>

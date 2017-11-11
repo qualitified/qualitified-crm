@@ -31,6 +31,16 @@
           <div>[[item.type]]</div>
         </template>
       </nuxeo-data-table-column>
+      <nuxeo-data-table-column name="[[i18n('label.metadata.custom.required')]]">
+        <template>
+          <div>[[item.required]]</div>
+        </template>
+      </nuxeo-data-table-column>
+      <nuxeo-data-table-column name="[[i18n('label.metadata.custom.vocabularyname')]]">
+        <template>
+          <div>[[item.vocabularyName]]</div>
+        </template>
+      </nuxeo-data-table-column>
     </nuxeo-data-table>
   </template>
 

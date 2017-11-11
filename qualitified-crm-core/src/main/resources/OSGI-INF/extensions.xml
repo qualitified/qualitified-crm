@@ -262,7 +262,7 @@
       <subtypes>
         <type>ScriptNote</type>
       </subtypes>
-    </doctype>  
+    </doctype>
     <doctype name="Solicitation" extends="Document">
       <schema name="solicitation"/>
       <schema name="dublincore"/>
@@ -270,6 +270,7 @@
       <schema name="uid"/>
       <schema name="note"/>
       <schema name="files"/>
+      <schema name="custom"/>
       <facet name="Folderish"/>
       <subtypes>
         <type>File</type>
@@ -1191,6 +1192,7 @@
         Console.error('SELECT * FROM Custom WHERE ecm:isProxy = 0 AND ecm:isCheckedInVersion = 0 AND ecm:currentLifeCycleState != \'deleted\' AND dc:title=\''+params.documentType+'\'');
         var customFields = Repository.Query(null, {'query': 'SELECT * FROM Custom WHERE ecm:isProxy = 0 AND ecm:isCheckedInVersion = 0 AND ecm:currentLifeCycleState != \'deleted\' AND dc:title=\''+params.documentType+'\''});
         return customFields;
+        }]]>
       </script>
     </scriptedOperation>
     <scriptedOperation id="javascript.filePostSave">

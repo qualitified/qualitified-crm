@@ -68,5 +68,10 @@
   "label.metadata.contact.picture": "Photo",
   "label.metadata.logo": "Logo",
   "label.metadata.solicitation.category": "Catégorie",
-  "label.metadata.title": "Titre"
+  "label.metadata.title": "Titre",
+  "label.metadata.custom.label": "Libellé",
+  "label.metadata.custom.fieldname": "Nom du champ",
+  "label.metadata.custom.type": "Type",
+  "label.metadata.custom.required":"Obligatoire",
+  "label.metadata.custom.vocabularyname":"Nom du vocabulaire"
 }

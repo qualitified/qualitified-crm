@@ -17,214 +17,330 @@
    </nuxeo-page-provider-->
    <iron-pages selected="[[mode]]" attr-for-selected="name" class="vertical layout flex">
      <div name="edit" class="vertical layout flex">
-      <paper-input hidden$="[[!stringField1Visibility]]" role="widget" value="{{document.properties.custom:stringField1}}" label="[[stringField1Label]]"></paper-input>
-      <paper-input hidden$="[[!stringField2Visibility]]" role="widget" value="{{document.properties.custom:stringField2}}" label="[[stringField2Label]]"></paper-input>
-      <paper-input hidden$="[[!stringField3Visibility]]" role="widget" value="{{document.properties.custom:stringField3}}" label="[[stringField3Label]]"></paper-input>
-      <paper-input hidden$="[[!stringField4Visibility]]" role="widget" value="{{document.properties.custom:stringField4}}" label="[[stringField4Label]]"></paper-input>
-      <paper-input hidden$="[[!stringField5Visibility]]" role="widget" value="{{document.properties.custom:stringField5}}" label="[[stringField5Label]]"></paper-input>
-      <paper-input hidden$="[[!stringField6Visibility]]" role="widget" value="{{document.properties.custom:stringField6}}" label="[[stringField6Label]]"></paper-input>
-      <paper-input hidden$="[[!stringField7Visibility]]" role="widget" value="{{document.properties.custom:stringField7}}" label="[[stringField7Label]]"></paper-input>
-      <paper-input hidden$="[[!stringField8Visibility]]" role="widget" value="{{document.properties.custom:stringField8}}" label="[[stringField8Label]]"></paper-input>
-      <paper-input hidden$="[[!stringField9Visibility]]" role="widget" value="{{document.properties.custom:stringField9}}" label="[[stringField9Label]]"></paper-input>
-      <paper-input hidden$="[[!stringField10Visibility]]" role="widget" value="{{document.properties.custom:stringField10}}" label="[[stringField10Label]]"></paper-input>
+      <paper-input hidden$="[[!stringField1Visible]]" role="widget" value="{{document.properties.custom:stringField1}}" label="[[stringField1Label]]"></paper-input>
+      <paper-input hidden$="[[!stringField2Visible]]" role="widget" value="{{document.properties.custom:stringField2}}" label="[[stringField2Label]]"></paper-input>
+      <paper-input hidden$="[[!stringField3Visible]]" role="widget" value="{{document.properties.custom:stringField3}}" label="[[stringField3Label]]"></paper-input>
+      <paper-input hidden$="[[!stringField4Visible]]" role="widget" value="{{document.properties.custom:stringField4}}" label="[[stringField4Label]]"></paper-input>
+      <paper-input hidden$="[[!stringField5Visible]]" role="widget" value="{{document.properties.custom:stringField5}}" label="[[stringField5Label]]"></paper-input>
+      <paper-input hidden$="[[!stringField6Visible]]" role="widget" value="{{document.properties.custom:stringField6}}" label="[[stringField6Label]]"></paper-input>
+      <paper-input hidden$="[[!stringField7Visible]]" role="widget" value="{{document.properties.custom:stringField7}}" label="[[stringField7Label]]"></paper-input>
+      <paper-input hidden$="[[!stringField8Visible]]" role="widget" value="{{document.properties.custom:stringField8}}" label="[[stringField8Label]]"></paper-input>
+      <paper-input hidden$="[[!stringField9Visible]]" role="widget" value="{{document.properties.custom:stringField9}}" label="[[stringField9Label]]"></paper-input>
+      <paper-input hidden$="[[!stringField10Visible]]" role="widget" value="{{document.properties.custom:stringField10}}" label="[[stringField10Label]]"></paper-input>
 
-      <paper-input hidden$="[[!doubleField1Visibility]]" role="widget" value="{{document.properties.custom:doubleField1}}" label="[[doubleField1Label]]"></paper-input>
-      <paper-input hidden$="[[!doubleField2Visibility]]" role="widget" value="{{document.properties.custom:doubleField2}}" label="[[doubleField2Label]]"></paper-input>
-      <paper-input hidden$="[[!doubleField3Visibility]]" role="widget" value="{{document.properties.custom:doubleField3}}" label="[[doubleField3Label]]"></paper-input>
-      <paper-input hidden$="[[!doubleField4Visibility]]" role="widget" value="{{document.properties.custom:doubleField4}}" label="[[doubleField4Label]]"></paper-input>
-      <paper-input hidden$="[[!doubleField5Visibility]]" role="widget" value="{{document.properties.custom:doubleField5}}" label="[[doubleField5Label]]"></paper-input>
-      <paper-input hidden$="[[!doubleField6Visibility]]" role="widget" value="{{document.properties.custom:doubleField6}}" label="[[doubleField6Label]]"></paper-input>
-      <paper-input hidden$="[[!doubleField7Visibility]]" role="widget" value="{{document.properties.custom:doubleField7}}" label="[[doubleField7Label]]"></paper-input>
-      <paper-input hidden$="[[!doubleField8Visibility]]" role="widget" value="{{document.properties.custom:doubleField8}}" label="[[doubleField8Label]]"></paper-input>
-      <paper-input hidden$="[[!doubleField9Visibility]]" role="widget" value="{{document.properties.custom:doubleField9}}" label="[[doubleField9Label]]"></paper-input>
-      <paper-input hidden$="[[!doubleField10Visibility]]" role="widget" value="{{document.properties.custom:doubleField10}}" label="[[doubleField10Label]]"></paper-input>
+      <nuxeo-directory-suggestion hidden$="[[!vocabularyField1Visible]]" role="widget" value="{{document.properties.custom:vocabularyField1}}" label="[[vocabularyField1Label]]" required="[[vocabularyField1Required]]" directory-name="[[vocabularyField1Name]]" min-chars="0"></nuxeo-directory-suggestion>
+      <nuxeo-directory-suggestion hidden$="[[!vocabularyField2Visible]]" role="widget" value="{{document.properties.custom:vocabularyField2}}" label="[[vocabularyField2Label]]" required="[[vocabularyField2Required]]" directory-name="[[vocabularyField2Name]]" min-chars="0"></nuxeo-directory-suggestion>
+      <nuxeo-directory-suggestion hidden$="[[!vocabularyField3Visible]]" role="widget" value="{{document.properties.custom:vocabularyField3}}" label="[[vocabularyField3Label]]" required="[[vocabularyField3Required]]" directory-name="[[vocabularyField3Name]]" min-chars="0"></nuxeo-directory-suggestion>
+      <nuxeo-directory-suggestion hidden$="[[!vocabularyField4Visible]]" role="widget" value="{{document.properties.custom:vocabularyField4}}" label="[[vocabularyField4Label]]" required="[[vocabularyField4Required]]" directory-name="[[vocabularyField4Name]]" min-chars="0"></nuxeo-directory-suggestion>
+      <nuxeo-directory-suggestion hidden$="[[!vocabularyField5Visible]]" role="widget" value="{{document.properties.custom:vocabularyField5}}" label="[[vocabularyField5Label]]" required="[[vocabularyField5Required]]" directory-name="[[vocabularyField5Name]]" min-chars="0"></nuxeo-directory-suggestion>
+      <nuxeo-directory-suggestion hidden$="[[!vocabularyField6Visible]]" role="widget" value="{{document.properties.custom:vocabularyField6}}" label="[[vocabularyField6Label]]" required="[[vocabularyField6Required]]" directory-name="[[vocabularyField6Name]]" min-chars="0"></nuxeo-directory-suggestion>
+      <nuxeo-directory-suggestion hidden$="[[!vocabularyField7Visible]]" role="widget" value="{{document.properties.custom:vocabularyField7}}" label="[[vocabularyField7Label]]" required="[[vocabularyField7Required]]" directory-name="[[vocabularyField7Name]]" min-chars="0"></nuxeo-directory-suggestion>
+      <nuxeo-directory-suggestion hidden$="[[!vocabularyField8Visible]]" role="widget" value="{{document.properties.custom:vocabularyField8}}" label="[[vocabularyField8Label]]" required="[[vocabularyField8Required]]" directory-name="[[vocabularyField8Name]]" min-chars="0"></nuxeo-directory-suggestion>
+      <nuxeo-directory-suggestion hidden$="[[!vocabularyField9Visible]]" role="widget" value="{{document.properties.custom:vocabularyField9}}" label="[[vocabularyField9Label]]" required="[[vocabularyField9Required]]" directory-name="[[vocabularyField9Name]]" min-chars="0"></nuxeo-directory-suggestion>
+      <nuxeo-directory-suggestion hidden$="[[!vocabularyField10Visible]]" role="widget" value="{{document.properties.custom:vocabularyField10}}" label="[[vocabularyField10Label]]" required="[[vocabularyField10Required]]" directory-name="[[vocabularyField10Name]]" min-chars="0"></nuxeo-directory-suggestion>
 
-      <nuxeo-date-picker hidden$="[[!dateField1Visibility]]" role="widget" value="{{document.properties.custom:dateField1}}" label="[[dateField1Label]]"></nuxeo-date-picker>
-      <nuxeo-date-picker hidden$="[[!dateField2Visibility]]" role="widget" value="{{document.properties.custom:dateField2}}" label="[[dateField2Label]]"></nuxeo-date-picker>
-      <nuxeo-date-picker hidden$="[[!dateField3Visibility]]" role="widget" value="{{document.properties.custom:dateField3}}" label="[[dateField3Label]]"></nuxeo-date-picker>
-      <nuxeo-date-picker hidden$="[[!dateField4Visibility]]" role="widget" value="{{document.properties.custom:dateField4}}" label="[[dateField4Label]]"></nuxeo-date-picker>
-      <nuxeo-date-picker hidden$="[[!dateField5Visibility]]" role="widget" value="{{document.properties.custom:dateField5}}" label="[[dateField5Label]]"></nuxeo-date-picker>
-      <nuxeo-date-picker hidden$="[[!dateField6Visibility]]" role="widget" value="{{document.properties.custom:dateField6}}" label="[[dateField6Label]]"></nuxeo-date-picker>
-      <nuxeo-date-picker hidden$="[[!dateField7Visibility]]" role="widget" value="{{document.properties.custom:dateField7}}" label="[[dateField7Label]]"></nuxeo-date-picker>
-      <nuxeo-date-picker hidden$="[[!dateField8Visibility]]" role="widget" value="{{document.properties.custom:dateField8}}" label="[[dateField8Label]]"></nuxeo-date-picker>
-      <nuxeo-date-picker hidden$="[[!dateField9Visibility]]" role="widget" value="{{document.properties.custom:dateField9}}" label="[[dateField9Label]]"></nuxeo-date-picker>
-      <nuxeo-date-picker hidden$="[[!dateField10Visibility]]" role="widget" value="{{document.properties.custom:dateField10}}" label="[[dateField10Label]]"></nuxeo-date-picker>
+      <nuxeo-user-suggestion hidden$="[[!userField1Visible]]" role="widget" value="{{document.properties.custom:userField1}}" label="[[userField1Label]]" search-type="USER_TYPE"></nuxeo-user-suggestion>
+      <nuxeo-user-suggestion hidden$="[[!userField2Visible]]" role="widget" value="{{document.properties.custom:userField2}}" label="[[userField2Label]]" search-type="USER_TYPE"></nuxeo-user-suggestion>
+      <nuxeo-user-suggestion hidden$="[[!userField3Visible]]" role="widget" value="{{document.properties.custom:userField3}}" label="[[userField3Label]]" search-type="USER_TYPE"></nuxeo-user-suggestion>
+      <nuxeo-user-suggestion hidden$="[[!userField4Visible]]" role="widget" value="{{document.properties.custom:userField4}}" label="[[userField4Label]]" search-type="USER_TYPE"></nuxeo-user-suggestion>
+      <nuxeo-user-suggestion hidden$="[[!userField5Visible]]" role="widget" value="{{document.properties.custom:userField5}}" label="[[userField5Label]]" search-type="USER_TYPE"></nuxeo-user-suggestion>
+      <nuxeo-user-suggestion hidden$="[[!userField6Visible]]" role="widget" value="{{document.properties.custom:userField6}}" label="[[userField6Label]]" search-type="USER_TYPE"></nuxeo-user-suggestion>
+      <nuxeo-user-suggestion hidden$="[[!userField7Visible]]" role="widget" value="{{document.properties.custom:userField7}}" label="[[userField7Label]]" search-type="USER_TYPE"></nuxeo-user-suggestion>
+      <nuxeo-user-suggestion hidden$="[[!userField8Visible]]" role="widget" value="{{document.properties.custom:userField8}}" label="[[userField8Label]]" search-type="USER_TYPE"></nuxeo-user-suggestion>
+      <nuxeo-user-suggestion hidden$="[[!userField9Visible]]" role="widget" value="{{document.properties.custom:userField9}}" label="[[userField9Label]]" search-type="USER_TYPE"></nuxeo-user-suggestion>
+      <nuxeo-user-suggestion hidden$="[[!userField10Visible]]" role="widget" value="{{document.properties.custom:userField10}}" label="[[userField10Label]]" search-type="USER_TYPE"></nuxeo-user-suggestion>
 
-      <paper-input hidden$="[[!integerField1Visibility]]" role="widget" value="{{document.properties.custom:integerField1}}" label="[[integerField1Label]]"></paper-input>
-      <paper-input hidden$="[[!integerField2Visibility]]" role="widget" value="{{document.properties.custom:integerField2}}" label="[[integerField2Label]]"></paper-input>
-      <paper-input hidden$="[[!integerField3Visibility]]" role="widget" value="{{document.properties.custom:integerField3}}" label="[[integerField3Label]]"></paper-input>
-      <paper-input hidden$="[[!integerField4Visibility]]" role="widget" value="{{document.properties.custom:integerField4}}" label="[[integerField4Label]]"></paper-input>
-      <paper-input hidden$="[[!integerField5Visibility]]" role="widget" value="{{document.properties.custom:integerField5}}" label="[[integerField5Label]]"></paper-input>
-      <paper-input hidden$="[[!integerField6Visibility]]" role="widget" value="{{document.properties.custom:integerField6}}" label="[[integerField6Label]]"></paper-input>
-      <paper-input hidden$="[[!integerField7Visibility]]" role="widget" value="{{document.properties.custom:integerField7}}" label="[[integerField7Label]]"></paper-input>
-      <paper-input hidden$="[[!integerField8Visibility]]" role="widget" value="{{document.properties.custom:integerField8}}" label="[[integerField8Label]]"></paper-input>
-      <paper-input hidden$="[[!integerField9Visibility]]" role="widget" value="{{document.properties.custom:integerField9}}" label="[[integerField9Label]]"></paper-input>
-      <paper-input hidden$="[[!integerField10Visibility]]" role="widget" value="{{document.properties.custom:integerField10}}" label="[[integerField10Label]]"></paper-input>
+      <paper-input hidden$="[[!doubleField1Visible]]" role="widget" value="{{document.properties.custom:doubleField1}}" label="[[doubleField1Label]]"></paper-input>
+      <paper-input hidden$="[[!doubleField2Visible]]" role="widget" value="{{document.properties.custom:doubleField2}}" label="[[doubleField2Label]]"></paper-input>
+      <paper-input hidden$="[[!doubleField3Visible]]" role="widget" value="{{document.properties.custom:doubleField3}}" label="[[doubleField3Label]]"></paper-input>
+      <paper-input hidden$="[[!doubleField4Visible]]" role="widget" value="{{document.properties.custom:doubleField4}}" label="[[doubleField4Label]]"></paper-input>
+      <paper-input hidden$="[[!doubleField5Visible]]" role="widget" value="{{document.properties.custom:doubleField5}}" label="[[doubleField5Label]]"></paper-input>
+      <paper-input hidden$="[[!doubleField6Visible]]" role="widget" value="{{document.properties.custom:doubleField6}}" label="[[doubleField6Label]]"></paper-input>
+      <paper-input hidden$="[[!doubleField7Visible]]" role="widget" value="{{document.properties.custom:doubleField7}}" label="[[doubleField7Label]]"></paper-input>
+      <paper-input hidden$="[[!doubleField8Visible]]" role="widget" value="{{document.properties.custom:doubleField8}}" label="[[doubleField8Label]]"></paper-input>
+      <paper-input hidden$="[[!doubleField9Visible]]" role="widget" value="{{document.properties.custom:doubleField9}}" label="[[doubleField9Label]]"></paper-input>
+      <paper-input hidden$="[[!doubleField10Visible]]" role="widget" value="{{document.properties.custom:doubleField10}}" label="[[doubleField10Label]]"></paper-input>
+
+      <nuxeo-date-picker hidden$="[[!dateField1Visible]]" role="widget" value="{{document.properties.custom:dateField1}}" label="[[dateField1Label]]"></nuxeo-date-picker>
+      <nuxeo-date-picker hidden$="[[!dateField2Visible]]" role="widget" value="{{document.properties.custom:dateField2}}" label="[[dateField2Label]]"></nuxeo-date-picker>
+      <nuxeo-date-picker hidden$="[[!dateField3Visible]]" role="widget" value="{{document.properties.custom:dateField3}}" label="[[dateField3Label]]"></nuxeo-date-picker>
+      <nuxeo-date-picker hidden$="[[!dateField4Visible]]" role="widget" value="{{document.properties.custom:dateField4}}" label="[[dateField4Label]]"></nuxeo-date-picker>
+      <nuxeo-date-picker hidden$="[[!dateField5Visible]]" role="widget" value="{{document.properties.custom:dateField5}}" label="[[dateField5Label]]"></nuxeo-date-picker>
+      <nuxeo-date-picker hidden$="[[!dateField6Visible]]" role="widget" value="{{document.properties.custom:dateField6}}" label="[[dateField6Label]]"></nuxeo-date-picker>
+      <nuxeo-date-picker hidden$="[[!dateField7Visible]]" role="widget" value="{{document.properties.custom:dateField7}}" label="[[dateField7Label]]"></nuxeo-date-picker>
+      <nuxeo-date-picker hidden$="[[!dateField8Visible]]" role="widget" value="{{document.properties.custom:dateField8}}" label="[[dateField8Label]]"></nuxeo-date-picker>
+      <nuxeo-date-picker hidden$="[[!dateField9Visible]]" role="widget" value="{{document.properties.custom:dateField9}}" label="[[dateField9Label]]"></nuxeo-date-picker>
+      <nuxeo-date-picker hidden$="[[!dateField10Visible]]" role="widget" value="{{document.properties.custom:dateField10}}" label="[[dateField10Label]]"></nuxeo-date-picker>
+
+      <paper-input hidden$="[[!integerField1Visible]]" role="widget" value="{{document.properties.custom:integerField1}}" label="[[integerField1Label]]"></paper-input>
+      <paper-input hidden$="[[!integerField2Visible]]" role="widget" value="{{document.properties.custom:integerField2}}" label="[[integerField2Label]]"></paper-input>
+      <paper-input hidden$="[[!integerField3Visible]]" role="widget" value="{{document.properties.custom:integerField3}}" label="[[integerField3Label]]"></paper-input>
+      <paper-input hidden$="[[!integerField4Visible]]" role="widget" value="{{document.properties.custom:integerField4}}" label="[[integerField4Label]]"></paper-input>
+      <paper-input hidden$="[[!integerField5Visible]]" role="widget" value="{{document.properties.custom:integerField5}}" label="[[integerField5Label]]"></paper-input>
+      <paper-input hidden$="[[!integerField6Visible]]" role="widget" value="{{document.properties.custom:integerField6}}" label="[[integerField6Label]]"></paper-input>
+      <paper-input hidden$="[[!integerField7Visible]]" role="widget" value="{{document.properties.custom:integerField7}}" label="[[integerField7Label]]"></paper-input>
+      <paper-input hidden$="[[!integerField8Visible]]" role="widget" value="{{document.properties.custom:integerField8}}" label="[[integerField8Label]]"></paper-input>
+      <paper-input hidden$="[[!integerField9Visible]]" role="widget" value="{{document.properties.custom:integerField9}}" label="[[integerField9Label]]"></paper-input>
+      <paper-input hidden$="[[!integerField10Visible]]" role="widget" value="{{document.properties.custom:integerField10}}" label="[[integerField10Label]]"></paper-input>
+
+      <template is="dom-if" if="[[!booleanField1Visible]]"><paper-checkbox hidden$="[[!booleanField1Visible]]" checked="{{document.properties.custom:booleanField1}}"></paper-checkbox> [[booleanField1Label]]</template>
+      <template is="dom-if" if="[[!booleanField2Visible]]"><paper-checkbox hidden$="[[!booleanField2Visible]]" checked="{{document.properties.custom:booleanField2}}"></paper-checkbox> [[booleanField2Label]]</template>
+      <template is="dom-if" if="[[!booleanField3Visible]]"><paper-checkbox hidden$="[[!booleanField3Visible]]" checked="{{document.properties.custom:booleanField3}}"></paper-checkbox> [[booleanField3Label]]</template>
+      <template is="dom-if" if="[[!booleanField4Visible]]"><paper-checkbox hidden$="[[!booleanField4Visible]]" checked="{{document.properties.custom:booleanField4}}"></paper-checkbox> [[booleanField4Label]]</template>
+      <template is="dom-if" if="[[!booleanField5Visible]]"><paper-checkbox hidden$="[[!booleanField5Visible]]" checked="{{document.properties.custom:booleanField5}}"></paper-checkbox> [[booleanField5Label]]</template>
+      <template is="dom-if" if="[[!booleanField6Visible]]"><paper-checkbox hidden$="[[!booleanField6Visible]]" checked="{{document.properties.custom:booleanField6}}"></paper-checkbox> [[booleanField6Label]]</template>
+      <template is="dom-if" if="[[!booleanField7Visible]]"><paper-checkbox hidden$="[[!booleanField7Visible]]" checked="{{document.properties.custom:booleanField7}}"></paper-checkbox> [[booleanField7Label]]</template>
+      <template is="dom-if" if="[[!booleanField8Visible]]"><paper-checkbox hidden$="[[!booleanField8Visible]]" checked="{{document.properties.custom:booleanField8}}"></paper-checkbox> [[booleanField8Label]]</template>
+      <template is="dom-if" if="[[!booleanField9Visible]]"><paper-checkbox hidden$="[[!booleanField9Visible]]" checked="{{document.properties.custom:booleanField9}}"></paper-checkbox> [[booleanField9Label]]</template>
+      <template is="dom-if" if="[[!booleanField10Visible]]"><paper-checkbox hidden$="[[!booleanField10Visible]]" checked="{{document.properties.custom:booleanField10}}"></paper-checkbox> [[booleanField10Label]]</template>
+
     </div>
 
     <div name="view" class="vertical layout flex">
-      <div hidden$="[[!stringField1Visibility]]" role="widget">
+      <div hidden$="[[!stringField1Visible]]" role="widget">
         <label>[[stringField1Label]]</label>
         <div>[[document.properties.custom:stringField1]]</div>
       </div>
-      <div hidden$="[[!stringField2Visibility]]" role="widget">
+      <div hidden$="[[!stringField2Visible]]" role="widget">
         <label>[[stringField2Label]]</label>
         <div>[[document.properties.custom:stringField2]]</div>
       </div>
-      <div hidden$="[[!stringField3Visibility]]" role="widget">
+      <div hidden$="[[!stringField3Visible]]" role="widget">
         <label>[[stringField3Label]]</label>
         <div>[[document.properties.custom:stringField3]]</div>
       </div>
-      <div hidden$="[[!stringField4Visibility]]" role="widget">
+      <div hidden$="[[!stringField4Visible]]" role="widget">
         <label>[[stringField4Label]]</label>
         <div>[[document.properties.custom:stringField4]]</div>
       </div>
-      <div hidden$="[[!stringField5Visibility]]" role="widget">
+      <div hidden$="[[!stringField5Visible]]" role="widget">
         <label>[[stringField5Label]]</label>
         <div>[[document.properties.custom:stringField5]]</div>
       </div>
-      <div hidden$="[[!stringField6Visibility]]" role="widget">
+      <div hidden$="[[!stringField6Visible]]" role="widget">
         <label>[[stringField6Label]]</label>
         <div>[[document.properties.custom:stringField6]]</div>
       </div>
-      <div hidden$="[[!stringField7Visibility]]" role="widget">
+      <div hidden$="[[!stringField7Visible]]" role="widget">
         <label>[[stringField7Label]]</label>
         <div>[[document.properties.custom:stringField7]]</div>
       </div>
-      <div hidden$="[[!stringField8Visibility]]" role="widget">
+      <div hidden$="[[!stringField8Visible]]" role="widget">
         <label>[[stringField8Label]]</label>
         <div>[[document.properties.custom:stringField8]]</div>
       </div>
-      <div hidden$="[[!stringField9Visibility]]" role="widget">
+      <div hidden$="[[!stringField9Visible]]" role="widget">
         <label>[[stringField9Label]]</label>
         <div>[[document.properties.custom:stringField9]]</div>
       </div>
-      <div hidden$="[[!stringField10Visibility]]" role="widget">
+      <div hidden$="[[!stringField10Visible]]" role="widget">
         <label>[[stringField10Label]]</label>
         <div>[[document.properties.custom:stringField10]]</div>
       </div>
 
-      <div hidden$="[[!doubleField1Visibility]]" role="widget">
+      <div hidden$="[[!vocabularyField1Visible]]" role="widget">
+        <label>[[vocabularyField1Label]]</label>
+        <div>[[formatDirectory(document.properties.custom:vocabularyField1)]]</div>
+      </div>
+      <div hidden$="[[!vocabularyField2Visible]]" role="widget">
+        <label>[[vocabularyField2Label]]</label>
+        <div>[[formatDirectory(document.properties.custom:vocabularyField2)]]</div>
+      </div>
+      <div hidden$="[[!vocabularyField3Visible]]" role="widget">
+        <label>[[vocabularyField3Label]]</label>
+        <div>[[formatDirectory(document.properties.custom:vocabularyField3)]]</div>
+      </div>
+      <div hidden$="[[!vocabularyField4Visible]]" role="widget">
+        <label>[[vocabularyField4Label]]</label>
+        <div>[[formatDirectory(document.properties.custom:vocabularyField4)]]</div>
+      </div>
+      <div hidden$="[[!vocabularyField5Visible]]" role="widget">
+        <label>[[vocabularyField5Label]]</label>
+        <div>[[formatDirectory(document.properties.custom:vocabularyField5)]]</div>
+      </div>
+      <div hidden$="[[!vocabularyField6Visible]]" role="widget">
+        <label>[[vocabularyField6Label]]</label>
+        <div>[[formatDirectory(document.properties.custom:vocabularyField6)]]</div>
+      </div>
+      <div hidden$="[[!vocabularyField7Visible]]" role="widget">
+        <label>[[vocabularyField7Label]]</label>
+        <div>[[formatDirectory(document.properties.custom:vocabularyField7)]]</div>
+      </div>
+      <div hidden$="[[!vocabularyField8Visible]]" role="widget">
+        <label>[[vocabularyField8Label]]</label>
+        <div>[[formatDirectory(document.properties.custom:vocabularyField8)]]</div>
+      </div>
+      <div hidden$="[[!vocabularyField9Visible]]" role="widget">
+        <label>[[vocabularyField9Label]]</label>
+        <div>[[formatDirectory(document.properties.custom:vocabularyField9)]]</div>
+      </div>
+      <div hidden$="[[!vocabularyField10Visible]]" role="widget">
+        <label>[[vocabularyField10Label]]</label>
+        <div>[[formatDirectory(document.properties.custom:vocabularyField10)]]</div>
+      </div>
+
+      <div hidden$="[[!doubleField1Visible]]" role="widget">
         <label>[[doubleField1Label]]</label>
         <div>[[document.properties.custom:doubleField1]]</div>
       </div>
-      <div hidden$="[[!doubleField2Visibility]]" role="widget">
+      <div hidden$="[[!doubleField2Visible]]" role="widget">
         <label>[[doubleField2Label]]</label>
         <div>[[document.properties.custom:doubleField2]]</div>
       </div>
-      <div hidden$="[[!doubleField3Visibility]]" role="widget">
+      <div hidden$="[[!doubleField3Visible]]" role="widget">
         <label>[[doubleField3Label]]</label>
         <div>[[document.properties.custom:doubleField3]]</div>
       </div>
-      <div hidden$="[[!doubleField4Visibility]]" role="widget">
+      <div hidden$="[[!doubleField4Visible]]" role="widget">
         <label>[[doubleField4Label]]</label>
         <div>[[document.properties.custom:doubleField4]]</div>
       </div>
-      <div hidden$="[[!doubleField5Visibility]]" role="widget">
+      <div hidden$="[[!doubleField5Visible]]" role="widget">
         <label>[[doubleField5Label]]</label>
         <div>[[document.properties.custom:doubleField5]]</div>
       </div>
-      <div hidden$="[[!doubleField6Visibility]]" role="widget">
+      <div hidden$="[[!doubleField6Visible]]" role="widget">
         <label>[[doubleField6Label]]</label>
         <div>[[document.properties.custom:doubleField6]]</div>
       </div>
-      <div hidden$="[[!doubleField7Visibility]]" role="widget">
+      <div hidden$="[[!doubleField7Visible]]" role="widget">
         <label>[[doubleField7Label]]</label>
         <div>[[document.properties.custom:doubleField7]]</div>
       </div>
-      <div hidden$="[[!doubleField8Visibility]]" role="widget">
+      <div hidden$="[[!doubleField8Visible]]" role="widget">
         <label>[[doubleField8Label]]</label>
         <div>[[document.properties.custom:doubleField8]]</div>
       </div>
-      <div hidden$="[[!doubleField9Visibility]]" role="widget">
+      <div hidden$="[[!doubleField9Visible]]" role="widget">
         <label>[[doubleField9Label]]</label>
         <div>[[document.properties.custom:doubleField9]]</div>
       </div>
-      <div hidden$="[[!doubleField10Visibility]]" role="widget">
+      <div hidden$="[[!doubleField10Visible]]" role="widget">
         <label>[[doubleField10Label]]</label>
         <div>[[document.properties.custom:doubleField10]]</div>
       </div>
 
-      <div hidden$="[[!dateField1Visibility]]" role="widget">
+      <div hidden$="[[!dateField1Visible]]" role="widget">
         <label>[[dateField1Label]]</label>
         <div>[[formatDate(document.properties.custom:dateField1)]]</div>
       </div>
-      <div hidden$="[[!dateField2Visibility]]" role="widget">
+      <div hidden$="[[!dateField2Visible]]" role="widget">
         <label>[[dateField2Label]]</label>
         <div>[[formatDate(document.properties.custom:dateField2)]]</div>
       </div>
-      <div hidden$="[[!dateField3Visibility]]" role="widget">
+      <div hidden$="[[!dateField3Visible]]" role="widget">
         <label>[[dateField3Label]]</label>
         <div>[[formatDate(document.properties.custom:dateField3)]]</div>
       </div>
-      <div hidden$="[[!dateField4Visibility]]" role="widget">
+      <div hidden$="[[!dateField4Visible]]" role="widget">
         <label>[[dateField4Label]]</label>
         <div>[[formatDate(document.properties.custom:dateField4)]]</div>
       </div>
-      <div hidden$="[[!dateField5Visibility]]" role="widget">
+      <div hidden$="[[!dateField5Visible]]" role="widget">
         <label>[[dateField5Label]]</label>
         <div>[[formatDate(document.properties.custom:dateField5)]]</div>
       </div>
-      <div hidden$="[[!dateField6Visibility]]" role="widget">
+      <div hidden$="[[!dateField6Visible]]" role="widget">
         <label>[[dateField6Label]]</label>
         <div>[[formatDate(document.properties.custom:dateField6)]]</div>
       </div>
-      <div hidden$="[[!dateField7Visibility]]" role="widget">
+      <div hidden$="[[!dateField7Visible]]" role="widget">
         <label>[[dateField7Label]]</label>
         <div>[[formatDate(document.properties.custom:dateField7)]]</div>
       </div>
-      <div hidden$="[[!dateField8Visibility]]" role="widget">
+      <div hidden$="[[!dateField8Visible]]" role="widget">
         <label>[[dateField8Label]]</label>
         <div>[[formatDate(document.properties.custom:dateField8)]]</div>
       </div>
-      <div hidden$="[[!dateField9Visibility]]" role="widget">
+      <div hidden$="[[!dateField9Visible]]" role="widget">
         <label>[[dateField9Label]]</label>
         <div>[[formatDate(document.properties.custom:dateField9)]]</div>
       </div>
-      <div hidden$="[[!dateField10Visibility]]" role="widget">
+      <div hidden$="[[!dateField10Visible]]" role="widget">
         <label>[[dateField10Label]]</label>
         <div>[[formatDate(document.properties.custom:dateField10)]]</div>
       </div>
 
-      <div hidden$="[[!integerField1Visibility]]" role="widget">
+      <div hidden$="[[!integerField1Visible]]" role="widget">
         <label>[[integerField1Label]]</label>
         <div>[[document.properties.custom:integerField1]]</div>
       </div>
-      <div hidden$="[[!integerField2Visibility]]" role="widget">
+      <div hidden$="[[!integerField2Visible]]" role="widget">
         <label>[[integerField2Label]]</label>
         <div>[[document.properties.custom:integerField2]]</div>
       </div>
-      <div hidden$="[[!integerField3Visibility]]" role="widget">
+      <div hidden$="[[!integerField3Visible]]" role="widget">
         <label>[[integerField3Label]]</label>
         <div>[[document.properties.custom:integerField3]]</div>
       </div>
-      <div hidden$="[[!integerField4Visibility]]" role="widget">
+      <div hidden$="[[!integerField4Visible]]" role="widget">
         <label>[[integerField4Label]]</label>
         <div>[[document.properties.custom:integerField4]]</div>
       </div>
-      <div hidden$="[[!integerField5Visibility]]" role="widget">
+      <div hidden$="[[!integerField5Visible]]" role="widget">
         <label>[[integerField5Label]]</label>
         <div>[[document.properties.custom:integerField5]]</div>
       </div>
-      <div hidden$="[[!integerField6Visibility]]" role="widget">
+      <div hidden$="[[!integerField6Visible]]" role="widget">
         <label>[[integerField6Label]]</label>
         <div>[[document.properties.custom:integerField6]]</div>
       </div>
-      <div hidden$="[[!integerField7Visibility]]" role="widget">
+      <div hidden$="[[!integerField7Visible]]" role="widget">
         <label>[[integerField7Label]]</label>
         <div>[[document.properties.custom:integerField7]]</div>
       </div>
-      <div hidden$="[[!integerField8Visibility]]" role="widget">
+      <div hidden$="[[!integerField8Visible]]" role="widget">
         <label>[[integerField8Label]]</label>
         <div>[[document.properties.custom:integerField8]]</div>
       </div>
-      <div hidden$="[[!integerField9Visibility]]" role="widget">
+      <div hidden$="[[!integerField9Visible]]" role="widget">
         <label>[[integerField9Label]]</label>
         <div>[[document.properties.custom:integerField9]]</div>
       </div>
-      <div hidden$="[[!integerField10Visibility]]" role="widget">
+      <div hidden$="[[!integerField10Visible]]" role="widget">
         <label>[[integerField10Label]]</label>
         <div>[[document.properties.custom:integerField10]]</div>
+      </div>
+
+      <div hidden$="[[!userField1Visible]]" role="widget">
+        <label>[[userField1Label]]</label>
+        <div>[[document.properties.custom:userField1]]</div>
+      </div>
+      <div hidden$="[[!userField2Visible]]" role="widget">
+        <label>[[userField2Label]]</label>
+        <div>[[document.properties.custom:userField2]]</div>
+      </div>
+      <div hidden$="[[!userField3Visible]]" role="widget">
+        <label>[[userField3Label]]</label>
+        <div>[[document.properties.custom:userField3]]</div>
+      </div>
+      <div hidden$="[[!userField4Visible]]" role="widget">
+        <label>[[userField4Label]]</label>
+        <div>[[document.properties.custom:userField4]]</div>
+      </div>
+      <div hidden$="[[!userField5Visible]]" role="widget">
+        <label>[[userField5Label]]</label>
+        <div>[[document.properties.custom:userField5]]</div>
+      </div>
+      <div hidden$="[[!userField6Visible]]" role="widget">
+        <label>[[userField6Label]]</label>
+        <div>[[document.properties.custom:userField6]]</div>
+      </div>
+      <div hidden$="[[!userField7Visible]]" role="widget">
+        <label>[[userField7Label]]</label>
+        <div>[[document.properties.custom:userField7]]</div>
+      </div>
+      <div hidden$="[[!userField8Visible]]" role="widget">
+        <label>[[userField8Label]]</label>
+        <div>[[document.properties.custom:userField8]]</div>
+      </div>
+      <div hidden$="[[!userField9Visible]]" role="widget">
+        <label>[[userField9Label]]</label>
+        <div>[[document.properties.custom:userField9]]</div>
+      </div>
+      <div hidden$="[[!userField10Visible]]" role="widget">
+        <label>[[userField10Label]]</label>
+        <div>[[document.properties.custom:userField10]]</div>
       </div>
     </div>
   </iron-pages>
@@ -252,284 +368,570 @@
           value: 'view',
           observer:'_customLoaded'
         },
-        stringField1Visibility : {
+        stringField1Visible : {
           type: Boolean,
           value: false
         },
         stringField1Label : {
           type: String
         },
-        stringField2Visibility : {
+        stringField2Visible : {
           type: Boolean,
           value: false
         },
         stringField2Label : {
           type: String
         },
-        stringField3Visibility : {
+        stringField3Visible : {
           type: Boolean,
           value: false
         },
         stringField3Label : {
           type: String
         },
-        stringField4Visibility : {
+        stringField4Visible : {
           type: Boolean,
           value: false
         },
         stringField4Label : {
           type: String
         },
-        stringField5Visibility : {
+        stringField5Visible : {
           type: Boolean,
           value: false
         },
         stringField5Label : {
           type: String
         },
-        stringField6Visibility : {
+        stringField6Visible : {
           type: Boolean,
           value: false
         },
         stringField6Label : {
           type: String
         },
-        stringField7Visibility : {
+        stringField7Visible : {
           type: Boolean,
           value: false
         },
         stringField7Label : {
           type: String
         },
-        stringField8Visibility : {
+        stringField8Visible : {
           type: Boolean,
           value: false
         },
         stringField8Label : {
           type: String
         },
-        stringField9Visibility : {
+        stringField9Visible : {
           type: Boolean,
           value: false
         },
         stringField9Label : {
           type: String
         },
-        stringField10Visibility : {
+        stringField10Visible : {
           type: Boolean,
           value: false
         },
         stringField10Label : {
           type: String
         },
-        doubleField1Visibility : {
+
+        vocabularyField1Visible : {
+          type: Boolean,
+          value: false
+        },
+        vocabularyField1Label : {
+          type: String
+        },
+        vocabularyField1Required : {
+          type: Boolean,
+          value: false
+        },
+        vocabularyField1Name : {
+          type: String
+        },
+
+        vocabularyField2Visible : {
+          type: Boolean,
+          value: false
+        },
+        vocabularyField2Label : {
+          type: String
+        },
+        vocabularyField2Required : {
+          type: Boolean,
+          value: false
+        },
+        vocabularyField2Name : {
+          type: String
+        },
+        vocabularyField3Visible : {
+          type: Boolean,
+          value: false
+        },
+        vocabularyField3Label : {
+          type: String
+        },
+        vocabularyField3Required : {
+          type: Boolean,
+          value: false
+        },
+        vocabularyField3Name : {
+          type: String
+        },
+        vocabularyField4Visible : {
+          type: Boolean,
+          value: false
+        },
+        vocabularyField4Label : {
+          type: String
+        },
+        vocabularyField4Required : {
+          type: Boolean,
+          value: false
+        },
+        vocabularyField4Name : {
+          type: String
+        },
+        vocabularyField5Visible : {
+          type: Boolean,
+          value: false
+        },
+        vocabularyField5Label : {
+          type: String
+        },
+        vocabularyField5Required : {
+          type: Boolean,
+          value: false
+        },
+        vocabularyField5Name : {
+          type: String
+        },
+        vocabularyField6Visible : {
+          type: Boolean,
+          value: false
+        },
+        vocabularyField6Label : {
+          type: String
+        },
+        vocabularyField6Required : {
+          type: Boolean,
+          value: false
+        },
+        vocabularyField6Name : {
+          type: String
+        },
+        vocabularyField7Visible : {
+          type: Boolean,
+          value: false
+        },
+        vocabularyField7Label : {
+          type: String
+        },
+        vocabularyField7Required : {
+          type: Boolean,
+          value: false
+        },
+        vocabularyField7Name : {
+          type: String
+        },
+        vocabularyField8Visible : {
+          type: Boolean,
+          value: false
+        },
+        vocabularyField8Label : {
+          type: String
+        },
+        vocabularyField8Required : {
+          type: Boolean,
+          value: false
+        },
+        vocabularyField8Name : {
+          type: String
+        },
+        vocabularyField9Visible : {
+          type: Boolean,
+          value: false
+        },
+        vocabularyField9Label : {
+          type: String
+        },
+        vocabularyField9Required : {
+          type: Boolean,
+          value: false
+        },
+        vocabularyField9Name : {
+          type: String
+        },
+        vocabularyField10Visible : {
+          type: Boolean,
+          value: false
+        },
+        vocabularyField10Label : {
+          type: String
+        },
+        vocabularyField10Required : {
+          type: Boolean,
+          value: false
+        },
+        vocabularyField10Name : {
+          type: String
+        },
+
+        userField1Visible : {
+          type: Boolean,
+          value: false
+        },
+        userField1Label : {
+          type: String
+        },
+        userField2Visible : {
+          type: Boolean,
+          value: false
+        },
+        userField2Label : {
+          type: String
+        },
+        userField3Visible : {
+          type: Boolean,
+          value: false
+        },
+        userField3Label : {
+          type: String
+        },
+        userField4Visible : {
+          type: Boolean,
+          value: false
+        },
+        userField4Label : {
+          type: String
+        },
+        userField5Visible : {
+          type: Boolean,
+          value: false
+        },
+        userField5Label : {
+          type: String
+        },
+        userField6Visible : {
+          type: Boolean,
+          value: false
+        },
+        userField6Label : {
+          type: String
+        },
+        userField7Visible : {
+          type: Boolean,
+          value: false
+        },
+        userField7Label : {
+          type: String
+        },
+        userField8Visible : {
+          type: Boolean,
+          value: false
+        },
+        userField8Label : {
+          type: String
+        },
+        userField9Visible : {
+          type: Boolean,
+          value: false
+        },
+        userField9Label : {
+          type: String
+        },
+        userField10Visible : {
+          type: Boolean,
+          value: false
+        },
+        userField10Label : {
+          type: String
+        },
+
+        doubleField1Visible : {
           type: Boolean,
           value: false
         },
         doubleField1Label : {
           type: String
         },
-        doubleField2Visibility : {
+        doubleField2Visible : {
           type: Boolean,
           value: false
         },
         doubleField2Label : {
           type: String
         },
-        doubleField3Visibility : {
+        doubleField3Visible : {
           type: Boolean,
           value: false
         },
         doubleField3Label : {
           type: String
         },
-        doubleField4Visibility : {
+        doubleField4Visible : {
           type: Boolean,
           value: false
         },
         doubleField4Label : {
           type: String
         },
-        doubleField5Visibility : {
+        doubleField5Visible : {
           type: Boolean,
           value: false
         },
         doubleField5Label : {
           type: String
         },
-        doubleField6Visibility : {
+        doubleField6Visible : {
           type: Boolean,
           value: false
         },
         doubleField6Label : {
           type: String
         },
-        doubleField7Visibility : {
+        doubleField7Visible : {
           type: Boolean,
           value: false
         },
         doubleField7Label : {
           type: String
         },
-        doubleField8Visibility : {
+        doubleField8Visible : {
           type: Boolean,
           value: false
         },
         doubleField8Label : {
           type: String
         },
-        doubleField9Visibility : {
+        doubleField9Visible : {
           type: Boolean,
           value: false
         },
         doubleField9Label : {
           type: String
         },
-        doubleField10Visibility : {
+        doubleField10Visible : {
           type: Boolean,
           value: false
         },
         doubleField10Label : {
           type: String
         },
-        dateField1Visibility : {
+        dateField1Visible : {
           type: Boolean,
           value: false
         },
         dateField1Label : {
           type: String
         },
-        dateField2Visibility : {
+        dateField2Visible : {
           type: Boolean,
           value: false
         },
         dateField2Label : {
           type: String
         },
-        dateField3Visibility : {
+        dateField3Visible : {
           type: Boolean,
           value: false
         },
         dateField3Label : {
           type: String
         },
-        dateField4Visibility : {
+        dateField4Visible : {
           type: Boolean,
           value: false
         },
         dateField4Label : {
           type: String
         },
-        dateField5Visibility : {
+        dateField5Visible : {
           type: Boolean,
           value: false
         },
         dateField5Label : {
           type: String
         },
-        dateField6Visibility : {
+        dateField6Visible : {
           type: Boolean,
           value: false
         },
         dateField6Label : {
           type: String
         },
-        dateField7Visibility : {
+        dateField7Visible : {
           type: Boolean,
           value: false
         },
         dateField7Label : {
           type: String
         },
-        dateField8Visibility : {
+        dateField8Visible : {
           type: Boolean,
           value: false
         },
         dateField8Label : {
           type: String
         },
-        dateField9Visibility : {
+        dateField9Visible : {
           type: Boolean,
           value: false
         },
         dateField9Label : {
           type: String
         },
-        dateField10Visibility : {
+        dateField10Visible : {
           type: Boolean,
           value: false
         },
         dateField10Label : {
           type: String
         },
-        integerField1Visibility : {
+
+        integerField1Visible : {
           type: Boolean,
           value: false
         },
         integerField1Label : {
           type: String
         },
-        integerField2Visibility : {
+        integerField2Visible : {
           type: Boolean,
           value: false
         },
         integerField2Label : {
           type: String
         },
-        integerField3Visibility : {
+        integerField3Visible : {
           type: Boolean,
           value: false
         },
         integerField3Label : {
           type: String
         },
-        integerField4Visibility : {
+        integerField4Visible : {
           type: Boolean,
           value: false
         },
         integerField4Label : {
           type: String
         },
-        integerField5Visibility : {
+        integerField5Visible : {
           type: Boolean,
           value: false
         },
         integerField5Label : {
           type: String
         },
-        integerField6Visibility : {
+        integerField6Visible : {
           type: Boolean,
           value: false
         },
         integerField6Label : {
           type: String
         },
-        integerField7Visibility : {
+        integerField7Visible : {
           type: Boolean,
           value: false
         },
         integerField7Label : {
           type: String
         },
-        integerField8Visibility : {
+        integerField8Visible : {
           type: Boolean,
           value: false
         },
         integerField8Label : {
           type: String
         },
-        integerField9Visibility : {
+        integerField9Visible : {
           type: Boolean,
           value: false
         },
         integerField9Label : {
           type: String
         },
-        integerField10Visibility : {
+        integerField10Visible : {
           type: Boolean,
           value: false
         },
         integerField10Label : {
+          type: String
+        },
+
+        booleanField1Visible : {
+          type: Boolean,
+          value: false
+        },
+        booleanField1Label : {
+          type: String
+        },
+        booleanField2Visible : {
+          type: Boolean,
+          value: false
+        },
+        booleanField2Label : {
+          type: String
+        },
+        booleanField3Visible : {
+          type: Boolean,
+          value: false
+        },
+        booleanField3Label : {
+          type: String
+        },
+        booleanField4Visible : {
+          type: Boolean,
+          value: false
+        },
+        booleanField4Label : {
+          type: String
+        },
+        booleanField5Visible : {
+          type: Boolean,
+          value: false
+        },
+        booleanField5Label : {
+          type: String
+        },
+        booleanField6Visible : {
+          type: Boolean,
+          value: false
+        },
+        booleanField6Label : {
+          type: String
+        },
+        booleanField7Visible : {
+          type: Boolean,
+          value: false
+        },
+        booleanField7Label : {
+          type: String
+        },
+        booleanField8Visible : {
+          type: Boolean,
+          value: false
+        },
+        booleanField8Label : {
+          type: String
+        },
+        booleanField9Visible : {
+          type: Boolean,
+          value: false
+        },
+        booleanField9Label : {
+          type: String
+        },
+        booleanField10Visible : {
+          type: Boolean,
+          value: false
+        },
+        booleanField10Label : {
           type: String
         }
       },
@@ -550,6 +952,18 @@
         console.log(this.mode+' is '+value+'? ' + (this.mode === value));
         return this.mode === value;
       },
+      formatDirectory: function(value) {
+        if (value && value['entity-type'] && value['entity-type'] === 'directoryEntry') {
+          if (value.properties && value.properties.label) {
+            return value.properties.label;
+          } else {
+            var label = 'label_' + ((window.nuxeo.I18n.language) ? window.nuxeo.I18n.language.split('-')[0] : 'en');
+            return value.properties[label] || value.properties['label_en']
+          }
+        } else {
+          return value;
+        }
+      },
       _customLoaded: function(){
         console.log('mode: '+ this.mode);
         var qcf=document.querySelector("qualitified-custom-fields");
@@ -557,168 +971,353 @@
           //console.log(JSON.stringify(this.custom[0].properties['custom:field']));
           this.custom[0].properties['custom:field'].forEach(function(field) {
             if(field.fieldName === 'stringField1'){
-              qcf.stringField1Visibility = true;
+              qcf.stringField1Visible = true;
               qcf.stringField1Label = field.label;
             }
             if(field.fieldName === 'stringField2'){
-              qcf.stringField2Visibility = true;
+              qcf.stringField2Visible = true;
               qcf.stringField2Label = field.label;
             }
             if(field.fieldName === 'stringField3'){
-              qcf.stringField3Visibility = true;
+              qcf.stringField3Visible = true;
               qcf.stringField3Label = field.label;
             }
             if(field.fieldName === 'stringField4'){
-                qcf.stringField4Visibility = true;
+                qcf.stringField4Visible = true;
                 qcf.stringField4Label = field.label;
             }
             if(field.fieldName === 'stringField5'){
-                qcf.stringField5Visibility = true;
+                qcf.stringField5Visible = true;
                 qcf.stringField5Label = field.label;
             }
             if(field.fieldName === 'stringField6'){
-                qcf.stringField6Visibility = true;
+                qcf.stringField6Visible = true;
                 qcf.stringField6Label = field.label;
             }
             if(field.fieldName === 'stringField7'){
-                qcf.stringField7Visibility = true;
+                qcf.stringField7Visible = true;
                 qcf.stringField7Label = field.label;
             }
             if(field.fieldName === 'stringField8'){
-                qcf.stringField4Visibility = true;
-                qcf.stringField4Label = field.label;
+                qcf.stringField8Visible = true;
+                qcf.stringField8Label = field.label;
             }
             if(field.fieldName === 'stringField9'){
-                qcf.stringField9Visibility = true;
+                qcf.stringField9Visible = true;
                 qcf.stringField9Label = field.label;
             }
             if(field.fieldName === 'stringField10'){
-                qcf.stringField10Visibility = true;
+                qcf.stringField10Visible = true;
                 qcf.stringField10Label = field.label;
             }
 
+            if(field.fieldName === 'vocabularyField1'){
+              qcf.vocabularyField1Visible = true;
+              qcf.vocabularyField1Label = field.label;
+              qcf.vocabularyField1Name = field.vocabularyName;
+              qcf.vocabularyField1Required = field.required;
+            }
+            if(field.fieldName === 'vocabularyField2'){
+              qcf.vocabularyField2Visible = true;
+              qcf.vocabularyField2Label = field.label;
+              qcf.vocabularyField2Name = field.vocabularyName;
+              qcf.vocabularyField2Required = field.required;
+            }
+            if(field.fieldName === 'vocabularyField3'){
+              qcf.vocabularyField3Visible = true;
+              qcf.vocabularyField3Label = field.label;
+              qcf.vocabularyField3Name = field.vocabularyName;
+              qcf.vocabularyField3Required = field.required;
+            }
+            if(field.fieldName === 'vocabularyField4'){
+                qcf.vocabularyField4Visible = true;
+                qcf.vocabularyField4Label = field.label;
+                qcf.vocabularyField4Name = field.vocabularyName;
+                qcf.vocabularyField4Required = field.required;
+            }
+            if(field.fieldName === 'vocabularyField5'){
+                qcf.vocabularyField5Visible = true;
+                qcf.vocabularyField5Label = field.label;
+                qcf.vocabularyField5Name = field.vocabularyName;
+                qcf.vocabularyField5Required = field.required;
+            }
+            if(field.fieldName === 'vocabularyField6'){
+                qcf.vocabularyField6Visible = true;
+                qcf.vocabularyField6Label = field.label;
+                qcf.vocabularyField6Name = field.vocabularyName;
+                qcf.vocabularyField6Required = field.required;
+            }
+            if(field.fieldName === 'vocabularyField7'){
+                qcf.vocabularyField7Visible = true;
+                qcf.vocabularyField7Label = field.label;
+                qcf.vocabularyField7Name = field.vocabularyName;
+                qcf.vocabularyField7Required = field.required;
+            }
+            if(field.fieldName === 'vocabularyField8'){
+                qcf.vocabularyField8Visible = true;
+                qcf.vocabularyField8Label = field.label;
+                qcf.vocabularyField8Name = field.vocabularyName;
+                qcf.vocabularyField8Required = field.required;
+            }
+            if(field.fieldName === 'vocabularyField9'){
+                qcf.vocabularyField9Visible = true;
+                qcf.vocabularyField9Label = field.label;
+                qcf.vocabularyField9Name = field.vocabularyName;
+                qcf.vocabularyField9Required = field.required;
+            }
+            if(field.fieldName === 'vocabularyField10'){
+                qcf.vocabularyField10Visible = true;
+                qcf.vocabularyField10Label = field.label;
+                qcf.vocabularyField10Name = field.vocabularyName;
+                qcf.vocabularyField10Required = field.required;
+            }
+
             if(field.fieldName === 'doubleField1'){
-                qcf.doubleField1Visibility = true;
+                qcf.doubleField1Visible = true;
                 qcf.doubleField1Label = field.label;
             }
             if(field.fieldName === 'doubleField2'){
-                qcf.doubleField2Visibility = true;
+                qcf.doubleField2Visible = true;
                 qcf.doubleField2Label = field.label;
             }
             if(field.fieldName === 'doubleField3'){
-                qcf.doubleField3Visibility = true;
+                qcf.doubleField3Visible = true;
                 qcf.doubleField3Label = field.label;
             }
             if(field.fieldName === 'doubleField4'){
-                qcf.doubleField4Visibility = true;
+                qcf.doubleField4Visible = true;
                 qcf.doubleField4Label = field.label;
             }
             if(field.fieldName === 'doubleField5'){
-                qcf.doubleField5Visibility = true;
+                qcf.doubleField5Visible = true;
                 qcf.doubleField5Label = field.label;
             }
             if(field.fieldName === 'doubleField6'){
-                qcf.doubleField6Visibility = true;
+                qcf.doubleField6Visible = true;
                 qcf.doubleField6Label = field.label;
             }
             if(field.fieldName === 'doubleField7'){
-                qcf.doubleField7Visibility = true;
+                qcf.doubleField7Visible = true;
                 qcf.doubleField7Label = field.label;
             }
             if(field.fieldName === 'doubleField8'){
-                qcf.doubleField8Visibility = true;
+                qcf.doubleField8Visible = true;
                 qcf.doubleField8Label = field.label;
             }
             if(field.fieldName === 'doubleField9'){
-                qcf.doubleField9Visibility = true;
+                qcf.doubleField9Visible = true;
                 qcf.doubleField9Label = field.label;
             }
             if(field.fieldName === 'doubleField10'){
-                qcf.doubleField10Visibility = true;
+                qcf.doubleField10Visible = true;
                 qcf.doubleField10Label = field.label;
             }
 
             if(field.fieldName === 'dateField1'){
-                qcf.dateField1Visibility = true;
+                qcf.dateField1Visible = true;
                 qcf.dateField1Label = field.label;
             }
             if(field.fieldName === 'dateField2'){
-                qcf.dateField2Visibility = true;
+                qcf.dateField2Visible = true;
                 qcf.dateField2Label = field.label;
             }
             if(field.fieldName === 'dateField3'){
-                qcf.dateField3Visibility = true;
+                qcf.dateField3Visible = true;
                 qcf.dateField3Label = field.label;
             }
             if(field.fieldName === 'dateField4'){
-                qcf.dateField4Visibility = true;
+                qcf.dateField4Visible = true;
                 qcf.dateField4Label = field.label;
             }
             if(field.fieldName === 'dateField5'){
-                qcf.dateField5Visibility = true;
+                qcf.dateField5Visible = true;
                 qcf.dateField5Label = field.label;
             }
             if(field.fieldName === 'dateField6'){
-                qcf.dateField6Visibility = true;
+                qcf.dateField6Visible = true;
                 qcf.dateField6Label = field.label;
             }
             if(field.fieldName === 'dateField7'){
-                qcf.dateField7Visibility = true;
+                qcf.dateField7Visible = true;
                 qcf.dateField7Label = field.label;
             }
             if(field.fieldName === 'dateField8'){
-                qcf.dateField8Visibility = true;
+                qcf.dateField8Visible = true;
                 qcf.dateField8Label = field.label;
             }
             if(field.fieldName === 'dateField9'){
-                qcf.dateField9Visibility = true;
-                qcf.dateField10Label = field.label;
+                qcf.dateField9Visible = true;
+                qcf.dateField9Label = field.label;
             }
             if(field.fieldName === 'dateField10'){
-                qcf.dateField10Visibility = true;
+                qcf.dateField10Visible = true;
                 qcf.dateField10Label = field.label;
             }
 
             if(field.fieldName === 'integerField1'){
-                qcf.integerField1Visibility = true;
+                qcf.integerField1Visible = true;
                 qcf.integerField1Label = field.label;
             }
             if(field.fieldName === 'integerField2'){
-                qcf.integerField2Visibility = true;
+                qcf.integerField2Visible = true;
                 qcf.integerField2Label = field.label;
             }
             if(field.fieldName === 'integerField3'){
-                qcf.integerField3Visibility = true;
+                qcf.integerField3Visible = true;
                 qcf.integerField3Label = field.label;
             }
             if(field.fieldName === 'integerField4'){
-                qcf.integerField4Visibility = true;
+                qcf.integerField4Visible = true;
                 qcf.integerField4Label = field.label;
             }
             if(field.fieldName === 'integerField5'){
-                qcf.integerField5Visibility = true;
+                qcf.integerField5Visible = true;
                 qcf.integerField5Label = field.label;
             }
             if(field.fieldName === 'integerField6'){
-                qcf.integerField6Visibility = true;
+                qcf.integerField6Visible = true;
                 qcf.integerField6Label = field.label;
             }
             if(field.fieldName === 'integerField7'){
-                qcf.integerField7Visibility = true;
+                qcf.integerField7Visible = true;
                 qcf.integerField7Label = field.label;
             }
             if(field.fieldName === 'integerField8'){
-                qcf.integerField8Visibility = true;
+                qcf.integerField8Visible = true;
                 qcf.integerField8Label = field.label;
             }
             if(field.fieldName === 'integerField9'){
-                qcf.integerField9Visibility = true;
+                qcf.integerField9Visible = true;
                 qcf.integerField9Label = field.label;
             }
             if(field.fieldName === 'integerField10'){
-                qcf.integerField10Visibility = true;
+                qcf.integerField10Visible = true;
                 qcf.integerField10Label = field.label;
             }
+
+            if(field.fieldName === 'booleanField1'){
+                qcf.booleanField1Visible = true;
+                qcf.booleanField1Label = field.label;
+            }
+            if(field.fieldName === 'booleanField2'){
+                qcf.booleanField2Visible = true;
+                qcf.booleanField2Label = field.label;
+            }
+            if(field.fieldName === 'booleanField3'){
+                qcf.booleanField3Visible = true;
+                qcf.booleanField3Label = field.label;
+            }
+            if(field.fieldName === 'booleanField4'){
+                qcf.booleanField4Visible = true;
+                qcf.booleanField4Label = field.label;
+            }
+            if(field.fieldName === 'booleanField5'){
+                qcf.booleanField5Visible = true;
+                qcf.booleanField5Label = field.label;
+            }
+            if(field.fieldName === 'booleanField6'){
+                qcf.booleanField6Visible = true;
+                qcf.booleanField6Label = field.label;
+            }
+            if(field.fieldName === 'booleanField7'){
+                qcf.booleanField7Visible = true;
+                qcf.booleanField7Label = field.label;
+            }
+            if(field.fieldName === 'booleanField8'){
+                qcf.booleanField8Visible = true;
+                qcf.booleanField8Label = field.label;
+            }
+            if(field.fieldName === 'booleanField9'){
+                qcf.booleanField9Visible = true;
+                qcf.booleanField9Label = field.label;
+            }
+            if(field.fieldName === 'booleanField10'){
+                qcf.booleanField10Visible = true;
+                qcf.booleanField10Label = field.label;
+            }
+
+            if(field.fieldName === 'dateField1'){
+                qcf.dateField1Visible = true;
+                qcf.dateField1Label = field.label;
+            }
+            if(field.fieldName === 'dateField2'){
+                qcf.dateField2Visible = true;
+                qcf.dateField2Label = field.label;
+            }
+            if(field.fieldName === 'dateField3'){
+                qcf.dateField3Visible = true;
+                qcf.dateField3Label = field.label;
+            }
+            if(field.fieldName === 'dateField4'){
+                qcf.dateField4Visible = true;
+                qcf.dateField4Label = field.label;
+            }
+            if(field.fieldName === 'dateField5'){
+                qcf.dateField5Visible = true;
+                qcf.dateField5Label = field.label;
+            }
+            if(field.fieldName === 'dateField6'){
+                qcf.dateField6Visible = true;
+                qcf.dateField6Label = field.label;
+            }
+            if(field.fieldName === 'dateField7'){
+                qcf.dateField7Visible = true;
+                qcf.dateField7Label = field.label;
+            }
+            if(field.fieldName === 'dateField8'){
+                qcf.dateField8Visible = true;
+                qcf.dateField8Label = field.label;
+            }
+            if(field.fieldName === 'dateField9'){
+                qcf.dateField9Visible = true;
+                qcf.dateField10Label = field.label;
+            }
+            if(field.fieldName === 'dateField10'){
+                qcf.dateField10Visible = true;
+                qcf.dateField10Label = field.label;
+            }
+
+            if(field.fieldName === 'userField1'){
+                qcf.userField1Visible = true;
+                qcf.userField1Label = field.label;
+            }
+            if(field.fieldName === 'userField2'){
+                qcf.userField2Visible = true;
+                qcf.userField2Label = field.label;
+            }
+            if(field.fieldName === 'userField3'){
+                qcf.userField3Visible = true;
+                qcf.userField3Label = field.label;
+            }
+            if(field.fieldName === 'userField4'){
+                qcf.userField4Visible = true;
+                qcf.userField4Label = field.label;
+            }
+            if(field.fieldName === 'userField5'){
+                qcf.userField5Visible = true;
+                qcf.userField5Label = field.label;
+            }
+            if(field.fieldName === 'userField6'){
+                qcf.userField6Visible = true;
+                qcf.userField6Label = field.label;
+            }
+            if(field.fieldName === 'userField7'){
+                qcf.userField7Visible = true;
+                qcf.userField7Label = field.label;
+            }
+            if(field.fieldName === 'userField8'){
+                qcf.userField8Visible = true;
+                qcf.userField8Label = field.label;
+            }
+            if(field.fieldName === 'userField9'){
+                qcf.userField9Visible = true;
+                qcf.userField9Label = field.label;
+            }
+            if(field.fieldName === 'userField10'){
+                qcf.userField10Visible = true;
+                qcf.userField10Label = field.label;
+            }
+
           });
         }
       }

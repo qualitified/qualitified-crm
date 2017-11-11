@@ -1,3 +1,4 @@
+<link rel="import" href="../qualitified-custom-fields.html">
 <dom-module id="nuxeo-silhouette-edit-layout">
   <template>
     <style>
@@ -7,17 +8,19 @@
     </style>
     <nuxeo-directory-suggestion role="widget" value="{{document.properties.person:civility}}" label="Civility" directory-name="Civility" min-chars="0"></nuxeo-directory-suggestion>
 
-<paper-input role="widget" value="{{document.properties.person:firstName}}" label="First Name"></paper-input>
+    <paper-input role="widget" value="{{document.properties.person:firstName}}" label="First Name"></paper-input>
 
     <paper-input role="widget" value="{{document.properties.person:lastName}}" label="Last Name"></paper-input>
 
-<paper-input role="widget" value="{{document.properties.person:email}}" label="Email" pattern="^[a-z0-9!#$%&amp;'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&amp;'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$"></paper-input>
+    <paper-input role="widget" value="{{document.properties.person:email}}" label="Email" pattern="^[a-z0-9!#$%&amp;'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&amp;'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$"></paper-input>
 
     <paper-input role="widget" value="{{document.properties.person:phoneNumber}}" label="Phone Number"></paper-input>
 
-<nuxeo-directory-suggestion role="widget" value="{{document.properties.person:Role}}" label=" Role" directory-name="Role" min-chars="0"></nuxeo-directory-suggestion>
+    <nuxeo-directory-suggestion role="widget" value="{{document.properties.person:Role}}" label=" Role" directory-name="Role" min-chars="0"></nuxeo-directory-suggestion>
 
     <paper-input role="widget" value="{{document.properties.silhouette:company}}" label="Company"></paper-input>
+
+    <qualitified-custom-fields document="{{document}}" mode="edit"></qualitified-custom-fields>
 
   </template>
 

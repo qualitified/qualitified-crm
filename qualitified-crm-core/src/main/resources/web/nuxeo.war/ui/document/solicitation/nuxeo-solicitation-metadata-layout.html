@@ -1,3 +1,4 @@
+<link rel="import" href="../qualitified-custom-fields.html">
 <dom-module id="nuxeo-solicitation-metadata-layout">
   <template>
     <style>
@@ -22,6 +23,7 @@
 <label>[[i18n('label.metadata.solicitation.category')]]</label>
 <div directory-name="Role">[[formatDirectory(document.properties.solicitation:category)]]</div>
 </div>
+<qualitified-custom-fields document="{{document}}" mode="view"></qualitified-custom-fields>
 <div role="widget">
 <label>[[i18n('label.metadata.description')]]</label>
 <div>[[document.properties.dc:description]]</div>

@@ -1,3 +1,4 @@
+<link rel="import" href="../qualitified-custom-fields.html">
 <dom-module id="nuxeo-contact-create-layout">
   <template>
     <style>
@@ -19,7 +20,7 @@
 <paper-input value="{{document.properties.person:phoneNumber}}" label="[[i18n('label.metadata.phone')]]" role="widget"></paper-input>
 
 <paper-input value="{{document.properties.dc:description}}" label="[[i18n('label.metadata.description')]]" role="widget"></paper-input>
-
+<qualitified-custom-fields document="{{document}}" mode="edit"></qualitified-custom-fields>
 <nuxeo-dropzone role="widget" label="i18n('label.metadata.contact.picture')" document="[[document]]"></nuxeo-dropzone>
 
 </template>

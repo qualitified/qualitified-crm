@@ -1,3 +1,4 @@
+<link rel="import" href="../qualitified-custom-fields.html">
 <dom-module id="nuxeo-solicitation-create-layout">
   <template>
     <style>
@@ -6,9 +7,10 @@
       }
     </style>
 
-<nuxeo-directory-suggestion value="{{document.properties.solicitation:category}}" label="[[i18n('label.metadata.solicitation.category')]]" directory-name="SolicitationCategory" role="widget" min-chars="0"></nuxeo-directory-suggestion>
-<paper-input value="{{document.properties.dc:title}}" label="[[i18n('label.metadata.title')]]" role="widget"></paper-input>
-<paper-textarea value="{{document.properties.dc:description}}" label="[[i18n('label.metadata.description')]]" role="widget"></paper-textarea>
+    <nuxeo-directory-suggestion value="{{document.properties.solicitation:category}}" label="[[i18n('label.metadata.solicitation.category')]]" directory-name="SolicitationCategory" role="widget" min-chars="0"></nuxeo-directory-suggestion>
+    <paper-input value="{{document.properties.dc:title}}" label="[[i18n('label.metadata.title')]]" role="widget"></paper-input>
+    <qualitified-custom-fields document="{{document}}" mode="edit"></qualitified-custom-fields>
+    <paper-textarea value="{{document.properties.dc:description}}" label="[[i18n('label.metadata.description')]]" role="widget"></paper-textarea>
 
 </template>
 
