@@ -142,3 +142,19 @@
     <qualitified-document-tree user="[[user]]" root-doc-path="/Sales" name="sales"></qualitified-document-tree>
   </template>
 </nuxeo-slot-content>
+
+<nuxeo-slot-content name="customizationDrawerItem" slot="DRAWER_ITEMS" order="200">
+  <template>
+    <nuxeo-filter user="[[user]]" expression="user.isAdministrator">
+      <template>
+        <nuxeo-menu-icon name="customization" icon="icons:build" label="app.customization"></nuxeo-menu-icon>
+      </template>
+    </nuxeo-filter>
+  </template>
+</nuxeo-slot-content>
+
+<nuxeo-slot-content name="customizationDrawerPage" slot="DRAWER_PAGES" order="200">
+  <template>
+    <nuxeo-document-tree root-doc-path="/Admin" label="app.customization" name="customization" ></nuxeo-document-tree>
+  </template>
+</nuxeo-slot-content>

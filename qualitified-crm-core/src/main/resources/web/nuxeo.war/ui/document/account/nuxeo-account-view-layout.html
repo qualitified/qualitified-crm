@@ -555,7 +555,9 @@
         var detail = {
           doc: e.detail.item,
         };
-        page('/browse' + detail.doc.path);
+        if(detail.doc){
+          page('/browse' + detail.doc.path);
+        }
       },
       _formatDate: function(date) {
         return moment(date).format('MMMM D, YYYY');
