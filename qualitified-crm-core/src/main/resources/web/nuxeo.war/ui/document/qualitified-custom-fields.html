@@ -6,6 +6,7 @@
 <dom-module id="qualitified-custom-fields">
   <template>
     <nuxeo-operation id="getCustomFields" op="getCustomFieldsChain" input="[[document.uid]]" params="[[params]]"></nuxeo-operation>
+    <nuxeo-operation id="getVocabularyLabel" op="javascript.getVocabularyLabel" input="[[document.uid]]" params="[[params2]]"></nuxeo-operation>
 
     <!--nuxeo-page-provider
      role="widget"
@@ -140,43 +141,53 @@
 
       <div hidden$="[[!vocabularyField1Visible]]" role="widget">
         <label>[[vocabularyField1Label]]</label>
-        <div>[[formatDirectory(document.properties.custom:vocabularyField1)]]</div>
+        <div style="display:none;">[[formatDirectory(document.properties.custom:vocabularyField1, vocabularyField1Name, "vocabularyField1")]]</div>
+        <div>[[vocabularyField1Value]]</div>
       </div>
       <div hidden$="[[!vocabularyField2Visible]]" role="widget">
         <label>[[vocabularyField2Label]]</label>
-        <div>[[formatDirectory(document.properties.custom:vocabularyField2)]]</div>
+        <div style="display:none;">[[formatDirectory(document.properties.custom:vocabularyField2, vocabularyField2Name, "vocabularyField2")]]</div>
+        <div>[[vocabularyField2Value]]</div>
       </div>
       <div hidden$="[[!vocabularyField3Visible]]" role="widget">
         <label>[[vocabularyField3Label]]</label>
-        <div>[[formatDirectory(document.properties.custom:vocabularyField3)]]</div>
+        <div style="display:none;">[[formatDirectory(document.properties.custom:vocabularyField3, vocabularyField3Name, "vocabularyField3")]]</div>
+        <div>[[vocabularyField3Value]]</div>
       </div>
       <div hidden$="[[!vocabularyField4Visible]]" role="widget">
         <label>[[vocabularyField4Label]]</label>
-        <div>[[formatDirectory(document.properties.custom:vocabularyField4)]]</div>
+        <div style="display:none;">[[formatDirectory(document.properties.custom:vocabularyField4, vocabularyField4Name, "vocabularyField4")]]</div>
+        <div>[[vocabularyField4Value]]</div>
       </div>
       <div hidden$="[[!vocabularyField5Visible]]" role="widget">
         <label>[[vocabularyField5Label]]</label>
-        <div>[[formatDirectory(document.properties.custom:vocabularyField5)]]</div>
+        <div style="display:none;">[[formatDirectory(document.properties.custom:vocabularyField5, vocabularyField5Name, "vocabularyField5")]]</div>
+        <div>[[vocabularyField5Value]]</div>
       </div>
       <div hidden$="[[!vocabularyField6Visible]]" role="widget">
         <label>[[vocabularyField6Label]]</label>
-        <div>[[formatDirectory(document.properties.custom:vocabularyField6)]]</div>
+        <div style="display:none;">[[formatDirectory(document.properties.custom:vocabularyField6, vocabularyField6Name, "vocabularyField6")]]</div>
+        <div>[[vocabularyField6Value]]</div>
       </div>
       <div hidden$="[[!vocabularyField7Visible]]" role="widget">
         <label>[[vocabularyField7Label]]</label>
-        <div>[[formatDirectory(document.properties.custom:vocabularyField7)]]</div>
+        <div style="display:none;">[[formatDirectory(document.properties.custom:vocabularyField7, vocabularyField7Name, "vocabularyField7")]]</div>
+        <div>[[vocabularyField7Value]]</div>
       </div>
       <div hidden$="[[!vocabularyField8Visible]]" role="widget">
         <label>[[vocabularyField8Label]]</label>
-        <div>[[formatDirectory(document.properties.custom:vocabularyField8)]]</div>
+        <div style="display:none;">[[formatDirectory(document.properties.custom:vocabularyField8, vocabularyField8Name, "vocabularyField8")]]</div>
+        <div>[[vocabularyField8Value]]</div>
       </div>
       <div hidden$="[[!vocabularyField9Visible]]" role="widget">
         <label>[[vocabularyField9Label]]</label>
-        <div>[[formatDirectory(document.properties.custom:vocabularyField9)]]</div>
+        <div style="display:none;">[[formatDirectory(document.properties.custom:vocabularyField9, vocabularyField9Name, "vocabularyField9")]]</div>
+        <div>[[vocabularyField2Value]]</div>
       </div>
       <div hidden$="[[!vocabularyField10Visible]]" role="widget">
         <label>[[vocabularyField10Label]]</label>
-        <div>[[formatDirectory(document.properties.custom:vocabularyField10)]]</div>
+        <div style="display:none;">[[formatDirectory(document.properties.custom:vocabularyField10, vocabularyField10Name, "vocabularyField10")]]</div>
+        <div>[[vocabularyField10Value]]</div>
       </div>
 
       <div hidden$="[[!doubleField1Visible]]" role="widget">
@@ -348,7 +359,7 @@
   <script>
     Polymer({
       is: 'qualitified-custom-fields',
-      behaviors: [Nuxeo.LayoutBehavior],
+      behaviors: [Nuxeo.LayoutBehavior,Nuxeo.I18nBehavior],
       properties: {
         document: {
           type: Object,
@@ -356,6 +367,10 @@
           observer:'_getCustomFields'
         },
         params:{
+          type: Object,
+          value: {}
+        },
+        params2:{
           type: Object,
           value: {}
         },
@@ -453,6 +468,9 @@
         vocabularyField1Name : {
           type: String
         },
+        vocabularyField1Value : {
+          type: String
+        },
 
         vocabularyField2Visible : {
           type: Boolean,
@@ -466,6 +484,9 @@
           value: false
         },
         vocabularyField2Name : {
+          type: String
+        },
+        vocabularyField2Value : {
           type: String
         },
         vocabularyField3Visible : {
@@ -482,6 +503,9 @@
         vocabularyField3Name : {
           type: String
         },
+        vocabularyField3Value : {
+          type: String
+        },
         vocabularyField4Visible : {
           type: Boolean,
           value: false
@@ -494,6 +518,9 @@
           value: false
         },
         vocabularyField4Name : {
+          type: String
+        },
+        vocabularyField4Value : {
           type: String
         },
         vocabularyField5Visible : {
@@ -510,6 +537,9 @@
         vocabularyField5Name : {
           type: String
         },
+        vocabularyField5Value : {
+          type: String
+        },
         vocabularyField6Visible : {
           type: Boolean,
           value: false
@@ -522,6 +552,9 @@
           value: false
         },
         vocabularyField6Name : {
+          type: String
+        },
+        vocabularyField6Value : {
           type: String
         },
         vocabularyField7Visible : {
@@ -538,6 +571,9 @@
         vocabularyField7Name : {
           type: String
         },
+        vocabularyField7Value : {
+          type: String
+        },
         vocabularyField8Visible : {
           type: Boolean,
           value: false
@@ -550,6 +586,9 @@
           value: false
         },
         vocabularyField8Name : {
+          type: String
+        },
+        vocabularyField8Value : {
           type: String
         },
         vocabularyField9Visible : {
@@ -566,6 +605,9 @@
         vocabularyField9Name : {
           type: String
         },
+        vocabularyField9Value : {
+          type: String
+        },
         vocabularyField10Visible : {
           type: Boolean,
           value: false
@@ -578,6 +620,9 @@
           value: false
         },
         vocabularyField10Name : {
+          type: String
+        },
+        vocabularyField10Value : {
           type: String
         },
 
@@ -949,11 +994,52 @@
         }.bind(this));
       },
       _isMode: function(value){
-        console.log(this.mode+' is '+value+'? ' + (this.mode === value));
+        //console.log(this.mode+' is '+value+'? ' + (this.mode === value));
         return this.mode === value;
       },
-      formatDirectory: function(value) {
-        if (value && value['entity-type'] && value['entity-type'] === 'directoryEntry') {
+      formatDirectory: function(value, vocabularyName, vocabularyField) {
+        if(value){
+          this.params2 = {
+              vocabularyName:vocabularyName,
+              vocabularyId:value,
+              vocabularyField:vocabularyField
+          };
+          this.$.getVocabularyLabel.execute().then(function(label) {
+            if(label.value.vocabularyField === 'vocabularyField1'){
+              //console.log("label.directories?"+ label.value.result.startsWith('label.directories'));
+              this.vocabularyField1Value = label.value.result.startsWith('label.directories') ? this.i18n(label.value.result) : label.value.result;
+            }
+            if(label.value.vocabularyField === 'vocabularyField2'){
+              this.vocabularyField2Value = label.value.result;
+            }
+            if(label.value.vocabularyField === 'vocabularyField3'){
+              this.vocabularyField3Value = label.value.result;
+            }
+            if(label.value.vocabularyField === 'vocabularyField4'){
+              this.vocabularyField4Value = label.value.result;
+            }
+            if(label.value.vocabularyField === 'vocabularyField5'){
+              this.vocabularyField5Value = label.value.result;
+            }
+            if(label.value.vocabularyField === 'vocabularyField6'){
+              this.vocabularyField6Value = label.value.result;
+            }
+            if(label.value.vocabularyField === 'vocabularyField7'){
+              this.vocabularyField7Value = label.value.result;
+            }
+            if(label.value.vocabularyField === 'vocabularyField8'){
+              this.vocabularyField8Value = label.value.result;
+            }
+            if(label.value.vocabularyField === 'vocabularyField9'){
+              this.vocabularyField9Value = label.value.result;
+            }
+            if(label.value.vocabularyField === 'vocabularyField10'){
+              this.vocabularyField10Value = label.value.result;
+            }
+          }.bind(this));
+
+        }
+        /*if (value && value['entity-type'] && value['entity-type'] === 'directoryEntry') {
           if (value.properties && value.properties.label) {
             return value.properties.label;
           } else {
@@ -962,7 +1048,7 @@
           }
         } else {
           return value;
-        }
+        }*/
       },
       _customLoaded: function(){
         console.log('mode: '+ this.mode);

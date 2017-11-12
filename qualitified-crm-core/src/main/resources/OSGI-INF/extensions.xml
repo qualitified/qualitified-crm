@@ -955,6 +955,16 @@
       <operation id="javascript.filePostSave"/>
       <operation id="Auth.Logout"/>
     </chain>
+    <!--chain id="getVocabularyLabel">
+      <operation id="Context.SetVar">
+        <param type="string" name="name">vocabularyLabel</param>
+        <param type="object" name="value">expr:Fn.getVocabularyLabel(Context["vocabularyName"], Context["vocabularyId"])</param>
+      </operation>
+      <operation id="javascript.returnVocabularyLabel"/>
+      <operation id="RunScript">
+        <param type="string" name="script">expr:return new org.nuxeo.ecm.core.api.impl.blob.StringBlob("@{Context["vocabularyLabel"]}");</param>
+      </operation>
+    </chain-->
   </extension>
   <extension target="org.nuxeo.ecm.platform.query.api.PageProviderService" point="providers">
     <genericPageProvider class="org.nuxeo.elasticsearch.provider.ElasticSearchNxqlPageProvider" name="opportunity_list">
@@ -1214,8 +1224,21 @@
         }]]>
       </script>
     </scriptedOperation>
+    <scriptedOperation id="javascript.getVocabularyLabel">
+      <inputType>void</inputType>
+      <outputType>string</outputType>
+      <category>javascript</category>
+      <description></description>
+      <script><![CDATA[function run(input, params) {
+        var label = Fn.getVocabularyLabel(params.vocabularyName, params.vocabularyId);
+        var labelJSON = {};
+        labelJSON.result = label;
+        labelJSON.vocabularyField = params.vocabularyField;
+        return labelJSON;
+        }]]>
+      </script>
+    </scriptedOperation>
   </extension>
-
   <extension target="org.nuxeo.ecm.platform.content.template.service.ContentTemplateService" point="factoryBinding">
     <factoryBinding name="AdminFactory" factoryName="SimpleTemplateFactory" targetType="Admin">
       <template>
