@@ -1,0 +1,35 @@
+<dom-module id="nuxeo-task67a-layout">
+  <template>
+    <style>
+      *[role=widget] {
+        padding: 5px;
+      }
+    </style>
+  </template>
+
+  <script>
+  Polymer({
+    is: 'nuxeo-task67a-layout',
+    behaviors: [Nuxeo.LayoutBehavior],
+    properties: {
+
+      /**
+         * @task var_Task67a
+         */
+      task: {
+        type: Object,
+      },
+
+      /**
+         * @schema dublincore
+         */
+      document: {
+        type: Object,
+      },
+    },
+    _formatDate: function(date) {
+        return moment(date).format('MMMM D, YYYY');
+      }
+  });
+  </script>
+</dom-module>

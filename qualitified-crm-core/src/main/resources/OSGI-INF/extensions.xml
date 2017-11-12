@@ -27,6 +27,11 @@
     <schema name="var_start-node" prefix="var_start-node" override="true" src="data/schemas/var_start-node.xsd"/>
     <schema name="var_stop-node" prefix="var_stop-node" override="true" src="data/schemas/var_stop-node.xsd"/>
     <schema name="var_interactionWorkflow" prefix="var_interactionWorkflow" override="true" src="data/schemas/var_interactionWorkflow.xsd"/>
+
+    <schema name="var_global_Task67a" prefix="var_global_Task67a" override="true" src="data/schemas/var_global_Task67a.xsd"/>
+    <schema name="var_Task67a" prefix="var_Task67a" override="true" src="data/schemas/var_Task67a.xsd"/>
+    <schema name="var_Taskb50" prefix="var_Taskb50" override="true" src="data/schemas/var_Taskb50.xsd"/>
+    <schema name="var_SolicitationWorkflow" prefix="var_SolicitationWorkflow" override="true" src="data/schemas/var_SolicitationWorkflow.xsd"/>
   </extension>
   <extension target="org.nuxeo.ecm.core.schema.TypeService" point="doctype">
     <doctype name="Account" extends="Document">
@@ -331,6 +336,9 @@
     </facet>
     <facet name="facet-var_interactionWorkflow">
       <schema name="var_interactionWorkflow"/>
+    </facet>
+    <facet name="facet-var_SolicitationWorkflow">
+      <schema name="var_SolicitationWorkflow"/>
     </facet>
   </extension>
   <extension target="org.nuxeo.ecm.core.lifecycle.LifeCycleService" point="types">
@@ -1238,6 +1246,34 @@
         }]]>
       </script>
     </scriptedOperation>
+    <scriptedOperation id="javascript.startWorkflow">
+      <inputType>document</inputType>
+      <outputType>document</outputType>
+      <category>javascript</category>
+      <description></description>
+      <script><![CDATA[function run(input, params) {
+          Context.StartWorkflow(
+          input, {
+          'id': 'SolicitationWorkflow',
+          'start': true,
+          'variables': 'group='+params.group
+          });
+          return input;
+        }]]>
+      </script>
+    </scriptedOperation>
+    <scriptedOperation id="javascript.changeStateToApproved">
+      <inputType>documents</inputType>
+      <outputType>void</outputType>
+      <category>javascript</category>
+      <description></description>
+      <script><![CDATA[function run(input, params) {
+          input.forEach(function(doc){
+            Document.FollowLifecycleTransition(doc, {'value': 'aprove'});
+          });
+        }]]>
+      </script>
+    </scriptedOperation>
   </extension>
   <extension target="org.nuxeo.ecm.platform.content.template.service.ContentTemplateService" point="factoryBinding">
     <factoryBinding name="AdminFactory" factoryName="SimpleTemplateFactory" targetType="Admin">
@@ -1595,8 +1631,14 @@
   </extension>
   <extension target="org.nuxeo.ecm.platform.routing.service" point="routeModelImporter">
     <template-resource id="interactionWorkflow" path="data/interactionWorkflow.zip"/>
+    <template-resource id="SolicitationWorkflow" path="data/SolicitationWorkflow.zip"/>
   </extension>
   <extension target="org.nuxeo.ecm.platform.actions.ActionService" point="filters">
+    <filter id="filter@wf@SolicitationWorkflow">
+      <rule grant="true">
+        <condition>false</condition>
+      </rule>
+    </filter>
     <filter id="filter@wf@interactionWorkflow">
       <rule grant="true">
         <permission>ReadWrite</permission>
