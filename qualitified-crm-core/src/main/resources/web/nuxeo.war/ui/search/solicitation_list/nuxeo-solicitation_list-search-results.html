@@ -37,7 +37,7 @@
 
         <nuxeo-data-table-column name="[[i18n('label.metadata.solicitation.status')]]" field="solicitation:status" sort-by="solicitation:status" flex="50">
           <template>
-            [[item.properties.solicitation:status]]
+            [[formatDirectory(item.properties.solicitation:status)]]
           </template>
         </nuxeo-data-table-column>
 
