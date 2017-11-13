@@ -57,11 +57,13 @@
   "label.metadata.contact.picture": "Picture",
   "label.metadata.logo": "Logo",
   "label.metadata.solicitation.category": "Category",
+  "label.metadata.solicitation.status": "Status",
   "label.metadata.title": "Title",
   "label.metadata.custom.label": "Label",
   "label.metadata.custom.fieldname": "Field Name",
   "label.metadata.custom.type": "Type",
   "label.metadata.custom.required":"Required",
   "label.metadata.custom.vocabularyname":"Vocabulary Name",
-  "app.customization":"Customization"
+  "app.customization":"Customization",
+  "app.solicitation":"Solicitation"
 }

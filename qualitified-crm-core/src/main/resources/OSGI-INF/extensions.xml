@@ -22,6 +22,7 @@
     <schema name="person" prefix="person" override="true" src="data/schemas/person.xsd"/>
     <schema name="opportunity_list_pp" prefix="opportunity_list_pp" override="true" src="data/schemas/opportunity_list_pp.xsd"/>
     <schema name="account_list_pp" prefix="account_list_pp" override="true" src="data/schemas/account_list_pp.xsd"/>
+    <schema name="solicitation_list_pp" prefix="solicitation_list_pp" override="true" src="data/schemas/solicitation_list_pp.xsd"/>
     <schema name="var_global_Task13ce" prefix="var_global_Task13ce" override="true" src="data/schemas/var_global_Task13ce.xsd"/>
     <schema name="var_Task13ce" prefix="var_Task13ce" override="true" src="data/schemas/var_Task13ce.xsd"/>
     <schema name="var_start-node" prefix="var_start-node" override="true" src="data/schemas/var_start-node.xsd"/>
@@ -322,11 +323,26 @@
       <facet name="HiddenInNavigation"/>
       <schema name="account_list_pp"/>
     </doctype>
+    <doctype name="solicitation_list_pp" extends="Document">
+      <facet name="ContentViewDisplay"/>
+      <facet name="SavedSearch"/>
+      <facet name="HiddenInNavigation"/>
+      <schema name="solicitation_list_pp"/>
+    </doctype>
     <facet name="facet-var_global_Task13ce">
       <schema name="var_global_Task13ce"/>
     </facet>
     <facet name="facet-var_Task13ce">
       <schema name="var_Task13ce"/>
+    </facet>
+    <facet name="facet-var_global_Task67a">
+      <schema name="var_global_Task67a"/>
+    </facet>
+    <facet name="facet-var_Task67a">
+      <schema name="var_Task67a"/>
+    </facet>
+    <facet name="facet-var_Taskb50">
+      <schema name="var_Taskb50"/>
     </facet>
     <facet name="facet-var_start-node">
       <schema name="var_start-node"/>
@@ -1050,6 +1066,51 @@
       <sort column="dc:title" ascending="true"/>
       <pageSize>10</pageSize>
     </genericPageProvider>
+    <genericPageProvider class="org.nuxeo.elasticsearch.provider.ElasticSearchNxqlPageProvider" name="solicitation_list">
+      <property name="coreSession">#{documentManager}</property>
+      <whereClause>
+        <predicate id="system_fulltext" parameter="ecm:fulltext" operator="FULLTEXT ALL">
+          <field schema="solicitation_list_pp" name="system_fulltext"/>
+        </predicate>
+        <fixedPart>ecm:mixinType != 'HiddenInNavigation' AND ecm:isCheckedInVersion = 0 AND ecm:currentLifeCycleState != 'deleted' AND ecm:primaryType = 'Solicitation'</fixedPart>
+      </whereClause>
+      <searchDocumentType>solicitation_list_pp</searchDocumentType>
+      <aggregates>
+        <aggregate id="solicitation_status_agg" type="terms" parameter="solicitation:status">
+          <field schema="solicitation_list_pp" name="solicitation_status_agg"/>
+          <properties>
+            <property name="order">count desc</property>
+            <property name="size">0</property>
+          </properties>
+        </aggregate>
+        <aggregate id="system_currentLifeCycleState_agg" type="terms" parameter="ecm:currentLifeCycleState">
+          <field schema="solicitation_list_pp" name="system_currentLifeCycleState_agg"/>
+          <properties>
+            <property name="minDocCount">0</property>
+            <property name="order">count desc</property>
+          </properties>
+        </aggregate>
+        <aggregate id="solicitation_category_agg" type="terms" parameter="solicitation:category">
+          <field schema="solicitation_list_pp" name="solicitation_category_agg"/>
+          <properties>
+            <property name="order">count desc</property>
+            <property name="size">0</property>
+          </properties>
+        </aggregate>
+        <!--aggregate id="solicitation_created_agg" type="date_range" parameter="dc:created">
+          <field schema="solicitation_list_pp" name="solicitation_created_agg"/>
+          <properties/>
+          <dateRanges>
+            <dateRange key="from_now-1y_to_now-1M" fromDate="now-1y" toDate="now-1M"/>
+            <dateRange key="from_now-1M_to_now-7d" fromDate="now-1M" toDate="now-7d"/>
+            <dateRange key="from_now-7d_to_now-24h" fromDate="now-7d" toDate="now-24h"/>
+            <dateRange key="from_now-24h_to_now" fromDate="now-24h" toDate="now"/>
+          </dateRanges>
+        </aggregate-->
+      </aggregates>
+      <sort column="dc:modified" ascending="false"/>
+      <pageSize>10</pageSize>
+    </genericPageProvider>
   </extension>
   <extension target="org.nuxeo.automation.scripting.internals.AutomationScriptingComponent" point="operation">
     <scriptedOperation id="javascript.interactionSaved">
@@ -1407,6 +1468,17 @@
       <createTablePolicy>always</createTablePolicy>
       <table>studio_vocabulary_SolicitationCategory</table>
       <dataFile>data/vocabularies/SolicitationCategory.csv</dataFile>
+    </directory>
+    <directory name="SolicitationStatus">
+      <schema>vocabulary</schema>
+      <dataSource>java:/nxsqldirectory</dataSource>
+      <cacheTimeout>3600</cacheTimeout>
+      <cacheMaxSize>1000</cacheMaxSize>
+      <idField>id</idField>
+      <autoincrementIdField>false</autoincrementIdField>
+      <createTablePolicy>always</createTablePolicy>
+      <table>studio_vocabulary_SolicitationStatus</table>
+      <dataFile>data/vocabularies/SolicitationStatus.csv</dataFile>
     </directory>
     <directory name="customVocabulary1">
         <schema>vocabulary</schema>
