@@ -196,34 +196,226 @@
 
   <require>org.nuxeo.ecm.directory.sql.storage</require>
   <extension target="org.nuxeo.ecm.directory.sql.SQLDirectoryFactory" point="directories">
-    <!--directory name="userDirectory">
-      <passwordField>password</passwordField>
-      <dataFile>data/users.csv</dataFile>
-      <createTablePolicy>never</createTablePolicy>
-      <references>
-        <inverseReference field="groups" directory="groupDirectory" dualReferenceField="members"/>
-      </references>
-    </directory>
-    <directory name="groupDirectory">
-      <dataFile>data/groups.csv</dataFile>
-      <createTablePolicy>never</createTablePolicy>
-      <references>
-        <inverseReference field="parentGroups" directory="groupDirectory" dualReferenceField="subGroups"/>
-        <tableReference field="members" directory="userDirectory" table="user2group" sourceColumn="groupId" targetColumn="userId" schema="user2group" dataFile="data/user2group.csv"/>
-        <tableReference field="subGroups" directory="groupDirectory" table="group2group" sourceColumn="parentGroupId" targetColumn="childGroupId" schema="group2group"/>
-      </references>
-    </directory>
-    <directory name="Civility">
-      <schema>vocabulary</schema>
-      <dataSource>java:/nxsqldirectory</dataSource>
-      <cacheTimeout>3600</cacheTimeout>
-      <cacheMaxSize>1000</cacheMaxSize>
-      <idField>id</idField>
-      <autoincrementIdField>false</autoincrementIdField>
-      <createTablePolicy>on_missing_columns</createTablePolicy>
-      <table>studio_vocabulary_Civility</table>
-      <dataFile>data/vocabularies/Civility.csv</dataFile>
-    </directory-->
+    <directory name="customVocabulary1">
+        <schema>vocabulary</schema>
+        <dataSource>java:/nxsqldirectory</dataSource>
+        <cacheTimeout>3600</cacheTimeout>
+        <cacheMaxSize>1000</cacheMaxSize>
+        <idField>id</idField>
+        <autoincrementIdField>false</autoincrementIdField>
+        <createTablePolicy>always</createTablePolicy>
+        <table>studio_vocabulary_customVocabulary1</table>
+        <dataFile>data/vocabularies/customVocabulary1.csv</dataFile>
+      </directory>
+      <directory name="customVocabulary2">
+        <schema>vocabulary</schema>
+        <dataSource>java:/nxsqldirectory</dataSource>
+        <cacheTimeout>3600</cacheTimeout>
+        <cacheMaxSize>1000</cacheMaxSize>
+        <idField>id</idField>
+        <autoincrementIdField>false</autoincrementIdField>
+        <createTablePolicy>always</createTablePolicy>
+        <table>studio_vocabulary_customVocabulary2</table>
+        <dataFile>data/vocabularies/customVocabulary2.csv</dataFile>
+      </directory>
+      <directory name="customVocabulary3">
+        <schema>vocabulary</schema>
+        <dataSource>java:/nxsqldirectory</dataSource>
+        <cacheTimeout>3600</cacheTimeout>
+        <cacheMaxSize>1000</cacheMaxSize>
+        <idField>id</idField>
+        <autoincrementIdField>false</autoincrementIdField>
+        <createTablePolicy>always</createTablePolicy>
+        <table>studio_vocabulary_customVocabulary3</table>
+        <dataFile>data/vocabularies/customVocabulary3.csv</dataFile>
+      </directory>
+      <directory name="customVocabulary4">
+        <schema>vocabulary</schema>
+        <dataSource>java:/nxsqldirectory</dataSource>
+        <cacheTimeout>3600</cacheTimeout>
+        <cacheMaxSize>1000</cacheMaxSize>
+        <idField>id</idField>
+        <autoincrementIdField>false</autoincrementIdField>
+        <createTablePolicy>always</createTablePolicy>
+        <table>studio_vocabulary_customVocabulary4</table>
+        <dataFile>data/vocabularies/customVocabulary4.csv</dataFile>
+      </directory>
+      <directory name="customVocabulary5">
+        <schema>vocabulary</schema>
+        <dataSource>java:/nxsqldirectory</dataSource>
+        <cacheTimeout>3600</cacheTimeout>
+        <cacheMaxSize>1000</cacheMaxSize>
+        <idField>id</idField>
+        <autoincrementIdField>false</autoincrementIdField>
+        <createTablePolicy>always</createTablePolicy>
+        <table>studio_vocabulary_customVocabulary5</table>
+        <dataFile>data/vocabularies/customVocabulary5.csv</dataFile>
+      </directory>
+      <directory name="customVocabulary6">
+        <schema>vocabulary</schema>
+        <dataSource>java:/nxsqldirectory</dataSource>
+        <cacheTimeout>3600</cacheTimeout>
+        <cacheMaxSize>1000</cacheMaxSize>
+        <idField>id</idField>
+        <autoincrementIdField>false</autoincrementIdField>
+        <createTablePolicy>always</createTablePolicy>
+        <table>studio_vocabulary_customVocabulary6</table>
+        <dataFile>data/vocabularies/customVocabulary6.csv</dataFile>
+      </directory>
+      <directory name="customVocabulary7">
+        <schema>vocabulary</schema>
+        <dataSource>java:/nxsqldirectory</dataSource>
+        <cacheTimeout>3600</cacheTimeout>
+        <cacheMaxSize>1000</cacheMaxSize>
+        <idField>id</idField>
+        <autoincrementIdField>false</autoincrementIdField>
+        <createTablePolicy>always</createTablePolicy>
+        <table>studio_vocabulary_customVocabulary7</table>
+        <dataFile>data/vocabularies/customVocabulary7.csv</dataFile>
+      </directory>
+      <directory name="customVocabulary8">
+        <schema>vocabulary</schema>
+        <dataSource>java:/nxsqldirectory</dataSource>
+        <cacheTimeout>3600</cacheTimeout>
+        <cacheMaxSize>1000</cacheMaxSize>
+        <idField>id</idField>
+        <autoincrementIdField>false</autoincrementIdField>
+        <createTablePolicy>always</createTablePolicy>
+        <table>studio_vocabulary_customVocabulary8</table>
+        <dataFile>data/vocabularies/customVocabulary8.csv</dataFile>
+      </directory>
+      <directory name="customVocabulary9">
+        <schema>vocabulary</schema>
+        <dataSource>java:/nxsqldirectory</dataSource>
+        <cacheTimeout>3600</cacheTimeout>
+        <cacheMaxSize>1000</cacheMaxSize>
+        <idField>id</idField>
+        <autoincrementIdField>false</autoincrementIdField>
+        <createTablePolicy>always</createTablePolicy>
+        <table>studio_vocabulary_customVocabulary9</table>
+        <dataFile>data/vocabularies/customVocabulary9.csv</dataFile>
+      </directory>
+      <directory name="customVocabulary10">
+        <schema>vocabulary</schema>
+        <dataSource>java:/nxsqldirectory</dataSource>
+        <cacheTimeout>3600</cacheTimeout>
+        <cacheMaxSize>1000</cacheMaxSize>
+        <idField>id</idField>
+        <autoincrementIdField>false</autoincrementIdField>
+        <createTablePolicy>always</createTablePolicy>
+        <table>studio_vocabulary_customVocabulary10</table>
+        <dataFile>data/vocabularies/customVocabulary10.csv</dataFile>
+      </directory>
+      <directory name="customVocabulary11">
+        <schema>vocabulary</schema>
+        <dataSource>java:/nxsqldirectory</dataSource>
+        <cacheTimeout>3600</cacheTimeout>
+        <cacheMaxSize>1000</cacheMaxSize>
+        <idField>id</idField>
+        <autoincrementIdField>false</autoincrementIdField>
+        <createTablePolicy>always</createTablePolicy>
+        <table>studio_vocabulary_customVocabulary11</table>
+        <dataFile>data/vocabularies/customVocabulary11.csv</dataFile>
+      </directory>
+      <directory name="customVocabulary12">
+        <schema>vocabulary</schema>
+        <dataSource>java:/nxsqldirectory</dataSource>
+        <cacheTimeout>3600</cacheTimeout>
+        <cacheMaxSize>1000</cacheMaxSize>
+        <idField>id</idField>
+        <autoincrementIdField>false</autoincrementIdField>
+        <createTablePolicy>always</createTablePolicy>
+        <table>studio_vocabulary_customVocabulary12</table>
+        <dataFile>data/vocabularies/customVocabulary12.csv</dataFile>
+      </directory>
+      <directory name="customVocabulary13">
+        <schema>vocabulary</schema>
+        <dataSource>java:/nxsqldirectory</dataSource>
+        <cacheTimeout>3600</cacheTimeout>
+        <cacheMaxSize>1000</cacheMaxSize>
+        <idField>id</idField>
+        <autoincrementIdField>false</autoincrementIdField>
+        <createTablePolicy>always</createTablePolicy>
+        <table>studio_vocabulary_customVocabulary13</table>
+        <dataFile>data/vocabularies/customVocabulary13.csv</dataFile>
+      </directory>
+      <directory name="customVocabulary14">
+        <schema>vocabulary</schema>
+        <dataSource>java:/nxsqldirectory</dataSource>
+        <cacheTimeout>3600</cacheTimeout>
+        <cacheMaxSize>1000</cacheMaxSize>
+        <idField>id</idField>
+        <autoincrementIdField>false</autoincrementIdField>
+        <createTablePolicy>always</createTablePolicy>
+        <table>studio_vocabulary_customVocabulary14</table>
+        <dataFile>data/vocabularies/customVocabulary14.csv</dataFile>
+      </directory>
+      <directory name="customVocabulary15">
+        <schema>vocabulary</schema>
+        <dataSource>java:/nxsqldirectory</dataSource>
+        <cacheTimeout>3600</cacheTimeout>
+        <cacheMaxSize>1000</cacheMaxSize>
+        <idField>id</idField>
+        <autoincrementIdField>false</autoincrementIdField>
+        <createTablePolicy>always</createTablePolicy>
+        <table>studio_vocabulary_customVocabulary15</table>
+        <dataFile>data/vocabularies/customVocabulary15.csv</dataFile>
+      </directory>
+      <directory name="customVocabulary16">
+        <schema>vocabulary</schema>
+        <dataSource>java:/nxsqldirectory</dataSource>
+        <cacheTimeout>3600</cacheTimeout>
+        <cacheMaxSize>1000</cacheMaxSize>
+        <idField>id</idField>
+        <autoincrementIdField>false</autoincrementIdField>
+        <createTablePolicy>always</createTablePolicy>
+        <table>studio_vocabulary_customVocabulary16</table>
+        <dataFile>data/vocabularies/customVocabulary16.csv</dataFile>
+      </directory>
+      <directory name="customVocabulary17">
+        <schema>vocabulary</schema>
+        <dataSource>java:/nxsqldirectory</dataSource>
+        <cacheTimeout>3600</cacheTimeout>
+        <cacheMaxSize>1000</cacheMaxSize>
+        <idField>id</idField>
+        <autoincrementIdField>false</autoincrementIdField>
+        <createTablePolicy>always</createTablePolicy>
+        <table>studio_vocabulary_customVocabulary17</table>
+        <dataFile>data/vocabularies/customVocabulary17.csv</dataFile>
+      </directory>
+      <directory name="customVocabulary18">
+        <schema>vocabulary</schema>
+        <dataSource>java:/nxsqldirectory</dataSource>
+        <cacheTimeout>3600</cacheTimeout>
+        <cacheMaxSize>1000</cacheMaxSize>
+        <idField>id</idField>
+        <autoincrementIdField>false</autoincrementIdField>
+        <createTablePolicy>always</createTablePolicy>
+        <table>studio_vocabulary_customVocabulary18</table>
+        <dataFile>data/vocabularies/customVocabulary18.csv</dataFile>
+      </directory>
+      <directory name="customVocabulary19">
+        <schema>vocabulary</schema>
+        <dataSource>java:/nxsqldirectory</dataSource>
+        <cacheTimeout>3600</cacheTimeout>
+        <cacheMaxSize>1000</cacheMaxSize>
+        <idField>id</idField>
+        <autoincrementIdField>false</autoincrementIdField>
+        <createTablePolicy>always</createTablePolicy>
+        <table>studio_vocabulary_customVocabulary19</table>
+        <dataFile>data/vocabularies/customVocabulary19.csv</dataFile>
+      </directory>
+      <directory name="customVocabulary20">
+        <schema>vocabulary</schema>
+        <dataSource>java:/nxsqldirectory</dataSource>
+        <cacheTimeout>3600</cacheTimeout>
+        <cacheMaxSize>1000</cacheMaxSize>
+        <idField>id</idField>
+        <autoincrementIdField>false</autoincrementIdField>
+        <createTablePolicy>always</createTablePolicy>
+        <table>studio_vocabulary_customVocabulary20</table>
+        <dataFile>data/vocabularies/customVocabulary20.csv</dataFile>
+      </directory>
   </extension>
   <extension target="org.nuxeo.ecm.platform.WebResources" point="resources">
     <!--resource name="nuxeo-menu-icon-custom.html" type="import" shrinkable="false">
