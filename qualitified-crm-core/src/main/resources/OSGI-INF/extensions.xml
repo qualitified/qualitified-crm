@@ -288,6 +288,16 @@
         <type>Audio</type>
       </subtypes>
     </doctype>
+    <doctype name="TemplateRoot" append="true">
+      <subtypes>
+        <type>Account</type>
+        <type>Contact</type>
+        <type>Opportunity</type>
+        <type>Interaction</type>
+        <type>Solicitation</type>
+        <type>Folder</type>
+      </subtypes>
+    </doctype>
     <doctype name="Workspace" extends="Folder">
       <schema name="workspace_schema"/>
       <schema name="publishing"/>
@@ -449,6 +459,13 @@
       <category>SimpleDocument</category>
       <icon>/img/file_100.png</icon>
       <bigIcon>/img/file_100.png</bigIcon>
+      <description></description>
+    </type>
+    <type id="Folder">
+      <label>Folder</label>
+      <category>SimpleDocument</category>
+      <icon>/img/folder_100.png</icon>
+      <bigIcon>/img/folder_100.png</bigIcon>
       <description></description>
     </type>
     <type id="Interaction">
@@ -711,11 +728,17 @@
         </condition>
       </filters>
     </handler>
-    <handler chainId="filePostSaveChain">
+    <handler chainId="postSaveChain">
       <event>documentCreated</event>
       <event>documentModified</event>
       <filters>
         <doctype>File</doctype>
+        <doctype>Folder</doctype>
+        <type>Account</type>
+        <type>Contact</type>
+        <type>Opportunity</type>
+        <type>Interaction</type>
+        <type>Solicitation</type>
         <attribute>Regular Document</attribute>
       </filters>
     </handler>
@@ -971,12 +994,12 @@
         <param type="string" name="documentType">expr:@{Context["documentType"]}</param>
       </operation>
     </chain>
-    <chain id="filePostSaveChain">
+    <chain id="postSaveChain">
       <operation id="Context.FetchDocument"/>
       <operation id="Auth.LoginAs">
         <param type="string" name="name">Administrator</param>
       </operation>
-      <operation id="javascript.filePostSave"/>
+      <operation id="javascript.postSave"/>
       <operation id="Auth.Logout"/>
     </chain>
     <!--chain id="getVocabularyLabel">
@@ -1274,14 +1297,29 @@
         }]]>
       </script>
     </scriptedOperation>
-    <scriptedOperation id="javascript.filePostSave">
+    <scriptedOperation id="javascript.postSave">
       <inputType>document</inputType>
       <outputType>document</outputType>
       <category>javascript</category>
       <description></description>
       <script><![CDATA[function run(input, params) {
-        params.isCreation = input['dc:created'] == null && input['dc:modified'] == null || Fn.calendar(input['dc:created']).format("yyyy-MM-dd HH:mm:ss.SSS") == Fn.calendar(input['dc:modified']).format("yyyy-MM-dd HH:mm:ss.SSS");
-        var myScriptDoc = Repository.Query(null, {'query': 'SELECT * FROM ScriptNote WHERE ecm:isProxy = 0 AND ecm:isCheckedInVersion = 0 AND ecm:currentLifeCycleState != \'deleted\' AND dc:title=\'filePostSave\''});
+        params.isCreation = input['dc:created'] === null && input['dc:modified'] === null || Fn.calendar(input['dc:created']).format("yyyy-MM-dd HH:mm:ss.SSS") == Fn.calendar(input['dc:modified']).format("yyyy-MM-dd HH:mm:ss.SSS");
+
+        if(params.isCreation){
+          //Check for template and create children documents
+          var templatePath = '/Admin/Templates/'+input.type;
+          var templateDoc = Repository.Query(null, {'query': 'SELECT * FROM Document WHERE ecm:isProxy = 0 AND ecm:isCheckedInVersion = 0 AND ecm:currentLifeCycleState != \'deleted\' AND ecm:primaryType = \''+input.type+'\' AND ecm:path = \''+templatePath+'\''});
+          Console.info(templateDoc.length);
+          if(templateDoc.length>0){
+            var docs = Document.GetChildren(templateDoc[0],{});
+            docs.forEach(function(doc){
+              Document.Copy(doc, {'target': input.path});
+            });
+          }
+        }
+
+        //run postSave script
+        var myScriptDoc = Repository.Query(null, {'query': 'SELECT * FROM ScriptNote WHERE ecm:isProxy = 0 AND ecm:isCheckedInVersion = 0 AND ecm:currentLifeCycleState != \'deleted\' AND dc:title ILIKE \''+input.type+'PostSave\''});
         var myScript = "";
         if(myScriptDoc.length > 0){
           myScript = myScriptDoc[0]['note:note'];
