@@ -31,6 +31,7 @@ public class GetCustomFields {
         LoginContext lc = Framework.loginAsUser("Administrator");
         ctx.getLoginStack().push(lc);
         DocumentModelList customFields = ctx.getCoreSession().query("SELECT * FROM Custom WHERE ecm:isProxy = 0 AND ecm:isCheckedInVersion = 0 AND ecm:currentLifeCycleState != 'deleted' AND dc:title='"+documentType+"'", "NXQL", null, 0, 0, false);
+        ctx.getLoginStack().pop();
         return customFields;
     }
 
