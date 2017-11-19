@@ -3,7 +3,6 @@
 <link rel="import" href="document/qualitified-document-page.html">
 <link rel="import" href="document/sales/nuxeo-sales-settings-button.html">
 <link rel="import" href="qualitified-icons.html">
-<link rel="import" href="qualitified-document-tree.html">
 <!-- Contribution of element 'custom-document-page' for slot 'DOCUMENT_VIEWS_PAGES' -->
 <nuxeo-slot-content name="myViewPage" slot="DOCUMENT_VIEWS_PAGES" >
   <template>
@@ -46,7 +45,7 @@
 <!-- Contribution of element 'nuxeo-menu-icon' for slot 'SEARCH_MENU_BUTTONS' -->
 <nuxeo-slot-content name="solicitation-list" slot="DRAWER_ITEMS" order="3">
   <template>
-    <nuxeo-menu-icon icon="qualitified:solicitation" name="solicitation-list" label="app.solicitation"></nuxeo-menu-icon>
+    <nuxeo-menu-icon icon="qualitified:solicitation" name="solicitation-list" label="app.solicitations"></nuxeo-menu-icon>
   </template>
 </nuxeo-slot-content>
 
@@ -152,7 +151,7 @@
 <!-- Contribution of element 'nuxeo-document-tree' for slot 'DRAWER_PAGES' -->
 <nuxeo-slot-content name="sales" slot="DRAWER_PAGES" >
   <template>
-    <qualitified-document-tree user="[[user]]" root-doc-path="/Sales" name="sales"></qualitified-document-tree>
+    <nuxeo-document-tree user="[[user]]" root-doc-path="/Sales" name="sales"></nuxeo-document-tree>
   </template>
 </nuxeo-slot-content>
 
