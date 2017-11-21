@@ -2,15 +2,23 @@ package org.qualitified.crm;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+
 import org.nuxeo.ecm.automation.OperationContext;
 import org.nuxeo.ecm.automation.core.Constants;
 import org.nuxeo.ecm.automation.core.annotations.Context;
 import org.nuxeo.ecm.automation.core.annotations.Operation;
 import org.nuxeo.ecm.automation.core.annotations.OperationMethod;
 import org.nuxeo.ecm.automation.core.annotations.Param;
+import org.nuxeo.ecm.core.api.Blob;
+import org.nuxeo.ecm.core.api.DocumentModel;
 import org.nuxeo.ecm.core.api.DocumentModelList;
+import org.nuxeo.ecm.core.api.impl.blob.StringBlob;
 import org.nuxeo.runtime.api.Framework;
 import javax.security.auth.login.LoginContext;
+import net.sf.json.JSONArray;
+import net.sf.json.JSONObject;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Created by mgena on 11/11/2017.
@@ -27,12 +35,26 @@ public class GetCustomFields {
     protected String documentType;
 
     @OperationMethod
-    public DocumentModelList run() throws Exception {
+    public Blob run() throws Exception {
         LoginContext lc = Framework.loginAsUser("Administrator");
         ctx.getLoginStack().push(lc);
-        DocumentModelList customFields = ctx.getCoreSession().query("SELECT * FROM Custom WHERE ecm:isProxy = 0 AND ecm:isCheckedInVersion = 0 AND ecm:currentLifeCycleState != 'deleted' AND dc:title='"+documentType+"'", "NXQL", null, 0, 0, false);
+        DocumentModelList customDocuments = ctx.getCoreSession().query("SELECT * FROM Custom WHERE ecm:isProxy = 0 AND ecm:isCheckedInVersion = 0 AND ecm:currentLifeCycleState != 'deleted' AND dc:title='"+documentType+"'", "NXQL", null, 0, 0, false);
+
+        JSONArray array = new JSONArray();
+
+        if(customDocuments.size()>0){
+            DocumentModel customDocument = customDocuments.get(0);
+            List<Map<String,String>> customFieldList  = (List<Map<String,String>>)customDocument.getPropertyValue("custom:field");
+
+            for(Map<String,String> customField : customFieldList){
+                JSONObject object = new JSONObject();
+                object.accumulateAll(customField);
+                array.add(object);
+            }
+        }
         ctx.getLoginStack().pop();
-        return customFields;
+        return new StringBlob(array.toString(), "application/json");
+
     }
 
 }

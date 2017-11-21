@@ -1189,8 +1189,8 @@
             documentType:this.document.type
           }
         };
-        this.$.getCustomFields.execute().then(function(doc) {
-          this.custom = doc.entries;
+        this.$.getCustomFields.execute().then(function(entries) {
+          this.custom = entries;
         }.bind(this));
       },
       _isMode: function(value){
@@ -1239,8 +1239,8 @@
         }
       },
       _customLoaded: function(){
-        if(this.custom && this.custom[0] && this.custom[0].properties){
-          this.custom[0].properties['custom:field'].forEach(function(field) {
+        if(this.custom){
+          this.custom.forEach(function(field) {
             if(field.fieldName === 'stringField1'){
               this.stringField1Visible = true;
               this.stringField1Label = field.label;
