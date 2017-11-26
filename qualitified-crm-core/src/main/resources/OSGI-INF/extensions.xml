@@ -433,7 +433,7 @@
     <type id="Folder">
       <label>Folder</label>
       <category>Collaborative</category>
-      <icon>/img/folder.gif</icon>
+      <icon>/img/folder_100.png</icon>
       <bigIcon>/img/folder_100.png</bigIcon>
       <description></description>
     </type>
@@ -739,6 +739,7 @@
         <doctype>Opportunity</doctype>
         <doctype>Interaction</doctype>
         <doctype>Solicitation</doctype>
+        <doctype>MailMessage</doctype>
         <attribute>Regular Document</attribute>
       </filters>
     </handler>
@@ -1305,7 +1306,8 @@
       <script><![CDATA[function run(input, params) {
         params.isCreation = input['dc:created'] === null && input['dc:modified'] === null || Fn.calendar(input['dc:created']).format("yyyy-MM-dd HH:mm:ss.SSS") == Fn.calendar(input['dc:modified']).format("yyyy-MM-dd HH:mm:ss.SSS");
 
-        if(params.isCreation && !input.path.startsWith('/Admin/Templates/')){
+        var children = Document.GetChildren(input,{});
+        if(params.isCreation && !input.path.startsWith('/Admin/Templates/') && children.length == 0){
           //Check for template and create children documents
           var templatePath = '/Admin/Templates/'+input.type;
           var templateDoc = Repository.Query(null, {'query': 'SELECT * FROM Document WHERE ecm:isProxy = 0 AND ecm:isCheckedInVersion = 0 AND ecm:currentLifeCycleState != \'deleted\' AND ecm:primaryType = \''+input.type+'\' AND ecm:path = \''+templatePath+'\''});
