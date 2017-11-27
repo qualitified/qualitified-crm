@@ -233,43 +233,43 @@
 
       <div hidden$="[[!dateField1Visible]]" role="widget">
         <label>[[dateField1Label]]</label>
-        <div>[[formatDate(document.properties.custom:dateField1)]]</div>
+        <div>[[_formatDate(document.properties.custom:dateField1)]]</div>
       </div>
       <div hidden$="[[!dateField2Visible]]" role="widget">
         <label>[[dateField2Label]]</label>
-        <div>[[formatDate(document.properties.custom:dateField2)]]</div>
+        <div>[[_formatDate(document.properties.custom:dateField2)]]</div>
       </div>
       <div hidden$="[[!dateField3Visible]]" role="widget">
         <label>[[dateField3Label]]</label>
-        <div>[[formatDate(document.properties.custom:dateField3)]]</div>
+        <div>[[_formatDate(document.properties.custom:dateField3)]]</div>
       </div>
       <div hidden$="[[!dateField4Visible]]" role="widget">
         <label>[[dateField4Label]]</label>
-        <div>[[formatDate(document.properties.custom:dateField4)]]</div>
+        <div>[[_formatDate(document.properties.custom:dateField4)]]</div>
       </div>
       <div hidden$="[[!dateField5Visible]]" role="widget">
         <label>[[dateField5Label]]</label>
-        <div>[[formatDate(document.properties.custom:dateField5)]]</div>
+        <div>[[_formatDate(document.properties.custom:dateField5)]]</div>
       </div>
       <div hidden$="[[!dateField6Visible]]" role="widget">
         <label>[[dateField6Label]]</label>
-        <div>[[formatDate(document.properties.custom:dateField6)]]</div>
+        <div>[[_formatDate(document.properties.custom:dateField6)]]</div>
       </div>
       <div hidden$="[[!dateField7Visible]]" role="widget">
         <label>[[dateField7Label]]</label>
-        <div>[[formatDate(document.properties.custom:dateField7)]]</div>
+        <div>[[_formatDate(document.properties.custom:dateField7)]]</div>
       </div>
       <div hidden$="[[!dateField8Visible]]" role="widget">
         <label>[[dateField8Label]]</label>
-        <div>[[formatDate(document.properties.custom:dateField8)]]</div>
+        <div>[[_formatDate(document.properties.custom:dateField8)]]</div>
       </div>
       <div hidden$="[[!dateField9Visible]]" role="widget">
         <label>[[dateField9Label]]</label>
-        <div>[[formatDate(document.properties.custom:dateField9)]]</div>
+        <div>[[_formatDate(document.properties.custom:dateField9)]]</div>
       </div>
       <div hidden$="[[!dateField10Visible]]" role="widget">
         <label>[[dateField10Label]]</label>
-        <div>[[formatDate(document.properties.custom:dateField10)]]</div>
+        <div>[[_formatDate(document.properties.custom:dateField10)]]</div>
       </div>
 
       <div hidden$="[[!integerField1Visible]]" role="widget">
@@ -1195,6 +1195,9 @@
       },
       _isMode: function(value){
         return this.mode === value;
+      },
+      _formatDate: function(date) {
+        return date ? moment(date).format('MMMM D, YYYY') : "";
       },
       formatDirectory: function(value, vocabularyName, vocabularyField) {
         if(value){
