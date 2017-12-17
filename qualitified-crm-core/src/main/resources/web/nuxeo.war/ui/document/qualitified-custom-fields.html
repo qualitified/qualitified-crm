@@ -8,14 +8,6 @@
     <nuxeo-operation id="getCustomFields" op="getCustomFieldsChain" input="[[document.uid]]" params="[[params]]"></nuxeo-operation>
     <nuxeo-operation id="getVocabularyLabel" op="javascript.getVocabularyLabel" input="[[document.uid]]" params="[[params2]]"></nuxeo-operation>
 
-    <!--nuxeo-page-provider
-     role="widget"
-     id="customProvider"
-     auto
-     query="select * from Custom where dc:title='[[document.type]]'"
-     params="[[params]]"
-     current-page="{{custom}}">
-   </nuxeo-page-provider-->
    <iron-pages selected="[[mode]]" attr-for-selected="name" class="vertical layout flex">
      <div name="edit" class="vertical layout flex">
       <paper-input hidden$="[[!stringField1Visible]]" role="widget" value="{{document.properties.custom:stringField1}}" label="[[stringField1Label]]" required="[[stringField1Required]]"></paper-input>
@@ -94,6 +86,17 @@
       <template is="dom-if" if="[[!booleanField8Visible]]"><paper-checkbox hidden$="[[!booleanField8Visible]]" checked="{{document.properties.custom:booleanField8}}"></paper-checkbox> [[booleanField8Label]]</template>
       <template is="dom-if" if="[[!booleanField9Visible]]"><paper-checkbox hidden$="[[!booleanField9Visible]]" checked="{{document.properties.custom:booleanField9}}"></paper-checkbox> [[booleanField9Label]]</template>
       <template is="dom-if" if="[[!booleanField10Visible]]"><paper-checkbox hidden$="[[!booleanField10Visible]]" checked="{{document.properties.custom:booleanField10}}"></paper-checkbox> [[booleanField10Label]]</template>
+
+      <div hidden$="[[!fileField1Visible]]" role="widget"><label>[[fileField1Label]]</label><nuxeo-file hidden$="[[!fileField1Visible]]" value="{{document.properties.custom:fileField1}}"></nuxeo-file><a href="[[document.properties.custom:fileField1.data]]">[[document.properties.custom:fileField1.name]]</a></div>
+      <div hidden$="[[!fileField2Visible]]" role="widget"><label>[[fileField2Label]]</label><nuxeo-file hidden$="[[!fileField2Visible]]" value="{{document.properties.custom:fileField2}}"></nuxeo-file><a href="[[document.properties.custom:fileField2.data]]">[[document.properties.custom:fileField2.name]]</a></div>
+      <div hidden$="[[!fileField3Visible]]" role="widget"><label>[[fileField3Label]]</label><nuxeo-file hidden$="[[!fileField3Visible]]" value="{{document.properties.custom:fileField3}}"></nuxeo-file><a href="[[document.properties.custom:fileField3.data]]">[[document.properties.custom:fileField3.name]]</a></div>
+      <div hidden$="[[!fileField4Visible]]" role="widget"><label>[[fileField4Label]]</label><nuxeo-file hidden$="[[!fileField4Visible]]" value="{{document.properties.custom:fileField4}}"></nuxeo-file><a href="[[document.properties.custom:fileField4.data]]">[[document.properties.custom:fileField4.name]]</a></div>
+      <div hidden$="[[!fileField5Visible]]" role="widget"><label>[[fileField5Label]]</label><nuxeo-file hidden$="[[!fileField5Visible]]" value="{{document.properties.custom:fileField5}}"></nuxeo-file><a href="[[document.properties.custom:fileField5.data]]">[[document.properties.custom:fileField5.name]]</a></div>
+      <div hidden$="[[!fileField6Visible]]" role="widget"><label>[[fileField6Label]]</label><nuxeo-file hidden$="[[!fileField6Visible]]" value="{{document.properties.custom:fileField6}}"></nuxeo-file><a href="[[document.properties.custom:fileField6.data]]">[[document.properties.custom:fileField6.name]]</a></div>
+      <div hidden$="[[!fileField7Visible]]" role="widget"><label>[[fileField7Label]]</label><nuxeo-file hidden$="[[!fileField7Visible]]" value="{{document.properties.custom:fileField7}}"></nuxeo-file><a href="[[document.properties.custom:fileField7.data]]">[[document.properties.custom:fileField7.name]]</a></div>
+      <div hidden$="[[!fileField8Visible]]" role="widget"><label>[[fileField8Label]]</label><nuxeo-file hidden$="[[!fileField8Visible]]" value="{{document.properties.custom:fileField8}}"></nuxeo-file><a href="[[document.properties.custom:fileField8.data]]">[[document.properties.custom:fileField8.name]]</a></div>
+      <div hidden$="[[!fileField9Visible]]" role="widget"><label>[[fileField9Label]]</label><nuxeo-file hidden$="[[!fileField9Visible]]" value="{{document.properties.custom:fileField9}}"></nuxeo-file><a href="[[document.properties.custom:fileField9.data]]">[[document.properties.custom:fileField9.name]]</a></div>
+      <div hidden$="[[!fileField10Visible]]" role="widget"><label>[[fileField10Label]]</label><nuxeo-file hidden$="[[!fileField10Visible]]" value="{{document.properties.custom:fileField10}}"></nuxeo-file><a href="[[document.properties.custom:fileField10.data]]">[[document.properties.custom:fileField10.name]]</a></div>
 
     </div>
 
@@ -353,6 +356,18 @@
         <label>[[userField10Label]]</label>
         <div>[[document.properties.custom:userField10]]</div>
       </div>
+
+      <div hidden$="[[!fileField1Visible]]" role="widget"><label>[[fileField1Label]]</label><a href="[[document.properties.custom:fileField1.data]]">[[document.properties.custom:fileField1.name]]</a></div>
+      <div hidden$="[[!fileField2Visible]]" role="widget"><label>[[fileField2Label]]</label><a href="[[document.properties.custom:fileField1.data]]">[[document.properties.custom:fileField2.name]]</a></div>
+      <div hidden$="[[!fileField3Visible]]" role="widget"><label>[[fileField3Label]]</label><a href="[[document.properties.custom:fileField1.data]]">[[document.properties.custom:fileField3.name]]</a></div>
+      <div hidden$="[[!fileField4Visible]]" role="widget"><label>[[fileField4Label]]</label><a href="[[document.properties.custom:fileField1.data]]">[[document.properties.custom:fileField4.name]]</a></div>
+      <div hidden$="[[!fileField5Visible]]" role="widget"><label>[[fileField5Label]]</label><a href="[[document.properties.custom:fileField1.data]]">[[document.properties.custom:fileField5.name]]</a></div>
+      <div hidden$="[[!fileField6Visible]]" role="widget"><label>[[fileField6Label]]</label><a href="[[document.properties.custom:fileField1.data]]">[[document.properties.custom:fileField6.name]]</a></div>
+      <div hidden$="[[!fileField7Visible]]" role="widget"><label>[[fileField7Label]]</label><a href="[[document.properties.custom:fileField1.data]]">[[document.properties.custom:fileField7.name]]</a></div>
+      <div hidden$="[[!fileField8Visible]]" role="widget"><label>[[fileField8Label]]</label><a href="[[document.properties.custom:fileField1.data]]">[[document.properties.custom:fileField8.name]]</a></div>
+      <div hidden$="[[!fileField9Visible]]" role="widget"><label>[[fileField9Label]]</label><a href="[[document.properties.custom:fileField1.data]]">[[document.properties.custom:fileField9.name]]</a></div>
+      <div hidden$="[[!fileField10Visible]]" role="widget"><label>[[fileField10Label]]</label><a href="[[document.properties.custom:fileField1.data]]">[[document.properties.custom:fileField10.name]]</a></div>
+
     </div>
   </iron-pages>
   </template>
@@ -1179,6 +1194,77 @@
         },
         booleanField10Label : {
           type: String
+        },
+
+        fileField1Visible : {
+          type: Boolean,
+          value: false
+        },
+        fileField1Label : {
+          type: String
+        },
+        fileField2Visible : {
+          type: Boolean,
+          value: false
+        },
+        fileField2Label : {
+          type: String
+        },
+        fileField3Visible : {
+          type: Boolean,
+          value: false
+        },
+        fileField3Label : {
+          type: String
+        },
+        fileField4Visible : {
+          type: Boolean,
+          value: false
+        },
+        fileField4Label : {
+          type: String
+        },
+        fileField5Visible : {
+          type: Boolean,
+          value: false
+        },
+        fileField5Label : {
+          type: String
+        },
+        fileField6Visible : {
+          type: Boolean,
+          value: false
+        },
+        fileField6Label : {
+          type: String
+        },
+        fileField7Visible : {
+          type: Boolean,
+          value: false
+        },
+        fileField7Label : {
+          type: String
+        },
+        fileField8Visible : {
+          type: Boolean,
+          value: false
+        },
+        fileField8Label : {
+          type: String
+        },
+        fileField9Visible : {
+          type: Boolean,
+          value: false
+        },
+        fileField9Label : {
+          type: String
+        },
+        fileField10Visible : {
+          type: Boolean,
+          value: false
+        },
+        fileField10Label : {
+          type: String
         }
       },
       ready: function(){
@@ -1599,6 +1685,47 @@
                 this.userField10Visible = true;
                 this.userField10Label = field.label;
                 this.userField10Required = field.required;
+            }
+
+            if(field.fieldName === 'fileField1'){
+                this.fileField1Visible = true;
+                this.fileField1Label = field.label;
+            }
+            if(field.fieldName === 'fileField2'){
+                this.fileField2Visible = true;
+                this.fileField2Label = field.label;
+            }
+            if(field.fieldName === 'fileField3'){
+                this.fileField3Visible = true;
+                this.fileField3Label = field.label;
+            }
+            if(field.fieldName === 'fileField4'){
+                this.fileField4Visible = true;
+                this.fileField4Label = field.label;
+            }
+            if(field.fieldName === 'fileField5'){
+                this.fileField5Visible = true;
+                this.fileField5Label = field.label;
+            }
+            if(field.fieldName === 'fileField6'){
+                this.fileField6Visible = true;
+                this.fileField6Label = field.label;
+            }
+            if(field.fieldName === 'fileField7'){
+                this.fileField7Visible = true;
+                this.fileField7Label = field.label;
+            }
+            if(field.fieldName === 'fileField8'){
+                this.fileField8Visible = true;
+                this.fileField8Label = field.label;
+            }
+            if(field.fieldName === 'fileField9'){
+                this.fileField9Visible = true;
+                this.fileField9Label = field.label;
+            }
+            if(field.fieldName === 'fileField10'){
+                this.fileField10Visible = true;
+                this.fileField10Label = field.label;
             }
           }.bind(this));
         }

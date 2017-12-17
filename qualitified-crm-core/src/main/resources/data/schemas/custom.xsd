@@ -174,4 +174,15 @@
   <xs:element name="booleanField8" type="xs:boolean"/>
   <xs:element name="booleanField9" type="xs:boolean"/>
   <xs:element name="booleanField10" type="xs:boolean"/>
+
+  <xs:element name="fileField1" type="nxs:content"/>
+  <xs:element name="fileField2" type="nxs:content"/>
+  <xs:element name="fileField3" type="nxs:content"/>
+  <xs:element name="fileField4" type="nxs:content"/>
+  <xs:element name="fileField5" type="nxs:content"/>
+  <xs:element name="fileField6" type="nxs:content"/>
+  <xs:element name="fileField7" type="nxs:content"/>
+  <xs:element name="fileField8" type="nxs:content"/>
+  <xs:element name="fileField9" type="nxs:content"/>
+  <xs:element name="fileField10" type="nxs:content"/>
 </xs:schema>
