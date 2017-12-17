@@ -5,6 +5,9 @@
       *[role=widget] {
         padding: 5px;
       }
+      .wrap {
+        white-space: pre-wrap;
+      }
     </style>
       <div role="widget">
         <h1 directory-name="IntActivity">
@@ -19,8 +22,8 @@
 
       <div role="widget">
         <label>[[i18n('label.metadata.interaction.description')]]</label>
-        <div><pre>[[document.properties.dc:description]]</pre></div>
-        <div><pre>[[document.properties.note:note]]</pre></div>
+        <div><pre class="wrap">[[document.properties.dc:description]]</pre></div>
+        <div><pre class="wrap">[[document.properties.note:note]]</pre></div>
       </div>
       <qualitified-custom-fields document="{{document}}" mode="view"></qualitified-custom-fields>
       <nuxeo-document-attachments role="widget" document="[[document]]"></nuxeo-document-attachments>
