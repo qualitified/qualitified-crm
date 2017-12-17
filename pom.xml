@@ -9,7 +9,7 @@
 
   <groupId>org.qualitified.crm</groupId>
   <artifactId>qualitified-crm-parent</artifactId>
-  <version>1.0-SNAPSHOT</version>
+  <version>1.0</version>
   <name>Qualitified CRM parent</name>
   <description>Qualitified CRM</description>
   <packaging>pom</packaging>
