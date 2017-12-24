@@ -743,6 +743,21 @@
         <attribute>Regular Document</attribute>
       </filters>
     </handler>
+    <!--handler chainId="preSaveChain">
+      <event>documentCreated</event>
+      <event>beforeDocumentModification</event>
+      <filters>
+        <doctype>File</doctype>
+        <doctype>Folder</doctype>
+        <doctype>Account</doctype>
+        <doctype>Contact</doctype>
+        <doctype>Opportunity</doctype>
+        <doctype>Interaction</doctype>
+        <doctype>Solicitation</doctype>
+        <doctype>MailMessage</doctype>
+        <attribute>Regular Document</attribute>
+      </filters>
+    </handler-->
   </extension>
   <extension target="org.nuxeo.ecm.core.lifecycle.LifeCycleService" point="lifecycle">
     <lifecycle name="default" defaultInitial="project">
@@ -1001,6 +1016,14 @@
         <param type="string" name="name">Administrator</param>
       </operation>
       <operation id="javascript.postSave"/>
+      <operation id="Auth.Logout"/>
+    </chain>
+    <chain id="preSaveChain">
+      <operation id="Context.FetchDocument"/>
+      <operation id="Auth.LoginAs">
+        <param type="string" name="name">Administrator</param>
+      </operation>
+      <operation id="javascript.preSave"/>
       <operation id="Auth.Logout"/>
     </chain>
     <!--chain id="getVocabularyLabel">
@@ -1327,6 +1350,29 @@
           myScript = myScriptDoc[0]['note:note'];
         }
         if(myScript !== ""){
+          eval(myScript);
+        }
+        return input;
+        }]]>
+      </script>
+    </scriptedOperation>
+    <scriptedOperation id="javascript.preSave">
+      <inputType>document</inputType>
+      <outputType>document</outputType>
+      <category>javascript</category>
+      <description></description>
+      <script><![CDATA[function run(input, params) {
+        params.isCreation = input['dc:created'] === null && input['dc:modified'] === null || Fn.calendar(input['dc:created']).format("yyyy-MM-dd HH:mm:ss.SSS") == Fn.calendar(input['dc:modified']).format("yyyy-MM-dd HH:mm:ss.SSS");
+
+        //run preSave script
+        var myScriptDoc = Repository.Query(null, {'query': 'SELECT * FROM ScriptNote WHERE ecm:isProxy = 0 AND ecm:isCheckedInVersion = 0 AND ecm:currentLifeCycleState != \'deleted\' AND dc:title = \''+input.type+'PreSave\''});
+        var myScript = "";
+        if(myScriptDoc.length > 0){
+          myScript = myScriptDoc[0]['note:note'];
+        }
+        if(myScript !== ""){
+          //myScript += '\nreturn input;'
+          //return new Function(myScript)();
           eval(myScript);
         }
         return input;
