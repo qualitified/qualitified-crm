@@ -45,6 +45,7 @@
       <xs:element name="required" type="xs:boolean"/>
       <xs:element name="vocabularyName" type="xs:string"/>
       <xs:element name="fieldName" type="xs:string"/>
+      <xs:element name="format" type="xs:string"/>
     </xs:sequence>
   </xs:complexType>
 

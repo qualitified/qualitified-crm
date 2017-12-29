@@ -80,5 +80,6 @@
   "label.metadata.custom.required":"Obligatoire",
   "label.metadata.custom.vocabularyname":"Nom du vocabulaire",
   "app.customization":"Configuration",
-  "app.solicitations":"Sollicitations"
+  "app.solicitations":"Sollicitations",
+  "label.metadata.custom.format":"Format"
 }

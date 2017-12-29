@@ -1,8 +1,9 @@
-<!--
+id=<!--
 `qualitified-custom-fields`
 @group Nuxeo UI
 @element qualitified-custom-fields
 -->
+<script src="../dist/tinysort.min.js"></script>
 <dom-module id="qualitified-custom-fields">
   <template>
     <nuxeo-operation id="getCustomFields" op="getCustomFieldsChain" input="[[document.uid]]" params="[[params]]"></nuxeo-operation>
@@ -101,272 +102,272 @@
     </div>
 
     <div name="view" class="vertical layout flex">
-      <div hidden$="[[!stringField1Visible]]" role="widget">
+      <div hidden$="[[!stringField1Visible]]" role="widget" class="sortable" id="[[stringField1Order]]">
         <label>[[stringField1Label]]</label>
         <div>[[document.properties.custom:stringField1]]</div>
       </div>
-      <div hidden$="[[!stringField2Visible]]" role="widget">
+      <div hidden$="[[!stringField2Visible]]" role="widget" class="sortable" id="[[stringField2Order]]">
         <label>[[stringField2Label]]</label>
         <div>[[document.properties.custom:stringField2]]</div>
       </div>
-      <div hidden$="[[!stringField3Visible]]" role="widget">
+      <div hidden$="[[!stringField3Visible]]" role="widget" class="sortable" id="[[stringField3Order]]">
         <label>[[stringField3Label]]</label>
         <div>[[document.properties.custom:stringField3]]</div>
       </div>
-      <div hidden$="[[!stringField4Visible]]" role="widget">
+      <div hidden$="[[!stringField4Visible]]" role="widget" class="sortable" id="[[stringField4Order]]">
         <label>[[stringField4Label]]</label>
         <div>[[document.properties.custom:stringField4]]</div>
       </div>
-      <div hidden$="[[!stringField5Visible]]" role="widget">
+      <div hidden$="[[!stringField5Visible]]" role="widget" class="sortable" id="[[stringField5Order]]">
         <label>[[stringField5Label]]</label>
         <div>[[document.properties.custom:stringField5]]</div>
       </div>
-      <div hidden$="[[!stringField6Visible]]" role="widget">
+      <div hidden$="[[!stringField6Visible]]" role="widget" class="sortable" id="[[stringField6Order]]">
         <label>[[stringField6Label]]</label>
         <div>[[document.properties.custom:stringField6]]</div>
       </div>
-      <div hidden$="[[!stringField7Visible]]" role="widget">
+      <div hidden$="[[!stringField7Visible]]" role="widget" class="sortable" id="[[stringField7Order]]">
         <label>[[stringField7Label]]</label>
         <div>[[document.properties.custom:stringField7]]</div>
       </div>
-      <div hidden$="[[!stringField8Visible]]" role="widget">
+      <div hidden$="[[!stringField8Visible]]" role="widget" class="sortable" id="[[stringField8Order]]">
         <label>[[stringField8Label]]</label>
         <div>[[document.properties.custom:stringField8]]</div>
       </div>
-      <div hidden$="[[!stringField9Visible]]" role="widget">
+      <div hidden$="[[!stringField9Visible]]" role="widget" class="sortable" id="[[stringField9Order]]">
         <label>[[stringField9Label]]</label>
         <div>[[document.properties.custom:stringField9]]</div>
       </div>
-      <div hidden$="[[!stringField10Visible]]" role="widget">
+      <div hidden$="[[!stringField10Visible]]" role="widget" class="sortable" id="[[stringField10Order]]">
         <label>[[stringField10Label]]</label>
         <div>[[document.properties.custom:stringField10]]</div>
       </div>
 
-      <div hidden$="[[!vocabularyField1Visible]]" role="widget">
+      <div hidden$="[[!vocabularyField1Visible]]" role="widget" class="sortable" id="[[vocabularyField1Order]]">
         <label>[[vocabularyField1Label]]</label>
         <div style="display:none;">[[formatDirectory(document.properties.custom:vocabularyField1, vocabularyField1Name, "vocabularyField1")]]</div>
         <div>[[vocabularyField1Value]]</div>
       </div>
-      <div hidden$="[[!vocabularyField2Visible]]" role="widget">
+      <div hidden$="[[!vocabularyField2Visible]]" role="widget" class="sortable" id="[[vocabularyField2Order]]">
         <label>[[vocabularyField2Label]]</label>
         <div style="display:none;">[[formatDirectory(document.properties.custom:vocabularyField2, vocabularyField2Name, "vocabularyField2")]]</div>
         <div>[[vocabularyField2Value]]</div>
       </div>
-      <div hidden$="[[!vocabularyField3Visible]]" role="widget">
+      <div hidden$="[[!vocabularyField3Visible]]" role="widget" class="sortable" id="[[vocabularyField3Order]]">
         <label>[[vocabularyField3Label]]</label>
         <div style="display:none;">[[formatDirectory(document.properties.custom:vocabularyField3, vocabularyField3Name, "vocabularyField3")]]</div>
         <div>[[vocabularyField3Value]]</div>
       </div>
-      <div hidden$="[[!vocabularyField4Visible]]" role="widget">
+      <div hidden$="[[!vocabularyField4Visible]]" role="widget" class="sortable" id="[[vocabularyField4Order]]">
         <label>[[vocabularyField4Label]]</label>
         <div style="display:none;">[[formatDirectory(document.properties.custom:vocabularyField4, vocabularyField4Name, "vocabularyField4")]]</div>
         <div>[[vocabularyField4Value]]</div>
       </div>
-      <div hidden$="[[!vocabularyField5Visible]]" role="widget">
+      <div hidden$="[[!vocabularyField5Visible]]" role="widget" class="sortable" id="[[vocabularyField5Order]]">
         <label>[[vocabularyField5Label]]</label>
         <div style="display:none;">[[formatDirectory(document.properties.custom:vocabularyField5, vocabularyField5Name, "vocabularyField5")]]</div>
         <div>[[vocabularyField5Value]]</div>
       </div>
-      <div hidden$="[[!vocabularyField6Visible]]" role="widget">
+      <div hidden$="[[!vocabularyField6Visible]]" role="widget" class="sortable" id="[[vocabularyField6Order]]">
         <label>[[vocabularyField6Label]]</label>
         <div style="display:none;">[[formatDirectory(document.properties.custom:vocabularyField6, vocabularyField6Name, "vocabularyField6")]]</div>
         <div>[[vocabularyField6Value]]</div>
       </div>
-      <div hidden$="[[!vocabularyField7Visible]]" role="widget">
+      <div hidden$="[[!vocabularyField7Visible]]" role="widget" class="sortable" id="[[vocabularyField7Order]]">
         <label>[[vocabularyField7Label]]</label>
         <div style="display:none;">[[formatDirectory(document.properties.custom:vocabularyField7, vocabularyField7Name, "vocabularyField7")]]</div>
         <div>[[vocabularyField7Value]]</div>
       </div>
-      <div hidden$="[[!vocabularyField8Visible]]" role="widget">
+      <div hidden$="[[!vocabularyField8Visible]]" role="widget" class="sortable" id="[[vocabularyField8Order]]">
         <label>[[vocabularyField8Label]]</label>
         <div style="display:none;">[[formatDirectory(document.properties.custom:vocabularyField8, vocabularyField8Name, "vocabularyField8")]]</div>
         <div>[[vocabularyField8Value]]</div>
       </div>
-      <div hidden$="[[!vocabularyField9Visible]]" role="widget">
+      <div hidden$="[[!vocabularyField9Visible]]" role="widget" class="sortable" id="[[vocabularyField9Order]]">
         <label>[[vocabularyField9Label]]</label>
         <div style="display:none;">[[formatDirectory(document.properties.custom:vocabularyField9, vocabularyField9Name, "vocabularyField9")]]</div>
         <div>[[vocabularyField2Value]]</div>
       </div>
-      <div hidden$="[[!vocabularyField10Visible]]" role="widget">
+      <div hidden$="[[!vocabularyField10Visible]]" role="widget" class="sortable" id="[[vocabularyField10Order]]">
         <label>[[vocabularyField10Label]]</label>
         <div style="display:none;">[[formatDirectory(document.properties.custom:vocabularyField10, vocabularyField10Name, "vocabularyField10")]]</div>
         <div>[[vocabularyField10Value]]</div>
       </div>
 
-      <div hidden$="[[!doubleField1Visible]]" role="widget">
+      <div hidden$="[[!doubleField1Visible]]" role="widget" class="sortable" id="[[doubleField1Order]]">
         <label>[[doubleField1Label]]</label>
         <div>[[document.properties.custom:doubleField1]]</div>
       </div>
-      <div hidden$="[[!doubleField2Visible]]" role="widget">
+      <div hidden$="[[!doubleField2Visible]]" role="widget" class="sortable" id="[[doubleField2Order]]">
         <label>[[doubleField2Label]]</label>
         <div>[[document.properties.custom:doubleField2]]</div>
       </div>
-      <div hidden$="[[!doubleField3Visible]]" role="widget">
+      <div hidden$="[[!doubleField3Visible]]" role="widget" class="sortable" id="[[doubleField3Order]]">
         <label>[[doubleField3Label]]</label>
         <div>[[document.properties.custom:doubleField3]]</div>
       </div>
-      <div hidden$="[[!doubleField4Visible]]" role="widget">
+      <div hidden$="[[!doubleField4Visible]]" role="widget" class="sortable" id="[[doubleField4Order]]">
         <label>[[doubleField4Label]]</label>
         <div>[[document.properties.custom:doubleField4]]</div>
       </div>
-      <div hidden$="[[!doubleField5Visible]]" role="widget">
+      <div hidden$="[[!doubleField5Visible]]" role="widget" class="sortable" id="[[doubleField5Order]]">
         <label>[[doubleField5Label]]</label>
         <div>[[document.properties.custom:doubleField5]]</div>
       </div>
-      <div hidden$="[[!doubleField6Visible]]" role="widget">
+      <div hidden$="[[!doubleField6Visible]]" role="widget" class="sortable" id="[[doubleField6Order]]">
         <label>[[doubleField6Label]]</label>
         <div>[[document.properties.custom:doubleField6]]</div>
       </div>
-      <div hidden$="[[!doubleField7Visible]]" role="widget">
+      <div hidden$="[[!doubleField7Visible]]" role="widget" class="sortable" id="[[doubleField7Order]]">
         <label>[[doubleField7Label]]</label>
         <div>[[document.properties.custom:doubleField7]]</div>
       </div>
-      <div hidden$="[[!doubleField8Visible]]" role="widget">
+      <div hidden$="[[!doubleField8Visible]]" role="widget" class="sortable" id="[[doubleField8Order]]">
         <label>[[doubleField8Label]]</label>
         <div>[[document.properties.custom:doubleField8]]</div>
       </div>
-      <div hidden$="[[!doubleField9Visible]]" role="widget">
+      <div hidden$="[[!doubleField9Visible]]" role="widget" class="sortable" id="[[doubleField9Order]]">
         <label>[[doubleField9Label]]</label>
         <div>[[document.properties.custom:doubleField9]]</div>
       </div>
-      <div hidden$="[[!doubleField10Visible]]" role="widget">
+      <div hidden$="[[!doubleField10Visible]]" role="widget" class="sortable" id="[[doubleField10Order]]">
         <label>[[doubleField10Label]]</label>
         <div>[[document.properties.custom:doubleField10]]</div>
       </div>
 
-      <div hidden$="[[!dateField1Visible]]" role="widget">
+      <div hidden$="[[!dateField1Visible]]" role="widget" class="sortable" id="[[dateField1Order]]">
         <label>[[dateField1Label]]</label>
-        <div>[[_formatDate(document.properties.custom:dateField1)]]</div>
+        <div>[[_formatDate(document.properties.custom:dateField1, dateField1Format)]]</div>
       </div>
-      <div hidden$="[[!dateField2Visible]]" role="widget">
+      <div hidden$="[[!dateField2Visible]]" role="widget" class="sortable" id="[[dateField2Order]]">
         <label>[[dateField2Label]]</label>
-        <div>[[_formatDate(document.properties.custom:dateField2)]]</div>
+        <div>[[_formatDate(document.properties.custom:dateField2, dateField2Format)]]</div>
       </div>
-      <div hidden$="[[!dateField3Visible]]" role="widget">
+      <div hidden$="[[!dateField3Visible]]" role="widget" class="sortable" id="[[dateField3Order]]">
         <label>[[dateField3Label]]</label>
-        <div>[[_formatDate(document.properties.custom:dateField3)]]</div>
+        <div>[[_formatDate(document.properties.custom:dateField3, dateField3Format)]]</div>
       </div>
-      <div hidden$="[[!dateField4Visible]]" role="widget">
+      <div hidden$="[[!dateField4Visible]]" role="widget" class="sortable" id="[[dateField4Order]]">
         <label>[[dateField4Label]]</label>
-        <div>[[_formatDate(document.properties.custom:dateField4)]]</div>
+        <div>[[_formatDate(document.properties.custom:dateField4, dateField4Format)]]</div>
       </div>
-      <div hidden$="[[!dateField5Visible]]" role="widget">
+      <div hidden$="[[!dateField5Visible]]" role="widget" class="sortable" id="[[dateField5Order]]">
         <label>[[dateField5Label]]</label>
-        <div>[[_formatDate(document.properties.custom:dateField5)]]</div>
+        <div>[[_formatDate(document.properties.custom:dateField5, dateField5Format)]]</div>
       </div>
-      <div hidden$="[[!dateField6Visible]]" role="widget">
+      <div hidden$="[[!dateField6Visible]]" role="widget" class="sortable" id="[[dateField6Order]]">
         <label>[[dateField6Label]]</label>
-        <div>[[_formatDate(document.properties.custom:dateField6)]]</div>
+        <div>[[_formatDate(document.properties.custom:dateField6, dateField6Format)]]</div>
       </div>
-      <div hidden$="[[!dateField7Visible]]" role="widget">
+      <div hidden$="[[!dateField7Visible]]" role="widget" class="sortable" id="[[dateField7Order]]">
         <label>[[dateField7Label]]</label>
-        <div>[[_formatDate(document.properties.custom:dateField7)]]</div>
+        <div>[[_formatDate(document.properties.custom:dateField7, dateField7Format)]]</div>
       </div>
-      <div hidden$="[[!dateField8Visible]]" role="widget">
+      <div hidden$="[[!dateField8Visible]]" role="widget" class="sortable" id="[[dateField8Order]]">
         <label>[[dateField8Label]]</label>
-        <div>[[_formatDate(document.properties.custom:dateField8)]]</div>
+        <div>[[_formatDate(document.properties.custom:dateField8, dateField8Format)]]</div>
       </div>
-      <div hidden$="[[!dateField9Visible]]" role="widget">
+      <div hidden$="[[!dateField9Visible]]" role="widget" class="sortable" id="[[dateField9Order]]">
         <label>[[dateField9Label]]</label>
-        <div>[[_formatDate(document.properties.custom:dateField9)]]</div>
+        <div>[[_formatDate(document.properties.custom:dateField9, dateField9Format)]]</div>
       </div>
-      <div hidden$="[[!dateField10Visible]]" role="widget">
+      <div hidden$="[[!dateField10Visible]]" role="widget" class="sortable" id="[[dateField10Order]]">
         <label>[[dateField10Label]]</label>
-        <div>[[_formatDate(document.properties.custom:dateField10)]]</div>
+        <div>[[_formatDate(document.properties.custom:dateField10, dateField10Format)]]</div>
       </div>
 
-      <div hidden$="[[!integerField1Visible]]" role="widget">
+      <div hidden$="[[!integerField1Visible]]" role="widget" class="sortable" id="[[integerField1Order]]">
         <label>[[integerField1Label]]</label>
         <div>[[document.properties.custom:integerField1]]</div>
       </div>
-      <div hidden$="[[!integerField2Visible]]" role="widget">
+      <div hidden$="[[!integerField2Visible]]" role="widget" class="sortable" id="[[integerField2Order]]">
         <label>[[integerField2Label]]</label>
         <div>[[document.properties.custom:integerField2]]</div>
       </div>
-      <div hidden$="[[!integerField3Visible]]" role="widget">
+      <div hidden$="[[!integerField3Visible]]" role="widget" class="sortable" id="[[integerField3Order]]">
         <label>[[integerField3Label]]</label>
         <div>[[document.properties.custom:integerField3]]</div>
       </div>
-      <div hidden$="[[!integerField4Visible]]" role="widget">
+      <div hidden$="[[!integerField4Visible]]" role="widget" class="sortable" id="[[integerField4Order]]">
         <label>[[integerField4Label]]</label>
         <div>[[document.properties.custom:integerField4]]</div>
       </div>
-      <div hidden$="[[!integerField5Visible]]" role="widget">
+      <div hidden$="[[!integerField5Visible]]" role="widget" class="sortable" id="[[integerField5Order]]">
         <label>[[integerField5Label]]</label>
         <div>[[document.properties.custom:integerField5]]</div>
       </div>
-      <div hidden$="[[!integerField6Visible]]" role="widget">
+      <div hidden$="[[!integerField6Visible]]" role="widget" class="sortable" id="[[integerField6Order]]">
         <label>[[integerField6Label]]</label>
         <div>[[document.properties.custom:integerField6]]</div>
       </div>
-      <div hidden$="[[!integerField7Visible]]" role="widget">
+      <div hidden$="[[!integerField7Visible]]" role="widget" class="sortable" id="[[integerField7Order]]">
         <label>[[integerField7Label]]</label>
         <div>[[document.properties.custom:integerField7]]</div>
       </div>
-      <div hidden$="[[!integerField8Visible]]" role="widget">
+      <div hidden$="[[!integerField8Visible]]" role="widget" class="sortable" id="[[integerField8Order]]">
         <label>[[integerField8Label]]</label>
         <div>[[document.properties.custom:integerField8]]</div>
       </div>
-      <div hidden$="[[!integerField9Visible]]" role="widget">
+      <div hidden$="[[!integerField9Visible]]" role="widget" class="sortable" id="[[integerField9Order]]">
         <label>[[integerField9Label]]</label>
         <div>[[document.properties.custom:integerField9]]</div>
       </div>
-      <div hidden$="[[!integerField10Visible]]" role="widget">
+      <div hidden$="[[!integerField10Visible]]" role="widget" class="sortable" id="[[integerField10Order]]">
         <label>[[integerField10Label]]</label>
         <div>[[document.properties.custom:integerField10]]</div>
       </div>
 
-      <div hidden$="[[!userField1Visible]]" role="widget">
+      <div hidden$="[[!userField1Visible]]" role="widget" class="sortable" id="[[userField1Order]]">
         <label>[[userField1Label]]</label>
         <div>[[document.properties.custom:userField1]]</div>
       </div>
-      <div hidden$="[[!userField2Visible]]" role="widget">
+      <div hidden$="[[!userField2Visible]]" role="widget" class="sortable" id="[[userField2Order]]">
         <label>[[userField2Label]]</label>
         <div>[[document.properties.custom:userField2]]</div>
       </div>
-      <div hidden$="[[!userField3Visible]]" role="widget">
+      <div hidden$="[[!userField3Visible]]" role="widget" class="sortable" id="[[userField3Order]]">
         <label>[[userField3Label]]</label>
         <div>[[document.properties.custom:userField3]]</div>
       </div>
-      <div hidden$="[[!userField4Visible]]" role="widget">
+      <div hidden$="[[!userField4Visible]]" role="widget" class="sortable" id="[[userField4Order]]">
         <label>[[userField4Label]]</label>
         <div>[[document.properties.custom:userField4]]</div>
       </div>
-      <div hidden$="[[!userField5Visible]]" role="widget">
+      <div hidden$="[[!userField5Visible]]" role="widget" class="sortable" id="[[userField5Order]]">
         <label>[[userField5Label]]</label>
         <div>[[document.properties.custom:userField5]]</div>
       </div>
-      <div hidden$="[[!userField6Visible]]" role="widget">
+      <div hidden$="[[!userField6Visible]]" role="widget" class="sortable" id="[[userField6Order]]">
         <label>[[userField6Label]]</label>
         <div>[[document.properties.custom:userField6]]</div>
       </div>
-      <div hidden$="[[!userField7Visible]]" role="widget">
+      <div hidden$="[[!userField7Visible]]" role="widget" class="sortable" id="[[userField7Order]]">
         <label>[[userField7Label]]</label>
         <div>[[document.properties.custom:userField7]]</div>
       </div>
-      <div hidden$="[[!userField8Visible]]" role="widget">
+      <div hidden$="[[!userField8Visible]]" role="widget" class="sortable" id="[[userField8Order]]">
         <label>[[userField8Label]]</label>
         <div>[[document.properties.custom:userField8]]</div>
       </div>
-      <div hidden$="[[!userField9Visible]]" role="widget">
+      <div hidden$="[[!userField9Visible]]" role="widget" class="sortable" id="[[userField9Order]]">
         <label>[[userField9Label]]</label>
         <div>[[document.properties.custom:userField9]]</div>
       </div>
-      <div hidden$="[[!userField10Visible]]" role="widget">
+      <div hidden$="[[!userField10Visible]]" role="widget" class="sortable" id="[[userField10Order]]">
         <label>[[userField10Label]]</label>
         <div>[[document.properties.custom:userField10]]</div>
       </div>
 
-      <div hidden$="[[!fileField1Visible]]" role="widget"><label>[[fileField1Label]]</label><a href="[[document.properties.custom:fileField1.data]]">[[document.properties.custom:fileField1.name]]</a></div>
-      <div hidden$="[[!fileField2Visible]]" role="widget"><label>[[fileField2Label]]</label><a href="[[document.properties.custom:fileField2.data]]">[[document.properties.custom:fileField2.name]]</a></div>
-      <div hidden$="[[!fileField3Visible]]" role="widget"><label>[[fileField3Label]]</label><a href="[[document.properties.custom:fileField3.data]]">[[document.properties.custom:fileField3.name]]</a></div>
-      <div hidden$="[[!fileField4Visible]]" role="widget"><label>[[fileField4Label]]</label><a href="[[document.properties.custom:fileField4.data]]">[[document.properties.custom:fileField4.name]]</a></div>
-      <div hidden$="[[!fileField5Visible]]" role="widget"><label>[[fileField5Label]]</label><a href="[[document.properties.custom:fileField5.data]]">[[document.properties.custom:fileField5.name]]</a></div>
-      <div hidden$="[[!fileField6Visible]]" role="widget"><label>[[fileField6Label]]</label><a href="[[document.properties.custom:fileField6.data]]">[[document.properties.custom:fileField6.name]]</a></div>
-      <div hidden$="[[!fileField7Visible]]" role="widget"><label>[[fileField7Label]]</label><a href="[[document.properties.custom:fileField7.data]]">[[document.properties.custom:fileField7.name]]</a></div>
-      <div hidden$="[[!fileField8Visible]]" role="widget"><label>[[fileField8Label]]</label><a href="[[document.properties.custom:fileField8.data]]">[[document.properties.custom:fileField8.name]]</a></div>
-      <div hidden$="[[!fileField9Visible]]" role="widget"><label>[[fileField9Label]]</label><a href="[[document.properties.custom:fileField9.data]]">[[document.properties.custom:fileField9.name]]</a></div>
-      <div hidden$="[[!fileField10Visible]]" role="widget"><label>[[fileField10Label]]</label><a href="[[document.properties.custom:fileField10.data]]">[[document.properties.custom:fileField10.name]]</a></div>
+      <div hidden$="[[!fileField1Visible]]" role="widget" class="sortable" id="[[fileField1Order]]"><label>[[fileField1Label]]</label><a href="[[document.properties.custom:fileField1.data]]">[[document.properties.custom:fileField1.name]]</a></div>
+      <div hidden$="[[!fileField2Visible]]" role="widget" class="sortable" id="[[fileField2Order]]"><label>[[fileField2Label]]</label><a href="[[document.properties.custom:fileField2.data]]">[[document.properties.custom:fileField2.name]]</a></div>
+      <div hidden$="[[!fileField3Visible]]" role="widget" class="sortable" id="[[fileField3Order]]"><label>[[fileField3Label]]</label><a href="[[document.properties.custom:fileField3.data]]">[[document.properties.custom:fileField3.name]]</a></div>
+      <div hidden$="[[!fileField4Visible]]" role="widget" class="sortable" id="[[fileField4Order]]"><label>[[fileField4Label]]</label><a href="[[document.properties.custom:fileField4.data]]">[[document.properties.custom:fileField4.name]]</a></div>
+      <div hidden$="[[!fileField5Visible]]" role="widget" class="sortable" id="[[fileField5Order]]"><label>[[fileField5Label]]</label><a href="[[document.properties.custom:fileField5.data]]">[[document.properties.custom:fileField5.name]]</a></div>
+      <div hidden$="[[!fileField6Visible]]" role="widget" class="sortable" id="[[fileField6Order]]"><label>[[fileField6Label]]</label><a href="[[document.properties.custom:fileField6.data]]">[[document.properties.custom:fileField6.name]]</a></div>
+      <div hidden$="[[!fileField7Visible]]" role="widget" class="sortable" id="[[fileField7Order]]"><label>[[fileField7Label]]</label><a href="[[document.properties.custom:fileField7.data]]">[[document.properties.custom:fileField7.name]]</a></div>
+      <div hidden$="[[!fileField8Visible]]" role="widget" class="sortable" id="[[fileField8Order]]"><label>[[fileField8Label]]</label><a href="[[document.properties.custom:fileField8.data]]">[[document.properties.custom:fileField8.name]]</a></div>
+      <div hidden$="[[!fileField9Visible]]" role="widget" class="sortable" id="[[fileField9Order]]"><label>[[fileField9Label]]</label><a href="[[document.properties.custom:fileField9.data]]">[[document.properties.custom:fileField9.name]]</a></div>
+      <div hidden$="[[!fileField10Visible]]" role="widget" class="sortable" id="[[fileField10Order]]"><label>[[fileField10Label]]</label><a href="[[document.properties.custom:fileField10.data]]">[[document.properties.custom:fileField10.name]]</a></div>
 
     </div>
   </iron-pages>
@@ -409,6 +410,9 @@
           type: Boolean,
           value: false
         },
+        stringField1Order : {
+          type: Number
+        },
         stringField2Visible : {
           type: Boolean,
           value: false
@@ -419,6 +423,9 @@
         stringField2Required : {
           type: Boolean,
           value: false
+        },
+        stringField2Order : {
+          type: Number
         },
         stringField3Visible : {
           type: Boolean,
@@ -431,6 +438,9 @@
           type: Boolean,
           value: false
         },
+        stringField3Order : {
+          type: Number
+        },
         stringField4Visible : {
           type: Boolean,
           value: false
@@ -441,6 +451,9 @@
         stringField4Required : {
           type: Boolean,
           value: false
+        },
+        stringField4Order : {
+          type: Number
         },
         stringField5Visible : {
           type: Boolean,
@@ -453,6 +466,9 @@
           type: Boolean,
           value: false
         },
+        stringField5Order : {
+          type: Number
+        },
         stringField6Visible : {
           type: Boolean,
           value: false
@@ -463,6 +479,9 @@
         stringField6Required : {
           type: Boolean,
           value: false
+        },
+        stringField6Order : {
+          type: Number
         },
         stringField7Visible : {
           type: Boolean,
@@ -475,6 +494,9 @@
           type: Boolean,
           value: false
         },
+        stringField7Order : {
+          type: Number
+        },
         stringField8Visible : {
           type: Boolean,
           value: false
@@ -485,6 +507,9 @@
         stringField8Required : {
           type: Boolean,
           value: false
+        },
+        stringField8Order : {
+          type: Number
         },
         stringField9Visible : {
           type: Boolean,
@@ -497,6 +522,9 @@
           type: Boolean,
           value: false
         },
+        stringField9Order : {
+          type: Number
+        },
         stringField10Visible : {
           type: Boolean,
           value: false
@@ -507,6 +535,9 @@
         stringField10Required : {
           type: Boolean,
           value: false
+        },
+        stringField10Order : {
+          type: Number
         },
 
         vocabularyField1Visible : {
@@ -526,6 +557,9 @@
         vocabularyField1Value : {
           type: String
         },
+        vocabularyField1Order : {
+          type: Number
+        },
 
         vocabularyField2Visible : {
           type: Boolean,
@@ -544,6 +578,9 @@
         vocabularyField2Value : {
           type: String
         },
+        vocabularyField2Order : {
+          type: Number
+        },
         vocabularyField3Visible : {
           type: Boolean,
           value: false
@@ -560,6 +597,9 @@
         },
         vocabularyField3Value : {
           type: String
+        },
+        vocabularyField3Order : {
+          type: Number
         },
         vocabularyField4Visible : {
           type: Boolean,
@@ -578,6 +618,9 @@
         vocabularyField4Value : {
           type: String
         },
+        vocabularyField4Order : {
+          type: Number
+        },
         vocabularyField5Visible : {
           type: Boolean,
           value: false
@@ -594,6 +637,9 @@
         },
         vocabularyField5Value : {
           type: String
+        },
+        vocabularyField5Order : {
+          type: Number
         },
         vocabularyField6Visible : {
           type: Boolean,
@@ -612,6 +658,9 @@
         vocabularyField6Value : {
           type: String
         },
+        vocabularyField6Order : {
+          type: Number
+        },
         vocabularyField7Visible : {
           type: Boolean,
           value: false
@@ -628,6 +677,9 @@
         },
         vocabularyField7Value : {
           type: String
+        },
+        vocabularyField7Order : {
+          type: Number
         },
         vocabularyField8Visible : {
           type: Boolean,
@@ -646,6 +698,9 @@
         vocabularyField8Value : {
           type: String
         },
+        vocabularyField8Order : {
+          type: Number
+        },
         vocabularyField9Visible : {
           type: Boolean,
           value: false
@@ -662,6 +717,9 @@
         },
         vocabularyField9Value : {
           type: String
+        },
+        vocabularyField9Order : {
+          type: Number
         },
         vocabularyField10Visible : {
           type: Boolean,
@@ -680,7 +738,9 @@
         vocabularyField10Value : {
           type: String
         },
-
+        vocabularyField10Order : {
+          type: Number
+        },
         userField1Visible : {
           type: Boolean,
           value: false
@@ -691,6 +751,9 @@
         userField1Required : {
           type: Boolean,
           value: false
+        },
+        userField1Order : {
+          type: Number
         },
         userField2Visible : {
           type: Boolean,
@@ -703,6 +766,9 @@
           type: Boolean,
           value: false
         },
+        userField2Order : {
+          type: Number
+        },
         userField3Visible : {
           type: Boolean,
           value: false
@@ -713,6 +779,9 @@
         userField3Required : {
           type: Boolean,
           value: false
+        },
+        userField3Order : {
+          type: Number
         },
         userField4Visible : {
           type: Boolean,
@@ -725,6 +794,9 @@
           type: Boolean,
           value: false
         },
+        userField4Order : {
+          type: Number
+        },
         userField5Visible : {
           type: Boolean,
           value: false
@@ -735,6 +807,9 @@
         userField5Required : {
           type: Boolean,
           value: false
+        },
+        userField5Order : {
+          type: Number
         },
         userField6Visible : {
           type: Boolean,
@@ -747,6 +822,9 @@
           type: Boolean,
           value: false
         },
+        userField6Order : {
+          type: Number
+        },
         userField7Visible : {
           type: Boolean,
           value: false
@@ -757,6 +835,9 @@
         userField7Required : {
           type: Boolean,
           value: false
+        },
+        userField7Order : {
+          type: Number
         },
         userField8Visible : {
           type: Boolean,
@@ -769,6 +850,9 @@
           type: Boolean,
           value: false
         },
+        userField8Order : {
+          type: Number
+        },
         userField9Visible : {
           type: Boolean,
           value: false
@@ -779,6 +863,9 @@
         userField9Required : {
           type: Boolean,
           value: false
+        },
+        userField9Order : {
+          type: Number
         },
         userField10Visible : {
           type: Boolean,
@@ -791,7 +878,9 @@
           type: Boolean,
           value: false
         },
-
+        userField10Order : {
+          type: Number
+        },
         doubleField1Visible : {
           type: Boolean,
           value: false
@@ -802,6 +891,9 @@
         doubleField1Required : {
           type: Boolean,
           value: false
+        },
+        doubleField1Order : {
+          type: Number
         },
         doubleField2Visible : {
           type: Boolean,
@@ -814,6 +906,9 @@
           type: Boolean,
           value: false
         },
+        doubleField2Order : {
+          type: Number
+        },
         doubleField3Visible : {
           type: Boolean,
           value: false
@@ -824,6 +919,9 @@
         doubleField3Required : {
           type: Boolean,
           value: false
+        },
+        doubleField3Order : {
+          type: Number
         },
         doubleField4Visible : {
           type: Boolean,
@@ -836,6 +934,9 @@
           type: Boolean,
           value: false
         },
+        doubleField4Order : {
+          type: Number
+        },
         doubleField5Visible : {
           type: Boolean,
           value: false
@@ -846,6 +947,9 @@
         doubleField5Required : {
           type: Boolean,
           value: false
+        },
+        doubleField5Order : {
+          type: Number
         },
         doubleField6Visible : {
           type: Boolean,
@@ -858,6 +962,9 @@
           type: Boolean,
           value: false
         },
+        doubleField6Order : {
+          type: Number
+        },
         doubleField7Visible : {
           type: Boolean,
           value: false
@@ -868,6 +975,9 @@
         doubleField7Required : {
           type: Boolean,
           value: false
+        },
+        doubleField7Order : {
+          type: Number
         },
         doubleField8Visible : {
           type: Boolean,
@@ -880,6 +990,9 @@
           type: Boolean,
           value: false
         },
+        doubleField8Order : {
+          type: Number
+        },
         doubleField9Visible : {
           type: Boolean,
           value: false
@@ -890,6 +1003,9 @@
         doubleField9Required : {
           type: Boolean,
           value: false
+        },
+        doubleField9Order : {
+          type: Number
         },
         doubleField10Visible : {
           type: Boolean,
@@ -902,7 +1018,9 @@
           type: Boolean,
           value: false
         },
-
+        doubleField10Order : {
+          type: Number
+        },
         dateField1Visible : {
           type: Boolean,
           value: false
@@ -913,6 +1031,12 @@
         dateField1Required : {
           type: Boolean,
           value: false
+        },
+        dateField1Format : {
+          type: String
+        },
+        dateField1Order : {
+          type: Number
         },
         dateField2Visible : {
           type: Boolean,
@@ -925,6 +1049,12 @@
           type: Boolean,
           value: false
         },
+        dateField2Format : {
+          type: String
+        },
+        dateField2Order : {
+          type: Number
+        },
         dateField3Visible : {
           type: Boolean,
           value: false
@@ -935,6 +1065,12 @@
         dateField3Required : {
           type: Boolean,
           value: false
+        },
+        dateField3Format : {
+          type: String
+        },
+        dateField3Order : {
+          type: Number
         },
         dateField4Visible : {
           type: Boolean,
@@ -947,6 +1083,12 @@
           type: Boolean,
           value: false
         },
+        dateField4Format : {
+          type: String
+        },
+        dateField4Order : {
+          type: Number
+        },
         dateField5Visible : {
           type: Boolean,
           value: false
@@ -957,6 +1099,12 @@
         dateField5Required : {
           type: Boolean,
           value: false
+        },
+        dateField5Format : {
+          type: String
+        },
+        dateField5Order : {
+          type: Number
         },
         dateField6Visible : {
           type: Boolean,
@@ -969,6 +1117,12 @@
           type: Boolean,
           value: false
         },
+        dateField6Format : {
+          type: String
+        },
+        dateField6Order : {
+          type: Number
+        },
         dateField7Visible : {
           type: Boolean,
           value: false
@@ -979,6 +1133,12 @@
         dateField7Required : {
           type: Boolean,
           value: false
+        },
+        dateField7Format : {
+          type: String
+        },
+        dateField7Order : {
+          type: Number
         },
         dateField8Visible : {
           type: Boolean,
@@ -991,6 +1151,12 @@
           type: Boolean,
           value: false
         },
+        dateField8Format : {
+          type: String
+        },
+        dateField8Order : {
+          type: Number
+        },
         dateField9Visible : {
           type: Boolean,
           value: false
@@ -1001,6 +1167,12 @@
         dateField9Required : {
           type: Boolean,
           value: false
+        },
+        dateField9Format : {
+          type: String
+        },
+        dateField9Order : {
+          type: Number
         },
         dateField10Visible : {
           type: Boolean,
@@ -1013,7 +1185,12 @@
           type: Boolean,
           value: false
         },
-
+        dateField10Format : {
+          type: String
+        },
+        dateField10Order : {
+          type: Number
+        },
         integerField1Visible : {
           type: Boolean,
           value: false
@@ -1024,6 +1201,9 @@
         integerField1Required : {
           type: Boolean,
           value: false
+        },
+        integerField1Order : {
+          type: Number
         },
         integerField2Visible : {
           type: Boolean,
@@ -1036,6 +1216,9 @@
           type: Boolean,
           value: false
         },
+        integerField2Order : {
+          type: Number
+        },
         integerField3Visible : {
           type: Boolean,
           value: false
@@ -1046,6 +1229,9 @@
         integerField3Required : {
           type: Boolean,
           value: false
+        },
+        integerField3Order : {
+          type: Number
         },
         integerField4Visible : {
           type: Boolean,
@@ -1058,6 +1244,9 @@
           type: Boolean,
           value: false
         },
+        integerField4Order : {
+          type: Number
+        },
         integerField5Visible : {
           type: Boolean,
           value: false
@@ -1068,6 +1257,9 @@
         integerField5Required : {
           type: Boolean,
           value: false
+        },
+        integerField5Order : {
+          type: Number
         },
         integerField6Visible : {
           type: Boolean,
@@ -1080,6 +1272,9 @@
           type: Boolean,
           value: false
         },
+        integerField6Order : {
+          type: Number
+        },
         integerField7Visible : {
           type: Boolean,
           value: false
@@ -1090,6 +1285,9 @@
         integerField7Required : {
           type: Boolean,
           value: false
+        },
+        integerField7Order : {
+          type: Number
         },
         integerField8Visible : {
           type: Boolean,
@@ -1102,6 +1300,9 @@
           type: Boolean,
           value: false
         },
+        integerField8Order : {
+          type: Number
+        },
         integerField9Visible : {
           type: Boolean,
           value: false
@@ -1113,6 +1314,9 @@
           type: Boolean,
           value: false
         },
+        integerField9Order : {
+          type: Number
+        },
         integerField10Visible : {
           type: Boolean,
           value: false
@@ -1123,6 +1327,9 @@
         integerField10Required : {
           type: Boolean,
           value: false
+        },
+        integerField10Order : {
+          type: Number
         },
 
         booleanField1Visible : {
@@ -1203,12 +1410,18 @@
         fileField1Label : {
           type: String
         },
+        fileField1Order : {
+          type: Number
+        },
         fileField2Visible : {
           type: Boolean,
           value: false
         },
         fileField2Label : {
           type: String
+        },
+        fileField2Order : {
+          type: Number
         },
         fileField3Visible : {
           type: Boolean,
@@ -1217,12 +1430,18 @@
         fileField3Label : {
           type: String
         },
+        fileField3Order : {
+          type: Number
+        },
         fileField4Visible : {
           type: Boolean,
           value: false
         },
         fileField4Label : {
           type: String
+        },
+        fileField4Order : {
+          type: Number
         },
         fileField5Visible : {
           type: Boolean,
@@ -1231,12 +1450,18 @@
         fileField5Label : {
           type: String
         },
+        fileField5Order : {
+          type: Number
+        },
         fileField6Visible : {
           type: Boolean,
           value: false
         },
         fileField6Label : {
           type: String
+        },
+        fileField6Order : {
+          type: Number
         },
         fileField7Visible : {
           type: Boolean,
@@ -1245,12 +1470,18 @@
         fileField7Label : {
           type: String
         },
+        fileField7Order : {
+          type: Number
+        },
         fileField8Visible : {
           type: Boolean,
           value: false
         },
         fileField8Label : {
           type: String
+        },
+        fileField8Order : {
+          type: Number
         },
         fileField9Visible : {
           type: Boolean,
@@ -1259,12 +1490,18 @@
         fileField9Label : {
           type: String
         },
+        fileField9Order : {
+          type: Number
+        },
         fileField10Visible : {
           type: Boolean,
           value: false
         },
         fileField10Label : {
           type: String
+        },
+        fileField1Order : {
+          type: Number
         }
       },
       ready: function(){
@@ -1282,8 +1519,8 @@
       _isMode: function(value){
         return this.mode === value;
       },
-      _formatDate: function(date) {
-        return date ? moment(date).format('MMMM D, YYYY') : "";
+      _formatDate: function(date, format) {
+        return date ? moment(date).format(format? format : 'MMMM D, YYYY') : "";
       },
       formatDirectory: function(value, vocabularyName, vocabularyField) {
         if(value){
@@ -1329,56 +1566,67 @@
       },
       _customLoaded: function(){
         if(this.custom){
+          var i = 0;
           this.custom.forEach(function(field) {
             if(field.fieldName === 'stringField1'){
               this.stringField1Visible = true;
               this.stringField1Label = field.label;
               this.stringField1Required = field.required;
+              this.stringField1Order = i;
             }
             if(field.fieldName === 'stringField2'){
               this.stringField2Visible = true;
               this.stringField2Label = field.label;
               this.stringField2Required = field.required;
+              this.stringField2Order = i;
             }
             if(field.fieldName === 'stringField3'){
               this.stringField3Visible = true;
               this.stringField3Label = field.label;
               this.stringField3Required = field.required;
+              this.stringField3Order = i;
             }
             if(field.fieldName === 'stringField4'){
                 this.stringField4Visible = true;
                 this.stringField4Label = field.label;
                 this.stringField4Required = field.required;
+                this.stringField4Order = i;
             }
             if(field.fieldName === 'stringField5'){
                 this.stringField5Visible = true;
                 this.stringField5Label = field.label;
                 this.stringField5Required = field.required;
+                this.stringField5Order = i;
             }
             if(field.fieldName === 'stringField6'){
                 this.stringField6Visible = true;
                 this.stringField6Label = field.label;
                 this.stringField6Required = field.required;
+                this.stringField6Order = i;
             }
             if(field.fieldName === 'stringField7'){
                 this.stringField7Visible = true;
                 this.stringField7Label = field.label;
                 this.stringField7Required = field.required;
+                this.stringField7Order = i;
             }
             if(field.fieldName === 'stringField8'){
                 this.stringField8Visible = true;
                 this.stringField8Label = field.label;
                 this.stringField8Required = field.required;
+                this.stringField8Order = i;
             }
             if(field.fieldName === 'stringField9'){
                 this.stringField9Visible = true;
                 this.stringField9Label = field.label;
                 this.stringField9Required = field.required;
+                this.stringField9Order = i;
             }
             if(field.fieldName === 'stringField10'){
                 this.stringField10Visible = true;
                 this.stringField10Label = field.label;
                 this.stringField10Required = field.required;
+                this.stringField10Order = i;
             }
 
             if(field.fieldName === 'vocabularyField1'){
@@ -1386,213 +1634,263 @@
               this.vocabularyField1Label = field.label;
               this.vocabularyField1Name = field.vocabularyName;
               this.vocabularyField1Required = field.required;
+              this.vocabularyField1Order = i;
             }
             if(field.fieldName === 'vocabularyField2'){
               this.vocabularyField2Visible = true;
               this.vocabularyField2Label = field.label;
               this.vocabularyField2Name = field.vocabularyName;
               this.vocabularyField2Required = field.required;
+              this.vocabularyField2Order = i;
             }
             if(field.fieldName === 'vocabularyField3'){
               this.vocabularyField3Visible = true;
               this.vocabularyField3Label = field.label;
               this.vocabularyField3Name = field.vocabularyName;
               this.vocabularyField3Required = field.required;
+              this.vocabularyField3Order = i;
             }
             if(field.fieldName === 'vocabularyField4'){
                 this.vocabularyField4Visible = true;
                 this.vocabularyField4Label = field.label;
                 this.vocabularyField4Name = field.vocabularyName;
                 this.vocabularyField4Required = field.required;
+                this.vocabularyField4Order = i;
             }
             if(field.fieldName === 'vocabularyField5'){
                 this.vocabularyField5Visible = true;
                 this.vocabularyField5Label = field.label;
                 this.vocabularyField5Name = field.vocabularyName;
                 this.vocabularyField5Required = field.required;
+                this.vocabularyField5Order = i;
             }
             if(field.fieldName === 'vocabularyField6'){
                 this.vocabularyField6Visible = true;
                 this.vocabularyField6Label = field.label;
                 this.vocabularyField6Name = field.vocabularyName;
                 this.vocabularyField6Required = field.required;
+                this.vocabularyField6Order = i;
             }
             if(field.fieldName === 'vocabularyField7'){
                 this.vocabularyField7Visible = true;
                 this.vocabularyField7Label = field.label;
                 this.vocabularyField7Name = field.vocabularyName;
                 this.vocabularyField7Required = field.required;
+                this.vocabularyField7Order = i;
             }
             if(field.fieldName === 'vocabularyField8'){
                 this.vocabularyField8Visible = true;
                 this.vocabularyField8Label = field.label;
                 this.vocabularyField8Name = field.vocabularyName;
                 this.vocabularyField8Required = field.required;
+                this.vocabularyField8Order = i;
             }
             if(field.fieldName === 'vocabularyField9'){
                 this.vocabularyField9Visible = true;
                 this.vocabularyField9Label = field.label;
                 this.vocabularyField9Name = field.vocabularyName;
                 this.vocabularyField9Required = field.required;
+                this.vocabularyField9Order = i;
             }
             if(field.fieldName === 'vocabularyField10'){
                 this.vocabularyField10Visible = true;
                 this.vocabularyField10Label = field.label;
                 this.vocabularyField10Name = field.vocabularyName;
                 this.vocabularyField10Required = field.required;
+                this.vocabularyField10Order = i;
             }
 
             if(field.fieldName === 'doubleField1'){
                 this.doubleField1Visible = true;
                 this.doubleField1Label = field.label;
                 this.doubleField1Required = field.required;
+                this.doubleField1Order = i;
             }
             if(field.fieldName === 'doubleField2'){
                 this.doubleField2Visible = true;
                 this.doubleField2Label = field.label;
                 this.doubleField2Required = field.required;
+                this.doubleField2Order = i;
             }
             if(field.fieldName === 'doubleField3'){
                 this.doubleField3Visible = true;
                 this.doubleField3Label = field.label;
                 this.doubleField3Required = field.required;
+                this.doubleField3Order = i;
             }
             if(field.fieldName === 'doubleField4'){
                 this.doubleField4Visible = true;
                 this.doubleField4Label = field.label;
                 this.doubleField4Required = field.required;
+                this.doubleField4Order = i;
             }
             if(field.fieldName === 'doubleField5'){
                 this.doubleField5Visible = true;
                 this.doubleField5Label = field.label;
                 this.doubleField5Required = field.required;
+                this.doubleField5Order = i;
             }
             if(field.fieldName === 'doubleField6'){
                 this.doubleField6Visible = true;
                 this.doubleField6Label = field.label;
                 this.doubleField6Required = field.required;
+                this.doubleField6Order = i;
             }
             if(field.fieldName === 'doubleField7'){
                 this.doubleField7Visible = true;
                 this.doubleField7Label = field.label;
                 this.doubleField7Required = field.required;
+                this.doubleField7Order = i;
             }
             if(field.fieldName === 'doubleField8'){
                 this.doubleField8Visible = true;
                 this.doubleField8Label = field.label;
                 this.doubleField8Required = field.required;
+                this.doubleField8Order = i;
             }
             if(field.fieldName === 'doubleField9'){
                 this.doubleField9Visible = true;
                 this.doubleField9Label = field.label;
                 this.doubleField9Required = field.required;
+                this.doubleField9Order = i;
             }
             if(field.fieldName === 'doubleField10'){
                 this.doubleField10Visible = true;
                 this.doubleField10Label = field.label;
                 this.doubleField10Required = field.required;
+                this.doubleField10Order = i;
             }
 
             if(field.fieldName === 'dateField1'){
                 this.dateField1Visible = true;
                 this.dateField1Label = field.label;
                 this.dateField1Required = field.required;
+                this.dateField1Format = field.format;
+                this.dateField1Order = i;
             }
             if(field.fieldName === 'dateField2'){
                 this.dateField2Visible = true;
                 this.dateField2Label = field.label;
                 this.dateField2Required = field.required;
+                this.dateField2Format = field.format;
+                this.dateField2Order = i;
             }
             if(field.fieldName === 'dateField3'){
                 this.dateField3Visible = true;
                 this.dateField3Label = field.label;
                 this.dateField3Required = field.required;
+                this.dateField3Format = field.format;
+                this.dateField3Order = i;
             }
             if(field.fieldName === 'dateField4'){
                 this.dateField4Visible = true;
                 this.dateField4Label = field.label;
                 this.dateField4Required = field.required;
+                this.dateField4Format = field.format;
+                this.dateField4Order = i;
             }
             if(field.fieldName === 'dateField5'){
                 this.dateField5Visible = true;
                 this.dateField5Label = field.label;
                 this.dateField5Required = field.required;
+                this.dateField5Format = field.format;
+                this.dateField5Order = i;
             }
             if(field.fieldName === 'dateField6'){
                 this.dateField6Visible = true;
                 this.dateField6Label = field.label;
                 this.dateField6Required = field.required;
+                this.dateField6Format = field.format;
+                this.dateField6Order = i;
             }
             if(field.fieldName === 'dateField7'){
                 this.dateField7Visible = true;
                 this.dateField7Label = field.label;
                 this.dateField7Required = field.required;
+                this.dateField7Format = field.format;
+                this.dateField7Order = i;
             }
             if(field.fieldName === 'dateField8'){
                 this.dateField8Visible = true;
                 this.dateField8Label = field.label;
                 this.dateField8Required = field.required;
+                this.dateField8Format = field.format;
+                this.dateField8Order = i;
             }
             if(field.fieldName === 'dateField9'){
                 this.dateField9Visible = true;
                 this.dateField9Label = field.label;
                 this.dateField9Required = field.required;
+                this.dateField9Format = field.format;
+                this.dateField9Order = i;
             }
             if(field.fieldName === 'dateField10'){
                 this.dateField10Visible = true;
                 this.dateField10Label = field.label;
                 this.dateField10Required = field.required;
+                this.dateField10Format = field.format;
+                this.dateField10Order = i;
             }
 
             if(field.fieldName === 'integerField1'){
                 this.integerField1Visible = true;
                 this.integerField1Label = field.label;
                 this.integerField1Required = field.required;
+                this.integerField1Order = i;
             }
             if(field.fieldName === 'integerField2'){
                 this.integerField2Visible = true;
                 this.integerField2Label = field.label;
                 this.integerField2Required = field.required;
+                this.integerField2Order = i;
             }
             if(field.fieldName === 'integerField3'){
                 this.integerField3Visible = true;
                 this.integerField3Label = field.label;
                 this.integerField3Required = field.required;
+                this.integerField3Order = i;
             }
             if(field.fieldName === 'integerField4'){
                 this.integerField4Visible = true;
                 this.integerField4Label = field.label;
                 this.integerField4Required = field.required;
+                this.integerField4Order = i;
             }
             if(field.fieldName === 'integerField5'){
                 this.integerField5Visible = true;
                 this.integerField5Label = field.label;
                 this.integerField5Required = field.required;
+                this.integerField5Order = i;
             }
             if(field.fieldName === 'integerField6'){
                 this.integerField6Visible = true;
                 this.integerField6Label = field.label;
                 this.integerField6Required = field.required;
+                this.integerField6Order = i;
             }
             if(field.fieldName === 'integerField7'){
                 this.integerField7Visible = true;
                 this.integerField7Label = field.label;
                 this.integerField7Required = field.required;
+                this.integerField7Order = i;
             }
             if(field.fieldName === 'integerField8'){
                 this.integerField8Visible = true;
                 this.integerField8Label = field.label;
                 this.integerField8Required = field.required;
+                this.integerField8Order = i;
             }
             if(field.fieldName === 'integerField9'){
                 this.integerField9Visible = true;
                 this.integerField9Label = field.label;
                 this.integerField9Required = field.required;
+                this.integerField9Order = i;
             }
             if(field.fieldName === 'integerField10'){
                 this.integerField10Visible = true;
                 this.integerField10Label = field.label;
                 this.integerField10Required = field.required;
+                this.integerField10Order = i;
             }
 
             if(field.fieldName === 'booleanField1'){
@@ -1640,94 +1938,133 @@
                 this.userField1Visible = true;
                 this.userField1Label = field.label;
                 this.userField1Required = field.required;
+                this.userField1Order = i;
             }
             if(field.fieldName === 'userField2'){
                 this.userField2Visible = true;
                 this.userField2Label = field.label;
                 this.userField2Required = field.required;
+                this.userField2Order = i;
             }
             if(field.fieldName === 'userField3'){
                 this.userField3Visible = true;
                 this.userField3Label = field.label;
                 this.userField3Required = field.required;
+                this.userField3Order = i;
             }
             if(field.fieldName === 'userField4'){
                 this.userField4Visible = true;
                 this.userField4Label = field.label;
                 this.userField4Required = field.required;
+                this.userField4Order = i;
             }
             if(field.fieldName === 'userField5'){
                 this.userField5Visible = true;
                 this.userField5Label = field.label;
                 this.userField5Required = field.required;
+                this.userField5Order = i;
             }
             if(field.fieldName === 'userField6'){
                 this.userField6Visible = true;
                 this.userField6Label = field.label;
                 this.userField6Required = field.required;
+                this.userField6Order = i;
             }
             if(field.fieldName === 'userField7'){
                 this.userField7Visible = true;
                 this.userField7Label = field.label;
                 this.userField7Required = field.required;
+                this.userField7Order = i;
             }
             if(field.fieldName === 'userField8'){
                 this.userField8Visible = true;
                 this.userField8Label = field.label;
                 this.userField8Required = field.required;
+                this.userField8Order = i;
             }
             if(field.fieldName === 'userField9'){
                 this.userField9Visible = true;
                 this.userField9Label = field.label;
                 this.userField9Required = field.required;
+                this.userField9Order = i;
             }
             if(field.fieldName === 'userField10'){
                 this.userField10Visible = true;
                 this.userField10Label = field.label;
                 this.userField10Required = field.required;
+                this.userField10Order = i;
             }
-
             if(field.fieldName === 'fileField1'){
                 this.fileField1Visible = true;
                 this.fileField1Label = field.label;
+                this.fileField1Order = i;
             }
             if(field.fieldName === 'fileField2'){
                 this.fileField2Visible = true;
                 this.fileField2Label = field.label;
+                this.fileField2Order = i;
             }
             if(field.fieldName === 'fileField3'){
                 this.fileField3Visible = true;
                 this.fileField3Label = field.label;
+                this.fileField3Order = i;
             }
             if(field.fieldName === 'fileField4'){
                 this.fileField4Visible = true;
                 this.fileField4Label = field.label;
+                this.fileField4Order = i;
             }
             if(field.fieldName === 'fileField5'){
                 this.fileField5Visible = true;
                 this.fileField5Label = field.label;
+                this.fileField5Order = i;
             }
             if(field.fieldName === 'fileField6'){
                 this.fileField6Visible = true;
                 this.fileField6Label = field.label;
+                this.fileField6Order = i;
             }
             if(field.fieldName === 'fileField7'){
                 this.fileField7Visible = true;
                 this.fileField7Label = field.label;
+                this.fileField7Order = i;
             }
             if(field.fieldName === 'fileField8'){
                 this.fileField8Visible = true;
                 this.fileField8Label = field.label;
+                this.fileField8Order = i;
             }
             if(field.fieldName === 'fileField9'){
                 this.fileField9Visible = true;
                 this.fileField9Label = field.label;
+                this.fileField9Order = i;
             }
             if(field.fieldName === 'fileField10'){
                 this.fileField10Visible = true;
                 this.fileField10Label = field.label;
+                this.fileField10Order = i;
             }
+            i++;
           }.bind(this));
+
+          var nodeList = document.querySelectorAll("div.sortable");
+          var arrayNode = [].slice.call(nodeList);
+          var cleanedArrayNode = [];
+          arrayNode.forEach(function(node){
+            var found = false;
+            for(var i = 0; i < cleanedArrayNode.length; i++){
+              if(cleanedArrayNode[i].id === node.id){
+                found = true;
+              }
+            }
+            if((!found || cleanedArrayNode.length === 0) && node.id !== ''){
+              cleanedArrayNode.push(node);
+              found = false;
+            }
+          });
+          //sort
+          console.log(cleanedArrayNode);
+          tinysort(cleanedArrayNode,{attr:'id',order:'asc'});
         }
       }
     });

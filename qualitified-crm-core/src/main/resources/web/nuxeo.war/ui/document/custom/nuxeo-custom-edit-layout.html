@@ -50,6 +50,11 @@
           <div>[[item.vocabularyName]]</div>
         </template>
       </nuxeo-data-table-column>
+      <nuxeo-data-table-column name="[[i18n('label.metadata.custom.format')]]">
+        <template>
+          <div>[[item.format]]</div>
+        </template>
+      </nuxeo-data-table-column>
 
       <nuxeo-data-table-form>
         <template>
@@ -59,7 +64,7 @@
             <paper-input role="widget" value="{{item.fieldName}}" label="Field Name"></paper-input>
             <paper-checkbox checked="{{item.required}}"></paper-checkbox> Required
             <paper-input role="widget" value="{{item.vocabularyName}}" label="Vocabulary Name"></paper-input>
-
+            <paper-input role="widget" value="{{item.format}}" label="Format"></paper-input>
             <!--nuxeo-select role="widget"
                           label="[[i18n('label.metadata.custom.type')]]"
                           options="[[types]]"

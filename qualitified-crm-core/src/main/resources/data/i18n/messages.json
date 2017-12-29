@@ -69,5 +69,6 @@
   "label.metadata.custom.required":"Required",
   "label.metadata.custom.vocabularyname":"Vocabulary Name",
   "app.customization":"Customization",
-  "app.solicitations":"Solicitations"
+  "app.solicitations":"Solicitations",
+  "label.metadata.custom.format":"Format"
 }
