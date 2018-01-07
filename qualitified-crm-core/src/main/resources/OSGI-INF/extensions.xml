@@ -1137,7 +1137,7 @@
             <property name="order">count desc</property>
           </properties>
         </aggregate>
-        <aggregate id="solicitation_category_agg" type="terms" parameter="solicitation:category">
+        <aggregate id="solicitation_category_agg" type="terms" parameter="custom:vocabularyField2">
           <field schema="solicitation_list_pp" name="solicitation_category_agg"/>
           <properties>
             <property name="order">count desc</property>

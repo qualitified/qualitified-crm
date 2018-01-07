@@ -77,16 +77,16 @@ id=<!--
       <paper-input hidden$="[[!integerField9Visible]]" role="widget" value="{{document.properties.custom:integerField9}}" label="[[integerField9Label]]" required="[[integerField9Required]]"></paper-input>
       <paper-input hidden$="[[!integerField10Visible]]" role="widget" value="{{document.properties.custom:integerField10}}" label="[[integerField10Label]]" required="[[integerField10Required]]"></paper-input>
 
-      <template is="dom-if" if="[[!booleanField1Visible]]"><paper-checkbox hidden$="[[!booleanField1Visible]]" checked="{{document.properties.custom:booleanField1}}"></paper-checkbox> [[booleanField1Label]]</template>
-      <template is="dom-if" if="[[!booleanField2Visible]]"><paper-checkbox hidden$="[[!booleanField2Visible]]" checked="{{document.properties.custom:booleanField2}}"></paper-checkbox> [[booleanField2Label]]</template>
-      <template is="dom-if" if="[[!booleanField3Visible]]"><paper-checkbox hidden$="[[!booleanField3Visible]]" checked="{{document.properties.custom:booleanField3}}"></paper-checkbox> [[booleanField3Label]]</template>
-      <template is="dom-if" if="[[!booleanField4Visible]]"><paper-checkbox hidden$="[[!booleanField4Visible]]" checked="{{document.properties.custom:booleanField4}}"></paper-checkbox> [[booleanField4Label]]</template>
-      <template is="dom-if" if="[[!booleanField5Visible]]"><paper-checkbox hidden$="[[!booleanField5Visible]]" checked="{{document.properties.custom:booleanField5}}"></paper-checkbox> [[booleanField5Label]]</template>
-      <template is="dom-if" if="[[!booleanField6Visible]]"><paper-checkbox hidden$="[[!booleanField6Visible]]" checked="{{document.properties.custom:booleanField6}}"></paper-checkbox> [[booleanField6Label]]</template>
-      <template is="dom-if" if="[[!booleanField7Visible]]"><paper-checkbox hidden$="[[!booleanField7Visible]]" checked="{{document.properties.custom:booleanField7}}"></paper-checkbox> [[booleanField7Label]]</template>
-      <template is="dom-if" if="[[!booleanField8Visible]]"><paper-checkbox hidden$="[[!booleanField8Visible]]" checked="{{document.properties.custom:booleanField8}}"></paper-checkbox> [[booleanField8Label]]</template>
-      <template is="dom-if" if="[[!booleanField9Visible]]"><paper-checkbox hidden$="[[!booleanField9Visible]]" checked="{{document.properties.custom:booleanField9}}"></paper-checkbox> [[booleanField9Label]]</template>
-      <template is="dom-if" if="[[!booleanField10Visible]]"><paper-checkbox hidden$="[[!booleanField10Visible]]" checked="{{document.properties.custom:booleanField10}}"></paper-checkbox> [[booleanField10Label]]</template>
+      <template is="dom-if" if="[[booleanField1Visible]]"><paper-checkbox hidden$="[[!booleanField1Visible]]" checked="{{document.properties.custom:booleanField1}}"></paper-checkbox> [[booleanField1Label]]</template>
+      <template is="dom-if" if="[[booleanField2Visible]]"><paper-checkbox hidden$="[[!booleanField2Visible]]" checked="{{document.properties.custom:booleanField2}}"></paper-checkbox> [[booleanField2Label]]</template>
+      <template is="dom-if" if="[[booleanField3Visible]]"><paper-checkbox hidden$="[[!booleanField3Visible]]" checked="{{document.properties.custom:booleanField3}}"></paper-checkbox> [[booleanField3Label]]</template>
+      <template is="dom-if" if="[[booleanField4Visible]]"><paper-checkbox hidden$="[[!booleanField4Visible]]" checked="{{document.properties.custom:booleanField4}}"></paper-checkbox> [[booleanField4Label]]</template>
+      <template is="dom-if" if="[[booleanField5Visible]]"><paper-checkbox hidden$="[[!booleanField5Visible]]" checked="{{document.properties.custom:booleanField5}}"></paper-checkbox> [[booleanField5Label]]</template>
+      <template is="dom-if" if="[[booleanField6Visible]]"><paper-checkbox hidden$="[[!booleanField6Visible]]" checked="{{document.properties.custom:booleanField6}}"></paper-checkbox> [[booleanField6Label]]</template>
+      <template is="dom-if" if="[[booleanField7Visible]]"><paper-checkbox hidden$="[[!booleanField7Visible]]" checked="{{document.properties.custom:booleanField7}}"></paper-checkbox> [[booleanField7Label]]</template>
+      <template is="dom-if" if="[[booleanField8Visible]]"><paper-checkbox hidden$="[[!booleanField8Visible]]" checked="{{document.properties.custom:booleanField8}}"></paper-checkbox> [[booleanField8Label]]</template>
+      <template is="dom-if" if="[[booleanField9Visible]]"><paper-checkbox hidden$="[[!booleanField9Visible]]" checked="{{document.properties.custom:booleanField9}}"></paper-checkbox> [[booleanField9Label]]</template>
+      <template is="dom-if" if="[[booleanField10Visible]]"><paper-checkbox hidden$="[[!booleanField10Visible]]" checked="{{document.properties.custom:booleanField10}}"></paper-checkbox> [[booleanField10Label]]</template>
 
       <div hidden$="[[!fileField1Visible]]" role="widget"><label>[[fileField1Label]]</label><nuxeo-file hidden$="[[!fileField1Visible]]" value="{{document.properties.custom:fileField1}}"></nuxeo-file><a href="[[document.properties.custom:fileField1.data]]">[[document.properties.custom:fileField1.name]]</a></div>
       <div hidden$="[[!fileField2Visible]]" role="widget"><label>[[fileField2Label]]</label><nuxeo-file hidden$="[[!fileField2Visible]]" value="{{document.properties.custom:fileField2}}"></nuxeo-file><a href="[[document.properties.custom:fileField2.data]]">[[document.properties.custom:fileField2.name]]</a></div>
@@ -98,7 +98,6 @@ id=<!--
       <div hidden$="[[!fileField8Visible]]" role="widget"><label>[[fileField8Label]]</label><nuxeo-file hidden$="[[!fileField8Visible]]" value="{{document.properties.custom:fileField8}}"></nuxeo-file><a href="[[document.properties.custom:fileField8.data]]">[[document.properties.custom:fileField8.name]]</a></div>
       <div hidden$="[[!fileField9Visible]]" role="widget"><label>[[fileField9Label]]</label><nuxeo-file hidden$="[[!fileField9Visible]]" value="{{document.properties.custom:fileField9}}"></nuxeo-file><a href="[[document.properties.custom:fileField9.data]]">[[document.properties.custom:fileField9.name]]</a></div>
       <div hidden$="[[!fileField10Visible]]" role="widget"><label>[[fileField10Label]]</label><nuxeo-file hidden$="[[!fileField10Visible]]" value="{{document.properties.custom:fileField10}}"></nuxeo-file><a href="[[document.properties.custom:fileField10.data]]">[[document.properties.custom:fileField10.name]]</a></div>
-
     </div>
 
     <div name="view" class="vertical layout flex">
@@ -369,13 +368,54 @@ id=<!--
       <div hidden$="[[!fileField9Visible]]" role="widget" class="sortable" id="[[fileField9Order]]"><label>[[fileField9Label]]</label><a href="[[document.properties.custom:fileField9.data]]">[[document.properties.custom:fileField9.name]]</a></div>
       <div hidden$="[[!fileField10Visible]]" role="widget" class="sortable" id="[[fileField10Order]]"><label>[[fileField10Label]]</label><a href="[[document.properties.custom:fileField10.data]]">[[document.properties.custom:fileField10.name]]</a></div>
 
+      <div hidden$="[[!booleanField1Visible]]" role="widget" class="sortable" id="[[booleanField1Order]]">
+        <label>[[booleanField1Label]]</label>
+        <div>[[i18n(document.properties.custom:booleanField1)]]</div>
+      </div>
+      <div hidden$="[[!booleanField2Visible]]" role="widget" class="sortable" id="[[booleanField2Order]]">
+        <label>[[booleanField2Label]]</label>
+        <div>[[i18n(document.properties.custom:booleanField2)]]</div>
+      </div>
+      <div hidden$="[[!booleanField3Visible]]" role="widget" class="sortable" id="[[booleanField3Order]]">
+        <label>[[booleanField3Label]]</label>
+        <div>[[i18n(document.properties.custom:booleanField3)]]</div>
+      </div>
+      <div hidden$="[[!booleanField4Visible]]" role="widget" class="sortable" id="[[booleanField4Order]]">
+        <label>[[booleanField4Label]]</label>
+        <div>[[i18n(document.properties.custom:booleanField4)]]</div>
+      </div>
+      <div hidden$="[[!booleanField5Visible]]" role="widget" class="sortable" id="[[booleanField5Order]]">
+        <label>[[booleanField5Label]]</label>
+        <div>[[i18n(document.properties.custom:booleanField5)]]</div>
+      </div>
+      <div hidden$="[[!booleanField6Visible]]" role="widget" class="sortable" id="[[booleanField6Order]]">
+        <label>[[booleanField6Label]]</label>
+        <div>[[i18n(document.properties.custom:booleanField6)]]</div>
+      </div>
+      <div hidden$="[[!booleanField7Visible]]" role="widget" class="sortable" id="[[booleanField7Order]]">
+        <label>[[booleanField7Label]]</label>
+        <div>[[i18n(document.properties.custom:booleanField7)]]</div>
+      </div>
+      <div hidden$="[[!booleanField8Visible]]" role="widget" class="sortable" id="[[booleanField8Order]]">
+        <label>[[booleanField8Label]]</label>
+        <div>[[i18n(document.properties.custom:booleanField8)]]</div>
+      </div>
+      <div hidden$="[[!booleanField9Visible]]" role="widget" class="sortable" id="[[booleanField9Order]]">
+        <label>[[booleanField9Label]]</label>
+        <div>[[i18n(document.properties.custom:booleanField9)]]</div>
+      </div>
+      <div hidden$="[[!booleanField10Visible]]" role="widget" class="sortable" id="[[booleanField10Order]]">
+        <label>[[booleanField10Label]]</label>
+        <div>[[i18n(document.properties.custom:booleanField10)]]</div>
+      </div>
+
     </div>
   </iron-pages>
   </template>
   <script>
     Polymer({
       is: 'qualitified-custom-fields',
-      behaviors: [Nuxeo.LayoutBehavior,Nuxeo.I18nBehavior],
+      behaviors: [Nuxeo.LayoutBehavior,Nuxeo.I18nBehavior,Nuxeo.FiltersBehavior],
       properties: {
         document: {
           type: Object,
@@ -1339,12 +1379,18 @@ id=<!--
         booleanField1Label : {
           type: String
         },
+        booleanField1Order : {
+          type: Number
+        },
         booleanField2Visible : {
           type: Boolean,
           value: false
         },
         booleanField2Label : {
           type: String
+        },
+        booleanField2Order : {
+          type: Number
         },
         booleanField3Visible : {
           type: Boolean,
@@ -1353,12 +1399,18 @@ id=<!--
         booleanField3Label : {
           type: String
         },
+        booleanField3Order : {
+          type: Number
+        },
         booleanField4Visible : {
           type: Boolean,
           value: false
         },
         booleanField4Label : {
           type: String
+        },
+        booleanField4Order : {
+          type: Number
         },
         booleanField5Visible : {
           type: Boolean,
@@ -1367,12 +1419,18 @@ id=<!--
         booleanField5Label : {
           type: String
         },
+        booleanField5Order : {
+          type: Number
+        },
         booleanField6Visible : {
           type: Boolean,
           value: false
         },
         booleanField6Label : {
           type: String
+        },
+        booleanField6Order : {
+          type: Number
         },
         booleanField7Visible : {
           type: Boolean,
@@ -1381,12 +1439,18 @@ id=<!--
         booleanField7Label : {
           type: String
         },
+        booleanField7Order : {
+          type: Number
+        },
         booleanField8Visible : {
           type: Boolean,
           value: false
         },
         booleanField8Label : {
           type: String
+        },
+        booleanField8Order : {
+          type: Number
         },
         booleanField9Visible : {
           type: Boolean,
@@ -1395,6 +1459,9 @@ id=<!--
         booleanField9Label : {
           type: String
         },
+        booleanField9Order : {
+          type: Number
+        },
         booleanField10Visible : {
           type: Boolean,
           value: false
@@ -1402,7 +1469,9 @@ id=<!--
         booleanField10Label : {
           type: String
         },
-
+        booleanField10Order : {
+          type: Number
+        },
         fileField1Visible : {
           type: Boolean,
           value: false
@@ -1896,42 +1965,52 @@ id=<!--
             if(field.fieldName === 'booleanField1'){
                 this.booleanField1Visible = true;
                 this.booleanField1Label = field.label;
+                this.booleanField1Order = i;
             }
             if(field.fieldName === 'booleanField2'){
                 this.booleanField2Visible = true;
                 this.booleanField2Label = field.label;
+                this.booleanField2Order = i;
             }
             if(field.fieldName === 'booleanField3'){
                 this.booleanField3Visible = true;
                 this.booleanField3Label = field.label;
+                this.booleanField3Order = i;
             }
             if(field.fieldName === 'booleanField4'){
                 this.booleanField4Visible = true;
                 this.booleanField4Label = field.label;
+                this.booleanField4Order = i;
             }
             if(field.fieldName === 'booleanField5'){
                 this.booleanField5Visible = true;
                 this.booleanField5Label = field.label;
+                this.booleanField5Order = i;
             }
             if(field.fieldName === 'booleanField6'){
                 this.booleanField6Visible = true;
                 this.booleanField6Label = field.label;
+                this.booleanField6Order = i;
             }
             if(field.fieldName === 'booleanField7'){
                 this.booleanField7Visible = true;
                 this.booleanField7Label = field.label;
+                this.booleanField7Order = i;
             }
             if(field.fieldName === 'booleanField8'){
                 this.booleanField8Visible = true;
                 this.booleanField8Label = field.label;
+                this.booleanField8Order = i;
             }
             if(field.fieldName === 'booleanField9'){
                 this.booleanField9Visible = true;
                 this.booleanField9Label = field.label;
+                this.booleanField9Order = i;
             }
             if(field.fieldName === 'booleanField10'){
                 this.booleanField10Visible = true;
                 this.booleanField10Label = field.label;
+                this.booleanField10Order = i;
             }
 
             if(field.fieldName === 'userField1'){
