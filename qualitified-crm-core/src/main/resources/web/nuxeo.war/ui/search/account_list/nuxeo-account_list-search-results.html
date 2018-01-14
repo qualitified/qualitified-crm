@@ -36,20 +36,6 @@
           </template>
         </nuxeo-data-table-column>
 
-        <nuxeo-data-table-column hidden$="[[!stringField1Visibility]]" name="[[stringField1Label]]" field="custom:stringField1" sort-by="custom:stringField1"
-                                 flex="50" hidden>
-          <template>
-            [[formatDirectory(item.properties.custom:stringField1)]]
-          </template>
-        </nuxeo-data-table-column>
-
-        <nuxeo-data-table-column hidden$="[[!stringField2Visibility]]" name="[[stringField2Label]]" field="custom:stringField2" sort-by="custom:stringField2"
-                                 flex="50" hidden>
-          <template>
-            [[formatDirectory(item.properties.custom:stringField2)]]
-          </template>
-        </nuxeo-data-table-column>
-
       </nuxeo-data-table>
     </nuxeo-results>
   </template>

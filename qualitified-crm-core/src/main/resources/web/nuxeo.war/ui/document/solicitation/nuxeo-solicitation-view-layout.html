@@ -4,10 +4,35 @@
       *[role=widget] {
         padding: 5px;
       }
+      nuxeo-data-table {
+        background-color: #fff;
+        height: 100%;
+      }
+
+      .dataTable{
+        height: 300px;
+      }
+
+      .queue-thumbnail {
+        height: 32px;
+        width: 32px;
+        border-radius: 20px;
+        box-sizing: border-box;
+        margin-right: 8px;
+      }
+
+      .queue-thumbnail ::content img {
+        height: 32px;
+        width: 32px;
+        border-radius: 20px;
+        box-sizing: border-box;
+        margin-right: 8px;
+      }
+
       .results {
         @apply(--layout-vertical);
         @apply(--layout-flex);
-        min-height: calc(112vh - 14em);
+        min-height: calc(60vh - 14em);
         margin-top: 8px;
       }
     </style>
@@ -54,8 +79,8 @@
         <nuxeo-data-table class="results" role="widget" id="datatable" items="[[documents]]" on-row-clicked="_navigate">
           <nuxeo-data-table-column name="Full text search" flex="100" filter-by="ecm_fulltext" sort-by="dc:title">
             <template>
-              <nuxeo-document-thumbnail document=[[item]]></nuxeo-document-thumbnail>
-              [[item.title]]
+              <img class="queue-thumbnail" src="[[_thumbnail(item)]]">
+              <a class="title ellipsis" href$="#!/browse[[item.path]]" on-tap="_navigate">[[item.title]]</a>
             </template>
           </nuxeo-data-table-column>
           <nuxeo-data-table-column filter-by="dc_modified_agg" flex="50" sort-by="dc:modified">
