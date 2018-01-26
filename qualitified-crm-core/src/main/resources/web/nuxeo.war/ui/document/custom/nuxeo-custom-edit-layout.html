@@ -56,6 +56,22 @@
         </template>
       </nuxeo-data-table-column>
 
+      <nuxeo-data-table-column name="[[i18n('label.metadata.custom.readgroup')]]">
+        <template>
+          <div>[[item.readGroup]]</div>
+        </template>
+      </nuxeo-data-table-column>
+      <nuxeo-data-table-column name="[[i18n('label.metadata.custom.editgroup')]]">
+        <template>
+          <div>[[item.editGroup]]</div>
+        </template>
+      </nuxeo-data-table-column>
+      <nuxeo-data-table-column name="[[i18n('label.metadata.custom.hiddengroup')]]">
+        <template>
+          <div>[[item.hiddenGroup]]</div>
+        </template>
+      </nuxeo-data-table-column>
+
       <nuxeo-data-table-form>
         <template>
           <div class="editor flex container">
@@ -65,6 +81,9 @@
             <paper-checkbox checked="{{item.required}}"></paper-checkbox> Required
             <paper-input role="widget" value="{{item.vocabularyName}}" label="Vocabulary Name"></paper-input>
             <paper-input role="widget" value="{{item.format}}" label="Format"></paper-input>
+            <paper-input role="widget" value="{{item.readGroup}}" label="Read Group"></paper-input>
+            <paper-input role="widget" value="{{item.editGroup}}" label="Edit Group"></paper-input>
+            <paper-input role="widget" value="{{item.hiddenGroup}}" label="Hidden Group"></paper-input>
             <!--nuxeo-select role="widget"
                           label="[[i18n('label.metadata.custom.type')]]"
                           options="[[types]]"

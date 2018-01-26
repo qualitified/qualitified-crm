@@ -70,5 +70,8 @@
   "label.metadata.custom.vocabularyname":"Vocabulary Name",
   "app.customization":"Customization",
   "app.solicitations":"Solicitations",
-  "label.metadata.custom.format":"Format"
+  "label.metadata.custom.format":"Format",
+  "label.metadata.custom.readgroup":"Read Group",
+  "label.metadata.custom.editgroup":"Edit Group",
+  "label.metadata.custom.hiddengroup":"Hidden Group"
 }

@@ -46,6 +46,12 @@
       <xs:element name="vocabularyName" type="xs:string"/>
       <xs:element name="fieldName" type="xs:string"/>
       <xs:element name="format" type="xs:string"/>
+      <xs:element name="read" type="xs:boolean"/>
+      <xs:element name="edit" type="xs:boolean"/>
+      <xs:element name="hidden" type="xs:boolean"/>
+      <xs:element name="readGroup" type="xs:string"/>
+      <xs:element name="editGroup" type="xs:string"/>
+      <xs:element name="hiddenGroup" type="xs:string"/>
     </xs:sequence>
   </xs:complexType>
 
@@ -110,16 +116,6 @@
       <xs:restriction base="xs:string" ref:resolver="directoryResolver"/>
     </xs:simpleType>
   </xs:element>
-  <!--xs:element name="vocabularyField1" type="xs:string"/>
-  <xs:element name="vocabularyField2" type="xs:string"/>
-  <xs:element name="vocabularyField3" type="xs:string"/>
-  <xs:element name="vocabularyField4" type="xs:string"/>
-  <xs:element name="vocabularyField5" type="xs:string"/>
-  <xs:element name="vocabularyField6" type="xs:string"/>
-  <xs:element name="vocabularyField7" type="xs:string"/>
-  <xs:element name="vocabularyField8" type="xs:string"/>
-  <xs:element name="vocabularyField9" type="xs:string"/>
-  <xs:element name="vocabularyField10" type="xs:string"/-->
 
   <xs:element name="userField1" type="xs:string"/>
   <xs:element name="userField2" type="xs:string"/>

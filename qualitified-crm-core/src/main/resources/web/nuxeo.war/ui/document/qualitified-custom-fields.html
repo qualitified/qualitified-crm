@@ -6,6 +6,7 @@
 <script src="../dist/tinysort.min.js"></script>
 <dom-module id="qualitified-custom-fields">
   <template>
+    <nuxeo-connection id="nxcon" user="{{user}}"></nuxeo-connection>
     <nuxeo-operation id="getCustomFields" op="getCustomFieldsChain" input="[[document.uid]]" params="[[params]]"></nuxeo-operation>
     <nuxeo-operation id="getVocabularyLabel" op="javascript.getVocabularyLabel" input="[[document.uid]]" params="[[params2]]"></nuxeo-operation>
 
@@ -427,6 +428,10 @@
           value: {}
         },
         params2:{
+          type: Object,
+          value: {}
+        },
+        user: {
           type: Object,
           value: {}
         },
@@ -1633,136 +1638,175 @@
 
         }
       },
+
+      _hasPermission: function(groupName) {
+        return this.user && this.user.properties && this.user.properties.groups && this.user.properties.groups.indexOf(groupName) !== -1;
+      },
+
+      _isVisible: function(readGroup, editGroup, hiddenGroup){
+          if(hiddenGroup !== null){
+            var hiddenGroups = hiddenGroup.split(',');
+            for(var i=0; i < hiddenGroup.length; i++){
+              if(this._hasPermission(hiddenGroups[i])){
+                return true;
+              }
+            }
+            return false;
+          }
+
+          if(this._isMode('edit') && editGroup !== null){
+            var editGroups = editGroup.split(',');
+            for(var i=0; i < editGroups.length; i++){
+              if(this._hasPermission(editGroups[i])){
+                return true;
+              }
+            }
+            return false;
+          }
+
+          if(this._isMode('read') && readGroup !== null){
+            var readGroups = readGroup.split(',');
+            for(var i=0; i < readGroups.length; i++){
+              if(this._hasPermission(readGroups[i])){
+                return true;
+              }
+            }
+            return false;
+          }
+
+          return true;
+      },
+
       _customLoaded: function(){
         if(this.custom){
           var i = 0;
           this.custom.forEach(function(field) {
             if(field.fieldName === 'stringField1'){
-              this.stringField1Visible = true;
+              this.stringField1Visible = this._isVisible(field.readGroup,field.editGroup,field.hiddenGroup);
               this.stringField1Label = field.label;
               this.stringField1Required = field.required;
               this.stringField1Order = i;
             }
             if(field.fieldName === 'stringField2'){
-              this.stringField2Visible = true;
+              this.stringField2Visible = this._isVisible(field.readGroup,field.editGroup,field.hiddenGroup);
               this.stringField2Label = field.label;
               this.stringField2Required = field.required;
               this.stringField2Order = i;
             }
             if(field.fieldName === 'stringField3'){
-              this.stringField3Visible = true;
+              this.stringField3Visible = this._isVisible(field.readGroup,field.editGroup,field.hiddenGroup);
               this.stringField3Label = field.label;
               this.stringField3Required = field.required;
               this.stringField3Order = i;
             }
             if(field.fieldName === 'stringField4'){
-                this.stringField4Visible = true;
+                this.stringField4Visible = this._isVisible(field.readGroup,field.editGroup,field.hiddenGroup);
                 this.stringField4Label = field.label;
                 this.stringField4Required = field.required;
                 this.stringField4Order = i;
             }
             if(field.fieldName === 'stringField5'){
-                this.stringField5Visible = true;
+                this.stringField5Visible = this._isVisible(field.readGroup,field.editGroup,field.hiddenGroup);
                 this.stringField5Label = field.label;
                 this.stringField5Required = field.required;
                 this.stringField5Order = i;
             }
             if(field.fieldName === 'stringField6'){
-                this.stringField6Visible = true;
+                this.stringField6Visible = this._isVisible(field.readGroup,field.editGroup,field.hiddenGroup);
                 this.stringField6Label = field.label;
                 this.stringField6Required = field.required;
                 this.stringField6Order = i;
             }
             if(field.fieldName === 'stringField7'){
-                this.stringField7Visible = true;
+                this.stringField7Visible = this._isVisible(field.readGroup,field.editGroup,field.hiddenGroup);
                 this.stringField7Label = field.label;
                 this.stringField7Required = field.required;
                 this.stringField7Order = i;
             }
             if(field.fieldName === 'stringField8'){
-                this.stringField8Visible = true;
+                this.stringField8Visible = this._isVisible(field.readGroup,field.editGroup,field.hiddenGroup);
                 this.stringField8Label = field.label;
                 this.stringField8Required = field.required;
                 this.stringField8Order = i;
             }
             if(field.fieldName === 'stringField9'){
-                this.stringField9Visible = true;
+                this.stringField9Visible = this._isVisible(field.readGroup,field.editGroup,field.hiddenGroup);
                 this.stringField9Label = field.label;
                 this.stringField9Required = field.required;
                 this.stringField9Order = i;
             }
             if(field.fieldName === 'stringField10'){
-                this.stringField10Visible = true;
+                this.stringField10Visible = this._isVisible(field.readGroup,field.editGroup,field.hiddenGroup);
                 this.stringField10Label = field.label;
                 this.stringField10Required = field.required;
                 this.stringField10Order = i;
             }
 
             if(field.fieldName === 'vocabularyField1'){
-              this.vocabularyField1Visible = true;
+              this.vocabularyField1Visible = this._isVisible(field.readGroup,field.editGroup,field.hiddenGroup);
               this.vocabularyField1Label = field.label;
               this.vocabularyField1Name = field.vocabularyName;
               this.vocabularyField1Required = field.required;
               this.vocabularyField1Order = i;
             }
             if(field.fieldName === 'vocabularyField2'){
-              this.vocabularyField2Visible = true;
+              this.vocabularyField2Visible = this._isVisible(field.readGroup,field.editGroup,field.hiddenGroup);
               this.vocabularyField2Label = field.label;
               this.vocabularyField2Name = field.vocabularyName;
               this.vocabularyField2Required = field.required;
               this.vocabularyField2Order = i;
             }
             if(field.fieldName === 'vocabularyField3'){
-              this.vocabularyField3Visible = true;
+              this.vocabularyField3Visible = this._isVisible(field.readGroup,field.editGroup,field.hiddenGroup);
               this.vocabularyField3Label = field.label;
               this.vocabularyField3Name = field.vocabularyName;
               this.vocabularyField3Required = field.required;
               this.vocabularyField3Order = i;
             }
             if(field.fieldName === 'vocabularyField4'){
-                this.vocabularyField4Visible = true;
+                this.vocabularyField4Visible = this._isVisible(field.readGroup,field.editGroup,field.hiddenGroup);
                 this.vocabularyField4Label = field.label;
                 this.vocabularyField4Name = field.vocabularyName;
                 this.vocabularyField4Required = field.required;
                 this.vocabularyField4Order = i;
             }
             if(field.fieldName === 'vocabularyField5'){
-                this.vocabularyField5Visible = true;
+                this.vocabularyField5Visible = this._isVisible(field.readGroup,field.editGroup,field.hiddenGroup);
                 this.vocabularyField5Label = field.label;
                 this.vocabularyField5Name = field.vocabularyName;
                 this.vocabularyField5Required = field.required;
                 this.vocabularyField5Order = i;
             }
             if(field.fieldName === 'vocabularyField6'){
-                this.vocabularyField6Visible = true;
+                this.vocabularyField6Visible = this._isVisible(field.readGroup,field.editGroup,field.hiddenGroup);
                 this.vocabularyField6Label = field.label;
                 this.vocabularyField6Name = field.vocabularyName;
                 this.vocabularyField6Required = field.required;
                 this.vocabularyField6Order = i;
             }
             if(field.fieldName === 'vocabularyField7'){
-                this.vocabularyField7Visible = true;
+                this.vocabularyField7Visible = this._isVisible(field.readGroup,field.editGroup,field.hiddenGroup);
                 this.vocabularyField7Label = field.label;
                 this.vocabularyField7Name = field.vocabularyName;
                 this.vocabularyField7Required = field.required;
                 this.vocabularyField7Order = i;
             }
             if(field.fieldName === 'vocabularyField8'){
-                this.vocabularyField8Visible = true;
+                this.vocabularyField8Visible = this._isVisible(field.readGroup,field.editGroup,field.hiddenGroup);
                 this.vocabularyField8Label = field.label;
                 this.vocabularyField8Name = field.vocabularyName;
                 this.vocabularyField8Required = field.required;
                 this.vocabularyField8Order = i;
             }
             if(field.fieldName === 'vocabularyField9'){
-                this.vocabularyField9Visible = true;
+                this.vocabularyField9Visible = this._isVisible(field.readGroup,field.editGroup,field.hiddenGroup);
                 this.vocabularyField9Label = field.label;
                 this.vocabularyField9Name = field.vocabularyName;
                 this.vocabularyField9Required = field.required;
                 this.vocabularyField9Order = i;
             }
             if(field.fieldName === 'vocabularyField10'){
-                this.vocabularyField10Visible = true;
+                this.vocabularyField10Visible = this._isVisible(field.readGroup,field.editGroup,field.hiddenGroup);
                 this.vocabularyField10Label = field.label;
                 this.vocabularyField10Name = field.vocabularyName;
                 this.vocabularyField10Required = field.required;
@@ -1770,131 +1814,131 @@
             }
 
             if(field.fieldName === 'doubleField1'){
-                this.doubleField1Visible = true;
+                this.doubleField1Visible = this._isVisible(field.readGroup,field.editGroup,field.hiddenGroup);
                 this.doubleField1Label = field.label;
                 this.doubleField1Required = field.required;
                 this.doubleField1Order = i;
             }
             if(field.fieldName === 'doubleField2'){
-                this.doubleField2Visible = true;
+                this.doubleField2Visible = this._isVisible(field.readGroup,field.editGroup,field.hiddenGroup);
                 this.doubleField2Label = field.label;
                 this.doubleField2Required = field.required;
                 this.doubleField2Order = i;
             }
             if(field.fieldName === 'doubleField3'){
-                this.doubleField3Visible = true;
+                this.doubleField3Visible = this._isVisible(field.readGroup,field.editGroup,field.hiddenGroup);
                 this.doubleField3Label = field.label;
                 this.doubleField3Required = field.required;
                 this.doubleField3Order = i;
             }
             if(field.fieldName === 'doubleField4'){
-                this.doubleField4Visible = true;
+                this.doubleField4Visible = this._isVisible(field.readGroup,field.editGroup,field.hiddenGroup);
                 this.doubleField4Label = field.label;
                 this.doubleField4Required = field.required;
                 this.doubleField4Order = i;
             }
             if(field.fieldName === 'doubleField5'){
-                this.doubleField5Visible = true;
+                this.doubleField5Visible = this._isVisible(field.readGroup,field.editGroup,field.hiddenGroup);
                 this.doubleField5Label = field.label;
                 this.doubleField5Required = field.required;
                 this.doubleField5Order = i;
             }
             if(field.fieldName === 'doubleField6'){
-                this.doubleField6Visible = true;
+                this.doubleField6Visible = this._isVisible(field.readGroup,field.editGroup,field.hiddenGroup);
                 this.doubleField6Label = field.label;
                 this.doubleField6Required = field.required;
                 this.doubleField6Order = i;
             }
             if(field.fieldName === 'doubleField7'){
-                this.doubleField7Visible = true;
+                this.doubleField7Visible = this._isVisible(field.readGroup,field.editGroup,field.hiddenGroup);
                 this.doubleField7Label = field.label;
                 this.doubleField7Required = field.required;
                 this.doubleField7Order = i;
             }
             if(field.fieldName === 'doubleField8'){
-                this.doubleField8Visible = true;
+                this.doubleField8Visible = this._isVisible(field.readGroup,field.editGroup,field.hiddenGroup);
                 this.doubleField8Label = field.label;
                 this.doubleField8Required = field.required;
                 this.doubleField8Order = i;
             }
             if(field.fieldName === 'doubleField9'){
-                this.doubleField9Visible = true;
+                this.doubleField9Visible = this._isVisible(field.readGroup,field.editGroup,field.hiddenGroup);
                 this.doubleField9Label = field.label;
                 this.doubleField9Required = field.required;
                 this.doubleField9Order = i;
             }
             if(field.fieldName === 'doubleField10'){
-                this.doubleField10Visible = true;
+                this.doubleField10Visible = this._isVisible(field.readGroup,field.editGroup,field.hiddenGroup);
                 this.doubleField10Label = field.label;
                 this.doubleField10Required = field.required;
                 this.doubleField10Order = i;
             }
 
             if(field.fieldName === 'dateField1'){
-                this.dateField1Visible = true;
+                this.dateField1Visible = this._isVisible(field.readGroup,field.editGroup,field.hiddenGroup);
                 this.dateField1Label = field.label;
                 this.dateField1Required = field.required;
                 this.dateField1Format = field.format;
                 this.dateField1Order = i;
             }
             if(field.fieldName === 'dateField2'){
-                this.dateField2Visible = true;
+                this.dateField2Visible = this._isVisible(field.readGroup,field.editGroup,field.hiddenGroup);
                 this.dateField2Label = field.label;
                 this.dateField2Required = field.required;
                 this.dateField2Format = field.format;
                 this.dateField2Order = i;
             }
             if(field.fieldName === 'dateField3'){
-                this.dateField3Visible = true;
+                this.dateField3Visible = this._isVisible(field.readGroup,field.editGroup,field.hiddenGroup);
                 this.dateField3Label = field.label;
                 this.dateField3Required = field.required;
                 this.dateField3Format = field.format;
                 this.dateField3Order = i;
             }
             if(field.fieldName === 'dateField4'){
-                this.dateField4Visible = true;
+                this.dateField4Visible = this._isVisible(field.readGroup,field.editGroup,field.hiddenGroup);
                 this.dateField4Label = field.label;
                 this.dateField4Required = field.required;
                 this.dateField4Format = field.format;
                 this.dateField4Order = i;
             }
             if(field.fieldName === 'dateField5'){
-                this.dateField5Visible = true;
+                this.dateField5Visible = this._isVisible(field.readGroup,field.editGroup,field.hiddenGroup);
                 this.dateField5Label = field.label;
                 this.dateField5Required = field.required;
                 this.dateField5Format = field.format;
                 this.dateField5Order = i;
             }
             if(field.fieldName === 'dateField6'){
-                this.dateField6Visible = true;
+                this.dateField6Visible = this._isVisible(field.readGroup,field.editGroup,field.hiddenGroup);
                 this.dateField6Label = field.label;
                 this.dateField6Required = field.required;
                 this.dateField6Format = field.format;
                 this.dateField6Order = i;
             }
             if(field.fieldName === 'dateField7'){
-                this.dateField7Visible = true;
+                this.dateField7Visible = this._isVisible(field.readGroup,field.editGroup,field.hiddenGroup);
                 this.dateField7Label = field.label;
                 this.dateField7Required = field.required;
                 this.dateField7Format = field.format;
                 this.dateField7Order = i;
             }
             if(field.fieldName === 'dateField8'){
-                this.dateField8Visible = true;
+                this.dateField8Visible = this._isVisible(field.readGroup,field.editGroup,field.hiddenGroup);
                 this.dateField8Label = field.label;
                 this.dateField8Required = field.required;
                 this.dateField8Format = field.format;
                 this.dateField8Order = i;
             }
             if(field.fieldName === 'dateField9'){
-                this.dateField9Visible = true;
+                this.dateField9Visible = this._isVisible(field.readGroup,field.editGroup,field.hiddenGroup);
                 this.dateField9Label = field.label;
                 this.dateField9Required = field.required;
                 this.dateField9Format = field.format;
                 this.dateField9Order = i;
             }
             if(field.fieldName === 'dateField10'){
-                this.dateField10Visible = true;
+                this.dateField10Visible = this._isVisible(field.readGroup,field.editGroup,field.hiddenGroup);
                 this.dateField10Label = field.label;
                 this.dateField10Required = field.required;
                 this.dateField10Format = field.format;
@@ -1902,224 +1946,224 @@
             }
 
             if(field.fieldName === 'integerField1'){
-                this.integerField1Visible = true;
+                this.integerField1Visible = this._isVisible(field.readGroup,field.editGroup,field.hiddenGroup);
                 this.integerField1Label = field.label;
                 this.integerField1Required = field.required;
                 this.integerField1Order = i;
             }
             if(field.fieldName === 'integerField2'){
-                this.integerField2Visible = true;
+                this.integerField2Visible = this._isVisible(field.readGroup,field.editGroup,field.hiddenGroup);
                 this.integerField2Label = field.label;
                 this.integerField2Required = field.required;
                 this.integerField2Order = i;
             }
             if(field.fieldName === 'integerField3'){
-                this.integerField3Visible = true;
+                this.integerField3Visible = this._isVisible(field.readGroup,field.editGroup,field.hiddenGroup);
                 this.integerField3Label = field.label;
                 this.integerField3Required = field.required;
                 this.integerField3Order = i;
             }
             if(field.fieldName === 'integerField4'){
-                this.integerField4Visible = true;
+                this.integerField4Visible = this._isVisible(field.readGroup,field.editGroup,field.hiddenGroup);
                 this.integerField4Label = field.label;
                 this.integerField4Required = field.required;
                 this.integerField4Order = i;
             }
             if(field.fieldName === 'integerField5'){
-                this.integerField5Visible = true;
+                this.integerField5Visible = this._isVisible(field.readGroup,field.editGroup,field.hiddenGroup);
                 this.integerField5Label = field.label;
                 this.integerField5Required = field.required;
                 this.integerField5Order = i;
             }
             if(field.fieldName === 'integerField6'){
-                this.integerField6Visible = true;
+                this.integerField6Visible = this._isVisible(field.readGroup,field.editGroup,field.hiddenGroup);
                 this.integerField6Label = field.label;
                 this.integerField6Required = field.required;
                 this.integerField6Order = i;
             }
             if(field.fieldName === 'integerField7'){
-                this.integerField7Visible = true;
+                this.integerField7Visible = this._isVisible(field.readGroup,field.editGroup,field.hiddenGroup);
                 this.integerField7Label = field.label;
                 this.integerField7Required = field.required;
                 this.integerField7Order = i;
             }
             if(field.fieldName === 'integerField8'){
-                this.integerField8Visible = true;
+                this.integerField8Visible = this._isVisible(field.readGroup,field.editGroup,field.hiddenGroup);
                 this.integerField8Label = field.label;
                 this.integerField8Required = field.required;
                 this.integerField8Order = i;
             }
             if(field.fieldName === 'integerField9'){
-                this.integerField9Visible = true;
+                this.integerField9Visible = this._isVisible(field.readGroup,field.editGroup,field.hiddenGroup);
                 this.integerField9Label = field.label;
                 this.integerField9Required = field.required;
                 this.integerField9Order = i;
             }
             if(field.fieldName === 'integerField10'){
-                this.integerField10Visible = true;
+                this.integerField10Visible = this._isVisible(field.readGroup,field.editGroup,field.hiddenGroup);
                 this.integerField10Label = field.label;
                 this.integerField10Required = field.required;
                 this.integerField10Order = i;
             }
 
             if(field.fieldName === 'booleanField1'){
-                this.booleanField1Visible = true;
+                this.booleanField1Visible = this._isVisible(field.readGroup,field.editGroup,field.hiddenGroup);
                 this.booleanField1Label = field.label;
                 this.booleanField1Order = i;
             }
             if(field.fieldName === 'booleanField2'){
-                this.booleanField2Visible = true;
+                this.booleanField2Visible = this._isVisible(field.readGroup,field.editGroup,field.hiddenGroup);
                 this.booleanField2Label = field.label;
                 this.booleanField2Order = i;
             }
             if(field.fieldName === 'booleanField3'){
-                this.booleanField3Visible = true;
+                this.booleanField3Visible = this._isVisible(field.readGroup,field.editGroup,field.hiddenGroup);
                 this.booleanField3Label = field.label;
                 this.booleanField3Order = i;
             }
             if(field.fieldName === 'booleanField4'){
-                this.booleanField4Visible = true;
+                this.booleanField4Visible = this._isVisible(field.readGroup,field.editGroup,field.hiddenGroup);
                 this.booleanField4Label = field.label;
                 this.booleanField4Order = i;
             }
             if(field.fieldName === 'booleanField5'){
-                this.booleanField5Visible = true;
+                this.booleanField5Visible = this._isVisible(field.readGroup,field.editGroup,field.hiddenGroup);
                 this.booleanField5Label = field.label;
                 this.booleanField5Order = i;
             }
             if(field.fieldName === 'booleanField6'){
-                this.booleanField6Visible = true;
+                this.booleanField6Visible = this._isVisible(field.readGroup,field.editGroup,field.hiddenGroup);
                 this.booleanField6Label = field.label;
                 this.booleanField6Order = i;
             }
             if(field.fieldName === 'booleanField7'){
-                this.booleanField7Visible = true;
+                this.booleanField7Visible = this._isVisible(field.readGroup,field.editGroup,field.hiddenGroup);
                 this.booleanField7Label = field.label;
                 this.booleanField7Order = i;
             }
             if(field.fieldName === 'booleanField8'){
-                this.booleanField8Visible = true;
+                this.booleanField8Visible = this._isVisible(field.readGroup,field.editGroup,field.hiddenGroup);
                 this.booleanField8Label = field.label;
                 this.booleanField8Order = i;
             }
             if(field.fieldName === 'booleanField9'){
-                this.booleanField9Visible = true;
+                this.booleanField9Visible = this._isVisible(field.readGroup,field.editGroup,field.hiddenGroup);
                 this.booleanField9Label = field.label;
                 this.booleanField9Order = i;
             }
             if(field.fieldName === 'booleanField10'){
-                this.booleanField10Visible = true;
+                this.booleanField10Visible = this._isVisible(field.readGroup,field.editGroup,field.hiddenGroup);
                 this.booleanField10Label = field.label;
                 this.booleanField10Order = i;
             }
 
             if(field.fieldName === 'userField1'){
-                this.userField1Visible = true;
+                this.userField1Visible = this._isVisible(field.readGroup,field.editGroup,field.hiddenGroup);
                 this.userField1Label = field.label;
                 this.userField1Required = field.required;
                 this.userField1Order = i;
             }
             if(field.fieldName === 'userField2'){
-                this.userField2Visible = true;
+                this.userField2Visible = this._isVisible(field.readGroup,field.editGroup,field.hiddenGroup);
                 this.userField2Label = field.label;
                 this.userField2Required = field.required;
                 this.userField2Order = i;
             }
             if(field.fieldName === 'userField3'){
-                this.userField3Visible = true;
+                this.userField3Visible = this._isVisible(field.readGroup,field.editGroup,field.hiddenGroup);
                 this.userField3Label = field.label;
                 this.userField3Required = field.required;
                 this.userField3Order = i;
             }
             if(field.fieldName === 'userField4'){
-                this.userField4Visible = true;
+                this.userField4Visible = this._isVisible(field.readGroup,field.editGroup,field.hiddenGroup);
                 this.userField4Label = field.label;
                 this.userField4Required = field.required;
                 this.userField4Order = i;
             }
             if(field.fieldName === 'userField5'){
-                this.userField5Visible = true;
+                this.userField5Visible = this._isVisible(field.readGroup,field.editGroup,field.hiddenGroup);
                 this.userField5Label = field.label;
                 this.userField5Required = field.required;
                 this.userField5Order = i;
             }
             if(field.fieldName === 'userField6'){
-                this.userField6Visible = true;
+                this.userField6Visible = this._isVisible(field.readGroup,field.editGroup,field.hiddenGroup);
                 this.userField6Label = field.label;
                 this.userField6Required = field.required;
                 this.userField6Order = i;
             }
             if(field.fieldName === 'userField7'){
-                this.userField7Visible = true;
+                this.userField7Visible = this._isVisible(field.readGroup,field.editGroup,field.hiddenGroup);
                 this.userField7Label = field.label;
                 this.userField7Required = field.required;
                 this.userField7Order = i;
             }
             if(field.fieldName === 'userField8'){
-                this.userField8Visible = true;
+                this.userField8Visible = this._isVisible(field.readGroup,field.editGroup,field.hiddenGroup);
                 this.userField8Label = field.label;
                 this.userField8Required = field.required;
                 this.userField8Order = i;
             }
             if(field.fieldName === 'userField9'){
-                this.userField9Visible = true;
+                this.userField9Visible = this._isVisible(field.readGroup,field.editGroup,field.hiddenGroup);
                 this.userField9Label = field.label;
                 this.userField9Required = field.required;
                 this.userField9Order = i;
             }
             if(field.fieldName === 'userField10'){
-                this.userField10Visible = true;
+                this.userField10Visible = this._isVisible(field.readGroup,field.editGroup,field.hiddenGroup);
                 this.userField10Label = field.label;
                 this.userField10Required = field.required;
                 this.userField10Order = i;
             }
             if(field.fieldName === 'fileField1'){
-                this.fileField1Visible = true;
+                this.fileField1Visible = this._isVisible(field.readGroup,field.editGroup,field.hiddenGroup);
                 this.fileField1Label = field.label;
                 this.fileField1Order = i;
             }
             if(field.fieldName === 'fileField2'){
-                this.fileField2Visible = true;
+                this.fileField2Visible = this._isVisible(field.readGroup,field.editGroup,field.hiddenGroup);
                 this.fileField2Label = field.label;
                 this.fileField2Order = i;
             }
             if(field.fieldName === 'fileField3'){
-                this.fileField3Visible = true;
+                this.fileField3Visible = this._isVisible(field.readGroup,field.editGroup,field.hiddenGroup);
                 this.fileField3Label = field.label;
                 this.fileField3Order = i;
             }
             if(field.fieldName === 'fileField4'){
-                this.fileField4Visible = true;
+                this.fileField4Visible = this._isVisible(field.readGroup,field.editGroup,field.hiddenGroup);
                 this.fileField4Label = field.label;
                 this.fileField4Order = i;
             }
             if(field.fieldName === 'fileField5'){
-                this.fileField5Visible = true;
+                this.fileField5Visible = this._isVisible(field.readGroup,field.editGroup,field.hiddenGroup);
                 this.fileField5Label = field.label;
                 this.fileField5Order = i;
             }
             if(field.fieldName === 'fileField6'){
-                this.fileField6Visible = true;
+                this.fileField6Visible = this._isVisible(field.readGroup,field.editGroup,field.hiddenGroup);
                 this.fileField6Label = field.label;
                 this.fileField6Order = i;
             }
             if(field.fieldName === 'fileField7'){
-                this.fileField7Visible = true;
+                this.fileField7Visible = this._isVisible(field.readGroup,field.editGroup,field.hiddenGroup);
                 this.fileField7Label = field.label;
                 this.fileField7Order = i;
             }
             if(field.fieldName === 'fileField8'){
-                this.fileField8Visible = true;
+                this.fileField8Visible = this._isVisible(field.readGroup,field.editGroup,field.hiddenGroup);
                 this.fileField8Label = field.label;
                 this.fileField8Order = i;
             }
             if(field.fieldName === 'fileField9'){
-                this.fileField9Visible = true;
+                this.fileField9Visible = this._isVisible(field.readGroup,field.editGroup,field.hiddenGroup);
                 this.fileField9Label = field.label;
                 this.fileField9Order = i;
             }
             if(field.fieldName === 'fileField10'){
-                this.fileField10Visible = true;
+                this.fileField10Visible = this._isVisible(field.readGroup,field.editGroup,field.hiddenGroup);
                 this.fileField10Label = field.label;
                 this.fileField10Order = i;
             }
