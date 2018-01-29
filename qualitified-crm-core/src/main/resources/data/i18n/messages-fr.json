@@ -84,5 +84,6 @@
   "label.metadata.custom.format":"Format",
   "label.metadata.custom.readgroup":"Groupe(s) lecture",
   "label.metadata.custom.editgroup":"Groupe(s) édition",
-  "label.metadata.custom.hiddengroup":"Groupe(s) caché"
+  "label.metadata.custom.hiddengroup":"Groupe(s) caché",
+  "label.metadata.custom.multivalue":"Multivalué"
 }

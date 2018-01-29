@@ -52,6 +52,7 @@
       <xs:element name="readGroup" type="xs:string"/>
       <xs:element name="editGroup" type="xs:string"/>
       <xs:element name="hiddenGroup" type="xs:string"/>
+      <xs:element name="multivalue" type="xs:boolean"/>
     </xs:sequence>
   </xs:complexType>
 

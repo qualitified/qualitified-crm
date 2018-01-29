@@ -71,7 +71,11 @@
           <div>[[item.hiddenGroup]]</div>
         </template>
       </nuxeo-data-table-column>
-
+      <nuxeo-data-table-column name="[[i18n('label.metadata.custom.multivalue')]]">
+        <template>
+          <div>[[item.multivalue]]</div>
+        </template>
+      </nuxeo-data-table-column>
       <nuxeo-data-table-form>
         <template>
           <div class="editor flex container">
@@ -84,6 +88,7 @@
             <paper-input role="widget" value="{{item.readGroup}}" label="Read Group"></paper-input>
             <paper-input role="widget" value="{{item.editGroup}}" label="Edit Group"></paper-input>
             <paper-input role="widget" value="{{item.hiddenGroup}}" label="Hidden Group"></paper-input>
+            <paper-checkbox checked="{{item.multivalue}}"></paper-checkbox> Multivalue
             <!--nuxeo-select role="widget"
                           label="[[i18n('label.metadata.custom.type')]]"
                           options="[[types]]"
