@@ -732,7 +732,7 @@
       <event>documentCreated</event>
       <event>documentModified</event>
       <filters>
-        <doctype>File</doctype>
+
         <doctype>Folder</doctype>
         <doctype>Account</doctype>
         <doctype>Contact</doctype>
@@ -758,6 +758,21 @@
         <attribute>Regular Document</attribute>
       </filters>
     </handler-->
+    <handler chainId="runScheduler1Chain">
+      <event>event1</event>
+    </handler>
+    <handler chainId="runScheduler2Chain">
+      <event>event2</event>
+    </handler>
+    <handler chainId="runScheduler3Chain">
+      <event>event3</event>
+    </handler>
+    <handler chainId="runScheduler4Chain">
+      <event>event4</event>
+    </handler>
+    <handler chainId="runScheduler5Chain">
+      <event>event5</event>
+    </handler>
   </extension>
   <extension target="org.nuxeo.ecm.core.lifecycle.LifeCycleService" point="lifecycle">
     <lifecycle name="default" defaultInitial="project">
@@ -1025,6 +1040,36 @@
       </operation>
       <operation id="javascript.preSave"/>
       <operation id="Auth.Logout"/>
+    </chain>
+    <chain id="runScheduler1Chain">
+      <operation id="Auth.LoginAs">
+        <param type="string" name="name">Administrator</param>
+      </operation>
+      <operation id="javascript.runScheduler1"/>
+    </chain>
+    <chain id="runScheduler2Chain">
+      <operation id="Auth.LoginAs">
+        <param type="string" name="name">Administrator</param>
+      </operation>
+      <operation id="javascript.runScheduler2"/>
+    </chain>
+    <chain id="runScheduler3Chain">
+      <operation id="Auth.LoginAs">
+        <param type="string" name="name">Administrator</param>
+      </operation>
+      <operation id="javascript.runScheduler3"/>
+    </chain>
+    <chain id="runScheduler4Chain">
+      <operation id="Auth.LoginAs">
+        <param type="string" name="name">Administrator</param>
+      </operation>
+      <operation id="javascript.runScheduler4"/>
+    </chain>
+    <chain id="runScheduler5Chain">
+      <operation id="Auth.LoginAs">
+        <param type="string" name="name">Administrator</param>
+      </operation>
+      <operation id="javascript.runScheduler5"/>
     </chain>
     <!--chain id="getVocabularyLabel">
       <operation id="Context.SetVar">
@@ -1362,18 +1407,21 @@
       <category>javascript</category>
       <description></description>
       <script><![CDATA[function run(input, params) {
-        params.isCreation = input['dc:created'] === null && input['dc:modified'] === null || Fn.calendar(input['dc:created']).format("yyyy-MM-dd HH:mm:ss.SSS") == Fn.calendar(input['dc:modified']).format("yyyy-MM-dd HH:mm:ss.SSS");
-
-        //run preSave script
-        var myScriptDoc = Repository.Query(null, {'query': 'SELECT * FROM ScriptNote WHERE ecm:isProxy = 0 AND ecm:isCheckedInVersion = 0 AND ecm:currentLifeCycleState != \'deleted\' AND dc:title = \''+input.type+'PreSave\''});
-        var myScript = "";
-        if(myScriptDoc.length > 0){
-          myScript = myScriptDoc[0]['note:note'];
-        }
-        if(myScript !== ""){
-          //myScript += '\nreturn input;'
-          //return new Function(myScript)();
-          eval(myScript);
+        var result = Qualitified.GetContextData(input,{'variable':'isAlreadyPreSaved'});
+        if (result !== 'true'){
+          //Qualitified.PutContextData(input,{'variable':'login', 'value':'Administrator'});
+          params.isCreation = input['dc:created'] === null && input['dc:modified'] === null || Fn.calendar(input['dc:created']).format("yyyy-MM-dd HH:mm:ss.SSS") == Fn.calendar(input['dc:modified']).format("yyyy-MM-dd HH:mm:ss.SSS");
+          //run preSave script
+          var myScriptDoc = Repository.Query(null, {'query': 'SELECT * FROM ScriptNote WHERE ecm:isProxy = 0 AND ecm:isCheckedInVersion = 0 AND ecm:currentLifeCycleState != \'deleted\' AND dc:title = \''+input.type+'PreSave\''});
+          var myScript = "";
+          if(myScriptDoc.length > 0){
+            myScript = myScriptDoc[0]['note:note'];
+          }
+          if(myScript !== ""){
+            //myScript += "\nQualitified.PutContextData(input,{'variable':'isAlreadyPreSaved', 'value':'true'});Qualitified.Save(input, {});";
+            myScript += "\nQualitified.PutContextData(input,{'variable':'isAlreadyPreSaved', 'value':'true'});";
+            eval(myScript);
+          }
         }
         return input;
         }]]>
@@ -1409,20 +1457,107 @@
         }]]>
       </script>
     </scriptedOperation>
-    <scriptedOperation id="javascript.changeStateToApproved">
-      <inputType>documents</inputType>
+    <scriptedOperation id="javascript.runScheduler1">
+      <inputType>void</inputType>
       <outputType>void</outputType>
       <category>javascript</category>
       <description></description>
       <script><![CDATA[function run(input, params) {
-          input.forEach(function(doc){
-            Document.FollowLifecycleTransition(doc, {'value': 'approve'});
-          });
+        var myScriptDoc = Repository.Query(null, {'query': 'SELECT * FROM ScriptNote WHERE ecm:isProxy = 0 AND ecm:isCheckedInVersion = 0 AND ecm:currentLifeCycleState != \'deleted\' AND dc:title ILIKE \'runDailyAt20h\''});
+        var myScript = "";
+        if(myScriptDoc.length > 0){
+          myScript = myScriptDoc[0]['note:note'];
+        }
+        if(myScript !== ""){
+          eval(myScript);
+        }
+        return input;
+        }]]>
+      </script>
+    </scriptedOperation>
+    <scriptedOperation id="javascript.runScheduler2">
+      <inputType>void</inputType>
+      <outputType>void</outputType>
+      <category>javascript</category>
+      <description></description>
+      <script><![CDATA[function run(input, params) {
+        var myScriptDoc = Repository.Query(null, {'query': 'SELECT * FROM ScriptNote WHERE ecm:isProxy = 0 AND ecm:isCheckedInVersion = 0 AND ecm:currentLifeCycleState != \'deleted\' AND dc:title ILIKE \'runDailyAt21h\''});
+        var myScript = "";
+        if(myScriptDoc.length > 0){
+          myScript = myScriptDoc[0]['note:note'];
+        }
+        if(myScript !== ""){
+          eval(myScript);
+        }
+        return input;
+        }]]>
+      </script>
+    </scriptedOperation>
+    <scriptedOperation id="javascript.runScheduler3">
+      <inputType>void</inputType>
+      <outputType>void</outputType>
+      <category>javascript</category>
+      <description></description>
+      <script><![CDATA[function run(input, params) {
+        var myScriptDoc = Repository.Query(null, {'query': 'SELECT * FROM ScriptNote WHERE ecm:isProxy = 0 AND ecm:isCheckedInVersion = 0 AND ecm:currentLifeCycleState != \'deleted\' AND dc:title ILIKE \'runDailyAt22h\''});
+        var myScript = "";
+        if(myScriptDoc.length > 0){
+          myScript = myScriptDoc[0]['note:note'];
+        }
+        if(myScript !== ""){
+          eval(myScript);
+        }
+        return input;
+        }]]>
+      </script>
+    </scriptedOperation>
+    <scriptedOperation id="javascript.runScheduler4">
+      <inputType>void</inputType>
+      <outputType>void</outputType>
+      <category>javascript</category>
+      <description></description>
+      <script><![CDATA[function run(input, params) {
+        var myScriptDoc = Repository.Query(null, {'query': 'SELECT * FROM ScriptNote WHERE ecm:isProxy = 0 AND ecm:isCheckedInVersion = 0 AND ecm:currentLifeCycleState != \'deleted\' AND dc:title ILIKE \'runDailyAt23h\''});
+        var myScript = "";
+        if(myScriptDoc.length > 0){
+          myScript = myScriptDoc[0]['note:note'];
+        }
+        if(myScript !== ""){
+          eval(myScript);
+        }
+        return input;
+        }]]>
+      </script>
+    </scriptedOperation>
+    <scriptedOperation id="javascript.runScheduler5">
+      <inputType>void</inputType>
+      <outputType>void</outputType>
+      <category>javascript</category>
+      <description></description>
+      <script><![CDATA[function run(input, params) {
+        var myScriptDoc = Repository.Query(null, {'query': 'SELECT * FROM ScriptNote WHERE ecm:isProxy = 0 AND ecm:isCheckedInVersion = 0 AND ecm:currentLifeCycleState != \'deleted\' AND dc:title ILIKE \'runEvery10s\''});
+        var myScript = "";
+        if(myScriptDoc.length > 0){
+          myScript = myScriptDoc[0]['note:note'];
+        }
+        if(myScript !== ""){
+          eval(myScript);
+        }
+        return input;
         }]]>
       </script>
     </scriptedOperation>
   </extension>
   <extension target="org.nuxeo.ecm.platform.content.template.service.ContentTemplateService" point="factoryBinding">
+    <factoryBinding name="ScriptsFactory" factoryName="SimpleTemplateFactory" targetType="Scripts">
+      <template>
+        <templateItem typeName="Note" id="runDailyAt20h" title="RunDailyAt20h" description=""/>
+        <templateItem typeName="Note" id="runDailyAt21h" title="RunDailyAt21h" description=""/>
+        <templateItem typeName="Note" id="runDailyAt22h" title="RunDailyAt22h" description=""/>
+        <templateItem typeName="Note" id="runDailyAt23h" title="RunDailyAt23h" description=""/>
+        <templateItem typeName="Note" id="runEvery10s" title="RunEvery10s" description=""/>
+      </template>
+    </factoryBinding>
     <factoryBinding name="AdminFactory" factoryName="SimpleTemplateFactory" targetType="Admin">
       <template>
         <templateItem typeName="TemplateRoot" id="Templates" title="Templates" description=""/>
@@ -1666,5 +1801,37 @@
         <resource>nuxeo-crm-bundle.html</resource>
       </resources>
     </bundle>
-</extension>
+  </extension>
+  <extension target="org.nuxeo.ecm.platform.scheduler.core.service.SchedulerRegistryService" point="schedule">
+    <schedule id="scheduler1">
+      <eventId>event1</eventId>
+      <eventCategory>default</eventCategory>
+      <username>Administrator</username>
+      <cronExpression>0 0 20 * * ?</cronExpression>
+    </schedule>
+    <schedule id="scheduler2">
+      <eventId>event2</eventId>
+      <eventCategory>default</eventCategory>
+      <username>Administrator</username>
+      <cronExpression>0 0 21 * * ?</cronExpression>
+    </schedule>
+    <schedule id="scheduler3">
+      <eventId>event3</eventId>
+      <eventCategory>default</eventCategory>
+      <username>Administrator</username>
+      <cronExpression>0 0 22 * * ?</cronExpression>
+    </schedule>
+    <schedule id="scheduler4">
+      <eventId>event4</eventId>
+      <eventCategory>default</eventCategory>
+      <username>Administrator</username>
+      <cronExpression>0 0 23 * * ?</cronExpression>
+    </schedule>
+    <schedule id="scheduler5">
+      <eventId>event5</eventId>
+      <eventCategory>default</eventCategory>
+      <username>Administrator</username>
+      <cronExpression>0/10 * * * * ?</cronExpression>
+    </schedule>
+  </extension>
 </component>
