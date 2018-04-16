@@ -1,0 +1,135 @@
+<!--
+`qualitified-script-editor`
+@group Nuxeo UI
+@element qualitified-script-editor
+-->
+<link rel="import" href="code-mirror.html">
+<dom-module id="qualitified-script-editor">
+  <template>
+
+    <style include="nuxeo-styles iron-flex iron-flex-alignment">
+      :host {
+        display: block;
+      }
+
+      .main {
+        position: relative;
+      }
+
+      .edit {
+        position: absolute;
+        right: 10px;
+        top: 10px;
+      }
+
+      paper-textarea,
+      nuxeo-document-preview,
+      nuxeo-html-editor {
+        display: block;
+        height: 30px;
+      }
+
+      paper-textarea {
+        --paper-input-container-underline: {
+          border-bottom: none 0;
+        };
+        --paper-input-container-underline-focus: {
+          border-bottom: none 0;
+        };
+      }
+
+    </style>
+
+    <nuxeo-document id="note" doc-id="[[document.uid]]"></nuxeo-document>
+
+    <div class="main">
+      <template is="dom-if" if="[[_viewMode]]">
+        <paper-icon-button id="editNote" class="edit" icon="nuxeo:edit" on-tap="_edit" hidden$="[[!_canEdit(document)]]"></paper-icon-button>
+        <nuxeo-document-preview document="[[document]]"></nuxeo-document-preview>
+        function(input, params){
+          <code-mirror content={{_value}} read="false">
+            {{_value}}
+          </code-mirror>
+        <!--paper-textarea disabled$="true" value="{{_value}}"></paper-textarea-->
+        }
+      </template>
+      <template is="dom-if" if="[[!_viewMode]]">
+        function(input, params){
+        <code-mirror content={{_value}} read="false">
+          {{_value}}
+        </code-mirror>
+        }
+        <div class="layout horizontal end-justified">
+          <paper-button noink on-tap="_cancel">[[i18n('command.cancel')]]</paper-button>
+          <paper-button name="editorSave" noink class="primary" on-tap="_editorSave">[[i18n('command.save')]]</paper-button>
+        </div>
+      </template>
+    </div>
+
+  </template>
+
+</dom-module>
+
+<script>
+  (function() {
+    Polymer({
+      is: 'qualitified-script-editor',
+      behaviors: [Nuxeo.LayoutBehavior],
+      properties: {
+        document: {
+          type: Object,
+          observer: '_documentChanged'
+        },
+        _viewMode: {
+          type: Boolean,
+          value: true
+        },
+        _value: {
+          type: String,
+          value: ''
+        }
+      },
+
+      _documentChanged: function() {
+        this._value = this.document.properties['note:note'];
+      },
+
+      _isHTML: function() {
+        return this.document && this.document.properties['note:mime_type'] === 'text/html';
+      },
+
+      _editorSave: function() {
+        this.$.note.data = {
+          'entity-type': 'document',
+          uid: this.document.uid,
+          properties: {
+            'note:note': this._value
+          }
+        };
+        this.$.note.put().then(function() {
+          this.fire('notify', {message: "this.i18n('noteViewLayout.script.saved')"});
+          this._viewMode = true;
+          this.fire('document-updated');
+        }.bind(this));
+      },
+
+      _isMutable: function(document) {
+        return !this.hasFacet(document, 'Immutable') && document.type !== 'Root' && document.state !== 'deleted';
+      },
+
+      _canEdit: function(document) {
+        return document.type !== 'Root' && this.hasPermission(document, 'Write') && this._isMutable(document);
+      },
+
+      _edit: function() {
+        this._value = this.document.properties['note:note'];
+        this._viewMode = false;
+      },
+
+      _cancel: function() {
+        this._value = '';
+        this._viewMode = true;
+      }
+    });
+  })();
+</script>

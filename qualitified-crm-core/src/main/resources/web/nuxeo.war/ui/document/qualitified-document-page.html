@@ -112,6 +112,7 @@ Contributors:
       _documentChanged: function() {
         if (this.document) {
           this.edit = false;
+          window.dispatchEvent(new Event('resize'));
         }
       },
 

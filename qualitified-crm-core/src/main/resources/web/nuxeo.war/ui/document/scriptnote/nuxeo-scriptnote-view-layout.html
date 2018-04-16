@@ -20,11 +20,11 @@ limitations under the License.
 @group Nuxeo UI
 @element nuxeo-scriptnote-view-layout
 -->
+<link rel="import" href="qualitified-script-editor.html">
 <dom-module id="nuxeo-scriptnote-view-layout">
-
   <template>
-    <nuxeo-note-editor role="widget" document="[[document]]"></nuxeo-note-editor>
-    <nuxeo-document-attachments role="widget" document="[[document]]"></nuxeo-document-attachments>
+    <qualitified-script-editor role="widget" document="[[document]]"></qualitified-script-editor>
+    <!--nuxeo-document-attachments role="widget" document="[[document]]"></nuxeo-document-attachments-->
   </template>
 
   <script>
@@ -33,10 +33,14 @@ limitations under the License.
       behaviors: [Nuxeo.LayoutBehavior],
       properties: {
         /**
-         * @doctype Note
+         * @doctype NoteScript
          */
-        document: Object
-      }
+         document: {
+           type: Object
+         }
+      },
+      _documentChanged: function() {
+      },
     });
   </script>
 

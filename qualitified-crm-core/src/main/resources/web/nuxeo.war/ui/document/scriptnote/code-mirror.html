@@ -1,0 +1,140 @@
+<!--
+@license
+Copyright (c) 2015 The Polymer Project Authors. All rights reserved.
+This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
+The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
+The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
+Code distributed by Google as part of the polymer project is also
+subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
+-->
+
+<link rel="import" type="text/html" href="../../dist/codemirror/lib/codemirror.css">
+<link rel="import" type="text/html" href="../../dist/codemirror/addon/fold/foldgutter.css">
+<link rel="import" type="text/html" href="../../dist/codemirror/addon/dialog/dialog.css">
+<link rel="import" type="text/html" href="../../dist/codemirror/theme/monokai.css">
+<script src="../../dist/codemirror/lib/codemirror.js"></script>
+<script src="../../dist/codemirror/addon/search/searchcursor.js"></script>
+<script src="../../dist/codemirror/addon/search/search.js"></script>
+<script src="../../dist/codemirror/addon/dialog/dialog.js"></script>
+<script src="../../dist/codemirror/addon/edit/matchbrackets.js"></script>
+<script src="../../dist/codemirror/addon/edit/closebrackets.js"></script>
+<script src="../../dist/codemirror/addon/comment/comment.js"></script>
+<script src="../../dist/codemirror/addon/wrap/hardwrap.js"></script>
+<script src="../../dist/codemirror/addon/fold/foldcode.js"></script>
+<script src="../../dist/codemirror/addon/fold/brace-fold.js"></script>
+<script src="../../dist/codemirror/mode/javascript/javascript.js"></script>
+<script src="../../dist/codemirror/keymap/sublime.js"></script>
+
+<dom-module id="code-mirror">
+  <template>
+    <style>
+      :host {
+        display: block;
+        width: 100%;
+        height: 100%;
+        margin: 0;
+        box-sizing: border-box;
+      }
+      .CodeMirror {
+        border-top: 1px solid #eee;
+        border-bottom: 1px solid #eee;
+        line-height: 1.3;
+        height: 500px;
+        width: 100%;
+        height: 100%;
+        margin: 0;
+      }
+      .CodeMirror-linenumbers { padding: 0 8px; }
+
+      #editor {
+        width: 100%;
+        height: 100%;
+        margin: 0;
+      }
+    </style>
+    <div style="display: none"><content id="content"></content></div>
+    <paper-textarea id="editor" value="{{editedContent}}"></paper-textarea>
+  </template>
+  <script>
+    Polymer({
+      is: 'code-mirror',
+
+      properties: {
+        content: {
+          type: String,
+          value: "",
+          notify: true
+        },
+
+        _editor: {
+          type: Object,
+          notify: true
+        },
+
+        keyMap: {
+          type: String,
+          value: "sublime"
+        },
+
+        language: {
+          type: String,
+          value: "javascript"
+        },
+
+        tabSize: {
+          type: Number,
+          value: 2
+        },
+
+        theme: {
+          type: String,
+          value: "monokai"
+        },
+
+        editedContent:{
+          type: String,
+          value: "",
+          observer: "_contentChanged"
+        },
+        read:{
+          type: Boolean,
+          value : false
+        }
+      },
+
+      attached: function() {
+        var codeMirror=document.querySelector("code-mirror");
+        this.$.editor.value = this.textContent.trim();
+
+        this._editor = CodeMirror.fromTextArea(this.$.editor,{
+          lineNumbers: true,
+          mode: this.language,
+          keyMap: this.keyMap,
+          autoCloseBrackets: true,
+          matchBrackets: true,
+          showCursorWhenSelecting: true,
+          theme: this.theme,
+          tabSize: this.tabSize
+        });
+        //console.log('!read?'+ !this.read);
+        //if(!this.read) {
+        this._editor.on("change", function(cm, change) { codeMirror._editor.save(); });
+        //}
+      },
+
+      getSource: function() {
+        return this._editor.getValue();
+      },
+
+      setSource: function(text) {
+        this._editor.setValue(text);
+      },
+
+      _contentChanged: function(content){
+        if(this._editor){
+          this.content = this.$.editor.value;
+        }
+      }
+    });
+  </script>
+</dom-module>
