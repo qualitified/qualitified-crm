@@ -106,6 +106,36 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         var codeMirror=document.querySelector("code-mirror");
         this.$.editor.value = this.textContent.trim();
 
+        var dictionary = ['abc','def'];
+
+        // Register our custom Codemirror hint plugin.
+        /*CodeMirror.registerHelper('hint', 'dictionaryHint', function(editor) {
+            var cur = editor.getCursor(),
+                curLine = editor.getLine(cur.line);
+            var start = cur.ch,
+                end = start;
+            while (end < curLine.length && /[\w$]+/.test(curLine.charAt(end))) ++end;
+            while (start && /[\w$]+/.test(curLine.charAt(start - 1))) --start;
+            var curWord = start != end && curLine.slice(start, end);
+            var regex = new RegExp('^' + curWord, 'i');
+            console.log(curWord);
+            return {
+                list: (!curWord ? [] : dictionary.filter(function(item) {
+                    return item.match(regex);
+                })).sort(),
+                from: CodeMirror._editor.Pos(cur.line, start),
+                to: CodeMirror._editor.Pos(cur.line, end)
+            }
+        });
+
+        CodeMirror.commands.autocomplete = function(cm) {
+            CodeMirror.showHint(cm, CodeMirror.hint.dictionaryHint);
+        };*/
+
+        /*CodeMirror.commands.autocomplete = function(cm) {
+           CodeMirror.showHint(cm, CodeMirror.hint.anyword);
+       };*/
+
         this._editor = CodeMirror.fromTextArea(this.$.editor,{
           lineNumbers: true,
           mode: this.language,
@@ -114,12 +144,27 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           matchBrackets: true,
           showCursorWhenSelecting: true,
           theme: this.theme,
-          tabSize: this.tabSize
+          tabSize: this.tabSize,
+          autohint: true,
+          /*extraKeys: {
+              "Ctrl-Space": "autocomplete" ,
+              "Ctrl-Space":function(cm){  CodeMirror.showHint(cm, CodeMirror.hint.anyword); },
+              "'.'" : function(cmm){ CodeMirror.showHint(cmm, CodeMirror.hint.anyword);},
+
+
+          },*/
         });
-        //console.log('!read?'+ !this.read);
-        //if(!this.read) {
-        this._editor.on("change", function(cm, change) { codeMirror._editor.save(); });
-        //}
+        //this._editor.on("blur", function(cm) { codeMirror._editor.save(); });
+        this._editor.on("change", function(cm, change) { cm.save(); });
+        this._editor.refresh();
+        //var orig = CodeMirror.hint.anyword;
+        /*CodeMirror.hint.anyword = function(cm) {
+          var inner = orig(cm) || { from: cm.getCursor(), to: cm.getCursor(),  list: []};
+          inner.list.push("Document");
+          inner.list.push("Repository");
+          return inner;
+        };*/
+
       },
 
       getSource: function() {

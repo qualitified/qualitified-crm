@@ -47,7 +47,7 @@
         <paper-icon-button id="editNote" class="edit" icon="nuxeo:edit" on-tap="_edit" hidden$="[[!_canEdit(document)]]"></paper-icon-button>
         <nuxeo-document-preview document="[[document]]"></nuxeo-document-preview>
         function(input, params){
-          <code-mirror content={{_value}} read="false">
+          <code-mirror content={{_value}} read="true">
             {{_value}}
           </code-mirror>
         <!--paper-textarea disabled$="true" value="{{_value}}"></paper-textarea-->

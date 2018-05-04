@@ -9,7 +9,7 @@
 
   <groupId>org.qualitified.crm</groupId>
   <artifactId>qualitified-crm-parent</artifactId>
-  <version>1.0-SNAPSHOT</version>
+  <version>1.1-SNAPSHOT</version>
   <name>Qualitified CRM parent</name>
   <description>Qualitified CRM</description>
   <packaging>pom</packaging>
@@ -73,17 +73,17 @@
       <dependency>
         <groupId>org.qualitified.crm</groupId>
         <artifactId>qualitified-crm-core</artifactId>
-        <version>1.0-SNAPSHOT</version>
+        <version>${project.version}</version>
       </dependency>
       <dependency>
         <groupId>org.qualitified.crm</groupId>
         <artifactId>qualitified-crm-custom</artifactId>
-        <version>1.0-SNAPSHOT</version>
+        <version>${project.version}</version>
       </dependency>
       <dependency>
         <groupId>org.qualitified.crm</groupId>
         <artifactId>qualitified-crm-package</artifactId>
-        <version>1.0-SNAPSHOT</version>
+        <version>${project.version}</version>
       </dependency>
     </dependencies>
   </dependencyManagement>

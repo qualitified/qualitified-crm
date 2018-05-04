@@ -1,0 +1,11 @@
+{
+  "generator-nuxeo": {
+    "promptValues": {
+      "ignoredModules": [],
+      "package": "org.qualitified.crm.listener"
+    },
+    "distribution:path": "/Users/mgena/Dropbox/Qualitified/nuxeo-server-8.10-tomcat/",
+    "module:ignored": [],
+    "lastRemote": "/Users/mgena/.cache/node-yeoman-remote-cache/nuxeo/generator-nuxeo-meta/2.8.0"
+  }
+}
