@@ -36,15 +36,22 @@ public class PreSave implements EventListener {
         DocumentEventContext docCtx = (DocumentEventContext) ctx;
         DocumentModel doc = docCtx.getSourceDocument();
 
-        DocumentModel scriptDoc = CoreInstance.doPrivileged(docCtx.getCoreSession(), (session) -> {
+        String script = CoreInstance.doPrivileged(docCtx.getCoreSession(), (session) -> {
             List<DocumentModel> scripts = session.query("SELECT * FROM ScriptNote WHERE ecm:isProxy = 0 AND ecm:isCheckedInVersion = 0 AND ecm:currentLifeCycleState != 'deleted' AND dc:title = '"+doc.getType()+"PreSave'");
-            return scripts.size()>0 ? scripts.get(0) : null;
+            if(scripts.size()>0) {
+                String scriptNote = (String) scripts.get(0).getPropertyValue("note:note");
+                return scriptNote;
+            }else{
+                return null;
+            }
+
         });
-        if(scriptDoc != null) {
+        if(script != null && !("").equals(script)) {
             OperationContext operationContext = new OperationContext(docCtx.getCoreSession());
             operationContext.setInput(doc);
             Map<String, Object> params = new HashMap<>();
-            params.put("script", scriptDoc.getPropertyValue("note:note"));
+
+            params.put("script", script);
             params.put("isCreation", ("aboutToCreate").equals(event.getName()));
 
             AutomationService automationService = Framework.getService(AutomationService.class);

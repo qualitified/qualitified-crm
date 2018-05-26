@@ -4,6 +4,9 @@
       *[role=widget] {
         padding: 5px;
       }
+      .wrap {
+        white-space: pre-wrap;
+      }
     </style>
     <nuxeo-connection id="nxcon"></nuxeo-connection>
     <paper-card role="widget">
@@ -27,7 +30,11 @@
         <template is="dom-repeat" items="[[interactions]]">
           <div>[[_formatDate(item.properties.interaction:date)]]</div>
           <div><a href$="#!/browse[[item.path]]">[[formatDirectory(item.properties.interaction:activity)]] - [[item.title]]</a></div>
-          <div><pre>[[item.properties.dc:description]]</pre></div>
+          <div><pre class="wrap">[[item.properties.dc:description]]</pre></div>
+          <iron-collapse id="collapse-[[item.uid]]">
+            <div><pre class="wrap">[[item.properties.note:note]]</pre></div>
+          </iron-collapse>
+          <button hidden$=[[!_hasNote(item)]] id="button-[[item.uid]]" on-click="toggle" data-id$="[[item.uid]]">...</button>
           <br/>
         </template>
 
@@ -147,6 +154,15 @@
         _href: function(item) {
           return this.urlFor('user', item.id);
         },
+        toggle: function(event) {
+          var id = event.target.dataset.id;
+          this.$$('#collapse-' + id).toggle();
+          this.$$('#button-' + id).setAttribute('aria-expanded', this.$$('#collapse-' + id).opened);
+        },
+        _hasNote: function(doc){
+          console.log(doc.properties["note:note"] != null);
+          return doc.properties["note:note"] != null;
+        }
       });
     })();
     </script>
