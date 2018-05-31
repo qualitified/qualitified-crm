@@ -1581,9 +1581,9 @@
       </template>
     </factoryBinding>
   </extension>
-  <require>org.nuxeo.ecm.directory.sql.storage</require>
+  <!--require>org.nuxeo.ecm.directory.sql.storage</require-->
   <extension target="org.nuxeo.ecm.directory.sql.SQLDirectoryFactory" point="directories">
-    <directory name="userDirectory">
+    <!--directory name="userDirectory">
       <passwordField>password</passwordField>
       <dataFile>data/users.csv</dataFile>
       <createTablePolicy>never</createTablePolicy>
@@ -1599,7 +1599,7 @@
         <tableReference field="members" directory="userDirectory" table="user2group" sourceColumn="groupId" targetColumn="userId" schema="user2group" dataFile="data/user2group.csv"/>
         <tableReference field="subGroups" directory="groupDirectory" table="group2group" sourceColumn="parentGroupId" targetColumn="childGroupId" schema="group2group"/>
       </references>
-    </directory>
+    </directory-->
     <directory name="Civility">
       <schema>vocabulary</schema>
       <dataSource>java:/nxsqldirectory</dataSource>
@@ -1820,5 +1820,10 @@
       <username>Administrator</username>
       <cronExpression>0/10 * * * * ?</cronExpression>
     </schedule>
+  </extension>
+  <extension target="org.nuxeo.ecm.core.api.DocumentValidationService" point="activations">
+    <validation context="createDocument" activated="false" />
+    <validation context="saveDocument" activated="false" />
+    <validation context="importDocument" activated="false" />
   </extension>
 </component>

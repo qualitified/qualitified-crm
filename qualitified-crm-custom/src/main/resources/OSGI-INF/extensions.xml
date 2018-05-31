@@ -194,7 +194,7 @@
     </scriptedOperation-->
   </extension>
 
-  <require>org.nuxeo.ecm.directory.sql.storage</require>
+  <!--require>org.nuxeo.ecm.directory.sql.storage</require-->
   <extension target="org.nuxeo.ecm.directory.sql.SQLDirectoryFactory" point="directories">
     <directory name="customVocabulary1">
         <schema>vocabulary</schema>
