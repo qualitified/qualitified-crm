@@ -746,6 +746,20 @@
         <attribute>Regular Document</attribute>
       </filters>
     </handler>
+    <handler chainId="postCreateChain">
+      <event>documentCreated</event>
+      <filters>
+        <doctype>File</doctype>
+        <doctype>Folder</doctype>
+        <doctype>Account</doctype>
+        <doctype>Contact</doctype>
+        <doctype>Opportunity</doctype>
+        <doctype>Interaction</doctype>
+        <doctype>Solicitation</doctype>
+        <doctype>MailMessage</doctype>
+        <attribute>Regular Document</attribute>
+      </filters>
+    </handler>
     <!--handler chainId="preSaveChain">
       <event>aboutToCreate</event>
       <event>beforeDocumentModification</event>
@@ -1034,6 +1048,14 @@
         <param type="string" name="name">Administrator</param>
       </operation>
       <operation id="javascript.postSave"/>
+      <operation id="Auth.Logout"/>
+    </chain>
+    <chain id="postCreateChain">
+      <operation id="Context.FetchDocument"/>
+      <operation id="Auth.LoginAs">
+        <param type="string" name="name">Administrator</param>
+      </operation>
+      <operation id="javascript.postCreate"/>
       <operation id="Auth.Logout"/>
     </chain>
     <chain id="preSaveChain">
@@ -1393,6 +1415,25 @@
 
         //run postSave script
         var myScriptDoc = Repository.Query(null, {'query': 'SELECT * FROM ScriptNote WHERE ecm:isProxy = 0 AND ecm:isCheckedInVersion = 0 AND ecm:currentLifeCycleState != \'deleted\' AND dc:title ILIKE \''+input.type+'PostSave\''});
+        var myScript = "";
+        if(myScriptDoc.length > 0){
+          myScript = myScriptDoc[0]['note:note'];
+        }
+        if(myScript !== ""){
+          eval(myScript);
+        }
+        return input;
+        }]]>
+      </script>
+    </scriptedOperation>
+    <scriptedOperation id="javascript.postCreate">
+      <inputType>document</inputType>
+      <outputType>document</outputType>
+      <category>javascript</category>
+      <description></description>
+      <script><![CDATA[function run(input, params) {
+        //run postCreate script
+        var myScriptDoc = Repository.Query(null, {'query': 'SELECT * FROM ScriptNote WHERE ecm:isProxy = 0 AND ecm:isCheckedInVersion = 0 AND ecm:currentLifeCycleState != \'deleted\' AND dc:title ILIKE \''+input.type+'PostCreate\''});
         var myScript = "";
         if(myScriptDoc.length > 0){
           myScript = myScriptDoc[0]['note:note'];
