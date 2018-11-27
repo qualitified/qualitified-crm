@@ -48,7 +48,7 @@ public class TestContextData {
         coreSession.save();
 
         // Operation execution
-        AutomationService automationService = Framework.getLocalService(AutomationService.class);
+        AutomationService automationService = Framework.getService(AutomationService.class);
         OperationContext ctx = new OperationContext();
         ctx.setCoreSession(coreSession);
         ctx.setInput(doc);

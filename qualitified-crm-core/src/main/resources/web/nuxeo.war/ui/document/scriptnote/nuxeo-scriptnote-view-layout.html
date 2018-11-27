@@ -23,7 +23,13 @@ limitations under the License.
 <link rel="import" href="qualitified-script-editor.html">
 <dom-module id="nuxeo-scriptnote-view-layout">
   <template>
-    <qualitified-script-editor role="widget" document="[[document]]"></qualitified-script-editor>
+    
+    <nuxeo-card>
+      <nuxeo-note-editor role="widget" document="[[document]]"></nuxeo-note-editor>
+    </nuxeo-card>
+
+
+    <!--qualitified-script-editor role="widget" document="[[document]]"></qualitified-script-editor-->
     <!--nuxeo-document-attachments role="widget" document="[[document]]"></nuxeo-document-attachments-->
   </template>
 
@@ -35,12 +41,11 @@ limitations under the License.
         /**
          * @doctype NoteScript
          */
-         document: {
-           type: Object
-         }
+        document: {
+          type: Object
+        }
       },
-      _documentChanged: function() {
-      },
+      _documentChanged: function() {},
     });
   </script>
 

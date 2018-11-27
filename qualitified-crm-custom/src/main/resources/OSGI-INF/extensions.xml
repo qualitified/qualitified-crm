@@ -194,7 +194,7 @@
     </scriptedOperation-->
   </extension>
 
-  <require>org.nuxeo.ecm.directory.sql.storage</require>
+  <!--require>org.nuxeo.ecm.directory.sql.storage</require-->
   <extension target="org.nuxeo.ecm.directory.sql.SQLDirectoryFactory" point="directories">
     <directory name="customVocabulary1">
         <schema>vocabulary</schema>
@@ -203,7 +203,7 @@
         <cacheMaxSize>1000</cacheMaxSize>
         <idField>id</idField>
         <autoincrementIdField>false</autoincrementIdField>
-        <createTablePolicy>always</createTablePolicy>
+        <createTablePolicy>on_missing_columns</createTablePolicy>
         <table>studio_vocabulary_customVocabulary1</table>
         <dataFile>data/vocabularies/customVocabulary1.csv</dataFile>
       </directory>
@@ -214,7 +214,7 @@
         <cacheMaxSize>1000</cacheMaxSize>
         <idField>id</idField>
         <autoincrementIdField>false</autoincrementIdField>
-        <createTablePolicy>always</createTablePolicy>
+        <createTablePolicy>on_missing_columns</createTablePolicy>
         <table>studio_vocabulary_customVocabulary2</table>
         <dataFile>data/vocabularies/customVocabulary2.csv</dataFile>
       </directory>

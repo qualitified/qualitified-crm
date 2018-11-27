@@ -6,17 +6,17 @@
         padding: 5px;
       }
     </style>
-    <paper-input role="widget" value="{{document.properties.dc:title}}" label="[[i18n('label.metadata.opportunity.title')]]"></paper-input>
+    <nuxeo-input role="widget" value="{{document.properties.dc:title}}" label="[[i18n('label.metadata.opportunity.title')]]"></nuxeo-input>
 
-    <paper-input role="widget" value="{{document.properties.opportunity:amount}}" label="[[i18n('label.metadata.amount')]]"></paper-input>
+    <nuxeo-input role="widget" value="{{document.properties.opportunity:amount}}" label="[[i18n('label.metadata.amount')]]"></nuxeo-input>
 
     <nuxeo-directory-suggestion role="widget" value="{{document.properties.opportunity:step}}" label="[[i18n('label.metadata.step')]]" directory-name="OppStep" min-chars="0"></nuxeo-directory-suggestion>
 
     <nuxeo-date-picker value="{{document.properties.opportunity:closeDate}}" label="[[i18n('label.metadata.closedate')]]" role="widget"></nuxeo-date-picker>
 
     <qualitified-custom-fields document="{{document}}" mode="edit"></qualitified-custom-fields>
-    
-    <paper-textarea role="widget" value="{{document.properties.dc:description}}" label="[[i18n('label.metadata.description')]]"></paper-textarea>
+
+    <nuxeo-textarea role="widget" value="{{document.properties.dc:description}}" label="[[i18n('label.metadata.description')]]"></nuxeo-textarea>
 
   </template>
 

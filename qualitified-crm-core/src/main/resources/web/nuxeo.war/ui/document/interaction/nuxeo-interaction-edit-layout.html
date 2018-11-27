@@ -6,9 +6,9 @@
         padding: 5px;
       }
     </style>
-    <paper-input role="widget" value="{{document.properties.dc:title}}" label="[[i18n('label.metadata.interaction.title')]]"></paper-input>
+    <nuxeo-input role="widget" value="{{document.properties.dc:title}}" label="[[i18n('label.metadata.interaction.title')]]"></nuxeo-input>
 
-    <paper-textarea role="widget" value="{{document.properties.dc:description}}" label="[[i18n('label.metadata.interaction.description')]]"></paper-textarea>
+    <nuxeo-textarea role="widget" value="{{document.properties.dc:description}}" label="[[i18n('label.metadata.interaction.description')]]"></nuxeo-textarea>
 
     <nuxeo-directory-suggestion role="widget" value="{{document.properties.interaction:status}}" label="[[i18n('label.metadata.status')]]" required="true" directory-name="IntStatus" min-chars="0"></nuxeo-directory-suggestion>
 

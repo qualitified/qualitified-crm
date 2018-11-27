@@ -1,0 +1,290 @@
+<!--
+**** Contributor ****
+  Mohamed Makni <mmakni@qualitified.com>
+-->
+
+<dom-module id="discussion-comment">
+  <template>
+    <style>
+      :host {
+        display: inline-block;
+      }
+
+      ::content iron-icon:hover {
+        fill: var(--nuxeo-link-hover-color);
+      }
+
+      .item {
+        border-radius: 2em;
+        word-break: break-word;
+        white-space: pre-wrap;
+        letter-spacing: 0.005em !important;
+      }
+
+      #itemUser{
+        text-align: left;
+        font-size: smaller;
+        color: #00000096;
+        height: 20px;
+        padding-top: 14px;
+      }
+
+      #itemCurrUser {
+        text-align: right;
+        font-size: smaller;
+        color: #ff8300;
+        height: 20px;
+        padding-top: 14px;
+        padding-right: 10px;
+      }
+
+      #MsgUser {
+        width: fit-content;
+        background: #f5f5f6;
+        padding: 8px;
+        margin-left: 10px;
+        margin-right: 10px;
+      }
+
+      #MsgCurrUser {
+        display:inline-block;
+        width: fit-content;
+        text-align: left;
+        background: #ff9900;
+        color: white;
+        padding: 8px;
+        margin-left: 10px;
+        margin-right: 10px;
+      }
+
+      #content {
+        height: 280px;
+        overflow: auto;
+        scroll-behavior: auto;
+      }
+
+      .flex-container {
+        display: flex;
+      }
+
+      .message {
+          flex: 95%;
+          padding-left: 3px;
+      }
+
+      .button {
+          flex: 5%;
+          padding-top: 25px;
+      }
+
+      #button {
+        color: var(--nuxeo-secondary-color);
+      }
+
+      h2 {
+        color: var(--nuxeo-secondary-color);
+        padding-left: 10px;
+
+      }
+
+      paper-textarea{
+        --paper-input-container-color: var(--nuxeo-secondary-color);
+      }
+
+      paper-textarea /deep/ ::-webkit-input-placeholder {
+        color: #00b98ea3;
+      }
+
+      .outer{
+        text-align:right;
+      }
+
+    </style>
+    <nuxeo-connection id="nxcon" user="{{currentUser}}"></nuxeo-connection>
+    <nuxeo-operation id="addComment" op="AddCommentWebUI" input="[[document.uid]]" params="[[params]]"></nuxeo-operation>
+
+    <div>
+      <div>
+        <h2 id="h2">Discussion</h2>
+        <br />
+      </div>
+
+      <div id="content">
+        <template is="dom-repeat" items="[[commentaires]]">
+
+          <template is="dom-if" if="[[_isEven(index)]]">
+            <template is="dom-if" if="[[!_displayDependingToUser(item,currentUser)]]">
+              <div id="itemUser" class="item">[[item]]</div>
+            </template>
+
+            <template is="dom-if" if="[[_displayDependingToUser(item,currentUser)]]">
+              <div id="itemCurrUser" class="item">[[item]]</div>
+            </template>
+          </template>
+
+          <template is="dom-if" if="[[!_isEven(index)]]">
+            <template is="dom-if" if="[[_changeMsgColor(item,index)]]">
+              <div id="MsgUser" class="item">[[item]]</div>
+            </template>
+
+            <template is="dom-if" if="[[!_changeMsgColor(item,index)]]">
+              <div class="outer">
+                <div id="MsgCurrUser" class="item">[[item]]</div>
+              </div>
+            </template>
+          </template>
+
+        </template>
+      </div>
+
+      <div class="flex-container">
+        <div class="button">
+          <paper-icon-button id="button" icon="icons:send" on-tap="_checkComment"></paper-icon-button>
+          <paper-tooltip for="button" offset="30">Envoyer</paper-tooltip>
+        </div>
+
+        <div class="message">
+          <paper-textarea role="widget" value="{{comment}}" type="text" placeholder="Message à envoyer..." on-keydown="_checkForEnter"></paper-textarea>
+        </div>
+      </div>
+
+      <paper-toast id="notification"></paper-toast>
+
+    </div>
+
+  </template>
+
+  <script>
+    Polymer({
+      is: 'discussion-comment',
+      properties: {
+        document: {
+          type: Object,
+          observer: '_documentChanged'
+        },
+        comment: {
+          type: String
+        },
+        params: {
+          type: Object,
+          value: {}
+        },
+        commentaires: {
+          type: Array,
+          value: [],
+        },
+        currentUser: {
+          type: Object
+        }
+      },
+
+      /*<span>{{displayIndex(index)}}</span>
+      displayIndex: function(index) {
+        return index;
+      },*/
+
+      _displayDependingToUser(item) {
+        //Get the first word which is the username and compare with the current user
+        var result = item.match(/^([\w\-]+)/i);
+        if (result[0].localeCompare(this.currentUser.id) === 0) {
+          return true;
+        }
+        return false;
+      },
+
+      _isEven(index) {
+        if (index % 2 == 0) {
+          return true;
+        }
+        return false;
+      },
+
+      _changeMsgColor(item, index) {
+        var firstWord = this.commentaires[index - 1].match(/^([\w\-]+)/i);
+        if (firstWord[0].localeCompare(this.currentUser.id) === 0) {
+          return false;
+        }
+        return true;
+      },
+
+      /*_display(user) {
+        if (!this._isClient(user)) {
+          return true;
+        }
+        return false
+      },
+
+      _isClient(user) {
+        return user && user.properties.groups.indexOf('clients') === 0;
+      },*/
+
+      _documentChanged() {
+        setTimeout(this._updateScrollBar, 1000);
+        if (this.document) {
+          this.commentaires = this.document.properties['solicitation:commentaires'];
+        }
+      },
+
+      _checkForEnter(e) {
+        // check if 'enter' was pressed
+        if (e.keyCode === 13) {
+          this._checkComment();
+        }
+      },
+
+      _checkComment() {
+        //Block line breaks in the textarea
+        $('paper-textarea').on('keyup', function() {
+          $(this).val($(this).val().replace(/[\r\n\v]+/g, ''));
+        });
+
+        if (this.comment == "" || this.comment.search(/\s/) == 0) {
+          this.$.notification.text = 'Veuillez saisir un message';
+          this.$.notification.open();
+        } else {
+          this._saveComment();
+        }
+      },
+
+      _saveComment() {
+        this.params = {
+          context: {
+            commentaire: this.comment
+          }
+        };
+        //this.$.addComment.params = params;
+        this.$.addComment.execute().then(function(doc) {
+            this.comment = "";
+            this.commentaires = doc.properties['solicitation:commentaires'];
+            //this.fire('Envoyé');
+
+            this.$.notification.text = 'Message envoyé';
+            this.$.notification.open();
+            this._updateScrollBar();
+
+          }.bind(this))
+          .catch(function(error) {
+            this.$.notification.text = 'Message non envoyé';
+            this.$.notification.open();
+          }.bind(this));
+
+      },
+
+      //Scroll bar to Bottom
+      _updateScrollBar() {
+        var element = document.getElementById("content");
+        var height = element.scrollHeight;
+        $('#content').animate({scrollTop: height});
+      }
+    });
+
+    /*function updateScrollBar(){
+      var element = document.getElementById("content");
+      element.scrollTop = element.scrollHeight;
+    }
+
+    window.onload =function (){
+      setTimeout(updateScrollBar,2000);
+    }*/
+  </script>
+</dom-module>

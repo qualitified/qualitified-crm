@@ -42,4 +42,6 @@
       <xs:restriction base="xs:string" ref:resolver="directoryResolver" ref:directory="SolicitationStatus"/>
     </xs:simpleType>
   </xs:element>
+  <xs:element name="commentaires" type="nxs:stringList"/>
+  <xs:element name="chatLength" type="xs:string" default="0"/>
 </xs:schema>

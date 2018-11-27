@@ -11,8 +11,8 @@
                point="operations" >
         <operation class="org.qualitified.crm.GetContextData" />
     </extension>
-    <extension target="org.nuxeo.ecm.core.operation.OperationServiceComponent"
+    <!--extension target="org.nuxeo.ecm.core.operation.OperationServiceComponent"
                point="operations" >
         <operation class="org.qualitified.crm.Save" />
-    </extension>
+    </extension-->
  </component>

@@ -3,6 +3,7 @@
 <component name="studio.extensions.crm" version="1.0.0">
   <require>org.nuxeo.runtime.started</require>
   <extension target="org.nuxeo.ecm.core.schema.TypeService" point="schema">
+    <schema name="facetedTag" prefix="nxtag" src="schemas/facetedTag.xsd"/>
     <schema name="account" prefix="account" override="true" src="data/schemas/account.xsd"/>
     <schema name="folder" prefix="folder" override="true" src="data/schemas/folder.xsd"/>
     <schema name="domain_schema" prefix="domain_schema" override="true" src="data/schemas/domain_schema.xsd"/>
@@ -35,6 +36,9 @@
     <schema name="var_SolicitationWorkflow" prefix="var_SolicitationWorkflow" override="true" src="data/schemas/var_SolicitationWorkflow.xsd"/>
   </extension>
   <extension target="org.nuxeo.ecm.core.schema.TypeService" point="doctype">
+    <facet name="NXTag">
+      <schema name="facetedTag"/>
+    </facet>
     <doctype name="Account" extends="Document">
       <schema name="account"/>
       <schema name="dublincore"/>
@@ -44,6 +48,7 @@
       <schema name="custom"/>
       <facet name="Picture"/>
       <facet name="Folderish"/>
+      <facet name="NXTag"/>
       <subtypes>
         <type>Contact</type>
         <type>Folder</type>
@@ -135,6 +140,7 @@
       <schema name="picture"/>
       <schema name="custom"/>
       <facet name="Picture"/>
+      <facet name="NXTag"/>
     </doctype>
     <doctype name="Account" append="true">
       <subtypes>
@@ -153,6 +159,7 @@
       <facet name="Versionable"/>
       <facet name="Publishable"/>
       <facet name="HasRelatedText"/>
+      <facet name="NXTag"/>
     </doctype>
     <doctype name="Folder" append="true">
       <subtypes>
@@ -160,6 +167,7 @@
       </subtypes>
     </doctype>
     <doctype name="Workspace" append="true">
+      <facet name="NXTag"/>
       <subtypes>
         <type>File</type>
       </subtypes>
@@ -172,6 +180,7 @@
       <schema name="files"/>
       <schema name="note"/>
       <schema name="custom"/>
+      <facet name="NXTag"/>
     </doctype>
     <doctype name="Account" append="true">
       <subtypes>
@@ -197,6 +206,7 @@
       <schema name="uid"/>
       <schema name="custom"/>
       <facet name="Folderish"/>
+      <facet name="NXTag"/>
       <subtypes>
         <type>File</type>
         <type>Folder</type>
@@ -214,6 +224,7 @@
     </doctype>
     <doctype name="Sales" extends="Domain">
       <schema name="sales"/>
+      <facet name="NXTag"/>
       <subtypes>
         <type>Account</type>
         <type>Contact</type>
@@ -258,13 +269,16 @@
       <schema name="common"/>
       <schema name="uid"/>
       <schema name="custom"/>
+      <facet name="NXTag"/>
     </doctype>
     <doctype name="Objects" extends="Folder">
       <subtypes>
         <type>Custom</type>
       </subtypes>
+      <facet name="NXTag"/>
     </doctype>
     <doctype name="Scripts" extends="Folder">
+      <facet name="NXTag"/>
       <subtypes>
         <type>ScriptNote</type>
       </subtypes>
@@ -278,6 +292,7 @@
       <schema name="files"/>
       <schema name="custom"/>
       <facet name="Folderish"/>
+      <facet name="NXTag"/>
       <subtypes>
         <type>File</type>
         <type>Note</type>
@@ -544,7 +559,7 @@
       <description></description>
     </type>
   </extension>
-  <extension target="org.nuxeo.ecm.core.versioning.VersioningService" point="versioningRules">
+  <!--extension target="org.nuxeo.ecm.core.versioning.VersioningService" point="versioningRules">
     <versioningRule typeName="Account">
       <initialState major="0" minor="0"/>
       <options lifeCycleState="*">
@@ -649,7 +664,7 @@
         <major/>
       </options>
     </versioningRule>
-  </extension>
+  </extension-->
   <extension target="org.nuxeo.ecm.platform.ui.web.auth.service.PluggableAuthenticationService" point="loginScreen">
     <loginScreenConfig>
       <backgroundImage>no_poster_image</backgroundImage>
@@ -992,6 +1007,7 @@
     <template name="workflow" src="data/templates/workflow.ftl"/>
     <template name="workflowTaskAssigned" src="data/templates/workflowTaskAssigned.ftl"/>
     <template name="workflowTaskDelegated" src="data/templates/workflowTaskDelegated.ftl"/>
+    <template name="nouveauMessage" src="data/templates/nouveauMessage.ftl"/>
   </extension>
   <extension target="org.nuxeo.ecm.core.operation.OperationServiceComponent" point="chains">
     <chain id="interactionDone">
@@ -1106,6 +1122,24 @@
         <param type="string" name="script">expr:return new org.nuxeo.ecm.core.api.impl.blob.StringBlob("@{Context["vocabularyLabel"]}");</param>
       </operation>
     </chain-->
+
+    <chain id="AddCommentWebUI">
+      <operation id="Context.FetchDocument"/>
+      <operation id="DocumentMultivaluedProperty.addItem">
+        <param type="serializable" name="value">expr:@{CurrentUser.name} @{CurrentDate.format("dd/MM/yyyy HH:mm")}</param>
+        <param type="string" name="xpath">solicitation:commentaires</param>
+        <param type="boolean" name="checkExists">false</param>
+        <param type="boolean" name="save">false</param>
+      </operation>
+      <operation id="DocumentMultivaluedProperty.addItem">
+        <param type="serializable" name="value">expr:Context["commentaire"]</param>
+        <param type="string" name="xpath">solicitation:commentaires</param>
+        <param type="boolean" name="checkExists">false</param>
+        <param type="boolean" name="save">false</param>
+      </operation>
+      <operation id="Document.Save"/>
+    </chain>
+
   </extension>
   <extension target="org.nuxeo.ecm.platform.query.api.PageProviderService" point="providers">
     <genericPageProvider class="org.nuxeo.elasticsearch.provider.ElasticSearchNxqlPageProvider" name="opportunity_list">
@@ -1457,7 +1491,10 @@
     </scriptedOperation>
     <scriptedOperation id="javascript.getVocabularyLabel">
       <inputType>void</inputType>
-      <outputType>string</outputType>
+      <outputType>void</outputType>
+      <param name="vocabularyName" type="string"/>
+      <param name="vocabularyId" type="string"/>
+      <param name="vocabularyField" type="string"/>
       <category>javascript</category>
       <description></description>
       <script><![CDATA[function run(input, params) {
@@ -1465,7 +1502,7 @@
         var labelJSON = {};
         labelJSON.result = label;
         labelJSON.vocabularyField = params.vocabularyField;
-        return labelJSON;
+        return JSON.stringify(labelJSON);
         }]]>
       </script>
     </scriptedOperation>
@@ -1622,9 +1659,9 @@
       </template>
     </factoryBinding>
   </extension>
-  <require>org.nuxeo.ecm.directory.sql.storage</require>
+  <!--require>org.nuxeo.ecm.directory.sql.storage</require-->
   <extension target="org.nuxeo.ecm.directory.sql.SQLDirectoryFactory" point="directories">
-    <directory name="userDirectory">
+    <!--directory name="userDirectory">
       <passwordField>password</passwordField>
       <dataFile>data/users.csv</dataFile>
       <createTablePolicy>never</createTablePolicy>
@@ -1640,7 +1677,7 @@
         <tableReference field="members" directory="userDirectory" table="user2group" sourceColumn="groupId" targetColumn="userId" schema="user2group" dataFile="data/user2group.csv"/>
         <tableReference field="subGroups" directory="groupDirectory" table="group2group" sourceColumn="parentGroupId" targetColumn="childGroupId" schema="group2group"/>
       </references>
-    </directory>
+    </directory-->
     <directory name="Civility">
       <schema>vocabulary</schema>
       <dataSource>java:/nxsqldirectory</dataSource>
@@ -1803,18 +1840,18 @@
     </corsConfig>
   </extension>
   <extension target="org.nuxeo.ecm.platform.WebResources" point="resources">
-    <resource name="nuxeo-opportunity-list.html" type="import" shrinkable="false">
+    <!--resource name="nuxeo-opportunity-list.html" type="import" shrinkable="false">
       <uri>/ui/nuxeo-opportunity-list.html</uri>
-    </resource>
-    <resource name="nuxeo-menu-icon-custom.html" type="import" shrinkable="false">
+    </resource-->
+    <!--resource name="nuxeo-menu-icon-custom.html" type="import" shrinkable="false">
         <uri>/ui/nuxeo-menu-icon-custom.html</uri>
-    </resource>
+    </resource-->
     <resource name="nuxeo-crm-bundle.html" type="import" shrinkable="false">
       <uri>/ui/nuxeo-crm-bundle.html</uri>
     </resource>
   </extension>
   <extension target="org.nuxeo.ecm.platform.WebResources" point="bundles">
-    <bundle name="web-ui">
+    <!--bundle name="web-ui">
       <resources append="true">
         <resource>nuxeo-opportunity-list.html</resource>
       </resources>
@@ -1823,14 +1860,14 @@
       <resources append="true">
         <resource>nuxeo-menu-icon-custom.html</resource>
       </resources>
-    </bundle>
+    </bundle-->
     <bundle name="web-ui">
       <resources append="true">
         <resource>nuxeo-crm-bundle.html</resource>
       </resources>
     </bundle>
   </extension>
-  <extension target="org.nuxeo.ecm.platform.scheduler.core.service.SchedulerRegistryService" point="schedule">
+  <extension target="org.nuxeo.ecm.core.scheduler.SchedulerService" point="schedule">
     <schedule id="scheduler1">
       <eventId>event1</eventId>
       <eventCategory>default</eventCategory>
@@ -1861,5 +1898,10 @@
       <username>Administrator</username>
       <cronExpression>0/10 * * * * ?</cronExpression>
     </schedule>
+  </extension>
+  <extension target="org.nuxeo.ecm.core.api.DocumentValidationService" point="activations">
+    <validation context="createDocument" activated="false"/>
+    <validation context="saveDocument" activated="false"/>
+    <validation context="importDocument" activated="false"/>
   </extension>
 </component>

@@ -17,6 +17,7 @@ Contributors:
     Nelson Silva <nsilva@nuxeo.com>
     Gabriel Barata <gbarata@nuxeo.com>
     Andre Justo <ajusto@nuxeo.com>
+    Mohamed Makni <mmakni@qualitified.com>
 -->
 
 <!--
@@ -24,6 +25,8 @@ Contributors:
 @group Nuxeo UI
 @element qualitified-document-page
 -->
+<link rel="import" href="../elements/discussion-comment.html">
+
 <dom-module id="qualitified-document-page">
   <template>
     <style>
@@ -69,27 +72,55 @@ Contributors:
         @apply(--nuxeo-action-hover);
       }
 
+      .flex-container {
+        display: flex;
+      }
+
+      .side {
+          flex: 20%;
+          padding: 20px;
+          height: max-content;
+          margin-top: 55px;
+          margin-right: 55px;
+          border-color: white;
+          border-radius: 2em;
+          box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+      }
+
+      .main {
+          flex: 80%;
+          padding: 20px;
+      }
+
     </style>
 
     <nuxeo-document-info-bar document="[[document]]"></nuxeo-document-info-bar>
-
     <div class="page">
-
       <div class="main">
         <paper-card>
-          <!-- metadata / edit -->
-          <div hidden$="[[edit]]">
-            <paper-icon-button noink id="edit" icon="editor:mode-edit" on-tap="_editMode" hidden$="[[!_canEdit(document)]]"></paper-icon-button>
-            <nuxeo-document-metadata document="[[document]]"></nuxeo-document-metadata>
+
+
+          <div class="flex-container" hidden$="[[edit]]">
+            <div class="main">
+              <!--paper-icon-button noink id="edit" icon="editor:mode-edit" on-tap="_editMode" hidden$="[[!_canEdit(document)]]"></paper-icon-button-->
+              <nuxeo-document-metadata document="[[document]]"></nuxeo-document-metadata>
+            </div>
+            <!-- Discussion -->
+            <nuxeo-filter document="[[document]]" type="Solicitation">
+              <template>
+                <div class="side">
+                  <discussion-comment document="[[document]]"></discussion-comment>
+                </div>
+              </template>
+            </nuxeo-filter>
           </div>
+
+          <!-- metadata / edit -->
           <nuxeo-document-edit document="[[document]]" hidden$="[[!edit]]"></nuxeo-document-edit>
           <nuxeo-document-view document="[[document]]"></nuxeo-document-view>
-          <nuxeo-document-info document="[[document]]"></nuxeo-document-info>
+          <!--nuxeo-document-info document="[[document]]"></nuxeo-document-info-->
         </paper-card>
-
       </div>
-
-
     </div>
 
   </template>
