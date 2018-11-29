@@ -79,15 +79,15 @@
       <nuxeo-data-table-form>
         <template>
           <div class="editor flex container">
-            <paper-input role="widget" value="{{item.label}}" label="Label"></paper-input>
-            <paper-input role="widget" value="{{item.type}}" label="Type"></paper-input>
-            <paper-input role="widget" value="{{item.fieldName}}" label="Field Name"></paper-input>
+            <nuxeo-input role="widget" value="{{item.label}}" label="Label"></nuxeo-input>
+            <nuxeo-input role="widget" value="{{item.type}}" label="Type"></nuxeo-input>
+            <nuxeo-input role="widget" value="{{item.fieldName}}" label="Field Name"></nuxeo-input>
             <paper-checkbox checked="{{item.required}}"></paper-checkbox> Required
-            <paper-input role="widget" value="{{item.vocabularyName}}" label="Vocabulary Name"></paper-input>
-            <paper-input role="widget" value="{{item.format}}" label="Format"></paper-input>
-            <paper-input role="widget" value="{{item.readGroup}}" label="Read Group"></paper-input>
-            <paper-input role="widget" value="{{item.editGroup}}" label="Edit Group"></paper-input>
-            <paper-input role="widget" value="{{item.hiddenGroup}}" label="Hidden Group"></paper-input>
+            <nuxeo-input role="widget" value="{{item.vocabularyName}}" label="Vocabulary Name"></nuxeo-input>
+            <nuxeo-input role="widget" value="{{item.format}}" label="Format"></nuxeo-input>
+            <nuxeo-input role="widget" value="{{item.readGroup}}" label="Read Group"></nuxeo-input>
+            <nuxeo-input role="widget" value="{{item.editGroup}}" label="Edit Group"></nuxeo-input>
+            <nuxeo-input role="widget" value="{{item.hiddenGroup}}" label="Hidden Group"></nuxeo-input>
             <paper-checkbox checked="{{item.multivalue}}"></paper-checkbox> Multivalue
             <!--nuxeo-select role="widget"
                           label="[[i18n('label.metadata.custom.type')]]"

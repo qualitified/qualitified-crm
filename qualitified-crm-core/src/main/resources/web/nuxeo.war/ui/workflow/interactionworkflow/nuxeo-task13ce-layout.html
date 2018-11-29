@@ -10,12 +10,12 @@
       <nuxeo-data-table-form>
         <template>
 
-          <paper-input value="{{task.variables.report}}" label="Report" type="text" role="widget"></paper-input>
+          <nuxeo-input value="{{task.variables.report}}" label="Report" type="text" role="widget"></nuxeo-input>
         </template>
       </nuxeo-data-table-form>
     </nuxeo-data-table>
 
-    <paper-input role="widget" value="[[_formatDate(task.dueDate)]]" label="Due Date" readonly="true"></paper-input>
+    <nuxeo-input role="widget" value="[[_formatDate(task.dueDate)]]" label="Due Date" readonly="true"></nuxeo-input>
 
   </template>
 

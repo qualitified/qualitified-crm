@@ -992,6 +992,7 @@
     <template name="workflow" src="data/templates/workflow.ftl"/>
     <template name="workflowTaskAssigned" src="data/templates/workflowTaskAssigned.ftl"/>
     <template name="workflowTaskDelegated" src="data/templates/workflowTaskDelegated.ftl"/>
+    <template name="nouveauMessage" src="data/templates/nouveauMessage.ftl"/>
   </extension>
   <extension target="org.nuxeo.ecm.core.operation.OperationServiceComponent" point="chains">
     <chain id="interactionDone">
@@ -1106,6 +1107,24 @@
         <param type="string" name="script">expr:return new org.nuxeo.ecm.core.api.impl.blob.StringBlob("@{Context["vocabularyLabel"]}");</param>
       </operation>
     </chain-->
+
+    <chain id="AddCommentWebUI">
+      <operation id="Context.FetchDocument"/>
+      <operation id="DocumentMultivaluedProperty.addItem">
+        <param type="serializable" name="value">expr:@{CurrentUser.name} @{CurrentDate.format("dd/MM/yyyy HH:mm")}</param>
+        <param type="string" name="xpath">solicitation:commentaires</param>
+        <param type="boolean" name="checkExists">false</param>
+        <param type="boolean" name="save">false</param>
+      </operation>
+      <operation id="DocumentMultivaluedProperty.addItem">
+        <param type="serializable" name="value">expr:Context["commentaire"]</param>
+        <param type="string" name="xpath">solicitation:commentaires</param>
+        <param type="boolean" name="checkExists">false</param>
+        <param type="boolean" name="save">false</param>
+      </operation>
+      <operation id="Document.Save"/>
+    </chain>
+
   </extension>
   <extension target="org.nuxeo.ecm.platform.query.api.PageProviderService" point="providers">
     <genericPageProvider class="org.nuxeo.elasticsearch.provider.ElasticSearchNxqlPageProvider" name="opportunity_list">

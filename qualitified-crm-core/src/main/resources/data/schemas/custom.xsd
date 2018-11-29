@@ -66,6 +66,17 @@
   <xs:element name="stringField8" type="xs:string"/>
   <xs:element name="stringField9" type="xs:string"/>
   <xs:element name="stringField10" type="xs:string"/>
+  <xs:element name="stringField11" type="xs:string"/>
+  <xs:element name="stringField12" type="xs:string"/>
+  <xs:element name="stringField13" type="xs:string"/>
+  <xs:element name="stringField14" type="xs:string"/>
+  <xs:element name="stringField15" type="xs:string"/>
+  <xs:element name="stringField16" type="xs:string"/>
+  <xs:element name="stringField17" type="xs:string"/>
+  <xs:element name="stringField18" type="xs:string"/>
+  <xs:element name="stringField19" type="xs:string"/>
+  <xs:element name="stringField20" type="xs:string"/>
+
 
   <xs:element name="vocabularyField1" nillable="false" nxsv:nillable="false">
     <xs:simpleType>
@@ -150,6 +161,16 @@
   <xs:element name="dateField8" type="xs:date"/>
   <xs:element name="dateField9" type="xs:date"/>
   <xs:element name="dateField10" type="xs:date"/>
+  <xs:element name="dateField11" type="xs:date"/>
+  <xs:element name="dateField12" type="xs:date"/>
+  <xs:element name="dateField13" type="xs:date"/>
+  <xs:element name="dateField14" type="xs:date"/>
+  <xs:element name="dateField15" type="xs:date"/>
+  <xs:element name="dateField16" type="xs:date"/>
+  <xs:element name="dateField17" type="xs:date"/>
+  <xs:element name="dateField18" type="xs:date"/>
+  <xs:element name="dateField19" type="xs:date"/>
+  <xs:element name="dateField20" type="xs:date"/>
 
   <xs:element name="integerField1" type="xs:integer"/>
   <xs:element name="integerField2" type="xs:integer"/>
@@ -183,4 +204,16 @@
   <xs:element name="fileField8" type="nxs:content"/>
   <xs:element name="fileField9" type="nxs:content"/>
   <xs:element name="fileField10" type="nxs:content"/>
+
+  <xs:element name="systemField1" type="xs:string"/>
+  <xs:element name="systemField2" type="xs:string"/>
+  <xs:element name="systemField3" type="xs:string"/>
+  <xs:element name="systemField4" type="xs:string"/>
+  <xs:element name="systemField5" type="xs:string"/>
+  <xs:element name="systemField6" type="xs:string"/>
+  <xs:element name="systemField7" type="xs:string"/>
+  <xs:element name="systemField8" type="xs:string"/>
+  <xs:element name="systemField9" type="xs:string"/>
+  <xs:element name="systemField10" type="xs:string"/>
+
 </xs:schema>
