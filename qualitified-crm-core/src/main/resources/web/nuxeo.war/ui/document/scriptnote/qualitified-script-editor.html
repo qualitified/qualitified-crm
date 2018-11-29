@@ -3,7 +3,7 @@
 @group Nuxeo UI
 @element qualitified-script-editor
 -->
-<link rel="import" href="code-mirror.html">
+<link rel="import" href="juicy-ace-editor.html">
 <dom-module id="qualitified-script-editor">
   <template>
 
@@ -19,25 +19,22 @@
       .edit {
         position: absolute;
         right: 10px;
-        top: 10px;
-      }
-
-      paper-textarea,
-      nuxeo-document-preview,
-      nuxeo-html-editor {
-        display: block;
-        height: 30px;
+        top: -15px;
       }
 
       paper-textarea {
         --paper-input-container-underline: {
           border-bottom: none 0;
         };
+
         --paper-input-container-underline-focus: {
           border-bottom: none 0;
         };
       }
 
+      juicy-ace-editor {
+        height: 500px;
+      }
     </style>
 
     <nuxeo-document id="note" doc-id="[[document.uid]]"></nuxeo-document>
@@ -45,19 +42,15 @@
     <div class="main">
       <template is="dom-if" if="[[_viewMode]]">
         <paper-icon-button id="editNote" class="edit" icon="nuxeo:edit" on-tap="_edit" hidden$="[[!_canEdit(document)]]"></paper-icon-button>
-        <nuxeo-document-preview document="[[document]]"></nuxeo-document-preview>
-        function(input, params){
-          <code-mirror content={{_value}} read="true">
-            {{_value}}
-          </code-mirror>
-        <!--paper-textarea disabled$="true" value="{{_value}}"></paper-textarea-->
-        }
+        <div>
+          function(input, params){
+          <juicy-ace-editor value={{_value}} readonly="true" theme="ace/theme/monokai" mode="ace/mode/javascript" fontsize="14">{{_value}}</juicy-ace-editor>
+          }
+        </div>
       </template>
       <template is="dom-if" if="[[!_viewMode]]">
         function(input, params){
-        <code-mirror content={{_value}} read="false">
-          {{_value}}
-        </code-mirror>
+          <juicy-ace-editor id="fileEditor" value={{_value}} theme="ace/theme/monokai" mode="ace/mode/javascript" fontsize="14">{{_value}}</juicy-ace-editor>
         }
         <div class="layout horizontal end-justified">
           <paper-button noink on-tap="_cancel">[[i18n('command.cancel')]]</paper-button>
@@ -103,11 +96,13 @@
           'entity-type': 'document',
           uid: this.document.uid,
           properties: {
-            'note:note': this._value
+            'note:note': this.$$("#fileEditor").editor.getValue()
           }
         };
         this.$.note.put().then(function() {
-          this.fire('notify', {message: "this.i18n('noteViewLayout.script.saved')"});
+          this.fire('notify', {
+            message: this.i18n('noteViewLayout.script.saved')
+          });
           this._viewMode = true;
           this.fire('document-updated');
         }.bind(this));
@@ -128,6 +123,7 @@
 
       _cancel: function() {
         this._value = '';
+        this._value = this.document.properties['note:note'];
         this._viewMode = true;
       }
     });
