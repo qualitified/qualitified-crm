@@ -27,7 +27,7 @@
                       <br />
 
                       <p style="margin:0;font-size:13px;">
-                        <a style="color:#22aee8;text-decoration:underline;word-wrap:break-word !important;" href="http://localhost:8080/nuxeo/ui/#!/doc/${Document.id}">&#187; Voir le message sur ${Document['dc:title']}</a>
+                        <a style="color:#22aee8;text-decoration:underline;word-wrap:break-word !important;" href="http://extranet.daubriac-et-letron.fr/nuxeo/ui/#!/doc/${Document.id}">&#187; Voir le message sur ${Document['dc:title']}</a>
                       </p><br />
                     </td>
                   </tr>
