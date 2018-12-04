@@ -36,6 +36,45 @@
         margin-top: 8px;
       }
 
+
+       .new{
+       background-color: #4286f4;
+        border-radius: 2em;
+        padding: 0.5em 2em;
+      }
+
+      .negociation{
+      }
+      .won{
+      background-color: #0a9907;
+        border-radius: 2em;
+        padding: 0.5em 2em;
+      }
+      .lost{
+        background-color: #ef0b0b;
+        border-radius: 2em;
+        padding: 0.5em 2em;
+
+      }
+      .limbo{
+      background-color: #efdc0a;
+        border-radius: 2em;
+        padding: 0.5em 2em;
+
+      }
+      .nogo{
+      background-color: #878787;
+        border-radius: 2em;
+        padding: 0.5em 2em;
+
+      }
+      .proposalsent{
+      background-color: #6abaac;
+        border-radius: 2em;
+        padding: 0.5em 2em;
+
+      }
+
     </style>
     <nuxeo-connection id="nxcon"></nuxeo-connection>
     <paper-card role="widget">
@@ -83,7 +122,9 @@
                 <template>
 
                   <nuxeo-document-thumbnail document="[[item]]"></nuxeo-document-thumbnail>
-                  <a class="title ellipsis" href$="#!/browse[[item.path]]" on-tap="_navigate">[[item.title]]</a>
+                  <div class$="[[item.state]]">
+                      <a class="title ellipsis" href$="#!/browse[[item.path]]" on-tap="_navigate">[[item.title]]</a>
+                  </div>
                 </template>
               </nuxeo-data-table-column>
               <nuxeo-data-table-column name="[[i18n('documentContentView.datatable.header.modified')]]"
@@ -133,6 +174,23 @@
                   <nuxeo-user-tag user="[[item.properties.dc:creator]]"></nuxeo-user-tag>
                 </template>
               </nuxeo-data-table-column>
+
+              <nuxeo-data-table-column name="[[i18n('label.metadata.amount')]]"
+                                       field="opportunity:amount" sort-by="opportunity:amount" hidden>
+                <template>
+                  <span>[[item.properties.opportunity:amount]]</span>
+                </template>
+              </nuxeo-data-table-column>
+
+
+              <nuxeo-data-table-column name="[[i18n('label.metadata.closedate')]]"
+                                       field="opportunity:closedate" sort-by="opportunity:closedate" hidden>
+                <template>
+                  <span>[[item.properties.opportunity:closedate]]</span>
+                </template>
+              </nuxeo-data-table-column>
+
+
 
               <!--Drag and drop here all the additional metadata columns from the right -->
               <!-- add hidden attribute if you want them to be hidden by default-->
@@ -221,6 +279,22 @@
                                        field="dc:creator" sort-by="dc:creator" hidden>
                 <template>
                   <nuxeo-user-tag user="[[item.properties.dc:creator]]"></nuxeo-user-tag>
+                </template>
+              </nuxeo-data-table-column>
+
+
+              <nuxeo-data-table-column name="[[i18n('label.metadata.Role')]]"
+                                       field="person:Role" sort-by="person:Role" hidden>
+                <template>
+                  <span>[[item.properties.person:Role]]</span>
+                </template>
+              </nuxeo-data-table-column>
+
+
+              <nuxeo-data-table-column name="[[i18n('label.metadata.civility')]]"
+                                       field="person:civility" sort-by="person:civility" hidden>
+                <template>
+                  <span>[[item.properties.person:civility]]</span>
                 </template>
               </nuxeo-data-table-column>
 
@@ -314,6 +388,23 @@
                 </template>
               </nuxeo-data-table-column>
 
+
+              <nuxeo-data-table-column name="[[i18n('label.metadata.status')]]"
+                                       field="interaction:status" sort-by="interaction:status" hidden>
+                <template>
+                  <span >[[item.properties.interaction:status]]</span>
+                </template>
+              </nuxeo-data-table-column>
+
+              <nuxeo-data-table-column name="[[i18n('label.metadata.activity"
+                                       field="interaction:activity" sort-by="interaction:activity" hidden>
+                <template>
+                  <span >[[item.properties.interaction:activity]]</span>
+                </template>
+              </nuxeo-data-table-column>
+
+
+
               <!--Drag and drop here all the additional metadata columns from the right -->
               <!-- add hidden attribute if you want them to be hidden by default-->
 
@@ -404,6 +495,20 @@
                 </template>
               </nuxeo-data-table-column>
 
+              <nuxeo-data-table-column name="[[i18n('label.metadata.solicitation.category')]]"
+                                       field="solicitation:category" sort-by="solicitation:category" hidden>
+                <template>
+                  <span >[[item.properties.solicitation:category]]</span>
+                </template>
+              </nuxeo-data-table-column>
+
+
+              <nuxeo-data-table-column name="[[i18n('label.metadata.solicitation:status')]]"
+                                       field="solicitation:status" sort-by="solicitation:status" hidden>
+                <template>
+                  <span >[[item.properties.solicitation:status]]</span>
+                </template>
+              </nuxeo-data-table-column>
               <!--Drag and drop here all the additional metadata columns from the right -->
               <!-- add hidden attribute if you want them to be hidden by default-->
 
