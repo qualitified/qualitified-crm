@@ -75,7 +75,7 @@ Gabriel Barata <gbarata@nuxeo.com>
             <nuxeo-page-provider auto
                                  id="latestQuery"
                                  page-size="20"
-                                 query="SELECT * FROM Document WHERE ecm:mixinType = 'Versionable' AND ecm:isCheckedInVersion = 0 AND ecm:mixinType != 'HiddenInNavigation' AND ecm:currentLifeCycleState != 'deleted' ORDER BY dc:modified DESC"
+                                 query="SELECT * FROM Document WHERE ecm:mixinType = 'Versionable' AND ecm:isCheckedInVersion = 0 AND ecm:mixinType != 'HiddenInNavigation' AND ecm:isTrashed = 0 AND ecm:currentLifeCycleState != 'deleted' ORDER BY dc:modified DESC"
                                  schemas="dublincore,common,uid"
                                  enrichers="thumbnail"
                                  headers='{"X-NXfetch.document": "properties"}'>

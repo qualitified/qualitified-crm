@@ -23,6 +23,11 @@ limitations under the License.
 <link rel="import" href="qualitified-script-editor.html">
 <dom-module id="nuxeo-scriptnote-view-layout">
   <template>
+    <style>
+      qualitified-script-editor {
+        @apply --paper-card;
+      }
+    </style>
     <qualitified-script-editor role="widget" document="[[document]]"></qualitified-script-editor>
     <!--nuxeo-document-attachments role="widget" document="[[document]]"></nuxeo-document-attachments-->
   </template>

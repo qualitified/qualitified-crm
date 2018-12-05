@@ -6,7 +6,6 @@
       }
 
       nuxeo-data-table {
-        background-color: #fff;
         height: 100%;
       }
 
@@ -91,7 +90,7 @@
 
         <div class="dataTable">
           <nuxeo-page-provider id="opportunityProvider" auto
-                               query="select * from Opportunity where ecm:currentLifeCycleState != 'deleted' and ecm:parentId = '[[document.uid]]' ORDER BY dc:title ASC"
+                               query="select * from Opportunity where ecm:currentLifeCycleState != 'deleted' and ecm:isTrashed = 0 and ecm:parentId = '[[document.uid]]' ORDER BY dc:title ASC"
                                page-size="40"
                                aggregations="{{opportunityAggregations}}"
                                enrichers="thumbnail, permissions"
@@ -201,7 +200,7 @@
 
         <div class="dataTable">
           <nuxeo-page-provider id="contactProvider" auto
-                               query="select * from Contact where ecm:currentLifeCycleState != 'deleted' and ecm:parentId = '[[document.uid]]' ORDER BY dc:title ASC"
+                               query="select * from Contact where ecm:currentLifeCycleState != 'deleted' and ecm:isTrashed = 0 and ecm:parentId = '[[document.uid]]' ORDER BY dc:title ASC"
                                page-size="40"
                                aggregations="{{contactAggregations}}"
                                enrichers="thumbnail, permissions"
@@ -307,7 +306,7 @@
 
         <div class="dataTable">
           <nuxeo-page-provider id="interactionProvider" auto
-                               query="select * from Interaction where ecm:currentLifeCycleState != 'deleted' and ecm:ancestorId = '[[document.uid]]' ORDER BY interaction:date DESC"
+                               query="select * from Interaction where ecm:currentLifeCycleState != 'deleted' and ecm:isTrashed = 0 and ecm:ancestorId = '[[document.uid]]' ORDER BY interaction:date DESC"
                                page-size="40"
                                aggregations="{{interactionAggregations}}"
                                enrichers="thumbnail, permissions"
@@ -414,7 +413,7 @@
 
         <div class="dataTable">
           <nuxeo-page-provider id="sollicitationProvider" auto
-                               query="select * from Solicitation where ecm:currentLifeCycleState != 'deleted' and ecm:parentId = '[[document.uid]]'"
+                               query="select * from Solicitation where ecm:currentLifeCycleState != 'deleted' and ecm:isTrashed = 0 and ecm:parentId = '[[document.uid]]'"
                                page-size="40"
                                aggregations="{{sollicitationAggregations}}"
                                enrichers="thumbnail, permissions"
@@ -518,7 +517,7 @@
 
         <div class="dataTable">
           <nuxeo-page-provider id="documentProvider" auto
-                               query="select * from Document where ecm:primaryType in ('File', 'Folder', 'Picture', 'Video', 'Audio') and ecm:currentLifeCycleState != 'deleted' and ecm:parentId = '[[document.uid]]' ORDER BY dc:title ASC"
+                               query="select * from Document where ecm:primaryType in ('File', 'Folder', 'Picture', 'Video', 'Audio') and ecm:currentLifeCycleState != 'deleted' and ecm:isTrashed = 0 and ecm:parentId = '[[document.uid]]' ORDER BY dc:title ASC"
                                page-size="40"
                                aggregations="{{documentAggregations}}"
                                enrichers="thumbnail, permissions"

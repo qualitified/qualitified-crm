@@ -3,7 +3,6 @@
 <component name="studio.extensions.crm" version="1.0.0">
   <require>org.nuxeo.runtime.started</require>
   <extension target="org.nuxeo.ecm.core.schema.TypeService" point="schema">
-    <schema name="facetedTag" prefix="nxtag" src="schemas/facetedTag.xsd"/>
     <schema name="account" prefix="account" override="true" src="data/schemas/account.xsd"/>
     <schema name="folder" prefix="folder" override="true" src="data/schemas/folder.xsd"/>
     <schema name="domain_schema" prefix="domain_schema" override="true" src="data/schemas/domain_schema.xsd"/>
@@ -87,6 +86,7 @@
       <schema name="uid"/>
       <schema name="custom"/>
       <facet name="Folderish"/>
+      <facet name="NXTag"/>
       <subtypes>
         <type>File</type>
         <type>Folder</type>
@@ -1148,7 +1148,7 @@
         <predicate id="system_fulltext" parameter="ecm:fulltext" operator="FULLTEXT ALL">
           <field schema="opportunity_list_pp" name="system_fulltext"/>
         </predicate>
-        <fixedPart>ecm:mixinType != 'HiddenInNavigation' AND ecm:isCheckedInVersion = 0 AND ecm:currentLifeCycleState != 'deleted' AND ecm:primaryType = 'Opportunity'</fixedPart>
+        <fixedPart>ecm:mixinType != 'HiddenInNavigation' AND ecm:isCheckedInVersion = 0 AND ecm:isTrashed = 0 AND ecm:currentLifeCycleState != 'deleted' AND ecm:primaryType = 'Opportunity'</fixedPart>
       </whereClause>
       <searchDocumentType>opportunity_list_pp</searchDocumentType>
       <aggregates>
@@ -1202,7 +1202,7 @@
         <predicate id="dublincore_title" parameter="dc:title" operator="ILIKE">
           <field schema="account_list_pp" name="dublincore_title"/>
         </predicate>
-        <fixedPart>ecm:mixinType != 'HiddenInNavigation' AND ecm:isCheckedInVersion = 0 AND ecm:currentLifeCycleState != 'deleted' AND ecm:primaryType = 'Account'</fixedPart>
+        <fixedPart>ecm:mixinType != 'HiddenInNavigation' AND ecm:isCheckedInVersion = 0 AND ecm:isTrashed = 0 AND ecm:currentLifeCycleState != 'deleted' AND ecm:primaryType = 'Account'</fixedPart>
       </whereClause>
       <searchDocumentType>account_list_pp</searchDocumentType>
       <aggregates>
@@ -1223,7 +1223,7 @@
         <predicate id="system_fulltext" parameter="ecm:fulltext" operator="FULLTEXT ALL">
           <field schema="solicitation_list_pp" name="system_fulltext"/>
         </predicate>
-        <fixedPart>ecm:mixinType != 'HiddenInNavigation' AND ecm:isCheckedInVersion = 0 AND ecm:currentLifeCycleState != 'deleted' AND ecm:primaryType = 'Solicitation'</fixedPart>
+        <fixedPart>ecm:mixinType != 'HiddenInNavigation' AND ecm:isCheckedInVersion = 0 AND ecm:isTrashed = 0 AND ecm:currentLifeCycleState != 'deleted' AND ecm:primaryType = 'Solicitation'</fixedPart>
       </whereClause>
       <searchDocumentType>solicitation_list_pp</searchDocumentType>
       <aggregates>
@@ -1419,8 +1419,8 @@
       <category>javascript</category>
       <description></description>
       <script><![CDATA[function run(input, params) {
-        Console.error('SELECT * FROM Custom WHERE ecm:isProxy = 0 AND ecm:isCheckedInVersion = 0 AND ecm:currentLifeCycleState != \'deleted\' AND dc:title=\''+params.documentType+'\'');
-        var customFields = Repository.Query(null, {'query': 'SELECT * FROM Custom WHERE ecm:isProxy = 0 AND ecm:isCheckedInVersion = 0 AND ecm:currentLifeCycleState != \'deleted\' AND dc:title=\''+params.documentType+'\''});
+        Console.error('SELECT * FROM Custom WHERE ecm:isProxy = 0 AND ecm:isCheckedInVersion = 0 AND ecm:isTrashed = 0 AND ecm:currentLifeCycleState != \'deleted\' AND dc:title=\''+params.documentType+'\'');
+        var customFields = Repository.Query(null, {'query': 'SELECT * FROM Custom WHERE ecm:isProxy = 0 AND ecm:isCheckedInVersion = 0 AND ecm:isTrashed = 0 AND ecm:currentLifeCycleState != \'deleted\' AND dc:title=\''+params.documentType+'\''});
         return customFields;
         }]]>
       </script>
@@ -1437,7 +1437,7 @@
         if(params.isCreation && !input.path.startsWith('/Admin/Templates/') && children.length == 0){
           //Check for template and create children documents
           var templatePath = '/Admin/Templates/'+input.type;
-          var templateDoc = Repository.Query(null, {'query': 'SELECT * FROM Document WHERE ecm:isProxy = 0 AND ecm:isCheckedInVersion = 0 AND ecm:currentLifeCycleState != \'deleted\' AND ecm:primaryType = \''+input.type+'\' AND ecm:path = \''+templatePath+'\''});
+          var templateDoc = Repository.Query(null, {'query': 'SELECT * FROM Document WHERE ecm:isProxy = 0 AND ecm:isCheckedInVersion = 0 AND ecm:isTrashed = 0 AND ecm:currentLifeCycleState != \'deleted\' AND ecm:primaryType = \''+input.type+'\' AND ecm:path = \''+templatePath+'\''});
           Console.info(templateDoc.length);
           if(templateDoc.length>0){
             var docs = Document.GetChildren(templateDoc[0],{});
@@ -1448,7 +1448,7 @@
         }
 
         //run postSave script
-        var myScriptDoc = Repository.Query(null, {'query': 'SELECT * FROM ScriptNote WHERE ecm:isProxy = 0 AND ecm:isCheckedInVersion = 0 AND ecm:currentLifeCycleState != \'deleted\' AND dc:title ILIKE \''+input.type+'PostSave\''});
+        var myScriptDoc = Repository.Query(null, {'query': 'SELECT * FROM ScriptNote WHERE ecm:isProxy = 0 AND ecm:isTrashed = 0 AND ecm:isCheckedInVersion = 0 AND ecm:currentLifeCycleState != \'deleted\' AND dc:title ILIKE \''+input.type+'PostSave\''});
         var myScript = "";
         if(myScriptDoc.length > 0){
           myScript = myScriptDoc[0]['note:note'];
@@ -1467,7 +1467,7 @@
       <description></description>
       <script><![CDATA[function run(input, params) {
         //run postCreate script
-        var myScriptDoc = Repository.Query(null, {'query': 'SELECT * FROM ScriptNote WHERE ecm:isProxy = 0 AND ecm:isCheckedInVersion = 0 AND ecm:currentLifeCycleState != \'deleted\' AND dc:title ILIKE \''+input.type+'PostCreate\''});
+        var myScriptDoc = Repository.Query(null, {'query': 'SELECT * FROM ScriptNote WHERE ecm:isProxy = 0 AND ecm:isTrashed = 0 AND ecm:isCheckedInVersion = 0 AND ecm:currentLifeCycleState != \'deleted\' AND dc:title ILIKE \''+input.type+'PostCreate\''});
         var myScript = "";
         if(myScriptDoc.length > 0){
           myScript = myScriptDoc[0]['note:note'];
@@ -1528,7 +1528,7 @@
       <category>javascript</category>
       <description></description>
       <script><![CDATA[function run(input, params) {
-        var myScriptDoc = Repository.Query(null, {'query': 'SELECT * FROM ScriptNote WHERE ecm:isProxy = 0 AND ecm:isCheckedInVersion = 0 AND ecm:currentLifeCycleState != \'deleted\' AND dc:title ILIKE \'runDailyAt20h\''});
+        var myScriptDoc = Repository.Query(null, {'query': 'SELECT * FROM ScriptNote WHERE ecm:isProxy = 0 AND ecm:isTrashed = 0 AND ecm:isCheckedInVersion = 0 AND ecm:currentLifeCycleState != \'deleted\' AND dc:title ILIKE \'runDailyAt20h\''});
         var myScript = "";
         if(myScriptDoc.length > 0){
           myScript = myScriptDoc[0]['note:note'];
@@ -1546,7 +1546,7 @@
       <category>javascript</category>
       <description></description>
       <script><![CDATA[function run(input, params) {
-        var myScriptDoc = Repository.Query(null, {'query': 'SELECT * FROM ScriptNote WHERE ecm:isProxy = 0 AND ecm:isCheckedInVersion = 0 AND ecm:currentLifeCycleState != \'deleted\' AND dc:title ILIKE \'runDailyAt21h\''});
+        var myScriptDoc = Repository.Query(null, {'query': 'SELECT * FROM ScriptNote WHERE ecm:isProxy = 0 AND ecm:isCheckedInVersion = 0 AND ecm:isTrashed = 0 AND ecm:currentLifeCycleState != \'deleted\' AND dc:title ILIKE \'runDailyAt21h\''});
         var myScript = "";
         if(myScriptDoc.length > 0){
           myScript = myScriptDoc[0]['note:note'];
@@ -1564,7 +1564,7 @@
       <category>javascript</category>
       <description></description>
       <script><![CDATA[function run(input, params) {
-        var myScriptDoc = Repository.Query(null, {'query': 'SELECT * FROM ScriptNote WHERE ecm:isProxy = 0 AND ecm:isCheckedInVersion = 0 AND ecm:currentLifeCycleState != \'deleted\' AND dc:title ILIKE \'runDailyAt22h\''});
+        var myScriptDoc = Repository.Query(null, {'query': 'SELECT * FROM ScriptNote WHERE ecm:isProxy = 0 AND ecm:isCheckedInVersion = 0 AND ecm:isTrashed = 0 AND ecm:currentLifeCycleState != \'deleted\' AND dc:title ILIKE \'runDailyAt22h\''});
         var myScript = "";
         if(myScriptDoc.length > 0){
           myScript = myScriptDoc[0]['note:note'];
@@ -1582,7 +1582,7 @@
       <category>javascript</category>
       <description></description>
       <script><![CDATA[function run(input, params) {
-        var myScriptDoc = Repository.Query(null, {'query': 'SELECT * FROM ScriptNote WHERE ecm:isProxy = 0 AND ecm:isCheckedInVersion = 0 AND ecm:currentLifeCycleState != \'deleted\' AND dc:title ILIKE \'runDailyAt23h\''});
+        var myScriptDoc = Repository.Query(null, {'query': 'SELECT * FROM ScriptNote WHERE ecm:isProxy = 0 AND ecm:isCheckedInVersion = 0 AND ecm:isTrashed = 0 AND ecm:currentLifeCycleState != \'deleted\' AND dc:title ILIKE \'runDailyAt23h\''});
         var myScript = "";
         if(myScriptDoc.length > 0){
           myScript = myScriptDoc[0]['note:note'];
@@ -1600,7 +1600,7 @@
       <category>javascript</category>
       <description></description>
       <script><![CDATA[function run(input, params) {
-        var myScriptDoc = Repository.Query(null, {'query': 'SELECT * FROM ScriptNote WHERE ecm:isProxy = 0 AND ecm:isCheckedInVersion = 0 AND ecm:currentLifeCycleState != \'deleted\' AND dc:title ILIKE \'runEvery10s\''});
+        var myScriptDoc = Repository.Query(null, {'query': 'SELECT * FROM ScriptNote WHERE ecm:isProxy = 0 AND ecm:isCheckedInVersion = 0 AND ecm:isTrashed = 0 AND ecm:currentLifeCycleState != \'deleted\' AND dc:title ILIKE \'runEvery10s\''});
         var myScript = "";
         if(myScriptDoc.length > 0){
           myScript = myScriptDoc[0]['note:note'];
