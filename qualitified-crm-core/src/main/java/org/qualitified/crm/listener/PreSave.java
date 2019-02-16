@@ -63,6 +63,8 @@ public class PreSave implements EventListener {
                 doc.copyContent(updatedDoc);
             } catch (OperationException e) {
                 logger.error("Error while running automation script javascript.preSave", e);
+            } catch (ClassCastException e){
+                logger.error("Error while running automation script javascript.preSave", e);
             }
         }
     }
