@@ -1148,6 +1148,10 @@
         <predicate id="system_fulltext" parameter="ecm:fulltext" operator="FULLTEXT ALL">
           <field schema="opportunity_list_pp" name="system_fulltext"/>
         </predicate>
+        <predicate parameter="opportunity:closeDate" operator="BETWEEN">
+          <field schema="opportunity_list_pp" name="opportunity_closeDate_min" />
+          <field schema="opportunity_list_pp" name="opportunity_closeDate_max" />
+        </predicate>
         <fixedPart>ecm:mixinType != 'HiddenInNavigation' AND ecm:isCheckedInVersion = 0 AND ecm:isTrashed = 0 AND ecm:currentLifeCycleState != 'deleted' AND ecm:primaryType = 'Opportunity'</fixedPart>
       </whereClause>
       <searchDocumentType>opportunity_list_pp</searchDocumentType>

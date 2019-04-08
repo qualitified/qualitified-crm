@@ -1,6 +1,8 @@
+<link rel="import" href="../../shared-css.html">
+
 <dom-module id="nuxeo-account-view-layout">
   <template>
-    <style>
+    <style include="nuxeo-styles shared-css">
       *[role=widget] {
         padding: 5px;
       }
@@ -31,47 +33,8 @@
       .results {
         @apply(--layout-vertical);
         @apply(--layout-flex);
-        min-height: calc(60vh - 14em);
+        /* min-height: calc(60vh - 14em); */
         margin-top: 8px;
-      }
-
-
-       .new{
-       background-color: #4286f4;
-        border-radius: 2em;
-        padding: 0.5em 2em;
-      }
-
-      .negociation{
-      }
-      .won{
-      background-color: #0a9907;
-        border-radius: 2em;
-        padding: 0.5em 2em;
-      }
-      .lost{
-        background-color: #ef0b0b;
-        border-radius: 2em;
-        padding: 0.5em 2em;
-
-      }
-      .limbo{
-      background-color: #efdc0a;
-        border-radius: 2em;
-        padding: 0.5em 2em;
-
-      }
-      .nogo{
-      background-color: #878787;
-        border-radius: 2em;
-        padding: 0.5em 2em;
-
-      }
-      .proposalsent{
-      background-color: #6abaac;
-        border-radius: 2em;
-        padding: 0.5em 2em;
-
       }
 
     </style>
@@ -102,9 +65,9 @@
           </nuxeo-page-provider>
 
           <nuxeo-results name="[[document.uid]]" nx-provider="[[opportunityProvider]]" selected-items="{{selectedItems}}">
-            <div class="selectionActions">
+            <!-- <div class="selectionActions">
               <nuxeo-slot slot="BROWSE_ACTIONS" model="[[browseActionContext]]"></nuxeo-slot>
-            </div>
+            </div> -->
 
 
             <!-- Table view -->
@@ -121,9 +84,7 @@
                 <template>
 
                   <nuxeo-document-thumbnail document="[[item]]"></nuxeo-document-thumbnail>
-                  <div class$="[[item.state]]">
-                      <a class="title ellipsis" href$="#!/browse[[item.path]]" on-tap="_navigate">[[item.title]]</a>
-                  </div>
+                  <a class="title ellipsis" href$="#!/browse[[item.path]]" on-tap="_navigate">[[item.title]]</a>
                 </template>
               </nuxeo-data-table-column>
               <nuxeo-data-table-column name="[[i18n('documentContentView.datatable.header.modified')]]"
@@ -157,7 +118,8 @@
 
               <nuxeo-data-table-column name="[[i18n('documentContentView.datatable.header.state')]]"
                                        field="currentLifeCycleState" hidden>
-                <template><span class="capitalize">[[item.state]]</span></template>
+                <template><span class$="[[item.state]] state">[[item.state]]</span>
+                </template>
               </nuxeo-data-table-column>
 
               <nuxeo-data-table-column name="[[i18n('documentContentView.datatable.header.created')]]"
@@ -212,9 +174,9 @@
           </nuxeo-page-provider>
 
           <nuxeo-results name="[[document.uid]]" nx-provider="[[contactProvider]]" selected-items="{{selectedItems}}">
-            <div class="selectionActions">
+            <!-- <div class="selectionActions">
               <nuxeo-slot slot="BROWSE_ACTIONS" model="[[browseActionContext]]"></nuxeo-slot>
-            </div>
+            </div> -->
 
 
             <!-- Table view -->
@@ -318,9 +280,9 @@
           </nuxeo-page-provider>
 
           <nuxeo-results name="[[document.uid]]" nx-provider="[[interactionProvider]]" selected-items="{{selectedItems}}">
-            <div class="selectionActions">
+            <!-- <div class="selectionActions">
               <nuxeo-slot slot="BROWSE_ACTIONS" model="[[browseActionContext]]"></nuxeo-slot>
-            </div>
+            </div> -->
 
 
             <!-- Table view -->
@@ -425,9 +387,9 @@
           </nuxeo-page-provider>
 
           <nuxeo-results name="[[document.uid]]" nx-provider="[[sollicitationProvider]]" selected-items="{{selectedItems}}">
-            <div class="selectionActions">
+            <!-- <div class="selectionActions">
               <nuxeo-slot slot="BROWSE_ACTIONS" model="[[browseActionContext]]"></nuxeo-slot>
-            </div>
+            </div> -->
 
 
             <!-- Table view -->
@@ -529,9 +491,9 @@
           </nuxeo-page-provider>
 
           <nuxeo-results name="[[document.uid]]" nx-provider="[[documentProvider]]" selected-items="{{selectedItems}}">
-            <div class="selectionActions">
+            <!-- <div class="selectionActions">
               <nuxeo-slot slot="BROWSE_ACTIONS" model="[[browseActionContext]]"></nuxeo-slot>
-            </div>
+            </div> -->
 
 
             <!-- Table view -->

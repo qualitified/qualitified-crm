@@ -22,7 +22,7 @@
   "label.ui.aggregate.from_now-1M_to_now-7d":"Last 30 days",
   "label.ui.aggregate.from_now-7d_to_now-24h":"Last 7 days",
   "label.ui.aggregate.from_now-24h_to_now":"Last 24 hours",
-  "command.new.account": "New",
+  "command.new.account": "Create new Account",
   "label.metadata.opportunity.title": "Title",
   "label.metadata.amount" : "Amount",
   "label.metadata.step" : "Step",
@@ -75,5 +75,10 @@
   "label.metadata.custom.editgroup":"Edit Group",
   "label.metadata.custom.hiddengroup":"Hidden Group",
   "label.metadata.custom.multivalue":"Multivalue",
-  "noteViewLayout.script.saved":"Script has been saved."
+  "noteViewLayout.script.saved":"Script has been saved.",
+  "app.title.search.account_list": "Account",
+  "app.title.search.opportunity_list": "Opportunity",
+  "app.title.search.solicitation_list": "Sollicitation",
+  "opportunity.list.from": "From",
+  "opportunity.list.to": "To"
 }

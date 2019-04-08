@@ -5,39 +5,48 @@
 -->
 <dom-module id="nuxeo-account_list-search-results">
   <template>
-    <nuxeo-operation id="getCustomFields" op="getCustomFieldsChain" params="[[params]]"></nuxeo-operation>
-    <nuxeo-results name="account_list" nx-provider="[[nxProvider]]">
-      <nuxeo-data-grid name="grid" icon="icons:apps" class="results" empty-label="[[i18n('searchResults.noResults')]]"
-                       selection-enabled display-quick-filters>
-        <template>
-          <nuxeo-document-grid-thumbnail tabindex$="{{tabIndex}}" selected$="{{selected}}" doc="[[item]]"
-                                         on-navigate="_navigate">
-          </nuxeo-document-grid-thumbnail>
-        </template>
-      </nuxeo-data-grid>
-      <nuxeo-data-table name="table" icon="icons:list" class="results"
-                        settings-enabled
-                        empty-label="[[i18n('searchResults.noResults')]]"
-                        selection-enabled
-                        display-quick-filters
-                        on-row-clicked="_navigate">
-
-        <nuxeo-data-table-column name="Title" field="dc:title" sort-by="dc:title" flex="100">
+    <style include="nuxeo-styles">
+        nuxeo-data-table,
+        nuxeo-data-grid,
+        nuxeo-data-list {
+          display: block;
+          position: relative;
+          min-height: calc(100vh - 130px - var(--nuxeo-app-top));
+        }
+      </style>
+      <nuxeo-operation id="getCustomFields" op="getCustomFieldsChain" params="[[params]]"></nuxeo-operation>
+      <nuxeo-results name="account_list" nx-provider="[[nxProvider]]">
+        <nuxeo-data-grid name="grid" icon="icons:apps" class="results" empty-label="[[i18n('searchResults.noResults')]]"
+                         selection-enabled display-quick-filters>
           <template>
-            <nuxeo-document-thumbnail document="[[item]]"></nuxeo-document-thumbnail>
-            <a class="ellipsis" href$="[[urlFor('browse', item.path)]]" on-click="_navigate">[[item.title]]</a>
+            <nuxeo-document-grid-thumbnail tabindex$="{{tabIndex}}" selected$="{{selected}}" doc="[[item]]"
+                                           on-navigate="_navigate">
+            </nuxeo-document-grid-thumbnail>
           </template>
-        </nuxeo-data-table-column>
+        </nuxeo-data-grid>
+        <nuxeo-data-table name="table" icon="icons:list" class="results"
+                          settings-enabled
+                          empty-label="[[i18n('searchResults.noResults')]]"
+                          selection-enabled
+                          display-quick-filters
+                          on-row-clicked="_navigate">
 
-        <nuxeo-data-table-column name="Type" field="account:accountType" sort-by="account:accountType"
-                                 flex="50">
-          <template>
-            [[formatDirectory(item.properties.account:accountType)]]
-          </template>
-        </nuxeo-data-table-column>
+          <nuxeo-data-table-column name="Title" field="dc:title" sort-by="dc:title" flex="100">
+            <template>
+              <nuxeo-document-thumbnail document="[[item]]"></nuxeo-document-thumbnail>
+              <a class="ellipsis" href$="[[urlFor('browse', item.path)]]" on-click="_navigate">[[item.title]]</a>
+            </template>
+          </nuxeo-data-table-column>
 
-      </nuxeo-data-table>
-    </nuxeo-results>
+          <nuxeo-data-table-column name="Type" field="account:accountType" sort-by="account:accountType"
+                                   flex="50">
+            <template>
+              [[formatDirectory(item.properties.account:accountType)]]
+            </template>
+          </nuxeo-data-table-column>
+
+        </nuxeo-data-table>
+      </nuxeo-results>
   </template>
   <script>
   Polymer({

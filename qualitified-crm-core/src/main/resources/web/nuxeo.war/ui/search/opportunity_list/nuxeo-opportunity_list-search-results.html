@@ -3,8 +3,19 @@
 @group Nuxeo UI
 @element nuxeo-opportunity_list-search-results
 -->
+<link rel="import" href="../../shared-css.html">
 <dom-module id="nuxeo-opportunity_list-search-results">
   <template>
+    <style include="nuxeo-styles shared-css">
+        nuxeo-data-table,
+        nuxeo-data-grid,
+        nuxeo-data-list {
+          display: block;
+          position: relative;
+          min-height: calc(100vh - 130px - var(--nuxeo-app-top));
+        }
+      </style>
+
     <nuxeo-results name="opportunity_list" nx-provider="[[nxProvider]]">
       <nuxeo-data-grid name="grid" icon="icons:apps" class="results" empty-label="[[i18n('searchResults.noResults')]]"
                        selection-enabled display-quick-filters>
@@ -38,6 +49,13 @@
         <nuxeo-data-table-column name="Close Date" field="opportunity:closeDate" sort-by="opportunity:closeDate" flex="50">
           <template>
             [[formatDate(item.properties.opportunity:closeDate)]]
+          </template>
+        </nuxeo-data-table-column>
+
+        <nuxeo-data-table-column name="[[i18n('documentContentView.datatable.header.state')]]"
+                                 field="currentLifeCycleState">
+          <template>
+            <span class$="[[item.state]] state">[[item.state]]</span>
           </template>
         </nuxeo-data-table-column>
 

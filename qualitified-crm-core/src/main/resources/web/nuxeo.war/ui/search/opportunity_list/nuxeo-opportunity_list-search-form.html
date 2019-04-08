@@ -49,6 +49,13 @@
                  autofocus
                  on-keydown="_checkForEnter">
     </nuxeo-input>
+    <br/>
+
+    <div class="layout vertical row">
+      <label>[[i18n('label.metadata.closedate')]]</label>
+      <nuxeo-date-picker value="{{params.opportunity_closeDate_min}}" label="[[i18n('opportunity.list.from')]]"></nuxeo-date-picker>
+      <nuxeo-date-picker value="{{params.opportunity_closeDate_max}}" label="[[i18n('opportunity.list.to')]]"></nuxeo-date-picker>
+    </div>
 
     <div class="layout vertical row">
       <label>[[i18n('label.metadata.step')]]</label>
@@ -75,7 +82,7 @@
       <label>[[i18n('label.last.interaction.date')]]</label>
       <nuxeo-checkbox-aggregation
         data="[[aggregations.opportunity_lastInteractionDate_agg]]"
-        value="{{params.opportunity_lastInteractionDate_agg}}">
+        value="{{params.opportunity_lastInteractionDate_agg}})">
       </nuxeo-checkbox-aggregation>
     </div>
 
@@ -84,7 +91,7 @@
   <script>
   Polymer({
     is: 'nuxeo-opportunity_list-search-form',
-    behaviors: [Nuxeo.LayoutBehavior],
+    behaviors: [Nuxeo.LayoutBehavior, Nuxeo.I18nBehavior],
     properties: {
 
       /**
@@ -94,6 +101,7 @@
         type: Object,
         value: {},
         notify: true,
+        observer: "_setDatesMaxMin"
       },
       aggregations: {
         type: Object,
@@ -107,11 +115,9 @@
       }
     },
 
-    behaviors: [Nuxeo.I18nBehavior],
-
     _addFullTextSearch: function() {
       if (this.searchTerm) {
-        console.log(this.searchTerm);
+        //console.log(this.searchTerm);
         this.set('params.system_fulltext', this.searchTerm + '*');
       } else {
         if (this.params.system_fulltext) {
@@ -128,6 +134,17 @@
 
     clear: function() {
       this.searchTerm = '';
+    },
+
+    _setDatesMaxMin: function () {
+      if(moment().format('M') > 6){
+        this.set('params.opportunity_closeDate_min', moment().format('YYYY')+'-07-01');
+        this.set('params.opportunity_closeDate_max', moment().format('YYYY')+'-12-31');
+
+      }else{
+        this.set('params.opportunity_closeDate_min', moment().format('YYYY')+'-01-01');
+        this.set('params.opportunity_closeDate_max', moment().format('YYYY')+'-06-30');
+      }
     }
   });
   </script>

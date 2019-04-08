@@ -33,7 +33,7 @@
   "Interactions" : "Interactions",
   "Solicitations" : "Sollicitations",
   "Attachments" : "Pièces jointes",
-  "command.new.account": "Nouveau",
+  "command.new.account": "Créer un nouveau compte",
   "label.metadata.opportunity.title": "Titre",
   "label.metadata.amount" : "Montant",
   "label.metadata.step" : "Etape",
@@ -85,5 +85,10 @@
   "label.metadata.custom.readgroup":"Groupe(s) lecture",
   "label.metadata.custom.editgroup":"Groupe(s) édition",
   "label.metadata.custom.hiddengroup":"Groupe(s) caché",
-  "label.metadata.custom.multivalue":"Multivalué"
+  "label.metadata.custom.multivalue":"Multivalué",
+  "app.title.search.account_list": "Compte",
+  "app.title.search.opportunity_list": "Opportunité",
+  "app.title.search.solicitation_list": "Sollicitation",
+  "opportunity.list.from": "De",
+  "opportunity.list.to": "À"
 }

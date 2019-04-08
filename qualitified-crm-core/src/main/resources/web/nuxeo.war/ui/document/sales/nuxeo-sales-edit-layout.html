@@ -10,9 +10,12 @@
         padding: 5px;
       }
     </style>
-    <nuxeo-input role="widget" value="{{document.properties.dc:title}}" label="Title"></nuxeo-input>
+    <!-- <nuxeo-input role="widget" value="{{document.properties.dc:title}}" label="Title"></nuxeo-input>
+    <nuxeo-textarea role="widget" value="{{document.properties.dc:description}}" label="Description"></nuxeo-textarea> -->
 
-    <nuxeo-textarea role="widget" value="{{document.properties.dc:description}}" label="Description"></nuxeo-textarea>
+    <nuxeo-date-picker value="{{document.properties.sales:startDate}}" label="Start Date" role="widget"></nuxeo-date-picker>
+    <nuxeo-date-picker value="{{document.properties.sales:endDate}}" label="End Date" role="widget"></nuxeo-date-picker>
+    <nuxeo-input value="{{document.properties.sales:goal}}" label="Goal" type="number" role="widget"></nuxeo-input>
 
   </template>
 

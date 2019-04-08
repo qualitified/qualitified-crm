@@ -2250,11 +2250,13 @@
       ready: function(){
       },
       _getCustomFields: function(){
-        this.params = {
-          context: {
-            documentType:this.document.type
-          }
-        };
+        if(this.document){
+          this.params = {
+            context: {
+              documentType:this.document.type
+            }
+          };
+        }
         this.$.getCustomFields.execute().then(function(entries) {
           this.custom = entries;
         }.bind(this));

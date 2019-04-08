@@ -5,6 +5,15 @@
 -->
 <dom-module id="nuxeo-solicitation_list-search-results">
   <template>
+    <style include="nuxeo-styles">
+        nuxeo-data-table,
+        nuxeo-data-grid,
+        nuxeo-data-list {
+          display: block;
+          position: relative;
+          min-height: calc(100vh - 130px - var(--nuxeo-app-top));
+        }
+      </style>
     <nuxeo-results name="solicitation_list" nx-provider="[[nxProvider]]">
       <nuxeo-data-grid name="grid" icon="icons:apps" class="results" empty-label="[[i18n('searchResults.noResults')]]"
                        selection-enabled display-quick-filters>

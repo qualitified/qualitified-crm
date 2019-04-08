@@ -21,9 +21,15 @@
       <h1>[[document.properties.dc:title]]</h1>
     </div>
     <nuxeo-data-table class="results" role="widget" items="{{document.properties.custom:field}}">
+      <nuxeo-data-table-column name="ID">
+        <template>
+          <div>custom:[[item.fieldName]]</div>
+        </template>
+      </nuxeo-data-table-column>
+
       <nuxeo-data-table-column name="[[i18n('label.metadata.custom.label')]]">
         <template>
-          <div>[[item.label]] (custom:[[item.fieldName]])</div>
+          <div>[[item.label]]</div>
         </template>
       </nuxeo-data-table-column>
       <nuxeo-data-table-column name="[[i18n('label.metadata.custom.type')]]">
