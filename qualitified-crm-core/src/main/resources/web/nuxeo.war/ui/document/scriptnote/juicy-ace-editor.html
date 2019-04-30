@@ -134,8 +134,14 @@
                 session.setUseWrapMode( this.hasAttribute("wrapmode") );
                 // non ace specific
                 this.hasAttribute("shadow-style") && this.injectTheme(this.getAttribute('shadow-style'));
-
-
+                //Autocompletion
+                ace.require("ace/ext/language_tools");
+                editor.setOptions({
+                        enableBasicAutocompletion: true,
+                        enableSnippets: true,
+                        enableLiveAutocompletion: true
+                });
+                editor.renderer.setShowGutter(true);
 
             // Observe input textNode changes
             // Could be buggy as editor was also added to Light DOM;
