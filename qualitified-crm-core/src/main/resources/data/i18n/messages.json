@@ -10,6 +10,7 @@
   "label.document.type.scripts":"Scripts",
   "label.document.type.custom":"Object",
   "label.document.type.script":"Script",
+  "label.document.type.calendar":"Calendar",
   "label.ui.aggregate.to_10000":"Up to 10,000 €",
   "label.ui.aggregate.from_10000_to_25000":"From 10,000 to 25,000 €",
   "label.ui.aggregate.from_25000_to_50000":"From 25,000 to 50,000 €",
@@ -80,5 +81,9 @@
   "app.title.search.opportunity_list": "Opportunity",
   "app.title.search.solicitation_list": "Sollicitation",
   "opportunity.list.from": "From",
-  "opportunity.list.to": "To"
+  "opportunity.list.to": "To",
+  "home.calendar": "Calendar",
+  "popup.open.doc": "Open the document",
+  "popup.close": "Close",
+  "calendar.view.goToDate":"Go to a specific date"
 }

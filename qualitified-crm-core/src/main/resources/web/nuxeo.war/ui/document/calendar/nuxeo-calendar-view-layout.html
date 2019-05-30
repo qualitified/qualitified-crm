@@ -1,0 +1,241 @@
+<!-- `nuxeo-calendar-view-layout` @group Nuxeo UI @element nuxeo-calendar-view-layout -->
+
+<link rel="import" href="../../dist/scheduler-component/scheduler-component.html">
+<script src="../../dist/fullcalendar/dist/locale/fr.js"></script>
+
+<dom-module id="nuxeo-calendar-view-layout">
+  <template>
+    <style>
+      *[role=widget] {
+        padding: 5px;
+      }
+
+      #calendar{
+        max-width: 900px;
+        margin: 0px auto;
+        display: block;
+      }
+
+      #popup{
+        position: absolute;
+        width: 300px;
+        z-index: 999;
+        display: none;
+        /* top:150px;
+        left: 100px; */
+        background-color: #fff;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        box-shadow: 0 24px 38px 3px rgba(0,0,0,0.14), 0 9px 46px 8px rgba(0,0,0,0.12), 0 11px 15px -7px rgba(0,0,0,0.2);
+        overflow: hidden;
+        padding: 10px;
+      }
+
+      .pop{
+        display: flex;
+        -webkit-flex-direction: column;
+        flex-direction: column;
+        overflow: hidden;
+      }
+
+      .actions{
+        height: 44px;
+        padding: 6px 6px 0 6px;
+        display: -webkit-box;
+        display: -moz-box;
+        display: -webkit-flex;
+        display: -ms-flexbox;
+        display: flex;
+        -webkit-flex-flow: row-reverse;
+        flex-flow: row-reverse;
+      }
+      .popupBody{
+        height: 100px;
+        margin: 0px 12px auto;
+      }
+
+      .popTitle{
+        font-size: 22px;
+        font-weight: 400;
+      }
+
+      .popDate{
+        font-size: 12px;
+        font-weight: 400;
+        letter-spacing: .2px;
+        line-height: 18px;
+        color: #3c4043;
+        margin-top: 5px;
+      }
+
+      paper-card{
+        flex-direction: row;
+        display: flex;
+      }
+
+    </style>
+
+    <nuxeo-operation id="getSchema" op="Document.GetSchemaFromPrefix" params="[[params]]"></nuxeo-operation>
+
+    <nuxeo-page-provider  id="provider"
+                          query="SELECT * FROM Document WHERE ecm:currentLifeCycleState != 'deleted' AND ecm:isTrashed = 0 AND ecm:primaryType = '[[document.properties.calendar:docType]]' AND [[document.properties.calendar:docMetadata]] >= DATE '{{yearM}}-12-15' AND [[document.properties.calendar:docMetadata]] <= DATE '{{yearP}}-01-15'"
+                          schemas="{{schema}}">
+    </nuxeo-page-provider>
+
+    <paper-card>
+      <scheduler-component  id="calendar"
+                            default-view="month"
+                            event-color="{{eventColor}}"
+                            text-color="{{textColor}}"
+                            header='{"center":"title","left":"prev,next,today","right":"month,agendaWeek,agendaDay"}'
+                            events='[]'
+                            all-day-slot="true">
+      </scheduler-component>
+
+      <nuxeo-date-picker id="datePicker" value="{{specDate}}" label="[[i18n('calendar.view.goToDate')]]"></nuxeo-date-picker>
+    </paper-card>
+
+    <div id="popup" class="pop">
+      <div class="actions">
+        <div>
+          <paper-icon-button icon="icons:close" noink="" on-tap="_closePopup"></paper-icon-button>
+          <nuxeo-tooltip>[[i18n('popup.close')]]</nuxeo-tooltip>
+        </div>
+        <div>
+          <paper-icon-button icon="icons:open-in-browser" noink="" on-tap="_goToEvent" data-item$="{{eventUUID}}"></paper-icon-button>
+          <nuxeo-tooltip>[[i18n('popup.open.doc')]]</nuxeo-tooltip>
+        </div>
+      </div>
+      <div class="popupBody">
+        <div class="popTitle">{{eventTitle}}</div>
+        <div class="popDate">{{eventDate}}</div>
+      </div>
+    </div>
+
+  </template>
+
+  <script>
+    Polymer({
+      is: 'nuxeo-calendar-view-layout',
+      behaviors: [Nuxeo.LayoutBehavior],
+      properties: {
+        document: {
+          type: Object,
+          observer: 'docObserver'
+        },
+        year: String,
+      },
+
+      /* Document's observer*/
+      docObserver: function() {
+        var events = [];
+        this.$.calendar.setAttribute("events", JSON.stringify(events));
+
+        if (this.document) {
+          this.eventColor = this.document.properties['calendar:eventColor'];
+          this.textColor = this.document.properties['calendar:textColor'];
+          this._getSchemaAndEvents(this.document.properties['calendar:docMetadata']);
+        }
+      },
+
+      /* Retrieve documents with the required schema */
+      _getSchemaAndEvents: function(docMetadata) {
+        this.params = {
+          xpath: docMetadata
+        };
+        this.$.getSchema.execute().then(function(schema) {
+          this.schema = schema.value;
+          this._getEvents();
+        }.bind(this));
+      },
+
+      ready: function() {
+        /* Click Event */
+        this.$.calendar.addEventListener("event-click", function(e) {
+          var caldView = this.parentNode.parentNode.host;
+          caldView.eventTitle = e.detail.calEvent.title;
+          caldView.eventUUID = e.detail.calEvent.uid;
+          caldView.eventDate = moment(e.detail.calEvent.start._d).locale('fr').format('LLLL').slice(0, -5);
+          caldView.$.popup.style.display = 'block';
+          caldView.$.popup.style.left = e.detail.jsEvent.originalEvent.pageX + 'px';
+          caldView.$.popup.style.top = e.detail.jsEvent.originalEvent.pageY - '140' + 'px';
+          caldView._openPopup();
+        });
+
+        /* Mouse Over Event */
+        this.$.calendar.addEventListener("event-mouse-over", function(e) {
+          e.detail.jsEvent.target.style.cursor = 'pointer';
+        });
+
+        /* Get events by year to speed up the search */
+        this.year = this.$.calendar.getDate()._i[0];
+        this.yearP = this.$.calendar.getDate()._i[0]+1;
+        this.yearM = this.$.calendar.getDate()._i[0]-1;
+
+        this.$.calendar.addEventListener("view-render", function(e) {
+          var caldView = this.parentNode.parentNode.host;
+          var currentYear = this.getDate()._i[0];
+          //console.log(currentYear);
+          if (caldView.year == null) {
+            caldView.year = currentYear;
+          } else {
+            if (caldView.year !== currentYear) {
+              caldView.year = currentYear;
+              caldView.yearP = currentYear + 1;
+              caldView.yearM = currentYear - 1;
+              caldView._getEvents();
+            }
+          }
+        });
+
+        this.specDate = this.$.calendar.getDate();
+        /* Navigates to the given date */
+        this.$.datePicker.addEventListener("value-changed", function(e) {
+          this.parentNode.parentNode.host.$.calendar.goToDate(moment(e.detail.value));
+        });
+      },
+
+      /* Get documents and fill the 'events' attribute */
+      _getEvents: function() {
+        this.$.provider.fetch().then(function(result) {
+          //console.log(result);
+          var events = [];
+          for (var i = 0; i < result.entries.length; i++) {
+            //console.log(result.entries[i]);
+            var event = {};
+            event.title = result.entries[i].title;
+            event.start = moment(result.entries[i].properties[this.document.properties['calendar:docMetadata']]).format('YYYY-MM-DD');
+            event.allDay = true;
+            event.uid = result.entries[i].uid;
+            //console.log(event);
+            events.push(event);
+          }
+          this.$.calendar.setAttribute("events", JSON.stringify(events));
+
+        }.bind(this));
+      },
+
+      /* Open the document in a new tab */
+      _goToEvent: function(e) {
+        window.open(location.origin + "/nuxeo/ui/#!/doc/" + e.target.dataset.item, '_blank');
+      },
+
+      /* Open popup */
+      _openPopup: function() {
+        var popup = this.$.popup;
+        popup.style.display = 'block';
+      },
+
+      /* Close popup */
+      _closePopup: function() {
+        var popup = this.$.popup;
+        popup.style.display = 'none';
+      },
+
+      _resize:function () {
+        console.log(this.$.calendar);alert();
+        this.$.calendar.render();
+      }
+    });
+  </script>
+</dom-module>

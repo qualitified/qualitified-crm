@@ -3,6 +3,7 @@
 <component name="studio.extensions.crm" version="1.0.0">
   <require>org.nuxeo.runtime.started</require>
   <extension target="org.nuxeo.ecm.core.schema.TypeService" point="schema">
+    <schema name="calendar" prefix="calendar" override="true" src="data/schemas/calendar.xsd"/>
     <schema name="account" prefix="account" override="true" src="data/schemas/account.xsd"/>
     <schema name="folder" prefix="folder" override="true" src="data/schemas/folder.xsd"/>
     <schema name="domain_schema" prefix="domain_schema" override="true" src="data/schemas/domain_schema.xsd"/>
@@ -38,6 +39,9 @@
     <facet name="NXTag">
       <schema name="facetedTag"/>
     </facet>
+    <doctype name="Calendar" extends="File">
+      <schema name="calendar"/>
+    </doctype>
     <doctype name="Account" extends="Document">
       <schema name="account"/>
       <schema name="dublincore"/>
@@ -124,6 +128,7 @@
         <type>TemplateRoot</type>
         <type>Objects</type>
         <type>Scripts</type>
+        <type>Calendar</type>
       </subtypes>
     </doctype>
     <doctype name="Root" append="true">
@@ -315,19 +320,23 @@
     </doctype>
     <doctype name="Workspace" extends="Folder">
       <schema name="workspace_schema"/>
-      <schema name="publishing"/>
+      <!-- for logo -->
+      <schema name="file"/>
       <schema name="webcontainer"/>
+      <schema name="publishing"/>
+      <!-- the content of webcontainer -->
+      <schema name="files"/>
       <facet name="SuperSpace"/>
       <subtypes>
         <type>File</type>
         <type>Folder</type>
         <type>Workspace</type>
-        <type>BlogSite</type>
-        <type>Forum</type>
+        <!-- <type>BlogSite</type> -->
+        <!-- <type>Forum</type> -->
         <type>MailFolder</type>
         <type>Note</type>
         <type>OrderedFolder</type>
-        <type>WebSite</type>
+        <!-- <type>WebSite</type> -->
         <type>Account</type>
       </subtypes>
     </doctype>
@@ -440,8 +449,17 @@
     <types>
       <type name="Workspace">default</type>
     </types>
+    <types>
+      <type name="Calendar">default</type>
+    </types>
   </extension>
   <extension target="org.nuxeo.ecm.platform.types.TypeService" point="types">
+    <type id="Calendar">
+      <label>Calendar</label>
+      <icon>/img/round_calendar_today_black_48dp_1x.png</icon>
+      <bigIcon>/img/round_calendar_today_black_48dp_2x.png</bigIcon>
+      <description></description>
+    </type>
     <type id="Account">
       <label>label.account</label>
       <icon>/img/ic_business_black_24dp_1x.png</icon>
@@ -1632,6 +1650,7 @@
         <templateItem typeName="TemplateRoot" id="Templates" title="Templates" description=""/>
         <templateItem typeName="Objects" id="Objects" title="Objects" description=""/>
         <templateItem typeName="Scripts" id="Scripts" title="Scripts" description=""/>
+        <templateItem typeName="Calendar" id="Calendar.conf" title="Calendar.conf" description=""/>
       </template>
     </factoryBinding>
     <factoryBinding name="RootFactory" factoryName="SimpleTemplateRootFactory" targetType="Root">
@@ -1908,4 +1927,13 @@
     <validation context="saveDocument" activated="false"/>
     <validation context="importDocument" activated="false"/>
   </extension>
+
+  <!-- Trash Migration: https://doc.nuxeo.com/nxdoc/upgrade-from-lts-2017-to-lts-2019/ -->
+  <!-- <require>org.nuxeo.ecm.core.trash.service.migrator</require>
+  <extension target="org.nuxeo.runtime.migration.MigrationService" point="configuration">
+    <migration id="trash-storage">
+      <defaultState>lifecycle</defaultState>
+    </migration>
+  </extension>  -->
+
 </component>

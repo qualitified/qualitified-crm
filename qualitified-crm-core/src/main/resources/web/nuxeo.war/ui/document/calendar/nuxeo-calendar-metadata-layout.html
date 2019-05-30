@@ -1,0 +1,62 @@
+<!--
+`nuxeo-calendar-metadata-layout`
+@group Nuxeo UI
+@element nuxeo-calendar-metadata-layout
+-->
+<dom-module id="nuxeo-calendar-metadata-layout">
+  <template>
+    <style>
+      *[role=widget] {
+        padding: 5px;
+      }
+    </style>
+
+    <div role="widget">
+      <label>Title</label>
+      <div>[[document.properties.dc:title]]</div>
+    </div>
+
+    <div role="widget">
+      <label>Description</label>
+      <div>[[document.properties.dc:description]]</div>
+    </div>
+
+    <div role="widget">
+      <label>Document type</label>
+      <div>[[document.properties.calendar:docType]]</div>
+    </div>
+
+    <div role="widget">
+      <label>Document metadata</label>
+      <div>[[document.properties.calendar:docMetadata]]</div>
+    </div>
+
+    <div role="widget">
+      <label>Event color</label>
+      <div>[[document.properties.calendar:eventColor]]</div>
+    </div>
+
+    <div role="widget">
+      <label>Text color</label>
+      <div>[[document.properties.calendar:textColor]]</div>
+    </div>
+
+    </template>
+
+  <script>
+    Polymer({
+      is: 'nuxeo-calendar-metadata-layout',
+      behaviors: [Nuxeo.LayoutBehavior],
+      properties: {
+
+        /**
+         * @doctype Calendar
+         */
+        document: {
+          type: Object,
+        },
+
+      }
+    });
+  </script>
+</dom-module>

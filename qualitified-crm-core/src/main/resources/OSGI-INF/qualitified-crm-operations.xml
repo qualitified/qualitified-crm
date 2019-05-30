@@ -11,6 +11,12 @@
                point="operations" >
         <operation class="org.qualitified.crm.GetContextData" />
     </extension>
+
+    <extension point="operations"
+               target="org.nuxeo.ecm.core.operation.OperationServiceComponent">
+        <operation class="org.qualitified.crm.GetSchemaFromPrefix"/>
+    </extension>
+
     <!--extension target="org.nuxeo.ecm.core.operation.OperationServiceComponent"
                point="operations" >
         <operation class="org.qualitified.crm.Save" />
