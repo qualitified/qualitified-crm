@@ -2,7 +2,6 @@ node_modules
 bower_components
 .tmp
 .publish/
-target
 .classpath
 .project
 npm-debug.log
