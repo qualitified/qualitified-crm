@@ -20,10 +20,7 @@ import org.nuxeo.runtime.api.Framework;
 import org.nuxeo.template.adapters.doc.TemplateBasedDocumentAdapterImpl;
 import org.nuxeo.template.api.InputType;
 import org.nuxeo.template.api.TemplateInput;
-import org.nuxeo.template.api.TemplateProcessorService;
 import org.nuxeo.template.api.adapters.TemplateBasedDocument;
-import org.nuxeo.template.api.context.DocumentWrapper;
-import org.nuxeo.template.context.BlobHolderWrapper;
 import org.nuxeo.template.fm.FMContextBuilder;
 import org.nuxeo.template.processors.xdocreport.XDocReportBindingResolver;
 

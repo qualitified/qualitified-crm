@@ -12,7 +12,6 @@ import org.nuxeo.ecm.core.api.*;
 import org.nuxeo.ecm.core.api.impl.DocumentModelListImpl;
 import org.nuxeo.ecm.core.test.annotations.Granularity;
 import org.nuxeo.ecm.core.test.annotations.RepositoryConfig;
-import org.nuxeo.runtime.api.Framework;
 import org.nuxeo.runtime.test.runner.Deploy;
 import org.nuxeo.runtime.test.runner.Features;
 import org.nuxeo.runtime.test.runner.FeaturesRunner;
@@ -93,6 +92,8 @@ public class TestRenderForMultipleDocs {
                 ZipXmlHelper.OOO_MAIN_FILE);
 
         Assert.assertTrue(xmlContent.contains("file 1"));
+        Assert.assertTrue(xmlContent.contains("file 2"));
+        Assert.assertTrue(xmlContent.contains("file 3"));
 
     }
 }
