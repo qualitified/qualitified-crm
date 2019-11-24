@@ -2,8 +2,8 @@ node_modules
 bower_components
 .tmp
 .publish/
-target
 .classpath
+target
 .project
 npm-debug.log
 .settings/
@@ -31,3 +31,4 @@ node_modules
 *.bak
 docker
 docker-pre-prod/
+nashorn_code_cache
