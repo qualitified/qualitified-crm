@@ -56,9 +56,9 @@ public class RenderForMultipleDocs {
         TemplateBasedDocument templateBasedDocument = new TemplateBasedDocumentAdapterImpl(docs.get(0));
         templateBasedDocument.setTemplate(template.get(0), false);
 
-        Blob sourceTemplateBlob = getSourceTemplateBlob(templateBasedDocument,
-                templateName);
-
+       // Blob sourceTemplateBlob = getSourceTemplateBlob(templateBasedDocument,
+         //       templateName);
+        Blob sourceTemplateBlob = (Blob) template.get(0).getPropertyValue("file:content");
         // load the template
         IXDocReport report = XDocReportRegistry.getRegistry().loadReport(
                 sourceTemplateBlob.getStream(), TemplateEngineKind.Freemarker,
