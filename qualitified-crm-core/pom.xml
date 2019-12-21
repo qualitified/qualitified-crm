@@ -46,6 +46,4 @@
       <artifactId>nuxeo-template-rendering-core</artifactId>
     </dependency>
   </dependencies>
-
-
 </project>
