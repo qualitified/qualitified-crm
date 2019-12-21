@@ -1,24 +1,9 @@
 <component name="org.qualitified.crm.operations">
-    <extension target="org.nuxeo.ecm.core.operation.OperationServiceComponent"
-               point="operations" >
+    <extension target="org.nuxeo.ecm.core.operation.OperationServiceComponent" point="operations" >
         <operation class="org.qualitified.crm.GetCustomFields" />
-    </extension>
-    <extension target="org.nuxeo.ecm.core.operation.OperationServiceComponent"
-               point="operations" >
         <operation class="org.qualitified.crm.PutContextData" />
-    </extension>
-    <extension target="org.nuxeo.ecm.core.operation.OperationServiceComponent"
-               point="operations" >
         <operation class="org.qualitified.crm.GetContextData" />
-    </extension>
-
-    <extension point="operations"
-               target="org.nuxeo.ecm.core.operation.OperationServiceComponent">
         <operation class="org.qualitified.crm.GetSchemaFromPrefix"/>
+        <operation class="org.qualitified.crm.RenderForMultipleDocs" />
     </extension>
-
-    <!--extension target="org.nuxeo.ecm.core.operation.OperationServiceComponent"
-               point="operations" >
-        <operation class="org.qualitified.crm.Save" />
-    </extension-->
  </component>
