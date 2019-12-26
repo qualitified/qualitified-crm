@@ -1,11 +1,11 @@
 <?xml version="1.0"?>
-<component name="org.qualitified.crm.listener.listener.presave">
+<component name="org.qualitified.crm.listener.listener.postsave">
 
   <extension target="org.nuxeo.ecm.core.event.EventServiceComponent" point="listener">
-    <listener name="presave"
-      class="org.qualitified.crm.listener.PreSave">
-        <event>aboutToCreate</event>
-        <event>beforeDocumentModification</event>
+    <listener name="postsave"
+      class="org.qualitified.crm.listener.PostSave">
+        <event>documentCreated</event>
+        <event>documentModified</event>
         <filters>
           <doctype>File</doctype>
           <doctype>Folder</doctype>
