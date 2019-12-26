@@ -764,21 +764,6 @@
         </condition>
       </filters>
     </handler>
-    <handler chainId="postSaveChain">
-      <event>documentCreated</event>
-      <event>documentModified</event>
-      <filters>
-        <doctype>File</doctype>
-        <doctype>Folder</doctype>
-        <doctype>Account</doctype>
-        <doctype>Contact</doctype>
-        <doctype>Opportunity</doctype>
-        <doctype>Interaction</doctype>
-        <doctype>Solicitation</doctype>
-        <doctype>MailMessage</doctype>
-        <attribute>Regular Document</attribute>
-      </filters>
-    </handler>
     <handler chainId="postCreateChain">
       <event>documentCreated</event>
       <filters>
@@ -1075,14 +1060,6 @@
       <operation id="Qualitified.GetCustomFields">
         <param type="string" name="documentType">expr:@{Context["documentType"]}</param>
       </operation>
-    </chain>
-    <chain id="postSaveChain">
-      <operation id="Context.FetchDocument"/>
-      <operation id="Auth.LoginAs">
-        <param type="string" name="name">Administrator</param>
-      </operation>
-      <operation id="javascript.postSave"/>
-      <operation id="Auth.Logout"/>
     </chain>
     <chain id="postCreateChain">
       <operation id="Context.FetchDocument"/>
@@ -1452,33 +1429,10 @@
       <outputType>document</outputType>
       <category>javascript</category>
       <param name="isCreation" type="boolean"/>
+      <param name="script" type="string"/>
       <description></description>
       <script><![CDATA[function run(input, params) {
-        params.isCreation = input['dc:created'] === null && input['dc:modified'] === null || Fn.calendar(input['dc:created']).format("yyyy-MM-dd HH:mm:ss.SSS") == Fn.calendar(input['dc:modified']).format("yyyy-MM-dd HH:mm:ss.SSS");
-
-        var children = Document.GetChildren(input,{});
-        if(params.isCreation && !input.path.startsWith('/Admin/Templates/') && children.length == 0){
-          //Check for template and create children documents
-          var templatePath = '/Admin/Templates/'+input.type;
-          var templateDoc = Repository.Query(null, {'query': 'SELECT * FROM Document WHERE ecm:isProxy = 0 AND ecm:isCheckedInVersion = 0 AND ecm:isTrashed = 0 AND ecm:currentLifeCycleState != \'deleted\' AND ecm:primaryType = \''+input.type+'\' AND ecm:path = \''+templatePath+'\''});
-          Console.info(templateDoc.length);
-          if(templateDoc.length>0){
-            var docs = Document.GetChildren(templateDoc[0],{});
-            docs.forEach(function(doc){
-              Document.Copy(doc, {'target': input.path});
-            });
-          }
-        }
-
-        //run postSave script
-        var myScriptDoc = Repository.Query(null, {'query': 'SELECT * FROM ScriptNote WHERE ecm:isProxy = 0 AND ecm:isTrashed = 0 AND ecm:isCheckedInVersion = 0 AND ecm:currentLifeCycleState != \'deleted\' AND dc:title ILIKE \''+input.type+'PostSave\''});
-        var myScript = "";
-        if(myScriptDoc.length > 0){
-          myScript = myScriptDoc[0]['note:note'];
-        }
-        if(myScript !== ""){
-          eval(myScript);
-        }
+        eval(params.script);
         return input;
         }]]>
       </script>
