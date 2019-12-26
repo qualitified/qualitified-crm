@@ -1451,6 +1451,7 @@
       <inputType>document</inputType>
       <outputType>document</outputType>
       <category>javascript</category>
+      <param name="isCreation" type="boolean"/>
       <description></description>
       <script><![CDATA[function run(input, params) {
         params.isCreation = input['dc:created'] === null && input['dc:modified'] === null || Fn.calendar(input['dc:created']).format("yyyy-MM-dd HH:mm:ss.SSS") == Fn.calendar(input['dc:modified']).format("yyyy-MM-dd HH:mm:ss.SSS");
@@ -1505,6 +1506,8 @@
       <inputType>document</inputType>
       <outputType>document</outputType>
       <category>javascript</category>
+      <param name="script" type="string"/>
+      <param name="isCreation" type="boolean"/>
       <description></description>
       <script><![CDATA[function run(input, params) {
           return eval(params.script);
