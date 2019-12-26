@@ -286,6 +286,7 @@
       <facet name="NXTag"/>
       <subtypes>
         <type>ScriptNote</type>
+        <type>Scripts</type>
       </subtypes>
     </doctype>
     <doctype name="Solicitation" extends="Document">

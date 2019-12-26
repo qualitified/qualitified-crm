@@ -50,7 +50,8 @@
                              page-size="5"
                              params="[[params]]"
                              aggregations="{{documentAggregations}}"
-                             current-page="{{documents}}">
+                             current-page="{{documents}}"
+                             enrichers="thumbnail, permissions">
         </nuxeo-page-provider>
         <nuxeo-data-table role="widget" id="datatable" items="[[documents]]" on-row-clicked="_navigate">
           <nuxeo-data-table-column name="Full text search" flex="100" filter-by="ecm_fulltext" sort-by="dc:title">
