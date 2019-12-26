@@ -23,12 +23,68 @@ limitations under the License.
 <dom-module id="nuxeo-scripts-view-layout">
 
   <template>
-    <nuxeo-document-content document="[[document]]"></nuxeo-document-content>
+    <div class="dataTable">
+      <nuxeo-page-provider
+              role="widget"
+              id="documentProvider"
+              auto
+              query="select * from ScriptNote where ecm:currentLifeCycleState != 'deleted' and ecm:isTrashed = 0 and ecm:parentId = '[[document.uid]]'"
+              page-size="5"
+              params="[[params]]"
+              aggregations="{{documentAggregations}}"
+              current-page="{{documents}}"
+              enrichers="thumbnail, permissions"
+              schemas="dublincore,common,uid,file">
+      </nuxeo-page-provider>
+      <nuxeo-data-table role="widget" id="datatable" items="[[documents]]" on-row-clicked="_navigate" settings-enabled="">
+        <nuxeo-data-table-column name="Title" flex="100">
+          <template>
+            <nuxeo-document-thumbnail document=[[item]]></nuxeo-document-thumbnail>
+            [[item.title]]
+          </template>
+        </nuxeo-data-table-column>
+        <nuxeo-data-table-column name="[[i18n('documentContentView.datatable.header.created')]]" field="dc:created" flex="50">
+          <template>
+            <nuxeo-date datetime="[[item.properties.dc:created]]"></nuxeo-date>
+          </template>
+        </nuxeo-data-table-column>
+        <nuxeo-data-table-column name="[[i18n('documentContentView.datatable.header.modified')]]" field="dc:modified" flex="50">
+          <template>
+            <nuxeo-date datetime="[[item.properties.dc:modified]]"></nuxeo-date>
+          </template>
+        </nuxeo-data-table-column>
+        <nuxeo-data-table-column name="[[i18n('documentContentView.datatable.header.author')]]" flex="50" hidden="">
+          <template is="header">
+            <nuxeo-dropdown-aggregation
+                    placeholder="Author"
+                    data="[[documentAggregations.dc_creator_agg]]"
+                    value="{{column.filterValue}}" multiple>
+            </nuxeo-dropdown-aggregation>
+          </template>
+          <template>
+            <nuxeo-user-tag user="[[item.properties.dc:creator]]"></nuxeo-user-tag>
+          </template>
+        </nuxeo-data-table-column>
+        <nuxeo-data-table-column name="[[i18n('documentContentView.datatable.header.lastContributor')]]" field="dc:lastContributor" flex="50">
+          <template>
+            <nuxeo-user-tag user="[[item.properties.dc:lastContributor]]"></nuxeo-user-tag>
+          </template>
+        </nuxeo-data-table-column>
+        <nuxeo-data-table-column name="Contributors" field="dc:contributors" flex="50" hidden="">
+          <template>
+            <template is="dom-repeat" items="[[item.properties.dc:contributors]]">
+              <nuxeo-user-tag user="[[item]]"></nuxeo-user-tag>
+            </template>
+          </template>
+        </nuxeo-data-table-column>
+      </nuxeo-data-table>
+    </div>
   </template>
 
   <script>
     Polymer({
       is: 'nuxeo-scripts-view-layout',
+      behaviors: [Nuxeo.DocumentContentBehavior],
       properties: {
         /**
          * @doctype Scripts

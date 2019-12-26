@@ -56,7 +56,6 @@ public class TestPostSave {
         DocumentModel script = coreSession.createDocumentModel("/Admin/Scripts", "FolderPostSave","ScriptNote");
         script.setPropertyValue("dc:title", "FolderPostSave");
         script.setPropertyValue("note:mime_type", "text/plain");
-        //script.setPropertyValue("note:note","");
         script.setPropertyValue("note:note", "var file = Document.Fetch(null, {'value':'/folder1/file1'});\nif(file != null){file['dc:description']=input.title;\nfile['custom:booleanField1']=params.isCreation;\nDocument.Save(file,{});}\n");
         coreSession.createDocument(script);
         coreSession.save();
@@ -90,5 +89,39 @@ public class TestPostSave {
         DocumentModelList list = coreSession.getChildren(new IdRef(folder.getId()));
 
         assertEquals(2,list.totalSize());
+    }
+
+
+    @Test
+    public void runMultiplePostSave(){
+        DocumentModel folder = coreSession.createDocumentModel("/", "folder1", "Folder");
+        folder.setPropertyValue("dc:title", "My Folder");
+        folder = coreSession.createDocument(folder);
+        coreSession.save();
+
+        DocumentModel file = coreSession.createDocumentModel("/folder1", "file1", "File");
+        file = coreSession.createDocument(file);
+        coreSession.save();
+
+        DocumentModel script = coreSession.createDocumentModel("/Admin/Scripts", "FolderPostSave","ScriptNote");
+        script.setPropertyValue("dc:title", "FolderPostSave - set title");
+        script.setPropertyValue("note:mime_type", "text/plain");
+        script.setPropertyValue("note:note", "var file = Document.Fetch(null, {'value':'/folder1/file1'});\nif(file != null){file['dc:title']=input.title;\nDocument.Save(file,{});}\n");
+        coreSession.createDocument(script);
+        coreSession.save();
+
+        DocumentModel script2 = coreSession.createDocumentModel("/Admin/Scripts", "FolderPostSave","ScriptNote");
+        script.setPropertyValue("dc:title", "FolderPostSave - set description");
+        script.setPropertyValue("note:mime_type", "text/plain");
+        script.setPropertyValue("note:note", "var file = Document.Fetch(null, {'value':'/folder1/file1'});\nif(file != null){file['dc:description']=input['dc:description'];\nDocument.Save(file,{});}\n");
+        coreSession.createDocument(script);
+        coreSession.save();
+
+        folder.setPropertyValue("dc:title", "My New Folder Title");
+        folder.setPropertyValue("dc:description", "My New Folder Description");
+        coreSession.saveDocument(folder);
+
+        assertEquals(folder.getTitle(), file.getPropertyValue("dc:title"));
+        assertEquals(folder.getPropertyValue("dc:description"), file.getPropertyValue("dc:description"));
     }
 }
