@@ -57,11 +57,16 @@ public class PreSave implements EventListener {
             params.put("isCreation", ("aboutToCreate").equals(event.getName()));
 
             AutomationService automationService = Framework.getService(AutomationService.class);
-            DocumentModel updatedDoc = null;
+
             try {
-                updatedDoc = (DocumentModel) automationService.run(operationContext, "javascript.preSave", params);
-                doc.copyContent(updatedDoc);
+                Object obj = automationService.run(operationContext, "javascript.preSave", params);
+                if(obj instanceof DocumentModel){
+                    doc.copyContent((DocumentModel)obj);
+                }
             } catch (OperationException e) {
+                logger.error("Error while running automation script javascript.preSave", e);
+            }
+            catch (ClassCastException e) {
                 logger.error("Error while running automation script javascript.preSave", e);
             }
         }
