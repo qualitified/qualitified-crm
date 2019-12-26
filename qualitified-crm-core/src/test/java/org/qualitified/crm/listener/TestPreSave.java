@@ -61,4 +61,28 @@ public class TestPreSave {
         assertEquals("value set via script", file.getPropertyValue("dc:description"));
         assertEquals(true, file.getPropertyValue("custom:booleanField1"));
     }
+
+    @Test
+    public void runMultiplePreSave(){
+        DocumentModel script = coreSession.createDocumentModel("/Admin/Scripts", "FilePreSave","ScriptNote");
+        script.setPropertyValue("dc:title", "FilePreSave - Set the Title");
+        script.setPropertyValue("note:mime_type", "text/plain");
+        script.setPropertyValue("note:note", "input['dc:title']='My title';");
+        coreSession.createDocument(script);
+
+        DocumentModel script2 = coreSession.createDocumentModel("/Admin/Scripts", "FilePreSave","ScriptNote");
+        script2.setPropertyValue("dc:title", "FilePreSave - Set the Description");
+        script2.setPropertyValue("note:mime_type", "text/plain");
+        script2.setPropertyValue("note:note", "input['dc:description']='My description';");
+        coreSession.createDocument(script2);
+        coreSession.save();
+
+        DocumentModel file = coreSession.createDocumentModel("/", "My File", "File");
+        file = coreSession.createDocument(file);
+
+        assertNotNull(file.getId());
+        assertEquals("My title", file.getPropertyValue("dc:title"));
+        assertEquals("My description", file.getPropertyValue("dc:description"));
+
+    }
 }
