@@ -1,4 +1,4 @@
-<dom-module id="qualitified-document-content" assetpath="nuxeo-results/">
+<dom-module id="scripts-document-content" assetpath="nuxeo-results/">
   <template>
 
     <style include="nuxeo-styles">
@@ -87,13 +87,18 @@
             <nuxeo-user-tag user="[[item.properties.dc:creator]]"></nuxeo-user-tag>
           </template>
         </nuxeo-data-table-column>
+        <nuxeo-data-table-column name="Order" field="scriptnote:order" sort-by="[[_displaySort(document, 'scriptnote:order')]]" hidden="">
+          <template>
+            [[item.properties.scriptnote:order]]
+          </template>
+        </nuxeo-data-table-column>
     </nuxeo-results>
 
   </template>
 
   <script>
     Polymer({
-      is: 'qualitified-document-content',
+      is: 'scripts-document-content',
       behaviors: [Nuxeo.DocumentContentBehavior],
       properties: {
         /**
@@ -122,7 +127,7 @@
          */
         schemas: {
           type: String,
-          value: 'dublincore,common,uid,file'
+          value: 'dublincore,common,uid,scriptnote'
         },
         /**
          * List of content enrichers passed on to `provider`.
@@ -155,7 +160,7 @@
           if (this.hasFacet(document, 'Orderable')) {
             this.$.nxProvider.set('sort', { 'ecm:pos': 'ASC' });
           } else {
-            this.$.nxProvider.set('sort', {'dc:created': 'ASC'});
+            this.$.nxProvider.set('sort', {'scriptnote:order': 'ASC', 'dc:created': 'ASC'});
           }
           return { 'ecm_parentId': document.uid, 'ecm_trashed': this.isTrashed(document) }
         }

@@ -39,7 +39,7 @@ public class PreSave implements EventListener {
 
 
         List<DocumentModel> scripts = CoreInstance.doPrivileged(docCtx.getCoreSession(), (session) -> {
-            return session.query("SELECT * FROM ScriptNote WHERE ecm:isProxy = 0 AND ecm:isCheckedInVersion = 0 AND ecm:isTrashed = 0 AND ecm:currentLifeCycleState != 'deleted' AND dc:title ILIKE '"+doc.getType()+"PreSave%' ORDER BY dc:created ASC");
+            return session.query("SELECT * FROM ScriptNote WHERE ecm:isProxy = 0 AND ecm:isCheckedInVersion = 0 AND ecm:isTrashed = 0 AND ecm:currentLifeCycleState != 'deleted' AND dc:title ILIKE '"+doc.getType()+"PreSave%' ORDER BY scriptnote:order ASC, dc:created ASC");
         });
         for(DocumentModel script : scripts) {
             OperationContext operationContext = new OperationContext(docCtx.getCoreSession());
