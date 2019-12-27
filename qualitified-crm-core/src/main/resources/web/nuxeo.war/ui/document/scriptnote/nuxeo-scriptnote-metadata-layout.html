@@ -32,36 +32,14 @@ limitations under the License.
       <label>[[i18n('label.dublincore.description')]]</label>
       <div name="description" class="multiline">[[document.properties.dc:description]]</div>
     </div>
-
-    <div role="widget" hidden$="[[!document.properties.dc:nature]]">
-      <label>[[i18n('label.dublincore.nature')]]</label>
-      <div name="nature">[[formatDirectory(document.properties.dc:nature)]]</div>
-    </div>
-
-    <nuxeo-directory-suggestion role="widget"
-                                label="[[i18n('label.dublincore.subjects')]]"
-                                directory-name="l10nsubjects"
-                                name="subjects"
-                                value="{{document.properties.dc:subjects}}"
-                                hidden$="[[!document.properties.dc:subjects.length]]"
-                                multiple="true"
-                                dbl10n="true"
-                                readonly>
-    </nuxeo-directory-suggestion>
-
-    <div role="widget" hidden$="[[!document.properties.dc:coverage]]">
-      <label>[[i18n('label.dublincore.coverage')]]</label>
-      <div name="coverage">[[formatDirectory(document.properties.dc:coverage)]]</div>
-    </div>
-
-    <div role="widget" hidden$="[[!document.properties.dc:expired]]">
-      <label>[[i18n('label.dublincore.expire')]]</label>
-      <div name="expired">[[formatDate(document.properties.dc:expired)]]</div>
-    </div>
-
     <div role="widget">
       <label>[[i18n('noteMetadataLayout.format')]]</label>
       <div>[[formatMimeType(document.properties.note:mime_type)]]</div>
+    </div>
+
+    <div role="widget">
+      <label>Order</label>
+      <div name="order">[[document.properties.scriptnote:order]]</div>
     </div>
   </template>
 

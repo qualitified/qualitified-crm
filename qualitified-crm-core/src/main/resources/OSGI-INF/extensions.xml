@@ -29,7 +29,6 @@
     <schema name="var_start-node" prefix="var_start-node" override="true" src="data/schemas/var_start-node.xsd"/>
     <schema name="var_stop-node" prefix="var_stop-node" override="true" src="data/schemas/var_stop-node.xsd"/>
     <schema name="var_interactionWorkflow" prefix="var_interactionWorkflow" override="true" src="data/schemas/var_interactionWorkflow.xsd"/>
-
     <schema name="var_global_Task67a" prefix="var_global_Task67a" override="true" src="data/schemas/var_global_Task67a.xsd"/>
     <schema name="var_Task67a" prefix="var_Task67a" override="true" src="data/schemas/var_Task67a.xsd"/>
     <schema name="var_Taskb50" prefix="var_Taskb50" override="true" src="data/schemas/var_Taskb50.xsd"/>
@@ -268,6 +267,7 @@
     </doctype>
     <doctype name="ScriptNote" extends="Note">
       <schema name="scriptnote"/>
+      <schema name="custom"/>
     </doctype>
     <doctype name="Custom" extends="Document">
       <schema name="dublincore"/>
@@ -283,6 +283,7 @@
       <facet name="NXTag"/>
     </doctype>
     <doctype name="Scripts" extends="Folder">
+      <schema name="custom"/>
       <facet name="NXTag"/>
       <subtypes>
         <type>ScriptNote</type>
