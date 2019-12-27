@@ -85,4 +85,29 @@ public class TestPreSave {
         assertEquals("My description", file.getPropertyValue("dc:description"));
 
     }
+
+    @Test
+    public void runOrderedMultiplePreSave(){
+        DocumentModel script = coreSession.createDocumentModel("/Admin/Scripts", "FilePreSave","ScriptNote");
+        script.setPropertyValue("dc:title", "FilePreSave - Set the Title");
+        script.setPropertyValue("note:mime_type", "text/plain");
+        script.setPropertyValue("note:note", "input['dc:title']=input['dc:title'] + ' is updated.';");
+        script.setPropertyValue("scriptnote:order", 2);
+        coreSession.createDocument(script);
+
+        DocumentModel script2 = coreSession.createDocumentModel("/Admin/Scripts", "FilePreSave","ScriptNote");
+        script2.setPropertyValue("dc:title", "FilePreSave - Set the Description");
+        script2.setPropertyValue("note:mime_type", "text/plain");
+        script2.setPropertyValue("note:note", "input['dc:title']='My title';");
+        script2.setPropertyValue("scriptnote:order", 1);
+        coreSession.createDocument(script2);
+        coreSession.save();
+
+        DocumentModel file = coreSession.createDocumentModel("/", "My File", "File");
+        file = coreSession.createDocument(file);
+
+        assertNotNull(file.getId());
+        assertEquals("My title is updated.", file.getPropertyValue("dc:title"));
+
+    }
 }

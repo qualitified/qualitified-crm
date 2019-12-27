@@ -24,8 +24,7 @@ limitations under the License.
 
   <template>
     <div role="widget">
-      <label>[[i18n('label.dublincore.title')]]</label>
-      <div name="title">[[document.properties.dc:title]]</div>
+      <h1>[[document.properties.dc:title]]</h1>
     </div>
 
     <div role="widget" hidden$="[[!document.properties.dc:description]]">

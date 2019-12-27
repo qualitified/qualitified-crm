@@ -33,4 +33,5 @@
     </xs:sequence> 
   </xs:complexType>  
   <xs:element name="enabled" type="xs:boolean"/>
+  <xs:element name="order" type="xs:integer"/>
 </xs:schema>

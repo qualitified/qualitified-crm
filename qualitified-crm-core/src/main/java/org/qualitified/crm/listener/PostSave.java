@@ -30,7 +30,7 @@ public class PostSave implements EventListener {
         DocumentModel doc = docCtx.getSourceDocument();
 
         List<DocumentModel> scripts = CoreInstance.doPrivileged(docCtx.getCoreSession(), (session) -> {
-            return session.query("SELECT * FROM ScriptNote WHERE ecm:isProxy = 0 AND ecm:isCheckedInVersion = 0 AND ecm:isTrashed = 0 AND ecm:currentLifeCycleState != 'deleted' AND dc:title ILIKE '"+doc.getType()+"PostSave%' ORDER BY dc:created ASC");
+            return session.query("SELECT * FROM ScriptNote WHERE ecm:isProxy = 0 AND ecm:isCheckedInVersion = 0 AND ecm:isTrashed = 0 AND ecm:currentLifeCycleState != 'deleted' AND dc:title ILIKE '"+doc.getType()+"PostSave%' ORDER BY scriptnote:order ASC, dc:created ASC");
         });
 
         CoreInstance.doPrivileged(docCtx.getCoreSession(), (session) -> {
