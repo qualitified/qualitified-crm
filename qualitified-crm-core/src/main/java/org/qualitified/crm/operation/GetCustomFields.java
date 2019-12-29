@@ -1,4 +1,4 @@
-package org.qualitified.crm;
+package org.qualitified.crm.operation;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.commons.logging.Log;

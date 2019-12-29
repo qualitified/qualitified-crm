@@ -1,4 +1,4 @@
-package org.qualitified.crm;
+package org.qualitified.crm.operation;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -10,13 +10,10 @@ import org.nuxeo.ecm.automation.core.annotations.OperationMethod;
 import org.nuxeo.ecm.automation.core.annotations.Param;
 import org.nuxeo.ecm.core.api.Blob;
 import org.nuxeo.ecm.core.api.DocumentModel;
-import org.nuxeo.ecm.core.api.DocumentModelList;
 import org.nuxeo.ecm.core.api.impl.blob.StringBlob;
 import org.nuxeo.runtime.api.Framework;
 
 import javax.security.auth.login.LoginContext;
-import java.util.List;
-import java.util.Map;
 
 /**
  * Created by mgena on 11/11/2017.
