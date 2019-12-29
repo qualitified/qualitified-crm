@@ -35,7 +35,9 @@ public class RunUnitTests {
         List<DocumentModel> unitTests = CoreInstance.doPrivileged(session, (session) -> {
             return session.query("SELECT * FROM ScriptNote WHERE ecm:isProxy = 0 AND ecm:isCheckedInVersion = 0 AND ecm:isTrashed = 0 AND ecm:currentLifeCycleState != 'deleted' AND dc:title ILIKE 'UnitTest%' ORDER BY scriptnote:order ASC, dc:created ASC");
         });
+        logger.warn("*****************************");
         logger.warn("Starting to run unit tests...");
+        logger.warn("*****************************");
         for(DocumentModel unitTest : unitTests) {
             OperationContext operationContext = new OperationContext(session);
             Map<String, Object> params = new HashMap<>();
@@ -52,7 +54,9 @@ public class RunUnitTests {
                 throw (new NuxeoException(e));
             }
         }
+        logger.warn("*****************************");
         logger.warn("Done running unit tests.");
+        logger.warn("*****************************");
     }
 
 }
