@@ -1,4 +1,4 @@
-package org.qualitified.crm;
+package org.qualitified.crm.operation;
 
 import jdk.nashorn.internal.parser.JSONParser;
 import net.sf.json.JSONObject;

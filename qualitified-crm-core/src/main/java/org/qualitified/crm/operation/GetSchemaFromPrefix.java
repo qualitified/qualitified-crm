@@ -1,4 +1,4 @@
-package org.qualitified.crm;
+package org.qualitified.crm.operation;
 
 import org.nuxeo.ecm.automation.core.Constants;
 import org.nuxeo.ecm.automation.core.annotations.Operation;
