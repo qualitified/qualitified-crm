@@ -1,4 +1,4 @@
-package org.qualitified.crm;
+package org.qualitified.crm.operation;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;

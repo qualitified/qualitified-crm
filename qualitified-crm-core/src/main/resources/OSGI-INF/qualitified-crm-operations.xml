@@ -1,24 +1,10 @@
 <component name="org.qualitified.crm.operations">
-    <extension target="org.nuxeo.ecm.core.operation.OperationServiceComponent"
-               point="operations" >
-        <operation class="org.qualitified.crm.GetCustomFields" />
+    <extension target="org.nuxeo.ecm.core.operation.OperationServiceComponent" point="operations" >
+        <operation class="org.qualitified.crm.operation.GetCustomFields"/>
+        <operation class="org.qualitified.crm.operation.PutContextData"/>
+        <operation class="org.qualitified.crm.operation.GetContextData"/>
+        <operation class="org.qualitified.crm.operation.GetSchemaFromPrefix"/>
+        <operation class="org.qualitified.crm.operation.RunUnitTests"/>
+        <operation class="org.qualitified.crm.operation.AssertEquals"/>
     </extension>
-    <extension target="org.nuxeo.ecm.core.operation.OperationServiceComponent"
-               point="operations" >
-        <operation class="org.qualitified.crm.PutContextData" />
-    </extension>
-    <extension target="org.nuxeo.ecm.core.operation.OperationServiceComponent"
-               point="operations" >
-        <operation class="org.qualitified.crm.GetContextData" />
-    </extension>
-
-    <extension point="operations"
-               target="org.nuxeo.ecm.core.operation.OperationServiceComponent">
-        <operation class="org.qualitified.crm.GetSchemaFromPrefix"/>
-    </extension>
-
-    <!--extension target="org.nuxeo.ecm.core.operation.OperationServiceComponent"
-               point="operations" >
-        <operation class="org.qualitified.crm.Save" />
-    </extension-->
  </component>
