@@ -29,6 +29,14 @@ public class PostSave implements EventListener {
         DocumentEventContext docCtx = (DocumentEventContext) ctx;
         DocumentModel doc = docCtx.getSourceDocument();
 
+        String adminPath = Framework.getProperty("qualitified.config.path", "/Admin");
+        PathRef destinationRef = (PathRef)event.getContext().getProperty("destinationRef");
+        if(destinationRef != null && destinationRef.toString().startsWith(adminPath)){
+            logger.warn("Document is in config path ["+adminPath+"]. We won't run PostSave.");
+            logger.warn("The admin path can be changed in nuxeo.conf [qualitified.config.path].");
+            return;
+        }
+
         List<DocumentModel> scripts = CoreInstance.doPrivileged(docCtx.getCoreSession(), (session) -> {
             return session.query("SELECT * FROM ScriptNote WHERE ecm:isProxy = 0 AND ecm:isCheckedInVersion = 0 AND ecm:isTrashed = 0 AND ecm:currentLifeCycleState != 'deleted' AND dc:title ILIKE '"+doc.getType()+"PostSave%' ORDER BY scriptnote:order ASC, dc:created ASC");
         });
