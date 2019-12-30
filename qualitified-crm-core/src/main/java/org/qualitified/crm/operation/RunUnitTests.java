@@ -36,26 +36,26 @@ public class RunUnitTests {
             return session.query("SELECT * FROM ScriptNote WHERE ecm:isProxy = 0 AND ecm:isCheckedInVersion = 0 AND ecm:isTrashed = 0 AND ecm:currentLifeCycleState != 'deleted' AND dc:title ILIKE 'UnitTest%' ORDER BY scriptnote:order ASC, dc:created ASC");
         });
         logger.warn("*****************************");
-        logger.warn("Starting to run unit tests...");
+        logger.warn("Starting to Run Unit Tests...");
         logger.warn("*****************************");
         for(DocumentModel unitTest : unitTests) {
             OperationContext operationContext = new OperationContext(session);
             Map<String, Object> params = new HashMap<>();
             String scriptNote = (String) unitTest.getPropertyValue("note:note");
             params.put("script", scriptNote);
-            logger.warn("Running unit test ["+unitTest.getTitle()+"]...");
+            logger.warn("Running Unit Test ["+unitTest.getTitle()+"]...");
             AutomationService automationService = Framework.getService(AutomationService.class);
             try {
                 automationService.run(operationContext, "javascript.runUnitTest", params);
                 //logger.warn("Unit test ["+unitTest.getTitle()+"] passed!");
             } catch (OperationException e) {
                 logger.error("Error while running unit test ["+unitTest.getTitle()+"]", e);
-                logger.warn("Aborting unit tests.");
+                logger.warn("Aborting Unit Tests.");
                 throw (new NuxeoException(e));
             }
         }
         logger.warn("*****************************");
-        logger.warn("Done running unit tests.");
+        logger.warn("Done Running Unit Tests.");
         logger.warn("*****************************");
     }
 

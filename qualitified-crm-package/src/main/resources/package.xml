@@ -1,5 +1,5 @@
 <!-- See documentation at http://doc.nuxeo.com/x/HgIz -->
-<package type="addon" name="qualitified-crm-package" version="@VERSION@">
+<package type="addon" name="qualitified-crm" version="@VERSION@">
   <title>Qualitified CRM Package</title>
   <description>
     <p>Qualitified CRM Package.</p>
@@ -13,7 +13,7 @@
   <!-- Nuxeo Validation: none | inprocess | primary_validation | nuxeo_certified -->
   <nuxeo-validation>none</nuxeo-validation>
   <!-- Production State: production_ready | testing | proto -->
-  <production-state>testing</production-state>
+  <production-state>production_ready</production-state>
   <supported>false</supported>
   <platforms>
     <platform>server-@DISTRIB_VERSION@</platform>
@@ -22,6 +22,9 @@
   <!-- Dependencies on other packages -->
   <!-- <dependencies> -->
   <!-- <package>another-package:1.0.0:1.0.0</package> -->
+  <package>nuxeo-template-rendering</package>
+  <package>nuxeo-imap-connector</package>
+  <package>nuxeo-dam</package>
   <!-- If you require JSF UI package:  -->
   <!-- <package>nuxeo-jsf-ui</package> -->
   <!-- If you require WEB UI package:  -->
