@@ -1,4 +1,4 @@
-<project name="qualitified-crm-package" default="build" xmlns:nx="urn:nuxeo-build" xmlns:artifact="urn:nuxeo-artifact">
+<project name="qualitified-crm" default="build" xmlns:nx="urn:nuxeo-build" xmlns:artifact="urn:nuxeo-artifact">
   <taskdef resource="org/nuxeo/build/antlib.xml" uri="urn:nuxeo-build"/>
   <taskdef resource="org/nuxeo/build/artifact/antlib.xml" uri="urn:nuxeo-artifact"/>
   <taskdef resource="net/sf/antcontrib/antlib.xml"/>
@@ -6,7 +6,7 @@
   <target name="build" description="Build Nuxeo Package">
     <property name="outdir" value="${maven.project.build.directory}"/>
     <!-- Include your artifacts in the graph adding your groupId to groupPrefixes -->
-    <artifact:nuxeo-expand includeTestScope="true" groupPrefixes="org.nuxeo,org.nuxeo.training.bestbooks"/>
+    <artifact:nuxeo-expand includeTestScope="true" groupPrefixes="org.nuxeo,org.qualitified.crm"/>
     <!-- For Nuxeo IDE being able to use that distribution as a SDK -->
     <artifact:print output="${outdir}/crm-artifacts.properties" mode="sdk"/>
     <artifact:print output="${outdir}/test-crm-artifacts.properties" mode="sdk" scopes="test"/>
@@ -124,7 +124,7 @@
           name="install.templates"
           value="${line.separator}
   &lt;copy dir=&quot;${package.root}/install/templates&quot; todir=&quot;${env.templates}&quot; overwrite=&quot;true&quot; /&gt;${line.separator}
-  &lt;config addtemplate=&quot;qualitified-crm-package&quot; /&gt;${line.separator}"/>
+  &lt;config addtemplate=&quot;qualitified-crm&quot; /&gt;${line.separator}"/>
       </then>
     </if>
 

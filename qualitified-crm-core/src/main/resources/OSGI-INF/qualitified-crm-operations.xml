@@ -1,11 +1,14 @@
 <component name="org.qualitified.crm.operations">
     <extension target="org.nuxeo.ecm.core.operation.OperationServiceComponent" point="operations" >
         <operation class="org.qualitified.crm.operation.GetCustomFields"/>
-        <operation class="org.qualitified.crm.operation.PutContextData"/>
-        <operation class="org.qualitified.crm.operation.GetContextData"/>
         <operation class="org.qualitified.crm.operation.GetSchemaFromPrefix"/>
         <operation class="org.qualitified.crm.operation.RenderForMultipleDocs"/>
         <operation class="org.qualitified.crm.operation.RunUnitTests"/>
         <operation class="org.qualitified.crm.operation.AssertEquals"/>
+        <operation class="org.qualitified.crm.operation.AssertNotEquals"/>
+        <operation class="org.qualitified.crm.operation.AssertNull"/>
+        <operation class="org.qualitified.crm.operation.AssertNotNull"/>
+        <operation class="org.qualitified.crm.operation.AssertTrue"/>
+        <operation class="org.qualitified.crm.operation.AssertFalse"/>
     </extension>
  </component>
