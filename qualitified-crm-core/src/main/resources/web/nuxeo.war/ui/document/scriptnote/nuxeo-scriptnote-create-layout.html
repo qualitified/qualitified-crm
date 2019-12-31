@@ -46,6 +46,11 @@ limitations under the License.
                  name="order"
                  value="{{document.properties.scriptnote:order}}">
     </nuxeo-input>
+
+    <paper-checkbox role="widget"
+                checked="{{document.properties.scriptnote:isDisabled}}">
+    </paper-checkbox>
+    <div>disabled</div>
   </template>
 
   <script>

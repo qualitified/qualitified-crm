@@ -110,4 +110,22 @@ public class TestPreSave {
         assertEquals("My title is updated.", file.getPropertyValue("dc:title"));
 
     }
+
+    @Test
+    public void runPreSaveIsDisabled() throws OperationException{
+        DocumentModel script = coreSession.createDocumentModel("/Admin/Scripts", "FilePreSave","ScriptNote");
+        script.setPropertyValue("dc:title", "FilePreSave");
+        script.setPropertyValue("note:mime_type", "text/plain");
+        script.setPropertyValue("scriptnote:isDisabled", true);
+        script.setPropertyValue("note:note", "input['dc:description']='value set via script';\ninput['custom:booleanField1']=params.isCreation;");
+        coreSession.createDocument(script);
+        coreSession.save();
+
+        DocumentModel file = coreSession.createDocumentModel("/", "My File", "File");
+        file = coreSession.createDocument(file);
+
+        assertNotNull(file.getId());
+        assertEquals(null, file.getPropertyValue("dc:description"));
+
+    }
 }
