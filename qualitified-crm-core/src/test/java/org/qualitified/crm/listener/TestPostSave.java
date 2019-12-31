@@ -124,4 +124,31 @@ public class TestPostSave {
         assertEquals(folder.getTitle(), file.getPropertyValue("dc:title"));
         assertEquals(folder.getPropertyValue("dc:description"), file.getPropertyValue("dc:description"));
     }
+
+    @Test
+    public void runPostSaveIsDisabled() throws OperationException{
+
+        DocumentModel folder = coreSession.createDocumentModel("/", "folder1", "Folder");
+        folder.setPropertyValue("dc:title", "My Folder");
+        folder = coreSession.createDocument(folder);
+        coreSession.save();
+
+        DocumentModel file = coreSession.createDocumentModel("/folder1", "file1", "File");
+        file = coreSession.createDocument(file);
+        coreSession.save();
+
+        DocumentModel script = coreSession.createDocumentModel("/Admin/Scripts", "FolderPostSave","ScriptNote");
+        script.setPropertyValue("dc:title", "FolderPostSave");
+        script.setPropertyValue("note:mime_type", "text/plain");
+        script.setPropertyValue("scriptnote:isDisabled", true);
+        script.setPropertyValue("note:note", "var file = Document.Fetch(null, {'value':'/folder1/file1'});\nif(file != null){file['dc:description']=input.title;\nfile['custom:booleanField1']=params.isCreation;\nDocument.Save(file,{});}\n");
+        coreSession.createDocument(script);
+        coreSession.save();
+
+        folder.setPropertyValue("dc:title", "My New Folder Title");
+        coreSession.saveDocument(folder);
+
+        assertNotNull(file.getId());
+        assertEquals(null, file.getPropertyValue("dc:description"));
+    }
 }
