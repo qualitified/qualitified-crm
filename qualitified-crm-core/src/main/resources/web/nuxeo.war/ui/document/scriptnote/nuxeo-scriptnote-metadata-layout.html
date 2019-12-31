@@ -41,12 +41,16 @@ limitations under the License.
       <label>Order</label>
       <div name="order">[[document.properties.scriptnote:order]]</div>
     </div>
+    <div role="widget">
+      <label>Disabled</label>
+      <div>[[i18n(document.properties.scriptnote:isDisabled)]]</div>
+    </div>
   </template>
 
   <script>
     Polymer({
       is: 'nuxeo-scriptnote-metadata-layout',
-      behaviors: [Nuxeo.LayoutBehavior],
+      behaviors: [Nuxeo.LayoutBehavior,Nuxeo.I18nBehavior],
       properties: {
         /**
          * @doctype Note

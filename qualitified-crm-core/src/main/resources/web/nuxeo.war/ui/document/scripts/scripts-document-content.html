@@ -92,6 +92,11 @@
             [[item.properties.scriptnote:order]]
           </template>
         </nuxeo-data-table-column>
+        <nuxeo-data-table-column name="Disabled" field="scriptnote:isDisabled" sort-by="[[_displaySort(document, 'scriptnote:isDisabled')]]" hidden="">
+          <template>
+            [[item.properties.scriptnote:isDisabled]]
+          </template>
+        </nuxeo-data-table-column>
     </nuxeo-results>
 
   </template>
@@ -99,7 +104,7 @@
   <script>
     Polymer({
       is: 'scripts-document-content',
-      behaviors: [Nuxeo.DocumentContentBehavior],
+      behaviors: [Nuxeo.DocumentContentBehavior, Nuxeo.I18nBehavior],
       properties: {
         /**
          * The parameters to be passed on to `provider`.

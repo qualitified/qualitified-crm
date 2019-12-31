@@ -23,6 +23,10 @@ public class GetSchemaFromPrefix {
     @OperationMethod
     public String run() {
 
+        if(xpath == null){
+            throw new PropertyNotFoundException(xpath, "Schema not specified");
+        }
+
         int p = xpath.indexOf(':');
         if (p == -1) {
             throw new PropertyNotFoundException(xpath, "Schema not specified");
