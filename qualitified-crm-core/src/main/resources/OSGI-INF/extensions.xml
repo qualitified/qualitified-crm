@@ -1216,7 +1216,7 @@
       <param name="script" type="string"/>
       <description></description>
       <script><![CDATA[function run(input, params) {
-          return        eval(params.script);
+          return eval(params.script);
         }]]>
       </script>
     </scriptedOperation>
@@ -1259,7 +1259,7 @@
       <category>javascript</category>
       <description></description>
       <script><![CDATA[function run(input, params) {
-        var myScriptDoc = Repository.Query(null, {'query': 'SELECT * FROM ScriptNote WHERE ecm:isProxy = 0 AND ecm:isTrashed = 0 AND ecm:isCheckedInVersion = 0 AND ecm:currentLifeCycleState != \'deleted\' AND dc:title ILIKE \'runDailyAt20h\''});
+        var myScriptDoc = Repository.Query(null, {'query': 'SELECT * FROM ScriptNote WHERE ecm:isProxy = 0 AND ecm:isTrashed = 0 AND (scriptnote:isDisabled is NULL OR scriptnote:isDisabled = 0) AND ecm:isCheckedInVersion = 0 AND ecm:currentLifeCycleState != \'deleted\' AND dc:title ILIKE \'runDailyAt20h\''});
         var myScript = "";
         if(myScriptDoc.length > 0){
           myScript = myScriptDoc[0]['note:note'];
@@ -1277,7 +1277,7 @@
       <category>javascript</category>
       <description></description>
       <script><![CDATA[function run(input, params) {
-        var myScriptDoc = Repository.Query(null, {'query': 'SELECT * FROM ScriptNote WHERE ecm:isProxy = 0 AND ecm:isCheckedInVersion = 0 AND ecm:isTrashed = 0 AND ecm:currentLifeCycleState != \'deleted\' AND dc:title ILIKE \'runDailyAt21h\''});
+        var myScriptDoc = Repository.Query(null, {'query': 'SELECT * FROM ScriptNote WHERE ecm:isProxy = 0 AND ecm:isCheckedInVersion = 0 AND ecm:isTrashed = 0 AND (scriptnote:isDisabled is NULL OR scriptnote:isDisabled = 0) AND ecm:currentLifeCycleState != \'deleted\' AND dc:title ILIKE \'runDailyAt21h\''});
         var myScript = "";
         if(myScriptDoc.length > 0){
           myScript = myScriptDoc[0]['note:note'];
@@ -1295,7 +1295,7 @@
       <category>javascript</category>
       <description></description>
       <script><![CDATA[function run(input, params) {
-        var myScriptDoc = Repository.Query(null, {'query': 'SELECT * FROM ScriptNote WHERE ecm:isProxy = 0 AND ecm:isCheckedInVersion = 0 AND ecm:isTrashed = 0 AND ecm:currentLifeCycleState != \'deleted\' AND dc:title ILIKE \'runDailyAt22h\''});
+        var myScriptDoc = Repository.Query(null, {'query': 'SELECT * FROM ScriptNote WHERE ecm:isProxy = 0 AND ecm:isCheckedInVersion = 0 AND ecm:isTrashed = 0 AND (scriptnote:isDisabled is NULL OR scriptnote:isDisabled = 0) AND ecm:currentLifeCycleState != \'deleted\' AND dc:title ILIKE \'runDailyAt22h\''});
         var myScript = "";
         if(myScriptDoc.length > 0){
           myScript = myScriptDoc[0]['note:note'];
@@ -1313,7 +1313,7 @@
       <category>javascript</category>
       <description></description>
       <script><![CDATA[function run(input, params) {
-        var myScriptDoc = Repository.Query(null, {'query': 'SELECT * FROM ScriptNote WHERE ecm:isProxy = 0 AND ecm:isCheckedInVersion = 0 AND ecm:isTrashed = 0 AND ecm:currentLifeCycleState != \'deleted\' AND dc:title ILIKE \'runDailyAt23h\''});
+        var myScriptDoc = Repository.Query(null, {'query': 'SELECT * FROM ScriptNote WHERE ecm:isProxy = 0 AND ecm:isCheckedInVersion = 0 AND ecm:isTrashed = 0 AND (scriptnote:isDisabled is NULL OR scriptnote:isDisabled = 0) AND ecm:currentLifeCycleState != \'deleted\' AND dc:title ILIKE \'runDailyAt23h\''});
         var myScript = "";
         if(myScriptDoc.length > 0){
           myScript = myScriptDoc[0]['note:note'];
@@ -1331,7 +1331,7 @@
       <category>javascript</category>
       <description></description>
       <script><![CDATA[function run(input, params) {
-        var myScriptDoc = Repository.Query(null, {'query': 'SELECT * FROM ScriptNote WHERE ecm:isProxy = 0 AND ecm:isCheckedInVersion = 0 AND ecm:isTrashed = 0 AND ecm:currentLifeCycleState != \'deleted\' AND dc:title ILIKE \'runEvery10s\''});
+        var myScriptDoc = Repository.Query(null, {'query': 'SELECT * FROM ScriptNote WHERE ecm:isProxy = 0 AND ecm:isCheckedInVersion = 0 AND ecm:isTrashed = 0 AND (scriptnote:isDisabled is NULL OR scriptnote:isDisabled = 0) AND ecm:currentLifeCycleState != \'deleted\' AND dc:title ILIKE \'runEvery10s\''});
         var myScript = "";
         if(myScriptDoc.length > 0){
           myScript = myScriptDoc[0]['note:note'];
