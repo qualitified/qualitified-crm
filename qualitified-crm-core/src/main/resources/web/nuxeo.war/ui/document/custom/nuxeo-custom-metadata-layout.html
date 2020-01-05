@@ -72,6 +72,24 @@
           <div>[[item.multivalue]]</div>
         </template>
       </nuxeo-data-table-column>
+
+      <nuxeo-data-table-column name="[[i18n('label.metadata.custom.primarytype')]]">
+        <template>
+          <div>[[item.primaryType]]</div>
+        </template>
+      </nuxeo-data-table-column>
+
+      <nuxeo-data-table-column name="[[i18n('label.metadata.custom.path')]]">
+        <template>
+          <div>[[item.path]]</div>
+        </template>
+      </nuxeo-data-table-column>
+
+      <nuxeo-data-table-column name="[[i18n('label.metadata.custom.parentid')]]">
+        <template>
+          <div>[[item.parentId]]</div>
+        </template>
+      </nuxeo-data-table-column>
     </nuxeo-data-table>
   </template>
 

@@ -77,6 +77,25 @@
           <div>[[item.multivalue]]</div>
         </template>
       </nuxeo-data-table-column>
+
+      <nuxeo-data-table-column name="[[i18n('label.metadata.custom.primarytype')]]">
+        <template>
+          <div>[[item.primaryType]]</div>
+        </template>
+      </nuxeo-data-table-column>
+
+      <nuxeo-data-table-column name="[[i18n('label.metadata.custom.path')]]">
+        <template>
+          <div>[[item.path]]</div>
+        </template>
+      </nuxeo-data-table-column>
+
+      <nuxeo-data-table-column name="[[i18n('label.metadata.custom.parentid')]]">
+        <template>
+          <div>[[item.parentId]]</div>
+        </template>
+      </nuxeo-data-table-column>
+
       <nuxeo-data-table-form>
         <template>
           <div class="editor flex container">
@@ -90,16 +109,9 @@
             <nuxeo-input role="widget" value="{{item.editGroup}}" label="Edit Group"></nuxeo-input>
             <nuxeo-input role="widget" value="{{item.hiddenGroup}}" label="Hidden Group"></nuxeo-input>
             <paper-checkbox checked="{{item.multivalue}}"></paper-checkbox> Multivalue
-            <!--nuxeo-select role="widget"
-                          label="[[i18n('label.metadata.custom.type')]]"
-                          options="[[types]]"
-                          selected="{{item.type}}">
-            </nuxeo-select>
-            <nuxeo-select role="widget"
-                          label="[[i18n('label.metadata.custom.fieldname')]]"
-                          options="[[fields]]"
-                          selected="{{item.fieldName}}">
-            </nuxeo-select-->
+            <nuxeo-input role="widget" value="{{item.primaryType}}" label="Primary Type"></nuxeo-input>
+            <nuxeo-input role="widget" value="{{item.path}}" label="Path"></nuxeo-input>
+            <nuxeo-input role="widget" value="{{item.parentId}}" label="Parent Id"></nuxeo-input>
           </div>
         </template>
       </nuxeo-data-table-form>

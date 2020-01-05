@@ -33,6 +33,7 @@
     <schema name="var_Task67a" prefix="var_Task67a" override="true" src="data/schemas/var_Task67a.xsd"/>
     <schema name="var_Taskb50" prefix="var_Taskb50" override="true" src="data/schemas/var_Taskb50.xsd"/>
     <schema name="var_SolicitationWorkflow" prefix="var_SolicitationWorkflow" override="true" src="data/schemas/var_SolicitationWorkflow.xsd"/>
+    <schema name="documents_pp" prefix="documents_pp" override="true" src="data/schemas/documents_pp.xsd"/>
   </extension>
   <extension target="org.nuxeo.ecm.core.schema.TypeService" point="doctype">
     <facet name="NXTag">
@@ -364,6 +365,12 @@
       <facet name="SavedSearch"/>
       <facet name="HiddenInNavigation"/>
       <schema name="solicitation_list_pp"/>
+    </doctype>
+    <doctype name="documents_pp" extends="Document">
+      <facet name="ContentViewDisplay"/>
+      <facet name="SavedSearch"/>
+      <facet name="HiddenInNavigation"/>
+      <schema name="documents_pp"/>
     </doctype>
     <facet name="facet-var_global_Task13ce">
       <schema name="var_global_Task13ce"/>
@@ -1169,6 +1176,28 @@
         </aggregate-->
       </aggregates>
       <sort column="dc:modified" ascending="false"/>
+      <pageSize>10</pageSize>
+    </genericPageProvider>
+    <genericPageProvider class="org.nuxeo.elasticsearch.provider.ElasticSearchNxqlPageProvider" name="documents">
+      <trackUsage>true</trackUsage>
+      <property name="coreSession">#{documentManager}</property>
+      <whereClause>
+        <predicate parameter="ecm:parentId" operator="=">
+          <field schema="documents_pp" name="system_parentId"/>
+        </predicate>
+        <predicate parameter="ecm:path" operator="STARTSWITH">
+          <field schema="documents_pp" name="system_path"/>
+        </predicate>
+        <predicate parameter="ecm:primaryType" operator="=">
+          <field schema="documents_pp" name="system_primaryType"/>
+        </predicate>
+        <fixedPart quoteParameters="false">
+          ecm:isVersion = 0
+          AND ecm:isTrashed = 0
+          AND ecm:fulltext = '?*'</fixedPart>
+      </whereClause>
+      <searchDocumentType>documents_pp</searchDocumentType>
+      <sort column="dc:title" ascending="true"/>
       <pageSize>10</pageSize>
     </genericPageProvider>
   </extension>

@@ -143,6 +143,7 @@
       <nuxeo-input hidden$="[[!systemField9Visible]]" role="widget" value="{{document.properties.custom:systemField9}}" label="[[systemField9Label]]" required="[[systemField9Required]]"></nuxeo-input>
       <nuxeo-input hidden$="[[!systemField10Visible]]" role="widget" value="{{document.properties.custom:systemField10}}" label="[[systemField10Label]]" required="[[systemField10Required]]"></nuxeo-input>
 
+      <qualitified-document-suggestion hidden$="[[!documentField1Visible]]"  role="widget" value="{{document.properties.custom:documentField1}}" label="[[documentField1Label]]" page-provider="documents" min-chars="0" params="[[documents1Params]]" multiple="[[documentField1Multivalue]]"></qualitified-document-suggestion>
     </div>
 
     <div name="view" class="vertical layout flex">
@@ -574,6 +575,8 @@
         <label>[[systemField10Label]]</label>
         <div>[[document.properties.custom:systemField10]]</div>
       </div>
+
+      <qualitified-document-suggestion hidden$="[[!documentField1Visible]]"  role="widget" class="sortable" id="[[documentField1Order]]" value="{{document.properties.custom:documentField1}}" label="[[documentField1Label]]" readonly="true"></qualitified-document-suggestion>
 
     </div>
   </iron-pages>
@@ -2244,7 +2247,27 @@
         },
         systemField10Order : {
           type: Number
-        }
+        },
+
+        documents1Params:{},
+        documentField1Visible  : {
+          type: Boolean,
+          value: false
+        },
+        documentField1Label : {
+          type: String
+        },
+        documentField1Required : {
+          type: Boolean,
+          value: false
+        },
+        documentField1Multivalue  : {
+          type: Boolean,
+          value: false
+        },
+        documentField1Order : {
+          type: Number
+        },
 
       },
       ready: function(){
@@ -2358,6 +2381,33 @@
         if(this.custom){
           var i = 0;
           this.custom.forEach(function(field) {
+            if(field.fieldName === 'documentField1'){
+              this.documentField1Visible = this._isVisible(field.readGroup,field.editGroup,field.hiddenGroup);
+              this.documentField1Label = field.label;
+              this.documentField1Required = this._isVisible(field.readGroup,field.editGroup,field.hiddenGroup)? field.required : false;
+              this.documentField1Order = i;
+              this.documentField1Multivalue = field.multivalue;
+              var namedParameters = "";
+              if(field.parentId !== null && field.parentId !== ""){
+                namedParameters = "system_parentId=" + field.parentId;
+              }
+              if(field.path !== null && field.path !== ""){
+                if(namedParameters !== ""){
+                  namedParameters += ",";
+                }
+                namedParameters += "system_path=" + field.path;
+              }
+              if(field.primaryType !== null  && field.primaryType !== ""){
+                if(namedParameters !== ""){
+                  namedParameters += ",";
+                }
+                namedParameters += "system_primaryType=" + field.primaryType;
+              }
+              this.documents1Params = {
+                  namedParameters : namedParameters
+              };
+            }
+
             if(field.fieldName === 'stringField1'){
               this.stringField1Visible = this._isVisible(field.readGroup,field.editGroup,field.hiddenGroup);
               this.stringField1Label = field.label;
