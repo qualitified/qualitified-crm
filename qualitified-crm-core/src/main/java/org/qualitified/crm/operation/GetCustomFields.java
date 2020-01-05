@@ -23,7 +23,7 @@ import java.util.Map;
  * Modified by mmakni on 19/11/2018.
  */
 @Operation(id=GetCustomFields.ID, category= Constants.CAT_EXECUTION, label="GetCustomFields", description="")
-public class nGetCustomFields {
+public class GetCustomFields {
     public static final String ID = "Qualitified.GetCustomFields";
     private Log logger = LogFactory.getLog(GetCustomFields.class);
 
