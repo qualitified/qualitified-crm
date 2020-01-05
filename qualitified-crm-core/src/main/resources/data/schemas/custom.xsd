@@ -53,6 +53,10 @@
       <xs:element name="editGroup" type="xs:string"/>
       <xs:element name="hiddenGroup" type="xs:string"/>
       <xs:element name="multivalue" type="xs:boolean"/>
+
+      <xs:element name="parentId" type="xs:string"/>
+      <xs:element name="path" type="xs:string"/>
+      <xs:element name="primaryType" type="xs:string"/>
     </xs:sequence>
   </xs:complexType>
 
@@ -216,4 +220,54 @@
   <xs:element name="systemField9" type="xs:string"/>
   <xs:element name="systemField10" type="xs:string"/>
 
+  <xs:element name="documentField1">
+    <xs:simpleType>
+      <xs:restriction base="xs:string" ref:resolver="documentResolver" ref:store="path"/>
+    </xs:simpleType>
+  </xs:element>
+  <xs:element name="documentField2">
+    <xs:simpleType>
+      <xs:restriction base="xs:string" ref:resolver="documentResolver" ref:store="path"/>
+    </xs:simpleType>
+  </xs:element>
+  <xs:element name="documentField3">
+    <xs:simpleType>
+      <xs:restriction base="xs:string" ref:resolver="documentResolver" ref:store="path"/>
+    </xs:simpleType>
+  </xs:element>
+  <xs:element name="documentField4">
+    <xs:simpleType>
+      <xs:restriction base="xs:string" ref:resolver="documentResolver" ref:store="path"/>
+    </xs:simpleType>
+  </xs:element>
+  <xs:element name="documentField5">
+    <xs:simpleType>
+      <xs:restriction base="xs:string" ref:resolver="documentResolver" ref:store="path"/>
+    </xs:simpleType>
+  </xs:element>
+  <xs:element name="documentField6">
+    <xs:simpleType>
+      <xs:restriction base="xs:string" ref:resolver="documentResolver" ref:store="path"/>
+    </xs:simpleType>
+  </xs:element>
+  <xs:element name="documentField7">
+    <xs:simpleType>
+      <xs:restriction base="xs:string" ref:resolver="documentResolver" ref:store="path"/>
+    </xs:simpleType>
+  </xs:element>
+  <xs:element name="documentField8">
+    <xs:simpleType>
+      <xs:restriction base="xs:string" ref:resolver="documentResolver" ref:store="path"/>
+    </xs:simpleType>
+  </xs:element>
+  <xs:element name="documentField9">
+    <xs:simpleType>
+      <xs:restriction base="xs:string" ref:resolver="documentResolver" ref:store="path"/>
+    </xs:simpleType>
+  </xs:element>
+  <xs:element name="documentField10">
+    <xs:simpleType>
+      <xs:restriction base="xs:string" ref:resolver="documentResolver" ref:store="path"/>
+    </xs:simpleType>
+  </xs:element>
 </xs:schema>
