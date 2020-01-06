@@ -4,6 +4,7 @@
         <operation class="org.qualitified.crm.operation.GetSchemaFromPrefix"/>
         <operation class="org.qualitified.crm.operation.RenderForMultipleDocs"/>
         <operation class="org.qualitified.crm.operation.RunUnitTests"/>
+        <operation class="org.qualitified.crm.operation.RunUnitTest"/>
         <operation class="org.qualitified.crm.operation.AssertEquals"/>
         <operation class="org.qualitified.crm.operation.AssertNotEquals"/>
         <operation class="org.qualitified.crm.operation.AssertNull"/>

@@ -45,6 +45,13 @@ public class RunUnitTests {
             params.put("script", scriptNote);
             logger.warn("Running Unit Test ["+unitTest.getTitle()+"]...");
             AutomationService automationService = Framework.getService(AutomationService.class);
+            operationContext.put("scriptId",unitTest.getId());
+
+            DocumentModel scriptDocument = session.getDocument(unitTest.getRef());
+            scriptDocument.setPropertyValue("dc:description", null);
+            scriptDocument.setPropertyValue("scriptnote:isValid", null);
+            session.saveDocument(scriptDocument);
+            session.save();
             try {
                 automationService.run(operationContext, "javascript.runUnitTest", params);
                 //logger.warn("Unit test ["+unitTest.getTitle()+"] passed!");
@@ -52,6 +59,13 @@ public class RunUnitTests {
                 logger.error("Error while running unit test ["+unitTest.getTitle()+"]", e);
                 logger.warn("Aborting Unit Tests.");
                 throw (new NuxeoException(e));
+            }
+
+            DocumentModel scriptRunDocument = session.getDocument(unitTest.getRef());
+            if(scriptRunDocument.getPropertyValue("dc:description") == null || ((String)scriptRunDocument.getPropertyValue("dc:description")).equals("")) {
+                scriptRunDocument.setPropertyValue("scriptnote:isValid", true);
+                session.saveDocument(scriptRunDocument);
+                session.save();
             }
         }
         logger.warn("*****************************");
