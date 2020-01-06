@@ -35,4 +35,5 @@
   <xs:element name="enabled" type="xs:boolean"/>
   <xs:element name="order" type="xs:integer"/>
   <xs:element name="isDisabled" type="xs:boolean"/>
+  <xs:element name="isValid" type="xs:boolean"/>
 </xs:schema>

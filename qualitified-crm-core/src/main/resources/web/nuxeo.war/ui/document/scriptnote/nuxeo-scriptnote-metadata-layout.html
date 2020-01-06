@@ -28,10 +28,6 @@ limitations under the License.
       <div name="title">[[document.properties.dc:title]]</div>
     </div>
 
-    <div role="widget" hidden$="[[!document.properties.dc:description]]">
-      <label>[[i18n('label.dublincore.description')]]</label>
-      <div name="description" class="multiline">[[document.properties.dc:description]]</div>
-    </div>
     <div role="widget">
       <label>[[i18n('noteMetadataLayout.format')]]</label>
       <div>[[formatMimeType(document.properties.note:mime_type)]]</div>
@@ -41,9 +37,13 @@ limitations under the License.
       <label>Order</label>
       <div name="order">[[document.properties.scriptnote:order]]</div>
     </div>
-    <div role="widget">
+    <div role="widget" hidden$="[[!document.properties.scriptnote:isDisabled]]">
       <label>Disabled</label>
       <div>[[i18n(document.properties.scriptnote:isDisabled)]]</div>
+    </div>
+    <div role="widget" hidden$="[[!document.properties.scriptnote:isValid]]">
+      <label>Valid</label>
+      <div>[[i18n(document.properties.scriptnote:isValid)]]</div>
     </div>
   </template>
 

@@ -97,6 +97,12 @@
             [[item.properties.scriptnote:isDisabled]]
           </template>
         </nuxeo-data-table-column>
+        <nuxeo-data-table-column name="Valid" field="scriptnote:isValid" sort-by="[[_displaySort(document, 'scriptnote:isValid')]]">
+          <template>
+            [[item.properties.scriptnote:isValid]]
+          </template>
+        </nuxeo-data-table-column>
+      </nuxeo-data-table>
     </nuxeo-results>
 
   </template>
