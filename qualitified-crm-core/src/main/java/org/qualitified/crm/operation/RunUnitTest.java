@@ -64,6 +64,7 @@ public class RunUnitTest {
             scriptRunDocument.setPropertyValue("scriptnote:isValid", true);
             session.saveDocument(scriptRunDocument);
             session.save();
+            logger.warn("Test passed!");
         }
 
         logger.warn("*****************************");

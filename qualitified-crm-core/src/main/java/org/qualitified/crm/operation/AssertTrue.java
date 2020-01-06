@@ -40,8 +40,6 @@ public class AssertTrue {
         if(!result){
             logger.warn("Test failed: expected [true], result [false].");
             log = Calendar.getInstance(TimeZone.getDefault()).getTime()+" Test failed: expected [true], result [false]\n";
-        }else{
-            logger.warn("Test passed!");
         }
         if(!log.equals("")){
             String existingLog = script.getPropertyValue("dc:description") != null ? (String)script.getPropertyValue("dc:description") : "";
