@@ -40,8 +40,6 @@ public class AssertNotNull {
         if(result == null){
             logger.error("Test failed: expected [Not null], value [null].");
             log = Calendar.getInstance(TimeZone.getDefault()).getTime()+" Test failed: expected [Not null], value [null]\n";
-        }else{
-            logger.warn("Test passed!");
         }
         if(!log.equals("")){
             String existingLog = script.getPropertyValue("dc:description") != null ? (String)script.getPropertyValue("dc:description") : "";
