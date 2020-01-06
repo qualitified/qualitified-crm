@@ -36,6 +36,18 @@
   </template>
 </nuxeo-slot-content>
 
+<nuxeo-slot-content name="search-for-contacts" slot="DRAWER_ITEMS" order="3">
+  <template>
+    <nuxeo-menu-icon label="Contacts" name="search-for-contacts" icon="icons:account-box"></nuxeo-menu-icon>
+  </template>
+</nuxeo-slot-content>
+<!-- Contribution of element 'nuxeo-search-form' for slot 'DRAWER_PAGES' -->
+<nuxeo-slot-content name="search-for-contacts" slot="DRAWER_PAGES">
+  <template>
+    <nuxeo-search-form provider="person_list" schemas="person" search-name="person_list" auto="true" display-auto-control="true" name="search-for-contacts" params="{&quot;person_firstName&quot;:&quot;&quot;}"></nuxeo-search-form>
+  </template>
+</nuxeo-slot-content>
+
 <!-- Contribution of element 'nuxeo-search-form' for slot 'DRAWER_PAGES' -->
 <nuxeo-slot-content name="solicitation-list" slot="DRAWER_PAGES" >
   <template>
