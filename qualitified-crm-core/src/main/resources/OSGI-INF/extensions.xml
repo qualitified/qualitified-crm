@@ -23,6 +23,8 @@
     <schema name="person" prefix="person" override="true" src="data/schemas/person.xsd"/>
     <schema name="opportunity_list_pp" prefix="opportunity_list_pp" override="true" src="data/schemas/opportunity_list_pp.xsd"/>
     <schema name="account_list_pp" prefix="account_list_pp" override="true" src="data/schemas/account_list_pp.xsd"/>
+    <schema name="person_list_pp" prefix="person_list_pp" override="true" src="data/schemas/person_list_pp.xsd"/>
+    <schema name="interaction_list_pp" prefix="interaction_list_pp" override="true" src="data/schemas/interaction_list_pp.xsd"/>
     <schema name="solicitation_list_pp" prefix="solicitation_list_pp" override="true" src="data/schemas/solicitation_list_pp.xsd"/>
     <schema name="var_global_Task13ce" prefix="var_global_Task13ce" override="true" src="data/schemas/var_global_Task13ce.xsd"/>
     <schema name="var_Task13ce" prefix="var_Task13ce" override="true" src="data/schemas/var_Task13ce.xsd"/>
@@ -366,6 +368,17 @@
       <facet name="HiddenInNavigation"/>
       <schema name="solicitation_list_pp"/>
     </doctype>
+    <doctype name="person_list_pp" extends="Document">
+      <facet name="ContentViewDisplay"/>
+      <facet name="SavedSearch"/>
+      <facet name="HiddenInNavigation"/>
+      <schema name="person_list_pp"/>
+    </doctype>
+    <doctype name="interaction_list_pp" extends="Document">
+      <facet name="ContentViewDisplay"/>
+      <facet name="SavedSearch"/>
+      <facet name="HiddenInNavigation"/>
+      <schema name="interaction_list_pp"/>
     <doctype name="documents_pp" extends="Document">
       <facet name="ContentViewDisplay"/>
       <facet name="SavedSearch"/>
@@ -1177,6 +1190,82 @@
       </aggregates>
       <sort column="dc:modified" ascending="false"/>
       <pageSize>10</pageSize>
+    </genericPageProvider>
+   <genericPageProvider class="org.nuxeo.elasticsearch.provider.ElasticSearchNxqlPageProvider" name="person_list">
+      <trackUsage>true</trackUsage>
+      <property name="coreSession">#{documentManager}</property>
+      <whereClause>
+        <predicate id="system_fulltext" parameter="ecm:fulltext" operator="FULLTEXT ALL">
+          <field schema="person_list_pp" name="system_fulltext"/>
+        </predicate>
+        <predicate parameter="person:firstName" operator="=">
+          <field schema="person_list_pp" name="person_firstName"/>
+        </predicate>
+        <predicate parameter="person:lastName" operator="=">
+          <field schema="person_list_pp" name="person_lastName"/>
+        </predicate>
+        <fixedPart>ecm:mixinType != 'HiddenInNavigation' AND ecm:isVersion = 0 AND ecm:isTrashed = 0 AND ecm:primaryType = 'Contact'</fixedPart>
+      </whereClause>
+      <searchDocumentType>person_list_pp</searchDocumentType>
+      <pageSize>10</pageSize>
+      <aggregates>
+        <aggregate id="person_role_agg" type="terms" parameter="person:Role">
+          <field schema="person_list_pp" name="person_role_agg"/>
+          <properties>
+            <property name="order">count desc</property>
+            <property name="size">0</property>
+          </properties>
+        </aggregate>
+        <aggregate id="person_civility_agg" type="terms" parameter="person:civility">
+          <field schema="person_list_pp" name="person_civility_agg"/>
+          <properties>
+            <property name="order">count desc</property>
+            <property name="size">0</property>
+          </properties>
+        </aggregate>
+      </aggregates>
+    </genericPageProvider>
+    <genericPageProvider class="org.nuxeo.elasticsearch.provider.ElasticSearchNxqlPageProvider" name="interaction_list">
+      <trackUsage>true</trackUsage>
+      <property name="coreSession">#{documentManager}</property>
+      <whereClause>
+        <predicate id="system_fulltext" parameter="ecm:fulltext" operator="FULLTEXT ALL">
+          <field schema="interaction_list_pp" name="system_fulltext"/>
+        </predicate>
+        <predicate parameter="interaction:date" operator="BETWEEN">
+          <field schema="interaction_list_pp" name="interaction_closeDate_min" />
+          <field schema="interaction_list_pp" name="interaction_closeDate_max" />
+        </predicate>
+        <fixedPart>ecm:mixinType != 'HiddenInNavigation' AND ecm:isVersion = 0 AND ecm:isTrashed = 0 AND ecm:primaryType = 'Interaction'</fixedPart>
+      </whereClause>
+      <searchDocumentType>interaction_list_pp</searchDocumentType>
+      <pageSize>10</pageSize>
+      <aggregates>
+        <aggregate id="interaction_activity_agg" type="terms" parameter="interaction:activity">
+          <field schema="interaction_list_pp" name="interaction_activity_agg"/>
+          <properties>
+            <property name="order">count desc</property>
+            <property name="size">0</property>
+          </properties>
+        </aggregate>
+        <aggregate id="interaction_status_agg" type="terms" parameter="interaction:status">
+          <field schema="interaction_list_pp" name="interaction_status_agg"/>
+          <properties>
+            <property name="order">count desc</property>
+            <property name="size">0</property>
+          </properties>
+        </aggregate>
+        <aggregate id="interaction_date_agg" type="date_range" parameter="interaction:date">
+          <field schema="interaction_list_pp" name="interaction_date_agg"/>
+          <properties/>
+          <dateRanges>
+            <dateRange key="from_now-1y_to_now-1M" fromDate="now-1y" toDate="now-1M"/>
+            <dateRange key="from_now-1M_to_now-7d" fromDate="now-1M" toDate="now-7d"/>
+            <dateRange key="from_now-7d_to_now-24h" fromDate="now-7d" toDate="now-24h"/>
+            <dateRange key="from_now-24h_to_now" fromDate="now-24h" toDate="now"/>
+          </dateRanges>
+        </aggregate>
+      </aggregates>
     </genericPageProvider>
     <genericPageProvider class="org.nuxeo.elasticsearch.provider.ElasticSearchNxqlPageProvider" name="documents">
       <trackUsage>true</trackUsage>

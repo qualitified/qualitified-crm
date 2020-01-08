@@ -1,0 +1,129 @@
+<!--
+`nuxeo-person_list-search-form`
+@group Nuxeo UI
+@element nuxeo-person_list-search-form
+-->
+<dom-module id="nuxeo-person_list-search-form">
+    <template>
+        <style>
+       :host {
+        display: block;
+      }
+
+      .row {
+        box-sizing: border-box;
+        margin-bottom: 1rem;
+        padding: 0 1rem;
+        width: 100%;
+      }
+
+      label {
+        color: #434343;
+        font-size: 0.8em;
+        font-weight: 700;
+        margin-bottom: 5px;
+      }
+
+      input {
+        background-color: #fff;
+        border: 1px solid #ddd;
+        border-radius: .2em;
+        box-sizing: border-box;
+        color: rgba(0,0,0,.75);
+        display: block;
+        font-size: 0.8em;
+        height: 2rem;
+        margin: 0;
+        padding: .5rem;
+        width: 100%;
+      }
+
+
+        </style>
+        <!-- Full Text -->
+        <nuxeo-input role="widget"
+                     id="searchInput"
+                     type="search"
+                     label="[[i18n('defaultSearch.fullText')]]"
+                     value="{{searchTerm}}"
+                     placeholder="[[i18n('defaultSearch.fullText.placeholder')]]"
+                     autofocus
+                     on-keydown="_checkForEnter">
+        </nuxeo-input>
+
+        <nuxeo-input role="widget" value="{{params.person_firstName}}" label="[[i18n('label.metadata.firstname')]]"
+                     type="text"></nuxeo-input>
+        <nuxeo-input role="widget" value="{{params.person_lastName}}" label="[[i18n('label.metadata.lastname')]]"
+                     type="text"></nuxeo-input>
+        <div class="layout vertical row">
+            <label>[[i18n('label.metadata.role')]]</label>
+            <nuxeo-checkbox-aggregation
+                    data="[[aggregations.person_role_agg]]"
+                    value="{{params.person_role_agg}}">
+            </nuxeo-checkbox-aggregation>
+        </div>
+
+        <div class="layout vertical row">
+            <label>[[i18n('label.metadata.civility')]]</label>
+            <nuxeo-checkbox-aggregation
+                    data="[[aggregations.person_civility_agg]]"
+                    value="{{params.person_civility_agg}}">
+            </nuxeo-checkbox-aggregation>
+        </div>
+    </template>
+
+    <script>
+    Polymer({
+      is: 'nuxeo-person_list-search-form',
+      behaviors: [Nuxeo.LayoutBehavior],
+      properties: {
+
+        /**
+         * @search Person_list
+         */
+        params: {
+          type: Object,
+          value: {},
+          notify: true,
+        },
+
+        aggregations: {
+          type: Object,
+          value: {},
+          notify: true,
+        },
+      searchTerm: {
+        type: String,
+        notify: true,
+        observer: '_addFullTextSearch'
+      }
+
+      },
+
+    behaviors: [Nuxeo.I18nBehavior],
+
+    _addFullTextSearch: function() {
+      if (this.searchTerm) {
+        console.log(this.searchTerm);
+        this.set('params.system_fulltext', this.searchTerm + '*');
+      } else {
+        if (this.params.system_fulltext) {
+          this.set('params.system_fulltext', '');
+          delete this.params.system_fulltext;
+        }
+      }
+    },
+    _checkForEnter: function(e) {
+      if (e.keyCode === 13) {
+        this.fire('trigger-search');
+      }
+    },
+
+    clear: function() {
+      this.searchTerm = '';
+    }
+    });
+
+
+    </script>
+</dom-module>

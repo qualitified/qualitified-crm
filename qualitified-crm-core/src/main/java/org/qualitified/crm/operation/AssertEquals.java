@@ -16,6 +16,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.TimeZone;
 
+
 /**
  * Created by michaelgena on 28/11/2019.
  */
@@ -41,7 +42,6 @@ public class AssertEquals {
 
     @OperationMethod
     public void run() throws Exception {
-
         String scriptId = (String)ctx.get("scriptId");
         DocumentModel script = session.getDocument(new IdRef(scriptId));
         String log = "";

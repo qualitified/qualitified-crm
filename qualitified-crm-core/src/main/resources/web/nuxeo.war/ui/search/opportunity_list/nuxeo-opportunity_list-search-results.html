@@ -5,8 +5,8 @@
 -->
 <link rel="import" href="../../shared-css.html">
 <dom-module id="nuxeo-opportunity_list-search-results">
-  <template>
-    <style include="nuxeo-styles shared-css">
+    <template>
+        <style include="nuxeo-styles shared-css">
         nuxeo-data-table,
         nuxeo-data-grid,
         nuxeo-data-list {
@@ -14,56 +14,60 @@
           position: relative;
           min-height: calc(100vh - 130px - var(--nuxeo-app-top));
         }
-      </style>
 
-    <nuxeo-results name="opportunity_list" nx-provider="[[nxProvider]]">
-      <nuxeo-data-grid name="grid" icon="icons:apps" class="results" empty-label="[[i18n('searchResults.noResults')]]"
-                       selection-enabled display-quick-filters>
-        <template>
-          <nuxeo-document-grid-thumbnail tabindex$="{{tabIndex}}" selected$="{{selected}}" doc="[[item]]"
-                                         on-navigate="_navigate">
-          </nuxeo-document-grid-thumbnail>
-        </template>
-      </nuxeo-data-grid>
-      <nuxeo-data-table name="table" icon="icons:list" class="results"
-                        settings-enabled
-                        empty-label="[[i18n('searchResults.noResults')]]"
-                        selection-enabled
-                        display-quick-filters
-                        on-row-clicked="_navigate">
+        </style>
 
-        <nuxeo-data-table-column name="Title" field="dc:title" sort-by="dc:title" flex="100">
-          <template>
-            <nuxeo-document-thumbnail document="[[item]]"></nuxeo-document-thumbnail>
-            <a class="ellipsis" href$="[[urlFor('browse', item.path)]]" on-click="_navigate">[[item.title]]</a>
-          </template>
-        </nuxeo-data-table-column>
+        <nuxeo-results name="opportunity_list" nx-provider="[[nxProvider]]">
+            <nuxeo-data-grid name="grid" icon="icons:apps" class="results"
+                             empty-label="[[i18n('searchResults.noResults')]]"
+                             selection-enabled display-quick-filters>
+                <template>
+                    <nuxeo-document-grid-thumbnail tabindex$="{{tabIndex}}" selected$="{{selected}}" doc="[[item]]"
+                                                   on-navigate="_navigate">
+                    </nuxeo-document-grid-thumbnail>
+                </template>
+            </nuxeo-data-grid>
+            <nuxeo-data-table name="table" icon="icons:list" class="results"
+                              settings-enabled
+                              empty-label="[[i18n('searchResults.noResults')]]"
+                              selection-enabled
+                              display-quick-filters
+                              on-row-clicked="_navigate">
 
-        <nuxeo-data-table-column name="Amount" field="opportunity:amount" sort-by="opportunity:amount"
-                                 flex="50">
-          <template>
-            [[_formatCurrency(item.properties.opportunity:amount)]] €
-          </template>
-        </nuxeo-data-table-column>
+                <nuxeo-data-table-column name="Title" field="dc:title" sort-by="dc:title" flex="100">
+                    <template>
+                        <nuxeo-document-thumbnail document="[[item]]"></nuxeo-document-thumbnail>
+                        <a class="ellipsis" href$="[[urlFor('browse', item.path)]]"
+                           on-click="_navigate">[[item.title]]</a>
+                    </template>
+                </nuxeo-data-table-column>
 
-        <nuxeo-data-table-column name="Close Date" field="opportunity:closeDate" sort-by="opportunity:closeDate" flex="50">
-          <template>
-            [[formatDate(item.properties.opportunity:closeDate)]]
-          </template>
-        </nuxeo-data-table-column>
+                <nuxeo-data-table-column name="Amount" field="opportunity:amount" sort-by="opportunity:amount"
+                                         flex="50">
+                    <template>
+                        [[_formatCurrency(item.properties.opportunity:amount)]] €
+                    </template>
+                </nuxeo-data-table-column>
 
-        <nuxeo-data-table-column name="[[i18n('documentContentView.datatable.header.state')]]"
-                                 field="currentLifeCycleState">
-          <template>
-            <span class$="[[item.state]] state">[[item.state]]</span>
-          </template>
-        </nuxeo-data-table-column>
+                <nuxeo-data-table-column name="Close Date" field="opportunity:closeDate" sort-by="opportunity:closeDate"
+                                         flex="50">
+                    <template>
+                        [[formatDate(item.properties.opportunity:closeDate)]]
+                    </template>
+                </nuxeo-data-table-column>
+
+                <nuxeo-data-table-column name="[[i18n('documentContentView.datatable.header.state')]]"
+                                         field="currentLifeCycleState">
+                    <template>
+                        <span class$="[[item.state]] state">[[item.state]]</span>
+                    </template>
+                </nuxeo-data-table-column>
 
 
-      </nuxeo-data-table>
-    </nuxeo-results>
-  </template>
-  <script>
+            </nuxeo-data-table>
+        </nuxeo-results>
+    </template>
+    <script>
   Polymer({
     is: 'nuxeo-opportunity_list-search-results',
     behaviors: [Nuxeo.LayoutBehavior],
@@ -84,5 +88,6 @@
       return val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
     },
   });
-  </script>
+
+    </script>
 </dom-module>

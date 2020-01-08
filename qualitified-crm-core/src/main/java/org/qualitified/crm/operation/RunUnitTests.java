@@ -43,6 +43,7 @@ public class RunUnitTests {
             params.put("script", scriptNote);
             logger.warn("Running Unit Test ["+unitTest.getTitle()+"]...");
             AutomationService automationService = Framework.getService(AutomationService.class);
+
             operationContext.put("scriptId",unitTest.getId());
 
             DocumentModel scriptDocument = session.getDocument(unitTest.getRef());
