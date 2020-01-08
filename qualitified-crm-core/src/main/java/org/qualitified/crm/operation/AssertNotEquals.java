@@ -44,10 +44,10 @@ public class AssertNotEquals {
         DocumentModel script = session.getDocument(new IdRef(scriptId));;
         String log = "";
         if(expected == null){
-            logger.error("Test failed: expected value is null.");
+            logger.error("Test failed: "+message+", expected value is null.");
             log = Calendar.getInstance(TimeZone.getDefault()).getTime()+" Test failed: expected value is null\n";
         }else if(result == null){
-            logger.error("Test failed: result value is null.");
+            logger.error("Test failed: "+message+", result value is null.");
             log = Calendar.getInstance(TimeZone.getDefault()).getTime()+" Test failed: result value is null.\n";
         }else if(expected.equals(result)) {
             logger.error("Test failed: "+message+", expected ["+expected+"], result ["+result+"]");

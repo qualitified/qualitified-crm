@@ -32,13 +32,16 @@ public class AssertNull {
     @Param(name = "result")
     protected Object result;
 
+    @Param(name = "message")
+    protected boolean message;
+
     @OperationMethod
     public void run() throws Exception {
         String scriptId = (String)ctx.get("scriptId");
         DocumentModel script = session.getDocument(new IdRef(scriptId));
         String log = "";
         if(result != null){
-            logger.error("Test failed: expected [null], result ["+result+"].");
+            logger.error("Test failed: "+message+", expected [null], result ["+result+"].");
             log = Calendar.getInstance(TimeZone.getDefault()).getTime()+" Test failed: expected [null], result ["+result+"]\n";
         }
         if(!log.equals("")){

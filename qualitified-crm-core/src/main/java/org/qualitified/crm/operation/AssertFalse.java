@@ -32,13 +32,16 @@ public class AssertFalse {
     @Param(name = "result")
     protected boolean result;
 
+    @Param(name = "message")
+    protected boolean message;
+
     @OperationMethod
     public void run() throws Exception {
         String scriptId = (String)ctx.get("scriptId");
         DocumentModel script = session.getDocument(new IdRef(scriptId));
         String log = "";
         if(result){
-            logger.warn("Test failed: expected [false], result [true].");
+            logger.warn("Test failed: "+message+", expected [false], result [true].");
             log = Calendar.getInstance(TimeZone.getDefault()).getTime()+" Test failed: expected [false], result [true].\n";
         }
         if(!log.equals("")){
