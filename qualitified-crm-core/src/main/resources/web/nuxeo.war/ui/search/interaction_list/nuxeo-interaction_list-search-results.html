@@ -1,9 +1,9 @@
 <!--
-`nuxeo-person_list-search-results`
+`nuxeo-interaction_list-search-results`
 @group Nuxeo UI
-@element nuxeo-person_list-search-results
+@element nuxeo-interaction_list-search-results
 -->
-<dom-module id="nuxeo-person_list-search-results">
+<dom-module id="nuxeo-interaction_list-search-results">
     <template>
         <style include="nuxeo-styles">
       nuxeo-data-table,
@@ -19,47 +19,38 @@
       }
 
         </style>
-        <nuxeo-results name="person_list" nx-provider="[[nxProvider]]" selected-items="{{selectedItems}}"
+        <nuxeo-results name="interaction_list" nx-provider="[[nxProvider]]" selected-items="{{selectedItems}}"
                        display-quick-filters="" display-sort="" sort-label="[[i18n('searchResults.sort.label')]]"
                        sort-options="[[sortOptions]]">
-
-            <nuxeo-data-grid class="results" empty-label="[[i18n('searchResults.noResults')]]" selection-enabled=""
-                             icon="nuxeo:view-thumbnails" name="grid">
-                <template>
-                    <nuxeo-document-grid-thumbnail tabindex$="{{tabIndex}}" selected$="{{selected}}" doc="[[item]]"
-                                                   index="[[index]]" on-navigate="_navigate"
-                                                   selected-items="[[selectedItems]]">
-                    </nuxeo-document-grid-thumbnail>
-                </template>
-            </nuxeo-data-grid>
 
             <nuxeo-data-table class="results" settings-enabled="" empty-label="[[i18n('searchResults.noResults')]]"
                               selection-enabled="" on-row-clicked="_navigate" icon="nuxeo:view-list" name="table">
 
-                <nuxeo-data-table-column name="Title" field="dc:title" sort-by="dc:title" flex="90">
+                <nuxeo-data-table-column name="Title" field="dc:title" sort-by="dc:title" flex="60">
                     <template>
                         <nuxeo-document-thumbnail document="[[item]]"></nuxeo-document-thumbnail>
                         <a class="ellipsis" href$="[[urlFor('browse', item.path)]]"
                            on-click="_navigate">[[item.title]]</a>
                     </template>
                 </nuxeo-data-table-column>
-                <nuxeo-data-table-column name="E-mail" field="person:email" sort-by="person:email" flex="100">
+                <nuxeo-data-table-column name="[[i18n('label.metadata.date')]]" field="interaction:date"
+                                         sort-by="interaction:date" flex="60">
                     <template>
-                        [[item.properties.person:email]]
+                        [[formatDate(item.properties.interaction:date)]]
                     </template>
                 </nuxeo-data-table-column>
-                <nuxeo-data-table-column name="Role" field="person:Role" sort-by="person:Role" flex="60">
+                <nuxeo-data-table-column name="[[i18n('label.metadata.status')]]" field="interaction:status"
+                                         sort-by="interaction:status" flex="60">
                     <template>
-                        [[formatDirectory(item.properties.person:Role)]]
+                        [[formatDirectory(item.properties.interaction:status)]]
                     </template>
                 </nuxeo-data-table-column>
-                <nuxeo-data-table-column name="Phone Number" field="person:phoneNumber" sort-by="person:phoneNumber"
-                                         flex="60">
+                <nuxeo-data-table-column name="[[i18n('label.metadata.activity')]]" field="interaction:activity"
+                                         sort-by="interaction:activity" flex="60">
                     <template>
-                        [[item.properties.person:phoneNumber]]
+                        [[formatDirectory(item.properties.interaction:activity)]]
                     </template>
                 </nuxeo-data-table-column>
-
                 <nuxeo-data-table-column name="Modified" field="dc:modified" sort-by="dc:modified" flex="60">
                     <template>
                         [[formatDate(item.properties.dc:modified)]]
@@ -74,11 +65,21 @@
                 </nuxeo-data-table-column>
             </nuxeo-data-table>
 
+            <nuxeo-data-grid class="results" empty-label="[[i18n('searchResults.noResults')]]" selection-enabled=""
+                             icon="nuxeo:view-thumbnails" name="grid">
+                <template>
+                    <nuxeo-document-grid-thumbnail tabindex$="{{tabIndex}}" selected$="{{selected}}" doc="[[item]]"
+                                                   index="[[index]]" on-navigate="_navigate"
+                                                   selected-items="[[selectedItems]]">
+                    </nuxeo-document-grid-thumbnail>
+                </template>
+            </nuxeo-data-grid>
+
         </nuxeo-results>
     </template>
     <script>
     Polymer({
-      is: 'nuxeo-person_list-search-results',
+      is: 'nuxeo-interaction_list-search-results',
       behaviors: [Nuxeo.LayoutBehavior],
       properties: {
         nxProvider: Object,

@@ -4,8 +4,8 @@
 @element nuxeo-opportunity_list-search-form
 -->
 <dom-module id="nuxeo-opportunity_list-search-form">
-  <template>
-    <style>
+    <template>
+        <style>
       :host {
         display: block;
       }
@@ -37,58 +37,61 @@
         padding: .5rem;
         width: 100%;
       }
-    </style>
 
-    <!-- Full Text -->
-    <nuxeo-input role="widget"
-                 id="searchInput"
-                 type="search"
-                 label="[[i18n('defaultSearch.fullText')]]"
-                 value="{{searchTerm}}"
-                 placeholder="[[i18n('defaultSearch.fullText.placeholder')]]"
-                 autofocus
-                 on-keydown="_checkForEnter">
-    </nuxeo-input>
-    <br/>
+        </style>
 
-    <div class="layout vertical row">
-      <label>[[i18n('label.metadata.closedate')]]</label>
-      <nuxeo-date-picker value="{{params.opportunity_closeDate_min}}" label="[[i18n('opportunity.list.from')]]"></nuxeo-date-picker>
-      <nuxeo-date-picker value="{{params.opportunity_closeDate_max}}" label="[[i18n('opportunity.list.to')]]"></nuxeo-date-picker>
-    </div>
+        <!-- Full Text -->
+        <nuxeo-input role="widget"
+                     id="searchInput"
+                     type="search"
+                     label="[[i18n('defaultSearch.fullText')]]"
+                     value="{{searchTerm}}"
+                     placeholder="[[i18n('defaultSearch.fullText.placeholder')]]"
+                     autofocus
+                     on-keydown="_checkForEnter">
+        </nuxeo-input>
+        <br/>
 
-    <div class="layout vertical row">
-      <label>[[i18n('label.metadata.step')]]</label>
-      <nuxeo-checkbox-aggregation
-        data="[[aggregations.opportunity_step_agg]]"
-        value="{{params.opportunity_step_agg}}">
-      </nuxeo-checkbox-aggregation>
-    </div>
-    <div class="layout vertical row">
-      <label>[[i18n('label.metadata.amount')]]</label>
-      <nuxeo-checkbox-aggregation
-        data="[[aggregations.opportunity_amount_agg]]"
-        value="{{params.opportunity_amount_agg}}">
-      </nuxeo-checkbox-aggregation>
-    </div>
-    <div class="layout vertical row">
-      <label>[[i18n('label.metadata.closedate')]]</label>
-      <nuxeo-checkbox-aggregation
-        data="[[aggregations.opportunity_closeDate_agg]]"
-        value="{{params.opportunity_closeDate_agg}}">
-      </nuxeo-checkbox-aggregation>
-    </div>
-    <div class="layout vertical row">
-      <label>[[i18n('label.last.interaction.date')]]</label>
-      <nuxeo-checkbox-aggregation
-        data="[[aggregations.opportunity_lastInteractionDate_agg]]"
-        value="{{params.opportunity_lastInteractionDate_agg}})">
-      </nuxeo-checkbox-aggregation>
-    </div>
+        <div class="layout vertical row">
+            <label>[[i18n('label.metadata.closedate')]]</label>
+            <nuxeo-date-picker value="{{params.opportunity_closeDate_min}}"
+                               label="[[i18n('opportunity.list.from')]]"></nuxeo-date-picker>
+            <nuxeo-date-picker value="{{params.opportunity_closeDate_max}}"
+                               label="[[i18n('opportunity.list.to')]]"></nuxeo-date-picker>
+        </div>
 
-  </template>
+        <div class="layout vertical row">
+            <label>[[i18n('label.metadata.step')]]</label>
+            <nuxeo-checkbox-aggregation
+                    data="[[aggregations.opportunity_step_agg]]"
+                    value="{{params.opportunity_step_agg}}">
+            </nuxeo-checkbox-aggregation>
+        </div>
+        <div class="layout vertical row">
+            <label>[[i18n('label.metadata.amount')]]</label>
+            <nuxeo-checkbox-aggregation
+                    data="[[aggregations.opportunity_amount_agg]]"
+                    value="{{params.opportunity_amount_agg}}">
+            </nuxeo-checkbox-aggregation>
+        </div>
+        <div class="layout vertical row">
+            <label>[[i18n('label.metadata.closedate')]]</label>
+            <nuxeo-checkbox-aggregation
+                    data="[[aggregations.opportunity_closeDate_agg]]"
+                    value="{{params.opportunity_closeDate_agg}}">
+            </nuxeo-checkbox-aggregation>
+        </div>
+        <div class="layout vertical row">
+            <label>[[i18n('label.last.interaction.date')]]</label>
+            <nuxeo-checkbox-aggregation
+                    data="[[aggregations.opportunity_lastInteractionDate_agg]]"
+                    value="{{params.opportunity_lastInteractionDate_agg}})">
+            </nuxeo-checkbox-aggregation>
+        </div>
 
-  <script>
+    </template>
+
+    <script>
   Polymer({
     is: 'nuxeo-opportunity_list-search-form',
     behaviors: [Nuxeo.LayoutBehavior, Nuxeo.I18nBehavior],
@@ -147,5 +150,6 @@
       }
     }
   });
-  </script>
+
+    </script>
 </dom-module>

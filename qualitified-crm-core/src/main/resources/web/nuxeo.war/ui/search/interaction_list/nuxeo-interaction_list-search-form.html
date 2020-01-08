@@ -1,12 +1,12 @@
 <!--
-`nuxeo-person_list-search-form`
+`nuxeo-interaction_list-search-form`
 @group Nuxeo UI
-@element nuxeo-person_list-search-form
+@element nuxeo-interaction_list-search-form
 -->
-<dom-module id="nuxeo-person_list-search-form">
+<dom-module id="nuxeo-interaction_list-search-form">
     <template>
         <style>
-       :host {
+        :host {
         display: block;
       }
 
@@ -38,7 +38,6 @@
         width: 100%;
       }
 
-
         </style>
         <!-- Full Text -->
         <nuxeo-input role="widget"
@@ -50,41 +49,54 @@
                      autofocus
                      on-keydown="_checkForEnter">
         </nuxeo-input>
-
-        <nuxeo-input role="widget" value="{{params.person_firstName}}" label="[[i18n('label.metadata.firstname')]]"
-                     type="text"></nuxeo-input>
-        <nuxeo-input role="widget" value="{{params.person_lastName}}" label="[[i18n('label.metadata.lastname')]]"
-                     type="text"></nuxeo-input>
+        <br/>
         <div class="layout vertical row">
-            <label>[[i18n('label.metadata.role')]]</label>
+            <label>[[i18n('label.metadata.closedate')]]</label>
+            <nuxeo-date-picker value="{{params.interaction_closeDate_min}}"
+                               label="[[i18n('opportunity.list.from')]]"></nuxeo-date-picker>
+            <nuxeo-date-picker value="{{params.interaction_closeDate_max}}"
+                               label="[[i18n('opportunity.list.to')]]"></nuxeo-date-picker>
+        </div>
+        <br/>
+        <div class="layout vertical row">
+            <label>[[i18n('label.metadata.activity')]]</label>
             <nuxeo-checkbox-aggregation
-                    data="[[aggregations.person_role_agg]]"
-                    value="{{params.person_role_agg}}">
+                    data="[[aggregations.interaction_activity_agg]]"
+                    value="{{params.interaction_activity_agg}}">
             </nuxeo-checkbox-aggregation>
         </div>
 
         <div class="layout vertical row">
-            <label>[[i18n('label.metadata.civility')]]</label>
+            <label>[[i18n('label.metadata.status')]]</label>
             <nuxeo-checkbox-aggregation
-                    data="[[aggregations.person_civility_agg]]"
-                    value="{{params.person_civility_agg}}">
+                    data="[[aggregations.interaction_status_agg]]"
+                    value="{{params.interaction_status_agg}}">
+            </nuxeo-checkbox-aggregation>
+        </div>
+        <br/>
+        <div class="layout vertical row">
+            <label>[[i18n('label.last.interaction.date')]]</label>
+            <nuxeo-checkbox-aggregation
+                    data="[[aggregations.interaction_date_agg]]"
+                    value="{{params.interaction_date_agg}})">
             </nuxeo-checkbox-aggregation>
         </div>
     </template>
 
     <script>
     Polymer({
-      is: 'nuxeo-person_list-search-form',
+      is: 'nuxeo-interaction_list-search-form',
       behaviors: [Nuxeo.LayoutBehavior],
       properties: {
 
         /**
-         * @search Person_list
+         * @search Interaction_list
          */
         params: {
           type: Object,
           value: {},
           notify: true,
+          observer: "_setDatesMaxMin"
         },
 
         aggregations: {
@@ -118,12 +130,20 @@
         this.fire('trigger-search');
       }
     },
+    _setDatesMaxMin: function () {
+      if(moment().format('M') > 6){
+        this.set('params.interaction_closeDate_min', moment().format('YYYY')+'-07-01');
+        this.set('params.interaction_closeDate_max', moment().format('YYYY')+'-12-31');
 
+      }else{
+        this.set('params.interaction_closeDate_min', moment().format('YYYY')+'-01-01');
+        this.set('params.interaction_closeDate_max', moment().format('YYYY')+'-06-30');
+      }
+    },
     clear: function() {
       this.searchTerm = '';
     }
     });
-
 
     </script>
 </dom-module>
