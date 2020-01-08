@@ -5,9 +5,9 @@
 -->
 <script src="../dist/tinysort.min.js"></script>
 <dom-module id="qualitified-custom-fields">
-  <template>
+    <template>
 
-    <style>
+        <style>
       *[role=widget] {
         padding: 5px;
       }
@@ -18,589 +18,589 @@
 
     </style>
 
-    <nuxeo-connection id="nxcon" user="{{user}}"></nuxeo-connection>
-    <nuxeo-operation id="getCustomFields" op="getCustomFieldsChain" input="[[document.uid]]" params="[[params]]"></nuxeo-operation>
-    <nuxeo-operation id="getVocabularyLabel" op="javascript.getVocabularyLabel" input="[[document.uid]]" params="[[params2]]"></nuxeo-operation>
+        <nuxeo-connection id="nxcon" user="{{user}}"></nuxeo-connection>
+        <nuxeo-operation id="getCustomFields" op="getCustomFieldsChain" input="[[document.uid]]" params="[[params]]"></nuxeo-operation>
+        <nuxeo-operation id="getVocabularyLabel" op="javascript.getVocabularyLabel" input="[[document.uid]]" params="[[params2]]"></nuxeo-operation>
 
-   <iron-pages selected="[[mode]]" attr-for-selected="name" class="vertical layout flex">
-     <div name="edit" class="vertical layout flex">
-       <nuxeo-input hidden$="[[!stringField1Visible]]" role="widget" value="{{document.properties.custom:stringField1}}" label="[[stringField1Label]]" required="[[stringField1Required]]"></nuxeo-input>
-       <nuxeo-input hidden$="[[!stringField2Visible]]" role="widget" value="{{document.properties.custom:stringField2}}" label="[[stringField2Label]]" required="[[stringField2Required]]"></nuxeo-input>
-       <nuxeo-input hidden$="[[!stringField3Visible]]" role="widget" value="{{document.properties.custom:stringField3}}" label="[[stringField3Label]]" required="[[stringField3Required]]"></nuxeo-input>
-       <nuxeo-input hidden$="[[!stringField4Visible]]" role="widget" value="{{document.properties.custom:stringField4}}" label="[[stringField4Label]]" required="[[stringField4Required]]"></nuxeo-input>
-       <nuxeo-input hidden$="[[!stringField5Visible]]" role="widget" value="{{document.properties.custom:stringField5}}" label="[[stringField5Label]]" required="[[stringField5Required]]"></nuxeo-input>
-       <nuxeo-input hidden$="[[!stringField6Visible]]" role="widget" value="{{document.properties.custom:stringField6}}" label="[[stringField6Label]]" required="[[stringField6Required]]"></nuxeo-input>
-       <nuxeo-input hidden$="[[!stringField7Visible]]" role="widget" value="{{document.properties.custom:stringField7}}" label="[[stringField7Label]]" required="[[stringField7Required]]"></nuxeo-input>
-       <nuxeo-input hidden$="[[!stringField8Visible]]" role="widget" value="{{document.properties.custom:stringField8}}" label="[[stringField8Label]]" required="[[stringField8Required]]"></nuxeo-input>
-       <nuxeo-input hidden$="[[!stringField9Visible]]" role="widget" value="{{document.properties.custom:stringField9}}" label="[[stringField9Label]]" required="[[stringField9Required]]"></nuxeo-input>
-       <nuxeo-input hidden$="[[!stringField10Visible]]" role="widget" value="{{document.properties.custom:stringField10}}" label="[[stringField10Label]]" required="[[stringField10Required]]"></nuxeo-input>
-       <nuxeo-input hidden$="[[!stringField11Visible]]" role="widget" value="{{document.properties.custom:stringField11}}" label="[[stringField11Label]]" required="[[stringField11Required]]"></nuxeo-input>
-       <nuxeo-input hidden$="[[!stringField12Visible]]" role="widget" value="{{document.properties.custom:stringField12}}" label="[[stringField12Label]]" required="[[stringField12Required]]"></nuxeo-input>
-       <nuxeo-input hidden$="[[!stringField13Visible]]" role="widget" value="{{document.properties.custom:stringField13}}" label="[[stringField13Label]]" required="[[stringField13Required]]"></nuxeo-input>
-       <nuxeo-input hidden$="[[!stringField14Visible]]" role="widget" value="{{document.properties.custom:stringField14}}" label="[[stringField14Label]]" required="[[stringField14Required]]"></nuxeo-input>
-       <nuxeo-input hidden$="[[!stringField15Visible]]" role="widget" value="{{document.properties.custom:stringField15}}" label="[[stringField15Label]]" required="[[stringField15Required]]"></nuxeo-input>
-       <nuxeo-input hidden$="[[!stringField16Visible]]" role="widget" value="{{document.properties.custom:stringField16}}" label="[[stringField16Label]]" required="[[stringField16Required]]"></nuxeo-input>
-       <nuxeo-input hidden$="[[!stringField17Visible]]" role="widget" value="{{document.properties.custom:stringField17}}" label="[[stringField17Label]]" required="[[stringField17Required]]"></nuxeo-input>
-       <nuxeo-input hidden$="[[!stringField18Visible]]" role="widget" value="{{document.properties.custom:stringField18}}" label="[[stringField18Label]]" required="[[stringField18Required]]"></nuxeo-input>
-       <nuxeo-input hidden$="[[!stringField19Visible]]" role="widget" value="{{document.properties.custom:stringField19}}" label="[[stringField19Label]]" required="[[stringField19Required]]"></nuxeo-input>
-       <nuxeo-input hidden$="[[!stringField20Visible]]" role="widget" value="{{document.properties.custom:stringField20}}" label="[[stringField20Label]]" required="[[stringField20Required]]"></nuxeo-input>
+        <iron-pages selected="[[mode]]" attr-for-selected="name" class="vertical layout flex">
+            <div name="edit" class="vertical layout flex">
+                <nuxeo-input hidden$="[[!stringField1Visible]]" role="widget" value="{{document.properties.custom:stringField1}}" label="[[stringField1Label]]" required="[[stringField1Required]]"></nuxeo-input>
+                <nuxeo-input hidden$="[[!stringField2Visible]]" role="widget" value="{{document.properties.custom:stringField2}}" label="[[stringField2Label]]" required="[[stringField2Required]]"></nuxeo-input>
+                <nuxeo-input hidden$="[[!stringField3Visible]]" role="widget" value="{{document.properties.custom:stringField3}}" label="[[stringField3Label]]" required="[[stringField3Required]]"></nuxeo-input>
+                <nuxeo-input hidden$="[[!stringField4Visible]]" role="widget" value="{{document.properties.custom:stringField4}}" label="[[stringField4Label]]" required="[[stringField4Required]]"></nuxeo-input>
+                <nuxeo-input hidden$="[[!stringField5Visible]]" role="widget" value="{{document.properties.custom:stringField5}}" label="[[stringField5Label]]" required="[[stringField5Required]]"></nuxeo-input>
+                <nuxeo-input hidden$="[[!stringField6Visible]]" role="widget" value="{{document.properties.custom:stringField6}}" label="[[stringField6Label]]" required="[[stringField6Required]]"></nuxeo-input>
+                <nuxeo-input hidden$="[[!stringField7Visible]]" role="widget" value="{{document.properties.custom:stringField7}}" label="[[stringField7Label]]" required="[[stringField7Required]]"></nuxeo-input>
+                <nuxeo-input hidden$="[[!stringField8Visible]]" role="widget" value="{{document.properties.custom:stringField8}}" label="[[stringField8Label]]" required="[[stringField8Required]]"></nuxeo-input>
+                <nuxeo-input hidden$="[[!stringField9Visible]]" role="widget" value="{{document.properties.custom:stringField9}}" label="[[stringField9Label]]" required="[[stringField9Required]]"></nuxeo-input>
+                <nuxeo-input hidden$="[[!stringField10Visible]]" role="widget" value="{{document.properties.custom:stringField10}}" label="[[stringField10Label]]" required="[[stringField10Required]]"></nuxeo-input>
+                <nuxeo-input hidden$="[[!stringField11Visible]]" role="widget" value="{{document.properties.custom:stringField11}}" label="[[stringField11Label]]" required="[[stringField11Required]]"></nuxeo-input>
+                <nuxeo-input hidden$="[[!stringField12Visible]]" role="widget" value="{{document.properties.custom:stringField12}}" label="[[stringField12Label]]" required="[[stringField12Required]]"></nuxeo-input>
+                <nuxeo-input hidden$="[[!stringField13Visible]]" role="widget" value="{{document.properties.custom:stringField13}}" label="[[stringField13Label]]" required="[[stringField13Required]]"></nuxeo-input>
+                <nuxeo-input hidden$="[[!stringField14Visible]]" role="widget" value="{{document.properties.custom:stringField14}}" label="[[stringField14Label]]" required="[[stringField14Required]]"></nuxeo-input>
+                <nuxeo-input hidden$="[[!stringField15Visible]]" role="widget" value="{{document.properties.custom:stringField15}}" label="[[stringField15Label]]" required="[[stringField15Required]]"></nuxeo-input>
+                <nuxeo-input hidden$="[[!stringField16Visible]]" role="widget" value="{{document.properties.custom:stringField16}}" label="[[stringField16Label]]" required="[[stringField16Required]]"></nuxeo-input>
+                <nuxeo-input hidden$="[[!stringField17Visible]]" role="widget" value="{{document.properties.custom:stringField17}}" label="[[stringField17Label]]" required="[[stringField17Required]]"></nuxeo-input>
+                <nuxeo-input hidden$="[[!stringField18Visible]]" role="widget" value="{{document.properties.custom:stringField18}}" label="[[stringField18Label]]" required="[[stringField18Required]]"></nuxeo-input>
+                <nuxeo-input hidden$="[[!stringField19Visible]]" role="widget" value="{{document.properties.custom:stringField19}}" label="[[stringField19Label]]" required="[[stringField19Required]]"></nuxeo-input>
+                <nuxeo-input hidden$="[[!stringField20Visible]]" role="widget" value="{{document.properties.custom:stringField20}}" label="[[stringField20Label]]" required="[[stringField20Required]]"></nuxeo-input>
 
-      <nuxeo-directory-suggestion hidden$="[[!vocabularyField1Visible]]" role="widget" value="{{document.properties.custom:vocabularyField1}}" label="[[vocabularyField1Label]]" required="[[vocabularyField1Required]]" directory-name="[[vocabularyField1Name]]" min-chars="0" multiple="[[vocabularyField1Multivalue]]"></nuxeo-directory-suggestion>
-      <nuxeo-directory-suggestion hidden$="[[!vocabularyField2Visible]]" role="widget" value="{{document.properties.custom:vocabularyField2}}" label="[[vocabularyField2Label]]" required="[[vocabularyField2Required]]" directory-name="[[vocabularyField2Name]]" min-chars="0" multiple="[[vocabularyField2Multivalue]]"></nuxeo-directory-suggestion>
-      <nuxeo-directory-suggestion hidden$="[[!vocabularyField3Visible]]" role="widget" value="{{document.properties.custom:vocabularyField3}}" label="[[vocabularyField3Label]]" required="[[vocabularyField3Required]]" directory-name="[[vocabularyField3Name]]" min-chars="0" multiple="[[vocabularyField3Multivalue]]"></nuxeo-directory-suggestion>
-      <nuxeo-directory-suggestion hidden$="[[!vocabularyField4Visible]]" role="widget" value="{{document.properties.custom:vocabularyField4}}" label="[[vocabularyField4Label]]" required="[[vocabularyField4Required]]" directory-name="[[vocabularyField4Name]]" min-chars="0" multiple="[[vocabularyField4Multivalue]]"></nuxeo-directory-suggestion>
-      <nuxeo-directory-suggestion hidden$="[[!vocabularyField5Visible]]" role="widget" value="{{document.properties.custom:vocabularyField5}}" label="[[vocabularyField5Label]]" required="[[vocabularyField5Required]]" directory-name="[[vocabularyField5Name]]" min-chars="0" multiple="[[vocabularyField5Multivalue]]"></nuxeo-directory-suggestion>
-      <nuxeo-directory-suggestion hidden$="[[!vocabularyField6Visible]]" role="widget" value="{{document.properties.custom:vocabularyField6}}" label="[[vocabularyField6Label]]" required="[[vocabularyField6Required]]" directory-name="[[vocabularyField6Name]]" min-chars="0" multiple="[[vocabularyField6Multivalue]]"></nuxeo-directory-suggestion>
-      <nuxeo-directory-suggestion hidden$="[[!vocabularyField7Visible]]" role="widget" value="{{document.properties.custom:vocabularyField7}}" label="[[vocabularyField7Label]]" required="[[vocabularyField7Required]]" directory-name="[[vocabularyField7Name]]" min-chars="0" multiple="[[vocabularyField7Multivalue]]"></nuxeo-directory-suggestion>
-      <nuxeo-directory-suggestion hidden$="[[!vocabularyField8Visible]]" role="widget" value="{{document.properties.custom:vocabularyField8}}" label="[[vocabularyField8Label]]" required="[[vocabularyField8Required]]" directory-name="[[vocabularyField8Name]]" min-chars="0" multiple="[[vocabularyField8Multivalue]]"></nuxeo-directory-suggestion>
-      <nuxeo-directory-suggestion hidden$="[[!vocabularyField9Visible]]" role="widget" value="{{document.properties.custom:vocabularyField9}}" label="[[vocabularyField9Label]]" required="[[vocabularyField9Required]]" directory-name="[[vocabularyField9Name]]" min-chars="0" multiple="[[vocabularyField9Multivalue]]"></nuxeo-directory-suggestion>
-      <nuxeo-directory-suggestion hidden$="[[!vocabularyField10Visible]]" role="widget" value="{{document.properties.custom:vocabularyField10}}" label="[[vocabularyField10Label]]" required="[[vocabularyField10Required]]" directory-name="[[vocabularyField10Name]]" min-chars="0" multiple="[[vocabularyField10Multivalue]]"></nuxeo-directory-suggestion>
+                <nuxeo-directory-suggestion hidden$="[[!vocabularyField1Visible]]" role="widget" value="{{document.properties.custom:vocabularyField1}}" label="[[vocabularyField1Label]]" required="[[vocabularyField1Required]]" directory-name="[[vocabularyField1Name]]" min-chars="0" multiple="[[vocabularyField1Multivalue]]"></nuxeo-directory-suggestion>
+                <nuxeo-directory-suggestion hidden$="[[!vocabularyField2Visible]]" role="widget" value="{{document.properties.custom:vocabularyField2}}" label="[[vocabularyField2Label]]" required="[[vocabularyField2Required]]" directory-name="[[vocabularyField2Name]]" min-chars="0" multiple="[[vocabularyField2Multivalue]]"></nuxeo-directory-suggestion>
+                <nuxeo-directory-suggestion hidden$="[[!vocabularyField3Visible]]" role="widget" value="{{document.properties.custom:vocabularyField3}}" label="[[vocabularyField3Label]]" required="[[vocabularyField3Required]]" directory-name="[[vocabularyField3Name]]" min-chars="0" multiple="[[vocabularyField3Multivalue]]"></nuxeo-directory-suggestion>
+                <nuxeo-directory-suggestion hidden$="[[!vocabularyField4Visible]]" role="widget" value="{{document.properties.custom:vocabularyField4}}" label="[[vocabularyField4Label]]" required="[[vocabularyField4Required]]" directory-name="[[vocabularyField4Name]]" min-chars="0" multiple="[[vocabularyField4Multivalue]]"></nuxeo-directory-suggestion>
+                <nuxeo-directory-suggestion hidden$="[[!vocabularyField5Visible]]" role="widget" value="{{document.properties.custom:vocabularyField5}}" label="[[vocabularyField5Label]]" required="[[vocabularyField5Required]]" directory-name="[[vocabularyField5Name]]" min-chars="0" multiple="[[vocabularyField5Multivalue]]"></nuxeo-directory-suggestion>
+                <nuxeo-directory-suggestion hidden$="[[!vocabularyField6Visible]]" role="widget" value="{{document.properties.custom:vocabularyField6}}" label="[[vocabularyField6Label]]" required="[[vocabularyField6Required]]" directory-name="[[vocabularyField6Name]]" min-chars="0" multiple="[[vocabularyField6Multivalue]]"></nuxeo-directory-suggestion>
+                <nuxeo-directory-suggestion hidden$="[[!vocabularyField7Visible]]" role="widget" value="{{document.properties.custom:vocabularyField7}}" label="[[vocabularyField7Label]]" required="[[vocabularyField7Required]]" directory-name="[[vocabularyField7Name]]" min-chars="0" multiple="[[vocabularyField7Multivalue]]"></nuxeo-directory-suggestion>
+                <nuxeo-directory-suggestion hidden$="[[!vocabularyField8Visible]]" role="widget" value="{{document.properties.custom:vocabularyField8}}" label="[[vocabularyField8Label]]" required="[[vocabularyField8Required]]" directory-name="[[vocabularyField8Name]]" min-chars="0" multiple="[[vocabularyField8Multivalue]]"></nuxeo-directory-suggestion>
+                <nuxeo-directory-suggestion hidden$="[[!vocabularyField9Visible]]" role="widget" value="{{document.properties.custom:vocabularyField9}}" label="[[vocabularyField9Label]]" required="[[vocabularyField9Required]]" directory-name="[[vocabularyField9Name]]" min-chars="0" multiple="[[vocabularyField9Multivalue]]"></nuxeo-directory-suggestion>
+                <nuxeo-directory-suggestion hidden$="[[!vocabularyField10Visible]]" role="widget" value="{{document.properties.custom:vocabularyField10}}" label="[[vocabularyField10Label]]" required="[[vocabularyField10Required]]" directory-name="[[vocabularyField10Name]]" min-chars="0" multiple="[[vocabularyField10Multivalue]]"></nuxeo-directory-suggestion>
 
-      <nuxeo-user-suggestion hidden$="[[!userField1Visible]]" role="widget" value="{{document.properties.custom:userField1}}" label="[[userField1Label]]" search-type="USER_TYPE" required="[[userField1Required]]"></nuxeo-user-suggestion>
-      <nuxeo-user-suggestion hidden$="[[!userField2Visible]]" role="widget" value="{{document.properties.custom:userField2}}" label="[[userField2Label]]" search-type="USER_TYPE" required="[[userField2Required]]"></nuxeo-user-suggestion>
-      <nuxeo-user-suggestion hidden$="[[!userField3Visible]]" role="widget" value="{{document.properties.custom:userField3}}" label="[[userField3Label]]" search-type="USER_TYPE" required="[[userField3Required]]"></nuxeo-user-suggestion>
-      <nuxeo-user-suggestion hidden$="[[!userField4Visible]]" role="widget" value="{{document.properties.custom:userField4}}" label="[[userField4Label]]" search-type="USER_TYPE" required="[[userField4Required]]"></nuxeo-user-suggestion>
-      <nuxeo-user-suggestion hidden$="[[!userField5Visible]]" role="widget" value="{{document.properties.custom:userField5}}" label="[[userField5Label]]" search-type="USER_TYPE" required="[[userField5Required]]"></nuxeo-user-suggestion>
-      <nuxeo-user-suggestion hidden$="[[!userField6Visible]]" role="widget" value="{{document.properties.custom:userField6}}" label="[[userField6Label]]" search-type="USER_TYPE" required="[[userField6Required]]"></nuxeo-user-suggestion>
-      <nuxeo-user-suggestion hidden$="[[!userField7Visible]]" role="widget" value="{{document.properties.custom:userField7}}" label="[[userField7Label]]" search-type="USER_TYPE" required="[[userField7Required]]"></nuxeo-user-suggestion>
-      <nuxeo-user-suggestion hidden$="[[!userField8Visible]]" role="widget" value="{{document.properties.custom:userField8}}" label="[[userField8Label]]" search-type="USER_TYPE" required="[[userField8Required]]"></nuxeo-user-suggestion>
-      <nuxeo-user-suggestion hidden$="[[!userField9Visible]]" role="widget" value="{{document.properties.custom:userField9}}" label="[[userField9Label]]" search-type="USER_TYPE" required="[[userField9Required]]"></nuxeo-user-suggestion>
-      <nuxeo-user-suggestion hidden$="[[!userField10Visible]]" role="widget" value="{{document.properties.custom:userField10}}" label="[[userField10Label]]" search-type="USER_TYPE" required="[[userField10Required]]"></nuxeo-user-suggestion>
+                <nuxeo-user-suggestion hidden$="[[!userField1Visible]]" role="widget" value="{{document.properties.custom:userField1}}" label="[[userField1Label]]" search-type="USER_TYPE" required="[[userField1Required]]"></nuxeo-user-suggestion>
+                <nuxeo-user-suggestion hidden$="[[!userField2Visible]]" role="widget" value="{{document.properties.custom:userField2}}" label="[[userField2Label]]" search-type="USER_TYPE" required="[[userField2Required]]"></nuxeo-user-suggestion>
+                <nuxeo-user-suggestion hidden$="[[!userField3Visible]]" role="widget" value="{{document.properties.custom:userField3}}" label="[[userField3Label]]" search-type="USER_TYPE" required="[[userField3Required]]"></nuxeo-user-suggestion>
+                <nuxeo-user-suggestion hidden$="[[!userField4Visible]]" role="widget" value="{{document.properties.custom:userField4}}" label="[[userField4Label]]" search-type="USER_TYPE" required="[[userField4Required]]"></nuxeo-user-suggestion>
+                <nuxeo-user-suggestion hidden$="[[!userField5Visible]]" role="widget" value="{{document.properties.custom:userField5}}" label="[[userField5Label]]" search-type="USER_TYPE" required="[[userField5Required]]"></nuxeo-user-suggestion>
+                <nuxeo-user-suggestion hidden$="[[!userField6Visible]]" role="widget" value="{{document.properties.custom:userField6}}" label="[[userField6Label]]" search-type="USER_TYPE" required="[[userField6Required]]"></nuxeo-user-suggestion>
+                <nuxeo-user-suggestion hidden$="[[!userField7Visible]]" role="widget" value="{{document.properties.custom:userField7}}" label="[[userField7Label]]" search-type="USER_TYPE" required="[[userField7Required]]"></nuxeo-user-suggestion>
+                <nuxeo-user-suggestion hidden$="[[!userField8Visible]]" role="widget" value="{{document.properties.custom:userField8}}" label="[[userField8Label]]" search-type="USER_TYPE" required="[[userField8Required]]"></nuxeo-user-suggestion>
+                <nuxeo-user-suggestion hidden$="[[!userField9Visible]]" role="widget" value="{{document.properties.custom:userField9}}" label="[[userField9Label]]" search-type="USER_TYPE" required="[[userField9Required]]"></nuxeo-user-suggestion>
+                <nuxeo-user-suggestion hidden$="[[!userField10Visible]]" role="widget" value="{{document.properties.custom:userField10}}" label="[[userField10Label]]" search-type="USER_TYPE" required="[[userField10Required]]"></nuxeo-user-suggestion>
 
-      <nuxeo-input hidden$="[[!doubleField1Visible]]" role="widget" value="{{document.properties.custom:doubleField1}}" label="[[doubleField1Label]]" required="[[doubleField1Required]]"></nuxeo-input>
-      <nuxeo-input hidden$="[[!doubleField2Visible]]" role="widget" value="{{document.properties.custom:doubleField2}}" label="[[doubleField2Label]]" required="[[doubleField2Required]]"></nuxeo-input>
-      <nuxeo-input hidden$="[[!doubleField3Visible]]" role="widget" value="{{document.properties.custom:doubleField3}}" label="[[doubleField3Label]]" required="[[doubleField3Required]]"></nuxeo-input>
-      <nuxeo-input hidden$="[[!doubleField4Visible]]" role="widget" value="{{document.properties.custom:doubleField4}}" label="[[doubleField4Label]]" required="[[doubleField4Required]]"></nuxeo-input>
-      <nuxeo-input hidden$="[[!doubleField5Visible]]" role="widget" value="{{document.properties.custom:doubleField5}}" label="[[doubleField5Label]]" required="[[doubleField5Required]]"></nuxeo-input>
-      <nuxeo-input hidden$="[[!doubleField6Visible]]" role="widget" value="{{document.properties.custom:doubleField6}}" label="[[doubleField6Label]]" required="[[doubleField6Required]]"></nuxeo-input>
-      <nuxeo-input hidden$="[[!doubleField7Visible]]" role="widget" value="{{document.properties.custom:doubleField7}}" label="[[doubleField7Label]]" required="[[doubleField7Required]]"></nuxeo-input>
-      <nuxeo-input hidden$="[[!doubleField8Visible]]" role="widget" value="{{document.properties.custom:doubleField8}}" label="[[doubleField8Label]]" required="[[doubleField8Required]]"></nuxeo-input>
-      <nuxeo-input hidden$="[[!doubleField9Visible]]" role="widget" value="{{document.properties.custom:doubleField9}}" label="[[doubleField9Label]]" required="[[doubleField9Required]]"></nuxeo-input>
-      <nuxeo-input hidden$="[[!doubleField10Visible]]" role="widget" value="{{document.properties.custom:doubleField10}}" label="[[doubleField10Label]]" required="[[doubleField10Required]]"></nuxeo-input>
+                <nuxeo-input hidden$="[[!doubleField1Visible]]" role="widget" value="{{document.properties.custom:doubleField1}}" label="[[doubleField1Label]]" required="[[doubleField1Required]]"></nuxeo-input>
+                <nuxeo-input hidden$="[[!doubleField2Visible]]" role="widget" value="{{document.properties.custom:doubleField2}}" label="[[doubleField2Label]]" required="[[doubleField2Required]]"></nuxeo-input>
+                <nuxeo-input hidden$="[[!doubleField3Visible]]" role="widget" value="{{document.properties.custom:doubleField3}}" label="[[doubleField3Label]]" required="[[doubleField3Required]]"></nuxeo-input>
+                <nuxeo-input hidden$="[[!doubleField4Visible]]" role="widget" value="{{document.properties.custom:doubleField4}}" label="[[doubleField4Label]]" required="[[doubleField4Required]]"></nuxeo-input>
+                <nuxeo-input hidden$="[[!doubleField5Visible]]" role="widget" value="{{document.properties.custom:doubleField5}}" label="[[doubleField5Label]]" required="[[doubleField5Required]]"></nuxeo-input>
+                <nuxeo-input hidden$="[[!doubleField6Visible]]" role="widget" value="{{document.properties.custom:doubleField6}}" label="[[doubleField6Label]]" required="[[doubleField6Required]]"></nuxeo-input>
+                <nuxeo-input hidden$="[[!doubleField7Visible]]" role="widget" value="{{document.properties.custom:doubleField7}}" label="[[doubleField7Label]]" required="[[doubleField7Required]]"></nuxeo-input>
+                <nuxeo-input hidden$="[[!doubleField8Visible]]" role="widget" value="{{document.properties.custom:doubleField8}}" label="[[doubleField8Label]]" required="[[doubleField8Required]]"></nuxeo-input>
+                <nuxeo-input hidden$="[[!doubleField9Visible]]" role="widget" value="{{document.properties.custom:doubleField9}}" label="[[doubleField9Label]]" required="[[doubleField9Required]]"></nuxeo-input>
+                <nuxeo-input hidden$="[[!doubleField10Visible]]" role="widget" value="{{document.properties.custom:doubleField10}}" label="[[doubleField10Label]]" required="[[doubleField10Required]]"></nuxeo-input>
 
-      <nuxeo-date-picker hidden$="[[!dateField1Visible]]" role="widget" value="{{document.properties.custom:dateField1}}" label="[[dateField1Label]]" required="[[dateField1Required]]"></nuxeo-date-picker>
-      <nuxeo-date-picker hidden$="[[!dateField2Visible]]" role="widget" value="{{document.properties.custom:dateField2}}" label="[[dateField2Label]]" required="[[dateField2Required]]"></nuxeo-date-picker>
-      <nuxeo-date-picker hidden$="[[!dateField3Visible]]" role="widget" value="{{document.properties.custom:dateField3}}" label="[[dateField3Label]]" required="[[dateField3Required]]"></nuxeo-date-picker>
-      <nuxeo-date-picker hidden$="[[!dateField4Visible]]" role="widget" value="{{document.properties.custom:dateField4}}" label="[[dateField4Label]]" required="[[dateField4Required]]"></nuxeo-date-picker>
-      <nuxeo-date-picker hidden$="[[!dateField5Visible]]" role="widget" value="{{document.properties.custom:dateField5}}" label="[[dateField5Label]]" required="[[dateField5Required]]"></nuxeo-date-picker>
-      <nuxeo-date-picker hidden$="[[!dateField6Visible]]" role="widget" value="{{document.properties.custom:dateField6}}" label="[[dateField6Label]]" required="[[dateField6Required]]"></nuxeo-date-picker>
-      <nuxeo-date-picker hidden$="[[!dateField7Visible]]" role="widget" value="{{document.properties.custom:dateField7}}" label="[[dateField7Label]]" required="[[dateField7Required]]"></nuxeo-date-picker>
-      <nuxeo-date-picker hidden$="[[!dateField8Visible]]" role="widget" value="{{document.properties.custom:dateField8}}" label="[[dateField8Label]]" required="[[dateField8Required]]"></nuxeo-date-picker>
-      <nuxeo-date-picker hidden$="[[!dateField9Visible]]" role="widget" value="{{document.properties.custom:dateField9}}" label="[[dateField9Label]]" required="[[dateField9Required]]"></nuxeo-date-picker>
-      <nuxeo-date-picker hidden$="[[!dateField10Visible]]" role="widget" value="{{document.properties.custom:dateField10}}" label="[[dateField10Label]]" required="[[dateField10Required]]"></nuxeo-date-picker>
-      <nuxeo-date-picker hidden$="[[!dateField11Visible]]" role="widget" value="{{document.properties.custom:dateField11}}" label="[[dateField11Label]]" required="[[dateField11Required]]"></nuxeo-date-picker>
-      <nuxeo-date-picker hidden$="[[!dateField12Visible]]" role="widget" value="{{document.properties.custom:dateField12}}" label="[[dateField12Label]]" required="[[dateField12Required]]"></nuxeo-date-picker>
-      <nuxeo-date-picker hidden$="[[!dateField13Visible]]" role="widget" value="{{document.properties.custom:dateField13}}" label="[[dateField13Label]]" required="[[dateField13Required]]"></nuxeo-date-picker>
-      <nuxeo-date-picker hidden$="[[!dateField14Visible]]" role="widget" value="{{document.properties.custom:dateField14}}" label="[[dateField14Label]]" required="[[dateField14Required]]"></nuxeo-date-picker>
-      <nuxeo-date-picker hidden$="[[!dateField15Visible]]" role="widget" value="{{document.properties.custom:dateField15}}" label="[[dateField15Label]]" required="[[dateField15Required]]"></nuxeo-date-picker>
-      <nuxeo-date-picker hidden$="[[!dateField16Visible]]" role="widget" value="{{document.properties.custom:dateField16}}" label="[[dateField16Label]]" required="[[dateField16Required]]"></nuxeo-date-picker>
-      <nuxeo-date-picker hidden$="[[!dateField17Visible]]" role="widget" value="{{document.properties.custom:dateField17}}" label="[[dateField17Label]]" required="[[dateField17Required]]"></nuxeo-date-picker>
-      <nuxeo-date-picker hidden$="[[!dateField18Visible]]" role="widget" value="{{document.properties.custom:dateField18}}" label="[[dateField18Label]]" required="[[dateField18Required]]"></nuxeo-date-picker>
-      <nuxeo-date-picker hidden$="[[!dateField19Visible]]" role="widget" value="{{document.properties.custom:dateField19}}" label="[[dateField19Label]]" required="[[dateField19Required]]"></nuxeo-date-picker>
-      <nuxeo-date-picker hidden$="[[!dateField20Visible]]" role="widget" value="{{document.properties.custom:dateField20}}" label="[[dateField20Label]]" required="[[dateField20Required]]"></nuxeo-date-picker>
+                <nuxeo-date-picker hidden$="[[!dateField1Visible]]" role="widget" value="{{document.properties.custom:dateField1}}" label="[[dateField1Label]]" required="[[dateField1Required]]"></nuxeo-date-picker>
+                <nuxeo-date-picker hidden$="[[!dateField2Visible]]" role="widget" value="{{document.properties.custom:dateField2}}" label="[[dateField2Label]]" required="[[dateField2Required]]"></nuxeo-date-picker>
+                <nuxeo-date-picker hidden$="[[!dateField3Visible]]" role="widget" value="{{document.properties.custom:dateField3}}" label="[[dateField3Label]]" required="[[dateField3Required]]"></nuxeo-date-picker>
+                <nuxeo-date-picker hidden$="[[!dateField4Visible]]" role="widget" value="{{document.properties.custom:dateField4}}" label="[[dateField4Label]]" required="[[dateField4Required]]"></nuxeo-date-picker>
+                <nuxeo-date-picker hidden$="[[!dateField5Visible]]" role="widget" value="{{document.properties.custom:dateField5}}" label="[[dateField5Label]]" required="[[dateField5Required]]"></nuxeo-date-picker>
+                <nuxeo-date-picker hidden$="[[!dateField6Visible]]" role="widget" value="{{document.properties.custom:dateField6}}" label="[[dateField6Label]]" required="[[dateField6Required]]"></nuxeo-date-picker>
+                <nuxeo-date-picker hidden$="[[!dateField7Visible]]" role="widget" value="{{document.properties.custom:dateField7}}" label="[[dateField7Label]]" required="[[dateField7Required]]"></nuxeo-date-picker>
+                <nuxeo-date-picker hidden$="[[!dateField8Visible]]" role="widget" value="{{document.properties.custom:dateField8}}" label="[[dateField8Label]]" required="[[dateField8Required]]"></nuxeo-date-picker>
+                <nuxeo-date-picker hidden$="[[!dateField9Visible]]" role="widget" value="{{document.properties.custom:dateField9}}" label="[[dateField9Label]]" required="[[dateField9Required]]"></nuxeo-date-picker>
+                <nuxeo-date-picker hidden$="[[!dateField10Visible]]" role="widget" value="{{document.properties.custom:dateField10}}" label="[[dateField10Label]]" required="[[dateField10Required]]"></nuxeo-date-picker>
+                <nuxeo-date-picker hidden$="[[!dateField11Visible]]" role="widget" value="{{document.properties.custom:dateField11}}" label="[[dateField11Label]]" required="[[dateField11Required]]"></nuxeo-date-picker>
+                <nuxeo-date-picker hidden$="[[!dateField12Visible]]" role="widget" value="{{document.properties.custom:dateField12}}" label="[[dateField12Label]]" required="[[dateField12Required]]"></nuxeo-date-picker>
+                <nuxeo-date-picker hidden$="[[!dateField13Visible]]" role="widget" value="{{document.properties.custom:dateField13}}" label="[[dateField13Label]]" required="[[dateField13Required]]"></nuxeo-date-picker>
+                <nuxeo-date-picker hidden$="[[!dateField14Visible]]" role="widget" value="{{document.properties.custom:dateField14}}" label="[[dateField14Label]]" required="[[dateField14Required]]"></nuxeo-date-picker>
+                <nuxeo-date-picker hidden$="[[!dateField15Visible]]" role="widget" value="{{document.properties.custom:dateField15}}" label="[[dateField15Label]]" required="[[dateField15Required]]"></nuxeo-date-picker>
+                <nuxeo-date-picker hidden$="[[!dateField16Visible]]" role="widget" value="{{document.properties.custom:dateField16}}" label="[[dateField16Label]]" required="[[dateField16Required]]"></nuxeo-date-picker>
+                <nuxeo-date-picker hidden$="[[!dateField17Visible]]" role="widget" value="{{document.properties.custom:dateField17}}" label="[[dateField17Label]]" required="[[dateField17Required]]"></nuxeo-date-picker>
+                <nuxeo-date-picker hidden$="[[!dateField18Visible]]" role="widget" value="{{document.properties.custom:dateField18}}" label="[[dateField18Label]]" required="[[dateField18Required]]"></nuxeo-date-picker>
+                <nuxeo-date-picker hidden$="[[!dateField19Visible]]" role="widget" value="{{document.properties.custom:dateField19}}" label="[[dateField19Label]]" required="[[dateField19Required]]"></nuxeo-date-picker>
+                <nuxeo-date-picker hidden$="[[!dateField20Visible]]" role="widget" value="{{document.properties.custom:dateField20}}" label="[[dateField20Label]]" required="[[dateField20Required]]"></nuxeo-date-picker>
 
-      <nuxeo-input hidden$="[[!integerField1Visible]]" role="widget" value="{{document.properties.custom:integerField1}}" label="[[integerField1Label]]" required="[[integerField1Required]]"></nuxeo-input>
-      <nuxeo-input hidden$="[[!integerField2Visible]]" role="widget" value="{{document.properties.custom:integerField2}}" label="[[integerField2Label]]" required="[[integerField2Required]]"></nuxeo-input>
-      <nuxeo-input hidden$="[[!integerField3Visible]]" role="widget" value="{{document.properties.custom:integerField3}}" label="[[integerField3Label]]" required="[[integerField3Required]]"></nuxeo-input>
-      <nuxeo-input hidden$="[[!integerField4Visible]]" role="widget" value="{{document.properties.custom:integerField4}}" label="[[integerField4Label]]" required="[[integerField4Required]]"></nuxeo-input>
-      <nuxeo-input hidden$="[[!integerField5Visible]]" role="widget" value="{{document.properties.custom:integerField5}}" label="[[integerField5Label]]" required="[[integerField5Required]]"></nuxeo-input>
-      <nuxeo-input hidden$="[[!integerField6Visible]]" role="widget" value="{{document.properties.custom:integerField6}}" label="[[integerField6Label]]" required="[[integerField6Required]]"></nuxeo-input>
-      <nuxeo-input hidden$="[[!integerField7Visible]]" role="widget" value="{{document.properties.custom:integerField7}}" label="[[integerField7Label]]" required="[[integerField7Required]]"></nuxeo-input>
-      <nuxeo-input hidden$="[[!integerField8Visible]]" role="widget" value="{{document.properties.custom:integerField8}}" label="[[integerField8Label]]" required="[[integerField8Required]]"></nuxeo-input>
-      <nuxeo-input hidden$="[[!integerField9Visible]]" role="widget" value="{{document.properties.custom:integerField9}}" label="[[integerField9Label]]" required="[[integerField9Required]]"></nuxeo-input>
-      <nuxeo-input hidden$="[[!integerField10Visible]]" role="widget" value="{{document.properties.custom:integerField10}}" label="[[integerField10Label]]" required="[[integerField10Required]]"></nuxeo-input>
+                <nuxeo-input hidden$="[[!integerField1Visible]]" role="widget" value="{{document.properties.custom:integerField1}}" label="[[integerField1Label]]" required="[[integerField1Required]]"></nuxeo-input>
+                <nuxeo-input hidden$="[[!integerField2Visible]]" role="widget" value="{{document.properties.custom:integerField2}}" label="[[integerField2Label]]" required="[[integerField2Required]]"></nuxeo-input>
+                <nuxeo-input hidden$="[[!integerField3Visible]]" role="widget" value="{{document.properties.custom:integerField3}}" label="[[integerField3Label]]" required="[[integerField3Required]]"></nuxeo-input>
+                <nuxeo-input hidden$="[[!integerField4Visible]]" role="widget" value="{{document.properties.custom:integerField4}}" label="[[integerField4Label]]" required="[[integerField4Required]]"></nuxeo-input>
+                <nuxeo-input hidden$="[[!integerField5Visible]]" role="widget" value="{{document.properties.custom:integerField5}}" label="[[integerField5Label]]" required="[[integerField5Required]]"></nuxeo-input>
+                <nuxeo-input hidden$="[[!integerField6Visible]]" role="widget" value="{{document.properties.custom:integerField6}}" label="[[integerField6Label]]" required="[[integerField6Required]]"></nuxeo-input>
+                <nuxeo-input hidden$="[[!integerField7Visible]]" role="widget" value="{{document.properties.custom:integerField7}}" label="[[integerField7Label]]" required="[[integerField7Required]]"></nuxeo-input>
+                <nuxeo-input hidden$="[[!integerField8Visible]]" role="widget" value="{{document.properties.custom:integerField8}}" label="[[integerField8Label]]" required="[[integerField8Required]]"></nuxeo-input>
+                <nuxeo-input hidden$="[[!integerField9Visible]]" role="widget" value="{{document.properties.custom:integerField9}}" label="[[integerField9Label]]" required="[[integerField9Required]]"></nuxeo-input>
+                <nuxeo-input hidden$="[[!integerField10Visible]]" role="widget" value="{{document.properties.custom:integerField10}}" label="[[integerField10Label]]" required="[[integerField10Required]]"></nuxeo-input>
 
-      <div id="booleanField"><template is="dom-if" if="[[booleanField1Visible]]"><paper-checkbox role="widget" hidden$="[[!booleanField1Visible]]" checked="{{document.properties.custom:booleanField1}}"></paper-checkbox> <div>[[booleanField1Label]]</div> </template></div>
-      <div id="booleanField"><template is="dom-if" if="[[booleanField2Visible]]"><paper-checkbox role="widget" hidden$="[[!booleanField2Visible]]" checked="{{document.properties.custom:booleanField2}}"></paper-checkbox> <div>[[booleanField2Label]]</div></template></div>
-      <div id="booleanField"><template is="dom-if" if="[[booleanField3Visible]]"><paper-checkbox role="widget" hidden$="[[!booleanField3Visible]]" checked="{{document.properties.custom:booleanField3}}"></paper-checkbox> <div>[[booleanField3Label]]</div></template></div>
-      <div id="booleanField"><template is="dom-if" if="[[booleanField4Visible]]"><paper-checkbox role="widget" hidden$="[[!booleanField4Visible]]" checked="{{document.properties.custom:booleanField4}}"></paper-checkbox> <div>[[booleanField4Label]]</div></template></div>
-      <div id="booleanField"><template is="dom-if" if="[[booleanField5Visible]]"><paper-checkbox role="widget" hidden$="[[!booleanField5Visible]]" checked="{{document.properties.custom:booleanField5}}"></paper-checkbox> <div>[[booleanField5Label]]</div></template></div>
-      <div id="booleanField"><template is="dom-if" if="[[booleanField6Visible]]"><paper-checkbox role="widget" hidden$="[[!booleanField6Visible]]" checked="{{document.properties.custom:booleanField6}}"></paper-checkbox> <div>[[booleanField6Label]]</div></template></div>
-      <div id="booleanField"><template is="dom-if" if="[[booleanField7Visible]]"><paper-checkbox role="widget" hidden$="[[!booleanField7Visible]]" checked="{{document.properties.custom:booleanField7}}"></paper-checkbox> <div>[[booleanField7Label]]</div></template></div>
-      <div id="booleanField"><template is="dom-if" if="[[booleanField8Visible]]"><paper-checkbox role="widget" hidden$="[[!booleanField8Visible]]" checked="{{document.properties.custom:booleanField8}}"></paper-checkbox> <div>[[booleanField8Label]]</div></template></div>
-      <div id="booleanField"><template is="dom-if" if="[[booleanField9Visible]]"><paper-checkbox role="widget" hidden$="[[!booleanField9Visible]]" checked="{{document.properties.custom:booleanField9}}"></paper-checkbox> <div>[[booleanField9Label]]</div></template></div>
-      <div id="booleanField"><template is="dom-if" if="[[booleanField10Visible]]"><paper-checkbox role="widget" hidden$="[[!booleanField10Visible]]" checked="{{document.properties.custom:booleanField10}}"></paper-checkbox> <div>[[booleanField10Label]]</div></template></div>
+                <div id="booleanField"><template is="dom-if" if="[[booleanField1Visible]]"><paper-checkbox role="widget" hidden$="[[!booleanField1Visible]]" checked="{{document.properties.custom:booleanField1}}"></paper-checkbox> <div>[[booleanField1Label]]</div> </template></div>
+                <div id="booleanField"><template is="dom-if" if="[[booleanField2Visible]]"><paper-checkbox role="widget" hidden$="[[!booleanField2Visible]]" checked="{{document.properties.custom:booleanField2}}"></paper-checkbox> <div>[[booleanField2Label]]</div></template></div>
+                <div id="booleanField"><template is="dom-if" if="[[booleanField3Visible]]"><paper-checkbox role="widget" hidden$="[[!booleanField3Visible]]" checked="{{document.properties.custom:booleanField3}}"></paper-checkbox> <div>[[booleanField3Label]]</div></template></div>
+                <div id="booleanField"><template is="dom-if" if="[[booleanField4Visible]]"><paper-checkbox role="widget" hidden$="[[!booleanField4Visible]]" checked="{{document.properties.custom:booleanField4}}"></paper-checkbox> <div>[[booleanField4Label]]</div></template></div>
+                <div id="booleanField"><template is="dom-if" if="[[booleanField5Visible]]"><paper-checkbox role="widget" hidden$="[[!booleanField5Visible]]" checked="{{document.properties.custom:booleanField5}}"></paper-checkbox> <div>[[booleanField5Label]]</div></template></div>
+                <div id="booleanField"><template is="dom-if" if="[[booleanField6Visible]]"><paper-checkbox role="widget" hidden$="[[!booleanField6Visible]]" checked="{{document.properties.custom:booleanField6}}"></paper-checkbox> <div>[[booleanField6Label]]</div></template></div>
+                <div id="booleanField"><template is="dom-if" if="[[booleanField7Visible]]"><paper-checkbox role="widget" hidden$="[[!booleanField7Visible]]" checked="{{document.properties.custom:booleanField7}}"></paper-checkbox> <div>[[booleanField7Label]]</div></template></div>
+                <div id="booleanField"><template is="dom-if" if="[[booleanField8Visible]]"><paper-checkbox role="widget" hidden$="[[!booleanField8Visible]]" checked="{{document.properties.custom:booleanField8}}"></paper-checkbox> <div>[[booleanField8Label]]</div></template></div>
+                <div id="booleanField"><template is="dom-if" if="[[booleanField9Visible]]"><paper-checkbox role="widget" hidden$="[[!booleanField9Visible]]" checked="{{document.properties.custom:booleanField9}}"></paper-checkbox> <div>[[booleanField9Label]]</div></template></div>
+                <div id="booleanField"><template is="dom-if" if="[[booleanField10Visible]]"><paper-checkbox role="widget" hidden$="[[!booleanField10Visible]]" checked="{{document.properties.custom:booleanField10}}"></paper-checkbox> <div>[[booleanField10Label]]</div></template></div>
 
-      <div hidden$="[[!fileField1Visible]]" role="widget"><label>[[fileField1Label]]</label><nuxeo-file hidden$="[[!fileField1Visible]]" value="{{document.properties.custom:fileField1}}"></nuxeo-file><!--a href="[[document.properties.custom:fileField1.data]]">[[document.properties.custom:fileField1.name]]</a--></div>
-      <div hidden$="[[!fileField2Visible]]" role="widget"><label>[[fileField2Label]]</label><nuxeo-file hidden$="[[!fileField2Visible]]" value="{{document.properties.custom:fileField2}}"></nuxeo-file><!--a href="[[document.properties.custom:fileField2.data]]">[[document.properties.custom:fileField2.name]]</a--></div>
-      <div hidden$="[[!fileField3Visible]]" role="widget"><label>[[fileField3Label]]</label><nuxeo-file hidden$="[[!fileField3Visible]]" value="{{document.properties.custom:fileField3}}"></nuxeo-file><!--a href="[[document.properties.custom:fileField3.data]]">[[document.properties.custom:fileField3.name]]</a--></div>
-      <div hidden$="[[!fileField4Visible]]" role="widget"><label>[[fileField4Label]]</label><nuxeo-file hidden$="[[!fileField4Visible]]" value="{{document.properties.custom:fileField4}}"></nuxeo-file><!--a href="[[document.properties.custom:fileField4.data]]">[[document.properties.custom:fileField4.name]]</a--></div>
-      <div hidden$="[[!fileField5Visible]]" role="widget"><label>[[fileField5Label]]</label><nuxeo-file hidden$="[[!fileField5Visible]]" value="{{document.properties.custom:fileField5}}"></nuxeo-file><!--a href="[[document.properties.custom:fileField5.data]]">[[document.properties.custom:fileField5.name]]</a--></div>
-      <div hidden$="[[!fileField6Visible]]" role="widget"><label>[[fileField6Label]]</label><nuxeo-file hidden$="[[!fileField6Visible]]" value="{{document.properties.custom:fileField6}}"></nuxeo-file><!--a href="[[document.properties.custom:fileField6.data]]">[[document.properties.custom:fileField6.name]]</a--></div>
-      <div hidden$="[[!fileField7Visible]]" role="widget"><label>[[fileField7Label]]</label><nuxeo-file hidden$="[[!fileField7Visible]]" value="{{document.properties.custom:fileField7}}"></nuxeo-file><!--a href="[[document.properties.custom:fileField7.data]]">[[document.properties.custom:fileField7.name]]</a--></div>
-      <div hidden$="[[!fileField8Visible]]" role="widget"><label>[[fileField8Label]]</label><nuxeo-file hidden$="[[!fileField8Visible]]" value="{{document.properties.custom:fileField8}}"></nuxeo-file><!--a href="[[document.properties.custom:fileField8.data]]">[[document.properties.custom:fileField8.name]]</a--></div>
-      <div hidden$="[[!fileField9Visible]]" role="widget"><label>[[fileField9Label]]</label><nuxeo-file hidden$="[[!fileField9Visible]]" value="{{document.properties.custom:fileField9}}"></nuxeo-file><!--a href="[[document.properties.custom:fileField9.data]]">[[document.properties.custom:fileField9.name]]</a--></div>
-      <div hidden$="[[!fileField10Visible]]" role="widget"><label>[[fileField10Label]]</label><nuxeo-file hidden$="[[!fileField10Visible]]" rvalue="{{document.properties.custom:fileField10}}"></nuxeo-file><!--a href="[[document.properties.custom:fileField10.data]]">[[document.properties.custom:fileField10.name]]</a--></div>
+                <div hidden$="[[!fileField1Visible]]" role="widget"><label>[[fileField1Label]]</label><nuxeo-file hidden$="[[!fileField1Visible]]" value="{{document.properties.custom:fileField1}}"></nuxeo-file><!--a href="[[document.properties.custom:fileField1.data]]">[[document.properties.custom:fileField1.name]]</a--></div>
+                <div hidden$="[[!fileField2Visible]]" role="widget"><label>[[fileField2Label]]</label><nuxeo-file hidden$="[[!fileField2Visible]]" value="{{document.properties.custom:fileField2}}"></nuxeo-file><!--a href="[[document.properties.custom:fileField2.data]]">[[document.properties.custom:fileField2.name]]</a--></div>
+                <div hidden$="[[!fileField3Visible]]" role="widget"><label>[[fileField3Label]]</label><nuxeo-file hidden$="[[!fileField3Visible]]" value="{{document.properties.custom:fileField3}}"></nuxeo-file><!--a href="[[document.properties.custom:fileField3.data]]">[[document.properties.custom:fileField3.name]]</a--></div>
+                <div hidden$="[[!fileField4Visible]]" role="widget"><label>[[fileField4Label]]</label><nuxeo-file hidden$="[[!fileField4Visible]]" value="{{document.properties.custom:fileField4}}"></nuxeo-file><!--a href="[[document.properties.custom:fileField4.data]]">[[document.properties.custom:fileField4.name]]</a--></div>
+                <div hidden$="[[!fileField5Visible]]" role="widget"><label>[[fileField5Label]]</label><nuxeo-file hidden$="[[!fileField5Visible]]" value="{{document.properties.custom:fileField5}}"></nuxeo-file><!--a href="[[document.properties.custom:fileField5.data]]">[[document.properties.custom:fileField5.name]]</a--></div>
+                <div hidden$="[[!fileField6Visible]]" role="widget"><label>[[fileField6Label]]</label><nuxeo-file hidden$="[[!fileField6Visible]]" value="{{document.properties.custom:fileField6}}"></nuxeo-file><!--a href="[[document.properties.custom:fileField6.data]]">[[document.properties.custom:fileField6.name]]</a--></div>
+                <div hidden$="[[!fileField7Visible]]" role="widget"><label>[[fileField7Label]]</label><nuxeo-file hidden$="[[!fileField7Visible]]" value="{{document.properties.custom:fileField7}}"></nuxeo-file><!--a href="[[document.properties.custom:fileField7.data]]">[[document.properties.custom:fileField7.name]]</a--></div>
+                <div hidden$="[[!fileField8Visible]]" role="widget"><label>[[fileField8Label]]</label><nuxeo-file hidden$="[[!fileField8Visible]]" value="{{document.properties.custom:fileField8}}"></nuxeo-file><!--a href="[[document.properties.custom:fileField8.data]]">[[document.properties.custom:fileField8.name]]</a--></div>
+                <div hidden$="[[!fileField9Visible]]" role="widget"><label>[[fileField9Label]]</label><nuxeo-file hidden$="[[!fileField9Visible]]" value="{{document.properties.custom:fileField9}}"></nuxeo-file><!--a href="[[document.properties.custom:fileField9.data]]">[[document.properties.custom:fileField9.name]]</a--></div>
+                <div hidden$="[[!fileField10Visible]]" role="widget"><label>[[fileField10Label]]</label><nuxeo-file hidden$="[[!fileField10Visible]]" rvalue="{{document.properties.custom:fileField10}}"></nuxeo-file><!--a href="[[document.properties.custom:fileField10.data]]">[[document.properties.custom:fileField10.name]]</a--></div>
 
-      <nuxeo-input hidden$="[[!systemField1Visible]]" role="widget" value="{{document.properties.custom:systemField1}}" label="[[systemField1Label]]" required="[[systemField1Required]]"></nuxeo-input>
-      <nuxeo-input hidden$="[[!systemField2Visible]]" role="widget" value="{{document.properties.custom:systemField2}}" label="[[systemField2Label]]" required="[[systemField2Required]]"></nuxeo-input>
-      <nuxeo-input hidden$="[[!systemField3Visible]]" role="widget" value="{{document.properties.custom:systemField3}}" label="[[systemField3Label]]" required="[[systemField3Required]]"></nuxeo-input>
-      <nuxeo-input hidden$="[[!systemField4Visible]]" role="widget" value="{{document.properties.custom:systemField4}}" label="[[systemField4Label]]" required="[[systemField4Required]]"></nuxeo-input>
-      <nuxeo-input hidden$="[[!systemField5Visible]]" role="widget" value="{{document.properties.custom:systemField5}}" label="[[systemField5Label]]" required="[[systemField5Required]]"></nuxeo-input>
-      <nuxeo-input hidden$="[[!systemField6Visible]]" role="widget" value="{{document.properties.custom:systemField6}}" label="[[systemField6Label]]" required="[[systemField6Required]]"></nuxeo-input>
-      <nuxeo-input hidden$="[[!systemField7Visible]]" role="widget" value="{{document.properties.custom:systemField7}}" label="[[systemField7Label]]" required="[[systemField7Required]]"></nuxeo-input>
-      <nuxeo-input hidden$="[[!systemField8Visible]]" role="widget" value="{{document.properties.custom:systemField8}}" label="[[systemField8Label]]" required="[[systemField8Required]]"></nuxeo-input>
-      <nuxeo-input hidden$="[[!systemField9Visible]]" role="widget" value="{{document.properties.custom:systemField9}}" label="[[systemField9Label]]" required="[[systemField9Required]]"></nuxeo-input>
-      <nuxeo-input hidden$="[[!systemField10Visible]]" role="widget" value="{{document.properties.custom:systemField10}}" label="[[systemField10Label]]" required="[[systemField10Required]]"></nuxeo-input>
+                <nuxeo-input hidden$="[[!systemField1Visible]]" role="widget" value="{{document.properties.custom:systemField1}}" label="[[systemField1Label]]" required="[[systemField1Required]]"></nuxeo-input>
+                <nuxeo-input hidden$="[[!systemField2Visible]]" role="widget" value="{{document.properties.custom:systemField2}}" label="[[systemField2Label]]" required="[[systemField2Required]]"></nuxeo-input>
+                <nuxeo-input hidden$="[[!systemField3Visible]]" role="widget" value="{{document.properties.custom:systemField3}}" label="[[systemField3Label]]" required="[[systemField3Required]]"></nuxeo-input>
+                <nuxeo-input hidden$="[[!systemField4Visible]]" role="widget" value="{{document.properties.custom:systemField4}}" label="[[systemField4Label]]" required="[[systemField4Required]]"></nuxeo-input>
+                <nuxeo-input hidden$="[[!systemField5Visible]]" role="widget" value="{{document.properties.custom:systemField5}}" label="[[systemField5Label]]" required="[[systemField5Required]]"></nuxeo-input>
+                <nuxeo-input hidden$="[[!systemField6Visible]]" role="widget" value="{{document.properties.custom:systemField6}}" label="[[systemField6Label]]" required="[[systemField6Required]]"></nuxeo-input>
+                <nuxeo-input hidden$="[[!systemField7Visible]]" role="widget" value="{{document.properties.custom:systemField7}}" label="[[systemField7Label]]" required="[[systemField7Required]]"></nuxeo-input>
+                <nuxeo-input hidden$="[[!systemField8Visible]]" role="widget" value="{{document.properties.custom:systemField8}}" label="[[systemField8Label]]" required="[[systemField8Required]]"></nuxeo-input>
+                <nuxeo-input hidden$="[[!systemField9Visible]]" role="widget" value="{{document.properties.custom:systemField9}}" label="[[systemField9Label]]" required="[[systemField9Required]]"></nuxeo-input>
+                <nuxeo-input hidden$="[[!systemField10Visible]]" role="widget" value="{{document.properties.custom:systemField10}}" label="[[systemField10Label]]" required="[[systemField10Required]]"></nuxeo-input>
 
-      <qualitified-document-suggestion hidden$="[[!documentField1Visible]]"  role="widget" value="{{document.properties.custom:documentField1}}" label="[[documentField1Label]]" page-provider="documents" min-chars="0" params="[[documents1Params]]" multiple="[[documentField1Multivalue]]"></qualitified-document-suggestion>
-      <qualitified-document-suggestion hidden$="[[!documentField2Visible]]"  role="widget" value="{{document.properties.custom:documentField2}}" label="[[documentField2Label]]" page-provider="documents" min-chars="0" params="[[documents2Params]]" multiple="[[documentField2Multivalue]]"></qualitified-document-suggestion>
-      <qualitified-document-suggestion hidden$="[[!documentField3Visible]]"  role="widget" value="{{document.properties.custom:documentField3}}" label="[[documentField3Label]]" page-provider="documents" min-chars="0" params="[[documents3Params]]" multiple="[[documentField3Multivalue]]"></qualitified-document-suggestion>
-      <qualitified-document-suggestion hidden$="[[!documentField4Visible]]"  role="widget" value="{{document.properties.custom:documentField4}}" label="[[documentField4Label]]" page-provider="documents" min-chars="0" params="[[documents4Params]]" multiple="[[documentField4Multivalue]]"></qualitified-document-suggestion>
-      <qualitified-document-suggestion hidden$="[[!documentField5Visible]]"  role="widget" value="{{document.properties.custom:documentField5}}" label="[[documentField5Label]]" page-provider="documents" min-chars="0" params="[[documents5Params]]" multiple="[[documentField5Multivalue]]"></qualitified-document-suggestion>
-      <qualitified-document-suggestion hidden$="[[!documentField6Visible]]"  role="widget" value="{{document.properties.custom:documentField6}}" label="[[documentField6Label]]" page-provider="documents" min-chars="0" params="[[documents6Params]]" multiple="[[documentField6Multivalue]]"></qualitified-document-suggestion>
-      <qualitified-document-suggestion hidden$="[[!documentField7Visible]]"  role="widget" value="{{document.properties.custom:documentField7}}" label="[[documentField7Label]]" page-provider="documents" min-chars="0" params="[[documents7Params]]" multiple="[[documentField7Multivalue]]"></qualitified-document-suggestion>
-      <qualitified-document-suggestion hidden$="[[!documentField8Visible]]"  role="widget" value="{{document.properties.custom:documentField8}}" label="[[documentField8Label]]" page-provider="documents" min-chars="0" params="[[documents8Params]]" multiple="[[documentField8Multivalue]]"></qualitified-document-suggestion>
-      <qualitified-document-suggestion hidden$="[[!documentField9Visible]]"  role="widget" value="{{document.properties.custom:documentField9}}" label="[[documentField9Label]]" page-provider="documents" min-chars="0" params="[[documents9Params]]" multiple="[[documentField9Multivalue]]"></qualitified-document-suggestion>
-      <qualitified-document-suggestion hidden$="[[!documentField10Visible]]"  role="widget" value="{{document.properties.custom:documentField10}}" label="[[documentField10Label]]" page-provider="documents" min-chars="0" params="[[documents10Params]]" multiple="[[documentField10Multivalue]]"></qualitified-document-suggestion>
+                <qualitified-document-suggestion hidden$="[[!documentField1Visible]]"  role="widget" value="{{document.properties.custom:documentField1}}" label="[[documentField1Label]]" page-provider="documents" min-chars="0" params="[[documents1Params]]" multiple="[[documentField1Multivalue]]"></qualitified-document-suggestion>
+                <qualitified-document-suggestion hidden$="[[!documentField2Visible]]"  role="widget" value="{{document.properties.custom:documentField2}}" label="[[documentField2Label]]" page-provider="documents" min-chars="0" params="[[documents2Params]]" multiple="[[documentField2Multivalue]]"></qualitified-document-suggestion>
+                <qualitified-document-suggestion hidden$="[[!documentField3Visible]]"  role="widget" value="{{document.properties.custom:documentField3}}" label="[[documentField3Label]]" page-provider="documents" min-chars="0" params="[[documents3Params]]" multiple="[[documentField3Multivalue]]"></qualitified-document-suggestion>
+                <qualitified-document-suggestion hidden$="[[!documentField4Visible]]"  role="widget" value="{{document.properties.custom:documentField4}}" label="[[documentField4Label]]" page-provider="documents" min-chars="0" params="[[documents4Params]]" multiple="[[documentField4Multivalue]]"></qualitified-document-suggestion>
+                <qualitified-document-suggestion hidden$="[[!documentField5Visible]]"  role="widget" value="{{document.properties.custom:documentField5}}" label="[[documentField5Label]]" page-provider="documents" min-chars="0" params="[[documents5Params]]" multiple="[[documentField5Multivalue]]"></qualitified-document-suggestion>
+                <qualitified-document-suggestion hidden$="[[!documentField6Visible]]"  role="widget" value="{{document.properties.custom:documentField6}}" label="[[documentField6Label]]" page-provider="documents" min-chars="0" params="[[documents6Params]]" multiple="[[documentField6Multivalue]]"></qualitified-document-suggestion>
+                <qualitified-document-suggestion hidden$="[[!documentField7Visible]]"  role="widget" value="{{document.properties.custom:documentField7}}" label="[[documentField7Label]]" page-provider="documents" min-chars="0" params="[[documents7Params]]" multiple="[[documentField7Multivalue]]"></qualitified-document-suggestion>
+                <qualitified-document-suggestion hidden$="[[!documentField8Visible]]"  role="widget" value="{{document.properties.custom:documentField8}}" label="[[documentField8Label]]" page-provider="documents" min-chars="0" params="[[documents8Params]]" multiple="[[documentField8Multivalue]]"></qualitified-document-suggestion>
+                <qualitified-document-suggestion hidden$="[[!documentField9Visible]]"  role="widget" value="{{document.properties.custom:documentField9}}" label="[[documentField9Label]]" page-provider="documents" min-chars="0" params="[[documents9Params]]" multiple="[[documentField9Multivalue]]"></qualitified-document-suggestion>
+                <qualitified-document-suggestion hidden$="[[!documentField10Visible]]"  role="widget" value="{{document.properties.custom:documentField10}}" label="[[documentField10Label]]" page-provider="documents" min-chars="0" params="[[documents10Params]]" multiple="[[documentField10Multivalue]]"></qualitified-document-suggestion>
 
-     </div>
+            </div>
 
-    <div name="view" class="vertical layout flex">
-      <div hidden$="[[!stringField1Visible]]" role="widget" class="sortable" id="[[stringField1Order]]">
-        <label>[[stringField1Label]]</label>
-        <div>[[document.properties.custom:stringField1]]</div>
-      </div>
-      <div hidden$="[[!stringField2Visible]]" role="widget" class="sortable" id="[[stringField2Order]]">
-        <label>[[stringField2Label]]</label>
-        <div>[[document.properties.custom:stringField2]]</div>
-      </div>
-      <div hidden$="[[!stringField3Visible]]" role="widget" class="sortable" id="[[stringField3Order]]">
-        <label>[[stringField3Label]]</label>
-        <div>[[document.properties.custom:stringField3]]</div>
-      </div>
-      <div hidden$="[[!stringField4Visible]]" role="widget" class="sortable" id="[[stringField4Order]]">
-        <label>[[stringField4Label]]</label>
-        <div>[[document.properties.custom:stringField4]]</div>
-      </div>
-      <div hidden$="[[!stringField5Visible]]" role="widget" class="sortable" id="[[stringField5Order]]">
-        <label>[[stringField5Label]]</label>
-        <div>[[document.properties.custom:stringField5]]</div>
-      </div>
-      <div hidden$="[[!stringField6Visible]]" role="widget" class="sortable" id="[[stringField6Order]]">
-        <label>[[stringField6Label]]</label>
-        <div>[[document.properties.custom:stringField6]]</div>
-      </div>
-      <div hidden$="[[!stringField7Visible]]" role="widget" class="sortable" id="[[stringField7Order]]">
-        <label>[[stringField7Label]]</label>
-        <div>[[document.properties.custom:stringField7]]</div>
-      </div>
-      <div hidden$="[[!stringField8Visible]]" role="widget" class="sortable" id="[[stringField8Order]]">
-        <label>[[stringField8Label]]</label>
-        <div>[[document.properties.custom:stringField8]]</div>
-      </div>
-      <div hidden$="[[!stringField9Visible]]" role="widget" class="sortable" id="[[stringField9Order]]">
-        <label>[[stringField9Label]]</label>
-        <div>[[document.properties.custom:stringField9]]</div>
-      </div>
-      <div hidden$="[[!stringField10Visible]]" role="widget" class="sortable" id="[[stringField10Order]]">
-        <label>[[stringField10Label]]</label>
-        <div>[[document.properties.custom:stringField10]]</div>
-      </div>
-      <div hidden$="[[!stringField11Visible]]" role="widget" class="sortable" id="[[stringField11Order]]">
-        <label>[[stringField11Label]]</label>
-        <div>[[document.properties.custom:stringField11]]</div>
-      </div>
-      <div hidden$="[[!stringField12Visible]]" role="widget" class="sortable" id="[[stringField12Order]]">
-        <label>[[stringField12Label]]</label>
-        <div>[[document.properties.custom:stringField12]]</div>
-      </div>
-      <div hidden$="[[!stringField13Visible]]" role="widget" class="sortable" id="[[stringField13Order]]">
-        <label>[[stringField13Label]]</label>
-        <div>[[document.properties.custom:stringField13]]</div>
-      </div>
-      <div hidden$="[[!stringField14Visible]]" role="widget" class="sortable" id="[[stringField14Order]]">
-        <label>[[stringField14Label]]</label>
-        <div>[[document.properties.custom:stringField14]]</div>
-      </div>
-      <div hidden$="[[!stringField15Visible]]" role="widget" class="sortable" id="[[stringField15Order]]">
-        <label>[[stringField15Label]]</label>
-        <div>[[document.properties.custom:stringField15]]</div>
-      </div>
-      <div hidden$="[[!stringField16Visible]]" role="widget" class="sortable" id="[[stringField16Order]]">
-        <label>[[stringField16Label]]</label>
-        <div>[[document.properties.custom:stringField16]]</div>
-      </div>
-      <div hidden$="[[!stringField17Visible]]" role="widget" class="sortable" id="[[stringField17Order]]">
-        <label>[[stringField17Label]]</label>
-        <div>[[document.properties.custom:stringField17]]</div>
-      </div>
-      <div hidden$="[[!stringField18Visible]]" role="widget" class="sortable" id="[[stringField18Order]]">
-        <label>[[stringField18Label]]</label>
-        <div>[[document.properties.custom:stringField18]]</div>
-      </div>
-      <div hidden$="[[!stringField19Visible]]" role="widget" class="sortable" id="[[stringField19Order]]">
-        <label>[[stringField19Label]]</label>
-        <div>[[document.properties.custom:stringField19]]</div>
-      </div>
-      <div hidden$="[[!stringField20Visible]]" role="widget" class="sortable" id="[[stringField20Order]]">
-        <label>[[stringField20Label]]</label>
-        <div>[[document.properties.custom:stringField20]]</div>
-      </div>
+            <div name="view" class="vertical layout flex">
+                <div hidden$="[[!stringField1Visible]]" role="widget" class="sortable" id="[[stringField1Order]]">
+                    <label>[[stringField1Label]]</label>
+                    <div>[[document.properties.custom:stringField1]]</div>
+                </div>
+                <div hidden$="[[!stringField2Visible]]" role="widget" class="sortable" id="[[stringField2Order]]">
+                    <label>[[stringField2Label]]</label>
+                    <div>[[document.properties.custom:stringField2]]</div>
+                </div>
+                <div hidden$="[[!stringField3Visible]]" role="widget" class="sortable" id="[[stringField3Order]]">
+                    <label>[[stringField3Label]]</label>
+                    <div>[[document.properties.custom:stringField3]]</div>
+                </div>
+                <div hidden$="[[!stringField4Visible]]" role="widget" class="sortable" id="[[stringField4Order]]">
+                    <label>[[stringField4Label]]</label>
+                    <div>[[document.properties.custom:stringField4]]</div>
+                </div>
+                <div hidden$="[[!stringField5Visible]]" role="widget" class="sortable" id="[[stringField5Order]]">
+                    <label>[[stringField5Label]]</label>
+                    <div>[[document.properties.custom:stringField5]]</div>
+                </div>
+                <div hidden$="[[!stringField6Visible]]" role="widget" class="sortable" id="[[stringField6Order]]">
+                    <label>[[stringField6Label]]</label>
+                    <div>[[document.properties.custom:stringField6]]</div>
+                </div>
+                <div hidden$="[[!stringField7Visible]]" role="widget" class="sortable" id="[[stringField7Order]]">
+                    <label>[[stringField7Label]]</label>
+                    <div>[[document.properties.custom:stringField7]]</div>
+                </div>
+                <div hidden$="[[!stringField8Visible]]" role="widget" class="sortable" id="[[stringField8Order]]">
+                    <label>[[stringField8Label]]</label>
+                    <div>[[document.properties.custom:stringField8]]</div>
+                </div>
+                <div hidden$="[[!stringField9Visible]]" role="widget" class="sortable" id="[[stringField9Order]]">
+                    <label>[[stringField9Label]]</label>
+                    <div>[[document.properties.custom:stringField9]]</div>
+                </div>
+                <div hidden$="[[!stringField10Visible]]" role="widget" class="sortable" id="[[stringField10Order]]">
+                    <label>[[stringField10Label]]</label>
+                    <div>[[document.properties.custom:stringField10]]</div>
+                </div>
+                <div hidden$="[[!stringField11Visible]]" role="widget" class="sortable" id="[[stringField11Order]]">
+                    <label>[[stringField11Label]]</label>
+                    <div>[[document.properties.custom:stringField11]]</div>
+                </div>
+                <div hidden$="[[!stringField12Visible]]" role="widget" class="sortable" id="[[stringField12Order]]">
+                    <label>[[stringField12Label]]</label>
+                    <div>[[document.properties.custom:stringField12]]</div>
+                </div>
+                <div hidden$="[[!stringField13Visible]]" role="widget" class="sortable" id="[[stringField13Order]]">
+                    <label>[[stringField13Label]]</label>
+                    <div>[[document.properties.custom:stringField13]]</div>
+                </div>
+                <div hidden$="[[!stringField14Visible]]" role="widget" class="sortable" id="[[stringField14Order]]">
+                    <label>[[stringField14Label]]</label>
+                    <div>[[document.properties.custom:stringField14]]</div>
+                </div>
+                <div hidden$="[[!stringField15Visible]]" role="widget" class="sortable" id="[[stringField15Order]]">
+                    <label>[[stringField15Label]]</label>
+                    <div>[[document.properties.custom:stringField15]]</div>
+                </div>
+                <div hidden$="[[!stringField16Visible]]" role="widget" class="sortable" id="[[stringField16Order]]">
+                    <label>[[stringField16Label]]</label>
+                    <div>[[document.properties.custom:stringField16]]</div>
+                </div>
+                <div hidden$="[[!stringField17Visible]]" role="widget" class="sortable" id="[[stringField17Order]]">
+                    <label>[[stringField17Label]]</label>
+                    <div>[[document.properties.custom:stringField17]]</div>
+                </div>
+                <div hidden$="[[!stringField18Visible]]" role="widget" class="sortable" id="[[stringField18Order]]">
+                    <label>[[stringField18Label]]</label>
+                    <div>[[document.properties.custom:stringField18]]</div>
+                </div>
+                <div hidden$="[[!stringField19Visible]]" role="widget" class="sortable" id="[[stringField19Order]]">
+                    <label>[[stringField19Label]]</label>
+                    <div>[[document.properties.custom:stringField19]]</div>
+                </div>
+                <div hidden$="[[!stringField20Visible]]" role="widget" class="sortable" id="[[stringField20Order]]">
+                    <label>[[stringField20Label]]</label>
+                    <div>[[document.properties.custom:stringField20]]</div>
+                </div>
 
-      <div hidden$="[[!vocabularyField1Visible]]" role="widget" class="sortable" id="[[vocabularyField1Order]]">
-        <label>[[vocabularyField1Label]]</label>
-        <div style="display:none;">[[formatDirectory(document.properties.custom:vocabularyField1, vocabularyField1Name, "vocabularyField1")]]</div>
-        <div>[[vocabularyField1Value]]</div>
-      </div>
-      <div hidden$="[[!vocabularyField2Visible]]" role="widget" class="sortable" id="[[vocabularyField2Order]]">
-        <label>[[vocabularyField2Label]]</label>
-        <div style="display:none;">[[formatDirectory(document.properties.custom:vocabularyField2, vocabularyField2Name, "vocabularyField2")]]</div>
-        <div>[[vocabularyField2Value]]</div>
-      </div>
-      <div hidden$="[[!vocabularyField3Visible]]" role="widget" class="sortable" id="[[vocabularyField3Order]]">
-        <label>[[vocabularyField3Label]]</label>
-        <div style="display:none;">[[formatDirectory(document.properties.custom:vocabularyField3, vocabularyField3Name, "vocabularyField3")]]</div>
-        <div>[[vocabularyField3Value]]</div>
-      </div>
-      <div hidden$="[[!vocabularyField4Visible]]" role="widget" class="sortable" id="[[vocabularyField4Order]]">
-        <label>[[vocabularyField4Label]]</label>
-        <div style="display:none;">[[formatDirectory(document.properties.custom:vocabularyField4, vocabularyField4Name, "vocabularyField4")]]</div>
-        <div>[[vocabularyField4Value]]</div>
-      </div>
-      <div hidden$="[[!vocabularyField5Visible]]" role="widget" class="sortable" id="[[vocabularyField5Order]]">
-        <label>[[vocabularyField5Label]]</label>
-        <div style="display:none;">[[formatDirectory(document.properties.custom:vocabularyField5, vocabularyField5Name, "vocabularyField5")]]</div>
-        <div>[[vocabularyField5Value]]</div>
-      </div>
-      <div hidden$="[[!vocabularyField6Visible]]" role="widget" class="sortable" id="[[vocabularyField6Order]]">
-        <label>[[vocabularyField6Label]]</label>
-        <div style="display:none;">[[formatDirectory(document.properties.custom:vocabularyField6, vocabularyField6Name, "vocabularyField6")]]</div>
-        <div>[[vocabularyField6Value]]</div>
-      </div>
-      <div hidden$="[[!vocabularyField7Visible]]" role="widget" class="sortable" id="[[vocabularyField7Order]]">
-        <label>[[vocabularyField7Label]]</label>
-        <div style="display:none;">[[formatDirectory(document.properties.custom:vocabularyField7, vocabularyField7Name, "vocabularyField7")]]</div>
-        <div>[[vocabularyField7Value]]</div>
-      </div>
-      <div hidden$="[[!vocabularyField8Visible]]" role="widget" class="sortable" id="[[vocabularyField8Order]]">
-        <label>[[vocabularyField8Label]]</label>
-        <div style="display:none;">[[formatDirectory(document.properties.custom:vocabularyField8, vocabularyField8Name, "vocabularyField8")]]</div>
-        <div>[[vocabularyField8Value]]</div>
-      </div>
-      <div hidden$="[[!vocabularyField9Visible]]" role="widget" class="sortable" id="[[vocabularyField9Order]]">
-        <label>[[vocabularyField9Label]]</label>
-        <div style="display:none;">[[formatDirectory(document.properties.custom:vocabularyField9, vocabularyField9Name, "vocabularyField9")]]</div>
-        <div>[[vocabularyField2Value]]</div>
-      </div>
-      <div hidden$="[[!vocabularyField10Visible]]" role="widget" class="sortable" id="[[vocabularyField10Order]]">
-        <label>[[vocabularyField10Label]]</label>
-        <div style="display:none;">[[formatDirectory(document.properties.custom:vocabularyField10, vocabularyField10Name, "vocabularyField10")]]</div>
-        <div>[[vocabularyField10Value]]</div>
-      </div>
+                <div hidden$="[[!vocabularyField1Visible]]" role="widget" class="sortable" id="[[vocabularyField1Order]]">
+                    <label>[[vocabularyField1Label]]</label>
+                    <div style="display:none;">[[formatDirectory(document.properties.custom:vocabularyField1, vocabularyField1Name, "vocabularyField1")]]</div>
+                    <div>[[vocabularyField1Value]]</div>
+                </div>
+                <div hidden$="[[!vocabularyField2Visible]]" role="widget" class="sortable" id="[[vocabularyField2Order]]">
+                    <label>[[vocabularyField2Label]]</label>
+                    <div style="display:none;">[[formatDirectory(document.properties.custom:vocabularyField2, vocabularyField2Name, "vocabularyField2")]]</div>
+                    <div>[[vocabularyField2Value]]</div>
+                </div>
+                <div hidden$="[[!vocabularyField3Visible]]" role="widget" class="sortable" id="[[vocabularyField3Order]]">
+                    <label>[[vocabularyField3Label]]</label>
+                    <div style="display:none;">[[formatDirectory(document.properties.custom:vocabularyField3, vocabularyField3Name, "vocabularyField3")]]</div>
+                    <div>[[vocabularyField3Value]]</div>
+                </div>
+                <div hidden$="[[!vocabularyField4Visible]]" role="widget" class="sortable" id="[[vocabularyField4Order]]">
+                    <label>[[vocabularyField4Label]]</label>
+                    <div style="display:none;">[[formatDirectory(document.properties.custom:vocabularyField4, vocabularyField4Name, "vocabularyField4")]]</div>
+                    <div>[[vocabularyField4Value]]</div>
+                </div>
+                <div hidden$="[[!vocabularyField5Visible]]" role="widget" class="sortable" id="[[vocabularyField5Order]]">
+                    <label>[[vocabularyField5Label]]</label>
+                    <div style="display:none;">[[formatDirectory(document.properties.custom:vocabularyField5, vocabularyField5Name, "vocabularyField5")]]</div>
+                    <div>[[vocabularyField5Value]]</div>
+                </div>
+                <div hidden$="[[!vocabularyField6Visible]]" role="widget" class="sortable" id="[[vocabularyField6Order]]">
+                    <label>[[vocabularyField6Label]]</label>
+                    <div style="display:none;">[[formatDirectory(document.properties.custom:vocabularyField6, vocabularyField6Name, "vocabularyField6")]]</div>
+                    <div>[[vocabularyField6Value]]</div>
+                </div>
+                <div hidden$="[[!vocabularyField7Visible]]" role="widget" class="sortable" id="[[vocabularyField7Order]]">
+                    <label>[[vocabularyField7Label]]</label>
+                    <div style="display:none;">[[formatDirectory(document.properties.custom:vocabularyField7, vocabularyField7Name, "vocabularyField7")]]</div>
+                    <div>[[vocabularyField7Value]]</div>
+                </div>
+                <div hidden$="[[!vocabularyField8Visible]]" role="widget" class="sortable" id="[[vocabularyField8Order]]">
+                    <label>[[vocabularyField8Label]]</label>
+                    <div style="display:none;">[[formatDirectory(document.properties.custom:vocabularyField8, vocabularyField8Name, "vocabularyField8")]]</div>
+                    <div>[[vocabularyField8Value]]</div>
+                </div>
+                <div hidden$="[[!vocabularyField9Visible]]" role="widget" class="sortable" id="[[vocabularyField9Order]]">
+                    <label>[[vocabularyField9Label]]</label>
+                    <div style="display:none;">[[formatDirectory(document.properties.custom:vocabularyField9, vocabularyField9Name, "vocabularyField9")]]</div>
+                    <div>[[vocabularyField2Value]]</div>
+                </div>
+                <div hidden$="[[!vocabularyField10Visible]]" role="widget" class="sortable" id="[[vocabularyField10Order]]">
+                    <label>[[vocabularyField10Label]]</label>
+                    <div style="display:none;">[[formatDirectory(document.properties.custom:vocabularyField10, vocabularyField10Name, "vocabularyField10")]]</div>
+                    <div>[[vocabularyField10Value]]</div>
+                </div>
 
-      <div hidden$="[[!doubleField1Visible]]" role="widget" class="sortable" id="[[doubleField1Order]]">
-        <label>[[doubleField1Label]]</label>
-        <div>[[document.properties.custom:doubleField1]]</div>
-      </div>
-      <div hidden$="[[!doubleField2Visible]]" role="widget" class="sortable" id="[[doubleField2Order]]">
-        <label>[[doubleField2Label]]</label>
-        <div>[[document.properties.custom:doubleField2]]</div>
-      </div>
-      <div hidden$="[[!doubleField3Visible]]" role="widget" class="sortable" id="[[doubleField3Order]]">
-        <label>[[doubleField3Label]]</label>
-        <div>[[document.properties.custom:doubleField3]]</div>
-      </div>
-      <div hidden$="[[!doubleField4Visible]]" role="widget" class="sortable" id="[[doubleField4Order]]">
-        <label>[[doubleField4Label]]</label>
-        <div>[[document.properties.custom:doubleField4]]</div>
-      </div>
-      <div hidden$="[[!doubleField5Visible]]" role="widget" class="sortable" id="[[doubleField5Order]]">
-        <label>[[doubleField5Label]]</label>
-        <div>[[document.properties.custom:doubleField5]]</div>
-      </div>
-      <div hidden$="[[!doubleField6Visible]]" role="widget" class="sortable" id="[[doubleField6Order]]">
-        <label>[[doubleField6Label]]</label>
-        <div>[[document.properties.custom:doubleField6]]</div>
-      </div>
-      <div hidden$="[[!doubleField7Visible]]" role="widget" class="sortable" id="[[doubleField7Order]]">
-        <label>[[doubleField7Label]]</label>
-        <div>[[document.properties.custom:doubleField7]]</div>
-      </div>
-      <div hidden$="[[!doubleField8Visible]]" role="widget" class="sortable" id="[[doubleField8Order]]">
-        <label>[[doubleField8Label]]</label>
-        <div>[[document.properties.custom:doubleField8]]</div>
-      </div>
-      <div hidden$="[[!doubleField9Visible]]" role="widget" class="sortable" id="[[doubleField9Order]]">
-        <label>[[doubleField9Label]]</label>
-        <div>[[document.properties.custom:doubleField9]]</div>
-      </div>
-      <div hidden$="[[!doubleField10Visible]]" role="widget" class="sortable" id="[[doubleField10Order]]">
-        <label>[[doubleField10Label]]</label>
-        <div>[[document.properties.custom:doubleField10]]</div>
-      </div>
+                <div hidden$="[[!doubleField1Visible]]" role="widget" class="sortable" id="[[doubleField1Order]]">
+                    <label>[[doubleField1Label]]</label>
+                    <div>[[document.properties.custom:doubleField1]]</div>
+                </div>
+                <div hidden$="[[!doubleField2Visible]]" role="widget" class="sortable" id="[[doubleField2Order]]">
+                    <label>[[doubleField2Label]]</label>
+                    <div>[[document.properties.custom:doubleField2]]</div>
+                </div>
+                <div hidden$="[[!doubleField3Visible]]" role="widget" class="sortable" id="[[doubleField3Order]]">
+                    <label>[[doubleField3Label]]</label>
+                    <div>[[document.properties.custom:doubleField3]]</div>
+                </div>
+                <div hidden$="[[!doubleField4Visible]]" role="widget" class="sortable" id="[[doubleField4Order]]">
+                    <label>[[doubleField4Label]]</label>
+                    <div>[[document.properties.custom:doubleField4]]</div>
+                </div>
+                <div hidden$="[[!doubleField5Visible]]" role="widget" class="sortable" id="[[doubleField5Order]]">
+                    <label>[[doubleField5Label]]</label>
+                    <div>[[document.properties.custom:doubleField5]]</div>
+                </div>
+                <div hidden$="[[!doubleField6Visible]]" role="widget" class="sortable" id="[[doubleField6Order]]">
+                    <label>[[doubleField6Label]]</label>
+                    <div>[[document.properties.custom:doubleField6]]</div>
+                </div>
+                <div hidden$="[[!doubleField7Visible]]" role="widget" class="sortable" id="[[doubleField7Order]]">
+                    <label>[[doubleField7Label]]</label>
+                    <div>[[document.properties.custom:doubleField7]]</div>
+                </div>
+                <div hidden$="[[!doubleField8Visible]]" role="widget" class="sortable" id="[[doubleField8Order]]">
+                    <label>[[doubleField8Label]]</label>
+                    <div>[[document.properties.custom:doubleField8]]</div>
+                </div>
+                <div hidden$="[[!doubleField9Visible]]" role="widget" class="sortable" id="[[doubleField9Order]]">
+                    <label>[[doubleField9Label]]</label>
+                    <div>[[document.properties.custom:doubleField9]]</div>
+                </div>
+                <div hidden$="[[!doubleField10Visible]]" role="widget" class="sortable" id="[[doubleField10Order]]">
+                    <label>[[doubleField10Label]]</label>
+                    <div>[[document.properties.custom:doubleField10]]</div>
+                </div>
 
-      <div hidden$="[[!dateField1Visible]]" role="widget" class="sortable" id="[[dateField1Order]]">
-        <label>[[dateField1Label]]</label>
-        <div>[[_formatDate(document.properties.custom:dateField1, dateField1Format)]]</div>
-      </div>
-      <div hidden$="[[!dateField2Visible]]" role="widget" class="sortable" id="[[dateField2Order]]">
-        <label>[[dateField2Label]]</label>
-        <div>[[_formatDate(document.properties.custom:dateField2, dateField2Format)]]</div>
-      </div>
-      <div hidden$="[[!dateField3Visible]]" role="widget" class="sortable" id="[[dateField3Order]]">
-        <label>[[dateField3Label]]</label>
-        <div>[[_formatDate(document.properties.custom:dateField3, dateField3Format)]]</div>
-      </div>
-      <div hidden$="[[!dateField4Visible]]" role="widget" class="sortable" id="[[dateField4Order]]">
-        <label>[[dateField4Label]]</label>
-        <div>[[_formatDate(document.properties.custom:dateField4, dateField4Format)]]</div>
-      </div>
-      <div hidden$="[[!dateField5Visible]]" role="widget" class="sortable" id="[[dateField5Order]]">
-        <label>[[dateField5Label]]</label>
-        <div>[[_formatDate(document.properties.custom:dateField5, dateField5Format)]]</div>
-      </div>
-      <div hidden$="[[!dateField6Visible]]" role="widget" class="sortable" id="[[dateField6Order]]">
-        <label>[[dateField6Label]]</label>
-        <div>[[_formatDate(document.properties.custom:dateField6, dateField6Format)]]</div>
-      </div>
-      <div hidden$="[[!dateField7Visible]]" role="widget" class="sortable" id="[[dateField7Order]]">
-        <label>[[dateField7Label]]</label>
-        <div>[[_formatDate(document.properties.custom:dateField7, dateField7Format)]]</div>
-      </div>
-      <div hidden$="[[!dateField8Visible]]" role="widget" class="sortable" id="[[dateField8Order]]">
-        <label>[[dateField8Label]]</label>
-        <div>[[_formatDate(document.properties.custom:dateField8, dateField8Format)]]</div>
-      </div>
-      <div hidden$="[[!dateField9Visible]]" role="widget" class="sortable" id="[[dateField9Order]]">
-        <label>[[dateField9Label]]</label>
-        <div>[[_formatDate(document.properties.custom:dateField9, dateField9Format)]]</div>
-      </div>
-      <div hidden$="[[!dateField10Visible]]" role="widget" class="sortable" id="[[dateField10Order]]">
-        <label>[[dateField10Label]]</label>
-        <div>[[_formatDate(document.properties.custom:dateField10, dateField10Format)]]</div>
-      </div>
-      <div hidden$="[[!dateField11Visible]]" role="widget" class="sortable" id="[[dateField11Order]]">
-        <label>[[dateField11Label]]</label>
-        <div>[[_formatDate(document.properties.custom:dateField11, dateField11Format)]]</div>
-      </div>
-      <div hidden$="[[!dateField12Visible]]" role="widget" class="sortable" id="[[dateField12Order]]">
-        <label>[[dateField12Label]]</label>
-        <div>[[_formatDate(document.properties.custom:dateField12, dateField12Format)]]</div>
-      </div>
-      <div hidden$="[[!dateField13Visible]]" role="widget" class="sortable" id="[[dateField13Order]]">
-        <label>[[dateField13Label]]</label>
-        <div>[[_formatDate(document.properties.custom:dateField13, dateField13Format)]]</div>
-      </div>
-      <div hidden$="[[!dateField14Visible]]" role="widget" class="sortable" id="[[dateField14Order]]">
-        <label>[[dateField14Label]]</label>
-        <div>[[_formatDate(document.properties.custom:dateField14, dateField14Format)]]</div>
-      </div>
-      <div hidden$="[[!dateField15Visible]]" role="widget" class="sortable" id="[[dateField15Order]]">
-        <label>[[dateField15Label]]</label>
-        <div>[[_formatDate(document.properties.custom:dateField15, dateField15Format)]]</div>
-      </div>
-      <div hidden$="[[!dateField16Visible]]" role="widget" class="sortable" id="[[dateField16Order]]">
-        <label>[[dateField16Label]]</label>
-        <div>[[_formatDate(document.properties.custom:dateField16, dateField16Format)]]</div>
-      </div>
-      <div hidden$="[[!dateField17Visible]]" role="widget" class="sortable" id="[[dateField17Order]]">
-        <label>[[dateField17Label]]</label>
-        <div>[[_formatDate(document.properties.custom:dateField17, dateField17Format)]]</div>
-      </div>
-      <div hidden$="[[!dateField18Visible]]" role="widget" class="sortable" id="[[dateField18Order]]">
-        <label>[[dateField18Label]]</label>
-        <div>[[_formatDate(document.properties.custom:dateField18, dateField18Format)]]</div>
-      </div>
-      <div hidden$="[[!dateField19Visible]]" role="widget" class="sortable" id="[[dateField19Order]]">
-        <label>[[dateField19Label]]</label>
-        <div>[[_formatDate(document.properties.custom:dateField19, dateField19Format)]]</div>
-      </div>
-      <div hidden$="[[!dateField20Visible]]" role="widget" class="sortable" id="[[dateField20Order]]">
-        <label>[[dateField20Label]]</label>
-        <div>[[_formatDate(document.properties.custom:dateField20, dateField20Format)]]</div>
-      </div>
+                <div hidden$="[[!dateField1Visible]]" role="widget" class="sortable" id="[[dateField1Order]]">
+                    <label>[[dateField1Label]]</label>
+                    <div>[[_formatDate(document.properties.custom:dateField1, dateField1Format)]]</div>
+                </div>
+                <div hidden$="[[!dateField2Visible]]" role="widget" class="sortable" id="[[dateField2Order]]">
+                    <label>[[dateField2Label]]</label>
+                    <div>[[_formatDate(document.properties.custom:dateField2, dateField2Format)]]</div>
+                </div>
+                <div hidden$="[[!dateField3Visible]]" role="widget" class="sortable" id="[[dateField3Order]]">
+                    <label>[[dateField3Label]]</label>
+                    <div>[[_formatDate(document.properties.custom:dateField3, dateField3Format)]]</div>
+                </div>
+                <div hidden$="[[!dateField4Visible]]" role="widget" class="sortable" id="[[dateField4Order]]">
+                    <label>[[dateField4Label]]</label>
+                    <div>[[_formatDate(document.properties.custom:dateField4, dateField4Format)]]</div>
+                </div>
+                <div hidden$="[[!dateField5Visible]]" role="widget" class="sortable" id="[[dateField5Order]]">
+                    <label>[[dateField5Label]]</label>
+                    <div>[[_formatDate(document.properties.custom:dateField5, dateField5Format)]]</div>
+                </div>
+                <div hidden$="[[!dateField6Visible]]" role="widget" class="sortable" id="[[dateField6Order]]">
+                    <label>[[dateField6Label]]</label>
+                    <div>[[_formatDate(document.properties.custom:dateField6, dateField6Format)]]</div>
+                </div>
+                <div hidden$="[[!dateField7Visible]]" role="widget" class="sortable" id="[[dateField7Order]]">
+                    <label>[[dateField7Label]]</label>
+                    <div>[[_formatDate(document.properties.custom:dateField7, dateField7Format)]]</div>
+                </div>
+                <div hidden$="[[!dateField8Visible]]" role="widget" class="sortable" id="[[dateField8Order]]">
+                    <label>[[dateField8Label]]</label>
+                    <div>[[_formatDate(document.properties.custom:dateField8, dateField8Format)]]</div>
+                </div>
+                <div hidden$="[[!dateField9Visible]]" role="widget" class="sortable" id="[[dateField9Order]]">
+                    <label>[[dateField9Label]]</label>
+                    <div>[[_formatDate(document.properties.custom:dateField9, dateField9Format)]]</div>
+                </div>
+                <div hidden$="[[!dateField10Visible]]" role="widget" class="sortable" id="[[dateField10Order]]">
+                    <label>[[dateField10Label]]</label>
+                    <div>[[_formatDate(document.properties.custom:dateField10, dateField10Format)]]</div>
+                </div>
+                <div hidden$="[[!dateField11Visible]]" role="widget" class="sortable" id="[[dateField11Order]]">
+                    <label>[[dateField11Label]]</label>
+                    <div>[[_formatDate(document.properties.custom:dateField11, dateField11Format)]]</div>
+                </div>
+                <div hidden$="[[!dateField12Visible]]" role="widget" class="sortable" id="[[dateField12Order]]">
+                    <label>[[dateField12Label]]</label>
+                    <div>[[_formatDate(document.properties.custom:dateField12, dateField12Format)]]</div>
+                </div>
+                <div hidden$="[[!dateField13Visible]]" role="widget" class="sortable" id="[[dateField13Order]]">
+                    <label>[[dateField13Label]]</label>
+                    <div>[[_formatDate(document.properties.custom:dateField13, dateField13Format)]]</div>
+                </div>
+                <div hidden$="[[!dateField14Visible]]" role="widget" class="sortable" id="[[dateField14Order]]">
+                    <label>[[dateField14Label]]</label>
+                    <div>[[_formatDate(document.properties.custom:dateField14, dateField14Format)]]</div>
+                </div>
+                <div hidden$="[[!dateField15Visible]]" role="widget" class="sortable" id="[[dateField15Order]]">
+                    <label>[[dateField15Label]]</label>
+                    <div>[[_formatDate(document.properties.custom:dateField15, dateField15Format)]]</div>
+                </div>
+                <div hidden$="[[!dateField16Visible]]" role="widget" class="sortable" id="[[dateField16Order]]">
+                    <label>[[dateField16Label]]</label>
+                    <div>[[_formatDate(document.properties.custom:dateField16, dateField16Format)]]</div>
+                </div>
+                <div hidden$="[[!dateField17Visible]]" role="widget" class="sortable" id="[[dateField17Order]]">
+                    <label>[[dateField17Label]]</label>
+                    <div>[[_formatDate(document.properties.custom:dateField17, dateField17Format)]]</div>
+                </div>
+                <div hidden$="[[!dateField18Visible]]" role="widget" class="sortable" id="[[dateField18Order]]">
+                    <label>[[dateField18Label]]</label>
+                    <div>[[_formatDate(document.properties.custom:dateField18, dateField18Format)]]</div>
+                </div>
+                <div hidden$="[[!dateField19Visible]]" role="widget" class="sortable" id="[[dateField19Order]]">
+                    <label>[[dateField19Label]]</label>
+                    <div>[[_formatDate(document.properties.custom:dateField19, dateField19Format)]]</div>
+                </div>
+                <div hidden$="[[!dateField20Visible]]" role="widget" class="sortable" id="[[dateField20Order]]">
+                    <label>[[dateField20Label]]</label>
+                    <div>[[_formatDate(document.properties.custom:dateField20, dateField20Format)]]</div>
+                </div>
 
-      <div hidden$="[[!integerField1Visible]]" role="widget" class="sortable" id="[[integerField1Order]]">
-        <label>[[integerField1Label]]</label>
-        <div>[[document.properties.custom:integerField1]]</div>
-      </div>
-      <div hidden$="[[!integerField2Visible]]" role="widget" class="sortable" id="[[integerField2Order]]">
-        <label>[[integerField2Label]]</label>
-        <div>[[document.properties.custom:integerField2]]</div>
-      </div>
-      <div hidden$="[[!integerField3Visible]]" role="widget" class="sortable" id="[[integerField3Order]]">
-        <label>[[integerField3Label]]</label>
-        <div>[[document.properties.custom:integerField3]]</div>
-      </div>
-      <div hidden$="[[!integerField4Visible]]" role="widget" class="sortable" id="[[integerField4Order]]">
-        <label>[[integerField4Label]]</label>
-        <div>[[document.properties.custom:integerField4]]</div>
-      </div>
-      <div hidden$="[[!integerField5Visible]]" role="widget" class="sortable" id="[[integerField5Order]]">
-        <label>[[integerField5Label]]</label>
-        <div>[[document.properties.custom:integerField5]]</div>
-      </div>
-      <div hidden$="[[!integerField6Visible]]" role="widget" class="sortable" id="[[integerField6Order]]">
-        <label>[[integerField6Label]]</label>
-        <div>[[document.properties.custom:integerField6]]</div>
-      </div>
-      <div hidden$="[[!integerField7Visible]]" role="widget" class="sortable" id="[[integerField7Order]]">
-        <label>[[integerField7Label]]</label>
-        <div>[[document.properties.custom:integerField7]]</div>
-      </div>
-      <div hidden$="[[!integerField8Visible]]" role="widget" class="sortable" id="[[integerField8Order]]">
-        <label>[[integerField8Label]]</label>
-        <div>[[document.properties.custom:integerField8]]</div>
-      </div>
-      <div hidden$="[[!integerField9Visible]]" role="widget" class="sortable" id="[[integerField9Order]]">
-        <label>[[integerField9Label]]</label>
-        <div>[[document.properties.custom:integerField9]]</div>
-      </div>
-      <div hidden$="[[!integerField10Visible]]" role="widget" class="sortable" id="[[integerField10Order]]">
-        <label>[[integerField10Label]]</label>
-        <div>[[document.properties.custom:integerField10]]</div>
-      </div>
+                <div hidden$="[[!integerField1Visible]]" role="widget" class="sortable" id="[[integerField1Order]]">
+                    <label>[[integerField1Label]]</label>
+                    <div>[[document.properties.custom:integerField1]]</div>
+                </div>
+                <div hidden$="[[!integerField2Visible]]" role="widget" class="sortable" id="[[integerField2Order]]">
+                    <label>[[integerField2Label]]</label>
+                    <div>[[document.properties.custom:integerField2]]</div>
+                </div>
+                <div hidden$="[[!integerField3Visible]]" role="widget" class="sortable" id="[[integerField3Order]]">
+                    <label>[[integerField3Label]]</label>
+                    <div>[[document.properties.custom:integerField3]]</div>
+                </div>
+                <div hidden$="[[!integerField4Visible]]" role="widget" class="sortable" id="[[integerField4Order]]">
+                    <label>[[integerField4Label]]</label>
+                    <div>[[document.properties.custom:integerField4]]</div>
+                </div>
+                <div hidden$="[[!integerField5Visible]]" role="widget" class="sortable" id="[[integerField5Order]]">
+                    <label>[[integerField5Label]]</label>
+                    <div>[[document.properties.custom:integerField5]]</div>
+                </div>
+                <div hidden$="[[!integerField6Visible]]" role="widget" class="sortable" id="[[integerField6Order]]">
+                    <label>[[integerField6Label]]</label>
+                    <div>[[document.properties.custom:integerField6]]</div>
+                </div>
+                <div hidden$="[[!integerField7Visible]]" role="widget" class="sortable" id="[[integerField7Order]]">
+                    <label>[[integerField7Label]]</label>
+                    <div>[[document.properties.custom:integerField7]]</div>
+                </div>
+                <div hidden$="[[!integerField8Visible]]" role="widget" class="sortable" id="[[integerField8Order]]">
+                    <label>[[integerField8Label]]</label>
+                    <div>[[document.properties.custom:integerField8]]</div>
+                </div>
+                <div hidden$="[[!integerField9Visible]]" role="widget" class="sortable" id="[[integerField9Order]]">
+                    <label>[[integerField9Label]]</label>
+                    <div>[[document.properties.custom:integerField9]]</div>
+                </div>
+                <div hidden$="[[!integerField10Visible]]" role="widget" class="sortable" id="[[integerField10Order]]">
+                    <label>[[integerField10Label]]</label>
+                    <div>[[document.properties.custom:integerField10]]</div>
+                </div>
 
-      <div hidden$="[[!userField1Visible]]" role="widget" class="sortable" id="[[userField1Order]]">
-        <label>[[userField1Label]]</label>
-        <div>[[document.properties.custom:userField1]]</div>
-      </div>
-      <div hidden$="[[!userField2Visible]]" role="widget" class="sortable" id="[[userField2Order]]">
-        <label>[[userField2Label]]</label>
-        <div>[[document.properties.custom:userField2]]</div>
-      </div>
-      <div hidden$="[[!userField3Visible]]" role="widget" class="sortable" id="[[userField3Order]]">
-        <label>[[userField3Label]]</label>
-        <div>[[document.properties.custom:userField3]]</div>
-      </div>
-      <div hidden$="[[!userField4Visible]]" role="widget" class="sortable" id="[[userField4Order]]">
-        <label>[[userField4Label]]</label>
-        <div>[[document.properties.custom:userField4]]</div>
-      </div>
-      <div hidden$="[[!userField5Visible]]" role="widget" class="sortable" id="[[userField5Order]]">
-        <label>[[userField5Label]]</label>
-        <div>[[document.properties.custom:userField5]]</div>
-      </div>
-      <div hidden$="[[!userField6Visible]]" role="widget" class="sortable" id="[[userField6Order]]">
-        <label>[[userField6Label]]</label>
-        <div>[[document.properties.custom:userField6]]</div>
-      </div>
-      <div hidden$="[[!userField7Visible]]" role="widget" class="sortable" id="[[userField7Order]]">
-        <label>[[userField7Label]]</label>
-        <div>[[document.properties.custom:userField7]]</div>
-      </div>
-      <div hidden$="[[!userField8Visible]]" role="widget" class="sortable" id="[[userField8Order]]">
-        <label>[[userField8Label]]</label>
-        <div>[[document.properties.custom:userField8]]</div>
-      </div>
-      <div hidden$="[[!userField9Visible]]" role="widget" class="sortable" id="[[userField9Order]]">
-        <label>[[userField9Label]]</label>
-        <div>[[document.properties.custom:userField9]]</div>
-      </div>
-      <div hidden$="[[!userField10Visible]]" role="widget" class="sortable" id="[[userField10Order]]">
-        <label>[[userField10Label]]</label>
-        <div>[[document.properties.custom:userField10]]</div>
-      </div>
+                <div hidden$="[[!userField1Visible]]" role="widget" class="sortable" id="[[userField1Order]]">
+                    <label>[[userField1Label]]</label>
+                    <div>[[document.properties.custom:userField1]]</div>
+                </div>
+                <div hidden$="[[!userField2Visible]]" role="widget" class="sortable" id="[[userField2Order]]">
+                    <label>[[userField2Label]]</label>
+                    <div>[[document.properties.custom:userField2]]</div>
+                </div>
+                <div hidden$="[[!userField3Visible]]" role="widget" class="sortable" id="[[userField3Order]]">
+                    <label>[[userField3Label]]</label>
+                    <div>[[document.properties.custom:userField3]]</div>
+                </div>
+                <div hidden$="[[!userField4Visible]]" role="widget" class="sortable" id="[[userField4Order]]">
+                    <label>[[userField4Label]]</label>
+                    <div>[[document.properties.custom:userField4]]</div>
+                </div>
+                <div hidden$="[[!userField5Visible]]" role="widget" class="sortable" id="[[userField5Order]]">
+                    <label>[[userField5Label]]</label>
+                    <div>[[document.properties.custom:userField5]]</div>
+                </div>
+                <div hidden$="[[!userField6Visible]]" role="widget" class="sortable" id="[[userField6Order]]">
+                    <label>[[userField6Label]]</label>
+                    <div>[[document.properties.custom:userField6]]</div>
+                </div>
+                <div hidden$="[[!userField7Visible]]" role="widget" class="sortable" id="[[userField7Order]]">
+                    <label>[[userField7Label]]</label>
+                    <div>[[document.properties.custom:userField7]]</div>
+                </div>
+                <div hidden$="[[!userField8Visible]]" role="widget" class="sortable" id="[[userField8Order]]">
+                    <label>[[userField8Label]]</label>
+                    <div>[[document.properties.custom:userField8]]</div>
+                </div>
+                <div hidden$="[[!userField9Visible]]" role="widget" class="sortable" id="[[userField9Order]]">
+                    <label>[[userField9Label]]</label>
+                    <div>[[document.properties.custom:userField9]]</div>
+                </div>
+                <div hidden$="[[!userField10Visible]]" role="widget" class="sortable" id="[[userField10Order]]">
+                    <label>[[userField10Label]]</label>
+                    <div>[[document.properties.custom:userField10]]</div>
+                </div>
 
-      <div hidden$="[[!fileField1Visible]]" role="widget" class="sortable" id="[[fileField1Order]]"><label>[[fileField1Label]]</label><br><a href="[[document.properties.custom:fileField1.data]]">[[document.properties.custom:fileField1.name]]</a></div>
-      <div hidden$="[[!fileField2Visible]]" role="widget" class="sortable" id="[[fileField2Order]]"><label>[[fileField2Label]]</label><br><a href="[[document.properties.custom:fileField2.data]]">[[document.properties.custom:fileField2.name]]</a></div>
-      <div hidden$="[[!fileField3Visible]]" role="widget" class="sortable" id="[[fileField3Order]]"><label>[[fileField3Label]]</label><br><a href="[[document.properties.custom:fileField3.data]]">[[document.properties.custom:fileField3.name]]</a></div>
-      <div hidden$="[[!fileField4Visible]]" role="widget" class="sortable" id="[[fileField4Order]]"><label>[[fileField4Label]]</label><br><a href="[[document.properties.custom:fileField4.data]]">[[document.properties.custom:fileField4.name]]</a></div>
-      <div hidden$="[[!fileField5Visible]]" role="widget" class="sortable" id="[[fileField5Order]]"><label>[[fileField5Label]]</label><br><a href="[[document.properties.custom:fileField5.data]]">[[document.properties.custom:fileField5.name]]</a></div>
-      <div hidden$="[[!fileField6Visible]]" role="widget" class="sortable" id="[[fileField6Order]]"><label>[[fileField6Label]]</label><br><a href="[[document.properties.custom:fileField6.data]]">[[document.properties.custom:fileField6.name]]</a></div>
-      <div hidden$="[[!fileField7Visible]]" role="widget" class="sortable" id="[[fileField7Order]]"><label>[[fileField7Label]]</label><br><a href="[[document.properties.custom:fileField7.data]]">[[document.properties.custom:fileField7.name]]</a></div>
-      <div hidden$="[[!fileField8Visible]]" role="widget" class="sortable" id="[[fileField8Order]]"><label>[[fileField8Label]]</label><br><a href="[[document.properties.custom:fileField8.data]]">[[document.properties.custom:fileField8.name]]</a></div>
-      <div hidden$="[[!fileField9Visible]]" role="widget" class="sortable" id="[[fileField9Order]]"><label>[[fileField9Label]]</label><br><a href="[[document.properties.custom:fileField9.data]]">[[document.properties.custom:fileField9.name]]</a></div>
-      <div hidden$="[[!fileField10Visible]]" role="widget" class="sortable" id="[[fileField10Order]]"><label>[[fileField10Label]]</label><br><a href="[[document.properties.custom:fileField10.data]]">[[document.properties.custom:fileField10.name]]</a></div>
+                <div hidden$="[[!fileField1Visible]]" role="widget" class="sortable" id="[[fileField1Order]]"><label>[[fileField1Label]]</label><br><a href="[[document.properties.custom:fileField1.data]]">[[document.properties.custom:fileField1.name]]</a></div>
+                <div hidden$="[[!fileField2Visible]]" role="widget" class="sortable" id="[[fileField2Order]]"><label>[[fileField2Label]]</label><br><a href="[[document.properties.custom:fileField2.data]]">[[document.properties.custom:fileField2.name]]</a></div>
+                <div hidden$="[[!fileField3Visible]]" role="widget" class="sortable" id="[[fileField3Order]]"><label>[[fileField3Label]]</label><br><a href="[[document.properties.custom:fileField3.data]]">[[document.properties.custom:fileField3.name]]</a></div>
+                <div hidden$="[[!fileField4Visible]]" role="widget" class="sortable" id="[[fileField4Order]]"><label>[[fileField4Label]]</label><br><a href="[[document.properties.custom:fileField4.data]]">[[document.properties.custom:fileField4.name]]</a></div>
+                <div hidden$="[[!fileField5Visible]]" role="widget" class="sortable" id="[[fileField5Order]]"><label>[[fileField5Label]]</label><br><a href="[[document.properties.custom:fileField5.data]]">[[document.properties.custom:fileField5.name]]</a></div>
+                <div hidden$="[[!fileField6Visible]]" role="widget" class="sortable" id="[[fileField6Order]]"><label>[[fileField6Label]]</label><br><a href="[[document.properties.custom:fileField6.data]]">[[document.properties.custom:fileField6.name]]</a></div>
+                <div hidden$="[[!fileField7Visible]]" role="widget" class="sortable" id="[[fileField7Order]]"><label>[[fileField7Label]]</label><br><a href="[[document.properties.custom:fileField7.data]]">[[document.properties.custom:fileField7.name]]</a></div>
+                <div hidden$="[[!fileField8Visible]]" role="widget" class="sortable" id="[[fileField8Order]]"><label>[[fileField8Label]]</label><br><a href="[[document.properties.custom:fileField8.data]]">[[document.properties.custom:fileField8.name]]</a></div>
+                <div hidden$="[[!fileField9Visible]]" role="widget" class="sortable" id="[[fileField9Order]]"><label>[[fileField9Label]]</label><br><a href="[[document.properties.custom:fileField9.data]]">[[document.properties.custom:fileField9.name]]</a></div>
+                <div hidden$="[[!fileField10Visible]]" role="widget" class="sortable" id="[[fileField10Order]]"><label>[[fileField10Label]]</label><br><a href="[[document.properties.custom:fileField10.data]]">[[document.properties.custom:fileField10.name]]</a></div>
 
-      <div hidden$="[[!booleanField1Visible]]" role="widget" class="sortable" id="[[booleanField1Order]]">
-        <label>[[booleanField1Label]]</label>
-        <div>[[i18n(document.properties.custom:booleanField1)]]</div>
-      </div>
-      <div hidden$="[[!booleanField2Visible]]" role="widget" class="sortable" id="[[booleanField2Order]]">
-        <label>[[booleanField2Label]]</label>
-        <div>[[i18n(document.properties.custom:booleanField2)]]</div>
-      </div>
-      <div hidden$="[[!booleanField3Visible]]" role="widget" class="sortable" id="[[booleanField3Order]]">
-        <label>[[booleanField3Label]]</label>
-        <div>[[i18n(document.properties.custom:booleanField3)]]</div>
-      </div>
-      <div hidden$="[[!booleanField4Visible]]" role="widget" class="sortable" id="[[booleanField4Order]]">
-        <label>[[booleanField4Label]]</label>
-        <div>[[i18n(document.properties.custom:booleanField4)]]</div>
-      </div>
-      <div hidden$="[[!booleanField5Visible]]" role="widget" class="sortable" id="[[booleanField5Order]]">
-        <label>[[booleanField5Label]]</label>
-        <div>[[i18n(document.properties.custom:booleanField5)]]</div>
-      </div>
-      <div hidden$="[[!booleanField6Visible]]" role="widget" class="sortable" id="[[booleanField6Order]]">
-        <label>[[booleanField6Label]]</label>
-        <div>[[i18n(document.properties.custom:booleanField6)]]</div>
-      </div>
-      <div hidden$="[[!booleanField7Visible]]" role="widget" class="sortable" id="[[booleanField7Order]]">
-        <label>[[booleanField7Label]]</label>
-        <div>[[i18n(document.properties.custom:booleanField7)]]</div>
-      </div>
-      <div hidden$="[[!booleanField8Visible]]" role="widget" class="sortable" id="[[booleanField8Order]]">
-        <label>[[booleanField8Label]]</label>
-        <div>[[i18n(document.properties.custom:booleanField8)]]</div>
-      </div>
-      <div hidden$="[[!booleanField9Visible]]" role="widget" class="sortable" id="[[booleanField9Order]]">
-        <label>[[booleanField9Label]]</label>
-        <div>[[i18n(document.properties.custom:booleanField9)]]</div>
-      </div>
-      <div hidden$="[[!booleanField10Visible]]" role="widget" class="sortable" id="[[booleanField10Order]]">
-        <label>[[booleanField10Label]]</label>
-        <div>[[i18n(document.properties.custom:booleanField10)]]</div>
-      </div>
+                <div hidden$="[[!booleanField1Visible]]" role="widget" class="sortable" id="[[booleanField1Order]]">
+                    <label>[[booleanField1Label]]</label>
+                    <div>[[i18n(document.properties.custom:booleanField1)]]</div>
+                </div>
+                <div hidden$="[[!booleanField2Visible]]" role="widget" class="sortable" id="[[booleanField2Order]]">
+                    <label>[[booleanField2Label]]</label>
+                    <div>[[i18n(document.properties.custom:booleanField2)]]</div>
+                </div>
+                <div hidden$="[[!booleanField3Visible]]" role="widget" class="sortable" id="[[booleanField3Order]]">
+                    <label>[[booleanField3Label]]</label>
+                    <div>[[i18n(document.properties.custom:booleanField3)]]</div>
+                </div>
+                <div hidden$="[[!booleanField4Visible]]" role="widget" class="sortable" id="[[booleanField4Order]]">
+                    <label>[[booleanField4Label]]</label>
+                    <div>[[i18n(document.properties.custom:booleanField4)]]</div>
+                </div>
+                <div hidden$="[[!booleanField5Visible]]" role="widget" class="sortable" id="[[booleanField5Order]]">
+                    <label>[[booleanField5Label]]</label>
+                    <div>[[i18n(document.properties.custom:booleanField5)]]</div>
+                </div>
+                <div hidden$="[[!booleanField6Visible]]" role="widget" class="sortable" id="[[booleanField6Order]]">
+                    <label>[[booleanField6Label]]</label>
+                    <div>[[i18n(document.properties.custom:booleanField6)]]</div>
+                </div>
+                <div hidden$="[[!booleanField7Visible]]" role="widget" class="sortable" id="[[booleanField7Order]]">
+                    <label>[[booleanField7Label]]</label>
+                    <div>[[i18n(document.properties.custom:booleanField7)]]</div>
+                </div>
+                <div hidden$="[[!booleanField8Visible]]" role="widget" class="sortable" id="[[booleanField8Order]]">
+                    <label>[[booleanField8Label]]</label>
+                    <div>[[i18n(document.properties.custom:booleanField8)]]</div>
+                </div>
+                <div hidden$="[[!booleanField9Visible]]" role="widget" class="sortable" id="[[booleanField9Order]]">
+                    <label>[[booleanField9Label]]</label>
+                    <div>[[i18n(document.properties.custom:booleanField9)]]</div>
+                </div>
+                <div hidden$="[[!booleanField10Visible]]" role="widget" class="sortable" id="[[booleanField10Order]]">
+                    <label>[[booleanField10Label]]</label>
+                    <div>[[i18n(document.properties.custom:booleanField10)]]</div>
+                </div>
 
-      <div hidden$="[[!systemField1Visible]]" role="widget" class="sortable" id="[[systemField1Order]]">
-        <label>[[systemField1Label]]</label>
-        <div>[[document.properties.custom:systemField1]]</div>
-      </div>
-      <div hidden$="[[!systemField2Visible]]" role="widget" class="sortable" id="[[systemField2Order]]">
-        <label>[[systemField2Label]]</label>
-        <div>[[document.properties.custom:systemField2]]</div>
-      </div>
-      <div hidden$="[[!systemField3Visible]]" role="widget" class="sortable" id="[[systemField3Order]]">
-        <label>[[systemField3Label]]</label>
-        <div>[[document.properties.custom:systemField3]]</div>
-      </div>
-      <div hidden$="[[!systemField4Visible]]" role="widget" class="sortable" id="[[systemField4Order]]">
-        <label>[[systemField4Label]]</label>
-        <div>[[document.properties.custom:systemField4]]</div>
-      </div>
-      <div hidden$="[[!systemField5Visible]]" role="widget" class="sortable" id="[[systemField5Order]]">
-        <label>[[systemField5Label]]</label>
-        <div>[[document.properties.custom:systemField5]]</div>
-      </div>
-      <div hidden$="[[!systemField6Visible]]" role="widget" class="sortable" id="[[systemField6Order]]">
-        <label>[[systemField6Label]]</label>
-        <div>[[document.properties.custom:systemField6]]</div>
-      </div>
-      <div hidden$="[[!systemField7Visible]]" role="widget" class="sortable" id="[[systemField7Order]]">
-        <label>[[systemField7Label]]</label>
-        <div>[[document.properties.custom:systemField7]]</div>
-      </div>
-      <div hidden$="[[!systemField8Visible]]" role="widget" class="sortable" id="[[systemField8Order]]">
-        <label>[[systemField8Label]]</label>
-        <div>[[document.properties.custom:systemField8]]</div>
-      </div>
-      <div hidden$="[[!systemField9Visible]]" role="widget" class="sortable" id="[[systemField9Order]]">
-        <label>[[systemField9Label]]</label>
-        <div>[[document.properties.custom:systemField9]]</div>
-      </div>
-      <div hidden$="[[!systemField10Visible]]" role="widget" class="sortable" id="[[systemField10Order]]">
-        <label>[[systemField10Label]]</label>
-        <div>[[document.properties.custom:systemField10]]</div>
-      </div>
+                <div hidden$="[[!systemField1Visible]]" role="widget" class="sortable" id="[[systemField1Order]]">
+                    <label>[[systemField1Label]]</label>
+                    <div>[[document.properties.custom:systemField1]]</div>
+                </div>
+                <div hidden$="[[!systemField2Visible]]" role="widget" class="sortable" id="[[systemField2Order]]">
+                    <label>[[systemField2Label]]</label>
+                    <div>[[document.properties.custom:systemField2]]</div>
+                </div>
+                <div hidden$="[[!systemField3Visible]]" role="widget" class="sortable" id="[[systemField3Order]]">
+                    <label>[[systemField3Label]]</label>
+                    <div>[[document.properties.custom:systemField3]]</div>
+                </div>
+                <div hidden$="[[!systemField4Visible]]" role="widget" class="sortable" id="[[systemField4Order]]">
+                    <label>[[systemField4Label]]</label>
+                    <div>[[document.properties.custom:systemField4]]</div>
+                </div>
+                <div hidden$="[[!systemField5Visible]]" role="widget" class="sortable" id="[[systemField5Order]]">
+                    <label>[[systemField5Label]]</label>
+                    <div>[[document.properties.custom:systemField5]]</div>
+                </div>
+                <div hidden$="[[!systemField6Visible]]" role="widget" class="sortable" id="[[systemField6Order]]">
+                    <label>[[systemField6Label]]</label>
+                    <div>[[document.properties.custom:systemField6]]</div>
+                </div>
+                <div hidden$="[[!systemField7Visible]]" role="widget" class="sortable" id="[[systemField7Order]]">
+                    <label>[[systemField7Label]]</label>
+                    <div>[[document.properties.custom:systemField7]]</div>
+                </div>
+                <div hidden$="[[!systemField8Visible]]" role="widget" class="sortable" id="[[systemField8Order]]">
+                    <label>[[systemField8Label]]</label>
+                    <div>[[document.properties.custom:systemField8]]</div>
+                </div>
+                <div hidden$="[[!systemField9Visible]]" role="widget" class="sortable" id="[[systemField9Order]]">
+                    <label>[[systemField9Label]]</label>
+                    <div>[[document.properties.custom:systemField9]]</div>
+                </div>
+                <div hidden$="[[!systemField10Visible]]" role="widget" class="sortable" id="[[systemField10Order]]">
+                    <label>[[systemField10Label]]</label>
+                    <div>[[document.properties.custom:systemField10]]</div>
+                </div>
 
-      <qualitified-document-suggestion hidden$="[[!documentField1Visible]]"  role="widget" class="sortable" id="[[documentField1Order]]" value="{{document.properties.custom:documentField1}}" label="[[documentField1Label]]" readonly="true"></qualitified-document-suggestion>
-      <qualitified-document-suggestion hidden$="[[!documentField2Visible]]"  role="widget" class="sortable" id="[[documentField2Order]]" value="{{document.properties.custom:documentField2}}" label="[[documentField2Label]]" readonly="true"></qualitified-document-suggestion>
-      <qualitified-document-suggestion hidden$="[[!documentField3Visible]]"  role="widget" class="sortable" id="[[documentField3Order]]" value="{{document.properties.custom:documentField3}}" label="[[documentField3Label]]" readonly="true"></qualitified-document-suggestion>
-      <qualitified-document-suggestion hidden$="[[!documentField4Visible]]"  role="widget" class="sortable" id="[[documentField4Order]]" value="{{document.properties.custom:documentField4}}" label="[[documentField4Label]]" readonly="true"></qualitified-document-suggestion>
-      <qualitified-document-suggestion hidden$="[[!documentField5Visible]]"  role="widget" class="sortable" id="[[documentField5Order]]" value="{{document.properties.custom:documentField5}}" label="[[documentField5Label]]" readonly="true"></qualitified-document-suggestion>
-      <qualitified-document-suggestion hidden$="[[!documentField6Visible]]"  role="widget" class="sortable" id="[[documentField6Order]]" value="{{document.properties.custom:documentField6}}" label="[[documentField6Label]]" readonly="true"></qualitified-document-suggestion>
-      <qualitified-document-suggestion hidden$="[[!documentField7Visible]]"  role="widget" class="sortable" id="[[documentField7Order]]" value="{{document.properties.custom:documentField7}}" label="[[documentField7Label]]" readonly="true"></qualitified-document-suggestion>
-      <qualitified-document-suggestion hidden$="[[!documentField8Visible]]"  role="widget" class="sortable" id="[[documentField8Order]]" value="{{document.properties.custom:documentField8}}" label="[[documentField8Label]]" readonly="true"></qualitified-document-suggestion>
-      <qualitified-document-suggestion hidden$="[[!documentField9Visible]]"  role="widget" class="sortable" id="[[documentField9Order]]" value="{{document.properties.custom:documentField9}}" label="[[documentField9Label]]" readonly="true"></qualitified-document-suggestion>
-      <qualitified-document-suggestion hidden$="[[!documentField10Visible]]"  role="widget" class="sortable" id="[[documentField10Order]]" value="{{document.properties.custom:documentField10}}" label="[[documentField10Label]]" readonly="true"></qualitified-document-suggestion>
+                <qualitified-document-suggestion hidden$="[[!documentField1Visible]]"  role="widget" class="sortable" id="[[documentField1Order]]" value="{{document.properties.custom:documentField1}}" label="[[documentField1Label]]" readonly="true"></qualitified-document-suggestion>
+                <qualitified-document-suggestion hidden$="[[!documentField2Visible]]"  role="widget" class="sortable" id="[[documentField2Order]]" value="{{document.properties.custom:documentField2}}" label="[[documentField2Label]]" readonly="true"></qualitified-document-suggestion>
+                <qualitified-document-suggestion hidden$="[[!documentField3Visible]]"  role="widget" class="sortable" id="[[documentField3Order]]" value="{{document.properties.custom:documentField3}}" label="[[documentField3Label]]" readonly="true"></qualitified-document-suggestion>
+                <qualitified-document-suggestion hidden$="[[!documentField4Visible]]"  role="widget" class="sortable" id="[[documentField4Order]]" value="{{document.properties.custom:documentField4}}" label="[[documentField4Label]]" readonly="true"></qualitified-document-suggestion>
+                <qualitified-document-suggestion hidden$="[[!documentField5Visible]]"  role="widget" class="sortable" id="[[documentField5Order]]" value="{{document.properties.custom:documentField5}}" label="[[documentField5Label]]" readonly="true"></qualitified-document-suggestion>
+                <qualitified-document-suggestion hidden$="[[!documentField6Visible]]"  role="widget" class="sortable" id="[[documentField6Order]]" value="{{document.properties.custom:documentField6}}" label="[[documentField6Label]]" readonly="true"></qualitified-document-suggestion>
+                <qualitified-document-suggestion hidden$="[[!documentField7Visible]]"  role="widget" class="sortable" id="[[documentField7Order]]" value="{{document.properties.custom:documentField7}}" label="[[documentField7Label]]" readonly="true"></qualitified-document-suggestion>
+                <qualitified-document-suggestion hidden$="[[!documentField8Visible]]"  role="widget" class="sortable" id="[[documentField8Order]]" value="{{document.properties.custom:documentField8}}" label="[[documentField8Label]]" readonly="true"></qualitified-document-suggestion>
+                <qualitified-document-suggestion hidden$="[[!documentField9Visible]]"  role="widget" class="sortable" id="[[documentField9Order]]" value="{{document.properties.custom:documentField9}}" label="[[documentField9Label]]" readonly="true"></qualitified-document-suggestion>
+                <qualitified-document-suggestion hidden$="[[!documentField10Visible]]"  role="widget" class="sortable" id="[[documentField10Order]]" value="{{document.properties.custom:documentField10}}" label="[[documentField10Label]]" readonly="true"></qualitified-document-suggestion>
 
-    </div>
-  </iron-pages>
-  </template>
-  <script>
+            </div>
+        </iron-pages>
+    </template>
+    <script>
     Polymer({
       is: 'qualitified-custom-fields',
       behaviors: [Nuxeo.LayoutBehavior,Nuxeo.I18nBehavior,Nuxeo.FiltersBehavior],
@@ -2597,13 +2597,13 @@
               }
               if(field.path !== null && field.path !== ""){
                 if(namedParameters !== ""){
-                  namedParameters += ",";
+                  namedParameters += "\n";
                 }
                 namedParameters += "system_path=" + field.path;
               }
               if(field.primaryType !== null  && field.primaryType !== ""){
                 if(namedParameters !== ""){
-                  namedParameters += ",";
+                  namedParameters += "\n";
                 }
                 namedParameters += "system_primaryType=" + field.primaryType;
               }
@@ -2624,13 +2624,13 @@
               }
               if(field.path !== null && field.path !== ""){
                 if(namedParameters !== ""){
-                  namedParameters += ",";
+                  namedParameters += "\n";
                 }
                 namedParameters += "system_path=" + field.path;
               }
               if(field.primaryType !== null  && field.primaryType !== ""){
                 if(namedParameters !== ""){
-                  namedParameters += ",";
+                  namedParameters += "\n";
                 }
                 namedParameters += "system_primaryType=" + field.primaryType;
               }
@@ -2651,13 +2651,13 @@
               }
               if(field.path !== null && field.path !== ""){
                 if(namedParameters !== ""){
-                  namedParameters += ",";
+                  namedParameters += "\n";
                 }
                 namedParameters += "system_path=" + field.path;
               }
               if(field.primaryType !== null  && field.primaryType !== ""){
                 if(namedParameters !== ""){
-                  namedParameters += ",";
+                  namedParameters += "\n";
                 }
                 namedParameters += "system_primaryType=" + field.primaryType;
               }
@@ -2678,13 +2678,13 @@
               }
               if(field.path !== null && field.path !== ""){
                 if(namedParameters !== ""){
-                  namedParameters += ",";
+                  namedParameters += "\n";
                 }
                 namedParameters += "system_path=" + field.path;
               }
               if(field.primaryType !== null  && field.primaryType !== ""){
                 if(namedParameters !== ""){
-                  namedParameters += ",";
+                  namedParameters += "\n";
                 }
                 namedParameters += "system_primaryType=" + field.primaryType;
               }
@@ -2705,13 +2705,13 @@
               }
               if(field.path !== null && field.path !== ""){
                 if(namedParameters !== ""){
-                  namedParameters += ",";
+                  namedParameters += "\n";
                 }
                 namedParameters += "system_path=" + field.path;
               }
               if(field.primaryType !== null  && field.primaryType !== ""){
                 if(namedParameters !== ""){
-                  namedParameters += ",";
+                  namedParameters += "\n";
                 }
                 namedParameters += "system_primaryType=" + field.primaryType;
               }
@@ -2732,13 +2732,13 @@
               }
               if(field.path !== null && field.path !== ""){
                 if(namedParameters !== ""){
-                  namedParameters += ",";
+                  namedParameters += "\n";
                 }
                 namedParameters += "system_path=" + field.path;
               }
               if(field.primaryType !== null  && field.primaryType !== ""){
                 if(namedParameters !== ""){
-                  namedParameters += ",";
+                  namedParameters += "\n";
                 }
                 namedParameters += "system_primaryType=" + field.primaryType;
               }
@@ -2759,13 +2759,13 @@
               }
               if(field.path !== null && field.path !== ""){
                 if(namedParameters !== ""){
-                  namedParameters += ",";
+                  namedParameters += "\n";
                 }
                 namedParameters += "system_path=" + field.path;
               }
               if(field.primaryType !== null  && field.primaryType !== ""){
                 if(namedParameters !== ""){
-                  namedParameters += ",";
+                  namedParameters += "\n";
                 }
                 namedParameters += "system_primaryType=" + field.primaryType;
               }
@@ -2786,13 +2786,13 @@
               }
               if(field.path !== null && field.path !== ""){
                 if(namedParameters !== ""){
-                  namedParameters += ",";
+                  namedParameters += "\n";
                 }
                 namedParameters += "system_path=" + field.path;
               }
               if(field.primaryType !== null  && field.primaryType !== ""){
                 if(namedParameters !== ""){
-                  namedParameters += ",";
+                  namedParameters += "\n";
                 }
                 namedParameters += "system_primaryType=" + field.primaryType;
               }
@@ -2813,13 +2813,13 @@
               }
               if(field.path !== null && field.path !== ""){
                 if(namedParameters !== ""){
-                  namedParameters += ",";
+                  namedParameters += "\n";
                 }
                 namedParameters += "system_path=" + field.path;
               }
               if(field.primaryType !== null  && field.primaryType !== ""){
                 if(namedParameters !== ""){
-                  namedParameters += ",";
+                  namedParameters += "\n";
                 }
                 namedParameters += "system_primaryType=" + field.primaryType;
               }
@@ -2840,13 +2840,13 @@
               }
               if(field.path !== null && field.path !== ""){
                 if(namedParameters !== ""){
-                  namedParameters += ",";
+                  namedParameters += "\n";
                 }
                 namedParameters += "system_path=" + field.path;
               }
               if(field.primaryType !== null  && field.primaryType !== ""){
                 if(namedParameters !== ""){
-                  namedParameters += ",";
+                  namedParameters += "\n";
                 }
                 namedParameters += "system_primaryType=" + field.primaryType;
               }
