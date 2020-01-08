@@ -379,6 +379,7 @@
       <facet name="SavedSearch"/>
       <facet name="HiddenInNavigation"/>
       <schema name="interaction_list_pp"/>
+    </doctype>
     <doctype name="documents_pp" extends="Document">
       <facet name="ContentViewDisplay"/>
       <facet name="SavedSearch"/>
