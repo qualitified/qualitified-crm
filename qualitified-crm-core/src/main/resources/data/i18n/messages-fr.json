@@ -95,5 +95,8 @@
   "home.calendar": "Calendrier",
   "popup.open.doc": "Ouvrir le document",
   "popup.close": "Fermer",
-  "calendar.view.goToDate":"Aller à une date précise"
+  "calendar.view.goToDate":"Aller à une date précise",
+  "label.metadata.custom.primarytype": "Primary Type",
+  "label.metadata.custom.path": "Path",
+  "label.metadata.custom.parentid": "Parent Id"
 }

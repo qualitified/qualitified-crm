@@ -94,9 +94,30 @@
         </nuxeo-data-table-column>
         <nuxeo-data-table-column name="Disabled" field="scriptnote:isDisabled" sort-by="[[_displaySort(document, 'scriptnote:isDisabled')]]" hidden="">
           <template>
-            [[item.properties.scriptnote:isDisabled]]
+            <nuxeo-filter document=[[item]] expression="document.properties['scriptnote:isDisabled'] !== null">
+              <template>
+                <template is="dom-if" if="[[_isValid(item.properties.scriptnote:isDisabled)]]">
+                  <paper-icon-button icon="icons:block" style="color:#f50808"></paper-icon-button>
+                </template>
+              </template>
+            </nuxeo-filter>
           </template>
         </nuxeo-data-table-column>
+        <nuxeo-data-table-column name="Valid" field="scriptnote:isValid" sort-by="[[_displaySort(document, 'scriptnote:isValid')]]">
+          <template>
+            <nuxeo-filter document=[[item]] expression="document.properties['scriptnote:isValid'] !== undefined && document.properties['scriptnote:isValid'] !== null">
+              <template>
+                <template is="dom-if" if="[[_isValid(item.properties.scriptnote:isValid)]]">
+                  <paper-icon-button id="button" icon="icons:check-circle" style="color:#2bd670"></paper-icon-button>
+                </template>
+                <template is="dom-if" if="[[!_isValid(item.properties.scriptnote:isValid)]]">
+                  <paper-icon-button id="button" icon="icons:cancel" style="color:#f50808"></paper-icon-button>
+                </template>
+              </template>
+            </nuxeo-filter>
+          </template>
+        </nuxeo-data-table-column>
+      </nuxeo-data-table>
     </nuxeo-results>
 
   </template>
@@ -174,6 +195,9 @@
       _displaySort: function() {
         return false;
       },
+      _isValid: function(value) {
+        return value === true;
+      }
     });
   </script>
 

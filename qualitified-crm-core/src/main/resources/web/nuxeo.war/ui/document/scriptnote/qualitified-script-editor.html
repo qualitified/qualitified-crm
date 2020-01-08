@@ -18,10 +18,19 @@
 
       .edit {
         position: absolute;
+        right: -10px;
+        top: -15px;
+      }
+      .status {
+        position: absolute;
         right: 10px;
         top: -15px;
       }
-
+      .disabled {
+        position: absolute;
+        right: 32px;
+        top: -15px;
+      }
       paper-textarea {
         --paper-input-container-underline: {
           border-bottom: none 0;
@@ -42,6 +51,27 @@
     <div class="main">
       <template is="dom-if" if="[[_viewMode]]">
         <paper-icon-button id="editNote" class="edit" icon="nuxeo:edit" on-tap="_edit" hidden$="[[!_canEdit(document)]]"></paper-icon-button>
+        <nuxeo-filter document=[[document]] expression="document.properties['scriptnote:isValid'] !== null">
+          <template>
+            <template is="dom-if" if="[[_isValid(document.properties.scriptnote:isValid)]]">
+              <paper-icon-button id="ok" class="status" icon="icons:check-circle" style="color:#2bd670"></paper-icon-button>
+              <paper-tooltip for="ok">OK</paper-tooltip>
+            </template>
+            <template is="dom-if" if="[[!_isValid(document.properties.scriptnote:isValid)]]">
+              <paper-icon-button id="ko" class="status" icon="icons:cancel" style="color:#f50808"></paper-icon-button>
+              <paper-tooltip for="ko">KO</paper-tooltip>
+            </template>
+          </template>
+        </nuxeo-filter>
+
+        <nuxeo-filter document=[[document]] expression="document.properties['scriptnote:isDisabled'] !== null">
+          <template>
+            <template is="dom-if" if="[[_isValid(document.properties.scriptnote:isDisabled)]]">
+              <paper-icon-button id="disabled" class="disabled" icon="icons:block" style="color:#f50808"></paper-icon-button>
+              <paper-tooltip for="disabled">Disabled</paper-tooltip>
+            </template>
+          </template>
+        </nuxeo-filter>
         <div>
           function(input, params){
           <juicy-ace-editor value={{_value}} readonly="true" theme="ace/theme/monokai" mode="ace/mode/javascript" fontsize="14">{{_value}}</juicy-ace-editor>
@@ -50,7 +80,7 @@
       </template>
       <template is="dom-if" if="[[!_viewMode]]">
         function(input, params){
-          <juicy-ace-editor id="fileEditor" value={{_value}} theme="ace/theme/monokai" mode="ace/mode/javascript" fontsize="14">{{_value}}</juicy-ace-editor>
+        <juicy-ace-editor id="fileEditor" value={{_value}} theme="ace/theme/monokai" mode="ace/mode/javascript" fontsize="14">{{_value}}</juicy-ace-editor>
         }
         <div class="layout horizontal end-justified">
           <paper-button noink on-tap="_cancel">[[i18n('command.cancel')]]</paper-button>
@@ -125,6 +155,9 @@
         this._value = '';
         this._value = this.document.properties['note:note'];
         this._viewMode = true;
+      },
+      _isValid: function(value) {
+        return value === true;
       }
     });
   })();

@@ -3,6 +3,8 @@
 <link rel="import" href="document/qualitified-document-page.html">
 <link rel="import" href="document/sales/nuxeo-sales-settings-button.html">
 <link rel="import" href="qualitified-icons.html">
+<link rel="import" href="elements/qualitified-document-suggestion.html">
+<link rel="import" href="elements/qualitified-operation-button.html">
 <!-- Contribution of element 'custom-document-page' for slot 'DOCUMENT_VIEWS_PAGES' -->
 <nuxeo-slot-content name="myViewPage" slot="DOCUMENT_VIEWS_PAGES" >
   <template>
@@ -192,5 +194,25 @@
 <nuxeo-slot-content name="customizationDrawerPage" slot="DRAWER_PAGES" order="200">
   <template>
     <nuxeo-document-tree root-doc-path="/Admin" label="app.customization" name="customization" ></nuxeo-document-tree>
+  </template>
+</nuxeo-slot-content>
+
+<nuxeo-slot-content name="RunUnitTests" slot="DOCUMENT_ACTIONS">
+  <template>
+    <nuxeo-filter document="[[document]]" type="Scripts" expression="document.title.startsWith('UnitTests')">
+      <template>
+        <qualitified-operation-button document="[[document]]" operation="Qualitified.RunUnitTests" icon="icons:verified-user" label="Run Tests"></qualitified-operation-button>
+      </template>
+    </nuxeo-filter>
+  </template>
+</nuxeo-slot-content>
+
+<nuxeo-slot-content name="RunUnitTest" slot="DOCUMENT_ACTIONS">
+  <template>
+    <nuxeo-filter document="[[document]]" type="ScriptNote" expression="document.title.startsWith('UnitTest')">
+      <template>
+        <qualitified-operation-button document="[[document]]" operation="Qualitified.RunUnitTest" icon="icons:verified-user" label="Run Test"></qualitified-operation-button>
+      </template>
+    </nuxeo-filter>
   </template>
 </nuxeo-slot-content>

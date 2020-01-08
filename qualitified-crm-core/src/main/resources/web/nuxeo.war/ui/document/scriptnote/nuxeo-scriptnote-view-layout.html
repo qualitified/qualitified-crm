@@ -29,7 +29,12 @@ limitations under the License.
       }
     </style>
     <qualitified-script-editor role="widget" document="[[document]]"></qualitified-script-editor>
-    <!--nuxeo-document-attachments role="widget" document="[[document]]"></nuxeo-document-attachments-->
+
+    <div role="widget" hidden$="[[!document.properties.dc:description]]">
+      <paper-card>
+        <div name="description" class="multiline">[[document.properties.dc:description]]</div>
+      </paper-card>
+    </div>
   </template>
 
   <script>

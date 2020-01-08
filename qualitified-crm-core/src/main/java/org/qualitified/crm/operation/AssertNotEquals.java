@@ -9,6 +9,11 @@ import org.nuxeo.ecm.automation.core.annotations.Operation;
 import org.nuxeo.ecm.automation.core.annotations.OperationMethod;
 import org.nuxeo.ecm.automation.core.annotations.Param;
 import org.nuxeo.ecm.core.api.CoreSession;
+import org.nuxeo.ecm.core.api.DocumentModel;
+import org.nuxeo.ecm.core.api.IdRef;
+
+import java.util.Calendar;
+import java.util.TimeZone;
 
 /**
  * Created by michaelgena on 29/12/2019.
@@ -35,14 +40,25 @@ public class AssertNotEquals {
 
     @OperationMethod
     public void run() throws Exception {
+        String scriptId = (String)ctx.get("scriptId");
+        DocumentModel script = session.getDocument(new IdRef(scriptId));;
+        String log = "";
         if(expected == null){
-            logger.error("Test failed: expected value is null.");
+            logger.error("Test failed: "+message+", expected value is null.");
+            log = Calendar.getInstance(TimeZone.getDefault()).getTime()+" Test failed: expected value is null\n";
         }else if(result == null){
-            logger.error("Test failed: result value is null.");
+            logger.error("Test failed: "+message+", result value is null.");
+            log = Calendar.getInstance(TimeZone.getDefault()).getTime()+" Test failed: result value is null.\n";
         }else if(expected.equals(result)) {
             logger.error("Test failed: "+message+", expected ["+expected+"], result ["+result+"]");
-        }else{
-            logger.warn("Test passed!");
+            log = Calendar.getInstance(TimeZone.getDefault()).getTime()+" Test failed: "+message+", expected ["+expected+"], result ["+result+"]\n";
+        }
+        if(!log.equals("")){
+            String existingLog = script.getPropertyValue("dc:description") != null ? (String)script.getPropertyValue("dc:description") : "";
+            script.setPropertyValue("dc:description", log+existingLog);
+            script.setPropertyValue("scriptnote:isValid", false);
+            session.saveDocument(script);
+            session.save();
         }
     }
 
