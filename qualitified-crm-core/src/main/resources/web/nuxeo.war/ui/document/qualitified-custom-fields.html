@@ -2288,6 +2288,191 @@
           type: Number
         },
 
+
+        documents2Params:{},
+        documentField2Visible  : {
+          type: Boolean,
+          value: false
+        },
+        documentField2Label : {
+          type: String
+        },
+        documentField2Required : {
+          type: Boolean,
+          value: false
+        },
+        documentField2Multivalue  : {
+          type: Boolean,
+          value: false
+        },
+        documentField2Order : {
+          type: Number
+        },
+
+        documents3Params:{},
+        documentField3Visible  : {
+          type: Boolean,
+          value: false
+        },
+        documentField3Label : {
+          type: String
+        },
+        documentField3Required : {
+          type: Boolean,
+          value: false
+        },
+        documentField3Multivalue  : {
+          type: Boolean,
+          value: false
+        },
+        documentField3Order : {
+          type: Number
+        },
+
+
+        documents4Params:{},
+        documentField4Visible  : {
+          type: Boolean,
+          value: false
+        },
+        documentField4Label : {
+          type: String
+        },
+        documentField4Required : {
+          type: Boolean,
+          value: false
+        },
+        documentField4Multivalue  : {
+          type: Boolean,
+          value: false
+        },
+        documentField4Order : {
+          type: Number
+        },
+
+        documents5Params:{},
+        documentField5Visible  : {
+          type: Boolean,
+          value: false
+        },
+        documentField5Label : {
+          type: String
+        },
+        documentField5Required : {
+          type: Boolean,
+          value: false
+        },
+        documentField5Multivalue  : {
+          type: Boolean,
+          value: false
+        },
+        documentField5Order : {
+          type: Number
+        },
+
+
+        documents6Params:{},
+        documentField6Visible  : {
+          type: Boolean,
+          value: false
+        },
+        documentField6Label : {
+          type: String
+        },
+        documentField6Required : {
+          type: Boolean,
+          value: false
+        },
+        documentField6Multivalue  : {
+          type: Boolean,
+          value: false
+        },
+        documentField6Order : {
+          type: Number
+        },
+
+        documents7Params:{},
+        documentField7Visible  : {
+          type: Boolean,
+          value: false
+        },
+        documentField7Label : {
+          type: String
+        },
+        documentField7Required : {
+          type: Boolean,
+          value: false
+        },
+        documentField7Multivalue  : {
+          type: Boolean,
+          value: false
+        },
+        documentField7Order : {
+          type: Number
+        },
+
+
+        documents8Params:{},
+        documentField8Visible  : {
+          type: Boolean,
+          value: false
+        },
+        documentField8Label : {
+          type: String
+        },
+        documentField8Required : {
+          type: Boolean,
+          value: false
+        },
+        documentField8Multivalue  : {
+          type: Boolean,
+          value: false
+        },
+        documentField8Order : {
+          type: Number
+        },
+
+
+        documents9Params:{},
+        documentField9Visible  : {
+          type: Boolean,
+          value: false
+        },
+        documentField9Label : {
+          type: String
+        },
+        documentField9Required : {
+          type: Boolean,
+          value: false
+        },
+        documentField9Multivalue  : {
+          type: Boolean,
+          value: false
+        },
+        documentField9Order : {
+          type: Number
+        },
+
+        documents10Params:{},
+        documentField10Visible  : {
+          type: Boolean,
+          value: false
+        },
+        documentField10Label : {
+          type: String
+        },
+        documentField10Required : {
+          type: Boolean,
+          value: false
+        },
+        documentField10Multivalue  : {
+          type: Boolean,
+          value: false
+        },
+        documentField10Order : {
+          type: Number
+        }
+
       },
       ready: function(){
       },
@@ -2423,6 +2608,249 @@
                 namedParameters += "system_primaryType=" + field.primaryType;
               }
               this.documents1Params = {
+                  namedParameters : namedParameters
+              };
+            }
+
+            if(field.fieldName === 'documentField2'){
+              this.documentField2Visible = this._isVisible(field.readGroup,field.editGroup,field.hiddenGroup);
+              this.documentField2Label = field.label;
+              this.documentField2Required = this._isVisible(field.readGroup,field.editGroup,field.hiddenGroup)? field.required : false;
+              this.documentField2Order = i;
+              this.documentField1Multivalue = field.multivalue;
+              var namedParameters = "";
+              if(field.parentId !== null && field.parentId !== ""){
+                namedParameters = "system_parentId=" + field.parentId;
+              }
+              if(field.path !== null && field.path !== ""){
+                if(namedParameters !== ""){
+                  namedParameters += ",";
+                }
+                namedParameters += "system_path=" + field.path;
+              }
+              if(field.primaryType !== null  && field.primaryType !== ""){
+                if(namedParameters !== ""){
+                  namedParameters += ",";
+                }
+                namedParameters += "system_primaryType=" + field.primaryType;
+              }
+              this.documents2Params = {
+                  namedParameters : namedParameters
+              };
+            }
+
+            if(field.fieldName === 'documentField3'){
+              this.documentField3Visible = this._isVisible(field.readGroup,field.editGroup,field.hiddenGroup);
+              this.documentField3Label = field.label;
+              this.documentField3Required = this._isVisible(field.readGroup,field.editGroup,field.hiddenGroup)? field.required : false;
+              this.documentField3Order = i;
+              this.documentField1Multivalue = field.multivalue;
+              var namedParameters = "";
+              if(field.parentId !== null && field.parentId !== ""){
+                namedParameters = "system_parentId=" + field.parentId;
+              }
+              if(field.path !== null && field.path !== ""){
+                if(namedParameters !== ""){
+                  namedParameters += ",";
+                }
+                namedParameters += "system_path=" + field.path;
+              }
+              if(field.primaryType !== null  && field.primaryType !== ""){
+                if(namedParameters !== ""){
+                  namedParameters += ",";
+                }
+                namedParameters += "system_primaryType=" + field.primaryType;
+              }
+              this.documents3Params = {
+                  namedParameters : namedParameters
+              };
+            }
+
+            if(field.fieldName === 'documentField4'){
+              this.documentField4Visible = this._isVisible(field.readGroup,field.editGroup,field.hiddenGroup);
+              this.documentField4Label = field.label;
+              this.documentField4Required = this._isVisible(field.readGroup,field.editGroup,field.hiddenGroup)? field.required : false;
+              this.documentField4Order = i;
+              this.documentField1Multivalue = field.multivalue;
+              var namedParameters = "";
+              if(field.parentId !== null && field.parentId !== ""){
+                namedParameters = "system_parentId=" + field.parentId;
+              }
+              if(field.path !== null && field.path !== ""){
+                if(namedParameters !== ""){
+                  namedParameters += ",";
+                }
+                namedParameters += "system_path=" + field.path;
+              }
+              if(field.primaryType !== null  && field.primaryType !== ""){
+                if(namedParameters !== ""){
+                  namedParameters += ",";
+                }
+                namedParameters += "system_primaryType=" + field.primaryType;
+              }
+              this.documents4Params = {
+                  namedParameters : namedParameters
+              };
+            }
+
+            if(field.fieldName === 'documentField5'){
+              this.documentField5Visible = this._isVisible(field.readGroup,field.editGroup,field.hiddenGroup);
+              this.documentField5Label = field.label;
+              this.documentField5Required = this._isVisible(field.readGroup,field.editGroup,field.hiddenGroup)? field.required : false;
+              this.documentField5Order = i;
+              this.documentField1Multivalue = field.multivalue;
+              var namedParameters = "";
+              if(field.parentId !== null && field.parentId !== ""){
+                namedParameters = "system_parentId=" + field.parentId;
+              }
+              if(field.path !== null && field.path !== ""){
+                if(namedParameters !== ""){
+                  namedParameters += ",";
+                }
+                namedParameters += "system_path=" + field.path;
+              }
+              if(field.primaryType !== null  && field.primaryType !== ""){
+                if(namedParameters !== ""){
+                  namedParameters += ",";
+                }
+                namedParameters += "system_primaryType=" + field.primaryType;
+              }
+              this.documents5Params = {
+                  namedParameters : namedParameters
+              };
+            }
+
+            if(field.fieldName === 'documentField6'){
+              this.documentField6Visible = this._isVisible(field.readGroup,field.editGroup,field.hiddenGroup);
+              this.documentField6Label = field.label;
+              this.documentField6Required = this._isVisible(field.readGroup,field.editGroup,field.hiddenGroup)? field.required : false;
+              this.documentField6Order = i;
+              this.documentField1Multivalue = field.multivalue;
+              var namedParameters = "";
+              if(field.parentId !== null && field.parentId !== ""){
+                namedParameters = "system_parentId=" + field.parentId;
+              }
+              if(field.path !== null && field.path !== ""){
+                if(namedParameters !== ""){
+                  namedParameters += ",";
+                }
+                namedParameters += "system_path=" + field.path;
+              }
+              if(field.primaryType !== null  && field.primaryType !== ""){
+                if(namedParameters !== ""){
+                  namedParameters += ",";
+                }
+                namedParameters += "system_primaryType=" + field.primaryType;
+              }
+              this.documents6Params = {
+                  namedParameters : namedParameters
+              };
+            }
+
+            if(field.fieldName === 'documentField7'){
+              this.documentField7Visible = this._isVisible(field.readGroup,field.editGroup,field.hiddenGroup);
+              this.documentField7Label = field.label;
+              this.documentField7Required = this._isVisible(field.readGroup,field.editGroup,field.hiddenGroup)? field.required : false;
+              this.documentField7Order = i;
+              this.documentField1Multivalue = field.multivalue;
+              var namedParameters = "";
+              if(field.parentId !== null && field.parentId !== ""){
+                namedParameters = "system_parentId=" + field.parentId;
+              }
+              if(field.path !== null && field.path !== ""){
+                if(namedParameters !== ""){
+                  namedParameters += ",";
+                }
+                namedParameters += "system_path=" + field.path;
+              }
+              if(field.primaryType !== null  && field.primaryType !== ""){
+                if(namedParameters !== ""){
+                  namedParameters += ",";
+                }
+                namedParameters += "system_primaryType=" + field.primaryType;
+              }
+              this.documents7Params = {
+                  namedParameters : namedParameters
+              };
+            }
+
+            if(field.fieldName === 'documentField8'){
+              this.documentField8Visible = this._isVisible(field.readGroup,field.editGroup,field.hiddenGroup);
+              this.documentField8Label = field.label;
+              this.documentField8Required = this._isVisible(field.readGroup,field.editGroup,field.hiddenGroup)? field.required : false;
+              this.documentField8Order = i;
+              this.documentField1Multivalue = field.multivalue;
+              var namedParameters = "";
+              if(field.parentId !== null && field.parentId !== ""){
+                namedParameters = "system_parentId=" + field.parentId;
+              }
+              if(field.path !== null && field.path !== ""){
+                if(namedParameters !== ""){
+                  namedParameters += ",";
+                }
+                namedParameters += "system_path=" + field.path;
+              }
+              if(field.primaryType !== null  && field.primaryType !== ""){
+                if(namedParameters !== ""){
+                  namedParameters += ",";
+                }
+                namedParameters += "system_primaryType=" + field.primaryType;
+              }
+              this.documents8Params = {
+                  namedParameters : namedParameters
+              };
+            }
+
+            if(field.fieldName === 'documentField9'){
+              this.documentField9Visible = this._isVisible(field.readGroup,field.editGroup,field.hiddenGroup);
+              this.documentField9Label = field.label;
+              this.documentField9Required = this._isVisible(field.readGroup,field.editGroup,field.hiddenGroup)? field.required : false;
+              this.documentField9Order = i;
+              this.documentField1Multivalue = field.multivalue;
+              var namedParameters = "";
+              if(field.parentId !== null && field.parentId !== ""){
+                namedParameters = "system_parentId=" + field.parentId;
+              }
+              if(field.path !== null && field.path !== ""){
+                if(namedParameters !== ""){
+                  namedParameters += ",";
+                }
+                namedParameters += "system_path=" + field.path;
+              }
+              if(field.primaryType !== null  && field.primaryType !== ""){
+                if(namedParameters !== ""){
+                  namedParameters += ",";
+                }
+                namedParameters += "system_primaryType=" + field.primaryType;
+              }
+              this.documents9Params = {
+                  namedParameters : namedParameters
+              };
+            }
+
+            if(field.fieldName === 'documentField10'){
+              this.documentField10Visible = this._isVisible(field.readGroup,field.editGroup,field.hiddenGroup);
+              this.documentField10Label = field.label;
+              this.documentField10Required = this._isVisible(field.readGroup,field.editGroup,field.hiddenGroup)? field.required : false;
+              this.documentField10Order = i;
+              this.documentField1Multivalue = field.multivalue;
+              var namedParameters = "";
+              if(field.parentId !== null && field.parentId !== ""){
+                namedParameters = "system_parentId=" + field.parentId;
+              }
+              if(field.path !== null && field.path !== ""){
+                if(namedParameters !== ""){
+                  namedParameters += ",";
+                }
+                namedParameters += "system_path=" + field.path;
+              }
+              if(field.primaryType !== null  && field.primaryType !== ""){
+                if(namedParameters !== ""){
+                  namedParameters += ",";
+                }
+                namedParameters += "system_primaryType=" + field.primaryType;
+              }
+              this.documents10Params = {
                   namedParameters : namedParameters
               };
             }
