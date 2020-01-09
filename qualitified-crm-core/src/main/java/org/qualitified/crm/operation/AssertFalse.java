@@ -42,7 +42,7 @@ public class AssertFalse {
         String log = "";
         if(result){
             logger.warn("Test failed: "+message+", expected [false], result [true].");
-            log = Calendar.getInstance(TimeZone.getDefault()).getTime()+" Test failed: expected [false], result [true].\n";
+            log = Calendar.getInstance(TimeZone.getDefault()).getTime()+" Test failed: "+message+", expected [false], result [true].\n";
         }
         if(!log.equals("")){
             String existingLog = script.getPropertyValue("dc:description") != null ? (String)script.getPropertyValue("dc:description") : "";
