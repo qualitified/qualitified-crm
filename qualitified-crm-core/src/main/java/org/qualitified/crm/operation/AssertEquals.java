@@ -47,10 +47,10 @@ public class AssertEquals {
         String log = "";
         if(expected == null){
             logger.error("Test failed: "+message+", expected value is null.");
-            log += Calendar.getInstance(TimeZone.getDefault()).getTime()+" Test failed: expected value is null.\n";
+            log += Calendar.getInstance(TimeZone.getDefault()).getTime()+" Test failed: "+message+", expected value is null.\n";
         }else if(result == null){
             logger.error("Test failed: "+message+", result value is null.");
-            log += Calendar.getInstance(TimeZone.getDefault()).getTime()+" Test failed: expected value is null.\n";
+            log += Calendar.getInstance(TimeZone.getDefault()).getTime()+" Test failed: "+message+", expected value is null.\n";
         }else if(!expected.equals(result)) {
             logger.error("Test failed: "+message+", expected ["+expected+"], result ["+result+"]");
             log += Calendar.getInstance(TimeZone.getDefault()).getTime()+" Test failed: "+message+", expected ["+expected+"], result ["+result+"]\n";
