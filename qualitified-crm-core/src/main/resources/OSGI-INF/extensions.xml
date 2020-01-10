@@ -9,6 +9,7 @@
     <schema name="domain_schema" prefix="domain_schema" override="true" src="data/schemas/domain_schema.xsd"/>
     <schema name="admin" prefix="admin" override="true" src="data/schemas/admin.xsd"/>
     <schema name="contact" prefix="contact" override="true" src="data/schemas/contact.xsd"/>
+    <schema name="address" prefix="address" override="true" src="data/schemas/address.xsd"/>
     <schema name="file_schema" prefix="file_schema" override="true" src="data/schemas/file_schema.xsd"/>
     <schema name="interaction" prefix="interaction" override="true" src="data/schemas/interaction.xsd"/>
     <schema name="marketing" prefix="marketing" override="true" src="data/schemas/marketing.xsd"/>
@@ -146,10 +147,12 @@
       <schema name="person"/>
       <schema name="picture"/>
       <schema name="custom"/>
+      <schema name="address"/>
       <facet name="Picture"/>
       <facet name="NXTag"/>
     </doctype>
     <doctype name="Account" append="true">
+      <schema name="address"/>
       <subtypes>
         <type>Contact</type>
       </subtypes>
@@ -262,6 +265,7 @@
       <schema name="uid"/>
       <schema name="person"/>
       <schema name="custom"/>
+      <schema name="address"/>
     </doctype>
     <doctype name="Marketing" append="true">
       <subtypes>

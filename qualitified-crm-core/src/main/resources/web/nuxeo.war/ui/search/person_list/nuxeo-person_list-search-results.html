@@ -43,16 +43,19 @@
                            on-click="_navigate">[[item.title]]</a>
                     </template>
                 </nuxeo-data-table-column>
-                <nuxeo-data-table-column name="E-mail" field="person:email" sort-by="person:email" flex="100">
-                    <template>
-                        [[item.properties.person:email]]
-                    </template>
-                </nuxeo-data-table-column>
+
                 <nuxeo-data-table-column name="Role" field="person:Role" sort-by="person:Role" flex="60">
                     <template>
                         [[formatDirectory(item.properties.person:Role)]]
                     </template>
                 </nuxeo-data-table-column>
+
+                <nuxeo-data-table-column name="E-mail" field="person:email" sort-by="person:email" flex="100">
+                    <template>
+                        [[item.properties.person:email]]
+                    </template>
+                </nuxeo-data-table-column>
+
                 <nuxeo-data-table-column name="Phone Number" field="person:phoneNumber" sort-by="person:phoneNumber"
                                          flex="60">
                     <template>

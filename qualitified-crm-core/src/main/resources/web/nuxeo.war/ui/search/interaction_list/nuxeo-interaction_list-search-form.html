@@ -51,7 +51,7 @@
         </nuxeo-input>
         <br/>
         <div class="layout vertical row">
-            <label>[[i18n('label.metadata.closedate')]]</label>
+            <label>[[i18n('label.interaction.date')]]</label>
             <nuxeo-date-picker value="{{params.interaction_closeDate_min}}"
                                label="[[i18n('opportunity.list.from')]]"></nuxeo-date-picker>
             <nuxeo-date-picker value="{{params.interaction_closeDate_max}}"
@@ -75,7 +75,7 @@
         </div>
         <br/>
         <div class="layout vertical row">
-            <label>[[i18n('label.last.interaction.date')]]</label>
+            <label>[[i18n('label.interaction.date')]]</label>
             <nuxeo-checkbox-aggregation
                     data="[[aggregations.interaction_date_agg]]"
                     value="{{params.interaction_date_agg}})">

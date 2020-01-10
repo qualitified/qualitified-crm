@@ -33,24 +33,28 @@
                            on-click="_navigate">[[item.title]]</a>
                     </template>
                 </nuxeo-data-table-column>
-                <nuxeo-data-table-column name="[[i18n('label.metadata.date')]]" field="interaction:date"
-                                         sort-by="interaction:date" flex="60">
-                    <template>
-                        [[formatDate(item.properties.interaction:date)]]
-                    </template>
-                </nuxeo-data-table-column>
-                <nuxeo-data-table-column name="[[i18n('label.metadata.status')]]" field="interaction:status"
-                                         sort-by="interaction:status" flex="60">
-                    <template>
-                        [[formatDirectory(item.properties.interaction:status)]]
-                    </template>
-                </nuxeo-data-table-column>
+
                 <nuxeo-data-table-column name="[[i18n('label.metadata.activity')]]" field="interaction:activity"
                                          sort-by="interaction:activity" flex="60">
                     <template>
                         [[formatDirectory(item.properties.interaction:activity)]]
                     </template>
                 </nuxeo-data-table-column>
+
+                <nuxeo-data-table-column name="[[i18n('label.metadata.date')]]" field="interaction:date"
+                                         sort-by="interaction:date" flex="60">
+                    <template>
+                        [[formatDate(item.properties.interaction:date)]]
+                    </template>
+                </nuxeo-data-table-column>
+
+                <nuxeo-data-table-column name="[[i18n('label.metadata.status')]]" field="interaction:status"
+                                         sort-by="interaction:status" flex="60">
+                    <template>
+                        [[formatDirectory(item.properties.interaction:status)]]
+                    </template>
+                </nuxeo-data-table-column>
+
                 <nuxeo-data-table-column name="Modified" field="dc:modified" sort-by="dc:modified" flex="60">
                     <template>
                         [[formatDate(item.properties.dc:modified)]]
@@ -63,6 +67,7 @@
                         <nuxeo-user-tag user="[[item.properties.dc:lastContributor]]"></nuxeo-user-tag>
                     </template>
                 </nuxeo-data-table-column>
+
             </nuxeo-data-table>
 
             <nuxeo-data-grid class="results" empty-label="[[i18n('searchResults.noResults')]]" selection-enabled=""
