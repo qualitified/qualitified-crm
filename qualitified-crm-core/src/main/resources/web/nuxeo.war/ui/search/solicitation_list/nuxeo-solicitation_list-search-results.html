@@ -1,4 +1,4 @@
-<!--
+  <!--
 `nuxeo-solicitation_list-search-results`
 @group Nuxeo UI
 @element nuxeo-solicitation_list-search-results
@@ -37,18 +37,20 @@
           </template>
         </nuxeo-data-table-column>
 
-        <nuxeo-data-table-column name="[[i18n('label.metadata.solicitation.category')]]" field="solicitation:category" sort-by="solicitation:category"
+        <nuxeo-data-table-column name="[[i18n('label.metadata.solicitation.status')]]" field="solicitation:status" sort-by="solicitation:status"
                                  flex="50">
-          <template>
-            [[formatDirectory(item.properties.solicitation:category)]]
-          </template>
-        </nuxeo-data-table-column>
-
-        <nuxeo-data-table-column name="[[i18n('label.metadata.solicitation.status')]]" field="solicitation:status" sort-by="solicitation:status" flex="50">
           <template>
             [[formatDirectory(item.properties.solicitation:status)]]
           </template>
         </nuxeo-data-table-column>
+
+        <nuxeo-data-table-column name="[[i18n('label.metadata.date')]]" field="dc:modified" sort-by="dc:modified"
+                                 flex="50">
+          <template>
+            [[formatDirectory(item.properties.dc:modified)]]
+          </template>
+        </nuxeo-data-table-column>
+
 
       </nuxeo-data-table>
     </nuxeo-results>

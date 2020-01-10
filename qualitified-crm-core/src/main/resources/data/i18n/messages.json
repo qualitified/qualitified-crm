@@ -55,6 +55,7 @@
   "label.metadata.opportunity":"Opportunity",
   "label.account.type":"Account Type",
   "label.last.interaction.date": "Last Interaction Date",
+  "label.interaction.date": "Interaction Date",
   "true": "true",
   "false": "false",
   "label.metadata.contact.picture": "Picture",

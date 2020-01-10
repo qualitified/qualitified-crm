@@ -1,35 +1,65 @@
 <link rel="import" href="../qualitified-custom-fields.html">
 <dom-module id="nuxeo-contact-edit-layout">
-  <template>
-    <style>
+    <template>
+        <style>
       *[role=widget] {
         padding: 5px;
       }
-    </style>
-<!--nuxeo-input value="{{document.properties.dc:title}}" label="Title" role="widget"></nuxeo-input-->
 
-<nuxeo-directory-suggestion value="{{document.properties.person:civility}}" label="[[i18n('label.metadata.civility')]]" directory-name="Civility" role="widget" min-chars="0"></nuxeo-directory-suggestion>
+        </style>
+        <!--nuxeo-input value="{{document.properties.dc:title}}" label="Title" role="widget"></nuxeo-input-->
 
-<nuxeo-input value="{{document.properties.person:firstName}}" label="[[i18n('label.metadata.firstname')]]" role="widget"></nuxeo-input>
+        <nuxeo-directory-suggestion value="{{document.properties.person:civility}}"
+                                    label="[[i18n('label.metadata.civility')]]" directory-name="Civility" role="widget"
+                                    min-chars="0"></nuxeo-directory-suggestion>
 
-<nuxeo-input value="{{document.properties.person:lastName}}" label="[[i18n('label.metadata.lastname')]]" role="widget"></nuxeo-input>
+        <nuxeo-input value="{{document.properties.person:firstName}}" label="[[i18n('label.metadata.firstname')]]"
+                     role="widget"></nuxeo-input>
 
-<nuxeo-directory-suggestion value="{{document.properties.person:Role}}" label="[[i18n('label.metadata.role')]]" directory-name="Role" role="widget" min-chars="0"></nuxeo-directory-suggestion>
+        <nuxeo-input value="{{document.properties.person:lastName}}" label="[[i18n('label.metadata.lastname')]]"
+                     role="widget"></nuxeo-input>
 
-<nuxeo-input value="{{document.properties.person:email}}" label="[[i18n('label.metadata.email')]]" pattern="^[a-z0-9!#$%&amp;'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&amp;'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$" role="widget"></nuxeo-input>
+        <nuxeo-directory-suggestion value="{{document.properties.person:Role}}" label="[[i18n('label.metadata.role')]]"
+                                    directory-name="Role" role="widget" min-chars="0"></nuxeo-directory-suggestion>
 
-<nuxeo-input value="{{document.properties.person:phoneNumber}}" label="[[i18n('label.metadata.phone')]]" role="widget"></nuxeo-input>
-<nuxeo-textarea role="widget" value="{{document.properties.dc:description}}" label="[[i18n('label.metadata.description')]]"></nuxeo-textarea>
-<qualitified-custom-fields document="{{document}}" mode="edit"></qualitified-custom-fields>
+        <nuxeo-input value="{{document.properties.person:email}}" label="[[i18n('label.metadata.email')]]"
+                     pattern="^[a-z0-9!#$%&amp;'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&amp;'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$"
+                     role="widget"></nuxeo-input>
 
-<div role="widget">
-  <label>[[i18n('label.metadata.contact.picture')]]</label>
-  <nuxeo-file value="{{document.properties.file:content}}"></nuxeo-file>
-</div>
+        <nuxeo-input value="{{document.properties.person:phoneNumber}}" label="[[i18n('label.metadata.phone')]]"
+                     role="widget"></nuxeo-input>
+        <nuxeo-textarea role="widget" value="{{document.properties.dc:description}}"
+                        label="[[i18n('label.metadata.description')]]"></nuxeo-textarea>
+        <nuxeo-input value="{{document.properties.Address:address1}}" label="Address1" type="text"
+                     role="widget"></nuxeo-input>
 
-  </template>
+        <nuxeo-input value="{{document.properties.Address:address2}}" label="Address2" type="text"
+                     role="widget"></nuxeo-input>
 
-  <script>
+        <nuxeo-input value="{{document.properties.Address:address3}}" label="Address3" type="text"
+                     role="widget"></nuxeo-input>
+
+        <nuxeo-input value="{{document.properties.Address:country}}" label="Country" type="text"
+                     role="widget"></nuxeo-input>
+
+        <nuxeo-input value="{{document.properties.Address:latitude}}" label="Latitude" type="number" step="0.01"
+                     role="widget"></nuxeo-input>
+
+        <nuxeo-input value="{{document.properties.Address:longitude}}" label="Longitude" type="number" step="0.01"
+                     role="widget"></nuxeo-input>
+
+        <nuxeo-input value="{{document.properties.Address:zipCode}}" label="Zip Code" type="number"
+                     role="widget"></nuxeo-input>
+        <qualitified-custom-fields document="{{document}}" mode="edit"></qualitified-custom-fields>
+
+        <div role="widget">
+            <label>[[i18n('label.metadata.contact.picture')]]</label>
+            <nuxeo-file value="{{document.properties.file:content}}"></nuxeo-file>
+        </div>
+
+    </template>
+
+    <script>
     (function() {
       'use strict';
       Polymer({
@@ -47,5 +77,6 @@
 
       });
     })();
-  </script>
+
+    </script>
 </dom-module>

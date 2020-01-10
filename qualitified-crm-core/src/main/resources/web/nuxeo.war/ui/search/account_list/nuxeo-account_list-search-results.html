@@ -15,7 +15,9 @@
         }
       </style>
       <nuxeo-operation id="getCustomFields" op="getCustomFieldsChain" params="[[params]]"></nuxeo-operation>
-      <nuxeo-results name="account_list" nx-provider="[[nxProvider]]">
+
+    <nuxeo-results name="account_list" nx-provider="[[nxProvider]]">
+
         <nuxeo-data-grid name="grid" icon="icons:apps" class="results" empty-label="[[i18n('searchResults.noResults')]]"
                          selection-enabled display-quick-filters>
           <template>
@@ -24,6 +26,7 @@
             </nuxeo-document-grid-thumbnail>
           </template>
         </nuxeo-data-grid>
+
         <nuxeo-data-table name="table" icon="icons:list" class="results"
                           settings-enabled
                           empty-label="[[i18n('searchResults.noResults')]]"
