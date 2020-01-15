@@ -36,10 +36,16 @@
         <nuxeo-input value="{{document.properties.Address:address3}}" label="[[i18n('llabel.metadata.address3')]]" type="text"
                      role="widget"></nuxeo-input>
 
-        <nuxeo-input value="{{document.properties.Address:country}}" label=[[i18n('label.metadata.country')]]" type="text"
+        <nuxeo-input value="{{document.properties.address:zipCode}}" label="[[i18n('label.metadata.zipCode')]]"
+                     type="number"
                      role="widget"></nuxeo-input>
 
-        <nuxeo-input value="{{document.properties.Address:zipCode}}" label="[[i18n('label.metadata.zipCode')]]" type="number"
+        <nuxeo-input value="{{document.properties.address:city}}" label="[[i18n('label.metadata.city')]]"
+                     type="text"
+                     role="widget"></nuxeo-input>
+
+        <nuxeo-input value="{{document.properties.address:country}}" label="[[i18n('label.metadata.country')]]"
+                     type="text"
                      role="widget"></nuxeo-input>
 
         <qualitified-custom-fields document="{{document}}" mode="edit"></qualitified-custom-fields>

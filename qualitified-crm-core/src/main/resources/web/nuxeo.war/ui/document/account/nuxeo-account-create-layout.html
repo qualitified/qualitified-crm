@@ -39,13 +39,17 @@
         <nuxeo-input role="widget" value="{{document.properties.address:address3}}"
                      type="text"></nuxeo-input>
 
-        <nuxeo-input role="widget" value="{{document.properties.address:country}}"
-                     label="[[i18n('label.metadata.country')]]"
-                     type="text"></nuxeo-input>
+        <nuxeo-input value="{{document.properties.address:zipCode}}" label="[[i18n('label.metadata.zipCode')]]"
+                     type="number"
+                     role="widget"></nuxeo-input>
 
-        <nuxeo-input role="widget" value="{{document.properties.address:zipCode}}"
-                     label="[[i18n('label.metadata.zipCode')]]"
-                     type="number"></nuxeo-input>
+        <nuxeo-input value="{{document.properties.address:city}}" label="[[i18n('label.metadata.city')]]"
+                     type="text"
+                     role="widget"></nuxeo-input>
+
+        <nuxeo-input value="{{document.properties.address:country}}" label="[[i18n('label.metadata.country')]]"
+                     type="text"
+                     role="widget"></nuxeo-input>
 
         <qualitified-custom-fields document="{{document}}" mode="edit"></qualitified-custom-fields>
         <nuxeo-textarea role="widget" value="{{document.properties.dc:description}}"

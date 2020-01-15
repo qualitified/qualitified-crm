@@ -36,6 +36,7 @@
     <xs:element name="address2" type="xs:string"/>
     <xs:element name="address3" type="xs:string"/>
     <xs:element name="country" type="xs:string"/>
+    <xs:element name="city" type="xs:string"/>
     <xs:element name="latitude" type="xs:double"/>
     <xs:element name="longitude" type="xs:double"/>
     <xs:element name="zipCode" type="xs:integer"/>

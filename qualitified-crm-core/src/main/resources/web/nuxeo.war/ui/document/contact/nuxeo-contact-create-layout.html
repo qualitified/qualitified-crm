@@ -42,13 +42,19 @@
                      type="text"
                      role="widget"></nuxeo-input>
 
+        <nuxeo-input value="{{document.properties.address:zipCode}}" label="[[i18n('label.metadata.zipCode')]]"
+                     type="number"
+                     role="widget"></nuxeo-input>
+
+        <nuxeo-input value="{{document.properties.address:city}}" label="[[i18n('label.metadata.city')]]"
+                     type="text"
+                     role="widget"></nuxeo-input>
+
         <nuxeo-input value="{{document.properties.address:country}}" label="[[i18n('label.metadata.country')]]"
                      type="text"
                      role="widget"></nuxeo-input>
 
-        <nuxeo-input value="{{document.properties.address:zipCode}}" label="[[i18n('label.metadata.zipCode')]]"
-                     type="number"
-                     role="widget"></nuxeo-input>
+
 
     </template>
 
