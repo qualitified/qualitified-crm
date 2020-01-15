@@ -63,6 +63,7 @@
   "label.metadata.activity":"Activité",
   "label.metadata.date":"Date",
   "label.metadata.contact":"Contact",
+  "label.metadata.mainContact":"Contact Principal",
   "label.metadata.opportunity":"Opportunité",
   "label.account.type":"Type de compte",
   "label.last.interaction.date": "Date de dernière interaction",
@@ -98,5 +99,12 @@
   "calendar.view.goToDate":"Aller à une date précise",
   "label.metadata.custom.primarytype": "Primary Type",
   "label.metadata.custom.path": "Path",
-  "label.metadata.custom.parentid": "Parent Id"
+  "label.metadata.custom.parentid": "Parent Id",
+  "label.metadata.address1":"Adresse 1",
+  "label.metadata.address2":"Adresse 2",
+  "label.metadata.address3":"Adresse 3",
+  "label.metadata.country":"Pays",
+  "label.metadata.latitude":"latitude",
+  "label.metadata.longitude":"longitude",
+  "label.metadata.zipCode":"Code postal"
 }

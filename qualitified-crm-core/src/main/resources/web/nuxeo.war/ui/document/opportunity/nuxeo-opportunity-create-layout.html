@@ -1,4 +1,6 @@
 <link rel="import" href="../qualitified-custom-fields.html">
+<schema name="person" prefix="person" override="true" src="data/schemas/person.xsd"/>
+
 <dom-module id="nuxeo-opportunity-create-layout">
   <template>
     <style>
@@ -17,6 +19,8 @@
     <qualitified-custom-fields document="{{document}}" mode="edit"></qualitified-custom-fields>
 
     <nuxeo-textarea role="widget" value="{{document.properties.dc:description}}" label="[[i18n('label.metadata.description')]]"></nuxeo-textarea>
+
+    <qualitified-document-suggestion role="widget" value="{{document.properties.opportunity:mainContact}}" label="[[i18n('label.metadata.mainContact')]]" schemas="Contact" min-chars="0"></qualitified-document-suggestion>
 
   </template>
 
