@@ -5,6 +5,7 @@
 <link rel="import" href="qualitified-icons.html">
 <link rel="import" href="elements/qualitified-document-suggestion.html">
 <link rel="import" href="elements/qualitified-operation-button.html">
+<link rel="import" href="elements/qualitified-csv-export-button.html">
 <!-- Contribution of element 'custom-document-page' for slot 'DOCUMENT_VIEWS_PAGES' -->
 <nuxeo-slot-content name="myViewPage" slot="DOCUMENT_VIEWS_PAGES" >
   <template>
@@ -214,5 +215,15 @@
         <qualitified-operation-button document="[[document]]" operation="Qualitified.RunUnitTest" icon="icons:verified-user" label="Run Test"></qualitified-operation-button>
       </template>
     </nuxeo-filter>
+  </template>
+</nuxeo-slot-content>
+
+<!-- CSV EXPORT -->
+<nuxeo-slot-content name="csvExportSelectionAction" slot="RESULTS_ACTIONS" order="-100" disabled>
+</nuxeo-slot-content>
+
+<nuxeo-slot-content name="qualitifiedExportSelectionAction" slot="RESULTS_ACTIONS" order="-100">
+  <template>
+    <qualitified-csv-export-button schemas="dublincore,account" fields="dc:title,account:address1" provider="[[nxProvider]]" for="account_list"></qualitified-csv-export-button>
   </template>
 </nuxeo-slot-content>

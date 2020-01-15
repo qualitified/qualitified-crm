@@ -1,0 +1,98 @@
+<dom-module id="qualitified-csv-export-button" assetpath="nuxeo-csv-export/">
+  <template>
+    <nuxeo-operation-button hidden$="true" id="btn" operation="Bulk.RunAction" input="[[provider]]" params="[[_params(provider, schemas, fields)]]" icon="nuxeo:csv-export" label="csvExportButton.label" show-label$="[[showLabel]]" poll-interval="[[pollInterval]]" error-label="csvExportButton.action.error" async="" download="">
+    </nuxeo-operation-button>
+  </template>
+  <script>
+    Polymer({
+      is: 'qualitified-csv-export-button',
+      behaviors: [Nuxeo.I18nBehavior, Nuxeo.FiltersBehavior],
+      properties: {
+        /**
+         * Page provider from which results are to be exported.
+         */
+        provider: {
+          type: Object
+        },
+        /**
+         * The interval to poll for the result, in milliseconds.
+         */
+        pollInterval: {
+          type: Number,
+          value: 1000,
+        },
+        /**
+         * A comma separated list of schemas to be used to get the results.
+         * If `null` or `undefined`, the `provider`'s schemas will be used.
+         */
+        schemas: {
+          type: String,
+        },
+        /**
+         * A comma separated list of fields to be be exported.
+         */
+        fields: {
+          type: String,
+        },
+        /**
+         * `true` if the action should display the label, `false` otherwise.
+         */
+        showLabel: {
+          type: Boolean,
+          value: false,
+        },
+
+        /**
+         * Current action status.
+         */
+        status: {
+          type: Object,
+          notify: true,
+        },
+        for: {
+          type: String,
+          value: ""
+        }
+
+      },
+
+      ready: function() {
+        console.log(JSON.stringify(this.provider));
+        this.$.btn.addEventListener('poll-start', this._onPollStart.bind(this));
+        this.$.btn.addEventListener('response', this._onResponse.bind(this));
+      },
+
+      _params: function() {
+        var actionParams = {};
+        var schemas = this.schemas != null ? this.schemas : this.provider && this.provider.schemas;
+        if (schemas) {
+          actionParams.schemas = schemas.split(',').map(function(s) { return s.trim(); });
+        }
+        if (this.fields) {
+          actionParams.xpaths = this.fields.split(',').map(function(s) { return s.trim(); });
+        }
+        return {
+          action: 'csvExportCustom',
+          parameters: JSON.stringify(actionParams),
+        };
+      },
+
+      _onPollStart: function() {
+        this.fire('notify', { message: this.i18n('csvExportButton.action.poll') });
+      },
+
+      _onResponse: function() {
+        this.fire('notify', { message: this.i18n('csvExportButton.action.completed') });
+      },
+
+      _isEqualTo: function(string, value){
+        return string === value;
+      },
+
+      _providerSet: function(provider){
+        console.log(provider);
+      }
+
+    });
+  </script>
+</dom-module>
