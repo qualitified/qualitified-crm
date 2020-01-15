@@ -100,11 +100,6 @@
   "label.metadata.custom.primarytype": "Primary Type",
   "label.metadata.custom.path": "Path",
   "label.metadata.custom.parentid": "Parent Id",
-  "label.metadata.address1":"Adresse 1",
-  "label.metadata.address2":"Adresse 2",
-  "label.metadata.address3":"Adresse 3",
   "label.metadata.country":"Pays",
-  "label.metadata.latitude":"latitude",
-  "label.metadata.longitude":"longitude",
   "label.metadata.zipCode":"Code postal"
 }

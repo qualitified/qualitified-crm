@@ -22,6 +22,15 @@
 
     <nuxeo-input role="widget" value="{{document.properties.silhouette:company}}" label="Company"></nuxeo-input>
 
+    <div role="widget">
+      <label>[[i18n('label.metadata.address')]]</label>
+      <div>[[document.properties.address:address1]]</div>
+      <div>[[document.properties.address:address2]]</div>
+      <div>[[document.properties.address:address3]]</div>
+      <div>[[document.properties.address:zipCode]] [[document.properties.address:city]]</div>
+      <div>[[document.properties.address:country]]</div>
+    </div>
+
     <qualitified-custom-fields document="{{document}}" mode="view"></qualitified-custom-fields>
   </template>
 

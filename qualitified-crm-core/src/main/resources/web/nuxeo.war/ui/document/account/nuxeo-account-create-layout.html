@@ -6,6 +6,8 @@
         padding: 5px;
       }
 
+
+
         </style>
         <nuxeo-input role="widget" value="{{document.properties.dc:title}}"
                      label="[[i18n('label.metadata.account.title')]]"></nuxeo-input>
@@ -27,26 +29,23 @@
                      label="[[i18n('label.metadata.phone')]]"></nuxeo-input>
         <nuxeo-input role="widget" value="{{document.properties.account:email}}"
                      label="[[i18n('label.metadata.email')]]"></nuxeo-input>
-        <nuxeo-input value="{{document.properties.Address:address1}}" label="[[i18n('label.metadata.address1')]]" type="text"
-                     role="widget"></nuxeo-input>
+        <nuxeo-input role="widget" value="{{document.properties.address:address1}}"
+                     label="[[i18n('label.metadata.address')]]"
+                     type="text"></nuxeo-input>
 
-        <nuxeo-input value="{{document.properties.Address:address2}}" label="[[i18n('label.metadata.address2')]]" type="text"
-                     role="widget"></nuxeo-input>
+        <nuxeo-input role="widget" value="{{document.properties.address:address2}}"
+                     type="text"></nuxeo-input>
 
-        <nuxeo-input value="{{document.properties.Address:address3}}" label="[[i18n('llabel.metadata.address3')]]" type="text"
-                     role="widget"></nuxeo-input>
+        <nuxeo-input role="widget" value="{{document.properties.address:address3}}"
+                     type="text"></nuxeo-input>
 
-        <nuxeo-input value="{{document.properties.Address:country}}" label="[[i18n('label.metadata.country')]]" type="text"
-                     role="widget"></nuxeo-input>
+        <nuxeo-input role="widget" value="{{document.properties.address:country}}"
+                     label="[[i18n('label.metadata.country')]]"
+                     type="text"></nuxeo-input>
 
-        <nuxeo-input value="{{document.properties.Address:latitude}}" label="[[i18n('label.metadata.latitude')]]" type="number" step="0.01"
-                     role="widget"></nuxeo-input>
-
-        <nuxeo-input value="{{document.properties.Address:longitude}}" label="[[i18n('label.metadata.longitude')]]" type="number" step="0.01"
-                     role="widget"></nuxeo-input>
-
-        <nuxeo-input value="{{document.properties.Address:zipCode}}" label="[[i18n('label.metadata.zipCode')]]" type="number"
-                     role="widget"></nuxeo-input>
+        <nuxeo-input role="widget" value="{{document.properties.address:zipCode}}"
+                     label="[[i18n('label.metadata.zipCode')]]"
+                     type="number"></nuxeo-input>
 
         <qualitified-custom-fields document="{{document}}" mode="edit"></qualitified-custom-fields>
         <nuxeo-textarea role="widget" value="{{document.properties.dc:description}}"
@@ -70,6 +69,8 @@
       }
     });
   })();
+
+
 
     </script>
 </dom-module>
