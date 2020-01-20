@@ -5,41 +5,64 @@
 -->
 <link rel="import" href="../qualitified-custom-fields.html">
 <dom-module id="nuxeo-account-edit-layout">
-  <template>
-    <style>
+    <template>
+        <style>
       *[role=widget] {
         padding: 5px;
       }
-    </style>
-    <nuxeo-input role="widget" value="{{document.properties.dc:title}}" label="[[i18n('label.metadata.account.title')]]"></nuxeo-input>
-    <nuxeo-directory-suggestion
-      role="widget"
-      value="{{document.properties.account:accountType}}"
-      label="[[i18n('label.metadata.type')]]"
-      required="false"
-      directory-name="AccountType"
-      min-chars="0">
-    </nuxeo-directory-suggestion>
-    <nuxeo-input role="widget" value="{{document.properties.account:turnover}}" label="[[i18n('label.metadata.turnover')]]"></nuxeo-input>
-    <nuxeo-input role="widget" value="{{document.properties.account:website}}" label="[[i18n('label.metadata.website')]]"></nuxeo-input>
-    <nuxeo-input role="widget" value="{{document.properties.account:nbEmployees}}" label="[[i18n('label.metadata.nbemployees')]]"></nuxeo-input>
-    <nuxeo-input role="widget" value="{{document.properties.account:phoneNumber}}" label="[[i18n('label.metadata.phone')]]"></nuxeo-input>
-    <nuxeo-input role="widget" value="{{document.properties.account:email}}" label="[[i18n('label.metadata.email')]]"></nuxeo-input>
-    <nuxeo-input role="widget" value="{{document.properties.account:address1}}" label="[[i18n('label.metadata.address')]]"></nuxeo-input>
-    <nuxeo-input role="widget" value="{{document.properties.account:address2}}" label=""></nuxeo-input>
-    <nuxeo-input role="widget" value="{{document.properties.account:address3}}" label=""></nuxeo-input>
-    <nuxeo-input role="widget" value="{{document.properties.account:zipCode}}" label="[[i18n('label.metadata.postalcode')]]"></nuxeo-input>
-    <nuxeo-input role="widget" value="{{document.properties.account:city}}" label="[[i18n('label.metadata.city')]]"></nuxeo-input>
-    <nuxeo-input role="widget" value="{{document.properties.account:country}}" label="[[i18n('label.metadata.country')]]"></nuxeo-input>
-    <qualitified-custom-fields document="{{document}}" mode="edit"></qualitified-custom-fields>
-    <nuxeo-textarea role="widget" value="{{document.properties.dc:description}}" label="[[i18n('label.metadata.description')]]"></nuxeo-textarea>
-    <div role="widget">
-    <label>[[i18n('label.metadata.logo')]]</label>
-    <nuxeo-file value="{{document.properties.file:content}}"></nuxeo-file>
-    </div>
-  </template>
 
-  <script>
+        </style>
+        <nuxeo-input role="widget" value="{{document.properties.dc:title}}"
+                     label="[[i18n('label.metadata.account.title')]]"></nuxeo-input>
+        <nuxeo-directory-suggestion
+                role="widget"
+                value="{{document.properties.account:accountType}}"
+                label="[[i18n('label.metadata.type')]]"
+                required="false"
+                directory-name="AccountType"
+                min-chars="0">
+        </nuxeo-directory-suggestion>
+        <nuxeo-input role="widget" value="{{document.properties.account:turnover}}"
+                     label="[[i18n('label.metadata.turnover')]]"></nuxeo-input>
+        <nuxeo-input role="widget" value="{{document.properties.account:website}}"
+                     label="[[i18n('label.metadata.website')]]"></nuxeo-input>
+        <nuxeo-input role="widget" value="{{document.properties.account:nbEmployees}}"
+                     label="[[i18n('label.metadata.nbemployees')]]"></nuxeo-input>
+        <nuxeo-input role="widget" value="{{document.properties.account:phoneNumber}}"
+                     label="[[i18n('label.metadata.phone')]]"></nuxeo-input>
+        <nuxeo-input role="widget" value="{{document.properties.account:email}}"
+                     label="[[i18n('label.metadata.email')]]"></nuxeo-input>
+        <nuxeo-input role="widget" value="{{document.properties.address:address1}}"
+                     label="[[i18n('label.metadata.address')]]"
+                     type="text"></nuxeo-input>
+
+        <nuxeo-input role="widget" value="{{document.properties.address:address2}}"
+                     type="text"></nuxeo-input>
+
+        <nuxeo-input role="widget" value="{{document.properties.address:address3}}"
+                     type="text"></nuxeo-input>
+
+        <nuxeo-input value="{{document.properties.address:zipCode}}" label="[[i18n('label.metadata.zipCode')]]"
+                     type="number"
+                     role="widget"></nuxeo-input>
+
+        <nuxeo-input value="{{document.properties.address:city}}" label="[[i18n('label.metadata.city')]]"
+                     type="text"
+                     role="widget"></nuxeo-input>
+
+        <nuxeo-input value="{{document.properties.address:country}}" label="[[i18n('label.metadata.country')]]"
+                     type="text"
+                     role="widget"></nuxeo-input>
+        <qualitified-custom-fields document="{{document}}" mode="edit"></qualitified-custom-fields>
+        <nuxeo-textarea role="widget" value="{{document.properties.dc:description}}"
+                        label="[[i18n('label.metadata.description')]]"></nuxeo-textarea>
+        <div role="widget">
+            <label>[[i18n('label.metadata.logo')]]</label>
+            <nuxeo-file value="{{document.properties.file:content}}"></nuxeo-file>
+        </div>
+    </template>
+
+    <script>
     (function() {
       'use strict';
       Polymer({
@@ -57,5 +80,6 @@
         }
       });
     })();
-  </script>
+
+    </script>
 </dom-module>

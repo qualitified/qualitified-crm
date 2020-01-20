@@ -1,7 +1,7 @@
 <link rel="import" href="../qualitified-custom-fields.html">
 <dom-module id="nuxeo-contact-metadata-layout">
-  <template>
-    <style>
+    <template>
+        <style>
       *[role=widget] {
         padding: 5px;
       }
@@ -13,38 +13,50 @@
         margin-right: 8px;
       }
 
-    </style>
 
-<div role="widget">
-      <h1>
-      <template is="dom-if" if="[[_hasProfileImg(document.properties.file:content)]]">
-      <img style="vertical-align: text-bottom;" class="account-view-layout" src="/nuxeo/nxfile/default/[[document.uid]]/file:content/">
-      </template>[[document.properties.dc:title]]</h1>
-</div>
+        </style>
 
-<div role="widget">
-<label>[[i18n('label.metadata.role')]]</label>
-<div directory-name="Role">[[formatDirectory(document.properties.person:Role)]]</div>
-</div>
+        <div role="widget">
+            <h1>
+                <template is="dom-if" if="[[_hasProfileImg(document.properties.file:content)]]">
+                    <img style="vertical-align: text-bottom;" class="account-view-layout"
+                         src="/nuxeo/nxfile/default/[[document.uid]]/file:content/">
+                </template>
+                [[document.properties.dc:title]]
+            </h1>
+        </div>
 
-<div role="widget">
-<label>[[i18n('label.metadata.email')]]</label>
-<div>[[document.properties.person:email]]</div>
-</div>
+        <div role="widget">
+            <label>[[i18n('label.metadata.role')]]</label>
+            <div directory-name="Role">[[formatDirectory(document.properties.person:Role)]]</div>
+        </div>
 
-<div role="widget">
-<label>[[i18n('label.metadata.phone')]]</label>
-<div>[[document.properties.person:phoneNumber]]</div>
-</div>
+        <div role="widget">
+            <label>[[i18n('label.metadata.email')]]</label>
+            <div>[[document.properties.person:email]]</div>
+        </div>
 
-<div role="widget">
-<label>[[i18n('label.metadata.description')]]</label>
-<div>[[document.properties.dc:description]]</div>
-</div>
-<qualitified-custom-fields document="{{document}}" mode="view"></qualitified-custom-fields>
-  </template>
+        <div role="widget">
+            <label>[[i18n('label.metadata.phone')]]</label>
+            <div>[[document.properties.person:phoneNumber]]</div>
+        </div>
+        <div role="widget">
+            <label>[[i18n('label.metadata.address')]]</label>
+            <div>[[document.properties.address:address1]]</div>
+            <div>[[document.properties.address:address2]]</div>
+            <div>[[document.properties.address:address3]]</div>
+            <div>[[document.properties.address:zipCode]] [[document.properties.address:city]]</div>
+            <div>[[document.properties.address:country]]</div>
+        </div>
 
-  <script>
+        <div role="widget">
+            <label>[[i18n('label.metadata.description')]]</label>
+            <div>[[document.properties.dc:description]]</div>
+        </div>
+        <qualitified-custom-fields document="{{document}}" mode="view"></qualitified-custom-fields>
+    </template>
+
+    <script>
     (function() {
       'use strict';
       Polymer({
@@ -83,5 +95,6 @@
         }
       });
     })();
-  </script>
+
+    </script>
 </dom-module>

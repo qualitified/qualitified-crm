@@ -63,6 +63,7 @@
   "label.metadata.activity":"Activité",
   "label.metadata.date":"Date",
   "label.metadata.contact":"Contact",
+  "label.metadata.mainContact":"Contact Principal",
   "label.metadata.opportunity":"Opportunité",
   "label.account.type":"Type de compte",
   "label.last.interaction.date": "Date de dernière interaction",
@@ -98,5 +99,7 @@
   "calendar.view.goToDate":"Aller à une date précise",
   "label.metadata.custom.primarytype": "Primary Type",
   "label.metadata.custom.path": "Path",
-  "label.metadata.custom.parentid": "Parent Id"
+  "label.metadata.custom.parentid": "Parent Id",
+  "label.metadata.country":"Pays",
+  "label.metadata.zipCode":"Code postal"
 }
