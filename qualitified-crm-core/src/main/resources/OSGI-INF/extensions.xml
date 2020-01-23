@@ -190,6 +190,7 @@
       <schema name="files"/>
       <schema name="note"/>
       <schema name="custom"/>
+      <schema name="contact"/>
       <facet name="NXTag"/>
     </doctype>
     <doctype name="Account" append="true">
