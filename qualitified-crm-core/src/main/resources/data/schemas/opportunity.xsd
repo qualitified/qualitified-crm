@@ -35,6 +35,7 @@
   <xs:element name="amount" type="xs:double"/>
   <xs:element name="closeDate" type="xs:date"/>
   <xs:element name="lastInteractionDate" type="xs:date"/>
+  <xs:element name="mainContact" type="xs:string"/>
   <xs:element name="step">
     <xs:simpleType>
       <xs:restriction base="xs:string" ref:resolver="directoryResolver" ref:directory="OppStep"/>
