@@ -1,35 +1,58 @@
 <link rel="import" href="../qualitified-custom-fields.html">
 <dom-module id="nuxeo-interaction-metadata-layout">
-  <template>
-    <style>
+    <template>
+        <style>
       *[role=widget] {
         padding: 5px;
       }
       .wrap {
         white-space: pre-wrap;
       }
-    </style>
-      <div role="widget">
-        <h1 directory-name="IntActivity">
-          [[formatDirectory(document.properties.interaction:activity)]] - [[document.properties.dc:title]]
-        </h1>
-      </div>
+      .account-view-layout {
+        height: 25px;
+        width: 25px;
+        border-radius: 20px;
+        box-sizing: border-box;
+        margin-right: 8px;
+      }
 
-      <div role="widget">
-        <label>[[i18n('label.metadata.date')]]</label>
-        <div>[[formatDate(document.properties.interaction:date)]]</div>
-      </div>
 
-      <div role="widget">
-        <label>[[i18n('label.metadata.interaction.description')]]</label>
-        <div><pre class="wrap">[[document.properties.dc:description]]</pre></div>
-        <div><pre class="wrap">[[document.properties.note:note]]</pre></div>
-      </div>
-      <qualitified-custom-fields document="{{document}}" mode="view"></qualitified-custom-fields>
-      <nuxeo-document-attachments role="widget" document="[[document]]"></nuxeo-document-attachments>
-  </template>
+        </style>
+        <div role="widget">
+            <h1 directory-name="IntActivity">
+                [[formatDirectory(document.properties.interaction:activity)]] - [[document.properties.dc:title]]
+            </h1>
+        </div>
 
-  <script>
+        <div role="widget">
+            <label>[[i18n('label.metadata.date')]]</label>
+            <div>[[formatDate(document.properties.interaction:date)]]</div>
+        </div>
+
+        <div role="widget">
+            <label>[[i18n('label.metadata.interaction.description')]]</label>
+            <div>
+                <pre class="wrap">[[document.properties.dc:description]]</pre>
+            </div>
+            <div>
+                <pre class="wrap">[[document.properties.note:note]]</pre>
+            </div>
+            <div>
+                <label>[[i18n('label.metadata.contact')]]</label>
+                <br/>
+                <template is="dom-repeat" items="[[document.properties.interaction:contact]]" as="contact">
+                    <img style="vertical-align: text-bottom;" class="account-view-layout"
+                         src="[[_hasProfileImg(contact)]]" on-tap="_navigate"
+                         onError="this.onerror=null;this.src='/nuxeo/ui/images/touch/profile.png';">
+                </template>
+            </div>
+
+        </div>
+        <qualitified-custom-fields document="{{document}}" mode="view"></qualitified-custom-fields>
+        <nuxeo-document-attachments role="widget" document="[[document]]"></nuxeo-document-attachments>
+    </template>
+
+    <script>
     (function() {
       'use strict';
       Polymer({
@@ -64,8 +87,18 @@
         },
         _hasNote: function(doc){
           return doc && doc.properties['note:note'] !== null;
-        }
+        },
+        _hasProfileImg: function(value){
+          var img = document.createElement('img');
+          img.src = "/nuxeo/nxfile/default/"+ value +"/file:content/";
+          return "/nuxeo/nxfile/default/"+ value +"/file:content/";
+        },
+       _navigate: function(oEvent) {
+          this.navigateTo('document', oEvent.model.get('contact'));
+     }
       });
     })();
-  </script>
+
+
+    </script>
 </dom-module>

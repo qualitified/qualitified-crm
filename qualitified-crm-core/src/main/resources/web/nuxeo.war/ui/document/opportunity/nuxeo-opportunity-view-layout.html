@@ -8,7 +8,15 @@
         white-space: pre-wrap;
       }
 
-        </style>
+      .account-view-layout {
+        height: 25px;
+        width: 25px;
+        border-radius: 20px;
+        box-sizing: border-box;
+        margin-right: 8px;
+      }
+
+      </style>
         <nuxeo-connection id="nxcon"></nuxeo-connection>
         <paper-card role="widget">
 
@@ -49,7 +57,16 @@
                             </template>
                             <template is="dom-if" if="[[_isSms(item.properties.interaction:activity)]]">
                                 <iron-icon icon="icons:perm-phone-msg"></iron-icon>
-                            </template>  - [[item.title]]</a></div>
+                            </template>
+                            - [[item.title]]</a></div>
+                    <div>
+                        <template is="dom-repeat" items="[[item.properties.interaction:contact]]" as="contact">
+                            <img style="vertical-align: text-bottom;" class="account-view-layout"
+                                 src="[[_hasProfileImg(contact)]]" on-tap="_navigate"
+                                 onError="this.onerror=null;this.src='/nuxeo/ui/images/touch/profile.png';">
+
+                        </template>
+                    </div>
                     <div>
                         <pre class="wrap">[[item.properties.dc:description]]</pre>
                     </div>
@@ -63,7 +80,6 @@
                     </button>
                     <br/>
                 </template>
-
                 <h3>
                     [[i18n('label.attachments')]]
                 </h3>
@@ -113,7 +129,6 @@
                         </nuxeo-data-table-column>
                     </nuxeo-data-table>
                 </div>
-
         </paper-card>
     </template>
 
@@ -207,9 +222,16 @@
         _hasNote: function(doc){
           console.log(doc.properties["note:note"] != null);
           return doc.properties["note:note"] != null;
+        },
+        _hasProfileImg: function(value){
+          var img = document.createElement('img');
+          img.src = "/nuxeo/nxfile/default/"+ value +"/file:content/";
+          return "/nuxeo/nxfile/default/"+ value +"/file:content/";
+        },
+        _navigate: function(oEvent) {
+          this.navigateTo('document', oEvent.model.get('contact'));
         }
       });
     })();
-
     </script>
 </dom-module>
