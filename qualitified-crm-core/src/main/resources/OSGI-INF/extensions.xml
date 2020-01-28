@@ -190,7 +190,6 @@
       <schema name="files"/>
       <schema name="note"/>
       <schema name="custom"/>
-      <schema name="contact"/>
       <facet name="NXTag"/>
     </doctype>
     <doctype name="Account" append="true">
@@ -1124,6 +1123,13 @@
             <dateRange key="from_now-24h_to_now" fromDate="now-24h" toDate="now"/>
           </dateRanges>
         </aggregate>
+        <aggregate id="responsible_agg" type="terms" parameter="opportunity:responsible">
+          <field schema="opportunity_list_pp" name="responsible_agg"/>
+          <properties>
+            <property name="order">count desc</property>
+            <property name="size">0</property>
+          </properties>
+        </aggregate>
       </aggregates>
       <sort column="opportunity:amount" ascending="false"/>
       <pageSize>10</pageSize>
@@ -1143,6 +1149,13 @@
       <aggregates>
         <aggregate id="account_type_agg" type="terms" parameter="account:accountType">
           <field schema="account_list_pp" name="account_type_agg"/>
+          <properties>
+            <property name="order">count desc</property>
+            <property name="size">0</property>
+          </properties>
+        </aggregate>
+        <aggregate id="responsible_agg" type="terms" parameter="account:responsible">
+          <field schema="account_list_pp" name="responsible_agg"/>
           <properties>
             <property name="order">count desc</property>
             <property name="size">0</property>
@@ -1229,6 +1242,13 @@
             <property name="size">0</property>
           </properties>
         </aggregate>
+        <aggregate id="responsible_agg" type="terms" parameter="contact:responsible">
+          <field schema="person_list_pp" name="responsible_agg"/>
+          <properties>
+            <property name="order">count desc</property>
+            <property name="size">0</property>
+          </properties>
+        </aggregate>
       </aggregates>
     </genericPageProvider>
     <genericPageProvider class="org.nuxeo.elasticsearch.provider.ElasticSearchNxqlPageProvider" name="interaction_list">
@@ -1270,6 +1290,13 @@
             <dateRange key="from_now-7d_to_now-24h" fromDate="now-7d" toDate="now-24h"/>
             <dateRange key="from_now-24h_to_now" fromDate="now-24h" toDate="now"/>
           </dateRanges>
+        </aggregate>
+        <aggregate id="responsible_agg" type="terms" parameter="interaction:responsible">
+          <field schema="interaction_list_pp" name="responsible_agg"/>
+          <properties>
+            <property name="order">count desc</property>
+            <property name="size">0</property>
+          </properties>
         </aggregate>
       </aggregates>
     </genericPageProvider>

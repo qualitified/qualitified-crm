@@ -39,4 +39,5 @@
   <xs:element name="system_fulltext" type="xs:string"/>
   <xs:element name="opportunity_closeDate_min" type="xs:date" />
   <xs:element name="opportunity_closeDate_max" type="xs:date" />
+  <xs:element name="responsible_agg" type="nxs:stringList"/>
 </xs:schema>

@@ -1,37 +1,50 @@
 <link rel="import" href="../qualitified-custom-fields.html">
 <dom-module id="nuxeo-opportunity-metadata-layout">
-  <template>
-    <style>
+    <template>
+        <style>
       *[role=widget] {
         padding: 5px;
       }
-    </style>
-    <div role="widget">
-      <h1>[[document.properties.dc:title]]</h1>
-    </div>
-    <div role="widget">
-      <label>[[i18n('label.metadata.amount')]]</label>
-      <div>[[_formatCurrency(document.properties.opportunity:amount)]] €</div>
-    </div>
 
-    <div role="widget">
-      <label>[[i18n('label.metadata.step')]]</label>
-      <div directory-name="OppStep">[[formatDirectory(document.properties.opportunity:step)]]</div>
-    </div>
+        </style>
+        <div role="widget">
+            <h1>[[document.properties.dc:title]]</h1>
+        </div>
+        <div role="widget">
+            <label>[[i18n('label.metadata.amount')]]</label>
+            <div>[[_formatCurrency(document.properties.opportunity:amount)]] €</div>
+        </div>
 
-    <div role="widget">
-      <label>[[i18n('label.metadata.closedate')]]</label>
-      <div>[[_formatDate(document.properties.opportunity:closeDate)]]</div>
-    </div>
+        <div role="widget">
+            <label>[[i18n('label.metadata.step')]]</label>
+            <div directory-name="OppStep">[[formatDirectory(document.properties.opportunity:step)]]</div>
+        </div>
 
-    <div role="widget">
-      <label>[[i18n('label.metadata.description')]]</label>
-      <div>[[document.properties.dc:description]]</div>
-    </div>
-    <qualitified-custom-fields document="{{document}}" mode="view"></qualitified-custom-fields>
-  </template>
+        <div role="widget">
+            <label>[[i18n('label.metadata.closedate')]]</label>
+            <div>[[_formatDate(document.properties.opportunity:closeDate)]]</div>
+        </div>
 
-  <script>
+        <div>
+            <label>[[i18n('label.metadata.responsible')]]</label>
+            <nuxeo-user-suggestion
+                    value="[[document.properties.opportunity:responsible]]"
+                    search-type="USER_TYPE"
+                    role="widget"
+                    min-chars="0"
+                    multiple
+                    readOnly>
+            </nuxeo-user-suggestion>
+        </div>
+
+        <div role="widget">
+            <label>[[i18n('label.metadata.description')]]</label>
+            <div>[[document.properties.dc:description]]</div>
+        </div>
+        <qualitified-custom-fields document="{{document}}" mode="view"></qualitified-custom-fields>
+    </template>
+
+    <script>
   (function() {
     'use strict';
     Polymer({
@@ -72,5 +85,6 @@
       }
     });
   })();
-  </script>
+
+    </script>
 </dom-module>

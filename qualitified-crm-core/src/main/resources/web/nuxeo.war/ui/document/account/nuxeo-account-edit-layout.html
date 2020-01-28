@@ -10,6 +10,7 @@
       *[role=widget] {
         padding: 5px;
       }
+<<<<<<< Updated upstream
 
         </style>
         <nuxeo-input role="widget" value="{{document.properties.dc:title}}"
@@ -63,6 +64,40 @@
     </template>
 
     <script>
+=======
+    </style>
+    <nuxeo-input role="widget" value="{{document.properties.dc:title}}" label="[[i18n('label.metadata.account.title')]]"></nuxeo-input>
+    <nuxeo-directory-suggestion
+      role="widget"
+      value="{{document.properties.account:accountType}}"
+      label="[[i18n('label.metadata.type')]]"
+      required="false"
+      directory-name="AccountType"
+      min-chars="0">
+    </nuxeo-directory-suggestion>
+    <nuxeo-input role="widget" value="{{document.properties.account:turnover}}" label="[[i18n('label.metadata.turnover')]]"></nuxeo-input>
+    <nuxeo-input role="widget" value="{{document.properties.account:website}}" label="[[i18n('label.metadata.website')]]"></nuxeo-input>
+    <nuxeo-input role="widget" value="{{document.properties.account:nbEmployees}}" label="[[i18n('label.metadata.nbemployees')]]"></nuxeo-input>
+    <nuxeo-input role="widget" value="{{document.properties.account:phoneNumber}}" label="[[i18n('label.metadata.phone')]]"></nuxeo-input>
+    <nuxeo-input role="widget" value="{{document.properties.account:email}}" label="[[i18n('label.metadata.email')]]"></nuxeo-input>
+    <nuxeo-input role="widget" value="{{document.properties.account:address1}}" label="[[i18n('label.metadata.address')]]"></nuxeo-input>
+    <nuxeo-input role="widget" value="{{document.properties.account:address2}}" label=""></nuxeo-input>
+    <nuxeo-input role="widget" value="{{document.properties.account:address3}}" label=""></nuxeo-input>
+    <nuxeo-input role="widget" value="{{document.properties.account:zipCode}}" label="[[i18n('label.metadata.postalcode')]]"></nuxeo-input>
+    <nuxeo-input role="widget" value="{{document.properties.account:city}}" label="[[i18n('label.metadata.city')]]"></nuxeo-input>
+    <nuxeo-input role="widget" value="{{document.properties.account:country}}" label="[[i18n('label.metadata.country')]]"></nuxeo-input>
+    <nuxeo-user-suggestion  value="{{document.properties.account:responsible}}" label="[[i18n('label.metadata.responsible')]]" search-type="USER_TYPE" role="widget" min-chars="0" multiple="true">
+    </nuxeo-user-suggestion>
+    <qualitified-custom-fields document="{{document}}" mode="edit"></qualitified-custom-fields>
+    <nuxeo-textarea role="widget" value="{{document.properties.dc:description}}" label="[[i18n('label.metadata.description')]]"></nuxeo-textarea>
+    <div role="widget">
+    <label>[[i18n('label.metadata.logo')]]</label>
+    <nuxeo-file value="{{document.properties.file:content}}"></nuxeo-file>
+    </div>
+  </template>
+
+  <script>
+>>>>>>> Stashed changes
     (function() {
       'use strict';
       Polymer({

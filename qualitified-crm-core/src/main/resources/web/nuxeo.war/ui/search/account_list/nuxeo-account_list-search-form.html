@@ -59,6 +59,12 @@
       </nuxeo-checkbox-aggregation>
     </div>
 
+    <div class="layout vertical row">
+      <label>[[i18n('label.metadata.responsible')]]</label>
+      <nuxeo-dropdown-aggregation data="[[aggregations.responsible_agg]]" value="{{params.responsible_agg}}" multiple="">
+      </nuxeo-dropdown-aggregation>
+    </div>
+
     <!-- Create a new Account -->
     <div class="actions layout vertical style-scope nuxeo-search-form">
       <paper-button noink="" id="new" class="primary horizontal layout center" on-tap="_openDialog" elevation="0">

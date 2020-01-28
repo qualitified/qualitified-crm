@@ -36,4 +36,5 @@
     <xs:element name="person_lastName" type="xs:string"/>
     <xs:element name="person_role_agg" type="nxs:stringList"/>
     <xs:element name="person_civility_agg" type="nxs:stringList"/>
+    <xs:element name="responsible_agg" type="nxs:stringList"/>
 </xs:schema>

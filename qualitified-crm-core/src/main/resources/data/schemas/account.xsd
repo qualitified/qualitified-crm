@@ -54,4 +54,13 @@
   <xs:element name="zipCode" type="xs:string"/>
   <xs:element name="city" type="xs:string"/>
   <xs:element name="country" type="xs:string"/>
+  <xs:element name="responsible">
+    <xs:simpleType>
+      <xs:list>
+        <xs:simpleType>
+          <xs:restriction base="xs:string" ref:resolver="userManagerResolver" ref:type="user"/>
+        </xs:simpleType>
+      </xs:list>
+    </xs:simpleType>
+  </xs:element>
 </xs:schema>

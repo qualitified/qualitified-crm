@@ -37,4 +37,5 @@
     <xs:element name="interaction_date_agg" type="nxs:stringList"/>
     <xs:element name="interaction_closeDate_min" type="xs:date" />
     <xs:element name="interaction_closeDate_max" type="xs:date" />
+    <xs:element name="responsible_agg" type="nxs:stringList"/>
 </xs:schema>

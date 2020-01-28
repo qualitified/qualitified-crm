@@ -49,11 +49,31 @@
     </div>
     <div role="widget">
       <label>[[i18n('label.metadata.address')]]</label>
+<<<<<<< Updated upstream
       <div>[[document.properties.address:address1]]</div>
       <div>[[document.properties.address:address2]]</div>
       <div>[[document.properties.address:address3]]</div>
       <div>[[document.properties.address:zipCode]] [[document.properties.address:city]]</div>
       <div>[[document.properties.address:country]]</div>
+=======
+      <div>[[document.properties.account:address1]]</div>
+      <div>[[document.properties.account:address2]]</div>
+      <div>[[document.properties.account:address3]]</div>
+      <div>[[document.properties.account:zipCode]] [[document.properties.account:city]]</div>
+      <div>[[document.properties.account:country]]</div>
+      <div>
+        <label>[[i18n('label.metadata.responsible')]]</label>
+        <nuxeo-user-suggestion
+                value="[[document.properties.account:responsible]]"
+                search-type="USER_TYPE"
+                role="widget"
+                min-chars="0"
+                multiple
+                readOnly>
+        </nuxeo-user-suggestion>
+      </div>
+
+>>>>>>> Stashed changes
     </div>
     <qualitified-custom-fields document="[[document]]" mode="view"></qualitified-custom-fields>
   </template>
