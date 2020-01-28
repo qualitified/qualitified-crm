@@ -72,6 +72,7 @@
   "label.metadata.custom.type": "Type",
   "label.metadata.custom.required":"Required",
   "label.metadata.custom.vocabularyname":"Vocabulary Name",
+  "label.metadata.responsible":"Responsible",
   "app.customization":"Customization",
   "app.solicitations":"Solicitations",
   "label.metadata.custom.format":"Format",

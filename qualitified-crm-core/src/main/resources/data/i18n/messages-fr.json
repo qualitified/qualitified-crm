@@ -65,6 +65,7 @@
   "label.metadata.contact":"Contact",
   "label.metadata.mainContact":"Contact Principal",
   "label.metadata.opportunity":"Opportunité",
+  "label.metadata.responsible":"Responsable",
   "label.account.type":"Type de compte",
   "label.last.interaction.date": "Date de dernière interaction",
   "true": "Oui",

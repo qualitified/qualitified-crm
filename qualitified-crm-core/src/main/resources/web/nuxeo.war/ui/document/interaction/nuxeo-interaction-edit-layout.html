@@ -15,11 +15,13 @@
     <nuxeo-directory-suggestion role="widget" value="{{document.properties.interaction:activity}}" label="[[i18n('label.metadata.activity')]]" required="true" directory-name="IntActivity" min-chars="0"></nuxeo-directory-suggestion>
 
     <nuxeo-date-picker value="{{document.properties.interaction:date}}" label="[[i18n('label.metadata.date')]]" required="true" role="widget"></nuxeo-date-picker>
+
+    <nuxeo-user-suggestion  value="{{document.properties.interaction:responsible}}" label="[[i18n('label.metadata.responsible')]]" search-type="USER_TYPE" role="widget" min-chars="0" multiple="true">
+    </nuxeo-user-suggestion>
+
     <qualitified-custom-fields document="{{document}}" mode="edit"></qualitified-custom-fields>
 
-    <qualitified-document-suggestion role="widget" value="{{document.properties.interaction:contact}}" label="[[i18n('label.metadata.contact')]]" schemas="[Contact]" min-chars="0" multiple="true"></qualitified-document-suggestion>
-
-    <nuxeo-document-suggestion role="widget" value="{{document.properties.interaction:opportunity}}" label="[[i18n('label.metadata.opportunity')]]" schemas="[Opportunity]"></nuxeo-document-suggestion>
+    <qualitified-document-suggestion role="widget" value="{{document.properties.interaction:contact}}" label="[[i18n('label.metadata.contact')]]" page-provider="Contacts" min-chars="0" multiple="true"></qualitified-document-suggestion>
 
   </template>
 

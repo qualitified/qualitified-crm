@@ -51,6 +51,15 @@
                      type="text"
                      role="widget"></nuxeo-input>
 
+        <nuxeo-user-suggestion
+                value="{{document.properties.account:responsible}}"
+                label="[[i18n('label.metadata.responsible')]]"
+                search-type="USER_TYPE"
+                role="widget"
+                min-chars="0"
+                multiple="true">
+        </nuxeo-user-suggestion>
+
         <qualitified-custom-fields document="{{document}}" mode="edit"></qualitified-custom-fields>
         <nuxeo-textarea role="widget" value="{{document.properties.dc:description}}"
                         label="[[i18n('label.metadata.description')]]"></nuxeo-textarea>

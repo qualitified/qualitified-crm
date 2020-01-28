@@ -48,6 +48,18 @@
             </div>
 
         </div>
+
+        <div>
+            <label>[[i18n('label.metadata.responsible')]]</label>
+            <nuxeo-user-suggestion
+                    value="[[document.properties.interaction:responsible]]"
+                    search-type="USER_TYPE"
+                    role="widget"
+                    min-chars="0"
+                    multiple
+                    readOnly>
+            </nuxeo-user-suggestion>
+        </div>
         <qualitified-custom-fields document="{{document}}" mode="view"></qualitified-custom-fields>
         <nuxeo-document-attachments role="widget" document="[[document]]"></nuxeo-document-attachments>
     </template>
