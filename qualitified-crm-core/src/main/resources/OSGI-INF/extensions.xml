@@ -1789,6 +1789,14 @@
     <validation context="importDocument" activated="false"/>
   </extension>
 
+  <extension point="permissions" target="org.nuxeo.ecm.core.security.SecurityService">
+    <permission name="ReadWrite">
+      <include>Read</include>
+      <include>Write</include>
+      <include>RemoveChildren</include>
+      <include>Remove</include>
+    </permission>
+  </extension>
   <!-- Trash Migration: https://doc.nuxeo.com/nxdoc/upgrade-from-lts-2017-to-lts-2019/ -->
   <!-- <require>org.nuxeo.ecm.core.trash.service.migrator</require>
   <extension target="org.nuxeo.runtime.migration.MigrationService" point="configuration">

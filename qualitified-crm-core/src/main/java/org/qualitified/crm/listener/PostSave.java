@@ -59,7 +59,9 @@ public class PostSave implements EventListener {
             OperationContext operationContext = new OperationContext(docCtx.getCoreSession());
             operationContext.setInput(doc);
             Map<String, Object> params = new HashMap<>();
-            String scriptNote = (String) script.getPropertyValue("note:note");
+            String scriptNote = CoreInstance.doPrivileged(docCtx.getCoreSession(), (session) -> {
+                return (String)session.getDocument(new IdRef(script.getId())).getPropertyValue("note:note");
+            });
 
             params.put("script", scriptNote);
             params.put("isCreation", ("documentCreated").equals(event.getName()));
@@ -68,6 +70,8 @@ public class PostSave implements EventListener {
 
             try {
                 automationService.run(operationContext, "javascript.postSave", params);
+                DocumentModel docUpdated = doc.getCoreSession().getDocument(new IdRef(doc.getId()));
+                doc.copyContent(docUpdated);
             } catch (OperationException e) {
                 logger.error("Error while running automation script javascript.postSave", e);
             }

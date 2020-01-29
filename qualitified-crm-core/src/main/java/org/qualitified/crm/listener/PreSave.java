@@ -8,6 +8,7 @@ import org.nuxeo.ecm.automation.OperationContext;
 import org.nuxeo.ecm.automation.OperationException;
 import org.nuxeo.ecm.core.api.CoreInstance;
 import org.nuxeo.ecm.core.api.DocumentModel;
+import org.nuxeo.ecm.core.api.IdRef;
 import org.nuxeo.ecm.core.api.PathRef;
 import org.nuxeo.ecm.core.event.Event;
 import org.nuxeo.ecm.core.event.EventContext;
@@ -50,7 +51,10 @@ public class PreSave implements EventListener {
             OperationContext operationContext = new OperationContext(docCtx.getCoreSession());
             operationContext.setInput(doc);
             Map<String, Object> params = new HashMap<>();
-            String scriptNote = (String) script.getPropertyValue("note:note");
+
+            String scriptNote = CoreInstance.doPrivileged(docCtx.getCoreSession(), (session) -> {
+                return (String)session.getDocument(new IdRef(script.getId())).getPropertyValue("note:note");
+            });
 
             params.put("script", scriptNote);
             params.put("isCreation", ("aboutToCreate").equals(event.getName()));
