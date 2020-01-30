@@ -35,9 +35,9 @@
   <xs:element name="opportunity_step_agg" type="nxs:stringList"/>
   <xs:element name="opportunity_amount_agg" type="nxs:stringList"/>
   <xs:element name="opportunity_closeDate_agg" type="nxs:stringList"/>
-  <xs:element name="opportunity_lastInteractionDate_agg" type="nxs:stringList"/>
   <xs:element name="system_fulltext" type="xs:string"/>
   <xs:element name="opportunity_closeDate_min" type="xs:date" />
   <xs:element name="opportunity_closeDate_max" type="xs:date" />
+  <xs:element name="opportunity_lastInteractionDate_agg" type="nxs:stringList"/>
   <xs:element name="responsible_agg" type="nxs:stringList"/>
 </xs:schema>
