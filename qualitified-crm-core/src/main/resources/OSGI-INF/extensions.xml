@@ -1496,7 +1496,7 @@
     </scriptedOperation>
   </extension>
   <extension target="org.nuxeo.ecm.platform.content.template.service.ContentTemplateService" point="factoryBinding">
-    <factoryBinding name="ScriptsFactory" factoryName="SimpleTemplateFactory" targetType="Scripts">
+    <!--factoryBinding name="ScriptsFactory" factoryName="SimpleTemplateFactory" targetType="Scripts">
       <template>
         <templateItem typeName="ScriptNote" id="runDailyAt20h" title="RunDailyAt20h" description=""/>
         <templateItem typeName="ScriptNote" id="runDailyAt21h" title="RunDailyAt21h" description=""/>
@@ -1504,7 +1504,7 @@
         <templateItem typeName="ScriptNote" id="runDailyAt23h" title="RunDailyAt23h" description=""/>
         <templateItem typeName="ScriptNote" id="runEvery10s" title="RunEvery10s" description=""/>
       </template>
-    </factoryBinding>
+    </factoryBinding-->
     <factoryBinding name="AdminFactory" factoryName="SimpleTemplateFactory" targetType="Admin">
       <template>
         <templateItem typeName="TemplateRoot" id="Templates" title="Templates" description=""/>
