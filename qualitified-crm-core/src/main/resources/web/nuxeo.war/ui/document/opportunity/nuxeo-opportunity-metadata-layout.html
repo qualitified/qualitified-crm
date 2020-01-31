@@ -37,6 +37,17 @@
             </nuxeo-user-suggestion>
         </div>
 
+        <div>
+            <label>[[i18n('label.metadata.mainContact')]]</label>
+            <qualitified-document-suggestion role="widget"
+                                             value="[[document.properties.opportunity:mainContact]]"
+                                             schemas="Contact"
+                                             min-chars="0"
+                                             readOnly>
+            </qualitified-document-suggestion>
+
+        </div>
+
         <div role="widget">
             <label>[[i18n('label.metadata.description')]]</label>
             <div>[[document.properties.dc:description]]</div>
