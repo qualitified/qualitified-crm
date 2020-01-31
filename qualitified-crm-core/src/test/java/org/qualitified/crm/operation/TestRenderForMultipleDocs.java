@@ -73,9 +73,9 @@ public class TestRenderForMultipleDocs {
         docs.add(doc2);
         docs.add(doc3);
 
-        TemplateBasedDocument adapter = doc1.getAdapter(TemplateBasedDocument.class);
+        /*TemplateBasedDocument adapter = doc1.getAdapter(TemplateBasedDocument.class);
         TemplateSourceDocument templateSource = template.getAdapter(TemplateSourceDocument.class);
-        adapter.setTemplate(templateSource.getAdaptedDoc(), true);
+        adapter.setTemplate(templateSource.getAdaptedDoc(), true);*/
 
         // Operation execution
         OperationContext ctx = new OperationContext();
