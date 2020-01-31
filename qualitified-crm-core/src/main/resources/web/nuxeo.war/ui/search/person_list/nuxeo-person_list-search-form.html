@@ -64,14 +64,6 @@
         </div>
 
         <div class="layout vertical row">
-            <label>[[i18n('label.metadata.civility')]]</label>
-            <nuxeo-checkbox-aggregation
-                    data="[[aggregations.person_civility_agg]]"
-                    value="{{params.person_civility_agg}}">
-            </nuxeo-checkbox-aggregation>
-        </div>
-
-        <div class="layout vertical row">
             <label>[[i18n('label.metadata.responsible')]]</label>
             <nuxeo-dropdown-aggregation data="[[aggregations.responsible_agg]]" value="{{params.responsible_agg}}" multiple="">
             </nuxeo-dropdown-aggregation>
