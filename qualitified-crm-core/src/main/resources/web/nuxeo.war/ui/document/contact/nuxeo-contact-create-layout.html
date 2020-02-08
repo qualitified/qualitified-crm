@@ -27,7 +27,6 @@
 
         <nuxeo-input value="{{document.properties.dc:description}}" label="[[i18n('label.metadata.description')]]"
                      role="widget"></nuxeo-input>
-        <qualitified-custom-fields document="{{document}}" mode="edit"></qualitified-custom-fields>
         <nuxeo-dropzone role="widget" label="[[i18n('label.metadata.contact.picture')]]"
                         document="[[document]]"></nuxeo-dropzone>
         <nuxeo-input value="{{document.properties.address:address1}}" label="[[i18n('label.metadata.address')]]"
@@ -53,15 +52,12 @@
         <nuxeo-input value="{{document.properties.address:country}}" label="[[i18n('label.metadata.country')]]"
                      type="text"
                      role="widget"></nuxeo-input>
-
-
-
         <nuxeo-user-suggestion  value="{{document.properties.contact:responsible}}"  label="[[i18n('label.metadata.responsible')]]"
                 search-type="USER_TYPE"
                 role="widget"
                 min-chars="0">
         </nuxeo-user-suggestion>
-
+        <qualitified-custom-fields document="{{document}}" mode="edit"></qualitified-custom-fields>
     </template>
 
     <script>

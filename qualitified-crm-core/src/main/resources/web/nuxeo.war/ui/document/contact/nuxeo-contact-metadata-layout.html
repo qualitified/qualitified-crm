@@ -48,15 +48,11 @@
             <div>[[document.properties.address:zipCode]] [[document.properties.address:city]]</div>
             <div>[[document.properties.address:country]]</div>
         </div>
-        <div>
+        <div role="widget">
             <label>[[i18n('label.metadata.responsible')]]</label>
-            <nuxeo-user-suggestion
-                    value="[[document.properties.contact:responsible]]"
-                    search-type="USER_TYPE"
-                    role="widget"
-                    min-chars="0"
-                    readOnly>
-            </nuxeo-user-suggestion>
+            <div>
+                <nuxeo-user-tag user="[[document.properties.contact:responsible]]"></nuxeo-user-tag>
+            </div>
         </div>
         <div role="widget">
             <label>[[i18n('label.metadata.description')]]</label>
