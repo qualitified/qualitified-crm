@@ -18,6 +18,7 @@
     <schema name="services" prefix="services" override="true" src="data/schemas/services.xsd"/>
     <schema name="silhouette" prefix="silhouette" override="true" src="data/schemas/silhouette.xsd"/>
     <schema name="scriptnote" prefix="scriptnote" override="true" src="data/schemas/scriptnote.xsd"/>
+    <schema name="scripts" prefix="scripts" override="true" src="data/schemas/scripts.xsd"/>
     <schema name="custom" prefix="custom" override="true" src="data/schemas/custom.xsd"/>
     <schema name="solicitation" prefix="solicitation" override="true" src="data/schemas/solicitation.xsd"/>
     <schema name="workspace_schema" prefix="workspace_schema" override="true" src="data/schemas/workspace_schema.xsd"/>
@@ -291,6 +292,7 @@
     </doctype>
     <doctype name="Scripts" extends="Folder">
       <schema name="custom"/>
+      <schema name="scripts"/>
       <facet name="NXTag"/>
       <subtypes>
         <type>ScriptNote</type>
@@ -1361,6 +1363,17 @@
       </script>
     </scriptedOperation>
     <scriptedOperation id="javascript.runUnitTest">
+      <inputType>document</inputType>
+      <outputType>document</outputType>
+      <category>javascript</category>
+      <param name="script" type="string"/>
+      <description></description>
+      <script><![CDATA[function run(input, params) {
+          return eval(params.script);
+        }]]>
+      </script>
+    </scriptedOperation>
+    <scriptedOperation id="javascript.runAction">
       <inputType>document</inputType>
       <outputType>document</outputType>
       <category>javascript</category>

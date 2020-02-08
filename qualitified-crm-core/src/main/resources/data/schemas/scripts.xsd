@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:nxs="http://www.nuxeo.org/ecm/project/schemas/mgena-SANDBOX/contact" xmlns:nxsv="http://www.nuxeo.org/ecm/schemas/core/validation/" xmlns:ref="http://www.nuxeo.org/ecm/schemas/core/external-references/" targetNamespace="http://www.nuxeo.org/ecm/project/schemas/mgena-SANDBOX/contact">  
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:nxs="http://www.nuxeo.org/ecm/project/schemas/project1-sylvagreg/scriptnote" xmlns:nxsv="http://www.nuxeo.org/ecm/schemas/core/validation/" xmlns:ref="http://www.nuxeo.org/ecm/schemas/core/external-references/" targetNamespace="http://www.nuxeo.org/ecm/project/schemas/project1-sylvagreg/scriptnote">  
   <!-- helper XSD definitions for list types -->  
   <xs:complexType name="content"> 
     <xs:sequence> 
@@ -32,9 +32,10 @@
       <xs:element name="item" type="nxs:content" minOccurs="0" maxOccurs="unbounded"/> 
     </xs:sequence> 
   </xs:complexType>
-  <xs:element name="responsible">
-    <xs:simpleType>
-      <xs:restriction base="xs:string" ref:resolver="userManagerResolver" ref:type="user"/>
-    </xs:simpleType>
-  </xs:element>
+  <xs:element name="order" type="xs:integer"/>
+  <xs:element name="isDisabled" type="xs:boolean"/>
+  <xs:element name="isValid" type="xs:boolean"/>
+  <xs:element name="icon" type="xs:string"/>
+  <xs:element name="documentTypes" type="xs:string"/>
+  <xs:element name="scriptType" type="xs:string"/>
 </xs:schema>

@@ -1,0 +1,298 @@
+<!--
+`qualitified-record-action`
+@group Nuxeo UI
+@element qualitified-record-action
+-->
+<dom-module id="qualitified-record-action">
+    <template>
+        <style include="nuxeo-action-button-styles">
+      .content {
+        @apply(--layout-vertical);
+      }
+      .actions {
+        position: fixed;
+        bottom: 0px;
+        left: 60px;
+        z-index: 9999999;
+        background-color: #FFFFFF;
+      }
+
+      .results {
+        @apply(--layout-vertical);
+        @apply(--layout-flex);
+        min-height: calc(100vh - 14em);
+        margin-top: 8px;
+      }
+    </style>
+        <nuxeo-document id="actionsFolder" auto doc-path="/Admin/Scripts" response="{{actionDocument}}"></nuxeo-document>
+        <nuxeo-operation id="createAction" op="Document.Create" input="[[input]]" params="[[params]]" response="{{action}}"></nuxeo-operation>
+        <nuxeo-operation id="recordAction" op="Qualitified.RecordAction" input="[[action]]" params="[[recordingParams]]"></nuxeo-operation>
+        <nuxeo-operation id="deleteAction" op="Document.Delete" input="[[input]]"></nuxeo-operation>
+
+        <paper-toast id="recordToast"></paper-toast>
+        <div class="action" on-tap="_toggleDialog">
+            <paper-icon-button id="bt" icon="[[icon]]"></paper-icon-button>
+            <span class="label" hidden$="[[!showLabel]]">[[label]]</span>
+        </div>
+        <paper-tooltip for="bt">[[label]]</paper-tooltip>
+
+        <nuxeo-dialog id="dialog" on-iron-overlay-closed="_dialogClosed" with-backdrop>
+            <div class="content">
+                <h2>Define Your Action</h2>
+                <nuxeo-input label="Name" value="{{actionName}}" required></nuxeo-input>
+                <nuxeo-input label="Icon" value="{{iconName}}" placeholder="icons:check"></nuxeo-input>
+                <nuxeo-input label="Document Type(s)" value="{{documentTypes}}" placeholder="File, Folder"></nuxeo-input>
+            </div>
+            <div class="buttons">
+                <paper-button noink dialog-dismiss on-tap="_close">Cancel</paper-button>
+                <paper-button noink dialog-confirm class="primary" on-tap="_ok" disabled="[[disabled]]">Start Recording</paper-button>
+            </div>
+        </nuxeo-dialog>
+
+        <nuxeo-page-provider
+                role="widget"
+                id="actionProvider"
+                auto
+                query="SELECT * FROM ScriptNote WHERE ecm:parentId='{{action.uid}}' AND ecm:currentLifeCycleState != 'deleted' AND ecm:isTrashed = 0 ORDER BY scriptNote:order,dc:created ASC"
+                page-size="40"
+                current-page="{{actions}}">
+        </nuxeo-page-provider>
+        <div class="actions" hidden$="{{!recording}}">
+          <paper-icon-button id="r" icon="icons:dns" on-tap="_fetch">Actions</paper-icon-button>
+          <paper-tooltip for="r">Recording...</paper-tooltip>
+          <paper-icon-button id="d" icon="icons:check-circle" on-tap="_done">Done</paper-icon-button>
+          <paper-tooltip for="d">Done!</paper-tooltip>
+          <paper-icon-button id="c" icon="icons:cancel" on-tap="_cancel">Cancel</paper-icon-button>
+          <paper-tooltip for="c">Cancel</paper-tooltip>
+          <template is="dom-repeat" items="{{actions}}">
+            <div>
+              {{item.title}}
+              <paper-icon-button icon="nuxeo:delete" on-tap="_remove" action-id="{{item.uid}}">Actions</paper-icon-button>
+            </div>
+          </template>
+        </div>
+    </template>
+    <script>
+    Polymer({
+      is: 'qualitified-record-action',
+      behaviors: [Nuxeo.LayoutBehavior],
+      properties: {
+        document: {
+            type: Object,
+            value: {},
+            observer: '_documentChanged'
+        },
+        actionDocument: {
+            type: Object,
+            value: {}
+        },
+        action: {
+            type: Object,
+            value: {}
+        },
+        /**
+         * Label to display in the action button.
+         */
+        label: {
+          type: String,
+          value: 'Record Action'
+        },
+
+        /**
+         * `true` if the action should display the label, `false` otherwise.
+         */
+        showLabel: {
+          type: Boolean,
+          value: false,
+        },
+
+        /**
+         * Icon to use (iconset_name:icon_name) in the action button.
+         */
+        icon: {
+          type: String,
+          value: 'image:camera-roll'
+        },
+
+        actionName: {
+          type: String,
+          value: '',
+          observer: '_nameChanged'
+        },
+
+        iconName: {
+          type: String,
+          value: ''
+        },
+
+        documentTypes: {
+          type: String,
+          value: ''
+        },
+
+        disabled: {
+            type: Boolean,
+            value: false
+        },
+        params: {
+            type: Object,
+            value: {}
+        },
+        recordingParams: {
+            type: Object,
+            value: {}
+        },
+        input:{
+          type: String,
+          value:""
+        },
+        recording:{
+          type: Boolean,
+          value: false
+        },
+        input:{
+          type: String,
+          value:""
+        }
+      },
+
+      _toggleDialog: function() {
+        this.$.dialog.toggle();
+      },
+
+      /**
+       * Callback executed when the user presses the "ok" button.
+       */
+      _documentChanged: function(){
+        console.log("Changed");
+        if(this.recording){
+          this._addListeners();
+          this._fetch();
+        }
+      },
+      _ok: function() {
+        this.input = this.actionDocument.uid;
+        this.params.type = "Scripts";
+        this.params.name = this.actionName;
+        this.params.properties = "dc:title="+this.actionName+"\n" +
+                                 "scripts:icon="+this.iconName+"\n"+
+                                 "scripts:documentTypes="+this.documentTypes+"\n"+
+                                 "scripts:scriptType=action\n";
+        this.$.createAction.execute().then(function(response){
+            this.action = response;
+            //this.$.recordToast.text = "Recording Started...";
+            //this.$.recordToast.open();
+            this.recording = true;
+            this._addListeners();
+
+        }.bind(this))
+        .catch(function (error){
+            console.log(error);
+            this.$.recordToast.text = "Error while Starting to Record Action";
+            this.$.recordToast.open();
+        }.bind(this));
+      },
+
+      _addListeners: function(){
+        //listeners
+        //Add To Collection
+        let collectionDialog = document.querySelector('nuxeo-app').shadowRoot.querySelector('#drawerPanel').querySelector('paper-header-panel').querySelector('#pages').querySelector('#browser').shadowRoot.querySelector('nuxeo-page').querySelector('div').querySelector('div').querySelector('nuxeo-actions-menu').querySelector('nuxeo-add-to-collection-button').shadowRoot.querySelector('nuxeo-dialog');
+        if(typeof collectionDialog != 'undefined' && collectionDialog !== null && collectionDialog.getAttribute('hasListener') == null){
+          let collectionInput = collectionDialog.querySelector('paper-dialog-scrollable').querySelector('nuxeo-selectivity').shadowRoot.querySelector('#input').querySelector('.selectivity-single-select').querySelector('.selectivity-single-result-container');
+          collectionDialog.querySelector('div').querySelector('.primary').addEventListener("click", function(){
+              this._recordAction("Add To "+collectionInput.querySelector('.selectivity-single-selected-item').innerText+" Collection","Document.AddToCollection(input,{collection:\""+collectionInput.querySelector('.selectivity-single-selected-item').dataset.itemId+"\"});");
+          }.bind(this));
+          collectionDialog.setAttribute('hasListener',true);
+        }
+
+        //Start Process
+        let processDialog = document.querySelector('nuxeo-app').shadowRoot.querySelector('#drawerPanel').querySelector('paper-header-panel').querySelector('#pages').querySelector('#browser').shadowRoot.querySelector('nuxeo-page').querySelector('div').querySelector('div').querySelector('nuxeo-actions-menu').querySelector('nuxeo-workflow-button').shadowRoot.querySelector('nuxeo-dialog');
+        if(typeof processDialog != 'undefined' && processDialog !== null && processDialog.getAttribute('hasListener') == null){
+            processDialog.querySelector('div').querySelector('.primary').addEventListener("click", function(){
+                let processSelected = processDialog.querySelector('nuxeo-select').querySelector('.iron-selected');
+                this._recordAction("Start "+processSelected.innerText+" Process","Context.StartWorkflow(input,{id:\""+processSelected.key+"\"});");
+            }.bind(this));
+            processDialog.setAttribute('hasListener',true);
+        }
+
+        //Add To Favorite
+        let favoriteElement = document.querySelector('nuxeo-app').shadowRoot.querySelector('#drawerPanel').querySelector('paper-header-panel').querySelector('#pages').querySelector('#browser').shadowRoot.querySelector('nuxeo-page').querySelector('div').querySelector('div').querySelector('nuxeo-actions-menu').querySelector('nuxeo-favorites-toggle-button');
+        if(typeof favoriteElement != 'undefined' && favoriteElement !== null && favoriteElement.getAttribute('hasListener') == null){
+          favoriteElement.addEventListener("click", function(){
+              this._recordAction("Add To Favorites","Document.AddToFavorites(input,{});");
+          }.bind(this));
+          favoriteElement.setAttribute('hasListener',true);
+        }
+      },
+
+      _recordAction: function(actionName, actionContent){
+        if(this.recording){
+          this.recordingParams.actionName = actionName;
+          this.recordingParams.actionContent = actionContent;
+          this.$.recordAction.execute().then(function(response){
+              //this.$.recordToast.text = "Recorded "+actionName+"...";
+              //this.$.recordToast.open();
+              this._fetch();
+          }.bind(this));
+        }
+      },
+
+      /**
+       * Callback executed when the user presses the "close" button.
+       *
+       * Note that the "close" button already have a "dialog-dismiss" property that makes the button close the dialog
+       * when clicked. If you don't need to perform additional actions, this method is not needed.
+       */
+      _close: function() {
+        // implement me
+      },
+
+      /**
+       * Useful callback to execute some action after the dialog is closed. Can be removed if it's not necessary.
+       */
+      _dialogClosed: function() {
+        // implement me
+      },
+
+      _nameChanged: function(actionName) {
+        if(!!actionName && actionName !== ''){
+            this.disabled = false;
+        }
+        else{
+            this.disabled = true;
+        }
+      },
+      _done: function(){
+        if (!confirm(this.i18n('finish.recording?'))) {
+          return;
+        }
+        this.recording = false;
+        this.action = {};
+        location.reload();
+      },
+      _cancel: function(){
+        if (!confirm(this.i18n('cancel.recording?'))) {
+          return;
+        }
+        this.input = this.action.uid;
+        this.$.deleteAction.execute().then(function(response){
+          this.recording = false;
+          this.action = {};
+          location.reload();
+        });
+      },
+      _fetch: function(){
+        this.$.actionProvider.fetch();
+      },
+      _remove: function(e){
+        if (!confirm(this.i18n('remove.Action?'))) {
+          return;
+        }
+        this.input = e.target.actionId;
+        this.$.deleteAction.execute().then(function(response){
+          this._fetch();
+        }.bind(this));
+      }
+    });
+  </script>
+</dom-module>
