@@ -21,6 +21,7 @@ import org.nuxeo.template.adapters.doc.TemplateBasedDocumentAdapterImpl;
 import org.nuxeo.template.api.InputType;
 import org.nuxeo.template.api.TemplateInput;
 import org.nuxeo.template.api.adapters.TemplateBasedDocument;
+import org.nuxeo.template.api.adapters.TemplateSourceDocument;
 import org.nuxeo.template.fm.FMContextBuilder;
 import org.nuxeo.template.processors.xdocreport.XDocReportBindingResolver;
 
@@ -53,6 +54,16 @@ public class RenderForMultipleDocs {
         if(template.size() == 0){
             throw new NuxeoException("No template with the name "+ templateName);
         }
+
+        TemplateSourceDocument templateSource = template.get(0).getAdapter(TemplateSourceDocument.class);
+        for (DocumentModel doc: docs) {
+            doc.addFacet("TemplateBased");
+            session.saveDocument(doc);
+            session.save();
+            TemplateBasedDocument adapter = doc.getAdapter(TemplateBasedDocument.class);
+            adapter.setTemplate(templateSource.getAdaptedDoc(), true);
+        }
+
         TemplateBasedDocument templateBasedDocument = new TemplateBasedDocumentAdapterImpl(docs.get(0));
         templateBasedDocument.setTemplate(template.get(0), false);
 
