@@ -19,9 +19,10 @@
     <nuxeo-user-suggestion  value="{{document.properties.interaction:responsible}}" label="[[i18n('label.metadata.responsible')]]" search-type="USER_TYPE" role="widget" min-chars="0" multiple="true">
     </nuxeo-user-suggestion>
 
+    <qualitified-document-suggestion role="widget" value="{{document.properties.interaction:contact}}" label="[[i18n('label.metadata.contact')]]" page-provider="documents" min-chars="0" multiple="true" params='{ "namedParameters": "system_primaryType=Contact"}'></qualitified-document-suggestion>
+
     <qualitified-custom-fields document="{{document}}" mode="edit"></qualitified-custom-fields>
 
-    <qualitified-document-suggestion role="widget" value="{{document.properties.interaction:contact}}" label="[[i18n('label.metadata.contact')]]" page-provider="Contacts" min-chars="0" multiple="true"></qualitified-document-suggestion>
 
   </template>
 

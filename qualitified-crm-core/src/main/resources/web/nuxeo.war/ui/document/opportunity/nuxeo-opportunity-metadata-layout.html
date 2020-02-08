@@ -24,28 +24,22 @@
             <label>[[i18n('label.metadata.closedate')]]</label>
             <div>[[_formatDate(document.properties.opportunity:closeDate)]]</div>
         </div>
-
-        <div>
+        <div role="widget">
             <label>[[i18n('label.metadata.responsible')]]</label>
-            <nuxeo-user-suggestion
-                    value="[[document.properties.opportunity:responsible]]"
-                    search-type="USER_TYPE"
-                    role="widget"
-                    min-chars="0"
-                    readOnly>
-            </nuxeo-user-suggestion>
+            <div>
+               <nuxeo-user-tag user="[[document.properties.opportunity:responsible]]"></nuxeo-user-tag>
+            </div>
         </div>
-        <div>
+        <div role="widget" hidden$="[[!document.properties.opportunity:mainContact]">
             <label>[[i18n('label.metadata.mainContact')]]</label>
             <qualitified-document-suggestion role="widget"
                                              value="[[document.properties.opportunity:mainContact]]"
-                                             schemas="Contact"
                                              min-chars="0"
                                              readOnly>
             </qualitified-document-suggestion>
         </div>
         <qualitified-custom-fields document="{{document}}" mode="view"></qualitified-custom-fields>
-        <div role="widget">
+        <div role="widget" hidden$="[[!document.properties.dc:description]]">
             <label>[[i18n('label.metadata.description')]]</label>
             <div>[[document.properties.dc:description]]</div>
         </div>

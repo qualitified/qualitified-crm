@@ -37,28 +37,22 @@
             <div>
                 <pre class="wrap">[[document.properties.note:note]]</pre>
             </div>
+        </div>
+        <div role="widget">
+            <label>[[i18n('label.metadata.responsible')]]</label>
             <div>
-                <label>[[i18n('label.metadata.contact')]]</label>
-                <br/>
-                <template is="dom-repeat" items="[[document.properties.interaction:contact]]" as="contact">
-                    <img style="vertical-align: text-bottom;" class="account-view-layout"
-                         src="[[_hasProfileImg(contact)]]" on-tap="_navigate"
-                         onError="this.onerror=null;this.src='/nuxeo/ui/images/touch/profile.png';">
+                <template is="dom-repeat" items="[[document.properties.interaction:responsible]]">
+                 <nuxeo-user-tag user="[[item]]"></nuxeo-user-tag>
                 </template>
             </div>
-
         </div>
-
-        <div>
-            <label>[[i18n('label.metadata.responsible')]]</label>
-            <nuxeo-user-suggestion
-                    value="[[document.properties.interaction:responsible]]"
-                    search-type="USER_TYPE"
-                    role="widget"
-                    min-chars="0"
-                    multiple
-                    readOnly>
-            </nuxeo-user-suggestion>
+        <div role="widget" hidden$="[[!document.properties.interaction:contact]">
+            <label>[[i18n('label.metadata.contact')]]</label>
+            <qualitified-document-suggestion role="widget"
+                                             value="[[document.properties.interaction:contact]]"
+                                             multiple
+                                             readOnly>
+            </qualitified-document-suggestion>
         </div>
         <qualitified-custom-fields document="{{document}}" mode="view"></qualitified-custom-fields>
         <nuxeo-document-attachments role="widget" document="[[document]]"></nuxeo-document-attachments>
