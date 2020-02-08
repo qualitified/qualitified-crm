@@ -1,0 +1,95 @@
+<!--
+`qualitified-action-buttons`
+@group Nuxeo UI
+@element qualitified-action-buttons
+-->
+
+<dom-module id="qualitified-action-buttons">
+  <template>
+    <style>
+      :host {
+        display: inline-flex;
+      }
+      ::content iron-icon:hover {
+        fill: var(--nuxeo-link-hover-color);
+      }
+    </style>
+    <nuxeo-page-provider
+            role="widget"
+            id="actionProvider"
+            auto
+            query="SELECT * FROM Scripts WHERE scripts:scriptType='action' AND ecm:currentLifeCycleState != 'deleted' AND ecm:isTrashed = 0"
+            page-size="5"
+            current-page="{{actions}}">
+    </nuxeo-page-provider>
+    <paper-toast id="actionToast"></paper-toast>
+    <nuxeo-connection id="nxcon" user="{{user}}"></nuxeo-connection>
+    <nuxeo-operation id="runAction" op="Qualitified.RunAction" input="[[document.uid]]" params="[[params]]"></nuxeo-operation>
+    <template is="dom-repeat" items="[[actions]]">
+      <nuxeo-filter document="[[document]]" type="[[item.properties.scripts:documentTypes]]">
+        <template>
+        <paper-icon-button id="[[_trim(item.title)]]" icon="[[item.properties.scripts:icon]]" on-tap="_runOperation" action-id="[[item.uid]]" action-name="[[item.title]]"></paper-icon-button>
+        <paper-tooltip for="[[_trim(item.title)]]">[[item.title]]</paper-tooltip>
+        </template>
+      </nuxeo-filter>
+    </template>
+  </template>
+  <script>
+    Polymer({
+      is: 'qualitified-action-buttons',
+      behaviors: [Nuxeo.I18nBehavior,Polymer.IronResizableBehavior,Nuxeo.LayoutBehavior,Nuxeo.RoutingBehavior, Nuxeo.FormatBehavior,Nuxeo.FiltersBehavior],
+      properties: {
+        document: {
+          type: Object
+        },
+        operation: {
+          type: String,
+          value: ""
+        },
+        icon: {
+          type: String,
+          value: ""
+        },
+        label: {
+          type: String,
+          value: ""
+        },
+        params:{
+          type: Object,
+          value: {}
+        },
+        user: {
+          type: Object,
+          value: {}
+        },
+        message: {
+          type: String,
+          value: "Done!"
+        }
+      },
+      _runOperation: function(e){
+        this.params = {
+          "actionId":e.target.actionId,
+          "actionName":e.target.actionName,
+          context: {},
+          input: this.document.uid
+        };
+        this.$.runAction.execute().then(function(result) {
+          this.$.actionToast.text = this.message;
+          this.$.actionToast.open();
+          this.navigateTo('browse', this.document.path);
+        }.bind(this))
+        .catch(function (error){
+            console.log(error);
+            this.$.actionToast.text = error;
+            this.navigateTo('browse', this.document.path);
+            this.$.actionToast.open();
+        }.bind(this));
+      },
+      _trim: function(title){
+        return title.replace(/ /g, "");
+      }
+    });
+  </script>
+
+</dom-module>

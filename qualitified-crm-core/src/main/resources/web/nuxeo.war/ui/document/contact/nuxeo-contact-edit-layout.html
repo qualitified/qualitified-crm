@@ -54,7 +54,7 @@
                      type="text"
                      role="widget"></nuxeo-input>
 
-        <nuxeo-user-suggestion  value="{{document.properties.contact:responsible}}" label="[[i18n('label.metadata.responsible')]]" search-type="USER_TYPE" role="widget" min-chars="0" multiple="true">
+        <nuxeo-user-suggestion  value="{{document.properties.contact:responsible}}" label="[[i18n('label.metadata.responsible')]]" search-type="USER_TYPE" role="widget" min-chars="0">
         </nuxeo-user-suggestion>
         <qualitified-custom-fields document="{{document}}" mode="edit"></qualitified-custom-fields>
 

@@ -11,5 +11,7 @@
         <operation class="org.qualitified.crm.operation.AssertNotNull"/>
         <operation class="org.qualitified.crm.operation.AssertTrue"/>
         <operation class="org.qualitified.crm.operation.AssertFalse"/>
+        <operation class="org.qualitified.crm.operation.RecordAction"/>
+        <operation class="org.qualitified.crm.operation.RunAction"/>
     </extension>
  </component>

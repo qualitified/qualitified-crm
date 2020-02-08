@@ -32,11 +32,9 @@
                     search-type="USER_TYPE"
                     role="widget"
                     min-chars="0"
-                    multiple
                     readOnly>
             </nuxeo-user-suggestion>
         </div>
-
         <div>
             <label>[[i18n('label.metadata.mainContact')]]</label>
             <qualitified-document-suggestion role="widget"
@@ -45,16 +43,13 @@
                                              min-chars="0"
                                              readOnly>
             </qualitified-document-suggestion>
-
         </div>
-
+        <qualitified-custom-fields document="{{document}}" mode="view"></qualitified-custom-fields>
         <div role="widget">
             <label>[[i18n('label.metadata.description')]]</label>
             <div>[[document.properties.dc:description]]</div>
         </div>
-        <qualitified-custom-fields document="{{document}}" mode="view"></qualitified-custom-fields>
     </template>
-
     <script>
   (function() {
     'use strict';

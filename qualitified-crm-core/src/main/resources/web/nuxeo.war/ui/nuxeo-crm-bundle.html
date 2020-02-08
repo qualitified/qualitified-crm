@@ -5,6 +5,8 @@
 <link rel="import" href="qualitified-icons.html">
 <link rel="import" href="elements/qualitified-document-suggestion.html">
 <link rel="import" href="elements/qualitified-operation-button.html">
+<link rel="import" href="elements/qualitified-record-action.html">
+<link rel="import" href="elements/qualitified-action-buttons.html">
 <!-- Contribution of element 'custom-document-page' for slot 'DOCUMENT_VIEWS_PAGES' -->
 <nuxeo-slot-content name="myViewPage" slot="DOCUMENT_VIEWS_PAGES" >
   <template>
@@ -216,3 +218,19 @@
     </nuxeo-filter>
   </template>
 </nuxeo-slot-content>
+
+<nuxeo-slot-content name="RecordAction" slot="DOCUMENT_ACTIONS" disabled>
+  <template>
+    <qualitified-record-action document="[[document]]" label="Record Action"></qualitified-record-action>
+  </template>
+</nuxeo-slot-content>
+
+<nuxeo-slot-content name="actions" slot="DOCUMENT_ACTIONS">
+  <template>
+    <qualitified-action-buttons document="[[document]]"></qualitified-action-buttons>
+  </template>
+</nuxeo-slot-content>
+
+
+
+
