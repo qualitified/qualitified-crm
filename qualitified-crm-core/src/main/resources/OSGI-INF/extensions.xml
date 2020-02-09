@@ -67,11 +67,11 @@
         <type>Solicitation</type>
       </subtypes>
     </doctype>
-    <doctype name="Domain" append="true">
+    <!--doctype name="Domain" append="true">
       <subtypes>
         <type>Account</type>
       </subtypes>
-    </doctype>
+    </doctype-->
     <doctype name="Folder" append="true">
       <subtypes>
         <type>Account</type>
