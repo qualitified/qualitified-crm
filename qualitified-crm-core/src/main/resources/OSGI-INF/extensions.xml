@@ -1705,9 +1705,15 @@
       </rule>
     </filter>
   </extension>
-  <extension target="org.nuxeo.ecm.platform.web.common.requestcontroller.service.RequestControllerService" point="corsConfig">
+  <!-- <extension target="org.nuxeo.ecm.platform.web.common.requestcontroller.service.RequestControllerService" point="corsConfig">
     <corsConfig name="fooly" allowGenericHttpRequests="true" allowOrigin="*" allowSubdomains="true">
       <pattern>.*</pattern>
+    </corsConfig>
+  </extension> -->
+  <extension target="org.nuxeo.ecm.platform.web.common.requestcontroller.service.RequestControllerService" point="corsConfig">
+    <corsConfig name="extranet" allowOrigin="*" allowSubdomains="false" exposedHeaders="" maxAge="-1" supportedHeaders="*" 
+                supportedMethods="GET,POST,HEAD,OPTIONS,DELETE,PUT" supportsCredentials="true">
+      <pattern>/nuxeo/.*</pattern>
     </corsConfig>
   </extension>
   <extension target="org.nuxeo.ecm.platform.actions.ActionService" point="actions">
