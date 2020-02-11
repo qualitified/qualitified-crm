@@ -36,4 +36,5 @@
   <xs:element name="order" type="xs:integer"/>
   <xs:element name="isDisabled" type="xs:boolean"/>
   <xs:element name="isValid" type="xs:boolean"/>
+  <xs:element name="async" type="xs:boolean" default="false"/>
 </xs:schema>

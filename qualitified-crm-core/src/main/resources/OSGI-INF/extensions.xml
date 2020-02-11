@@ -1344,6 +1344,18 @@
         }]]>
       </script>
     </scriptedOperation>
+    <scriptedOperation id="javascript.postSaveAsync">
+      <inputType>document</inputType>
+      <outputType>document</outputType>
+      <category>javascript</category>
+      <param name="isCreation" type="boolean"/>
+      <param name="script" type="string"/>
+      <description></description>
+      <script><![CDATA[function run(input, params) {
+          return eval(params.script);
+        }]]>
+      </script>
+    </scriptedOperation>
     <scriptedOperation id="javascript.preSave">
       <inputType>document</inputType>
       <outputType>document</outputType>
