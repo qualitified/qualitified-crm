@@ -576,8 +576,8 @@
     </type>
     <type id="Scripts">
       <label>Scripts</label>
-      <icon>/img/ic_code_black_24dp_1x.png</icon>
-      <bigIcon>/img/ic_code_black_24dp_2x.png</bigIcon>
+      <icon>/img/baseline_settings_ethernet_black_24dpx1.png</icon>
+      <bigIcon>baseline_settings_ethernet_black_24dpx2.png</bigIcon>
       <description></description>
     </type>
     <type id="Custom">

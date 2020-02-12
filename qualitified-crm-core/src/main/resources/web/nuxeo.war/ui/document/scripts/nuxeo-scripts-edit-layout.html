@@ -35,6 +35,25 @@ limitations under the License.
                     name="description"
                     value="{{document.properties.dc:description}}">
     </nuxeo-textarea>
+
+    <nuxeo-input role="widget"
+                 label="Script Type"
+                 name="scriptType"
+                 value="{{document.properties.scripts:scriptType}}">
+    </nuxeo-input>
+
+    <nuxeo-input role="widget"
+                 label="Icon"
+                 name="icon"
+                 value="{{document.properties.scripts:icon}}">
+    </nuxeo-input>
+
+    <nuxeo-input role="widget"
+                 label="Document Types"
+                 name="documentTypes"
+                 value="{{document.properties.scripts:documentTypes}}">
+    </nuxeo-input>
+    
   </template>
 
   <script>

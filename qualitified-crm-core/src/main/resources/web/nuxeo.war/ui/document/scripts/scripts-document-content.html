@@ -72,7 +72,7 @@
             </template>
           </template>
         </nuxeo-data-table-column>
-        <nuxeo-data-table-column name="[[i18n('documentContentView.datatable.header.version')]]" field="versionLabel">
+        <nuxeo-data-table-column name="[[i18n('documentContentView.datatable.header.version')]]" field="versionLabel" hidden="">
           <template>
             [[formatVersion(item)]]
           </template>
@@ -92,7 +92,7 @@
             [[item.properties.scriptnote:order]]
           </template>
         </nuxeo-data-table-column>
-        <nuxeo-data-table-column name="Disabled" field="scriptnote:isDisabled" sort-by="[[_displaySort(document, 'scriptnote:isDisabled')]]" hidden="">
+        <nuxeo-data-table-column name="Disabled" field="scriptnote:isDisabled" sort-by="[[_displaySort(document, 'scriptnote:isDisabled')]]">
           <template>
             <nuxeo-filter document=[[item]] expression="document.properties['scriptnote:isDisabled'] !== null">
               <template>
