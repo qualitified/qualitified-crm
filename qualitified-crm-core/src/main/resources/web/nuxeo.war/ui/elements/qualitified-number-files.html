@@ -1,6 +1,8 @@
 <dom-module id="qualitified-number-files">
   <template>
 
+    <nuxeo-operation id="queryOpOption" op="Document.Query" params="[[paramsOption]]"></nuxeo-operation>
+
     <nuxeo-operation id="queryOp" op="Document.Query" params="[[params]]"></nuxeo-operation>
 
     <nuxeo-data-table-column id="column" name="Files" flex="0">
@@ -21,9 +23,13 @@
           observer: "_nxDataTableChanged"
         },
         params: Object,
+        option: String,
       },
 
       ready: function () {
+
+        this._getOption();
+
         /* If the `nxDataTable` is not defined, the first `nuxeo-table-table` found will be chosen. */
 
         let nxDocContent = this.domHost.shadowRoot.querySelector("nuxeo-document-content");
@@ -35,6 +41,16 @@
         if (elTable !== null) {
           this.nxDataTable = elTable;
         }
+      },
+
+      _getOption: function (params) {
+        this.paramsOption = {
+          query: "SELECT * FROM Document WHERE ecm:currentLifeCycleState != 'deleted' AND ecm:mixinType != 'HiddenInNavigation' AND ecm:isVersion = 0 AND ecm:isTrashed = 0 AND ecm:primaryType = 'Option'"
+        };
+
+        this.$.queryOpOption.execute().then(function (data) {
+          this.option = data.entries[0].properties["option:nbFilesQuery"];
+        }.bind(this));
       },
 
       _nxDataTableChanged: function () {
@@ -56,11 +72,15 @@
               } else {
 
                 this.params = {
-                  query: "SELECT * FROM Document WHERE ecm:currentLifeCycleState != 'deleted' AND ecm:mixinType != 'HiddenInNavigation' AND ecm:isVersion = 0 AND ecm:isTrashed = 0 AND ecm:parentId = '" + item.uid + "'"
+                  query: "SELECT * FROM Document WHERE ecm:currentLifeCycleState != 'deleted' AND ecm:mixinType != 'HiddenInNavigation' AND ecm:isVersion = 0 AND ecm:isTrashed = 0 AND ecm:parentId = '" + item.uid + "' "
                 };
 
+                if(this.option){
+                  this.params.query += this.option;                
+                }
+
                 this.$.queryOp.execute().then(function (data) {
-                  if (data.resultsCount >= 0) {
+                  if (data.resultsCount > 0) {
                     nxCellNbFiles.textContent = data.resultsCount;
                     nxCellNbFiles.style.display = "block";
                   } else {
