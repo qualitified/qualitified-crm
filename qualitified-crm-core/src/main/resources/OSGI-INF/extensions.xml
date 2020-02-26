@@ -14,6 +14,7 @@
     <schema name="interaction" prefix="interaction" override="true" src="data/schemas/interaction.xsd"/>
     <schema name="marketing" prefix="marketing" override="true" src="data/schemas/marketing.xsd"/>
     <schema name="opportunity" prefix="opportunity" override="true" src="data/schemas/opportunity.xsd"/>
+    <schema name="option" prefix="option" override="true" src="data/schemas/option.xsd"/>
     <schema name="sales" prefix="sales" override="true" src="data/schemas/sales.xsd"/>
     <schema name="services" prefix="services" override="true" src="data/schemas/services.xsd"/>
     <schema name="silhouette" prefix="silhouette" override="true" src="data/schemas/silhouette.xsd"/>
@@ -45,6 +46,9 @@
     </facet>
     <doctype name="Calendar" extends="File">
       <schema name="calendar"/>
+    </doctype>
+    <doctype name="Option" extends="File">
+      <schema name="option"/>
     </doctype>
     <doctype name="Account" extends="Document">
       <schema name="account"/>
@@ -133,6 +137,7 @@
         <type>Objects</type>
         <type>Scripts</type>
         <type>Calendar</type>
+        <type>Option</type>
       </subtypes>
     </doctype>
     <doctype name="Root" append="true">
@@ -481,6 +486,9 @@
     <types>
       <type name="Calendar">default</type>
     </types>
+    <types>
+      <type name="Option">default</type>
+    </types>
   </extension>
   <extension target="org.nuxeo.ecm.platform.types.TypeService" point="types">
     <type id="Calendar">
@@ -603,6 +611,12 @@
       <category>Collaborative</category>
       <icon>/img/workspace.gif</icon>
       <bigIcon>/img/workspace_100.png</bigIcon>
+      <description></description>
+    </type>
+    <type id="Option">
+      <label>Option</label>
+      <icon>/img/option_x1.png</icon>
+      <bigIcon>/img/option_x2.png</bigIcon>
       <description></description>
     </type>
   </extension>
@@ -1530,6 +1544,7 @@
         <templateItem typeName="Objects" id="Objects" title="Objects" description=""/>
         <templateItem typeName="Scripts" id="Scripts" title="Scripts" description=""/>
         <templateItem typeName="Calendar" id="Calendar.conf" title="Calendar.conf" description=""/>
+        <templateItem typeName="Option" id="Option" title="Option" description=""/>
       </template>
     </factoryBinding>
     <factoryBinding name="RootFactory" factoryName="SimpleTemplateRootFactory" targetType="Root">
