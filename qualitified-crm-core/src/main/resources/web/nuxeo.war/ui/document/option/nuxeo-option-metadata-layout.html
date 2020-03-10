@@ -1,0 +1,46 @@
+<!--
+`nuxeo-option-metadata-layout`
+@group Nuxeo UI
+@element nuxeo-option-metadata-layout
+-->
+<link rel="import" href="../qualitified-custom-fields.html">
+<dom-module id="nuxeo-option-metadata-layout">
+  <template>
+    <style include="nuxeo-styles">
+      *[role=widget] {
+        padding: 5px;
+      }
+    </style>
+
+    <div role="widget">
+      <h1>[[document.properties.dc:title]]</h1>
+    </div>
+
+    <qualitified-custom-fields document="{{document}}" mode="view"></qualitified-custom-fields>
+
+    <div role="widget" hidden$="[[!document.properties.dc:description]]">
+      <label>[[i18n('label.dublincore.description')]]</label>
+      <div name="description" class="multiline">[[document.properties.dc:description]]</div>
+    </div>
+
+    <div role="widget" hidden$="[[!document.properties.option:nbFilesQuery]]">
+      <label>Files Number Query</label>
+      <div>[[document.properties.option:nbFilesQuery]]</div>
+    </div>
+
+  </template>
+
+  <script>
+    Polymer({
+      is: 'nuxeo-option-metadata-layout',
+      behaviors: [Nuxeo.LayoutBehavior],
+      properties: {
+        /**
+         * @doctype Option
+         */
+        document: Object
+      }
+    });
+  </script>
+
+</dom-module>
