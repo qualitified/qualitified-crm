@@ -13,5 +13,6 @@
         <operation class="org.qualitified.crm.operation.AssertFalse"/>
         <operation class="org.qualitified.crm.operation.RecordAction"/>
         <operation class="org.qualitified.crm.operation.RunAction"/>
+        <operation class="org.qualitified.crm.operation.NextBestAction"/>
     </extension>
  </component>

@@ -45,6 +45,20 @@
       <groupId>org.nuxeo.template.rendering</groupId>
       <artifactId>nuxeo-template-rendering-core</artifactId>
     </dependency>
+    <dependency>
+      <groupId>org.nuxeo.ecm.automation</groupId>
+      <artifactId>nuxeo-automation-features</artifactId>
+    </dependency>
+      <dependency>
+          <groupId>org.apache.chemistry.opencmis</groupId>
+          <artifactId>chemistry-opencmis-commons-impl</artifactId>
+          <scope>test</scope>
+      </dependency>
+    <dependency>
+      <groupId>org.apache.chemistry.opencmis</groupId>
+      <artifactId>chemistry-opencmis-commons-impl</artifactId>
+      <scope>test</scope>
+    </dependency>
   </dependencies>
 
 

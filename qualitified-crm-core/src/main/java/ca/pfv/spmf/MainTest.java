@@ -35,7 +35,7 @@ public class MainTest {
         sequence.addItem(new Item(4));
         sequence.addItem(new Item(4));
         Sequence thePrediction = predictionModel.Predict(sequence);
-        System.out.println("The prediction for the next action is: " + thePrediction);
+        System.out.println("The prediction for the next action is: " + thePrediction.getItems().get(0).val);
     }
 
 
