@@ -14,5 +14,6 @@
         <operation class="org.qualitified.crm.operation.RecordAction"/>
         <operation class="org.qualitified.crm.operation.RunAction"/>
         <operation class="org.qualitified.crm.operation.NextBestAction"/>
+        <operation class="org.qualitified.crm.operation.Deploy"/>
     </extension>
  </component>

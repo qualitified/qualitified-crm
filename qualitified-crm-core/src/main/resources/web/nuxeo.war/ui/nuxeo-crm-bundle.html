@@ -7,6 +7,7 @@
 <link rel="import" href="elements/qualitified-operation-button.html">
 <link rel="import" href="elements/qualitified-record-action.html">
 <link rel="import" href="elements/qualitified-action-buttons.html">
+<link rel="import" href="elements/qualitified-dialog-button.html">
 <!-- Contribution of element 'custom-document-page' for slot 'DOCUMENT_VIEWS_PAGES' -->
 <nuxeo-slot-content name="myViewPage" slot="DOCUMENT_VIEWS_PAGES" >
   <template>
@@ -214,6 +215,16 @@
     <nuxeo-filter document="[[document]]" type="ScriptNote" expression="document.title.startsWith('UnitTest')">
       <template>
         <qualitified-operation-button document="[[document]]" operation="Qualitified.RunUnitTest" icon="icons:verified-user" label="Run Test"></qualitified-operation-button>
+      </template>
+    </nuxeo-filter>
+  </template>
+</nuxeo-slot-content>
+
+<nuxeo-slot-content name="Deploy" slot="DOCUMENT_ACTIONS">
+  <template>
+    <nuxeo-filter document="[[document]]" type="Admin,Objects,Custom,Scripts,ScriptNote,TemplateRoot">
+      <template>
+        <qualitified-dialog-button document="[[document]]" operation="Qualitified.Deploy" icon="icons:check" label="Deploy"></qualitified-dialog-button>
       </template>
     </nuxeo-filter>
   </template>

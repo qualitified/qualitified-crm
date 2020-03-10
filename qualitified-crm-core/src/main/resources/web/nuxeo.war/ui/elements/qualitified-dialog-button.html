@@ -1,0 +1,104 @@
+<!--
+`qualitified-dialog-button`
+@group Nuxeo UI
+@element qualitified-dialog-button
+-->
+
+<dom-module id="qualitified-dialog-button">
+  <template>
+    <style>
+      :host {
+        display: inline-block;
+      }
+      ::content iron-icon:hover {
+        fill: var(--nuxeo-link-hover-color);
+      }
+    </style>
+    <paper-toast id="operationToast"></paper-toast>
+    <nuxeo-connection id="nxcon" user="{{user}}"></nuxeo-connection>
+    <nuxeo-operation id="operation" op="[[operation]]" input="[[document.uid]]" params="[[params]]"></nuxeo-operation>
+    <paper-icon-button id="button" icon="[[icon]]" on-tap="_toggleDialog"></paper-icon-button>
+    <paper-tooltip for="button">[[label]]</paper-tooltip>
+
+    <nuxeo-dialog id="dialog" on-iron-overlay-closed="_dialogClosed" with-backdrop>
+      <div class="content">
+        <nuxeo-input value="{{url}}" label="Url" type="text" role="widget"></nuxeo-input>
+        <nuxeo-input value="{{login}}" label="Login" type="text" role="widget"></nuxeo-input>
+        <nuxeo-input value="{{password}}" label="Password" type="password" role="widget"></nuxeo-input>
+      </div>
+      <div class="buttons">
+        <paper-button noink dialog-dismiss on-tap="_close">Close</paper-button>
+        <paper-button noink dialog-confirm class="primary" on-tap="_ok" disabled="[[disabled]]">Ok</paper-button>
+      </div>
+    </nuxeo-dialog>
+  </template>
+  <script>
+    Polymer({
+      is: 'qualitified-dialog-button',
+      behaviors: [Nuxeo.I18nBehavior,Polymer.IronResizableBehavior,Nuxeo.LayoutBehavior,Nuxeo.RoutingBehavior, Nuxeo.FormatBehavior,Nuxeo.DocumentCreationBehavior],
+      properties: {
+        document: {
+          type: Object
+        },
+        operation: {
+          type: String,
+          value: ""
+        },
+        icon: {
+          type: String,
+          value: ""
+        },
+        label: {
+          type: String,
+          value: ""
+        },
+        params:{
+          type: Object,
+          value: {}
+        },
+        user: {
+          type: Object,
+          value: {}
+        },
+        message: {
+          type: String,
+          value: "Done!"
+        },
+        url: {
+          type: String,
+          value: ""
+        },
+        login: {
+          type: String,
+          value: ""
+        },
+        password: {
+          type: String,
+          value: ""
+        }
+      },
+      _toggleDialog: function() {
+        this.$.dialog.toggle();
+      },
+      _ok: function(){
+        this.params = {
+          url:this.url, login:this.login, password:this.password,
+          context: {},
+          input: this.document.uid
+        };
+        this.$.operation.execute().then(function(result) {
+          this.$.operationToast.text = this.message;
+          this.$.operationToast.open();
+          this.navigateTo('browse', this.document.path);
+        }.bind(this))
+        .catch(function (error){
+            console.log(error);
+            this.$.operationToast.text = error;
+            this.navigateTo('browse', this.document.path);
+            this.$.operationToast.open();
+        }.bind(this));
+      }
+    });
+  </script>
+
+</dom-module>
