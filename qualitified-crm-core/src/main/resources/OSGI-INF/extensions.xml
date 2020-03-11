@@ -1178,6 +1178,20 @@
             <property name="size">0</property>
           </properties>
         </aggregate>
+        <aggregate id="nbEmployees_agg" type="terms" parameter="account:nbEmployees">
+          <field schema="account_list_pp" name="nbEmployees_agg"/>
+          <properties>
+            <property name="order">count desc</property>
+            <property name="size">0</property>
+          </properties>
+        </aggregate>
+        <aggregate id="turnover_agg" type="terms" parameter="account:turnover">
+          <field schema="account_list_pp" name="turnover_agg"/>
+          <properties>
+            <property name="order">count desc</property>
+            <property name="size">0</property>
+          </properties>
+        </aggregate>
       </aggregates>
       <sort column="dc:title" ascending="true"/>
       <pageSize>10</pageSize>
@@ -1227,7 +1241,7 @@
       <sort column="dc:modified" ascending="false"/>
       <pageSize>10</pageSize>
     </genericPageProvider>
-   <genericPageProvider class="org.nuxeo.elasticsearch.provider.ElasticSearchNxqlPageProvider" name="person_list">
+    <genericPageProvider class="org.nuxeo.elasticsearch.provider.ElasticSearchNxqlPageProvider" name="person_list">
       <trackUsage>true</trackUsage>
       <property name="coreSession">#{documentManager}</property>
       <whereClause>
@@ -1662,6 +1676,28 @@
       <table>studio_vocabulary_AccountType</table>
       <dataFile>data/vocabularies/AccountType.csv</dataFile>
     </directory>
+    <directory name="AccountEmployeesNumber">
+      <schema>vocabulary</schema>
+      <dataSource>java:/nxsqldirectory</dataSource>
+      <cacheTimeout>3600</cacheTimeout>
+      <cacheMaxSize>1000</cacheMaxSize>
+      <idField>id</idField>
+      <autoincrementIdField>false</autoincrementIdField>
+      <createTablePolicy>on_missing_columns</createTablePolicy>
+      <table>studio_vocabulary_AccountEmployeesNumber</table>
+      <dataFile>data/vocabularies/AccountEmployeesNumber.csv</dataFile>
+    </directory>
+    <directory name="AccountRevenue">
+      <schema>vocabulary</schema>
+      <dataSource>java:/nxsqldirectory</dataSource>
+      <cacheTimeout>3600</cacheTimeout>
+      <cacheMaxSize>1000</cacheMaxSize>
+      <idField>id</idField>
+      <autoincrementIdField>false</autoincrementIdField>
+      <createTablePolicy>on_missing_columns</createTablePolicy>
+      <table>studio_vocabulary_AccountRevenue</table>
+      <dataFile>data/vocabularies/AccountRevenue.csv</dataFile>
+    </directory>
     <directory name="SolicitationCategory">
       <schema>vocabulary</schema>
       <dataSource>java:/nxsqldirectory</dataSource>
@@ -1738,7 +1774,7 @@
     </corsConfig>
   </extension> -->
   <extension target="org.nuxeo.ecm.platform.web.common.requestcontroller.service.RequestControllerService" point="corsConfig">
-    <corsConfig name="extranet" allowOrigin="*" allowSubdomains="false" exposedHeaders="" maxAge="-1" supportedHeaders="*" 
+    <corsConfig name="extranet" allowOrigin="*" allowSubdomains="false" exposedHeaders="" maxAge="-1" supportedHeaders="*"
                 supportedMethods="GET,POST,HEAD,OPTIONS,DELETE,PUT" supportsCredentials="true">
       <pattern>/nuxeo/.*</pattern>
     </corsConfig>
