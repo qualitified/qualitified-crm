@@ -1,0 +1,1884 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<component name="studio.extensions.crm" version="1.0.0">
+  <require>org.nuxeo.runtime.started</require>
+  <extension target="org.nuxeo.ecm.core.schema.TypeService" point="schema">
+    <schema name="calendar" prefix="calendar" override="true" src="data/schemas/calendar.xsd"/>
+    <schema name="account" prefix="account" override="true" src="data/schemas/account.xsd"/>
+    <schema name="folder" prefix="folder" override="true" src="data/schemas/folder.xsd"/>
+    <schema name="domain_schema" prefix="domain_schema" override="true" src="data/schemas/domain_schema.xsd"/>
+    <schema name="admin" prefix="admin" override="true" src="data/schemas/admin.xsd"/>
+    <schema name="contact" prefix="contact" override="true" src="data/schemas/contact.xsd"/>
+    <schema name="address" prefix="address" override="true" src="data/schemas/address.xsd"/>
+    <schema name="file_schema" prefix="file_schema" override="true" src="data/schemas/file_schema.xsd"/>
+    <schema name="interaction" prefix="interaction" override="true" src="data/schemas/interaction.xsd"/>
+    <schema name="marketing" prefix="marketing" override="true" src="data/schemas/marketing.xsd"/>
+    <schema name="opportunity" prefix="opportunity" override="true" src="data/schemas/opportunity.xsd"/>
+    <schema name="option" prefix="option" override="true" src="data/schemas/option.xsd"/>
+    <schema name="sales" prefix="sales" override="true" src="data/schemas/sales.xsd"/>
+    <schema name="services" prefix="services" override="true" src="data/schemas/services.xsd"/>
+    <schema name="silhouette" prefix="silhouette" override="true" src="data/schemas/silhouette.xsd"/>
+    <schema name="scriptnote" prefix="scriptnote" override="true" src="data/schemas/scriptnote.xsd"/>
+    <schema name="scripts" prefix="scripts" override="true" src="data/schemas/scripts.xsd"/>
+    <schema name="custom" prefix="custom" override="true" src="data/schemas/custom.xsd"/>
+    <schema name="solicitation" prefix="solicitation" override="true" src="data/schemas/solicitation.xsd"/>
+    <schema name="workspace_schema" prefix="workspace_schema" override="true" src="data/schemas/workspace_schema.xsd"/>
+    <schema name="person" prefix="person" override="true" src="data/schemas/person.xsd"/>
+    <schema name="opportunity_list_pp" prefix="opportunity_list_pp" override="true" src="data/schemas/opportunity_list_pp.xsd"/>
+    <schema name="account_list_pp" prefix="account_list_pp" override="true" src="data/schemas/account_list_pp.xsd"/>
+    <schema name="person_list_pp" prefix="person_list_pp" override="true" src="data/schemas/person_list_pp.xsd"/>
+    <schema name="interaction_list_pp" prefix="interaction_list_pp" override="true" src="data/schemas/interaction_list_pp.xsd"/>
+    <schema name="solicitation_list_pp" prefix="solicitation_list_pp" override="true" src="data/schemas/solicitation_list_pp.xsd"/>
+    <schema name="var_global_Task13ce" prefix="var_global_Task13ce" override="true" src="data/schemas/var_global_Task13ce.xsd"/>
+    <schema name="var_Task13ce" prefix="var_Task13ce" override="true" src="data/schemas/var_Task13ce.xsd"/>
+    <schema name="var_start-node" prefix="var_start-node" override="true" src="data/schemas/var_start-node.xsd"/>
+    <schema name="var_stop-node" prefix="var_stop-node" override="true" src="data/schemas/var_stop-node.xsd"/>
+    <schema name="var_interactionWorkflow" prefix="var_interactionWorkflow" override="true" src="data/schemas/var_interactionWorkflow.xsd"/>
+    <schema name="var_global_Task67a" prefix="var_global_Task67a" override="true" src="data/schemas/var_global_Task67a.xsd"/>
+    <schema name="var_Task67a" prefix="var_Task67a" override="true" src="data/schemas/var_Task67a.xsd"/>
+    <schema name="var_Taskb50" prefix="var_Taskb50" override="true" src="data/schemas/var_Taskb50.xsd"/>
+    <schema name="var_SolicitationWorkflow" prefix="var_SolicitationWorkflow" override="true" src="data/schemas/var_SolicitationWorkflow.xsd"/>
+    <schema name="documents_pp" prefix="documents_pp" override="true" src="data/schemas/documents_pp.xsd"/>
+  </extension>
+  <extension target="org.nuxeo.ecm.core.schema.TypeService" point="doctype">
+    <facet name="NXTag">
+      <schema name="facetedTag"/>
+    </facet>
+    <doctype name="Calendar" extends="File">
+      <schema name="calendar"/>
+    </doctype>
+    <doctype name="Option" extends="File">
+      <schema name="option"/>
+    </doctype>
+    <doctype name="Account" extends="Document">
+      <schema name="account"/>
+      <schema name="dublincore"/>
+      <schema name="common"/>
+      <schema name="uid"/>
+      <schema name="picture"/>
+      <schema name="custom"/>
+      <facet name="Picture"/>
+      <facet name="Folderish"/>
+      <facet name="NXTag"/>
+      <subtypes>
+        <type>Contact</type>
+        <type>Folder</type>
+        <type>File</type>
+        <type>Picture</type>
+        <type>Video</type>
+        <type>Audio</type>
+        <type>Note</type>
+        <type>Solicitation</type>
+      </subtypes>
+    </doctype>
+    <!--doctype name="Domain" append="true">
+      <subtypes>
+        <type>Account</type>
+      </subtypes>
+    </doctype-->
+    <doctype name="Folder" append="true">
+      <subtypes>
+        <type>Account</type>
+      </subtypes>
+    </doctype>
+    <doctype name="Workspace" append="true">
+      <subtypes>
+        <type>Account</type>
+      </subtypes>
+    </doctype>
+    <doctype name="Root" append="true">
+      <subtypes>
+        <type>Account</type>
+      </subtypes>
+    </doctype>
+    <doctype name="Folder" extends="Document">
+      <schema name="folder"/>
+      <schema name="dublincore"/>
+      <schema name="common"/>
+      <schema name="uid"/>
+      <schema name="custom"/>
+      <facet name="Folderish"/>
+      <facet name="NXTag"/>
+      <subtypes>
+        <type>File</type>
+        <type>Folder</type>
+        <type>Note</type>
+      </subtypes>
+    </doctype>
+    <doctype name="Folder" append="true">
+      <subtypes>
+        <type>Folder</type>
+        <type>Picture</type>
+        <type>Video</type>
+        <type>Audio</type>
+      </subtypes>
+    </doctype>
+    <doctype name="Workspace" append="true">
+      <subtypes>
+        <type>Folder</type>
+      </subtypes>
+    </doctype>
+    <doctype name="Domain" extends="Folder">
+      <schema name="domain_schema"/>
+      <facet name="SuperSpace"/>
+      <subtypes>
+        <type>Account</type>
+      </subtypes>
+    </doctype>
+    <doctype name="Root" append="true">
+      <subtypes>
+        <type>Domain</type>
+      </subtypes>
+    </doctype>
+    <doctype name="Admin" extends="Domain">
+      <schema name="admin"/>
+      <subtypes>
+        <type>TemplateRoot</type>
+        <type>Objects</type>
+        <type>Scripts</type>
+        <type>Calendar</type>
+        <type>Option</type>
+      </subtypes>
+    </doctype>
+    <doctype name="Root" append="true">
+      <subtypes>
+        <type>Admin</type>
+      </subtypes>
+    </doctype>
+    <doctype name="Contact" extends="Document">
+      <schema name="contact"/>
+      <schema name="dublincore"/>
+      <schema name="common"/>
+      <schema name="uid"/>
+      <schema name="person"/>
+      <schema name="picture"/>
+      <schema name="custom"/>
+      <schema name="address"/>
+      <facet name="Picture"/>
+      <facet name="NXTag"/>
+    </doctype>
+    <doctype name="Account" append="true">
+      <schema name="address"/>
+      <subtypes>
+        <type>Contact</type>
+      </subtypes>
+    </doctype>
+    <doctype name="File" extends="Document">
+      <schema name="file_schema"/>
+      <schema name="dublincore"/>
+      <schema name="common"/>
+      <schema name="uid"/>
+      <schema name="file"/>
+      <schema name="files"/>
+      <schema name="custom"/>
+      <facet name="Commentable"/>
+      <facet name="Versionable"/>
+      <facet name="Publishable"/>
+      <facet name="HasRelatedText"/>
+      <facet name="NXTag"/>
+    </doctype>
+    <doctype name="Folder" append="true">
+      <subtypes>
+        <type>File</type>
+      </subtypes>
+    </doctype>
+    <doctype name="Workspace" append="true">
+      <facet name="NXTag"/>
+      <subtypes>
+        <type>File</type>
+      </subtypes>
+    </doctype>
+    <doctype name="Interaction" extends="Document">
+      <schema name="interaction"/>
+      <schema name="dublincore"/>
+      <schema name="common"/>
+      <schema name="uid"/>
+      <schema name="files"/>
+      <schema name="note"/>
+      <schema name="custom"/>
+      <facet name="NXTag"/>
+    </doctype>
+    <doctype name="Account" append="true">
+      <subtypes>
+        <type>Interaction</type>
+      </subtypes>
+    </doctype>
+    <doctype name="Marketing" extends="Domain">
+      <schema name="marketing"/>
+      <subtypes>
+        <type>Account</type>
+        <type>Contact</type>
+      </subtypes>
+    </doctype>
+    <doctype name="Root" append="true">
+      <subtypes>
+        <type>Marketing</type>
+      </subtypes>
+    </doctype>
+    <doctype name="Opportunity" extends="Document">
+      <schema name="opportunity"/>
+      <schema name="dublincore"/>
+      <schema name="common"/>
+      <schema name="uid"/>
+      <schema name="custom"/>
+      <facet name="Folderish"/>
+      <facet name="NXTag"/>
+      <subtypes>
+        <type>File</type>
+        <type>Folder</type>
+        <type>Interaction</type>
+        <type>Picture</type>
+        <type>Video</type>
+        <type>Audio</type>
+        <type>Note</type>
+      </subtypes>
+    </doctype>
+    <doctype name="Account" append="true">
+      <subtypes>
+        <type>Opportunity</type>
+      </subtypes>
+    </doctype>
+    <doctype name="Sales" extends="Domain">
+      <schema name="sales"/>
+      <facet name="NXTag"/>
+      <subtypes>
+        <type>Account</type>
+        <type>Contact</type>
+        <type>Interaction</type>
+        <type>Opportunity</type>
+      </subtypes>
+    </doctype>
+    <doctype name="Root" append="true">
+      <subtypes>
+        <type>Sales</type>
+      </subtypes>
+    </doctype>
+    <doctype name="Services" extends="Domain">
+      <schema name="services"/>
+      <subtypes>
+        <type>Solicitation</type>
+      </subtypes>
+    </doctype>
+    <doctype name="Root" append="true">
+      <subtypes>
+        <type>Services</type>
+      </subtypes>
+    </doctype>
+    <doctype name="Silhouette" extends="Document">
+      <schema name="silhouette"/>
+      <schema name="dublincore"/>
+      <schema name="common"/>
+      <schema name="uid"/>
+      <schema name="person"/>
+      <schema name="custom"/>
+      <schema name="address"/>
+    </doctype>
+    <doctype name="Marketing" append="true">
+      <subtypes>
+        <type>Silhouette</type>
+      </subtypes>
+    </doctype>
+    <doctype name="ScriptNote" extends="Note">
+      <schema name="scriptnote"/>
+      <schema name="custom"/>
+    </doctype>
+    <doctype name="Custom" extends="Document">
+      <schema name="dublincore"/>
+      <schema name="common"/>
+      <schema name="uid"/>
+      <schema name="custom"/>
+      <facet name="NXTag"/>
+    </doctype>
+    <doctype name="Objects" extends="Folder">
+      <subtypes>
+        <type>Custom</type>
+      </subtypes>
+      <facet name="NXTag"/>
+    </doctype>
+    <doctype name="Scripts" extends="Folder">
+      <schema name="custom"/>
+      <schema name="scripts"/>
+      <facet name="NXTag"/>
+      <subtypes>
+        <type>ScriptNote</type>
+        <type>Scripts</type>
+      </subtypes>
+    </doctype>
+    <doctype name="Solicitation" extends="Document">
+      <schema name="solicitation"/>
+      <schema name="dublincore"/>
+      <schema name="common"/>
+      <schema name="uid"/>
+      <schema name="note"/>
+      <schema name="files"/>
+      <schema name="custom"/>
+      <facet name="Folderish"/>
+      <facet name="NXTag"/>
+      <subtypes>
+        <type>File</type>
+        <type>Note</type>
+        <type>Folder</type>
+        <type>Interaction</type>
+        <type>Picture</type>
+        <type>Video</type>
+        <type>Audio</type>
+      </subtypes>
+    </doctype>
+    <doctype name="TemplateRoot" append="true">
+      <subtypes>
+        <type>Account</type>
+        <type>Contact</type>
+        <type>Opportunity</type>
+        <type>Interaction</type>
+        <type>Solicitation</type>
+        <type>Folder</type>
+      </subtypes>
+    </doctype>
+    <doctype name="Workspace" extends="Folder">
+      <schema name="workspace_schema"/>
+      <!-- for logo -->
+      <schema name="file"/>
+      <schema name="webcontainer"/>
+      <schema name="publishing"/>
+      <!-- the content of webcontainer -->
+      <schema name="files"/>
+      <facet name="SuperSpace"/>
+      <subtypes>
+        <type>File</type>
+        <type>Folder</type>
+        <type>Workspace</type>
+        <!-- <type>BlogSite</type> -->
+        <!-- <type>Forum</type> -->
+        <type>MailFolder</type>
+        <type>Note</type>
+        <type>OrderedFolder</type>
+        <!-- <type>WebSite</type> -->
+        <type>Account</type>
+      </subtypes>
+    </doctype>
+    <doctype name="WorkspaceRoot" append="true">
+      <subtypes>
+        <type>Workspace</type>
+      </subtypes>
+    </doctype>
+    <doctype name="opportunity_list_pp" extends="Document">
+      <facet name="ContentViewDisplay"/>
+      <facet name="SavedSearch"/>
+      <facet name="HiddenInNavigation"/>
+      <schema name="opportunity_list_pp"/>
+    </doctype>
+    <doctype name="account_list_pp" extends="Document">
+      <facet name="ContentViewDisplay"/>
+      <facet name="SavedSearch"/>
+      <facet name="HiddenInNavigation"/>
+      <schema name="account_list_pp"/>
+    </doctype>
+    <doctype name="solicitation_list_pp" extends="Document">
+      <facet name="ContentViewDisplay"/>
+      <facet name="SavedSearch"/>
+      <facet name="HiddenInNavigation"/>
+      <schema name="solicitation_list_pp"/>
+    </doctype>
+    <doctype name="person_list_pp" extends="Document">
+      <facet name="ContentViewDisplay"/>
+      <facet name="SavedSearch"/>
+      <facet name="HiddenInNavigation"/>
+      <schema name="person_list_pp"/>
+    </doctype>
+    <doctype name="interaction_list_pp" extends="Document">
+      <facet name="ContentViewDisplay"/>
+      <facet name="SavedSearch"/>
+      <facet name="HiddenInNavigation"/>
+      <schema name="interaction_list_pp"/>
+    </doctype>
+    <doctype name="documents_pp" extends="Document">
+      <facet name="ContentViewDisplay"/>
+      <facet name="SavedSearch"/>
+      <facet name="HiddenInNavigation"/>
+      <schema name="documents_pp"/>
+    </doctype>
+    <facet name="facet-var_global_Task13ce">
+      <schema name="var_global_Task13ce"/>
+    </facet>
+    <facet name="facet-var_Task13ce">
+      <schema name="var_Task13ce"/>
+    </facet>
+    <facet name="facet-var_global_Task67a">
+      <schema name="var_global_Task67a"/>
+    </facet>
+    <facet name="facet-var_Task67a">
+      <schema name="var_Task67a"/>
+    </facet>
+    <facet name="facet-var_Taskb50">
+      <schema name="var_Taskb50"/>
+    </facet>
+    <facet name="facet-var_start-node">
+      <schema name="var_start-node"/>
+    </facet>
+    <facet name="facet-var_stop-node">
+      <schema name="var_stop-node"/>
+    </facet>
+    <facet name="facet-var_interactionWorkflow">
+      <schema name="var_interactionWorkflow"/>
+    </facet>
+    <facet name="facet-var_SolicitationWorkflow">
+      <schema name="var_SolicitationWorkflow"/>
+    </facet>
+  </extension>
+  <extension target="org.nuxeo.ecm.core.lifecycle.LifeCycleService" point="types">
+    <types>
+      <type name="Account">default</type>
+    </types>
+    <types>
+      <type name="Folder">default</type>
+    </types>
+    <types>
+      <type name="Domain">default</type>
+    </types>
+    <types>
+      <type name="Admin">default</type>
+    </types>
+    <types>
+      <type name="Contact">default</type>
+    </types>
+    <types>
+      <type name="File">default</type>
+    </types>
+    <types>
+      <type name="Interaction">interactionLifeCycle</type>
+    </types>
+    <types>
+      <type name="Marketing">default</type>
+    </types>
+    <types>
+      <type name="Opportunity">opportunityLifeCycle</type>
+    </types>
+    <types>
+      <type name="Sales">default</type>
+    </types>
+    <types>
+      <type name="Services">default</type>
+    </types>
+    <types>
+      <type name="Silhouette">default</type>
+    </types>
+    <types>
+      <type name="ScriptNote">default</type>
+    </types>
+    <types>
+      <type name="Custom">default</type>
+    </types>
+    <types>
+      <type name="Objects">default</type>
+    </types>
+    <types>
+      <type name="Scripts">default</type>
+    </types>
+    <types>
+      <type name="ScriptNote">default</type>
+    </types>
+    <types>
+      <type name="Solicitation">default</type>
+    </types>
+    <types>
+      <type name="Workspace">default</type>
+    </types>
+    <types>
+      <type name="Calendar">default</type>
+    </types>
+    <types>
+      <type name="Option">default</type>
+    </types>
+  </extension>
+  <extension target="org.nuxeo.ecm.platform.types.TypeService" point="types">
+    <type id="Calendar">
+      <label>Calendar</label>
+      <icon>/img/round_calendar_today_black_48dp_1x.png</icon>
+      <bigIcon>/img/round_calendar_today_black_48dp_2x.png</bigIcon>
+      <description></description>
+    </type>
+    <type id="Account">
+      <label>label.account</label>
+      <icon>/img/ic_business_black_24dp_1x.png</icon>
+      <bigIcon>/img/ic_business_black_24dp_2x.png</bigIcon>
+      <description></description>
+    </type>
+    <type id="Folder">
+      <label>Folder</label>
+      <category>Collaborative</category>
+      <icon>/img/folder_100.png</icon>
+      <bigIcon>/img/folder_100.png</bigIcon>
+      <description></description>
+    </type>
+    <type id="Domain">
+      <label>Domain</label>
+      <category>SuperDocument</category>
+      <description></description>
+    </type>
+    <type id="Admin">
+      <label>Admin</label>
+      <icon>/img/admin.png</icon>
+      <bigIcon>/img/admin.png</bigIcon>
+      <description></description>
+    </type>
+    <type id="Contact">
+      <label>Contact</label>
+      <icon>/img/ic_account_circle_black_24dp_2x.png</icon>
+      <bigIcon>/img/ic_account_circle_black_24dp_2x.png</bigIcon>
+      <description></description>
+    </type>
+    <type id="File">
+      <label>File</label>
+      <category>SimpleDocument</category>
+      <icon>/img/file_100.png</icon>
+      <bigIcon>/img/file_100.png</bigIcon>
+      <description></description>
+    </type>
+    <type id="Folder">
+      <label>Folder</label>
+      <category>SimpleDocument</category>
+      <icon>/img/folder_100.png</icon>
+      <bigIcon>/img/folder_100.png</bigIcon>
+      <description></description>
+    </type>
+    <type id="Interaction">
+      <label>Interaction</label>
+      <icon>/img/ic_thumb_up_black_24dp_2x.png</icon>
+      <bigIcon>/img/ic_thumb_up_black_24dp_2x.png</bigIcon>
+      <description></description>
+    </type>
+    <type id="Marketing">
+      <label>Marketing</label>
+      <icon>/img/marketing.png</icon>
+      <bigIcon>/img/marketing.png</bigIcon>
+      <description></description>
+    </type>
+    <type id="Opportunity">
+      <label>Opportunity</label>
+      <icon>/img/ic_work_black_24dp_1x.png</icon>
+      <bigIcon>/img/ic_work_black_24dp_2x.png</bigIcon>
+      <description></description>
+    </type>
+    <type id="Sales">
+      <label>Sales</label>
+      <icon>/img/sales.png</icon>
+      <description></description>
+    </type>
+    <type id="Services">
+      <label>Services</label>
+      <icon>/img/service.png</icon>
+      <bigIcon>/img/service.png</bigIcon>
+      <description></description>
+    </type>
+    <type id="Silhouette">
+      <label>Silhouette</label>
+      <icon>/img/ic_perm_identity_black_24dp_1x.png</icon>
+      <bigIcon>/img/ic_perm_identity_black_24dp_2x.png</bigIcon>
+      <description></description>
+    </type>
+    <type id="ScriptNote">
+      <label>Script</label>
+      <icon>/img/ic_code_black_24dp_1x.png</icon>
+      <bigIcon>/img/ic_code_black_24dp_2x.png</bigIcon>
+      <description></description>
+    </type>
+    <type id="Scripts">
+      <label>Scripts</label>
+      <icon>/img/baseline_settings_ethernet_black_24dp_x1.png</icon>
+      <bigIcon>/img/baseline_settings_ethernet_black_24dp_x2.png</bigIcon>
+      <description></description>
+    </type>
+    <type id="Custom">
+      <label>Custom</label>
+      <icon>/img/ic_text_fields_black_24dp_1x.png</icon>
+      <bigIcon>/img/ic_text_fields_black_24dp_2x.png</bigIcon>
+      <description></description>
+    </type>
+    <type id="Objects">
+      <label>Objects</label>
+      <icon>/img/ic_text_fields_black_24dp_1x.png</icon>
+      <bigIcon>/img/ic_text_fields_black_24dp_2x.png</bigIcon>
+      <description></description>
+    </type>
+    <type id="Solicitation">
+      <label>Solicitation</label>
+      <icon>/img/service.png</icon>
+      <bigIcon>/img/service.png</bigIcon>
+      <description></description>
+    </type>
+    <type id="Workspace">
+      <label>Workspace</label>
+      <category>Collaborative</category>
+      <icon>/img/workspace.gif</icon>
+      <bigIcon>/img/workspace_100.png</bigIcon>
+      <description></description>
+    </type>
+    <type id="Option">
+      <label>Option</label>
+      <icon>/img/option_x1.png</icon>
+      <bigIcon>/img/option_x2.png</bigIcon>
+      <description></description>
+    </type>
+  </extension>
+  <!--extension target="org.nuxeo.ecm.core.versioning.VersioningService" point="versioningRules">
+    <versioningRule typeName="Account">
+      <initialState major="0" minor="0"/>
+      <options lifeCycleState="*">
+        <none default="true"/>
+        <minor/>
+        <major/>
+      </options>
+    </versioningRule>
+    <versioningRule typeName="Folder">
+      <initialState major="0" minor="0"/>
+      <options lifeCycleState="*">
+        <none default="true"/>
+        <minor/>
+        <major/>
+      </options>
+    </versioningRule>
+    <versioningRule typeName="Domain">
+      <initialState major="0" minor="0"/>
+      <options lifeCycleState="*">
+        <none default="true"/>
+        <minor/>
+        <major/>
+      </options>
+    </versioningRule>
+    <versioningRule typeName="Admin">
+      <initialState major="0" minor="0"/>
+      <options lifeCycleState="*">
+        <none default="true"/>
+        <minor/>
+        <major/>
+      </options>
+    </versioningRule>
+    <versioningRule typeName="Contact">
+      <initialState major="0" minor="0"/>
+      <options lifeCycleState="*">
+        <none default="true"/>
+        <minor/>
+        <major/>
+      </options>
+    </versioningRule>
+    <versioningRule typeName="File">
+      <initialState major="0" minor="0"/>
+      <options lifeCycleState="*">
+        <none default="true"/>
+        <minor/>
+        <major/>
+      </options>
+    </versioningRule>
+    <versioningRule typeName="Interaction">
+      <initialState major="0" minor="0"/>
+      <options lifeCycleState="*">
+        <none default="true"/>
+        <minor/>
+        <major/>
+      </options>
+    </versioningRule>
+    <versioningRule typeName="Marketing">
+      <initialState major="0" minor="0"/>
+      <options lifeCycleState="*">
+        <none default="true"/>
+        <minor/>
+        <major/>
+      </options>
+    </versioningRule>
+    <versioningRule typeName="Opportunity">
+      <initialState major="0" minor="0"/>
+      <options lifeCycleState="*">
+        <none default="true"/>
+        <minor/>
+        <major/>
+      </options>
+    </versioningRule>
+    <versioningRule typeName="Sales">
+      <initialState major="0" minor="0"/>
+      <options lifeCycleState="*">
+        <none default="true"/>
+        <minor/>
+        <major/>
+      </options>
+    </versioningRule>
+    <versioningRule typeName="Services">
+      <initialState major="0" minor="0"/>
+      <options lifeCycleState="*">
+        <none default="true"/>
+        <minor/>
+        <major/>
+      </options>
+    </versioningRule>
+    <versioningRule typeName="Silhouette">
+      <initialState major="0" minor="0"/>
+      <options lifeCycleState="*">
+        <none default="true"/>
+        <minor/>
+        <major/>
+      </options>
+    </versioningRule>
+    <versioningRule typeName="Workspace">
+      <initialState major="0" minor="0"/>
+      <options lifeCycleState="*">
+        <none default="true"/>
+        <minor/>
+        <major/>
+      </options>
+    </versioningRule>
+  </extension-->
+  <extension target="org.nuxeo.ecm.platform.ui.web.auth.service.PluggableAuthenticationService" point="loginScreen">
+    <loginScreenConfig>
+      <backgroundImage>no_poster_image</backgroundImage>
+      <bodyBackgroundStyle>url("${org.nuxeo.ecm.contextPath}/img/1672144-poster-1280-orange-graphic_1.jpg") 0px 0px no-repeat #000</bodyBackgroundStyle>
+      <disableBackgroundSizeCover>false</disableBackgroundSizeCover>
+      <removeNews>true</removeNews>
+      <footerStyle>display: none;</footerStyle>
+      <loginBoxBackgroundStyle>none 0 0 null</loginBoxBackgroundStyle>
+      <loginBoxWidth>300px</loginBoxWidth>
+      <loginButtonBackgroundColor>#ff7f00</loginButtonBackgroundColor>
+      <videos loop="false" muted="true">
+        <video src=""/>
+      </videos>
+      <logoUrl>${org.nuxeo.ecm.contextPath}/img/qualitified.png</logoUrl>
+      <logoWidth>185</logoWidth>
+      <logoHeight>50</logoHeight>
+    </loginScreenConfig>
+
+    <loginScreenConfig>
+
+      <startupPages>
+
+        <startupPage id="web" priority="1000"/>
+
+      </startupPages>
+
+    </loginScreenConfig>
+  </extension>
+  <extension target="org.nuxeo.ecm.core.operation.OperationServiceComponent" point="event-handlers">
+    <handler chainId="runScheduler1Chain">
+      <event>event1</event>
+    </handler>
+    <handler chainId="runScheduler2Chain">
+      <event>event2</event>
+    </handler>
+    <handler chainId="runScheduler3Chain">
+      <event>event3</event>
+    </handler>
+    <handler chainId="runScheduler4Chain">
+      <event>event4</event>
+    </handler>
+    <handler chainId="runScheduler5Chain">
+      <event>event5</event>
+    </handler>
+  </extension>
+  <extension target="org.nuxeo.ecm.core.lifecycle.LifeCycleService" point="lifecycle">
+    <lifecycle name="default" defaultInitial="project">
+      <transitions>
+        <transition name="approve" destinationState="approved">
+          <description></description>
+        </transition>
+        <transition name="obsolete" destinationState="obsolete">
+          <description></description>
+        </transition>
+        <transition name="delete" destinationState="deleted">
+          <description></description>
+        </transition>
+        <transition name="backToProject" destinationState="project">
+          <description></description>
+        </transition>
+        <transition name="delete" destinationState="deleted">
+          <description></description>
+        </transition>
+        <transition name="delete" destinationState="deleted">
+          <description></description>
+        </transition>
+        <transition name="undelete" destinationState="project">
+          <description></description>
+        </transition>
+      </transitions>
+      <states>
+        <state name="project" description="Default state" initial="true">
+          <transitions>
+            <transition>approve</transition>
+            <transition>obsolete</transition>
+            <transition>delete</transition>
+          </transitions>
+        </state>
+        <state name="approved" description="Content has been approved">
+          <transitions>
+            <transition>delete</transition>
+            <transition>backToProject</transition>
+          </transitions>
+        </state>
+        <state name="obsolete" description="Content becomes obsolete">
+          <transitions>
+            <transition>delete</transition>
+          </transitions>
+        </state>
+        <state name="deleted" description="Content is in the trash (before real deletion)">
+          <transitions>
+            <transition>undelete</transition>
+          </transitions>
+        </state>
+      </states>
+    </lifecycle>
+    <lifecycle name="interactionLifeCycle" defaultInitial="todo">
+      <transitions>
+        <transition name="delete" destinationState="deleted">
+          <description></description>
+        </transition>
+        <transition name="to_done" destinationState="done">
+          <description></description>
+        </transition>
+        <transition name="to_deleted" destinationState="deleted">
+          <description></description>
+        </transition>
+        <transition name="to_todo" destinationState="todo">
+          <description></description>
+        </transition>
+      </transitions>
+      <states>
+        <state name="todo" description="" initial="true">
+          <transitions>
+            <transition>delete</transition>
+            <transition>to_done</transition>
+          </transitions>
+        </state>
+        <state name="done" description="">
+          <transitions>
+            <transition>to_todo</transition>
+            <transition>to_deleted</transition>
+          </transitions>
+        </state>
+        <state name="deleted" description="">
+          <transitions/>
+        </state>
+        <state name="project" description="">
+          <transition>to_done</transition>
+        </state>
+      </states>
+    </lifecycle>
+    <lifecycle name="opportunityLifeCycle" defaultInitial="new">
+      <transitions>
+        <transition name="to_ongoing" destinationState="ongoing">
+          <description></description>
+        </transition>
+        <transition name="deleted" destinationState="deleted">
+          <description></description>
+        </transition>
+        <transition name="to_nogo" destinationState="nogo">
+          <description></description>
+        </transition>
+        <transition name="to_won" destinationState="won">
+          <description></description>
+        </transition>
+        <transition name="to_limbo" destinationState="limbo">
+          <description></description>
+        </transition>
+        <transition name="to_lost" destinationState="lost">
+          <description></description>
+        </transition>
+        <transition name="to_new" destinationState="new">
+          <description></description>
+        </transition>
+        <transition name="deleted" destinationState="deleted">
+          <description></description>
+        </transition>
+        <transition name="to_nogo" destinationState="nogo">
+          <description></description>
+        </transition>
+        <transition name="to_ongoing" destinationState="ongoing">
+          <description></description>
+        </transition>
+        <transition name="deleted" destinationState="deleted">
+          <description></description>
+        </transition>
+        <transition name="to_ongoing" destinationState="ongoing">
+          <description></description>
+        </transition>
+        <transition name="deleted" destinationState="deleted">
+          <description></description>
+        </transition>
+        <transition name="to_ongoing" destinationState="ongoing">
+          <description></description>
+        </transition>
+        <transition name="deleted" destinationState="deleted">
+          <description></description>
+        </transition>
+        <transition name="to_ongoing" destinationState="ongoing">
+          <description></description>
+        </transition>
+        <transition name="to_new" destinationState="new">
+          <description></description>
+        </transition>
+      </transitions>
+      <states>
+        <state name="new" description="" initial="true">
+          <transitions>
+            <transition>deleted</transition>
+            <transition>to_ongoing</transition>
+            <transition>to_nogo</transition>
+          </transitions>
+        </state>
+        <state name="ongoing" description="">
+          <transitions>
+            <transition>to_lost</transition>
+            <transition>to_won</transition>
+            <transition>to_new</transition>
+            <transition>deleted</transition>
+            <transition>to_limbo</transition>
+            <transition>to_nogo</transition>
+          </transitions>
+        </state>
+        <state name="won" description="">
+          <transitions>
+            <transition>deleted</transition>
+            <transition>to_ongoing</transition>
+          </transitions>
+        </state>
+        <state name="lost" description="">
+          <transitions>
+            <transition>deleted</transition>
+            <transition>to_ongoing</transition>
+          </transitions>
+        </state>
+        <state name="limbo" description="">
+          <transitions>
+            <transition>deleted</transition>
+            <transition>to_ongoing</transition>
+          </transitions>
+        </state>
+        <state name="deleted" description="">
+          <transitions/>
+        </state>
+        <state name="nogo" description="nogo">
+          <transitions>
+            <transition>to_new</transition>
+            <transition>to_ongoing</transition>
+          </transitions>
+        </state>
+      </states>
+    </lifecycle>
+  </extension>
+  <extension target="org.nuxeo.ecm.platform.ec.notification.service.NotificationService" point="templates">
+    <template name="appReviewStarted" src="data/templates/appReviewStarted.ftl"/>
+    <template name="created" src="data/templates/created.ftl"/>
+    <template name="defaultNotifTemplate" src="data/templates/defaultNotifTemplate.ftl"/>
+    <template name="deleted" src="data/templates/deleted.ftl"/>
+    <template name="emailDocument" src="data/templates/emailDocument.ftl"/>
+    <template name="modif" src="data/templates/modif.ftl"/>
+    <template name="publish" src="data/templates/publish.ftl"/>
+    <template name="subscriptionsUpdated" src="data/templates/subscriptionsUpdated.ftl"/>
+    <template name="workflow" src="data/templates/workflow.ftl"/>
+    <template name="workflowTaskAssigned" src="data/templates/workflowTaskAssigned.ftl"/>
+    <template name="workflowTaskDelegated" src="data/templates/workflowTaskDelegated.ftl"/>
+    <template name="nouveauMessage" src="data/templates/nouveauMessage.ftl"/>
+  </extension>
+  <extension target="org.nuxeo.ecm.core.operation.OperationServiceComponent" point="chains">
+    <chain id="interactionDone">
+      <operation id="Context.FetchDocument"/>
+      <operation id="RunScript">
+        <param type="string" name="script">expr:return @{This.get(0)}</param>
+      </operation>
+      <operation id="Document.FollowLifecycleTransition">
+        <param type="string" name="value">to_done</param>
+      </operation>
+    </chain>
+    <chain id="interactionPostSave">
+      <operation id="Context.FetchDocument"/>
+      <operation id="Context.SetVar">
+        <param type="string" name="name">intStatus</param>
+        <param type="object" name="value">expr:Document.lifeCycle</param>
+      </operation>
+      <operation id="javascript.interactionSaved"/>
+    </chain>
+    <chain id="opportunityPostSave">
+      <operation id="Context.FetchDocument"/>
+      <operation id="Context.SetVar">
+        <param type="string" name="name">oppStatus</param>
+        <param type="object" name="value">expr:Document.lifeCycle</param>
+      </operation>
+      <operation id="javascript.opportunitySaved"/>
+    </chain>
+    <chain id="updateSettings">
+      <operation id="Context.FetchDocument"/>
+      <operation id="Document.SetProperty">
+        <param type="string" name="xpath">sales:startDate</param>
+        <param type="boolean" name="save">false</param>
+        <param type="serializable" name="value">expr:@{Context["startDate"]}</param>
+      </operation>
+      <operation id="Document.SetProperty">
+        <param type="string" name="xpath">sales:endDate</param>
+        <param type="boolean" name="save">false</param>
+        <param type="serializable" name="value">expr:@{Context["endDate"]}</param>
+      </operation>
+      <operation id="Document.SetProperty">
+        <param type="string" name="xpath">sales:goal</param>
+        <param type="boolean" name="save">true</param>
+        <param type="serializable" name="value">expr:@{Context["goal"]}</param>
+      </operation>
+    </chain>
+    <chain id="getCustomFieldsChain">
+      <operation id="Qualitified.GetCustomFields">
+        <param type="string" name="documentType">expr:@{Context["documentType"]}</param>
+      </operation>
+    </chain>
+    <chain id="postCreateChain">
+      <operation id="Context.FetchDocument"/>
+      <operation id="Auth.LoginAs">
+        <param type="string" name="name">Administrator</param>
+      </operation>
+      <operation id="javascript.postCreate"/>
+      <operation id="Auth.Logout"/>
+    </chain>
+    <chain id="preSaveChain">
+      <operation id="Context.FetchDocument"/>
+      <operation id="Auth.LoginAs">
+        <param type="string" name="name">Administrator</param>
+      </operation>
+      <operation id="javascript.preSave"/>
+      <operation id="Auth.Logout"/>
+    </chain>
+    <chain id="runScheduler1Chain">
+      <operation id="Auth.LoginAs">
+        <param type="string" name="name">Administrator</param>
+      </operation>
+      <operation id="javascript.runScheduler1"/>
+    </chain>
+    <chain id="runScheduler2Chain">
+      <operation id="Auth.LoginAs">
+        <param type="string" name="name">Administrator</param>
+      </operation>
+      <operation id="javascript.runScheduler2"/>
+    </chain>
+    <chain id="runScheduler3Chain">
+      <operation id="Auth.LoginAs">
+        <param type="string" name="name">Administrator</param>
+      </operation>
+      <operation id="javascript.runScheduler3"/>
+    </chain>
+    <chain id="runScheduler4Chain">
+      <operation id="Auth.LoginAs">
+        <param type="string" name="name">Administrator</param>
+      </operation>
+      <operation id="javascript.runScheduler4"/>
+    </chain>
+    <chain id="runScheduler5Chain">
+      <operation id="Auth.LoginAs">
+        <param type="string" name="name">Administrator</param>
+      </operation>
+      <operation id="javascript.runScheduler5"/>
+    </chain>
+    <chain id="AddCommentWebUI">
+      <operation id="Context.FetchDocument"/>
+      <operation id="DocumentMultivaluedProperty.addItem">
+        <param type="serializable" name="value">expr:@{CurrentUser.name} @{CurrentDate.format("dd/MM/yyyy HH:mm")}</param>
+        <param type="string" name="xpath">solicitation:commentaires</param>
+        <param type="boolean" name="checkExists">false</param>
+        <param type="boolean" name="save">false</param>
+      </operation>
+      <operation id="DocumentMultivaluedProperty.addItem">
+        <param type="serializable" name="value">expr:Context["commentaire"]</param>
+        <param type="string" name="xpath">solicitation:commentaires</param>
+        <param type="boolean" name="checkExists">false</param>
+        <param type="boolean" name="save">false</param>
+      </operation>
+      <operation id="Document.Save"/>
+    </chain>
+
+  </extension>
+  <extension target="org.nuxeo.ecm.platform.query.api.PageProviderService" point="providers">
+    <genericPageProvider class="org.nuxeo.elasticsearch.provider.ElasticSearchNxqlPageProvider" name="opportunity_list">
+      <property name="coreSession">#{documentManager}</property>
+      <whereClause>
+        <predicate id="system_fulltext" parameter="ecm:fulltext" operator="FULLTEXT ALL">
+          <field schema="opportunity_list_pp" name="system_fulltext"/>
+        </predicate>
+        <predicate parameter="opportunity:closeDate" operator="BETWEEN">
+          <field schema="opportunity_list_pp" name="opportunity_closeDate_min" />
+          <field schema="opportunity_list_pp" name="opportunity_closeDate_max" />
+        </predicate>
+        <fixedPart>ecm:mixinType != 'HiddenInNavigation' AND ecm:isCheckedInVersion = 0 AND ecm:isTrashed = 0 AND ecm:currentLifeCycleState != 'deleted' AND ecm:primaryType = 'Opportunity'</fixedPart>
+      </whereClause>
+      <searchDocumentType>opportunity_list_pp</searchDocumentType>
+      <aggregates>
+        <aggregate id="opportunity_step_agg" type="terms" parameter="opportunity:step">
+          <field schema="opportunity_list_pp" name="opportunity_step_agg"/>
+          <properties>
+            <property name="order">count desc</property>
+            <property name="size">0</property>
+          </properties>
+        </aggregate>
+        <aggregate id="opportunity_amount_agg" type="range" parameter="opportunity:amount">
+          <field schema="opportunity_list_pp" name="opportunity_amount_agg"/>
+          <properties/>
+          <ranges>
+            <range key="to_10000" to="10000.0"/>
+            <range key="from_10000_to_25000" from="10000.0" to="25000.0"/>
+            <range key="from_25000_to_50000" from="25000.0" to="50000.0"/>
+            <range key="from_50000" from="50000.0"/>
+          </ranges>
+        </aggregate>
+        <aggregate id="opportunity_closeDate_agg" type="date_range" parameter="opportunity:closeDate">
+          <field schema="opportunity_list_pp" name="opportunity_closeDate_agg"/>
+          <properties/>
+          <dateRanges>
+            <dateRange key="to_now" fromDate="now-9999y" toDate="now"/>
+            <dateRange key="from_now_to_now7d" fromDate="now" toDate="now+7d"/>
+            <dateRange key="from_now7d_to_now30d" fromDate="now+7d" toDate="now+1M"/>
+            <dateRange key="from_now1M" fromDate="now+1M" toDate="now+9999y"/>
+          </dateRanges>
+        </aggregate>
+        <aggregate id="opportunity_lastInteractionDate_agg" type="date_range" parameter="opportunity:lastInteractionDate">
+          <field schema="opportunity_list_pp" name="opportunity_lastInteractionDate_agg"/>
+          <properties>
+          </properties>
+          <dateRanges>
+            <dateRange key="from_now-24h_to_now" fromDate="now-24H" toDate="now"/>
+            <dateRange key="from_now-7d_to_now-24h" fromDate="now-7d" toDate="now-24H"/>
+            <dateRange key="from_now-1M_to_now-7d" fromDate="now-1M" toDate="now-7d"/>
+            <dateRange key="from_now-1y_to_now-1M" fromDate="now-1y" toDate="now-1M"/>
+          </dateRanges>
+        </aggregate>
+        <aggregate id="responsible_agg" type="terms" parameter="opportunity:responsible">
+          <field schema="opportunity_list_pp" name="responsible_agg"/>
+          <properties>
+            <property name="order">count desc</property>
+            <property name="size">0</property>
+          </properties>
+        </aggregate>
+      </aggregates>
+      <sort column="opportunity:amount" ascending="false"/>
+      <pageSize>10</pageSize>
+    </genericPageProvider>
+    <genericPageProvider class="org.nuxeo.elasticsearch.provider.ElasticSearchNxqlPageProvider" name="account_list">
+      <property name="coreSession">#{documentManager}</property>
+      <whereClause>
+        <predicate id="system_fulltext" parameter="ecm:fulltext" operator="FULLTEXT ALL">
+          <field schema="account_list_pp" name="system_fulltext"/>
+        </predicate>
+        <predicate id="dublincore_title" parameter="dc:title" operator="ILIKE">
+          <field schema="account_list_pp" name="dublincore_title"/>
+        </predicate>
+        <fixedPart>ecm:mixinType != 'HiddenInNavigation' AND ecm:isCheckedInVersion = 0 AND ecm:isTrashed = 0 AND ecm:currentLifeCycleState != 'deleted' AND ecm:primaryType = 'Account'</fixedPart>
+      </whereClause>
+      <searchDocumentType>account_list_pp</searchDocumentType>
+      <aggregates>
+        <aggregate id="account_type_agg" type="terms" parameter="account:accountType">
+          <field schema="account_list_pp" name="account_type_agg"/>
+          <properties>
+            <property name="order">count desc</property>
+            <property name="size">0</property>
+          </properties>
+        </aggregate>
+        <aggregate id="responsible_agg" type="terms" parameter="account:responsible">
+          <field schema="account_list_pp" name="responsible_agg"/>
+          <properties>
+            <property name="order">count desc</property>
+            <property name="size">0</property>
+          </properties>
+        </aggregate>
+        <aggregate id="nbEmployees_agg" type="terms" parameter="account:nbEmployees">
+          <field schema="account_list_pp" name="nbEmployees_agg"/>
+          <properties>
+            <property name="order">count desc</property>
+            <property name="size">0</property>
+          </properties>
+        </aggregate>
+        <aggregate id="turnover_agg" type="terms" parameter="account:turnover">
+          <field schema="account_list_pp" name="turnover_agg"/>
+          <properties>
+            <property name="order">count desc</property>
+            <property name="size">0</property>
+          </properties>
+        </aggregate>
+      </aggregates>
+      <sort column="dc:title" ascending="true"/>
+      <pageSize>10</pageSize>
+    </genericPageProvider>
+    <genericPageProvider class="org.nuxeo.elasticsearch.provider.ElasticSearchNxqlPageProvider" name="solicitation_list">
+      <property name="coreSession">#{documentManager}</property>
+      <whereClause>
+        <predicate id="system_fulltext" parameter="ecm:fulltext" operator="FULLTEXT ALL">
+          <field schema="solicitation_list_pp" name="system_fulltext"/>
+        </predicate>
+        <fixedPart>ecm:mixinType != 'HiddenInNavigation' AND ecm:isCheckedInVersion = 0 AND ecm:isTrashed = 0 AND ecm:currentLifeCycleState != 'deleted' AND ecm:primaryType = 'Solicitation'</fixedPart>
+      </whereClause>
+      <searchDocumentType>solicitation_list_pp</searchDocumentType>
+      <aggregates>
+        <aggregate id="solicitation_status_agg" type="terms" parameter="solicitation:status">
+          <field schema="solicitation_list_pp" name="solicitation_status_agg"/>
+          <properties>
+            <property name="order">count desc</property>
+            <property name="size">0</property>
+          </properties>
+        </aggregate>
+        <aggregate id="system_currentLifeCycleState_agg" type="terms" parameter="ecm:currentLifeCycleState">
+          <field schema="solicitation_list_pp" name="system_currentLifeCycleState_agg"/>
+          <properties>
+            <property name="minDocCount">0</property>
+            <property name="order">count desc</property>
+          </properties>
+        </aggregate>
+        <aggregate id="solicitation_category_agg" type="terms" parameter="custom:vocabularyField2">
+          <field schema="solicitation_list_pp" name="solicitation_category_agg"/>
+          <properties>
+            <property name="order">count desc</property>
+            <property name="size">0</property>
+          </properties>
+        </aggregate>
+        <!--aggregate id="solicitation_created_agg" type="date_range" parameter="dc:created">
+          <field schema="solicitation_list_pp" name="solicitation_created_agg"/>
+          <properties/>
+          <dateRanges>
+            <dateRange key="from_now-1y_to_now-1M" fromDate="now-1y" toDate="now-1M"/>
+            <dateRange key="from_now-1M_to_now-7d" fromDate="now-1M" toDate="now-7d"/>
+            <dateRange key="from_now-7d_to_now-24h" fromDate="now-7d" toDate="now-24h"/>
+            <dateRange key="from_now-24h_to_now" fromDate="now-24h" toDate="now"/>
+          </dateRanges>
+        </aggregate-->
+      </aggregates>
+      <sort column="dc:modified" ascending="false"/>
+      <pageSize>10</pageSize>
+    </genericPageProvider>
+   <genericPageProvider class="org.nuxeo.elasticsearch.provider.ElasticSearchNxqlPageProvider" name="person_list">
+      <trackUsage>true</trackUsage>
+      <property name="coreSession">#{documentManager}</property>
+      <whereClause>
+        <predicate id="system_fulltext" parameter="ecm:fulltext" operator="FULLTEXT ALL">
+          <field schema="person_list_pp" name="system_fulltext"/>
+        </predicate>
+        <predicate parameter="person:firstName" operator="=">
+          <field schema="person_list_pp" name="person_firstName"/>
+        </predicate>
+        <predicate parameter="person:lastName" operator="=">
+          <field schema="person_list_pp" name="person_lastName"/>
+        </predicate>
+        <fixedPart>ecm:mixinType != 'HiddenInNavigation' AND ecm:isVersion = 0 AND ecm:isTrashed = 0 AND ecm:primaryType = 'Contact'</fixedPart>
+      </whereClause>
+      <searchDocumentType>person_list_pp</searchDocumentType>
+      <pageSize>10</pageSize>
+      <aggregates>
+        <aggregate id="person_role_agg" type="terms" parameter="person:Role">
+          <field schema="person_list_pp" name="person_role_agg"/>
+          <properties>
+            <property name="order">count desc</property>
+            <property name="size">0</property>
+          </properties>
+        </aggregate>
+        <aggregate id="responsible_agg" type="terms" parameter="contact:responsible">
+          <field schema="person_list_pp" name="responsible_agg"/>
+          <properties>
+            <property name="order">count desc</property>
+            <property name="size">0</property>
+          </properties>
+        </aggregate>
+      </aggregates>
+    </genericPageProvider>
+    <genericPageProvider class="org.nuxeo.elasticsearch.provider.ElasticSearchNxqlPageProvider" name="interaction_list">
+      <trackUsage>true</trackUsage>
+      <property name="coreSession">#{documentManager}</property>
+      <whereClause>
+        <predicate id="system_fulltext" parameter="ecm:fulltext" operator="FULLTEXT ALL">
+          <field schema="interaction_list_pp" name="system_fulltext"/>
+        </predicate>
+        <predicate parameter="interaction:date" operator="BETWEEN">
+          <field schema="interaction_list_pp" name="interaction_closeDate_min" />
+          <field schema="interaction_list_pp" name="interaction_closeDate_max" />
+        </predicate>
+        <fixedPart>ecm:mixinType != 'HiddenInNavigation' AND ecm:isVersion = 0 AND ecm:isTrashed = 0 AND ecm:primaryType = 'Interaction'</fixedPart>
+      </whereClause>
+      <searchDocumentType>interaction_list_pp</searchDocumentType>
+      <pageSize>10</pageSize>
+      <aggregates>
+        <aggregate id="interaction_activity_agg" type="terms" parameter="interaction:activity">
+          <field schema="interaction_list_pp" name="interaction_activity_agg"/>
+          <properties>
+            <property name="order">count desc</property>
+            <property name="size">0</property>
+          </properties>
+        </aggregate>
+        <aggregate id="interaction_status_agg" type="terms" parameter="interaction:status">
+          <field schema="interaction_list_pp" name="interaction_status_agg"/>
+          <properties>
+            <property name="order">count desc</property>
+            <property name="size">0</property>
+          </properties>
+        </aggregate>
+        <aggregate id="interaction_date_agg" type="date_range" parameter="interaction:date">
+          <field schema="interaction_list_pp" name="interaction_date_agg"/>
+          <properties/>
+          <dateRanges>
+            <dateRange key="from_now-24h_to_now" fromDate="now-24h" toDate="now"/>
+            <dateRange key="from_now-7d_to_now-24h" fromDate="now-7d" toDate="now-24h"/>
+            <dateRange key="from_now-1M_to_now-7d" fromDate="now-1M" toDate="now-7d"/>
+            <dateRange key="from_now-1y_to_now-1M" fromDate="now-1y" toDate="now-1M"/>
+          </dateRanges>
+        </aggregate>
+        <aggregate id="responsible_agg" type="terms" parameter="interaction:responsible">
+          <field schema="interaction_list_pp" name="responsible_agg"/>
+          <properties>
+            <property name="order">count desc</property>
+            <property name="size">0</property>
+          </properties>
+        </aggregate>
+      </aggregates>
+    </genericPageProvider>
+    <genericPageProvider class="org.nuxeo.elasticsearch.provider.ElasticSearchNxqlPageProvider" name="documents">
+      <trackUsage>true</trackUsage>
+      <property name="coreSession">#{documentManager}</property>
+      <whereClause>
+        <predicate parameter="ecm:parentId" operator="=">
+          <field schema="documents_pp" name="system_parentId"/>
+        </predicate>
+        <predicate parameter="ecm:path" operator="STARTSWITH">
+          <field schema="documents_pp" name="system_path"/>
+        </predicate>
+        <predicate parameter="ecm:primaryType" operator="=">
+          <field schema="documents_pp" name="system_primaryType"/>
+        </predicate>
+        <fixedPart quoteParameters="false">
+          ecm:isVersion = 0
+          AND ecm:isTrashed = 0
+          AND ecm:fulltext = '?*'</fixedPart>
+      </whereClause>
+      <searchDocumentType>documents_pp</searchDocumentType>
+      <sort column="dc:title" ascending="true"/>
+      <pageSize>10</pageSize>
+    </genericPageProvider>
+  </extension>
+  <extension target="org.nuxeo.automation.scripting.internals.AutomationScriptingComponent" point="operation">
+    <scriptedOperation id="javascript.getCustomFields">
+      <inputType>void</inputType>
+      <outputType>documents</outputType>
+      <category>javascript</category>
+      <description></description>
+      <script><![CDATA[function run(input, params) {
+        Console.error('SELECT * FROM Custom WHERE ecm:isProxy = 0 AND ecm:isCheckedInVersion = 0 AND ecm:isTrashed = 0 AND ecm:currentLifeCycleState != \'deleted\' AND dc:title=\''+params.documentType+'\'');
+        var customFields = Repository.Query(null, {'query': 'SELECT * FROM Custom WHERE ecm:isProxy = 0 AND ecm:isCheckedInVersion = 0 AND ecm:isTrashed = 0 AND ecm:currentLifeCycleState != \'deleted\' AND dc:title=\''+params.documentType+'\''});
+        return customFields;
+        }]]>
+      </script>
+    </scriptedOperation>
+    <scriptedOperation id="javascript.postSave">
+      <inputType>document</inputType>
+      <outputType>document</outputType>
+      <category>javascript</category>
+      <param name="isCreation" type="boolean"/>
+      <param name="script" type="string"/>
+      <description></description>
+      <script><![CDATA[function run(input, params) {
+          return eval(params.script);
+        }]]>
+      </script>
+    </scriptedOperation>
+    <scriptedOperation id="javascript.postSaveAsync">
+      <inputType>document</inputType>
+      <outputType>document</outputType>
+      <category>javascript</category>
+      <param name="isCreation" type="boolean"/>
+      <param name="script" type="string"/>
+      <description></description>
+      <script><![CDATA[function run(input, params) {
+          return eval(params.script);
+        }]]>
+      </script>
+    </scriptedOperation>
+    <scriptedOperation id="javascript.preSave">
+      <inputType>document</inputType>
+      <outputType>document</outputType>
+      <category>javascript</category>
+      <param name="script" type="string"/>
+      <param name="isCreation" type="boolean"/>
+      <description></description>
+      <script><![CDATA[function run(input, params) {
+          return eval(params.script);
+        }]]>
+      </script>
+    </scriptedOperation>
+    <scriptedOperation id="javascript.runUnitTest">
+      <inputType>document</inputType>
+      <outputType>document</outputType>
+      <category>javascript</category>
+      <param name="script" type="string"/>
+      <description></description>
+      <script><![CDATA[function run(input, params) {
+          return eval(params.script);
+        }]]>
+      </script>
+    </scriptedOperation>
+    <scriptedOperation id="javascript.runAction">
+      <inputType>document</inputType>
+      <outputType>document</outputType>
+      <category>javascript</category>
+      <param name="script" type="string"/>
+      <description></description>
+      <script><![CDATA[function run(input, params) {
+          return eval(params.script);
+        }]]>
+      </script>
+    </scriptedOperation>
+    <scriptedOperation id="javascript.getVocabularyLabel">
+      <inputType>void</inputType>
+      <outputType>void</outputType>
+      <param name="vocabularyName" type="string"/>
+      <param name="vocabularyId" type="string"/>
+      <param name="vocabularyField" type="string"/>
+      <category>javascript</category>
+      <description></description>
+      <script><![CDATA[function run(input, params) {
+        var label = Fn.getVocabularyLabel(params.vocabularyName, params.vocabularyId);
+        var labelJSON = {};
+        labelJSON.result = label;
+        labelJSON.vocabularyField = params.vocabularyField;
+        return JSON.stringify(labelJSON);
+        }]]>
+      </script>
+    </scriptedOperation>
+    <scriptedOperation id="javascript.startWorkflow">
+      <inputType>document</inputType>
+      <outputType>document</outputType>
+      <category>javascript</category>
+      <description></description>
+      <script><![CDATA[function run(input, params) {
+          Context.StartWorkflow(
+          input, {
+          'id': 'SolicitationWorkflow',
+          'start': true,
+          'variables': 'group='+params.group
+          });
+          return input;
+        }]]>
+      </script>
+    </scriptedOperation>
+    <scriptedOperation id="javascript.runScheduler1">
+      <inputType>void</inputType>
+      <outputType>void</outputType>
+      <category>javascript</category>
+      <description></description>
+      <script><![CDATA[function run(input, params) {
+        var myScriptDoc = Repository.Query(null, {'query': 'SELECT * FROM ScriptNote WHERE ecm:isProxy = 0 AND ecm:isTrashed = 0 AND (scriptnote:isDisabled is NULL OR scriptnote:isDisabled = 0) AND ecm:isCheckedInVersion = 0 AND ecm:currentLifeCycleState != \'deleted\' AND dc:title ILIKE \'runDailyAt20h\''});
+        var myScript = "";
+        if(myScriptDoc.length > 0){
+          myScript = myScriptDoc[0]['note:note'];
+        }
+        if(myScript !== ""){
+          eval(myScript);
+        }
+        return input;
+        }]]>
+      </script>
+    </scriptedOperation>
+    <scriptedOperation id="javascript.runScheduler2">
+      <inputType>void</inputType>
+      <outputType>void</outputType>
+      <category>javascript</category>
+      <description></description>
+      <script><![CDATA[function run(input, params) {
+        var myScriptDoc = Repository.Query(null, {'query': 'SELECT * FROM ScriptNote WHERE ecm:isProxy = 0 AND ecm:isCheckedInVersion = 0 AND ecm:isTrashed = 0 AND (scriptnote:isDisabled is NULL OR scriptnote:isDisabled = 0) AND ecm:currentLifeCycleState != \'deleted\' AND dc:title ILIKE \'runDailyAt21h\''});
+        var myScript = "";
+        if(myScriptDoc.length > 0){
+          myScript = myScriptDoc[0]['note:note'];
+        }
+        if(myScript !== ""){
+          eval(myScript);
+        }
+        return input;
+        }]]>
+      </script>
+    </scriptedOperation>
+    <scriptedOperation id="javascript.runScheduler3">
+      <inputType>void</inputType>
+      <outputType>void</outputType>
+      <category>javascript</category>
+      <description></description>
+      <script><![CDATA[function run(input, params) {
+        var myScriptDoc = Repository.Query(null, {'query': 'SELECT * FROM ScriptNote WHERE ecm:isProxy = 0 AND ecm:isCheckedInVersion = 0 AND ecm:isTrashed = 0 AND (scriptnote:isDisabled is NULL OR scriptnote:isDisabled = 0) AND ecm:currentLifeCycleState != \'deleted\' AND dc:title ILIKE \'runDailyAt22h\''});
+        var myScript = "";
+        if(myScriptDoc.length > 0){
+          myScript = myScriptDoc[0]['note:note'];
+        }
+        if(myScript !== ""){
+          eval(myScript);
+        }
+        return input;
+        }]]>
+      </script>
+    </scriptedOperation>
+    <scriptedOperation id="javascript.runScheduler4">
+      <inputType>void</inputType>
+      <outputType>void</outputType>
+      <category>javascript</category>
+      <description></description>
+      <script><![CDATA[function run(input, params) {
+        var myScriptDoc = Repository.Query(null, {'query': 'SELECT * FROM ScriptNote WHERE ecm:isProxy = 0 AND ecm:isCheckedInVersion = 0 AND ecm:isTrashed = 0 AND (scriptnote:isDisabled is NULL OR scriptnote:isDisabled = 0) AND ecm:currentLifeCycleState != \'deleted\' AND dc:title ILIKE \'runDailyAt23h\''});
+        var myScript = "";
+        if(myScriptDoc.length > 0){
+          myScript = myScriptDoc[0]['note:note'];
+        }
+        if(myScript !== ""){
+          eval(myScript);
+        }
+        return input;
+        }]]>
+      </script>
+    </scriptedOperation>
+    <scriptedOperation id="javascript.runScheduler5">
+      <inputType>void</inputType>
+      <outputType>void</outputType>
+      <category>javascript</category>
+      <description></description>
+      <script><![CDATA[function run(input, params) {
+        var myScriptDoc = Repository.Query(null, {'query': 'SELECT * FROM ScriptNote WHERE ecm:isProxy = 0 AND ecm:isCheckedInVersion = 0 AND ecm:isTrashed = 0 AND (scriptnote:isDisabled is NULL OR scriptnote:isDisabled = 0) AND ecm:currentLifeCycleState != \'deleted\' AND dc:title ILIKE \'runEvery10s\''});
+        var myScript = "";
+        if(myScriptDoc.length > 0){
+          myScript = myScriptDoc[0]['note:note'];
+        }
+        if(myScript !== ""){
+          eval(myScript);
+        }
+        return input;
+        }]]>
+      </script>
+    </scriptedOperation>
+  </extension>
+  <extension target="org.nuxeo.ecm.platform.content.template.service.ContentTemplateService" point="factoryBinding">
+    <!--factoryBinding name="ScriptsFactory" factoryName="SimpleTemplateFactory" targetType="Scripts">
+      <template>
+        <templateItem typeName="ScriptNote" id="runDailyAt20h" title="RunDailyAt20h" description=""/>
+        <templateItem typeName="ScriptNote" id="runDailyAt21h" title="RunDailyAt21h" description=""/>
+        <templateItem typeName="ScriptNote" id="runDailyAt22h" title="RunDailyAt22h" description=""/>
+        <templateItem typeName="ScriptNote" id="runDailyAt23h" title="RunDailyAt23h" description=""/>
+        <templateItem typeName="ScriptNote" id="runEvery10s" title="RunEvery10s" description=""/>
+      </template>
+    </factoryBinding-->
+    <factoryBinding name="AdminFactory" factoryName="SimpleTemplateFactory" targetType="Admin">
+      <template>
+        <templateItem typeName="TemplateRoot" id="Templates" title="Templates" description=""/>
+        <templateItem typeName="Objects" id="Objects" title="Objects" description=""/>
+        <templateItem typeName="Scripts" id="Scripts" title="Scripts" description=""/>
+        <templateItem typeName="Calendar" id="Calendar.conf" title="Calendar.conf" description=""/>
+        <templateItem typeName="Option" id="Option" title="Option" description=""/>
+      </template>
+    </factoryBinding>
+    <factoryBinding name="RootFactory" factoryName="SimpleTemplateRootFactory" targetType="Root">
+      <acl>
+        <ace principal="Administrator" permission="Everything" granted="true"/>
+        <ace principal="administrators" permission="Everything" granted="true"/>
+        <ace principal="members" permission="Read" granted="true"/>
+        <ace principal="members" permission="Version" granted="true"/>
+      </acl>
+      <template>
+        <templateItem typeName="Sales" id="Sales" title="Sales" description=""/>
+        <!--templateItem typeName="Marketing" id="Marketing" title="Marketing" description=""/>
+        <templateItem typeName="Services" id="Services" title="Services" description=""/-->
+        <templateItem typeName="Admin" id="Admin" title="Admin" description=""/>
+        <!--templateItem typeName="Sales" id="Test" title="Test" description=""/-->
+      </template>
+    </factoryBinding>
+    <factoryBinding name="DomainFactory" factoryName="SimpleTemplateRootFactory" targetType="Domain">
+      <acl>
+        <ace principal="Administrator" permission="Everything" granted="true"/>
+        <ace principal="administrators" permission="Everything" granted="true"/>
+        <ace principal="members" permission="Read" granted="false"/>
+        <ace principal="members" permission="Version" granted="false"/>
+      </acl>
+      <template>
+        <templateItem typeName="Sales" id="Sales" title="Sales" description=""/>
+        <templateItem typeName="Marketing" id="Marketing" title="Marketing" description=""/>
+        <templateItem typeName="Services" id="Services" title="Services" description=""/>
+        <templateItem typeName="Admin" id="Admin" title="Admin" description=""/>
+      </template>
+    </factoryBinding>
+  </extension>
+  <!--require>org.nuxeo.ecm.directory.sql.storage</require-->
+  <extension target="org.nuxeo.ecm.directory.sql.SQLDirectoryFactory" point="directories">
+    <!--directory name="userDirectory">
+      <passwordField>password</passwordField>
+      <dataFile>data/users.csv</dataFile>
+      <createTablePolicy>never</createTablePolicy>
+      <references>
+        <inverseReference field="groups" directory="groupDirectory" dualReferenceField="members"/>
+      </references>
+    </directory>
+    <directory name="groupDirectory">
+      <dataFile>data/groups.csv</dataFile>
+      <createTablePolicy>never</createTablePolicy>
+      <references>
+        <inverseReference field="parentGroups" directory="groupDirectory" dualReferenceField="subGroups"/>
+        <tableReference field="members" directory="userDirectory" table="user2group" sourceColumn="groupId" targetColumn="userId" schema="user2group" dataFile="data/user2group.csv"/>
+        <tableReference field="subGroups" directory="groupDirectory" table="group2group" sourceColumn="parentGroupId" targetColumn="childGroupId" schema="group2group"/>
+      </references>
+    </directory-->
+    <directory name="Civility">
+      <schema>vocabulary</schema>
+      <dataSource>java:/nxsqldirectory</dataSource>
+      <cacheTimeout>3600</cacheTimeout>
+      <cacheMaxSize>1000</cacheMaxSize>
+      <idField>id</idField>
+      <autoincrementIdField>false</autoincrementIdField>
+      <createTablePolicy>on_missing_columns</createTablePolicy>
+      <table>studio_vocabulary_Civility</table>
+      <dataFile>data/vocabularies/Civility.csv</dataFile>
+    </directory>
+    <directory name="IntActivity">
+      <schema>vocabulary</schema>
+      <dataSource>java:/nxsqldirectory</dataSource>
+      <cacheTimeout>3600</cacheTimeout>
+      <cacheMaxSize>1000</cacheMaxSize>
+      <idField>id</idField>
+      <autoincrementIdField>false</autoincrementIdField>
+      <createTablePolicy>on_missing_columns</createTablePolicy>
+      <table>studio_vocabulary_IntActivity</table>
+      <dataFile>data/vocabularies/IntActivity.csv</dataFile>
+    </directory>
+    <directory name="IntStatus">
+      <schema>vocabulary</schema>
+      <dataSource>java:/nxsqldirectory</dataSource>
+      <cacheTimeout>3600</cacheTimeout>
+      <cacheMaxSize>1000</cacheMaxSize>
+      <idField>id</idField>
+      <autoincrementIdField>false</autoincrementIdField>
+      <createTablePolicy>on_missing_columns</createTablePolicy>
+      <table>studio_vocabulary_IntStatus</table>
+      <dataFile>data/vocabularies/IntStatus.csv</dataFile>
+    </directory>
+    <directory name="OppStep">
+      <schema>vocabulary</schema>
+      <dataSource>java:/nxsqldirectory</dataSource>
+      <cacheTimeout>3600</cacheTimeout>
+      <cacheMaxSize>1000</cacheMaxSize>
+      <idField>id</idField>
+      <autoincrementIdField>false</autoincrementIdField>
+      <createTablePolicy>on_missing_columns</createTablePolicy>
+      <table>studio_vocabulary_OppStep</table>
+      <dataFile>data/vocabularies/OppStep.csv</dataFile>
+    </directory>
+    <directory name="Role">
+      <schema>vocabulary</schema>
+      <dataSource>java:/nxsqldirectory</dataSource>
+      <cacheTimeout>3600</cacheTimeout>
+      <cacheMaxSize>1000</cacheMaxSize>
+      <idField>id</idField>
+      <autoincrementIdField>false</autoincrementIdField>
+      <createTablePolicy>on_missing_columns</createTablePolicy>
+      <table>studio_vocabulary_Role</table>
+      <dataFile>data/vocabularies/Role.csv</dataFile>
+    </directory>
+    <directory name="AccountType">
+      <schema>vocabulary</schema>
+      <dataSource>java:/nxsqldirectory</dataSource>
+      <cacheTimeout>3600</cacheTimeout>
+      <cacheMaxSize>1000</cacheMaxSize>
+      <idField>id</idField>
+      <autoincrementIdField>false</autoincrementIdField>
+      <createTablePolicy>on_missing_columns</createTablePolicy>
+      <table>studio_vocabulary_AccountType</table>
+      <dataFile>data/vocabularies/AccountType.csv</dataFile>
+    </directory>
+    <directory name="AccountEmployeesNumber">
+      <schema>vocabulary</schema>
+      <dataSource>java:/nxsqldirectory</dataSource>
+      <cacheTimeout>3600</cacheTimeout>
+      <cacheMaxSize>1000</cacheMaxSize>
+      <idField>id</idField>
+      <autoincrementIdField>false</autoincrementIdField>
+      <createTablePolicy>on_missing_columns</createTablePolicy>
+      <table>studio_vocabulary_AccountEmployeesNumber</table>
+      <dataFile>data/vocabularies/AccountEmployeesNumber.csv</dataFile>
+    </directory>
+    <directory name="AccountRevenue">
+      <schema>vocabulary</schema>
+      <dataSource>java:/nxsqldirectory</dataSource>
+      <cacheTimeout>3600</cacheTimeout>
+      <cacheMaxSize>1000</cacheMaxSize>
+      <idField>id</idField>
+      <autoincrementIdField>false</autoincrementIdField>
+      <createTablePolicy>on_missing_columns</createTablePolicy>
+      <table>studio_vocabulary_AccountRevenue</table>
+      <dataFile>data/vocabularies/AccountRevenue.csv</dataFile>
+    </directory>
+    <directory name="SolicitationCategory">
+      <schema>vocabulary</schema>
+      <dataSource>java:/nxsqldirectory</dataSource>
+      <cacheTimeout>3600</cacheTimeout>
+      <cacheMaxSize>1000</cacheMaxSize>
+      <idField>id</idField>
+      <autoincrementIdField>false</autoincrementIdField>
+      <createTablePolicy>on_missing_columns</createTablePolicy>
+      <table>studio_vocabulary_SolicitationCategory</table>
+      <dataFile>data/vocabularies/SolicitationCategory.csv</dataFile>
+    </directory>
+    <directory name="SolicitationStatus">
+      <schema>vocabulary</schema>
+      <dataSource>java:/nxsqldirectory</dataSource>
+      <cacheTimeout>3600</cacheTimeout>
+      <cacheMaxSize>1000</cacheMaxSize>
+      <idField>id</idField>
+      <autoincrementIdField>false</autoincrementIdField>
+      <createTablePolicy>on_missing_columns</createTablePolicy>
+      <table>studio_vocabulary_SolicitationStatus</table>
+      <dataFile>data/vocabularies/SolicitationStatus.csv</dataFile>
+    </directory>
+  </extension>
+  <extension target="org.nuxeo.ecm.platform.routing.service" point="routeModelImporter">
+    <template-resource id="interactionWorkflow" path="data/interactionWorkflow.zip"/>
+    <template-resource id="SolicitationWorkflow" path="data/SolicitationWorkflow.zip"/>
+  </extension>
+  <extension target="org.nuxeo.ecm.platform.actions.ActionService" point="filters">
+    <filter id="filter@wf@SolicitationWorkflow">
+      <rule grant="true">
+        <condition>false</condition>
+      </rule>
+    </filter>
+    <filter id="filter@wf@interactionWorkflow">
+      <rule grant="true">
+        <permission>ReadWrite</permission>
+        <type>Interaction</type>
+      </rule>
+      <rule grant="false">
+        <condition>document.currentLifeCycleState != "todo"</condition>
+      </rule>
+      <rule grant="false">
+        <condition>document.isImmutable() || document.isProxy()</condition>
+      </rule>
+    </filter>
+    <filter id="create" append="true">
+      <rule grant="true">
+        <permission>AddChildren</permission>
+        <type>Account</type>
+        <type>Folder</type>
+        <type>Domain</type>
+        <type>Admin</type>
+        <type>Marketing</type>
+        <type>Opportunity</type>
+        <type>Sales</type>
+        <type>Services</type>
+        <type>Workspace</type>
+        <condition>!document.isImmutable()</condition>
+        <condition>#{typeManager.getAllowedSubTypes(document.getType(), document).size() &gt; 0}</condition>
+      </rule>
+    </filter>
+    <filter id="create" append="true">
+      <rule grant="false">
+        <type>Contact</type>
+        <type>File</type>
+        <type>Interaction</type>
+        <type>Silhouette</type>
+      </rule>
+    </filter>
+  </extension>
+  <!-- <extension target="org.nuxeo.ecm.platform.web.common.requestcontroller.service.RequestControllerService" point="corsConfig">
+    <corsConfig name="fooly" allowGenericHttpRequests="true" allowOrigin="*" allowSubdomains="true">
+      <pattern>.*</pattern>
+    </corsConfig>
+  </extension> -->
+  <extension target="org.nuxeo.ecm.platform.web.common.requestcontroller.service.RequestControllerService" point="corsConfig">
+    <corsConfig name="extranet" allowOrigin="*" allowSubdomains="false" exposedHeaders="" maxAge="-1" supportedHeaders="*" 
+                supportedMethods="GET,POST,HEAD,OPTIONS,DELETE,PUT" supportsCredentials="true">
+      <pattern>/nuxeo/.*</pattern>
+    </corsConfig>
+  </extension>
+  <extension target="org.nuxeo.ecm.platform.actions.ActionService" point="actions">
+    <action id="TAB_VIEW_FOLDERISH" link="/incl/tabs/document_view.xhtml" order="11" label="action.view.summary" icon="/icons/file.gif">
+      <category>VIEW_ACTION_LIST</category>
+      <filter id="viewTabForFolderish">
+        <rule grant="true">
+          <type>Account</type>
+          <type>Opportunity</type>
+        </rule>
+      </filter>
+    </action>
+  </extension>
+  <extension point="configuration" target="org.nuxeo.runtime.ConfigurationService">
+    <property name="org.nuxeo.dnd.upload.timeout">300000</property>
+    <property name="org.nuxeo.dnd.exec.timeout">300000</property>
+  </extension>
+  <extension target="org.nuxeo.ecm.platform.web.common.requestcontroller.service.RequestControllerService" point="corsConfig">
+    <corsConfig name="foobar" supportedMethods ="GET,POST,HEAD,OPTIONS,DELETE,PUT">
+      <pattern>/nuxeo/.*</pattern>
+    </corsConfig>
+  </extension>
+  <extension target="org.nuxeo.ecm.platform.WebResources" point="resources">
+    <!--resource name="nuxeo-opportunity-list.html" type="import" shrinkable="false">
+      <uri>/ui/nuxeo-opportunity-list.html</uri>
+    </resource-->
+    <!--resource name="nuxeo-menu-icon-custom.html" type="import" shrinkable="false">
+        <uri>/ui/nuxeo-menu-icon-custom.html</uri>
+    </resource-->
+    <resource name="nuxeo-crm-bundle.html" type="import" shrinkable="false">
+      <uri>/ui/nuxeo-crm-bundle.html</uri>
+    </resource>
+  </extension>
+  <extension target="org.nuxeo.ecm.platform.WebResources" point="bundles">
+    <!--bundle name="web-ui">
+      <resources append="true">
+        <resource>nuxeo-opportunity-list.html</resource>
+      </resources>
+    </bundle>
+    <bundle name="web-ui">
+      <resources append="true">
+        <resource>nuxeo-menu-icon-custom.html</resource>
+      </resources>
+    </bundle-->
+    <bundle name="web-ui">
+      <resources append="true">
+        <resource>nuxeo-crm-bundle.html</resource>
+      </resources>
+    </bundle>
+  </extension>
+  <extension target="org.nuxeo.ecm.core.scheduler.SchedulerService" point="schedule">
+    <schedule id="scheduler1">
+      <eventId>event1</eventId>
+      <eventCategory>default</eventCategory>
+      <username>Administrator</username>
+      <cronExpression>0 0 20 * * ?</cronExpression>
+    </schedule>
+    <schedule id="scheduler2">
+      <eventId>event2</eventId>
+      <eventCategory>default</eventCategory>
+      <username>Administrator</username>
+      <cronExpression>0 0 21 * * ?</cronExpression>
+    </schedule>
+    <schedule id="scheduler3">
+      <eventId>event3</eventId>
+      <eventCategory>default</eventCategory>
+      <username>Administrator</username>
+      <cronExpression>0 0 22 * * ?</cronExpression>
+    </schedule>
+    <schedule id="scheduler4">
+      <eventId>event4</eventId>
+      <eventCategory>default</eventCategory>
+      <username>Administrator</username>
+      <cronExpression>0 0 23 * * ?</cronExpression>
+    </schedule>
+    <schedule id="scheduler5">
+      <eventId>event5</eventId>
+      <eventCategory>default</eventCategory>
+      <username>Administrator</username>
+      <cronExpression>0/10 * * * * ?</cronExpression>
+    </schedule>
+  </extension>
+  <extension target="org.nuxeo.ecm.core.api.DocumentValidationService" point="activations">
+    <validation context="createDocument" activated="false"/>
+    <validation context="saveDocument" activated="false"/>
+    <validation context="importDocument" activated="false"/>
+  </extension>
+
+  <extension point="permissions" target="org.nuxeo.ecm.core.security.SecurityService">
+    <permission name="ReadWrite">
+      <include>Read</include>
+      <include>Write</include>
+      <include>RemoveChildren</include>
+      <include>Remove</include>
+    </permission>
+  </extension>
+  <!-- Trash Migration: https://doc.nuxeo.com/nxdoc/upgrade-from-lts-2017-to-lts-2019/ -->
+  <!-- <require>org.nuxeo.ecm.core.trash.service.migrator</require>
+  <extension target="org.nuxeo.runtime.migration.MigrationService" point="configuration">
+    <migration id="trash-storage">
+      <defaultState>lifecycle</defaultState>
+    </migration>
+  </extension>  -->
+
+</component>

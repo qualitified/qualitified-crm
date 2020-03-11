@@ -1,0 +1,182 @@
+<!--
+`nuxeo-account_list-search-results`
+@group Nuxeo UI
+@element nuxeo-account_list-search-results
+-->
+<dom-module id="nuxeo-account_list-search-results">
+  <template>
+    <style include="nuxeo-styles">
+        nuxeo-data-table,
+        nuxeo-data-grid,
+        nuxeo-data-list {
+          display: block;
+          position: relative;
+          min-height: calc(100vh - 130px - var(--nuxeo-app-top));
+        }
+      </style>
+      <nuxeo-operation id="getCustomFields" op="getCustomFieldsChain" params="[[params]]"></nuxeo-operation>
+
+    <nuxeo-results name="account_list" nx-provider="[[nxProvider]]">
+
+        <nuxeo-data-grid name="grid" icon="icons:apps" class="results" empty-label="[[i18n('searchResults.noResults')]]"
+                         selection-enabled display-quick-filters>
+          <template>
+            <nuxeo-document-grid-thumbnail tabindex$="{{tabIndex}}" selected$="{{selected}}" doc="[[item]]"
+                                           on-navigate="_navigate">
+            </nuxeo-document-grid-thumbnail>
+          </template>
+        </nuxeo-data-grid>
+
+        <nuxeo-data-table name="table" icon="icons:list" class="results"
+                          settings-enabled
+                          empty-label="[[i18n('searchResults.noResults')]]"
+                          selection-enabled
+                          display-quick-filters
+                          on-row-clicked="_navigate">
+
+          <nuxeo-data-table-column name="Title" field="dc:title" sort-by="dc:title" flex="100">
+            <template>
+              <nuxeo-document-thumbnail document="[[item]]"></nuxeo-document-thumbnail>
+              <a class="ellipsis" href$="[[urlFor('browse', item.path)]]" on-click="_navigate">[[item.title]]</a>
+            </template>
+          </nuxeo-data-table-column>
+
+          <!--nuxeo-data-table-column name="Type" field="account:accountType" sort-by="account:accountType"
+                                   flex="50">
+            <template>
+              [[formatDirectory(item.properties.account:accountType)]]
+            </template>
+          </nuxeo-data-table-column-->
+
+          <nuxeo-data-table-column name="E-mail" field="account:email" sort-by="account:email" flex="100">
+            <template>
+              [[item.properties.account:email]]
+            </template>
+          </nuxeo-data-table-column>
+
+          <nuxeo-data-table-column name="Phone Number" field="account:phoneNumber" sort-by="account:phoneNumber"
+                                   flex="60">
+            <template>
+              [[item.properties.account:phoneNumber]]
+            </template>
+          </nuxeo-data-table-column>
+
+          <nuxeo-data-table-column name="Country" field="account:country" sort-by="account:country"
+                                   flex="60">
+            <template>
+              [[item.properties.account:country]]
+            </template>
+          </nuxeo-data-table-column>
+
+          <nuxeo-data-table-column name="Website" field="account:website" sort-by="account:website"
+                                   flex="60">
+            <template>
+              [[item.properties.account:website]]
+            </template>
+          </nuxeo-data-table-column>
+
+          <nuxeo-data-table-column name="Revenue" field="account:turnover" sort-by="account:turnover"
+                                   flex="60">
+            <template>
+              [[formatDirectory(item.properties.account:turnover)]]
+            </template>
+          </nuxeo-data-table-column>
+
+          <nuxeo-data-table-column name="Employees Number" field="account:nbEmployees" sort-by="account:nbEmployees"
+                                                             flex="60">
+          <template>
+           [[formatDirectory(item.properties.account:nbEmployees)]]
+          </template>
+        </nuxeo-data-table-column>
+
+        </nuxeo-data-table>
+      </nuxeo-results>
+  </template>
+  <script>
+  Polymer({
+    is: 'nuxeo-account_list-search-results',
+    behaviors: [Nuxeo.LayoutBehavior],
+    properties: {
+      /**
+         * @schema dublincore
+         */
+      nxProvider: {
+        type: Object,
+        observer:'_getCustomFields'
+      },
+      params:{
+        type: Object,
+        value: {}
+      },
+      custom: {
+        type: Array,
+        observer: '_customLoaded'
+      },
+      stringField1Visibility : {
+        type: Boolean,
+        value: false
+      },
+      stringField1Label : {
+        type: String
+      },
+      stringField2Visibility : {
+        type: Boolean,
+        value: false
+      },
+      stringField2Label : {
+        type: String
+      }
+    },
+
+    _getCustomFields: function(){
+      this.params = {
+        documentType:'Account'
+      };
+      this.$.getCustomFields.execute().then(function(doc) {
+        //console.log(JSON.stringify(doc.entries[0].properties['custom:field']));
+        this.custom = doc.entries;
+      }.bind(this));
+    },
+    _customLoaded: function(){
+      if(this.custom && this.custom[0] && this.custom[0].properties){
+        //console.log(JSON.stringify(this.custom[0].properties['custom:field']));
+        this.custom[0].properties['custom:field'].forEach(function(field) {
+          if(field.fieldName === 'stringField1'){
+            this.stringField1Visibility = true;
+            this.stringField1Label = field.label;
+          }
+          if(field.fieldName === 'stringField2'){
+            this.stringField2Visibility = true;
+            this.stringField2Label = field.label;
+          }
+        }.bind(this));
+      }
+    },
+
+    _navigate: function(e) {
+      this.fire('navigate', {doc: (e.model || e.detail).item});
+    },
+    _formatCurrency: function(val) {
+      if(val == null){
+        return "";
+      }
+      return val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    },
+    /**
+     * Returns the label for the given directory entry.
+     */
+    formatDirectory: function(value) {
+      if (value && value['entity-type'] && value['entity-type'] === 'directoryEntry') {
+        if (value.properties && value.properties.label) {
+          return value.properties.label;
+        } else {
+          var label = 'label_' + ((window.nuxeo.I18n.language) ? window.nuxeo.I18n.language.split('-')[0] : 'en');
+          return value.properties[label] || value.properties['label_en']
+        }
+      } else {
+        return value;
+      }
+    }
+  });
+  </script>
+</dom-module>
