@@ -59,6 +59,10 @@
       <artifactId>chemistry-opencmis-commons-impl</artifactId>
       <scope>test</scope>
     </dependency>
+    <dependency>
+      <groupId>org.apache.httpcomponents</groupId>
+      <artifactId>httpclient-osgi</artifactId>
+    </dependency>
   </dependencies>
 
 
