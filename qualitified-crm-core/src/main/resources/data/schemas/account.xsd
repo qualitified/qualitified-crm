@@ -37,9 +37,17 @@
       <xs:restriction base="xs:string" ref:resolver="directoryResolver" ref:directory="AccountType"/>
     </xs:simpleType>
   </xs:element>
-  <xs:element name="turnover" type="xs:double"/>
+  <xs:element name="turnover" >
+    <xs:simpleType>
+      <xs:restriction base="xs:string" ref:resolver="directoryResolver" ref:directory="AccountRevenue"/>
+    </xs:simpleType>
+  </xs:element>
   <xs:element name="website" type="xs:string"/>
-  <xs:element name="nbEmployees" type="xs:integer"/>
+  <xs:element name="nbEmployees" >
+    <xs:simpleType>
+      <xs:restriction base="xs:string" ref:resolver="directoryResolver" ref:directory="AccountEmployeesNumber"/>
+    </xs:simpleType>
+  </xs:element>
   <xs:element name="phoneNumber" type="xs:string"/>
   <xs:element name="email">
     <xs:simpleType>

@@ -21,12 +21,24 @@
                 directory-name="AccountType"
                 min-chars="0">
         </nuxeo-directory-suggestion>
-        <nuxeo-input role="widget" value="{{document.properties.account:turnover}}"
-                     label="[[i18n('label.metadata.turnover')]]"></nuxeo-input>
+        <nuxeo-directory-suggestion
+                role="widget"
+                value="{{document.properties.account:turnover}}"
+                label="[[i18n('label.metadata.turnover')]]"
+                required="false"
+                directory-name="AccountRevenue"
+                min-chars="0">
+        </nuxeo-directory-suggestion>
         <nuxeo-input role="widget" value="{{document.properties.account:website}}"
                      label="[[i18n('label.metadata.website')]]"></nuxeo-input>
-        <nuxeo-input role="widget" value="{{document.properties.account:nbEmployees}}"
-                     label="[[i18n('label.metadata.nbemployees')]]"></nuxeo-input>
+        <nuxeo-directory-suggestion
+                role="widget"
+                value="{{document.properties.account:nbEmployees}}"
+                label="[[i18n('label.metadata.nbemployees')]]"
+                required="false"
+                directory-name="AccountEmployeesNumber"
+                min-chars="0">
+        </nuxeo-directory-suggestion>
         <nuxeo-input role="widget" value="{{document.properties.account:phoneNumber}}"
                      label="[[i18n('label.metadata.phone')]]"></nuxeo-input>
         <nuxeo-input role="widget" value="{{document.properties.account:email}}"
