@@ -1178,6 +1178,28 @@
             <property name="size">0</property>
           </properties>
         </aggregate>
+        <aggregate id="turnover_agg" type="range" parameter="account:turnover">
+          <field schema="account_list_pp" name="turnover_agg"/>
+          <properties/>
+          <ranges>
+            <range key="to_1M" to="999999.0"/>
+            <range key="from_1M_to_9M" from="1000000.0" to="9999999.0"/>
+            <range key="from_10M_to_99M" from="10000000.0" to="99999999.0"/>
+            <range key="from_100M" from="100000000.0"/>
+          </ranges>
+        </aggregate>
+        <aggregate id="nbEmployees_agg" type="range" parameter="account:nbEmployees">
+          <field schema="account_list_pp" name="nbEmployees_agg"/>
+          <properties/>
+          <ranges>
+            <range key="to_9" to="0"/>
+            <range key="from_10_to_49" from="10" to="49"/>
+            <range key="from_50_to_199" from="50" to="199"/>
+            <range key="from_200_to_499" from="200" to="499"/>
+            <range key="from_500_to_999" from="500" to="999"/>
+            <range key="from_1000" from="1000"/>
+          </ranges>
+        </aggregate>
       </aggregates>
       <sort column="dc:title" ascending="true"/>
       <pageSize>10</pageSize>

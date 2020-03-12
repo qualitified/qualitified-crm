@@ -34,20 +34,62 @@
                           display-quick-filters
                           on-row-clicked="_navigate">
 
-          <nuxeo-data-table-column name="Title" field="dc:title" sort-by="dc:title" flex="100">
+          <nuxeo-data-table-column name="[[i18n('label.metadata.account.title')]]" field="dc:title" sort-by="dc:title" flex="100">
             <template>
               <nuxeo-document-thumbnail document="[[item]]"></nuxeo-document-thumbnail>
               <a class="ellipsis" href$="[[urlFor('browse', item.path)]]" on-click="_navigate">[[item.title]]</a>
             </template>
           </nuxeo-data-table-column>
 
-          <nuxeo-data-table-column name="Type" field="account:accountType" sort-by="account:accountType"
+          <nuxeo-data-table-column name="[[i18n('label.metadata.type')]]" field="account:accountType" sort-by="account:accountType"
                                    flex="50">
             <template>
               [[formatDirectory(item.properties.account:accountType)]]
             </template>
           </nuxeo-data-table-column>
 
+
+
+          <nuxeo-data-table-column name="[[i18n('label.metadata.email')]]" field="account:email" sort-by="account:email" flex="100">
+            <template>
+              [[item.properties.account:email]]
+            </template>
+          </nuxeo-data-table-column>
+
+          <nuxeo-data-table-column name="Phone Number" field="account:phoneNumber" sort-by="account:phoneNumber"
+                                   flex="60">
+            <template>
+              [[item.properties.account:phoneNumber]]
+            </template>
+          </nuxeo-data-table-column>
+
+          <nuxeo-data-table-column name="[[i18n('label.metadata.country')]]" field="account:country" sort-by="account:country"
+                                   flex="60">
+            <template>
+              [[item.properties.account:country]]
+            </template>
+          </nuxeo-data-table-column>
+
+          <nuxeo-data-table-column name="[[i18n('label.metadata.website')]]" field="account:website" sort-by="account:website"
+                                   flex="60">
+            <template>
+              [[item.properties.account:website]]
+            </template>
+          </nuxeo-data-table-column>
+
+          <nuxeo-data-table-column name="[[i18n('label.metadata.turnover')]]" field="account:turnover" sort-by="account:turnover"
+                                   flex="60">
+            <template>
+              [[_formatCurrency(item.properties.account:turnover)]] €
+            </template>
+          </nuxeo-data-table-column>
+
+          <nuxeo-data-table-column name="[[i18n('label.metadata.nbemployees')]]" field="account:nbEmployees" sort-by="account:nbEmployees"
+                                   flex="60">
+            <template>
+              [[item.properties.account:nbEmployees]]
+            </template>
+          </nuxeo-data-table-column>
         </nuxeo-data-table>
       </nuxeo-results>
   </template>
@@ -135,6 +177,12 @@
       } else {
         return value;
       }
+    },
+    _formatCurrency: function(val) {
+      if(val == null){
+        return "";
+      }
+      return val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ");
     }
   });
   </script>
