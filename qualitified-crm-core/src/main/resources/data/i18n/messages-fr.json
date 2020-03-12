@@ -102,5 +102,15 @@
   "label.metadata.custom.path": "Path",
   "label.metadata.custom.parentid": "Parent Id",
   "label.metadata.country":"Pays",
-  "label.metadata.zipCode":"Code postal"
+  "label.metadata.zipCode":"Code postal",
+  "label.ui.aggregate.to_1M":"Moins d'1 million",
+  "label.ui.aggregate.from_1M_to_9M":"Entre 1 million et 9 millions",
+  "label.ui.aggregate.from_10M_to_99M":"Entre 10 millions et 99 millions",
+  "label.ui.aggregate.from_100M":"Plus de 100 millions",
+  "label.ui.aggregate.to_9":"Moins de 10",
+  "label.ui.aggregate.from_10_to_49":"Entre 10 et 49",
+  "label.ui.aggregate.from_50_to_199":"Entre 50 et 199",
+  "label.ui.aggregate.from_200_to_499":"Entre 200 et 499",
+  "label.ui.aggregate.from_500_to_999":"Entre 500 et 999",
+  "label.ui.aggregate.from_1000":"Plus de 1000"
 }

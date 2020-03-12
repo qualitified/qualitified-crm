@@ -60,6 +60,18 @@
     </div>
 
     <div class="layout vertical row">
+      <label>[[i18n('label.metadata.nbemployees')]]</label>
+      <nuxeo-checkbox-aggregation data="[[aggregations.nbEmployees_agg]]" value="{{params.nbEmployees_agg}}" multiple="">
+      </nuxeo-checkbox-aggregation>
+    </div>
+
+    <div class="layout vertical row">
+      <label>[[i18n('label.metadata.turnover')]]</label>
+      <nuxeo-checkbox-aggregation data="[[aggregations.turnover_agg]]" value="{{params.turnover_agg}}" multiple="">
+      </nuxeo-checkbox-aggregation>
+    </div>
+
+    <div class="layout vertical row">
       <label>[[i18n('label.metadata.responsible')]]</label>
       <nuxeo-dropdown-aggregation data="[[aggregations.responsible_agg]]" value="{{params.responsible_agg}}" multiple="">
       </nuxeo-dropdown-aggregation>
