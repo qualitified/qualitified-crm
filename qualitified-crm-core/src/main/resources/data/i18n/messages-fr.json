@@ -112,5 +112,6 @@
   "label.ui.aggregate.from_50_to_199":"Entre 50 et 199",
   "label.ui.aggregate.from_200_to_499":"Entre 200 et 499",
   "label.ui.aggregate.from_500_to_999":"Entre 500 et 999",
-  "label.ui.aggregate.from_1000":"Plus de 1000"
+  "label.ui.aggregate.from_1000":"Plus de 1000",
+  "label.next.best.action": "Prochaine action recommandée"
 }

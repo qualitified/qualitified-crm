@@ -102,5 +102,6 @@
   "label.ui.aggregate.from_50_to_199":"From 50 to 199",
   "label.ui.aggregate.from_200_to_499":"From 200 to 499",
   "label.ui.aggregate.from_500_to_999":"From 500 to 999",
-  "label.ui.aggregate.from_1000":"More than 1000"
+  "label.ui.aggregate.from_1000":"More than 1000",
+  "label.next.best.action": "Next Best Action"
 }

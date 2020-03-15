@@ -17,10 +17,13 @@
         box-sizing: border-box;
         margin-right: 8px;
       }
+      .title{
+        color:var(--nuxeo-secondary-color);
+      }
     </style>
-    <div role="widget">
+    <div role="widget" class="title">
       <h1><template is="dom-if" if="[[_hasProfileImg(document.properties.file:content)]]">
-      <img style="vertical-align: text-bottom;" class="account-view-layout" src="/nuxeo/nxfile/default/[[document.uid]]/file:content/">
+        <img style="vertical-align: text-bottom;" class="account-view-layout" src="/nuxeo/nxfile/default/[[document.uid]]/file:content/">
       </template>[[document.properties.dc:title]]</h1>
     </div>
     <div role="widget">
@@ -62,10 +65,10 @@
       </div>
     </div>
     <qualitified-custom-fields document="[[document]]" mode="view"></qualitified-custom-fields>
-      <div role="widget">
-          <label>[[i18n('label.metadata.description')]]</label>
-          <div>[[document.properties.dc:description]]</div>
-      </div>
+    <div role="widget">
+      <label>[[i18n('label.metadata.description')]]</label>
+      <div>[[document.properties.dc:description]]</div>
+    </div>
   </template>
 
   <script>
