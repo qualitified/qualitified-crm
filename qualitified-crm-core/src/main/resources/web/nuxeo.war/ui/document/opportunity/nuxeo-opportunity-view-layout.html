@@ -1,8 +1,11 @@
+<link rel="import" href="../../elements/qualitified-inline-edit.html">
+<link rel="import" href="../../qualitified-inline-edit.html">
 <dom-module id="nuxeo-opportunity-view-layout">
     <template>
         <style>
       *[role=widget] {
-        padding: 5px;
+          padding: 40px;
+          flex: 80%;
       }
       .wrap {
         white-space: pre-wrap;
@@ -18,8 +21,57 @@
 
       </style>
         <nuxeo-connection id="nxcon"></nuxeo-connection>
-        <paper-card role="widget">
 
+        <nuxeo-page-provider
+                role="widget"
+                id="interactionTodoProvider"
+                auto
+                query="SELECT * FROM Interaction WHERE ecm:currentLifeCycleState != 'deleted' and ecm:isTrashed = 0 and ecm:parentId = '[[document.uid]]' AND ecm:currentLifeCycleState = 'todo' ORDER BY interaction:date DESC"
+                page-size="1"
+                params="[[params]]"
+                aggregations="{{interactionTodoAggregations}}"
+                current-page="{{interactionsTodo}}">
+        </nuxeo-page-provider>
+        <template is="dom-repeat" items="[[interactionsTodo]]">
+            <nuxeo-card role="widget" icon="qualitified:idea" heading="[[i18n('label.next.best.action')]]">
+                <div>
+                    <a href$="#!/browse[[item.path]]">
+                        <template is="dom-if" if="[[_isCall(item.properties.interaction:activity)]]">
+                            <iron-icon icon="icons:settings-phone"></iron-icon>
+                        </template>
+                        <template is="dom-if" if="[[_isMeeting(item.properties.interaction:activity)]]">
+                            <iron-icon icon="icons:perm-contact-calendar"></iron-icon>
+                        </template>
+                        <template is="dom-if" if="[[_isChat(item.properties.interaction:activity)]]">
+                            <iron-icon icon="icons:supervisor-account"></iron-icon>
+                        </template>
+                        <template is="dom-if" if="[[_isEmail(item.properties.interaction:activity)]]">
+                            <iron-icon icon="icons:mail"></iron-icon>
+                        </template>
+                        <template is="dom-if" if="[[_isNote(item.properties.interaction:activity)]]">
+                            <iron-icon icon="icons:speaker-notes"></iron-icon>
+                        </template>
+                        <template is="dom-if" if="[[_isSms(item.properties.interaction:activity)]]">
+                            <iron-icon icon="icons:perm-phone-msg"></iron-icon>
+                        </template>
+                    </a>
+                    <template is="dom-repeat" items="[[item.properties.interaction:contact]]" as="contact">
+                        <img style="vertical-align: text-bottom;" class="account-view-layout"
+                             src="[[_hasProfileImg(contact)]]" on-tap="_navigate"
+                             onError="this.onerror=null;this.src='/nuxeo/ui/images/touch/profile.png';">
+                    </template>
+
+                    <qualitified-inline-edit document="[[item]]" property="interaction:activity" label="label.metadata.activity" directory="IntActivity" metadata="directory"></qualitified-inline-edit>
+                    <qualitified-inline-edit document="[[item]]" property="dc:title" label="label.dublincore.title"></qualitified-inline-edit>
+                    <qualitified-inline-edit document="[[item]]" property="dc:description" label="label.metadata.interaction.description" metadata="textarea"></qualitified-inline-edit>
+                    <qualitified-inline-edit document="[[item]]" property="interaction:date" label="label.metadata.date" metadata="date"></qualitified-inline-edit>
+                    <qualitified-inline-edit document="[[item]]" property="interaction:status" label="label.metadata.status" directory="IntStatus" metadata="directory"></qualitified-inline-edit>
+
+                </div>
+            </nuxeo-card>
+        </template>
+
+        <paper-card role="widget">
             <h3>
                 [[i18n('label.activities')]]
             </h3>
@@ -29,7 +81,7 @@
                         role="widget"
                         id="interactionProvider"
                         auto
-                        query="SELECT * FROM Interaction WHERE ecm:currentLifeCycleState != 'deleted' and ecm:isTrashed = 0 and ecm:parentId = '[[document.uid]]' ORDER BY interaction:date DESC"
+                        query="SELECT * FROM Interaction WHERE ecm:currentLifeCycleState != 'deleted' and ecm:isTrashed = 0 and ecm:parentId = '[[document.uid]]' AND ecm:currentLifeCycleState = 'done' ORDER BY interaction:date DESC"
                         page-size="5"
                         params="[[params]]"
                         aggregations="{{interactionAggregations}}"
@@ -80,56 +132,57 @@
                     </button>
                     <br/>
                 </template>
-                <h3>
-                    [[i18n('label.attachments')]]
-                </h3>
-                <div class="dataTable">
-                    <nuxeo-page-provider
-                            role="widget"
-                            id="documentProvider"
-                            auto
-                            query="select * from Document where ecm:primaryType in ('File', 'Folder') and ecm:currentLifeCycleState != 'deleted' and ecm:isTrashed = 0 and ecm:parentId = '[[document.uid]]'"
-                            page-size="5"
-                            params="[[params]]"
-                            aggregations="{{documentAggregations}}"
-                            current-page="{{documents}}"
-                            enrichers="thumbnail, permissions">
-                    </nuxeo-page-provider>
-                    <nuxeo-data-table role="widget" id="datatable" items="[[documents]]" on-row-clicked="_navigate">
-                        <nuxeo-data-table-column name="Full text search" flex="100" filter-by="ecm_fulltext"
-                                                 sort-by="dc:title">
-                            <template>
-                                <nuxeo-document-thumbnail document=[[item]]></nuxeo-document-thumbnail>
-                                [[item.title]]
-                            </template>
-                        </nuxeo-data-table-column>
-                        <nuxeo-data-table-column filter-by="dc_modified_agg" flex="50" sort-by="dc:modified">
-                            <template is="header">
-                                <nuxeo-dropdown-aggregation
-                                        placeholder="Modified"
-                                        data="[[documentAggregations.dc_modified_agg]]"
-                                        value="{{column.filterValue}}" multiple>
-                                </nuxeo-dropdown-aggregation>
-                            </template>
-                            <template>
-                                [[_formatDate(item.properties.dc:modified)]]
-                            </template>
-                        </nuxeo-data-table-column>
-                        <nuxeo-data-table-column filter-by="dc_creator_agg" flex="50">
-                            <template is="header">
-                                <nuxeo-dropdown-aggregation
-                                        placeholder="Author"
-                                        data="[[documentAggregations.dc_creator_agg]]"
-                                        value="{{column.filterValue}}" multiple>
-                                </nuxeo-dropdown-aggregation>
-                            </template>
-                            <template>
-                                <nuxeo-user-tag user="[[item.properties.dc:creator]]"></nuxeo-user-tag>
-                            </template>
-                        </nuxeo-data-table-column>
-                    </nuxeo-data-table>
-                </div>
         </paper-card>
+
+        <h3>
+            [[i18n('label.attachments')]]
+        </h3>
+        <div class="dataTable">
+            <nuxeo-page-provider
+                    role="widget"
+                    id="documentProvider"
+                    auto
+                    query="select * from Document where ecm:primaryType in ('File', 'Folder') and ecm:currentLifeCycleState != 'deleted' and ecm:isTrashed = 0 and ecm:parentId = '[[document.uid]]'"
+                    page-size="5"
+                    params="[[params]]"
+                    aggregations="{{documentAggregations}}"
+                    current-page="{{documents}}"
+                    enrichers="thumbnail, permissions">
+            </nuxeo-page-provider>
+            <nuxeo-data-table id="datatable" items="[[documents]]" on-row-clicked="_navigate">
+                <nuxeo-data-table-column name="Full text search" flex="100" filter-by="ecm_fulltext"
+                                         sort-by="dc:title">
+                    <template>
+                        <nuxeo-document-thumbnail document=[[item]]></nuxeo-document-thumbnail>
+                        [[item.title]]
+                    </template>
+                </nuxeo-data-table-column>
+                <nuxeo-data-table-column filter-by="dc_modified_agg" flex="50" sort-by="dc:modified">
+                    <template is="header">
+                        <nuxeo-dropdown-aggregation
+                                placeholder="Modified"
+                                data="[[documentAggregations.dc_modified_agg]]"
+                                value="{{column.filterValue}}" multiple>
+                        </nuxeo-dropdown-aggregation>
+                    </template>
+                    <template>
+                        [[_formatDate(item.properties.dc:modified)]]
+                    </template>
+                </nuxeo-data-table-column>
+                <nuxeo-data-table-column filter-by="dc_creator_agg" flex="50">
+                    <template is="header">
+                        <nuxeo-dropdown-aggregation
+                                placeholder="Author"
+                                data="[[documentAggregations.dc_creator_agg]]"
+                                value="{{column.filterValue}}" multiple>
+                        </nuxeo-dropdown-aggregation>
+                    </template>
+                    <template>
+                        <nuxeo-user-tag user="[[item.properties.dc:creator]]"></nuxeo-user-tag>
+                    </template>
+                </nuxeo-data-table-column>
+            </nuxeo-data-table>
+        </div>
     </template>
 
     <script>

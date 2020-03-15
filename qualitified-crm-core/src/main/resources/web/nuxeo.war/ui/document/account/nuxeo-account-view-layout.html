@@ -34,7 +34,7 @@
         @apply(--layout-vertical);
         @apply(--layout-flex);
         /* min-height: calc(60vh - 14em); */
-        margin-top: 8px;
+        /*margin-top: 8px;*/
       }
 
     </style>
@@ -115,9 +115,9 @@
                                        flex="50">
                 <template is="header">
                   <nuxeo-dropdown-aggregation
-                                              placeholder="[[i18n('documentContentView.datatable.header.modified')]]"
-                                              data="[[opportunityAggregations.dc_modified_agg]]"
-                                              value="{{column.filterValue}}" multiple>
+                          placeholder="[[i18n('documentContentView.datatable.header.modified')]]"
+                          data="[[opportunityAggregations.dc_modified_agg]]"
+                          value="{{column.filterValue}}" multiple>
                   </nuxeo-dropdown-aggregation>
                 </template>
                 <template>
@@ -126,12 +126,12 @@
               </nuxeo-data-table-column>
 
               <nuxeo-data-table-column name="[[i18n('documentContentView.datatable.header.lastContributor')]]"
-                                       filter-by="dc_last_contributor_agg" field="dc:lastContributor" sort-by="dc:lastContributor" flex="50">
+                                       filter-by="dc_last_contributor_agg" field="dc:lastContributor" sort-by="dc:lastContributor" flex="50" hidden>
                 <template is="header">
                   <nuxeo-dropdown-aggregation
-                                              placeholder="[[i18n('documentContentView.datatable.header.lastContributor')]]"
-                                              data="[[opportunityAggregations.dc_last_contributor_agg]]"
-                                              value="{{column.filterValue}}" multiple>
+                          placeholder="[[i18n('documentContentView.datatable.header.lastContributor')]]"
+                          data="[[opportunityAggregations.dc_last_contributor_agg]]"
+                          value="{{column.filterValue}}" multiple>
                   </nuxeo-dropdown-aggregation>
                 </template>
                 <template>
@@ -174,7 +174,7 @@
               <nuxeo-data-table-column name="[[i18n('documentContentView.datatable.header.title')]]"
                                        field="dc:title" sort-by="dc:title" filter-by="title"  flex="100">
                 <template>
-                    <img class="queue-thumbnail" src="[[_thumbnail(item)]]">
+                  <img class="queue-thumbnail" src="[[_thumbnail(item)]]">
                   <a class="title ellipsis" href$="#!/browse[[item.path]]" on-tap="_navigate">[[item.title]]</a>
                 </template>
               </nuxeo-data-table-column>
@@ -205,12 +205,12 @@
               </nuxeo-data-table-column>
 
               <nuxeo-data-table-column name="[[i18n('documentContentView.datatable.header.lastContributor')]]"
-                                       filter-by="dc_last_contributor_agg" field="dc:lastContributor" sort-by="dc:lastContributor" flex="50">
+                                       filter-by="dc_last_contributor_agg" field="dc:lastContributor" sort-by="dc:lastContributor" flex="50" hidden>
                 <template is="header">
                   <nuxeo-dropdown-aggregation
-                                              placeholder="[[i18n('documentContentView.datatable.header.lastContributor')]]"
-                                              data="[[contactAggregations.dc_last_contributor_agg]]"
-                                              value="{{column.filterValue}}" multiple>
+                          placeholder="[[i18n('documentContentView.datatable.header.lastContributor')]]"
+                          data="[[contactAggregations.dc_last_contributor_agg]]"
+                          value="{{column.filterValue}}" multiple>
                   </nuxeo-dropdown-aggregation>
                 </template>
                 <template>
@@ -252,7 +252,7 @@
               <nuxeo-data-table-column name="[[i18n('documentContentView.datatable.header.title')]]"
                                        field="dc:title" sort-by="dc:title" filter-by="title"  flex="100">
                 <template>
-                    <img class="queue-thumbnail" src="[[_thumbnail(item)]]">
+                  <img class="queue-thumbnail" src="[[_thumbnail(item)]]">
                   <a class="title ellipsis" href$="#!/browse[[item.path]]" on-tap="_navigate">[[item.title]]</a>
                 </template>
               </nuxeo-data-table-column>
@@ -284,9 +284,9 @@
                                        flex="50">
                 <template is="header">
                   <nuxeo-dropdown-aggregation
-                                              placeholder="[[i18n('documentContentView.datatable.header.modified')]]"
-                                              data="[[interactionAggregations.dc_modified_agg]]"
-                                              value="{{column.filterValue}}" multiple>
+                          placeholder="[[i18n('documentContentView.datatable.header.modified')]]"
+                          data="[[interactionAggregations.dc_modified_agg]]"
+                          value="{{column.filterValue}}" multiple>
                   </nuxeo-dropdown-aggregation>
                 </template>
                 <template>
@@ -295,12 +295,12 @@
               </nuxeo-data-table-column>
 
               <nuxeo-data-table-column name="[[i18n('documentContentView.datatable.header.lastContributor')]]"
-                                       filter-by="dc_last_contributor_agg" field="dc:lastContributor" sort-by="dc:lastContributor" flex="50">
+                                       filter-by="dc_last_contributor_agg" field="dc:lastContributor" sort-by="dc:lastContributor" flex="50" hidden>
                 <template is="header">
                   <nuxeo-dropdown-aggregation
-                                              placeholder="[[i18n('documentContentView.datatable.header.lastContributor')]]"
-                                              data="[[interactionAggregations.dc_last_contributor_agg]]"
-                                              value="{{column.filterValue}}" multiple>
+                          placeholder="[[i18n('documentContentView.datatable.header.lastContributor')]]"
+                          data="[[interactionAggregations.dc_last_contributor_agg]]"
+                          value="{{column.filterValue}}" multiple>
                   </nuxeo-dropdown-aggregation>
                 </template>
                 <template>
@@ -342,7 +342,7 @@
               <nuxeo-data-table-column name="[[i18n('documentContentView.datatable.header.title')]]"
                                        field="dc:title" sort-by="dc:title" filter-by="title"  flex="100">
                 <template>
-                    <img class="queue-thumbnail" src="[[_thumbnail(item)]]">
+                  <img class="queue-thumbnail" src="[[_thumbnail(item)]]">
                   <a class="title ellipsis" href$="#!/browse[[item.path]]" on-tap="_navigate">[[item.title]]</a>
                 </template>
               </nuxeo-data-table-column>
@@ -367,9 +367,9 @@
                                        flex="50">
                 <template is="header">
                   <nuxeo-dropdown-aggregation
-                                              placeholder="[[i18n('documentContentView.datatable.header.modified')]]"
-                                              data="[[sollicitationAggregations.dc_modified_agg]]"
-                                              value="{{column.filterValue}}" multiple>
+                          placeholder="[[i18n('documentContentView.datatable.header.modified')]]"
+                          data="[[sollicitationAggregations.dc_modified_agg]]"
+                          value="{{column.filterValue}}" multiple>
                   </nuxeo-dropdown-aggregation>
                 </template>
                 <template>
@@ -378,12 +378,12 @@
               </nuxeo-data-table-column>
 
               <nuxeo-data-table-column name="[[i18n('documentContentView.datatable.header.lastContributor')]]"
-                                       filter-by="dc_last_contributor_agg" field="dc:lastContributor" sort-by="dc:lastContributor" flex="50">
+                                       filter-by="dc_last_contributor_agg" field="dc:lastContributor" sort-by="dc:lastContributor" flex="50" hidden>
                 <template is="header">
                   <nuxeo-dropdown-aggregation
-                                              placeholder="[[i18n('documentContentView.datatable.header.lastContributor')]]"
-                                              data="[[sollicitationAggregations.dc_last_contributor_agg]]"
-                                              value="{{column.filterValue}}" multiple>
+                          placeholder="[[i18n('documentContentView.datatable.header.lastContributor')]]"
+                          data="[[sollicitationAggregations.dc_last_contributor_agg]]"
+                          value="{{column.filterValue}}" multiple>
                   </nuxeo-dropdown-aggregation>
                 </template>
                 <template>
@@ -432,7 +432,7 @@
               <nuxeo-data-table-column name="[[i18n('documentContentView.datatable.header.title')]]"
                                        field="dc:title" sort-by="dc:title" filter-by="title"  flex="100">
                 <template>
-                    <img class="queue-thumbnail" src="[[_thumbnail(item)]]">
+                  <img class="queue-thumbnail" src="[[_thumbnail(item)]]">
                   <a class="title ellipsis" href$="#!/browse[[item.path]]" on-tap="_navigate">[[item.title]]</a>
                 </template>
               </nuxeo-data-table-column>
@@ -442,9 +442,9 @@
                                        flex="50">
                 <template is="header">
                   <nuxeo-dropdown-aggregation
-                                              placeholder="[[i18n('documentContentView.datatable.header.modified')]]"
-                                              data="[[documentAggregations.dc_modified_agg]]"
-                                              value="{{column.filterValue}}" multiple>
+                          placeholder="[[i18n('documentContentView.datatable.header.modified')]]"
+                          data="[[documentAggregations.dc_modified_agg]]"
+                          value="{{column.filterValue}}" multiple>
                   </nuxeo-dropdown-aggregation>
                 </template>
                 <template>
@@ -452,12 +452,12 @@
                 </template>
               </nuxeo-data-table-column>
               <nuxeo-data-table-column name="[[i18n('documentContentView.datatable.header.lastContributor')]]"
-                                       filter-by="dc_last_contributor_agg" field="dc:lastContributor" sort-by="dc:lastContributor" flex="50">
+                                       filter-by="dc_last_contributor_agg" field="dc:lastContributor" sort-by="dc:lastContributor" flex="50" hidden>
                 <template is="header">
                   <nuxeo-dropdown-aggregation
-                                              placeholder="[[i18n('documentContentView.datatable.header.lastContributor')]]"
-                                              data="[[documentAggregations.dc_last_contributor_agg]]"
-                                              value="{{column.filterValue}}" multiple>
+                          placeholder="[[i18n('documentContentView.datatable.header.lastContributor')]]"
+                          data="[[documentAggregations.dc_last_contributor_agg]]"
+                          value="{{column.filterValue}}" multiple>
                   </nuxeo-dropdown-aggregation>
                 </template>
                 <template>

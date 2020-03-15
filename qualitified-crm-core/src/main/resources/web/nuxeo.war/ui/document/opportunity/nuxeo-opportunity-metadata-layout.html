@@ -2,12 +2,15 @@
 <dom-module id="nuxeo-opportunity-metadata-layout">
     <template>
         <style>
-      *[role=widget] {
-        padding: 5px;
-      }
+        *[role=widget] {
+          padding: 5px;
+        }
 
+        .title{
+          color:var(--nuxeo-secondary-color);
+        }
         </style>
-        <div role="widget">
+        <div role="widget" class="title">
             <h1>[[document.properties.dc:title]]</h1>
         </div>
         <div role="widget">
@@ -27,7 +30,7 @@
         <div role="widget">
             <label>[[i18n('label.metadata.responsible')]]</label>
             <div>
-               <nuxeo-user-tag user="[[document.properties.opportunity:responsible]]"></nuxeo-user-tag>
+                <nuxeo-user-tag user="[[document.properties.opportunity:responsible]]"></nuxeo-user-tag>
             </div>
         </div>
         <div role="widget" hidden$="[[!document.properties.opportunity:mainContact]">
