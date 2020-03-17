@@ -16,11 +16,14 @@
         margin-right: 8px;
       }
 
+      .title{
+        color:var(--nuxeo-secondary-color);
+      }
 
-        </style>
-        <div role="widget">
+      </style>
+        <div role="widget" class="title">
             <h1 directory-name="IntActivity">
-                [[formatDirectory(document.properties.interaction:activity)]] - [[document.properties.dc:title]]
+                [[formatDirectory(document.properties.interaction:activity)]] - [[document.properties.dc:title]] - [[formatDirectory(document.properties.interaction:status)]]
             </h1>
         </div>
 
@@ -42,7 +45,7 @@
             <label>[[i18n('label.metadata.responsible')]]</label>
             <div>
                 <template is="dom-repeat" items="[[document.properties.interaction:responsible]]">
-                 <nuxeo-user-tag user="[[item]]"></nuxeo-user-tag>
+                    <nuxeo-user-tag user="[[item]]"></nuxeo-user-tag>
                 </template>
             </div>
         </div>

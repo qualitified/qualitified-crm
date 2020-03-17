@@ -13,10 +13,12 @@
         margin-right: 8px;
       }
 
+      .title{
+        color:var(--nuxeo-secondary-color);
+      }
+      </style>
 
-        </style>
-
-        <div role="widget">
+        <div role="widget" class="title">
             <h1>
                 <template is="dom-if" if="[[_hasProfileImg(document.properties.file:content)]]">
                     <img style="vertical-align: text-bottom;" class="account-view-layout"

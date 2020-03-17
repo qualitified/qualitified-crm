@@ -1,8 +1,8 @@
 <link rel="import" href="../../elements/qualitified-inline-edit.html">
-<link rel="import" href="../../qualitified-inline-edit.html">
+<link rel="import" href="../../elements/qualitified-document-attachments.html">
 <dom-module id="nuxeo-opportunity-view-layout">
     <template>
-        <style>
+        <style include="nuxeo-styles">
       *[role=widget] {
           padding: 40px;
           flex: 80%;
@@ -19,6 +19,18 @@
         margin-right: 8px;
       }
 
+      .ellipsis {
+        text-overflow: ellipsis;
+        overflow: hidden;
+        white-space: nowrap;
+        display: block;
+        width: calc(100% - 38px);
+      }
+
+      .border-bottom {
+        border-top: 1px solid var(--nuxeo-border);
+        padding: 8px 0;
+      }
       </style>
         <nuxeo-connection id="nxcon"></nuxeo-connection>
 
@@ -82,55 +94,58 @@
                         id="interactionProvider"
                         auto
                         query="SELECT * FROM Interaction WHERE ecm:currentLifeCycleState != 'deleted' and ecm:isTrashed = 0 and ecm:parentId = '[[document.uid]]' AND ecm:currentLifeCycleState = 'done' ORDER BY interaction:date DESC"
-                        page-size="5"
+                        page-size="40"
                         params="[[params]]"
                         aggregations="{{interactionAggregations}}"
                         current-page="{{interactions}}">
                 </nuxeo-page-provider>
 
                 <template is="dom-repeat" items="[[interactions]]">
-                    <div>[[_formatDate(item.properties.interaction:date)]]</div>
-                    <div>
-                        <a href$="#!/browse[[item.path]]">
-                            <template is="dom-if" if="[[_isCall(item.properties.interaction:activity)]]">
-                                <iron-icon icon="icons:settings-phone"></iron-icon>
-                            </template>
-                            <template is="dom-if" if="[[_isMeeting(item.properties.interaction:activity)]]">
-                                <iron-icon icon="icons:perm-contact-calendar"></iron-icon>
-                            </template>
-                            <template is="dom-if" if="[[_isChat(item.properties.interaction:activity)]]">
-                                <iron-icon icon="icons:supervisor-account"></iron-icon>
-                            </template>
-                            <template is="dom-if" if="[[_isEmail(item.properties.interaction:activity)]]">
-                                <iron-icon icon="icons:mail"></iron-icon>
-                            </template>
-                            <template is="dom-if" if="[[_isNote(item.properties.interaction:activity)]]">
-                                <iron-icon icon="icons:speaker-notes"></iron-icon>
-                            </template>
-                            <template is="dom-if" if="[[_isSms(item.properties.interaction:activity)]]">
-                                <iron-icon icon="icons:perm-phone-msg"></iron-icon>
-                            </template>
-                            - [[item.title]]</a></div>
-                    <div>
-                        <template is="dom-repeat" items="[[item.properties.interaction:contact]]" as="contact">
-                            <img style="vertical-align: text-bottom;" class="account-view-layout"
-                                 src="[[_hasProfileImg(contact)]]" on-tap="_navigate"
-                                 onError="this.onerror=null;this.src='/nuxeo/ui/images/touch/profile.png';">
-
-                        </template>
-                    </div>
-                    <div>
-                        <pre class="wrap">[[item.properties.dc:description]]</pre>
-                    </div>
-                    <iron-collapse id="collapse-[[item.uid]]">
+                    <div class="border-bottom">
+                        <div>[[_formatDate(item.properties.interaction:date)]]</div>
                         <div>
-                            <pre class="wrap">[[item.properties.note:note]]</pre>
+                            <a href$="#!/browse[[item.path]]">
+                                <template is="dom-if" if="[[_isCall(item.properties.interaction:activity)]]">
+                                    <iron-icon icon="icons:settings-phone"></iron-icon>
+                                </template>
+                                <template is="dom-if" if="[[_isMeeting(item.properties.interaction:activity)]]">
+                                    <iron-icon icon="icons:perm-contact-calendar"></iron-icon>
+                                </template>
+                                <template is="dom-if" if="[[_isChat(item.properties.interaction:activity)]]">
+                                    <iron-icon icon="icons:supervisor-account"></iron-icon>
+                                </template>
+                                <template is="dom-if" if="[[_isEmail(item.properties.interaction:activity)]]">
+                                    <iron-icon icon="icons:mail"></iron-icon>
+                                </template>
+                                <template is="dom-if" if="[[_isNote(item.properties.interaction:activity)]]">
+                                    <iron-icon icon="icons:speaker-notes"></iron-icon>
+                                </template>
+                                <template is="dom-if" if="[[_isSms(item.properties.interaction:activity)]]">
+                                    <iron-icon icon="icons:perm-phone-msg"></iron-icon>
+                                </template>
+                                - [[item.title]]</a></div>
+                        <div>
+                            <template is="dom-repeat" items="[[item.properties.interaction:contact]]" as="contact">
+                                <img style="vertical-align: text-bottom;" class="account-view-layout"
+                                     src="[[_hasProfileImg(contact)]]" on-tap="_navigate"
+                                     onError="this.onerror=null;this.src='/nuxeo/ui/images/touch/profile.png';">
+
+                            </template>
                         </div>
-                    </iron-collapse>
-                    <button hidden$=[[!_hasNote(item)]] id="button-[[item.uid]]" on-click="toggle"
-                            data-id$="[[item.uid]]">...
-                    </button>
-                    <br/>
+                        <div>
+                            <pre class="wrap">[[item.properties.dc:description]]</pre>
+                        </div>
+                        <iron-collapse id="collapse-[[item.uid]]">
+                            <div>
+                                <pre class="wrap">[[item.properties.note:note]]</pre>
+                            </div>
+                        </iron-collapse>
+                        <button hidden$=[[!_hasNote(item)]] id="button-[[item.uid]]" on-click="toggle"
+                                data-id$="[[item.uid]]">...
+                        </button>
+                        <qualitified-document-attachments document="[[item]]"></qualitified-document-attachments>
+                        <br/>
+                    </div>
                 </template>
         </paper-card>
 
@@ -143,7 +158,7 @@
                     id="documentProvider"
                     auto
                     query="select * from Document where ecm:primaryType in ('File', 'Folder') and ecm:currentLifeCycleState != 'deleted' and ecm:isTrashed = 0 and ecm:parentId = '[[document.uid]]'"
-                    page-size="5"
+                    page-size="40"
                     params="[[params]]"
                     aggregations="{{documentAggregations}}"
                     current-page="{{documents}}"
@@ -154,7 +169,7 @@
                                          sort-by="dc:title">
                     <template>
                         <nuxeo-document-thumbnail document=[[item]]></nuxeo-document-thumbnail>
-                        [[item.title]]
+                        <a class="title ellipsis" href$="#!/browse[[item.path]]" on-tap="_navigate">[[item.title]]</a>
                     </template>
                 </nuxeo-data-table-column>
                 <nuxeo-data-table-column filter-by="dc_modified_agg" flex="50" sort-by="dc:modified">
@@ -182,6 +197,7 @@
                     </template>
                 </nuxeo-data-table-column>
             </nuxeo-data-table>
+
         </div>
     </template>
 
