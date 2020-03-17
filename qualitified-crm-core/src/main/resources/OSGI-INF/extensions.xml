@@ -156,6 +156,15 @@
       <schema name="address"/>
       <facet name="Picture"/>
       <facet name="NXTag"/>
+      <facet name="Folderish"/>
+      <subtypes>
+        <type>File</type>
+        <type>Folder</type>
+        <type>Picture</type>
+        <type>Video</type>
+        <type>Audio</type>
+        <type>Note</type>
+      </subtypes>
     </doctype>
     <doctype name="Account" append="true">
       <schema name="address"/>

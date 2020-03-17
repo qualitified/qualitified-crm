@@ -15,6 +15,14 @@
       :host([hidden]) {
         display: none;
       }
+
+      /* links */
+      a, a:active, a:visited, a:focus {
+        @apply --nuxeo-link;
+      }
+      a:hover {
+        @apply --nuxeo-link-hover;
+      }
     </style>
 
     <nuxeo-operation id="op" op="Document.FetchByProperty"></nuxeo-operation>
@@ -236,7 +244,17 @@
         }
 
         _selectionFormatter(doc) {
-          return `<a >${doc.title}</a>`;
+          //return `<a >${doc.title}</a>`;
+          //TODO Make the link optional
+
+          let img = this._hasProfileImg(doc.uid)? `<img style="vertical-align: middle;height: 25px;width: 25px;border-radius: 20px;box-sizing: border-box;margin-right: 8px;" src="/nuxeo/nxfile/default/${doc.uid}/file:content/">` : ``;
+          return `<a href="${this.urlFor('browse', doc.path)}" style="text-decoration: none;color:#000000">${img}${doc.title}</a>`;
+        }
+
+        _hasProfileImg(value){
+          var img = document.createElement('img');
+          img.src = "/nuxeo/nxfile/default/"+ value +"/file:content/";
+          return "/nuxeo/nxfile/default/"+ value +"/file:content/";
         }
 
         _resultFormatter(doc) {

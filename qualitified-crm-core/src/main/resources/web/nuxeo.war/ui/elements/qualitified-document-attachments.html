@@ -1,0 +1,70 @@
+<dom-module id="qualitified-document-attachments" assetpath="qualitified-document-attachments/">
+  <template>
+    <style include="nuxeo-styles iron-flex">
+      :host {
+        display: block;
+      }
+
+      nuxeo-dropzone {
+        margin-top: 8px;
+      }
+
+      /*nuxeo-document-blob {
+        border-top: 1px solid var(--nuxeo-border);
+        padding: 8px 0;
+      }*/
+
+      .empty {
+        opacity: .5;
+        padding-bottom: 8px;
+        font-size: 1.1em;
+      }
+    </style>
+
+    <div class="vertical layout">
+      <template is="dom-repeat" items="[[_computeFiles(document.*, xpath)]]">
+        <nuxeo-document-blob document="[[document]]" xpath="[[_computeBlobXpath(xpath, index)]]"></nuxeo-document-blob>
+      </template>
+    </div>
+
+  </template>
+
+  <script>
+    Polymer({
+      is: 'qualitified-document-attachments',
+      behaviors: [Nuxeo.I18nBehavior, Nuxeo.FiltersBehavior],
+      properties: {
+        document: Object,
+
+        xpath: {
+          type: String,
+          value: 'files:files'
+        }
+      },
+
+      _hasFiles: function(doc) {
+        return doc && doc.properties && doc.properties[this.xpath] && doc.properties[this.xpath].length > 0;
+      },
+
+      _hasWritePermission: function (doc) {
+        return doc && this.hasPermission(doc, 'Write') &&
+          !this.isImmutable(doc) && doc.type !== 'Root' && !this.isTrashed(doc);
+      },
+
+      _computeFiles: function() {
+        if (this._hasFiles(this.document)) {
+          return this.document.properties[this.xpath];
+        }
+        return [];
+      },
+
+      _computeBlobXpath: function(xpath, index) {
+        if (xpath === 'files:files') {
+          return 'files:files/' + index + '/file';
+        }
+        return xpath + '/' + index;
+      }
+    });
+  </script>
+
+</dom-module>
