@@ -52,17 +52,24 @@ public class Deploy {
 
     @OperationMethod
     public Blob run(DocumentModel doc) throws Exception {
+
+        //Remove the last /
+        url = url.endsWith("/")? url.substring(0,url.lastIndexOf("/")) : url;
+
         AutomationService automationService = Framework.getService(AutomationService.class);
         LoginContext lc = Framework.loginAsUser("Administrator");
         ctx.getLoginStack().push(lc);
+
+        String jsonResult = "";
 
         //Verify that the Unit Tests are passing
         Map<String, Object> params = new HashMap();
         automationService.run(ctx, "Qualitified.RunUnitTests", params);
         DocumentModelList unitTestsFailing = ctx.getCoreSession().query("SELECT * FROM ScriptNote WHERE dc:title ILIKE 'UnitTest%' AND ecm:isProxy = 0 AND ecm:isCheckedInVersion = 0 AND ecm:isTrashed = 0 AND ecm:currentLifeCycleState != 'deleted' AND scriptnote:isValid != 1 AND scriptnote:isDisabled != 1");
         if(unitTestsFailing.size()>0){
-            logger.warn("Unable to deploy due to some Unit Test(s) error, please fix this before going further.");
-            throw new NuxeoException("Unable to deploy due to some Unit Test(s) error, please fix this before going further.",403);
+            logger.error("Unable to deploy due to Unit Test(s) error, please fix this before going further.");
+            //throw new NuxeoException("Unable to deploy due to some Unit Test(s) error, please fix this before going further.",403);
+            return new StringBlob("{\"status\":403, \"error\": \"Unable to deploy due to Unit Test(s) error.\"}", "application/json");
         }
 
         Map<String, Object> exportParams = new HashMap();
@@ -84,10 +91,15 @@ public class Deploy {
         CloseableHttpResponse response = httpClient.execute(getBatchId);
         HttpEntity responseEntity = response.getEntity();
         String batchId = "";
-        if (responseEntity != null) {
+
+        if(response.getStatusLine().getStatusCode() > 201 && responseEntity != null){
+            logger.error("Error while trying to push modification to the remote server. " + EntityUtils.toString(responseEntity));
+            jsonResult = "{\"status\":"+response.getStatusLine().getStatusCode()+", \"error\": \"Error while trying to push modification to the remote server.\"}";
+            return new StringBlob(jsonResult, "application/json");
+        }else{
             String retSrc = EntityUtils.toString(responseEntity);
             JSONObject batchIdResult = new JSONObject(retSrc);
-            batchId = (String)batchIdResult.get(("batchId"));
+            batchId = (String) batchIdResult.get(("batchId"));
         }
 
         HttpPost uploadFile = new HttpPost(url+"/api/v1/upload/"+batchId+"/0");
@@ -131,17 +143,21 @@ public class Deploy {
         jsonEntity.setContentType(String.valueOf(ContentType.APPLICATION_JSON));
         importZip.setEntity(jsonEntity);
         importZip.setHeader("Authorization", "Basic " + new String(Base64.encode(login+":"+password), "ASCII"));
-        importZip.setHeader("", "application/json");
+        importZip.setHeader("Content-Type", "application/json");
 
         CloseableHttpResponse importZipResponse = httpClient.execute(importZip);
         HttpEntity inportZipResponseEntity = importZipResponse.getEntity();
 
-        String importResult = "";
-        if (inportZipResponseEntity != null) {
-            importResult = EntityUtils.toString(inportZipResponseEntity);
+
+        if (response.getStatusLine().getStatusCode() > 201) {
+            logger.error("Error while trying to push modification to the remote server. " + EntityUtils.toString(inportZipResponseEntity));
+            jsonResult = "{\"status\":"+response.getStatusLine().getStatusCode()+", \"error\": \"Error while trying to push modification to the remote server.\"}";
+        }else{
+            logger.info("Deployment done successfully!");
+            jsonResult = "{\"status\":200}";
         }
 
         ctx.getLoginStack().pop();
-        return new StringBlob(importResult, "application/json");
+        return new StringBlob(jsonResult, "application/json");
     }
 }

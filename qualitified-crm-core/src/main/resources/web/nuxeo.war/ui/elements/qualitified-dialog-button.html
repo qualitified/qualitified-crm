@@ -14,7 +14,7 @@
         fill: var(--nuxeo-link-hover-color);
       }
     </style>
-    <paper-toast id="operationToast"></paper-toast>
+    <paper-toast id="operationToast" duration="4000"></paper-toast>
     <nuxeo-connection id="nxcon" user="{{user}}"></nuxeo-connection>
     <nuxeo-operation id="operation" op="[[operation]]" input="[[document.uid]]" params="[[params]]"></nuxeo-operation>
     <paper-icon-button id="button" icon="[[icon]]" on-tap="_toggleDialog"></paper-icon-button>
@@ -81,13 +81,22 @@
         this.$.dialog.toggle();
       },
       _ok: function(){
+        if (!confirm('Before deploying trashed documents will be removed on this instance. Should we proceed?')) {
+          return;
+        }
         this.params = {
           url:this.url, login:this.login, password:this.password,
           context: {},
           input: this.document.uid
         };
+        this.$.operationToast.text = "Started Deploying...";
+        this.$.operationToast.open();
         this.$.operation.execute().then(function(result) {
-          this.$.operationToast.text = this.message;
+          if(result.status === 200){
+            this.$.operationToast.text = this.message;
+          }else{
+            this.$.operationToast.text = result.error +" "+ (result.status);
+          }
           this.$.operationToast.open();
           this.navigateTo('browse', this.document.path);
         }.bind(this))
