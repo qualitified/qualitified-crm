@@ -96,7 +96,7 @@ String base64 = Framework.getProperty("ccm.register.base64");
   </div>
   <br/>
   <div id="success" style="display:none" class="alert alert-success alert-dismissible fade show">
-    <strong>Success!</strong> You registration request was submitted successfully. <br/>Please checkout your email for your access.
+    <strong>Success!</strong> Your registration request was submitted successfully. <br/>Please checkout your email for your access.
     <button type="button" class="close" data-dismiss="alert">&times;</button>
   </div>
   <div id="error" style="display:none" class="alert alert-danger alert-dismissible fade show">

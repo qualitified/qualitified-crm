@@ -30,8 +30,9 @@ public class RunUnitTests {
 
     @OperationMethod
     public void run() throws Exception {
+        String adminPath = Framework.getProperty("qualitified.config.path", "/Admin");
         List<DocumentModel> unitTests = CoreInstance.doPrivileged(session, (session) -> {
-            return session.query("SELECT * FROM ScriptNote WHERE ecm:isProxy = 0 AND ecm:isCheckedInVersion = 0 AND ecm:isTrashed = 0 AND (scriptnote:isDisabled is NULL OR scriptnote:isDisabled = 0) AND ecm:currentLifeCycleState != 'deleted' AND dc:title ILIKE 'UnitTest%' ORDER BY scriptnote:order ASC, dc:created ASC");
+            return session.query("SELECT * FROM ScriptNote WHERE ecm:path STARTSWITH '"+adminPath+"' AND ecm:isProxy = 0 AND ecm:isCheckedInVersion = 0 AND ecm:isTrashed = 0 AND (scriptnote:isDisabled is NULL OR scriptnote:isDisabled = 0) AND ecm:currentLifeCycleState != 'deleted' AND dc:title ILIKE 'UnitTest%' ORDER BY scriptnote:order ASC, dc:created ASC");
         });
         logger.warn("*****************************");
         logger.warn("Starting to Run Unit Tests...");
