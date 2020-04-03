@@ -164,7 +164,7 @@ Y.styleDocument(a)},getComputedStyleValue:function(a,b){return(a=window.getCompu
     let resolveDoc;
     /**
      * Resolves the given URL against the provided `baseUri'.
-     * 
+     *
      * Note that this function performs no resolution for URLs that start
      * with `/` (absolute URLs) or `#` (hash identifiers).  For general purpose
      * URL resolution, use `window.URL`.
@@ -1964,16 +1964,16 @@ Y.styleDocument(a)},getComputedStyleValue:function(a,b){return(a=window.getCompu
    * (batched) `_propertiesChanged` callback.
    *
    * For basic usage of this mixin:
-   * 
+   *
    * -   Declare attributes to observe via the standard `static get observedAttributes()`. Use
-   *     `dash-case` attribute names to represent `camelCase` property names. 
+   *     `dash-case` attribute names to represent `camelCase` property names.
    * -   Implement the `_propertiesChanged` callback on the class.
-   * -   Call `MyClass.createPropertiesForAttributes()` **once** on the class to generate 
-   *     property accessors for each observed attribute. This must be called before the first 
+   * -   Call `MyClass.createPropertiesForAttributes()` **once** on the class to generate
+   *     property accessors for each observed attribute. This must be called before the first
    *     instance is created, for example, by calling it before calling `customElements.define`.
    *     It can also be called lazily from the element's `constructor`, as long as it's guarded so
    *     that the call is only made once, when the first instance is created.
-   * -   Call `this._enableProperties()` in the element's `connectedCallback` to enable 
+   * -   Call `this._enableProperties()` in the element's `connectedCallback` to enable
    *     the accessors.
    *
    * Any `observedAttributes` will automatically be
@@ -6092,7 +6092,7 @@ Y.styleDocument(a)},getComputedStyleValue:function(a,b){return(a=window.getCompu
        * The `importPath` property is also set on element instances and can be
        * used to create bindings relative to the import path.
        *
-       * For elements defined in ES modules, users should implement 
+       * For elements defined in ES modules, users should implement
        * `static get importMeta() { return import.meta; }`, and the default
        * implementation of `importPath` will  return `import.meta.url`'s path.
        * For elements defined in HTML imports, this getter will return the path
@@ -6111,7 +6111,7 @@ Y.styleDocument(a)},getComputedStyleValue:function(a,b){return(a=window.getCompu
             this._importPath = Polymer.ResolveUrl.pathFromUrl(meta.url);
           } else {
             const module = Polymer.DomModule && Polymer.DomModule.import(/** @type {PolymerElementConstructor} */ (this).is);
-            this._importPath = (module && module.assetpath) || 
+            this._importPath = (module && module.assetpath) ||
               Object.getPrototypeOf(/** @type {PolymerElementConstructor}*/ (this).prototype).constructor.importPath;
           }
         }
@@ -16113,7 +16113,7 @@ var Document = require('./document');
 var FormData = require('./deps/form-data');
 
 var isDocument = function isDocument(obj) {
-  return obj instanceof Document || (typeof obj === 'undefined' ? 'undefined' : _typeof(obj)) === 'object' && obj['entity-type'] === 'document';
+  return obj instanceof Document || (typeof obj === 'undefined' ? 'undefined' : _typeof(obj)) === 'object' && obj !== null && obj['entity-type'] === 'document';
 };
 
 /**
@@ -21178,9 +21178,9 @@ var Promise$1 = function () {
   /**
     `finally` will be invoked regardless of the promise's fate just as native
     try/catch/finally behaves
-  
+
     Synchronous example:
-  
+
     ```js
     findAuthor() {
       if (Math.random() > 0.5) {
@@ -21188,7 +21188,7 @@ var Promise$1 = function () {
       }
       return new Author();
     }
-  
+
     try {
       return findAuthor(); // succeed or fail
     } catch(error) {
@@ -21198,9 +21198,9 @@ var Promise$1 = function () {
       // doesn't affect the return value
     }
     ```
-  
+
     Asynchronous example:
-  
+
     ```js
     findAuthor().catch(function(reason){
       return findOtherAuther();
@@ -21208,7 +21208,7 @@ var Promise$1 = function () {
       // author was either found, or not
     });
     ```
-  
+
     @method finally
     @param {Function} callback
     @return {Promise}
@@ -25179,11 +25179,11 @@ module.exports={
       descendant.notifyResize();
       this._notifyingDescendant = false;
     },
-    
+
     _requestResizeNotifications: function() {
       if (!this.isAttached)
         return;
-      
+
       // NOTE(valdrin) In CustomElements v1 with native HTMLImports, the order
       // of imports affects the order of `attached` callbacks (see webcomponents/custom-elements#15).
       // This might cause a child to notify parents too early (as the parent
@@ -25206,7 +25206,7 @@ module.exports={
         if (!this._parentResizable) {
           window.addEventListener('resize', this._boundNotifyResize);
           this.notifyResize();
-        } 
+        }
       }
     }
   };
@@ -32907,7 +32907,7 @@ function XHRLocaleResolver(msgFolder) {
           this._scrollInteractionHandler.bind(this);
         for (var i = 0, l = scrollEvents.length; i < l; i++) {
           // NOTE: browsers that don't support objects as third arg will
-          // interpret it as boolean, hence useCapture = true in this case. 
+          // interpret it as boolean, hence useCapture = true in this case.
           document.addEventListener(scrollEvents[i], this._boundScrollHandler, {
             capture: true,
             passive: false
@@ -33358,7 +33358,7 @@ function XHRLocaleResolver(msgFolder) {
       },
 
       /**
-       * Set to true to allow clicks to go through overlays. 
+       * Set to true to allow clicks to go through overlays.
        * When the user clicks outside this overlay, the click may
        * close the overlay below.
        */
@@ -33896,7 +33896,7 @@ function XHRLocaleResolver(msgFolder) {
         this.__addScrollListeners();
       }
     },
-    
+
     /**
      * @private
      */
@@ -33923,7 +33923,7 @@ function XHRLocaleResolver(msgFolder) {
         });
       }, this);
     },
-    
+
     /**
      * @private
      */
@@ -38440,7 +38440,7 @@ function XHRLocaleResolver(msgFolder) {
         },
         /**
          * The animation that will be played on entry.  This replaces the
-         * deprecated animationConfig.  Entries here will override the 
+         * deprecated animationConfig.  Entries here will override the
          * animationConfig settings.  You can enter your own animation
          * by setting it to the css class name.
          */
@@ -38450,7 +38450,7 @@ function XHRLocaleResolver(msgFolder) {
         },
         /**
          * The animation that will be played on exit.  This replaces the
-         * deprecated animationConfig.  Entries here will override the 
+         * deprecated animationConfig.  Entries here will override the
          * animationConfig settings.  You can enter your own animation
          * by setting it to the css class name.
          */
@@ -42394,7 +42394,7 @@ function XHRLocaleResolver(msgFolder) {
       :host([disabled][raised]) {
         background: #eaeaea;
       }
-        
+
       :host([animated]) {
         @apply --shadow-transition;
       }
@@ -45160,7 +45160,7 @@ styles. All other styles should exist as single lines."
         padding: 0;
       }
 
-      
+
       :host > ::slotted(*:first-child) {
         margin-top: 24px;
       }
@@ -46431,7 +46431,7 @@ styles. All other styles should exist as single lines."
                   </tr>
                 </template>
               </dom-repeat><table>
-              
+
             </table>
           </div>
         </div>
@@ -47472,7 +47472,7 @@ styles. All other styles should exist as single lines."
       },
 
       /**
-       * Changes the [`completes`](iron-request#property-completes) promise chain 
+       * Changes the [`completes`](iron-request#property-completes) promise chain
        * from `generateRequest` to reject with an object
        * containing the original request, as well an error message.
        * If false (default), the promise rejects with an error message only.
@@ -63627,7 +63627,7 @@ Vaadin.ElementMixin = superClass => class VaadinElementMixin extends superClass 
       :host([required]) label::after {
         display: inline-block;
         content: '*';
-        margin-left: 4px; 
+        margin-left: 4px;
         color: var(--paper-input-container-invalid-color, red);
       }
 
@@ -63816,7 +63816,7 @@ Vaadin.ElementMixin = superClass => class VaadinElementMixin extends superClass 
       :host([required]) label::after {
         display: inline-block;
         content: '*';
-        margin-left: 4px; 
+        margin-left: 4px;
         color: var(--paper-input-container-invalid-color, red);
       }
 
@@ -64163,7 +64163,7 @@ Vaadin.ElementMixin = superClass => class VaadinElementMixin extends superClass 
       :host([required]) label::after {
         display: inline-block;
         content: '*';
-        margin-left: 4px; 
+        margin-left: 4px;
         color: var(--paper-input-container-invalid-color, red);
       }
 
