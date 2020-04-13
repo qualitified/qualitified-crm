@@ -4,6 +4,7 @@
 @element nuxeo-opportunity_list-search-results
 -->
 <link rel="import" href="../../shared-css.html">
+<link rel="import" href="../../elements/qualitified-pipeline.html">
 <dom-module id="nuxeo-opportunity_list-search-results">
     <template>
         <style include="nuxeo-styles shared-css">
@@ -17,6 +18,8 @@
 
         </style>
 
+        <qualitified-pipeline></qualitified-pipeline>
+        <br/>
         <nuxeo-results name="opportunity_list" nx-provider="[[nxProvider]]">
             <nuxeo-data-grid name="grid" icon="icons:apps" class="results"
                              empty-label="[[i18n('searchResults.noResults')]]"
