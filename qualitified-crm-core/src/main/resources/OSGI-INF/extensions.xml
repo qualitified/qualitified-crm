@@ -57,6 +57,7 @@
       <schema name="uid"/>
       <schema name="picture"/>
       <schema name="custom"/>
+      <schema name="address"/>
       <facet name="Picture"/>
       <facet name="Folderish"/>
       <facet name="NXTag"/>
@@ -71,11 +72,6 @@
         <type>Solicitation</type>
       </subtypes>
     </doctype>
-    <!--doctype name="Domain" append="true">
-      <subtypes>
-        <type>Account</type>
-      </subtypes>
-    </doctype-->
     <doctype name="Folder" append="true">
       <subtypes>
         <type>Account</type>
@@ -164,12 +160,6 @@
         <type>Video</type>
         <type>Audio</type>
         <type>Note</type>
-      </subtypes>
-    </doctype>
-    <doctype name="Account" append="true">
-      <schema name="address"/>
-      <subtypes>
-        <type>Contact</type>
       </subtypes>
     </doctype>
     <doctype name="File" extends="Document">
@@ -1237,7 +1227,7 @@
             <property name="order">count desc</property>
           </properties>
         </aggregate>
-        <aggregate id="solicitation_category_agg" type="terms" parameter="custom:vocabularyField2">
+        <aggregate id="solicitation_category_agg" type="terms" parameter="solicitation:category">
           <field schema="solicitation_list_pp" name="solicitation_category_agg"/>
           <properties>
             <property name="order">count desc</property>
