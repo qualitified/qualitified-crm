@@ -56,16 +56,16 @@
                 <nuxeo-directory-suggestion hidden$="[[!vocabularyField9Visible]]" role="widget" value="{{document.properties.custom:vocabularyField9}}" label="[[vocabularyField9Label]]" required="[[vocabularyField9Required]]" directory-name="[[vocabularyField9Name]]" min-chars="0" multiple="[[vocabularyField9Multivalue]]"></nuxeo-directory-suggestion>
                 <nuxeo-directory-suggestion hidden$="[[!vocabularyField10Visible]]" role="widget" value="{{document.properties.custom:vocabularyField10}}" label="[[vocabularyField10Label]]" required="[[vocabularyField10Required]]" directory-name="[[vocabularyField10Name]]" min-chars="0" multiple="[[vocabularyField10Multivalue]]"></nuxeo-directory-suggestion>
 
-                <nuxeo-user-suggestion hidden$="[[!userField1Visible]]" role="widget" value="{{document.properties.custom:userField1}}" label="[[userField1Label]]" search-type="USER_TYPE" required="[[userField1Required]]"></nuxeo-user-suggestion>
-                <nuxeo-user-suggestion hidden$="[[!userField2Visible]]" role="widget" value="{{document.properties.custom:userField2}}" label="[[userField2Label]]" search-type="USER_TYPE" required="[[userField2Required]]"></nuxeo-user-suggestion>
-                <nuxeo-user-suggestion hidden$="[[!userField3Visible]]" role="widget" value="{{document.properties.custom:userField3}}" label="[[userField3Label]]" search-type="USER_TYPE" required="[[userField3Required]]"></nuxeo-user-suggestion>
-                <nuxeo-user-suggestion hidden$="[[!userField4Visible]]" role="widget" value="{{document.properties.custom:userField4}}" label="[[userField4Label]]" search-type="USER_TYPE" required="[[userField4Required]]"></nuxeo-user-suggestion>
-                <nuxeo-user-suggestion hidden$="[[!userField5Visible]]" role="widget" value="{{document.properties.custom:userField5}}" label="[[userField5Label]]" search-type="USER_TYPE" required="[[userField5Required]]"></nuxeo-user-suggestion>
-                <nuxeo-user-suggestion hidden$="[[!userField6Visible]]" role="widget" value="{{document.properties.custom:userField6}}" label="[[userField6Label]]" search-type="USER_TYPE" required="[[userField6Required]]"></nuxeo-user-suggestion>
-                <nuxeo-user-suggestion hidden$="[[!userField7Visible]]" role="widget" value="{{document.properties.custom:userField7}}" label="[[userField7Label]]" search-type="USER_TYPE" required="[[userField7Required]]"></nuxeo-user-suggestion>
-                <nuxeo-user-suggestion hidden$="[[!userField8Visible]]" role="widget" value="{{document.properties.custom:userField8}}" label="[[userField8Label]]" search-type="USER_TYPE" required="[[userField8Required]]"></nuxeo-user-suggestion>
-                <nuxeo-user-suggestion hidden$="[[!userField9Visible]]" role="widget" value="{{document.properties.custom:userField9}}" label="[[userField9Label]]" search-type="USER_TYPE" required="[[userField9Required]]"></nuxeo-user-suggestion>
-                <nuxeo-user-suggestion hidden$="[[!userField10Visible]]" role="widget" value="{{document.properties.custom:userField10}}" label="[[userField10Label]]" search-type="USER_TYPE" required="[[userField10Required]]"></nuxeo-user-suggestion>
+                <nuxeo-user-suggestion hidden$="[[!userField1Visible]]" role="widget" value="{{document.properties.custom:userField1}}" label="[[userField1Label]]" search-type="USER_TYPE" required="[[userField1Required]]" min-chars="0"></nuxeo-user-suggestion>
+                <nuxeo-user-suggestion hidden$="[[!userField2Visible]]" role="widget" value="{{document.properties.custom:userField2}}" label="[[userField2Label]]" search-type="USER_TYPE" required="[[userField2Required]]" min-chars="0"></nuxeo-user-suggestion>
+                <nuxeo-user-suggestion hidden$="[[!userField3Visible]]" role="widget" value="{{document.properties.custom:userField3}}" label="[[userField3Label]]" search-type="USER_TYPE" required="[[userField3Required]]" min-chars="0"></nuxeo-user-suggestion>
+                <nuxeo-user-suggestion hidden$="[[!userField4Visible]]" role="widget" value="{{document.properties.custom:userField4}}" label="[[userField4Label]]" search-type="USER_TYPE" required="[[userField4Required]]" min-chars="0"></nuxeo-user-suggestion>
+                <nuxeo-user-suggestion hidden$="[[!userField5Visible]]" role="widget" value="{{document.properties.custom:userField5}}" label="[[userField5Label]]" search-type="USER_TYPE" required="[[userField5Required]]" min-chars="0"></nuxeo-user-suggestion>
+                <nuxeo-user-suggestion hidden$="[[!userField6Visible]]" role="widget" value="{{document.properties.custom:userField6}}" label="[[userField6Label]]" search-type="USER_TYPE" required="[[userField6Required]]" min-chars="0"></nuxeo-user-suggestion>
+                <nuxeo-user-suggestion hidden$="[[!userField7Visible]]" role="widget" value="{{document.properties.custom:userField7}}" label="[[userField7Label]]" search-type="USER_TYPE" required="[[userField7Required]]" min-chars="0"></nuxeo-user-suggestion>
+                <nuxeo-user-suggestion hidden$="[[!userField8Visible]]" role="widget" value="{{document.properties.custom:userField8}}" label="[[userField8Label]]" search-type="USER_TYPE" required="[[userField8Required]]" min-chars="0"></nuxeo-user-suggestion>
+                <nuxeo-user-suggestion hidden$="[[!userField9Visible]]" role="widget" value="{{document.properties.custom:userField9}}" label="[[userField9Label]]" search-type="USER_TYPE" required="[[userField9Required]]" min-chars="0"></nuxeo-user-suggestion>
+                <nuxeo-user-suggestion hidden$="[[!userField10Visible]]" role="widget" value="{{document.properties.custom:userField10}}" label="[[userField10Label]]" search-type="USER_TYPE" required="[[userField10Required]]" min-chars="0"></nuxeo-user-suggestion>
 
                 <nuxeo-input hidden$="[[!doubleField1Visible]]" role="widget" value="{{document.properties.custom:doubleField1}}" label="[[doubleField1Label]]" required="[[doubleField1Required]]"></nuxeo-input>
                 <nuxeo-input hidden$="[[!doubleField2Visible]]" role="widget" value="{{document.properties.custom:doubleField2}}" label="[[doubleField2Label]]" required="[[doubleField2Required]]"></nuxeo-input>
@@ -454,43 +454,43 @@
 
                 <div hidden$="[[!userField1Visible]]" role="widget" class="sortable" id="[[userField1Order]]">
                     <label>[[userField1Label]]</label>
-                    <div>[[document.properties.custom:userField1]]</div>
+                    <div><nuxeo-user-tag user="[[document.properties.custom:userField1]]"></nuxeo-user-tag></div>
                 </div>
                 <div hidden$="[[!userField2Visible]]" role="widget" class="sortable" id="[[userField2Order]]">
                     <label>[[userField2Label]]</label>
-                    <div>[[document.properties.custom:userField2]]</div>
+                    <div><nuxeo-user-tag user="[[document.properties.custom:userField2]]"></nuxeo-user-tag></div>
                 </div>
                 <div hidden$="[[!userField3Visible]]" role="widget" class="sortable" id="[[userField3Order]]">
                     <label>[[userField3Label]]</label>
-                    <div>[[document.properties.custom:userField3]]</div>
+                    <div><nuxeo-user-tag user="[[document.properties.custom:userField3]]"></nuxeo-user-tag></div>
                 </div>
                 <div hidden$="[[!userField4Visible]]" role="widget" class="sortable" id="[[userField4Order]]">
                     <label>[[userField4Label]]</label>
-                    <div>[[document.properties.custom:userField4]]</div>
+                    <div><nuxeo-user-tag user="[[document.properties.custom:userField4]]"></nuxeo-user-tag></div>
                 </div>
                 <div hidden$="[[!userField5Visible]]" role="widget" class="sortable" id="[[userField5Order]]">
                     <label>[[userField5Label]]</label>
-                    <div>[[document.properties.custom:userField5]]</div>
+                    <div><nuxeo-user-tag user="[[document.properties.custom:userField5]]"></nuxeo-user-tag></div>
                 </div>
                 <div hidden$="[[!userField6Visible]]" role="widget" class="sortable" id="[[userField6Order]]">
                     <label>[[userField6Label]]</label>
-                    <div>[[document.properties.custom:userField6]]</div>
+                    <div><nuxeo-user-tag user="[[document.properties.custom:userField6]]"></nuxeo-user-tag></div>
                 </div>
                 <div hidden$="[[!userField7Visible]]" role="widget" class="sortable" id="[[userField7Order]]">
                     <label>[[userField7Label]]</label>
-                    <div>[[document.properties.custom:userField7]]</div>
+                    <div><nuxeo-user-tag user="[[document.properties.custom:userField7]]"></nuxeo-user-tag></div>
                 </div>
                 <div hidden$="[[!userField8Visible]]" role="widget" class="sortable" id="[[userField8Order]]">
                     <label>[[userField8Label]]</label>
-                    <div>[[document.properties.custom:userField8]]</div>
+                    <div><nuxeo-user-tag user="[[document.properties.custom:userField8]]"></nuxeo-user-tag></div>
                 </div>
                 <div hidden$="[[!userField9Visible]]" role="widget" class="sortable" id="[[userField9Order]]">
                     <label>[[userField9Label]]</label>
-                    <div>[[document.properties.custom:userField9]]</div>
+                    <div><nuxeo-user-tag user="[[document.properties.custom:userField9]]"></nuxeo-user-tag></div>
                 </div>
                 <div hidden$="[[!userField10Visible]]" role="widget" class="sortable" id="[[userField10Order]]">
                     <label>[[userField10Label]]</label>
-                    <div>[[document.properties.custom:userField10]]</div>
+                    <div><nuxeo-user-tag user="[[document.properties.custom:userField10]]"></nuxeo-user-tag></div>
                 </div>
 
                 <div hidden$="[[!fileField1Visible]]" role="widget" class="sortable" id="[[fileField1Order]]"><label>[[fileField1Label]]</label><br><a href="[[document.properties.custom:fileField1.data]]">[[document.properties.custom:fileField1.name]]</a></div>
