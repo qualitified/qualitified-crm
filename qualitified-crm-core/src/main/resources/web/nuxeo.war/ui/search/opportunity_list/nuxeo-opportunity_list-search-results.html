@@ -4,6 +4,7 @@
 @element nuxeo-opportunity_list-search-results
 -->
 <link rel="import" href="../../shared-css.html">
+<link rel="import" href="../../elements/qualitified-pipeline.html">
 <dom-module id="nuxeo-opportunity_list-search-results">
     <template>
         <style include="nuxeo-styles shared-css">
@@ -17,23 +18,16 @@
 
         </style>
 
-        <nuxeo-results name="opportunity_list" nx-provider="[[nxProvider]]">
-            <nuxeo-data-grid name="grid" icon="icons:apps" class="results"
-                             empty-label="[[i18n('searchResults.noResults')]]"
-                             selection-enabled display-quick-filters>
-                <template>
-                    <nuxeo-document-grid-thumbnail tabindex$="{{tabIndex}}" selected$="{{selected}}" doc="[[item]]"
-                                                   on-navigate="_navigate">
-                    </nuxeo-document-grid-thumbnail>
-                </template>
-            </nuxeo-data-grid>
+        <qualitified-pipeline items="[[opportunityList]]" ></qualitified-pipeline>
+        <br/>
+        <nuxeo-results id="nxResultsOpportunity" nx-provider="[[nxProvider]]">
+
             <nuxeo-data-table name="table" icon="icons:list" class="results"
                               settings-enabled
                               empty-label="[[i18n('searchResults.noResults')]]"
                               selection-enabled
                               display-quick-filters
                               on-row-clicked="_navigate">
-
                 <nuxeo-data-table-column name="Title" field="dc:title" sort-by="dc:title" flex="100">
                     <template>
                         <nuxeo-document-thumbnail document="[[item]]"></nuxeo-document-thumbnail>
@@ -75,7 +69,14 @@
       /**
          * @schema dublincore
          */
-      nxProvider: Object
+      nxProvider: {
+        type: Object,
+        observer: "_nxProviderObserver"
+        },
+      opportunityList: {
+        type: Array,
+        notify: true,
+        }
     },
 
     _navigate: function(e) {
@@ -87,6 +88,20 @@
       }
       return val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
     },
+      _nxProviderObserver: function() {
+        this._getOpportunityListFromResults();
+
+        this.nxProvider.addEventListener('update', e => {
+        this._getOpportunityListFromResults();
+        });
+       },
+
+      _getOpportunityListFromResults: function() {
+      this.opportunityList = [];
+      setTimeout(function() {
+        this.opportunityList = this.$.nxResultsOpportunity.items;
+      }.bind(this), 600);
+       },
   });
 
     </script>

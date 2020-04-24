@@ -114,11 +114,11 @@
     <nuxeo-operation id="setProperty" op="Document.SetProperty" input="[[document]]" params="[[params]]"></nuxeo-operation>
     <div id="board">
         <div class="column">
-          <div class="header"><h4>New <br/> $ [[newTotalAmount]]</h4><iron-icon class="icon"icon="icons:chevron-right"></iron-icon></div>
+          <div class="header"><h4>New <br/>[[_formatCurrency(newTotalAmount)]] €</h4><iron-icon class="icon"icon="icons:chevron-right"></iron-icon></div>
             <div id="new" class="drop" on-drop="drop" on-dragover="allowDrop" on-dragleave="dragLeave">
               <template is="dom-repeat" items="[[itemsNew]]">
               <nuxeo-card id="id[[item.uid]]" draggable="true" on-dragstart="drag" class="card" draggable="true">
-                [[item.title]] <br/><b>[[_formatCurrency(item.properties.opportunity:amount)]] €</b>
+                <a on-tap="_goToOpportunity">[[item.title]]</a> <br/><b>[[_formatCurrency(item.properties.opportunity:amount)]] €</b>
                 <br/>[[item.properties.opportunity:responsible.properties.firstName]] [[item.properties.opportunity:responsible.properties.lastName]]
                 <br/><b>[[formatDate(item.properties.opportunity:closeDate)]]</b>
               </nuxeo-card>
@@ -128,11 +128,11 @@
         </div>
 
       <div class="column">
-        <div class="header"><h4>First Contact/Demo<br/>$ [[firstContactTotalAmount]]</h4><iron-icon class="icon"icon="icons:chevron-right"></iron-icon></div>
+        <div class="header"><h4>First Contact/Demo<br/>[[_formatCurrency(firstContactTotalAmount)]] €</h4><iron-icon class="icon"icon="icons:chevron-right"></iron-icon></div>
         <div class="drop" on-drop="drop" on-dragover="allowDrop" on-dragleave="dragLeave">
           <template is="dom-repeat" items="[[itemsFirstContact]]">
             <nuxeo-card id="id[[item.uid]]" draggable="true" on-dragstart="drag" class="card" draggable="true">
-              [[item.title]] <br/><b >[[_formatCurrency(item.properties.opportunity:amount)]] €</b>
+              <a on-tap="_goToOpportunity">[[item.title]]</a> <br/><b >[[_formatCurrency(item.properties.opportunity:amount)]] €</b>
               <br/>[[item.properties.opportunity:responsible.properties.firstName]] [[item.properties.opportunity:responsible.properties.lastName]]
               <br/><b>[[formatDate(item.properties.opportunity:closeDate)]]</b>
             </nuxeo-card>
@@ -141,11 +141,11 @@
       </div>
 
       <div class="column">
-        <div class="header"><h4>Proposal Sent<br/>$ [[proposalSentTotalAmount]]</h4><iron-icon class="icon" icon="icons:chevron-right"></iron-icon></div>
+        <div class="header"><h4>Proposal Sent<br/>[[_formatCurrency(proposalSentTotalAmount)]] €</h4><iron-icon class="icon" icon="icons:chevron-right"></iron-icon></div>
         <div class="drop" on-drop="drop" on-dragover="allowDrop" on-dragleave="dragLeave">
           <template is="dom-repeat" items="[[itemsProposal]]">
             <nuxeo-card id="id[[item.uid]]" draggable="true" on-dragstart="drag" class="card" draggable="true">
-              [[item.title]] <br/><b>[[_formatCurrency(item.properties.opportunity:amount)]] €</b>
+              <a on-tap="_goToOpportunity">[[item.title]]</a> <br/><b>[[_formatCurrency(item.properties.opportunity:amount)]] €</b>
               <br/>[[item.properties.opportunity:responsible.properties.firstName]] [[item.properties.opportunity:responsible.properties.lastName]]
               <br/><b>[[formatDate(item.properties.opportunity:closeDate)]]</b>
             </nuxeo-card>
@@ -154,11 +154,11 @@
       </div>
 
       <div class="column">
-        <div class="header"><h4>Negociation<br/>$ [[negociationTotalAmount]]</h4><iron-icon class="icon" icon="icons:chevron-right"></iron-icon></div>
+        <div class="header"><h4>Negociation<br/>[[_formatCurrency(negociationTotalAmount)]] €</h4><iron-icon class="icon" icon="icons:chevron-right"></iron-icon></div>
         <div class="drop" on-drop="drop" on-dragover="allowDrop" on-dragleave="dragLeave">
           <template is="dom-repeat" items="[[itemsNegociation]]">
             <nuxeo-card id="id[[item.uid]]" draggable="true" on-dragstart="drag" class="card" draggable="true">
-              [[item.title]] <br/><b>[[_formatCurrency(item.properties.opportunity:amount)]] €</b>
+              <a on-tap="_goToOpportunity"> [[item.title]]</a> <br/><b>[[_formatCurrency(item.properties.opportunity:amount)]] €</b>
               <br/>[[item.properties.opportunity:responsible.properties.firstName]] [[item.properties.opportunity:responsible.properties.lastName]]
               <br/><b>[[formatDate(item.properties.opportunity:closeDate)]]</b>
             </nuxeo-card>
@@ -169,16 +169,16 @@
 
     <div class="footerContainer">
       <div id="limbo" class="footer limbo" on-dragleave="dragLeave" on-drop="dropFooter" on-dragover="allowDropFooter">
-        Limbo <span id="limboAmount">[[limboAmount]] €</span><div id="newlimboAmount" class="limboText slider">+ [[newlimboAmount]] €</div>
+        Limbo <span id="limboAmount">[[_formatCurrency(limboAmount)]] €</span><div id="newlimboAmount" class="limboText slider">+ [[newlimboAmount]] €</div>
       </div>
       <div id="nogo" class="footer nogo" on-dragleave="dragLeave" on-drop="dropFooter" on-dragover="allowDropFooter">
-        No Go <span id="nogoAmount">[[nogoAmount]] €</span><div id="newnogoAmount" class="nogoText slider">+ [[newnogoAmount]] €</div>
+        No Go <span id="nogoAmount">[[_formatCurrency(nogoAmount)]] €</span><div id="newnogoAmount" class="nogoText slider">+ [[newnogoAmount]] €</div>
       </div>
       <div id="won" class="footer won" on-dragleave="dragLeave" on-drop="dropFooter" on-dragover="allowDropFooter">
-        Won <span id="wonAmount">[[wonAmount]] €</span><div id="newwonAmount" class="wonText slider">+ [[newwonAmount]] €</div>
+        Won <span id="wonAmount">[[_formatCurrency(wonAmount)]] €</span><div id="newwonAmount" class="wonText slider">+ [[newwonAmount]] €</div>
       </div>
       <div id="lost" class="footer lost" on-dragleave="dragLeave" on-drop="dropFooter" on-dragover="allowDropFooter">
-        Lost <span id="lostAmount">[[lostAmount]] €</span><div id="newlostAmount" class="lostText slider">+ [[newlostAmount]] €</div>
+        Lost <span id="lostAmount">[[_formatCurrency(lostAmount)]] €</span><div id="newlostAmount" class="lostText slider">+ [[newlostAmount]] €</div>
       </div>
     </div>
 
@@ -208,15 +208,19 @@
         },
          itemsNew: {
         type: Array,
+        value:[]
         },
          itemsFirstContact: {
         type: Array,
+        value:[]
         },
          itemsProposal: {
         type: Array,
+        value:[]
         },
          itemsNegociation: {
         type: Array,
+        value:[]
         },
         newTotalAmount: {
         type: Number,
@@ -271,9 +275,9 @@
         },
 
         },
-
         _filterByState: function() {
 
+         if (  this.itemsNew.length == 0 && this.itemsFirstContact.length == 0  && this.itemsProposal.length== 0 && this.itemsNegociation.length== 0){
          this.itemsNew = this.items.filter(function (el) {
          return el.properties['opportunity:step'].id =='New';
          });
@@ -313,8 +317,12 @@
             this.negociationTotalAmount+=this.items[i].properties['opportunity:amount'];
             }
          }
+         }
          },
 
+         _goToOpportunity:function(e){
+          this.fire('navigate', {doc: (e.model || e.detail).item});
+         },
         allowDrop:function(ev){
             ev.preventDefault();
             ev.currentTarget.classList.add('over');
@@ -327,17 +335,25 @@
             ev.dataTransfer.setData("text",ev.target.id);
             ev.currentTarget.classList.add('dragging');
             if(ev.target.offsetParent.firstElementChild.firstElementChild.innerText.includes("NEW")){
-            this.newTotalAmount=this.newTotalAmount-parseInt(ev.target.children[1].innerText.slice(0,10).split(',').join(''));
-            }
+            for (var i=0; i < this.items.length; i++) {
+                if('id'+this.items[i].uid ==ev.target.id){
+                this.newTotalAmount-=this.items[i].properties['opportunity:amount'];
+                }}}
              if(ev.target.offsetParent.firstElementChild.firstElementChild.innerText.includes("FIRST CONTACT/DEMO")){
-            this.firstContactTotalAmount=this.firstContactTotalAmount-parseInt(ev.target.children[1].innerText.slice(0,10).split(',').join(''));
-            }
+             for (var i=0; i < this.items.length; i++) {
+                if('id'+this.items[i].uid ==ev.target.id){
+                this.firstContactTotalAmount-=this.items[i].properties['opportunity:amount'];
+                }}}
              if(ev.target.offsetParent.firstElementChild.firstElementChild.innerText.includes("PROPOSAL SENT")){
-            this.proposalSentTotalAmount=this.proposalSentTotalAmount-parseInt(ev.target.children[1].innerText.slice(0,10).split(',').join(''));
-            }
+             for (var i=0; i < this.items.length; i++) {
+                if('id'+this.items[i].uid ==ev.target.id){
+                this.proposalSentTotalAmount-=this.items[i].properties['opportunity:amount'];
+                }}}
             if(ev.target.offsetParent.firstElementChild.firstElementChild.innerText.includes("NEGOCIATION")){
-            this.negociationTotalAmount=this.negociationTotalAmount-parseInt(ev.target.children[1].innerText.slice(0,10).split(',').join(''));
-            }
+             for (var i=0; i < this.items.length; i++) {
+                if('id'+this.items[i].uid ==ev.target.id){
+                this.negociationTotalAmount-=this.items[i].properties['opportunity:amount'];
+                }}}
         },
         drop:function(ev){
             ev.preventDefault();
@@ -347,35 +363,36 @@
               ev.target.appendChild(this.shadowRoot.querySelector('#'+data));
               ev.target.classList.remove('over');
             if(ev.target.offsetParent.firstElementChild.firstElementChild.innerText.includes("NEW")){
-             this.newTotalAmount+=parseInt(this.shadowRoot.querySelector('#'+data).children[1].innerText.slice(0,10).split(',').join(''));
               for (var i=0; i < this.items.length; i++) {
                 if('id'+this.items[i].uid ==data){
+                this.newTotalAmount+=this.items[i].properties['opportunity:amount'];
                 this.document=this.items[i];
                 this._setStep('New',this.items[i].uid);
 
             } } }
               if(ev.target.offsetParent.firstElementChild.firstElementChild.innerText.includes("FIRST CONTACT/DEMO")){
-            this.firstContactTotalAmount+=parseInt(this.shadowRoot.querySelector('#'+data).children[1].innerText.slice(0,10).split(',').join(''));
             for (var i = 0; i < this.items.length; i++) {
                 if('id'+this.items[i].uid ==data){
                  this.document=this.items[i];
+                 this.firstContactTotalAmount+=this.items[i].properties['opportunity:amount'];
                 this._setStep('First Contact',this.items[i].uid);
 
             } }
             }
               if(ev.target.offsetParent.firstElementChild.firstElementChild.innerText.includes("PROPOSAL SENT")){
-            this.proposalSentTotalAmount+=parseInt(this.shadowRoot.querySelector('#'+data).children[1].innerText.slice(0,10).split(',').join(''));
              for (var i = 0; i < this.items.length; i++) {
                 if('id'+this.items[i].uid ==data){
+                this.proposalSentTotalAmount+=this.items[i].properties['opportunity:amount'];
                  this.document=this.items[i];
                 this._setStep('Proposal Sent',this.items[i].uid);
 
             } }
             }
               if(ev.target.offsetParent.firstElementChild.firstElementChild.innerText.includes("NEGOCIATION")){
-            this.negociationTotalAmount+=parseInt(this.shadowRoot.querySelector('#'+data).children[1].innerText.slice(0,10).split(',').join(''));
+
             for (var i = 0; i < this.items.length; i++) {
                 if('id'+this.items[i].uid ==data){
+                this.negociationTotalAmount+=this.items[i].properties['opportunity:amount'];
                  this.document=this.items[i];
                 this._setStep('Negociation',this.items[i].uid);
 
@@ -400,40 +417,46 @@
 
             this.shadowRoot.querySelector('#new'+ev.target.id+'Amount').classList.add('slide');
             if(ev.target.id === 'limbo'){
-
-            this.newlimboAmount=parseInt(this.shadowRoot.querySelector('#'+data).children[1].innerText.slice(0,10).split(',').join(''));
+            for (var i = 0; i < this.items.length; i++) {
+                if('id'+this.items[i].uid ==data){
+                this.newlimboAmount=this.items[i].properties['opportunity:amount'];
+                this.document=this.items[i];
+                this._setStep('Limbo',this.items[i].uid);
+            }}
             this.limboAmount+=parseInt(this.newlimboAmount);
               setTimeout(function(){
                 this.shadowRoot.querySelector('#newlimboAmount').classList.remove('slide');
               }.bind(this),2000);
               this.shadowRoot.querySelector('#'+ev.target.id+'Amount').innerHTML=this.limboAmount+' €';
-              for (var i = 0; i < this.items.length; i++) {
-                if('id'+this.items[i].uid ==data){
-                this.document=this.items[i];
-                this._setStep('Limbo',this.items[i].uid);
-
-            } }
-
             }
+
+
             if(ev.target.id === 'nogo'){
             this.IdSelected=ev.target.parentNode.appendChild(this.shadowRoot.querySelector('#'+data));
             this.newnogoAmount=this.IdSelected.children[1].innerText.slice(0,10);
-            this.nogoAmount+=parseInt(this.newnogoAmount.split(',').join(''));
+            for (var i = 0; i < this.items.length; i++) {
+                if('id'+this.items[i].uid ==data){
+                this.newnogoAmount=this.items[i].properties['opportunity:amount'];
+                this.document=this.items[i];
+                this._setStep('No go',this.items[i].uid);
+            } }
+            this.nogoAmount+=parseInt(this.newnogoAmount);
               setTimeout(function(){
                 this.shadowRoot.querySelector('#newnogoAmount').classList.remove('slide');
               }.bind(this),2000);
               this.shadowRoot.querySelector('#'+ev.target.id+'Amount').innerHTML=this.nogoAmount+' €';
-              for (var i = 0; i < this.items.length; i++) {
-                if('id'+this.items[i].uid ==data){
-                this.document=this.items[i];
-                this._setStep('No go',this.items[i].uid);
-
-            } }
             }
+
+
             if(ev.target.id === 'won'){
             this.IdSelected=ev.target.parentNode.appendChild(this.shadowRoot.querySelector('#'+data));
-            this.newwonAmount=this.IdSelected.children[1].innerText.slice(0,10);
-            this.wonAmount+=parseInt(this.newwonAmount.split(',').join(''));
+            for (var i = 0; i < this.items.length; i++) {
+                if('id'+this.items[i].uid ==data){
+                this.newwonAmount=this.items[i].properties['opportunity:amount'];
+                this.document=this.items[i];
+                this._setStep('Won',this.items[i].uid);
+            } }
+            this.wonAmount+=parseInt(this.newwonAmount);
               setTimeout(function(){
                 this.shadowRoot.querySelector('#newwonAmount').classList.remove('slide');
               }.bind(this),2000);
@@ -442,23 +465,25 @@
                 if('id'+this.items[i].uid ==data){
                 this.document=this.items[i];
                 this._setStep('Won',this.items[i].uid);
-
             } }
             }
+
+
             if(ev.target.id === 'lost'){
             this.IdSelected=ev.target.parentNode.appendChild(this.shadowRoot.querySelector('#'+data));
-            this.newlostAmount=this.IdSelected.children[1].innerText.slice(0,10);
-            this.lostAmount+=parseInt(this.newlostAmount.split(',').join(''));
-              setTimeout(function(){
-                this.shadowRoot.querySelector('#newlostAmount').classList.remove('slide');
-              }.bind(this),2000);
-              this.shadowRoot.querySelector('#'+ev.target.id+'Amount').innerHTML=this.lostAmount+' €';
-              for (var i = 0; i < this.items.length; i++) {
+            for (var i = 0; i < this.items.length; i++) {
                 if('id'+this.items[i].uid ==data){
+                 this.newlostAmount=this.items[i].properties['opportunity:amount'];
                 this.document=this.items[i];
                 this._setStep('Lost',this.items[i].uid);
 
             } }
+            this.lostAmount+=parseInt(this.newlostAmount);
+              setTimeout(function(){
+                this.shadowRoot.querySelector('#newlostAmount').classList.remove('slide');
+              }.bind(this),2000);
+              this.shadowRoot.querySelector('#'+ev.target.id+'Amount').innerHTML=this.lostAmount+' €';
+
             }
             this.shadowRoot.querySelector('#' + data).remove();
 
