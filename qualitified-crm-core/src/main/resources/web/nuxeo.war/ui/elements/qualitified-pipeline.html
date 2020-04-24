@@ -18,22 +18,22 @@
             border: dashed 1px #555;
             background-color: #efefef;
           }
-  
+
           .over {
             /*background-color: #55555559;*/
           }
-  
+
           .drop{
             min-height: 600px;
           }
-  
+
           nuxeo-card{
             margin-bottom: 2px;
             margin-left: 5px;
             margin-right: 5px;
             cursor:pointer;
           }
-  
+
           .footerContainer{
             position: fixed;
             bottom: 0px;
@@ -113,19 +113,19 @@
       </style>
     <nuxeo-operation id="setProperty" op="Document.SetProperty" input="[[document]]" params="[[params]]"></nuxeo-operation>
     <div id="board">
-        <div class="column">
-          <div class="header"><h4>New <br/>[[_formatCurrency(newTotalAmount)]] €</h4><iron-icon class="icon"icon="icons:chevron-right"></iron-icon></div>
-            <div id="new" class="drop" on-drop="drop" on-dragover="allowDrop" on-dragleave="dragLeave">
-              <template is="dom-repeat" items="[[itemsNew]]">
-              <nuxeo-card id="id[[item.uid]]" draggable="true" on-dragstart="drag" class="card" draggable="true">
-                <a on-tap="_goToOpportunity">[[item.title]]</a> <br/><b>[[_formatCurrency(item.properties.opportunity:amount)]] €</b>
-                <br/>[[item.properties.opportunity:responsible.properties.firstName]] [[item.properties.opportunity:responsible.properties.lastName]]
-                <br/><b>[[formatDate(item.properties.opportunity:closeDate)]]</b>
-              </nuxeo-card>
-              </template>
-            </div>
-
+      <div class="column">
+        <div class="header"><h4>New <br/>[[_formatCurrency(newTotalAmount)]] €</h4><iron-icon class="icon"icon="icons:chevron-right"></iron-icon></div>
+        <div id="new" class="drop" on-drop="drop" on-dragover="allowDrop" on-dragleave="dragLeave">
+          <template is="dom-repeat" items="[[itemsNew]]">
+            <nuxeo-card id="id[[item.uid]]" draggable="true" on-dragstart="drag" class="card" draggable="true">
+              <a on-tap="_goToOpportunity">[[item.title]]</a> <br/><b>[[_formatCurrency(item.properties.opportunity:amount)]] €</b>
+              <br/>[[item.properties.opportunity:responsible.properties.firstName]] [[item.properties.opportunity:responsible.properties.lastName]]
+              <br/><b>[[formatDate(item.properties.opportunity:closeDate)]]</b>
+            </nuxeo-card>
+          </template>
         </div>
+
+      </div>
 
       <div class="column">
         <div class="header"><h4>First Contact/Demo<br/>[[_formatCurrency(firstContactTotalAmount)]] €</h4><iron-icon class="icon"icon="icons:chevron-right"></iron-icon></div>
@@ -514,8 +514,7 @@
          },
 
 
-  
+
       });
     </script>
 </dom-module>
-  
