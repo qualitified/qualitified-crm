@@ -246,7 +246,7 @@
         _selectionFormatter(doc) {
           //return `<a >${doc.title}</a>`;
           //TODO Make the link optional
-          let defaultIcon = doc.properties["common:icon"];
+          let defaultIcon = (doc && doc.properties && doc.properties["common:icon"])? doc.properties["common:icon"] : "";
           let img = (doc.type === "Contact" || doc.type === "Account")? `<img style="vertical-align: middle;height: 25px;width: 25px;border-radius: 20px;box-sizing: border-box;margin-right: 8px;" src="/nuxeo/nxfile/default/${doc.uid}/file:content/" onError="this.onerror=null;this.src='/nuxeo/${defaultIcon}';">` : `<img style="vertical-align: middle;height: 25px;width: 25px;border-radius: 20px;box-sizing: border-box;margin-right: 8px;" src="/nuxeo/${defaultIcon}">`;
           return `<a href="${this.urlFor('browse', doc.path)}" style="text-decoration: none;color:#000000">${img}${doc.title}</a>`;
         }
