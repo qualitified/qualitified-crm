@@ -2548,7 +2548,7 @@
       },
 
       _isVisible: function(readGroup, editGroup, hiddenGroup){
-          if(hiddenGroup !== null){
+          if(hiddenGroup !== null && readGroup !== ""){
             var hiddenGroups = hiddenGroup.split(',');
             for(var i=0; i < hiddenGroup.length; i++){
               if(this._hasPermission(hiddenGroups[i])){
@@ -2558,7 +2558,7 @@
             return false;
           }
 
-          if(this._isMode('edit') && editGroup !== null){
+          if(this._isMode('edit') && editGroup !== null && editGroup !== ""){
             var editGroups = editGroup.split(',');
             for(var i=0; i < editGroups.length; i++){
               if(this._hasPermission(editGroups[i])){
@@ -2568,7 +2568,7 @@
             return false;
           }
 
-          if(this._isMode('read') && readGroup !== null){
+          if(this._isMode('read') && readGroup !== null && readGroup !== ""){
             var readGroups = readGroup.split(',');
             for(var i=0; i < readGroups.length; i++){
               if(this._hasPermission(readGroups[i])){
