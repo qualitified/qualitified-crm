@@ -26,10 +26,10 @@
     <nuxeo-connection id="nxcon" user="{{user}}"></nuxeo-connection>
     <nuxeo-operation id="runAction" op="Qualitified.RunAction" input="[[document.uid]]" params="[[params]]"></nuxeo-operation>
     <template is="dom-repeat" items="[[actions]]">
-      <nuxeo-filter document="[[document]]" type="[[item.properties.scripts:documentTypes]]">
+      <nuxeo-filter document="[[document]]" type="[[item.properties.scripts:documentTypes]]" group="[[item.properties.scripts:groups]]" user="[[user]]" expression="[[item.properties.scripts:expression]]" path="[[item.properties.scripts:path]]" permission="[[item.properties.scripts:permission]]" state="[[item.properties.scripts:state]]" facet="[[item.properties.scripts:facet]]">
         <template>
-        <paper-icon-button id="[[_trim(item.title)]]" icon="[[item.properties.scripts:icon]]" on-tap="_runOperation" action-id="[[item.uid]]" action-name="[[item.title]]"></paper-icon-button>
-        <paper-tooltip for="[[_trim(item.title)]]">[[item.title]]</paper-tooltip>
+          <paper-icon-button id="[[_trim(item.title)]]" icon="[[item.properties.scripts:icon]]" on-tap="_runOperation" action-id="[[item.uid]]" action-name="[[item.title]]"></paper-icon-button>
+          <paper-tooltip for="[[_trim(item.title)]]">[[item.title]]</paper-tooltip>
         </template>
       </nuxeo-filter>
     </template>
@@ -74,6 +74,8 @@
           context: {},
           input: this.document.uid
         };
+        this.$.actionToast.text = "In Progress...";
+        this.$.actionToast.open();
         this.$.runAction.execute().then(function(result) {
           this.$.actionToast.text = this.message;
           this.$.actionToast.open();

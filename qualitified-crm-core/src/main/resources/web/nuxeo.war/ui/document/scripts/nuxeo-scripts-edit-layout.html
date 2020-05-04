@@ -49,9 +49,45 @@ limitations under the License.
     </nuxeo-input>
 
     <nuxeo-input role="widget"
-                 label="Document Types"
+                 label="Document Type(s)"
                  name="documentTypes"
                  value="{{document.properties.scripts:documentTypes}}">
+    </nuxeo-input>
+
+    <nuxeo-input role="widget"
+                 label="LifeCycle State"
+                 name="State"
+                 value="{{document.properties.scripts:state}}">
+    </nuxeo-input>
+
+    <nuxeo-input role="widget"
+                 label="Facet"
+                 name="Facet"
+                 value="{{document.properties.scripts:facet}}">
+    </nuxeo-input>
+
+    <nuxeo-input role="widget"
+                 label="Path Starts With"
+                 name="Path"
+                 value="{{document.properties.scripts:path}}">
+    </nuxeo-input>
+
+    <nuxeo-input role="widget"
+                 label="Group(s)"
+                 name="Groups"
+                 value="{{document.properties.scripts:groups}}">
+    </nuxeo-input>
+
+    <nuxeo-input role="widget"
+                 label="Permission"
+                 name="Permission"
+                 value="{{document.properties.scripts:permission}}">
+    </nuxeo-input>
+
+    <nuxeo-input role="widget"
+                 label="Expression"
+                 name="Expression"
+                 value="{{document.properties.scripts:expression}}">
     </nuxeo-input>
     
   </template>
