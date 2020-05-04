@@ -52,10 +52,10 @@ public class TestRSync {
         ctx.setInput(blob);
 
         Map<String, Object> params = new HashMap();
-        params.put("privateKey","~/.ssh/aws-dev.pem");
-        params.put("host","ec2-107-23-199-212.compute-1.amazonaws.com");
-        params.put("login","ubuntu");
-        params.put("destination","/opt/import");
+        params.put("privateKey","key");
+        params.put("host","host");
+        params.put("login","login");
+        params.put("destination","dest");
 
         StringBlob result = (StringBlob)automationService.run(ctx, "Qualitified.RSync", params);
         Assert.assertNotNull(result);*/

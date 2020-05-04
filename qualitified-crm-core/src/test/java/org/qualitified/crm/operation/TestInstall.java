@@ -47,9 +47,9 @@ public class TestInstall {
         ctx.setCoreSession(coreSession);
 
         Map<String, Object> params = new HashMap();
-        params.put("privateKey","~/.ssh/aws-dev.pem");
-        params.put("host","ec2-107-23-199-212.compute-1.amazonaws.com");
-        params.put("login","ubuntu");
+        params.put("privateKey","key");
+        params.put("host","host");
+        params.put("login","login");
         params.put("packageZipName","qualitified-studioviz-package-1.1.zip");
 
         StringBlob result = (StringBlob)automationService.run(ctx, "Qualitified.Install", params);
