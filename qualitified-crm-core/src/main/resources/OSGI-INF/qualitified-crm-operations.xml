@@ -16,6 +16,8 @@
         <operation class="org.qualitified.crm.operation.NextBestAction"/>
         <operation class="org.qualitified.crm.operation.Deploy"/>
         <operation class="org.qualitified.crm.operation.UploadFile"/>
+        <operation class="org.qualitified.crm.operation.GetOptionValue"/>
+
 
     </extension>
  </component>

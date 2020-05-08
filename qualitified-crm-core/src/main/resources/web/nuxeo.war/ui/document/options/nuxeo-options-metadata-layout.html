@@ -1,0 +1,37 @@
+<!--
+`nuxeo-options-metadata-layout`
+@group Nuxeo UI
+@element nuxeo-options-metadata-layout
+-->
+<link rel="import" href="../qualitified-custom-fields.html">
+<dom-module id="nuxeo-options-metadata-layout">
+  <template>
+    <style include="nuxeo-styles">
+      *[role=widget] {
+        padding: 5px;
+      }
+    </style>
+    <div role="widget">
+      <h1>[[document.properties.dc:title]]</h1>
+    </div>
+
+
+  </template>
+  <script>
+    Polymer({
+      is: 'nuxeo-options-metadata-layout',
+      behaviors: [Nuxeo.LayoutBehavior],
+      properties: {
+        /**
+         * @doctype Options
+         */
+
+
+        document: Object,
+
+      }
+
+    });
+  </script>
+
+</dom-module>

@@ -21,11 +21,17 @@
 
     <qualitified-custom-fields document="{{document}}" mode="edit"></qualitified-custom-fields>
 
-    <nuxeo-textarea role="widget" 
+    <!--nuxeo-textarea role="widget"
                     label="[[i18n('label.description')]]" 
                     name="description"
                     value="{{document.properties.dc:description}}">
-    </nuxeo-textarea>
+    </nuxeo-textarea!-->
+    <nuxeo-input role="widget"
+                 label="value"
+                 name="value"
+                 value="{{document.properties.option:value}}"
+                 required>
+    </nuxeo-input>
 
     <nuxeo-input  role="widget"
                   label="Files Number Query"
