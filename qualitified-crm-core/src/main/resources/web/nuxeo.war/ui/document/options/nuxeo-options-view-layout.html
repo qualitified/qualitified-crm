@@ -6,7 +6,6 @@
 <dom-module id="nuxeo-options-view-layout">
 
   <template>
-
     <div class="dataTable">
       <nuxeo-page-provider id="optionProvider" auto
                            query="select * from Option where ecm:currentLifeCycleState != 'deleted' and ecm:isTrashed= 0 and ecm:isCheckedInVersion = 0 and ecm:ancestorId = '[[document.uid]]' "
@@ -31,8 +30,6 @@
               [[item.properties.option:value]]
             </template>
           </nuxeo-data-table-column>
-
-
         </nuxeo-data-table>
       </nuxeo-results>
     </div>
@@ -56,6 +53,7 @@
        ready: function () {
           this.optionProvider = this.$.optionProvider;
           }
+
     });
   </script>
 

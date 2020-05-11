@@ -1,0 +1,47 @@
+<dom-module id="qualitified-option">
+    <template>
+
+        <nuxeo-operation id="getOption" op="Qualitified.GetOptionValue" params="[[params]]"></nuxeo-operation>
+
+    </template>
+    <script>
+    Polymer({
+      is: 'qualitified-option',
+      properties: {
+
+          value: {
+           type:String,
+           notify:true
+          },
+          params: {
+            type: Object,
+            value: {},
+            notify: true
+          },
+          name:{
+          type:String
+          },
+          defaultValue:String
+      },
+
+     ready:function(){
+       this.params.name=this.name;
+         this.$.getOption.execute().then(function(response){
+         if(response==null)
+         {
+        this.value=defaultValue;
+        }
+        else{
+          this.value=response.value;
+         }
+          });
+
+       }
+
+    });
+
+
+
+    </script>
+
+</dom-module>

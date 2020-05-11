@@ -13,12 +13,11 @@
     </style>
 
     <nuxeo-input role="widget"
-                                label="[[i18n('title')]]"
-                                name="title"
-                                value="{{document.properties.dc:title}}"
-                                autofocus required>
-  </nuxeo-input>
-
+                 label="[[i18n('title')]]"
+                 name="title"
+                 value="{{document.properties.dc:title}}"
+                 autofocus required>
+    </nuxeo-input>
   </template>
 
   <script>
@@ -30,9 +29,7 @@
          * @doctype Options
          */
         document: Object
-
       }
-
     });
   </script>
 

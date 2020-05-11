@@ -9,7 +9,6 @@ import org.nuxeo.ecm.automation.core.annotations.Operation;
 import org.nuxeo.ecm.automation.core.annotations.OperationMethod;
 import org.nuxeo.ecm.automation.core.annotations.Param;
 import org.nuxeo.ecm.core.api.CoreSession;
-import org.nuxeo.ecm.core.api.DocumentModel;
 import org.nuxeo.ecm.core.api.DocumentModelList;
 
 
@@ -29,19 +28,20 @@ public class GetOptionValue {
     public String run() throws  OperationException {
 
         DocumentModelList optionList = session.query("SELECT * FROM Option WHERE dc:title= '"+name+"' AND  ecm:isVersion = 0 AND ecm:isTrashed = 0");
-      String option = null;
+        String option = null;
         if (optionList.size()>0) {
-                option= (String) optionList.get(0).getPropertyValue("option:value");
+            option=(String)optionList.get(0).getPropertyValue("option:value");
             return option;
-       }
+        }
+
 
         else {
             return defaultValue;
         }
 
-        }
-
     }
+
+}
 
 
 

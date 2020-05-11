@@ -4,6 +4,8 @@
 @element nuxeo-options-metadata-layout
 -->
 <link rel="import" href="../qualitified-custom-fields.html">
+<link rel="import" href="../../elements/qualitified-option.html">
+
 <dom-module id="nuxeo-options-metadata-layout">
   <template>
     <style include="nuxeo-styles">
@@ -11,10 +13,11 @@
         padding: 5px;
       }
     </style>
+
     <div role="widget">
       <h1>[[document.properties.dc:title]]</h1>
     </div>
-
+    <qualitified-option name="option2" default-value="myValue" value="[[value]]"></qualitified-option>
 
   </template>
   <script>
@@ -25,10 +28,7 @@
         /**
          * @doctype Options
          */
-
-
         document: Object,
-
       }
 
     });
