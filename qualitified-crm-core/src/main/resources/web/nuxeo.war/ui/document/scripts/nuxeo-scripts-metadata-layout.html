@@ -31,8 +31,53 @@ limitations under the License.
       <label>[[i18n('label.dublincore.description')]]</label>
       <div name="description" class="multiline">[[document.properties.dc:description]]</div>
     </div>
-  </template>
 
+    <div role="widget" hidden$="[[!document.properties.scripts:scriptType]]">
+      <label>Script Type</label>
+      <div name="description">[[document.properties.scripts:scriptType]]</div>
+    </div>
+
+    <div role="widget" hidden$="[[!document.properties.scripts:icon]]">
+      <label>Icon</label>
+      <paper-icon-button icon="[[document.properties.scripts:icon]]"></paper-icon-button>
+    </div>
+
+    <div role="widget" hidden$="[[!document.properties.scripts:documentTypes]]">
+      <label>Document Type(s)</label>
+      <div name="description">[[document.properties.scripts:documentTypes]]</div>
+    </div>
+
+    <div role="widget" hidden$="[[!document.properties.scripts:state]]">
+      <label>LifeCycle State(s)</label>
+      <div name="description">[[document.properties.scripts:state]]</div>
+    </div>
+
+    <div role="widget" hidden$="[[!document.properties.scripts:facet]]">
+      <label>Facet(s)</label>
+      <div name="description">[[document.properties.scripts:documentTypes]]</div>
+    </div>
+
+    <div role="widget" hidden$="[[!document.properties.scripts:path]]">
+      <label>Path Starts With</label>
+      <div name="description">[[document.properties.scripts:path]]</div>
+    </div>
+
+    <div role="widget" hidden$="[[!document.properties.scripts:groups]]">
+      <label>Group(s)</label>
+      <div name="description">[[document.properties.scripts:groups]]</div>
+    </div>
+
+    <div role="widget" hidden$="[[!document.properties.scripts:permission]]">
+      <label>Permission</label>
+      <div name="description">[[document.properties.scripts:permission]]</div>
+    </div>
+
+    <div role="widget" hidden$="[[!document.properties.scripts:expression]]">
+      <label>Expression</label>
+      <div name="description">[[document.properties.scripts:expression]]</div>
+    </div>
+
+  </template>
   <script>
     Polymer({
       is: 'nuxeo-scripts-metadata-layout',
