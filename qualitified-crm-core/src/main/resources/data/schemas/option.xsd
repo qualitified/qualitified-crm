@@ -35,6 +35,7 @@
       <xs:element name="item" type="nxs:content" minOccurs="0" maxOccurs="unbounded"/>
     </xs:sequence>
   </xs:complexType>
+  <xs:element name="value" type="xs:string"/>
 
   <xs:element name="nbFilesQuery" type="xs:string"/>
 

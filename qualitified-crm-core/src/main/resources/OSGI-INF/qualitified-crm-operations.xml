@@ -16,6 +16,7 @@
         <operation class="org.qualitified.crm.operation.NextBestAction"/>
         <operation class="org.qualitified.crm.operation.Deploy"/>
         <operation class="org.qualitified.crm.operation.UploadFile"/>
+        <operation class="org.qualitified.crm.operation.GetOptionValue"/>
         <operation class="org.qualitified.crm.operation.RSync"/>
         <operation class="org.qualitified.crm.operation.Install"/>
         <operation class="org.qualitified.crm.operation.Log"/>

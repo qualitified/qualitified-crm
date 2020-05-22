@@ -50,6 +50,15 @@
     <doctype name="Option" extends="File">
       <schema name="option"/>
     </doctype>
+    <doctype name="Options" extends="Document">
+      <schema name="dublincore"/>
+      <schema name="option"/>
+      <facet name="Folderish"/>
+        <facet name="NXTag"/>
+        <subtypes>
+        <type>Option</type>
+      </subtypes>
+    </doctype>
     <doctype name="Account" extends="Document">
       <schema name="account"/>
       <schema name="dublincore"/>
@@ -133,7 +142,9 @@
         <type>Objects</type>
         <type>Scripts</type>
         <type>Calendar</type>
-        <type>Option</type>
+        <type>Options</type>
+
+
       </subtypes>
     </doctype>
     <doctype name="Root" append="true">
@@ -488,6 +499,10 @@
     <types>
       <type name="Option">default</type>
     </types>
+    <types>
+      <type name="Options">default</type>
+    </types>
+
   </extension>
   <extension target="org.nuxeo.ecm.platform.types.TypeService" point="types">
     <type id="Calendar">
@@ -616,6 +631,12 @@
       <label>Option</label>
       <icon>/img/option_x1.png</icon>
       <bigIcon>/img/option_x2.png</bigIcon>
+      <description></description>
+    </type>
+    <type id="Options">
+      <label>Options</label>
+      <icon>/img/options_x1.png</icon>
+      <bigIcon>/img/options_x2.png</bigIcon>
       <description></description>
     </type>
   </extension>
@@ -1566,6 +1587,8 @@
         <templateItem typeName="Scripts" id="Scripts" title="Scripts" description=""/>
         <templateItem typeName="Calendar" id="Calendar.conf" title="Calendar.conf" description=""/>
         <templateItem typeName="Option" id="Option" title="Option" description=""/>
+        <templateItem typeName="Options" id="Options" title="Options" description=""/>
+
       </template>
     </factoryBinding>
     <factoryBinding name="RootFactory" factoryName="SimpleTemplateRootFactory" targetType="Root">

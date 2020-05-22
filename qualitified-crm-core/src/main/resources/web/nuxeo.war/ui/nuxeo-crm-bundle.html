@@ -22,13 +22,14 @@
 </nuxeo-slot-content>
 <nuxeo-slot-content name="myQualitifiedViewPage" slot="DOCUMENT_VIEWS_PAGES" >
     <template>
-        <nuxeo-filter document="[[document]]" type="Account,Opportunity,Contact,Interaction,Solicitation,File,Custom,Objects,Scripts">
+        <nuxeo-filter document="[[document]]" type="Account,Opportunity,Contact,Interaction,Solicitation,File,Custom,Objects,Scripts,Options,Option">
             <template>
                 <qualitified-document-page name="view" document="[[document]]"></qualitified-document-page>
             </template>
         </nuxeo-filter>
     </template>
 </nuxeo-slot-content>
+
 
 <!-- Contribution of element 'nuxeo-search-form' for slot 'DRAWER_PAGES' -->
 <nuxeo-slot-content name="opportunity-list" slot="DRAWER_PAGES" >
