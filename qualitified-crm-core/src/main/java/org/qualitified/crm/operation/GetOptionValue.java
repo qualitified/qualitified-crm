@@ -32,15 +32,10 @@ public class GetOptionValue {
         if (optionList.size()>0) {
             option=(String)optionList.get(0).getPropertyValue("option:value");
             return option;
-        }
-
-
-        else {
+        } else {
             return defaultValue;
         }
-
     }
-
 }
 
 

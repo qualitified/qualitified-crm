@@ -629,14 +629,14 @@
     </type>
     <type id="Option">
       <label>Option</label>
-      <icon>/img/option_x1.png</icon>
-      <bigIcon>/img/option_x2.png</bigIcon>
+      <icon>/img/options.png</icon>
+      <bigIcon>/img/options.png</bigIcon>
       <description></description>
     </type>
     <type id="Options">
       <label>Options</label>
-      <icon>/img/options_x1.png</icon>
-      <bigIcon>/img/options_x2.png</bigIcon>
+      <icon>/img/options.png</icon>
+      <bigIcon>/img/options.png</bigIcon>
       <description></description>
     </type>
   </extension>

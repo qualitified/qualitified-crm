@@ -38,7 +38,7 @@
                 <nuxeo-data-table-column name="Amount" field="opportunity:amount" sort-by="opportunity:amount"
                                          flex="50">
                     <template>
-                        [[_formatCurrency(item.properties.opportunity:amount)]] €
+                        <qualitified-amount value="[[item.properties.opportunity:amount]]"></qualitified-amount>
                     </template>
                 </nuxeo-data-table-column>
 

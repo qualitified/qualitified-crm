@@ -16,20 +16,16 @@
       <h1>[[document.properties.dc:title]]</h1>
     </div>
 
-    <qualitified-custom-fields document="{{document}}" mode="view"></qualitified-custom-fields>
+    <div role="widget">
+      [[document.properties.option:value]]
+    </div>
 
     <div role="widget" hidden$="[[!document.properties.dc:description]]">
       <label>[[i18n('label.dublincore.description')]]</label>
       <div name="description" class="multiline">[[document.properties.dc:description]]</div>
     </div>
 
-    <div role="widget" hidden$="[[!document.properties.option:nbFilesQuery]]">
-      <label>Files Number Query</label>
-      <div>[[document.properties.option:nbFilesQuery]]</div>
-    </div>
-    <div role="widget">
-      [[document.properties.option:value]]
-    </div>
+    <qualitified-custom-fields document="{{document}}" mode="view"></qualitified-custom-fields>
 
   </template>
 

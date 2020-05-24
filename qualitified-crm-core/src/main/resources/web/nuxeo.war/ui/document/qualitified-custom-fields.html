@@ -2548,7 +2548,7 @@
       },
 
       _isVisible: function(readGroup, editGroup, hiddenGroup){
-          if(hiddenGroup !== null && readGroup !== ""){
+          if(hiddenGroup !== null && hiddenGroup !== ""){
             var hiddenGroups = hiddenGroup.split(',');
             for(var i=0; i < hiddenGroup.length; i++){
               if(this._hasPermission(hiddenGroups[i])){
@@ -3554,7 +3554,6 @@
             }
           });
           //sort
-          console.log(cleanedArrayNode);
           tinysort(cleanedArrayNode,{attr:'id',order:'asc'});
 
           var nodeListEdit =document.querySelector("nuxeo-app").shadowRoot.querySelector("#browser").shadowRoot.querySelector("nuxeo-document-edit-button").shadowRoot.querySelector("nuxeo-document-form-button").shadowRoot.querySelector("#layout").shadowRoot.querySelector("#layout").shadowRoot.querySelector("#layout").shadowRoot.querySelector("nuxeo-account-edit-layout").shadowRoot.querySelector("qualitified-custom-fields").shadowRoot.querySelectorAll(".sortableEdit");
@@ -3573,7 +3572,6 @@
              }
            });
            //sort
-           console.log(cleanedArrayNodeEdit);
            tinysort(cleanedArrayNodeEdit,{attr:'id',order:'asc'});
         }
       }
