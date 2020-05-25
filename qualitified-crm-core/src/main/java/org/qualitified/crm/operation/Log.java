@@ -17,7 +17,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.StringWriter;
 
-@Operation(id= Log.ID, category= Constants.CAT_EXECUTION, label="Install", description="Get Log from a remote nuxeo server.")
+@Operation(id= Log.ID, category= Constants.CAT_EXECUTION, label="Log", description="Get Log from a remote nuxeo server.")
 public class Log {
     public static final String ID = "Qualitified.Log";
     private org.apache.commons.logging.Log logger = LogFactory.getLog(Log.class);
