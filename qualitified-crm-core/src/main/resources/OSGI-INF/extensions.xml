@@ -50,6 +50,15 @@
     <doctype name="Option" extends="File">
       <schema name="option"/>
     </doctype>
+    <doctype name="Options" extends="Document">
+      <schema name="dublincore"/>
+      <schema name="option"/>
+      <facet name="Folderish"/>
+        <facet name="NXTag"/>
+        <subtypes>
+        <type>Option</type>
+      </subtypes>
+    </doctype>
     <doctype name="Account" extends="Document">
       <schema name="account"/>
       <schema name="dublincore"/>
@@ -57,6 +66,7 @@
       <schema name="uid"/>
       <schema name="picture"/>
       <schema name="custom"/>
+      <schema name="address"/>
       <facet name="Picture"/>
       <facet name="Folderish"/>
       <facet name="NXTag"/>
@@ -71,11 +81,6 @@
         <type>Solicitation</type>
       </subtypes>
     </doctype>
-    <!--doctype name="Domain" append="true">
-      <subtypes>
-        <type>Account</type>
-      </subtypes>
-    </doctype-->
     <doctype name="Folder" append="true">
       <subtypes>
         <type>Account</type>
@@ -137,7 +142,9 @@
         <type>Objects</type>
         <type>Scripts</type>
         <type>Calendar</type>
-        <type>Option</type>
+        <type>Options</type>
+
+
       </subtypes>
     </doctype>
     <doctype name="Root" append="true">
@@ -164,12 +171,6 @@
         <type>Video</type>
         <type>Audio</type>
         <type>Note</type>
-      </subtypes>
-    </doctype>
-    <doctype name="Account" append="true">
-      <schema name="address"/>
-      <subtypes>
-        <type>Contact</type>
       </subtypes>
     </doctype>
     <doctype name="File" extends="Document">
@@ -498,6 +499,10 @@
     <types>
       <type name="Option">default</type>
     </types>
+    <types>
+      <type name="Options">default</type>
+    </types>
+
   </extension>
   <extension target="org.nuxeo.ecm.platform.types.TypeService" point="types">
     <type id="Calendar">
@@ -624,8 +629,14 @@
     </type>
     <type id="Option">
       <label>Option</label>
-      <icon>/img/option_x1.png</icon>
-      <bigIcon>/img/option_x2.png</bigIcon>
+      <icon>/img/options.png</icon>
+      <bigIcon>/img/options.png</bigIcon>
+      <description></description>
+    </type>
+    <type id="Options">
+      <label>Options</label>
+      <icon>/img/options.png</icon>
+      <bigIcon>/img/options.png</bigIcon>
       <description></description>
     </type>
   </extension>
@@ -1237,7 +1248,7 @@
             <property name="order">count desc</property>
           </properties>
         </aggregate>
-        <aggregate id="solicitation_category_agg" type="terms" parameter="custom:vocabularyField2">
+        <aggregate id="solicitation_category_agg" type="terms" parameter="solicitation:category">
           <field schema="solicitation_list_pp" name="solicitation_category_agg"/>
           <properties>
             <property name="order">count desc</property>
@@ -1576,6 +1587,8 @@
         <templateItem typeName="Scripts" id="Scripts" title="Scripts" description=""/>
         <templateItem typeName="Calendar" id="Calendar.conf" title="Calendar.conf" description=""/>
         <templateItem typeName="Option" id="Option" title="Option" description=""/>
+        <templateItem typeName="Options" id="Options" title="Options" description=""/>
+
       </template>
     </factoryBinding>
     <factoryBinding name="RootFactory" factoryName="SimpleTemplateRootFactory" targetType="Root">

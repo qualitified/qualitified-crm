@@ -15,7 +15,7 @@
         </div>
         <div role="widget">
             <label>[[i18n('label.metadata.amount')]]</label>
-            <div>[[_formatCurrency(document.properties.opportunity:amount)]] €</div>
+            <div><qualitified-amount value="[[document.properties.opportunity:amount]]"></qualitified-amount></div>
         </div>
 
         <div role="widget">
@@ -60,6 +60,13 @@
            */
         document: {
           type: Object
+        },
+        currencyFormat: {
+          type: String,
+          observer: '_currencyFormatChanged'
+        },
+        amount: {
+            type: Number
         }
       },
       _formatDate: function(date) {
@@ -70,6 +77,11 @@
           return "";
         }
         return val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+      },
+      _currencyFormatChanged: function(currencyFormat){
+        if(currencyFormat !== null){
+            this.amount = this.document.properties["opportunity:amount"].toString().replace(/\B(?=(\d{3})+(?!\d))/g, currencyFormat);
+        }
       },
       /**
      * Returns the label for the given directory entry.

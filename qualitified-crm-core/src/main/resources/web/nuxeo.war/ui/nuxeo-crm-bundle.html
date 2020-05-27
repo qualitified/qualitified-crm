@@ -9,6 +9,9 @@
 <link rel="import" href="elements/qualitified-action-buttons.html">
 <link rel="import" href="elements/qualitified-number-files.html">
 <link rel="import" href="elements/qualitified-dialog-button.html">
+<link rel="import" href="elements/qualitified-option.html">
+<link rel="import" href="elements/qualitified-amount.html">
+<link rel="import" href="elements/qualitified-menu-icon.html">
 
 <!-- Contribution of element 'custom-document-page' for slot 'DOCUMENT_VIEWS_PAGES' -->
 <nuxeo-slot-content name="myViewPage" slot="DOCUMENT_VIEWS_PAGES" >
@@ -22,13 +25,14 @@
 </nuxeo-slot-content>
 <nuxeo-slot-content name="myQualitifiedViewPage" slot="DOCUMENT_VIEWS_PAGES" >
     <template>
-        <nuxeo-filter document="[[document]]" type="Account,Opportunity,Contact,Interaction,Solicitation,File,Custom,Objects,Scripts">
+        <nuxeo-filter document="[[document]]" type="Account,Opportunity,Contact,Interaction,Solicitation,File,Custom,Objects,Scripts,Options,Option">
             <template>
                 <qualitified-document-page name="view" document="[[document]]"></qualitified-document-page>
             </template>
         </nuxeo-filter>
     </template>
 </nuxeo-slot-content>
+
 
 <!-- Contribution of element 'nuxeo-search-form' for slot 'DRAWER_PAGES' -->
 <nuxeo-slot-content name="opportunity-list" slot="DRAWER_PAGES" >
@@ -57,7 +61,7 @@
 
 <nuxeo-slot-content name="search-for-interaction" slot="DRAWER_ITEMS" order="4">
     <template>
-        <nuxeo-menu-icon label="Interactions"  name="search-for-interaction" icon="icons:thumb-up"></nuxeo-menu-icon>
+        <qualitified-menu-icon label="Interactions"  name="search-for-interaction" icon="icons:thumb-up"></qualitified-menu-icon>
     </template>
 </nuxeo-slot-content>
 <!-- Contribution of element 'nuxeo-search-form' for slot 'DRAWER_PAGES' -->

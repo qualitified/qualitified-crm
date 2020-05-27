@@ -38,4 +38,10 @@
   <xs:element name="icon" type="xs:string"/>
   <xs:element name="documentTypes" type="xs:string"/>
   <xs:element name="scriptType" type="xs:string"/>
+  <xs:element name="groups" type="xs:string"/>
+  <xs:element name="expression" type="xs:string"/>
+  <xs:element name="permission" type="xs:string"/>
+  <xs:element name="path" type="xs:string"/>
+  <xs:element name="state" type="xs:string"/>
+  <xs:element name="facet" type="xs:string"/>
 </xs:schema>
