@@ -1,5 +1,5 @@
 <dom-module id="qualitified-pipeline">
-  <template>
+  <template >
     <style include="nuxeo-styles grid-styles">
           #board {
             height: calc(100%);
@@ -116,7 +116,7 @@
       <div class="column">
         <div class="header"><h4>New <br/>[[_formatCurrency(newTotalAmount)]] €</h4><iron-icon class="icon"icon="icons:chevron-right"></iron-icon></div>
         <div id="new" class="drop" on-drop="drop" on-dragover="allowDrop" on-dragleave="dragLeave">
-          <template is="dom-repeat" items="[[itemsNew]]">
+          <template  is="dom-repeat" items="[[itemsNew]]">
             <nuxeo-card id="id[[item.uid]]" draggable="true" on-dragstart="drag" class="card" draggable="true">
               <a on-tap="_goToOpportunity">[[item.title]]</a> <br/><b>[[_formatCurrency(item.properties.opportunity:amount)]] €</b>
               <br/>[[item.properties.opportunity:responsible.properties.firstName]] [[item.properties.opportunity:responsible.properties.lastName]]
@@ -189,11 +189,6 @@
         is: 'qualitified-pipeline',
         behaviors: [Nuxeo.RoutingBehavior, Nuxeo.FormatBehavior, Nuxeo.ChartDataBehavior, Report.DataBehavior],
         properties: {
-
-        nxProvider: {
-        type: Object,
-        observer: "_nxProviderObserver",
-        },
          document: {
         type: Object,
         },
@@ -272,12 +267,22 @@
         },
         IdSelected: {
         type: String,
+        }
         },
 
-        },
         _filterByState: function() {
 
-         if (  this.itemsNew.length == 0 && this.itemsFirstContact.length == 0  && this.itemsProposal.length== 0 && this.itemsNegociation.length== 0){
+          this.itemsNew=[];
+          this.itemsFirstContact=[];
+          this.itemsProposal=[];
+          this.itemsNegociation=[];
+          this.limboAmount=0;
+          this.nogoAmount=0;
+          this.wonAmount=0;
+          this.newTotalAmount=0;
+          this.firstContactTotalAmount=0;
+          this.proposalSentTotalAmount=0;
+          this.negociationTotalAmount=0;
          this.itemsNew = this.items.filter(function (el) {
          return el.properties['opportunity:step'].id =='New';
          });
@@ -317,7 +322,6 @@
             this.negociationTotalAmount+=this.items[i].properties['opportunity:amount'];
             }
          }
-         }
          },
 
          _goToOpportunity:function(e){
@@ -354,6 +358,7 @@
                 if('id'+this.items[i].uid ==ev.target.id){
                 this.negociationTotalAmount-=this.items[i].properties['opportunity:amount'];
                 }}}
+
         },
         drop:function(ev){
             ev.preventDefault();
@@ -408,6 +413,10 @@
             this.shadowRoot.querySelectorAll('over').forEach(function(drop){
               drop.classList.remove('over');
             });
+          setTimeout(function(){  let nuxeoApp = document.querySelector('nuxeo-app');
+        var searchForm = nuxeoApp.$.drawer.querySelector('nuxeo-search-form[name="opportunity-list"');
+        if(searchForm){
+        searchForm._search();} }, 1000);
         },
         dropFooter: function(ev){
             ev.preventDefault();
