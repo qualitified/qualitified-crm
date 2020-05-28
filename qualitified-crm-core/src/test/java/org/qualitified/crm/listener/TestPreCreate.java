@@ -24,7 +24,7 @@ import static org.junit.Assert.*;
 @Deploy({"studio.extensions.crm"})
 public class TestPreCreate {
 
-    protected final List<String> events = Arrays.asList("emptyDocumentCreated");
+    protected final List<String> events = Arrays.asList("emptyDocumentModelCreated");
 
     @Inject
     protected EventService s;
@@ -42,14 +42,18 @@ public class TestPreCreate {
     @Test
     public void runPreCreate() throws OperationException{
         DocumentModel script = coreSession.createDocumentModel("/Admin/Scripts", "FilePreCreate","ScriptNote");
-        script=coreSession.createDocument(script);
-        coreSession.saveDocument(script);
+        script.setPropertyValue("dc:title", "FilePreCreate");
+        script.setPropertyValue("note:mime_type", "text/plain");
+        script.setPropertyValue("note:note", "input['dc:description']='value set via script';\ninput['custom:booleanField1']=params.isCreation;");
+        coreSession.createDocument(script);
+        coreSession.save();
 
         DocumentModel file = coreSession.createDocumentModel("/", "My File", "File");
         file = coreSession.createDocument(file);
 
-        assertNotNull(script.getId());
         assertNotNull(file.getId());
+        assertEquals("value set via script", file.getPropertyValue("dc:description"));
+        assertEquals(true, file.getPropertyValue("custom:booleanField1"));
 
 
     }
@@ -57,18 +61,49 @@ public class TestPreCreate {
     @Test
     public void runMultiplePreCreate(){
         DocumentModel script = coreSession.createDocumentModel("/Admin/Scripts", "FilePreCreate","ScriptNote");
-        script=coreSession.createDocument(script);
-        coreSession.saveDocument(script);
+        script.setPropertyValue("dc:title", "FilePreCreate - Set the Title");
+        script.setPropertyValue("note:mime_type", "text/plain");
+        script.setPropertyValue("note:note", "input['dc:title']='My title';");
+        coreSession.createDocument(script);
+
         DocumentModel script2 = coreSession.createDocumentModel("/Admin/Scripts", "FilePreCreate","ScriptNote");
-        script2=coreSession.createDocument(script2);
-        coreSession.saveDocument(script2);
-        assertNotNull(script2.getId());
+        script2.setPropertyValue("dc:title", "FilePreCreate - Set the Description");
+        script2.setPropertyValue("note:mime_type", "text/plain");
+        script2.setPropertyValue("note:note", "input['dc:description']='My description';");
+        coreSession.createDocument(script2);
+        coreSession.save();
 
         DocumentModel file = coreSession.createDocumentModel("/", "My File", "File");
         file = coreSession.createDocument(file);
 
         assertNotNull(file.getId());
+        assertEquals("My title", file.getPropertyValue("dc:title"));
+        assertEquals("My description", file.getPropertyValue("dc:description"));
 
+
+    }
+    @Test
+    public void runOrderedMultiplePreSave(){
+        DocumentModel script = coreSession.createDocumentModel("/Admin/Scripts", "FilePreCreate","ScriptNote");
+        script.setPropertyValue("dc:title", "FilePreCreate - Set the Title");
+        script.setPropertyValue("note:mime_type", "text/plain");
+        script.setPropertyValue("note:note", "input['dc:title']=input['dc:title'] + ' is updated.';");
+        script.setPropertyValue("scriptnote:order", 2);
+        coreSession.createDocument(script);
+
+        DocumentModel script2 = coreSession.createDocumentModel("/Admin/Scripts", "FilePreCreate","ScriptNote");
+        script2.setPropertyValue("dc:title", "FilePreCreate - Set the Description");
+        script2.setPropertyValue("note:mime_type", "text/plain");
+        script2.setPropertyValue("note:note", "input['dc:title']='My title';");
+        script2.setPropertyValue("scriptnote:order", 1);
+        coreSession.createDocument(script2);
+        coreSession.save();
+
+        DocumentModel file = coreSession.createDocumentModel("/", "My File", "File");
+        file = coreSession.createDocument(file);
+
+        assertNotNull(file.getId());
+        assertEquals("My title is updated.", file.getPropertyValue("dc:title"));
 
     }
 
@@ -85,6 +120,7 @@ public class TestPreCreate {
 
         DocumentModel file = coreSession.createDocumentModel("/", "My File", "File");
         file = coreSession.createDocument(file);
+
 
         assertNotNull(file.getId());
         assertEquals(null, file.getPropertyValue("dc:description"));
