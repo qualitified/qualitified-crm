@@ -46,7 +46,7 @@
         <nuxeo-page-provider
                              role="widget"
                              id="interactionProvider"
-                             auto
+
                              query="SELECT * FROM Interaction WHERE ecm:currentLifeCycleState != 'deleted' and ecm:isTrashed = 0 and ecm:parentId = '[[document.uid]]' ORDER BY interaction:date DESC"
                              page-size="5"
                              params="[[params]]"
@@ -68,7 +68,6 @@
         <nuxeo-page-provider
                              role="widget"
                              id="documentProvider"
-                             auto
                              query="select * from Document where ecm:primaryType in ('File', 'Folder', 'Picture', 'Audio', 'Note', 'Video') and ecm:isTrashed = 0 and ecm:currentLifeCycleState != 'deleted' and ecm:parentId = '[[document.uid]]'"
                              page-size="5"
                              params="[[params]]"

@@ -49,7 +49,7 @@
       <iron-pages selected="{{selected}}">
 
         <div class="dataTable">
-          <nuxeo-page-provider id="opportunityProvider" auto
+          <nuxeo-page-provider id="opportunityProvider"
                                query="select * from Opportunity where ecm:currentLifeCycleState != 'deleted' and ecm:isTrashed = 0 and opportunity:mainContact = '[[document.uid]]' ORDER BY dc:title ASC"
                                page-size="40"
                                aggregations="{{opportunityAggregations}}"
@@ -141,7 +141,7 @@
         </div>
 
         <div class="dataTable">
-          <nuxeo-page-provider id="interactionProvider" auto
+          <nuxeo-page-provider id="interactionProvider"
                                query="select * from Interaction where ecm:currentLifeCycleState != 'deleted' and ecm:isTrashed = 0 and interaction:contact IN ('[[document.uid]]') ORDER BY interaction:date DESC"
                                page-size="40"
                                aggregations="{{interactionAggregations}}"
@@ -231,7 +231,7 @@
         </div>
 
         <div class="dataTable">
-          <nuxeo-page-provider id="sollicitationProvider" auto
+          <nuxeo-page-provider id="sollicitationProvider"
                                query="select * from Solicitation where ecm:currentLifeCycleState != 'deleted' and ecm:isTrashed = 0 and ecm:parentId = '[[document.uid]]'"
                                page-size="40"
                                aggregations="{{sollicitationAggregations}}"
@@ -321,7 +321,7 @@
         </div>
 
         <div class="dataTable">
-          <nuxeo-page-provider id="documentProvider" auto
+          <nuxeo-page-provider id="documentProvider"
                                query="select * from Document where ecm:primaryType in ('File', 'Folder', 'Picture', 'Video', 'Audio') and ecm:currentLifeCycleState != 'deleted' and ecm:isTrashed = 0 and ecm:parentId = '[[document.uid]]' ORDER BY dc:title ASC"
                                page-size="40"
                                aggregations="{{documentAggregations}}"
