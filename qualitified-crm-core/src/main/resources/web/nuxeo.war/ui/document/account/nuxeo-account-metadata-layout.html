@@ -69,6 +69,14 @@
       <label>[[i18n('label.metadata.description')]]</label>
       <div>[[document.properties.dc:description]]</div>
     </div>
+    <div role="widget" hidden$="[[!document.properties.account:mainContact]">
+      <label>[[i18n('label.metadata.mainContact')]]</label>
+      <qualitified-document-suggestion role="widget"
+                                       value="[[document.properties.account:mainContact]]"
+                                       min-chars="0"
+                                       readOnly>
+      </qualitified-document-suggestion>
+    </div>
   </template>
 
   <script>
