@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<component name="org.qualitified.crm.listener.listener.precreate">
+
+  <extension target="org.nuxeo.ecm.core.event.EventServiceComponent" point="listener">
+    <listener name="precreate"
+      class="org.qualitified.crm.listener.PreCreate">
+        <event>emptyDocumentModelCreated</event>
+        <filters>
+          <doctype>File</doctype>
+          <doctype>Folder</doctype>
+          <doctype>Workspace</doctype>
+          <doctype>Note</doctype>
+          <doctype>Account</doctype>
+          <doctype>Contact</doctype>
+          <doctype>Opportunity</doctype>
+          <doctype>Interaction</doctype>
+          <doctype>Solicitation</doctype>
+          <doctype>MailMessage</doctype>
+          <attribute>Regular Document</attribute>
+        </filters>
+    </listener>
+  </extension>
+
+</component>

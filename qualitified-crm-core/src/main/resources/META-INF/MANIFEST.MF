@@ -6,6 +6,7 @@ Bundle-Name: Nuxeo Studio Extension - studio.extensions.crm
 Nuxeo-Component: OSGI-INF/extensions.xml,
  OSGI-INF/qualitified-crm-operations.xml,
  OSGI-INF/presave-listener-contrib.xml,
+ OSGI-INF/precreate-listener-contrib.xml,
  OSGI-INF/postsave-listener-contrib.xml,
  OSGI-INF/postsave-async-listener-contrib.xml
 Bundle-ManifestVersion: 2

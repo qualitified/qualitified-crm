@@ -1424,6 +1424,19 @@
         }]]>
       </script>
     </scriptedOperation>
+
+    <scriptedOperation id="javascript.preCreate">
+      <inputType>document</inputType>
+      <outputType>document</outputType>
+      <category>javascript</category>
+      <param name="script" type="string"/>
+      <param name="isCreation" type="boolean"/>
+      <description></description>
+      <script><![CDATA[function run(input, params) {
+          return eval(params.script);
+        }]]>
+      </script>
+    </scriptedOperation>
     <scriptedOperation id="javascript.runUnitTest">
       <inputType>document</inputType>
       <outputType>document</outputType>
