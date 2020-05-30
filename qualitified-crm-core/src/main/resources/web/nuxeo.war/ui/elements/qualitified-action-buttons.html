@@ -40,7 +40,12 @@
       behaviors: [Nuxeo.I18nBehavior,Polymer.IronResizableBehavior,Nuxeo.LayoutBehavior,Nuxeo.RoutingBehavior, Nuxeo.FormatBehavior,Nuxeo.FiltersBehavior],
       properties: {
         document: {
-          type: Object
+          type: Object,
+          observer:'_documentReady'
+        },
+        actions: {
+          type: Array,
+          notify: true
         },
         operation: {
           type: String,
@@ -65,6 +70,12 @@
         message: {
           type: String,
           value: "Done!"
+        }
+      },
+      _documentReady: function(doc){
+        if(doc){
+          console.log('Fetching actions...');
+          this.$.actionProvider.fetch();
         }
       },
       _runOperation: function(e){
