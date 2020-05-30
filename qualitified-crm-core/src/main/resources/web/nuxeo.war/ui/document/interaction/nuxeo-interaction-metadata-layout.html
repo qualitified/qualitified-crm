@@ -73,7 +73,8 @@
            * @doctype Interaction
            */
           document: {
-            type: Object
+            type: Object,
+            observer: '_documentReady'
           }
         },
         /**
@@ -102,9 +103,14 @@
           img.src = "/nuxeo/nxfile/default/"+ value +"/file:content/";
           return "/nuxeo/nxfile/default/"+ value +"/file:content/";
         },
-       _navigate: function(oEvent) {
+        _navigate: function(oEvent) {
           this.navigateTo('document', oEvent.model.get('contact'));
-     }
+        },
+         _documentReady: function(doc){
+          if(doc){
+              document.querySelector("nuxeo-app").shadowRoot.querySelector("#menu > qualitified-menu-icon")._getCount();
+          }
+        }
       });
     })();
 
