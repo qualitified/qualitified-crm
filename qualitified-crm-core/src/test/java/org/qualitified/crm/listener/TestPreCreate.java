@@ -83,7 +83,7 @@ public class TestPreCreate {
 
     }
     @Test
-    public void runOrderedMultiplePreSave(){
+    public void runOrderedMultiplePreCreate(){
         DocumentModel script = coreSession.createDocumentModel("/Admin/Scripts", "FilePreCreate","ScriptNote");
         script.setPropertyValue("dc:title", "FilePreCreate - Set the Title");
         script.setPropertyValue("note:mime_type", "text/plain");
