@@ -1431,6 +1431,7 @@
       <category>javascript</category>
       <param name="script" type="string"/>
       <param name="isCreation" type="boolean"/>
+      <param name="parentPath" type="string"/>
       <description></description>
       <script><![CDATA[function run(input, params) {
           return eval(params.script);
