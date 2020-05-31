@@ -20,5 +20,6 @@
         <operation class="org.qualitified.crm.operation.RSync"/>
         <operation class="org.qualitified.crm.operation.Install"/>
         <operation class="org.qualitified.crm.operation.Log"/>
+        <operation class="org.qualitified.crm.operation.GetActions"/>
     </extension>
  </component>
