@@ -45,9 +45,9 @@
                              start-date="{{_formatDate(document.properties.sales:startDate)}}">
       </nuxeo-repository-data>
 
-      <paper-icon-button icon="icons:work" title="New"></paper-icon-button>{{_formatCurrency(newAmount)}} €
-      <span style="color:blue"><paper-icon-button icon="icons:work" title="On going" ></paper-icon-button>{{_formatCurrency(proposedAmount)}} € </span>
-      <span style="color:green"><paper-icon-button icon="icons:work" title="Won" ></paper-icon-button><span>{{_formatCurrency(wonAmount)}} € [{{_calculatePercentage(wonAmount)}}%] </span></span>
+      <paper-icon-button icon="icons:work" title="New"></paper-icon-button><qualitified-amount value="[[newAmount]]"></qualitified-amount>
+      <span style="color:blue"><paper-icon-button icon="icons:work" title="On going" ></paper-icon-button><qualitified-amount value="[[proposedAmount]]"></qualitified-amount></span>
+      <span style="color:green"><paper-icon-button icon="icons:work" title="Won" ></paper-icon-button><span><qualitified-amount value="[[wonAmount]]"></qualitified-amount> [{{_calculatePercentage(wonAmount)}}%] </span></span>
 
       <nuxeo-document-content document="[[document]]"></nuxeo-document-content>
     </paper-card>
