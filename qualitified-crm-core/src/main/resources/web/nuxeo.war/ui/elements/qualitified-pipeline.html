@@ -287,6 +287,7 @@
           this.limboAmount=0;
           this.nogoAmount=0;
           this.wonAmount=0;
+          this.lostAmount=0;
           this.newTotalAmount=0;
           this.firstContactTotalAmount=0;
           this.proposalSentTotalAmount=0;
@@ -317,9 +318,9 @@
             if(this.items[i].properties['opportunity:step'].id =='Lost'){
             this.lostAmount+=this.items[i].properties['opportunity:amount'];
             }
+
              if(this.items[i].properties['opportunity:step'].id =='New'){
             this.newTotalAmount+=this.items[i].properties['opportunity:amount'];
-
             }
              if(this.items[i].properties['opportunity:step'].id =='First Contact'){
             this.firstContactTotalAmount+=this.items[i].properties['opportunity:amount'];
@@ -424,6 +425,10 @@
             this.shadowRoot.querySelectorAll('over').forEach(function(drop){
               drop.classList.remove('over');
             });
+                setTimeout(function(){  let nuxeoApp = document.querySelector('nuxeo-app');
+        var searchForm = nuxeoApp.$.drawer.querySelector('nuxeo-search-form[name="opportunity-list"');
+        if(searchForm){
+        searchForm._search();} }, 1000);
         },
         dropFooter: function(ev){
             ev.preventDefault();
