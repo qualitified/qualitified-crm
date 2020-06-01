@@ -112,9 +112,11 @@
 
       </style>
     <nuxeo-operation id="setProperty" op="Document.SetProperty" input="[[document]]" params="[[params]]"></nuxeo-operation>
+    <nuxeo-operation id="getOption" op="Qualitified.GetOptionValue"></nuxeo-operation>
+
     <div id="board">
       <div class="column">
-        <div class="header"><h4>New <br/>[[_formatCurrency(newTotalAmount)]] €</h4><iron-icon class="icon"icon="icons:chevron-right"></iron-icon></div>
+        <div class="header"><h4>New <br/>[[newTotalAmount]] <qualitified-option id="currency" name="Currency" default="$"></qualitified-option></h4><iron-icon class="icon"icon="icons:chevron-right"></iron-icon></div>
         <div id="new" class="drop" on-drop="drop" on-dragover="allowDrop" on-dragleave="dragLeave">
           <template  is="dom-repeat" items="[[itemsNew]]">
             <nuxeo-card id="id[[item.uid]]" draggable="true" on-dragstart="drag" class="card" draggable="true">
@@ -128,7 +130,7 @@
       </div>
 
       <div class="column">
-        <div class="header"><h4>First Contact/Demo<br/>[[_formatCurrency(firstContactTotalAmount)]] €</h4><iron-icon class="icon"icon="icons:chevron-right"></iron-icon></div>
+        <div class="header"><h4>First Contact/Demo<br/>[[firstContactTotalAmount]]<qualitified-option id="currency" name="Currency" default="$"></qualitified-option></h4><iron-icon class="icon"icon="icons:chevron-right"></iron-icon></div>
         <div class="drop" on-drop="drop" on-dragover="allowDrop" on-dragleave="dragLeave">
           <template is="dom-repeat" items="[[itemsFirstContact]]">
             <nuxeo-card id="id[[item.uid]]" draggable="true" on-dragstart="drag" class="card" draggable="true">
@@ -141,7 +143,7 @@
       </div>
 
       <div class="column">
-        <div class="header"><h4>Proposal Sent<br/>[[_formatCurrency(proposalSentTotalAmount)]] €</h4><iron-icon class="icon" icon="icons:chevron-right"></iron-icon></div>
+        <div class="header"><h4>Proposal Sent<br/>[[proposalSentTotalAmount]]<qualitified-option id="currency" name="Currency" default="$"></qualitified-option></h4><iron-icon class="icon" icon="icons:chevron-right"></iron-icon></div>
         <div class="drop" on-drop="drop" on-dragover="allowDrop" on-dragleave="dragLeave">
           <template is="dom-repeat" items="[[itemsProposal]]">
             <nuxeo-card id="id[[item.uid]]" draggable="true" on-dragstart="drag" class="card" draggable="true">
@@ -154,7 +156,7 @@
       </div>
 
       <div class="column">
-        <div class="header"><h4>Negociation<br/>[[_formatCurrency(negociationTotalAmount)]] €</h4><iron-icon class="icon" icon="icons:chevron-right"></iron-icon></div>
+        <div class="header"><h4>Negociation<br/>[[negociationTotalAmount]]<qualitified-option id="currency" name="Currency" default="$"></qualitified-option></h4><iron-icon class="icon" icon="icons:chevron-right"></iron-icon></div>
         <div class="drop" on-drop="drop" on-dragover="allowDrop" on-dragleave="dragLeave">
           <template is="dom-repeat" items="[[itemsNegociation]]">
             <nuxeo-card id="id[[item.uid]]" draggable="true" on-dragstart="drag" class="card" draggable="true">
@@ -169,16 +171,16 @@
 
     <div class="footerContainer">
       <div id="limbo" class="footer limbo" on-dragleave="dragLeave" on-drop="dropFooter" on-dragover="allowDropFooter">
-        Limbo <span id="limboAmount">[[_formatCurrency(limboAmount)]] €</span><div id="newlimboAmount" class="limboText slider">+ [[newlimboAmount]] €</div>
+        Limbo <span id="limboAmount">[[limboAmount]]</span><qualitified-option id="currency" name="Currency" default="$"></qualitified-option><div id="newlimboAmount" class="limboText slider">+ [[newlimboAmount]]<qualitified-option id="currency" name="Currency" default="$"></qualitified-option></div>
       </div>
       <div id="nogo" class="footer nogo" on-dragleave="dragLeave" on-drop="dropFooter" on-dragover="allowDropFooter">
-        No Go <span id="nogoAmount">[[_formatCurrency(nogoAmount)]] €</span><div id="newnogoAmount" class="nogoText slider">+ [[newnogoAmount]] €</div>
+        No Go <span id="nogoAmount">[[nogoAmount]]</span><qualitified-option id="currency" name="Currency" default="$"></qualitified-option><div id="newnogoAmount" class="nogoText slider">+ [[newnogoAmount]]<qualitified-option id="currency" name="Currency" default="$"></qualitified-option></div>
       </div>
       <div id="won" class="footer won" on-dragleave="dragLeave" on-drop="dropFooter" on-dragover="allowDropFooter">
-        Won <span id="wonAmount">[[_formatCurrency(wonAmount)]] €</span><div id="newwonAmount" class="wonText slider">+ [[newwonAmount]] €</div>
+        Won <span id="wonAmount">[[wonAmount]]</span><qualitified-option id="currency" name="Currency" default="$"></qualitified-option><div id="newwonAmount" class="wonText slider">+ [[newwonAmount]]<qualitified-option id="currency" name="Currency" default="$"></qualitified-option></div>
       </div>
       <div id="lost" class="footer lost" on-dragleave="dragLeave" on-drop="dropFooter" on-dragover="allowDropFooter">
-        Lost <span id="lostAmount">[[_formatCurrency(lostAmount)]] €</span><div id="newlostAmount" class="lostText slider">+ <qualitified-amount value="[[newlostAmount]]"></qualitified-amount></div>
+        Lost <span id="lostAmount">[[lostAmount]]</span><qualitified-option id="currency" name="Currency" default="$"></qualitified-option><div id="newlostAmount" class="lostText slider">+ [[newlostAmount]]<qualitified-option id="currency" name="Currency" default="$"></qualitified-option></div>
       </div>
     </div>
 
@@ -267,10 +269,16 @@
         },
         IdSelected: {
         type: String,
-        }
+        },
+        value: {
+          type: Number
+        },
+        format: {
+          type: String
+        },
         },
 
-        _filterByState: function() {
+        _filterByState: async function() {
 
           this.itemsNew=[];
           this.itemsFirstContact=[];
@@ -298,31 +306,56 @@
          var i;
          for (i = 0; i < this.items.length; i++) {
             if(this.items[i].properties['opportunity:step'].id =='Limbo'){
+            this.limboAmount=this._formatCurrencyReverse(this.limboAmount,this.format);
             this.limboAmount+=this.items[i].properties['opportunity:amount'];
+             this.limboAmount=await this._formatAmount(this.limboAmount);
             }
             if(this.items[i].properties['opportunity:step'].id =='No go'){
+            this.nogoAmount=this._formatCurrencyReverse(this.nogoAmount);
             this.nogoAmount+=this.items[i].properties['opportunity:amount'];
+            this.nogoAmount=await this._formatAmount(this.nogoAmount);
             }
             if(this.items[i].properties['opportunity:step'].id =='Won'){
+            this.wonAmount=this._formatCurrencyReverse(this.wonAmount);
             this.wonAmount+=this.items[i].properties['opportunity:amount'];
+            this.wonAmount=await this._formatAmount(this.wonAmount);
             }
             if(this.items[i].properties['opportunity:step'].id =='Lost'){
+            this.lostAmount=this._formatCurrencyReverse(this.lostAmount);
             this.lostAmount+=this.items[i].properties['opportunity:amount'];
+            this.lostAmount=await this._formatAmount(this.lostAmount);
             }
              if(this.items[i].properties['opportunity:step'].id =='New'){
+            this.newTotalAmount=this._formatCurrencyReverse(this.newTotalAmount);
             this.newTotalAmount+=this.items[i].properties['opportunity:amount'];
+            this.newTotalAmount=await this._formatAmount(this.newTotalAmount);
+
             }
              if(this.items[i].properties['opportunity:step'].id =='First Contact'){
+            this.firstContactTotalAmount=this._formatCurrencyReverse(this.firstContactTotalAmount);
             this.firstContactTotalAmount+=this.items[i].properties['opportunity:amount'];
+            this.firstContactTotalAmount=await this._formatAmount(this.firstContactTotalAmount);
             }
              if(this.items[i].properties['opportunity:step'].id =='Proposal Sent'){
+             this.proposalSentTotalAmount=this._formatCurrencyReverse(this.proposalSentTotalAmount);
             this.proposalSentTotalAmount+=this.items[i].properties['opportunity:amount'];
+            this.proposalSentTotalAmount=await this._formatAmount(this.proposalSentTotalAmount);
             }
              if(this.items[i].properties['opportunity:step'].id =='Negociation'){
+             this.negociationTotalAmount=this._formatCurrencyReverse(this.negociationTotalAmount);
             this.negociationTotalAmount+=this.items[i].properties['opportunity:amount'];
+            this.negociationTotalAmount=await this._formatAmount(this.negociationTotalAmount);
             }
          }
+
+
          },
+
+       _formatAmount: async function(amount){
+         this.format = await this._getValue();
+        var amountformatted=this._formatCurrency(amount, this.format);
+        return amountformatted;
+      },
 
          _goToOpportunity:function(e){
           this.fire('navigate', {doc: (e.model || e.detail).item});
@@ -370,6 +403,7 @@
             if(ev.target.offsetParent.firstElementChild.firstElementChild.innerText.includes("NEW")){
               for (var i=0; i < this.items.length; i++) {
                 if('id'+this.items[i].uid ==data){
+                this.newTotalAmount=this._formatCurrencyReverse(this.newTotalAmount);
                 this.newTotalAmount+=this.items[i].properties['opportunity:amount'];
                 this.document=this.items[i];
                 this._setStep('New',this.items[i].uid);
@@ -379,6 +413,7 @@
             for (var i = 0; i < this.items.length; i++) {
                 if('id'+this.items[i].uid ==data){
                  this.document=this.items[i];
+                 this.firstContactTotalAmount=this._formatCurrencyReverse(this.firstContactTotalAmount);
                  this.firstContactTotalAmount+=this.items[i].properties['opportunity:amount'];
                 this._setStep('First Contact',this.items[i].uid);
 
@@ -387,6 +422,7 @@
               if(ev.target.offsetParent.firstElementChild.firstElementChild.innerText.includes("PROPOSAL SENT")){
              for (var i = 0; i < this.items.length; i++) {
                 if('id'+this.items[i].uid ==data){
+                this.proposalSentTotalAmount=this._formatCurrencyReverse(this.proposalSentTotalAmount);
                 this.proposalSentTotalAmount+=this.items[i].properties['opportunity:amount'];
                  this.document=this.items[i];
                 this._setStep('Proposal Sent',this.items[i].uid);
@@ -397,6 +433,7 @@
 
             for (var i = 0; i < this.items.length; i++) {
                 if('id'+this.items[i].uid ==data){
+                this.negociationTotalAmount=this._formatCurrencyReverse(this.negociationTotalAmount);
                 this.negociationTotalAmount+=this.items[i].properties['opportunity:amount'];
                  this.document=this.items[i];
                 this._setStep('Negociation',this.items[i].uid);
@@ -418,7 +455,7 @@
         if(searchForm){
         searchForm._search();} }, 1000);
         },
-        dropFooter: function(ev){
+        dropFooter:  function(ev){
             ev.preventDefault();
             var data=ev.dataTransfer.getData("text");
             console.log(ev.target.localName);
@@ -432,11 +469,14 @@
                 this.document=this.items[i];
                 this._setStep('Limbo',this.items[i].uid);
             }}
+            this.limboAmount=this._formatCurrencyReverse(this.limboAmount,this.format);
             this.limboAmount+=parseInt(this.newlimboAmount);
+            this.limboAmount=this._formatCurrency(this.limboAmount,this.format);
+            this.newlimboAmount=this._formatCurrency(this.newlimboAmount,this.format);
               setTimeout(function(){
                 this.shadowRoot.querySelector('#newlimboAmount').classList.remove('slide');
               }.bind(this),2000);
-              this.shadowRoot.querySelector('#'+ev.target.id+'Amount').innerHTML=this.limboAmount+' €';
+              this.shadowRoot.querySelector('#'+ev.target.id+'Amount').innerHTML=this.limboAmount;
             }
 
 
@@ -449,11 +489,14 @@
                 this.document=this.items[i];
                 this._setStep('No go',this.items[i].uid);
             } }
+            this.nogoAmount=this._formatCurrencyReverse(this.nogoAmount,this.format);
             this.nogoAmount+=parseInt(this.newnogoAmount);
+            this.nogoAmount=this._formatCurrency(this.nogoAmount,this.format);
+            this.newnogoAmount=this._formatCurrency(this.newnogoAmount,this.format);
               setTimeout(function(){
                 this.shadowRoot.querySelector('#newnogoAmount').classList.remove('slide');
               }.bind(this),2000);
-              this.shadowRoot.querySelector('#'+ev.target.id+'Amount').innerHTML=this.nogoAmount+' €';
+              this.shadowRoot.querySelector('#'+ev.target.id+'Amount').innerHTML=this.nogoAmount;
             }
 
 
@@ -465,11 +508,14 @@
                 this.document=this.items[i];
                 this._setStep('Won',this.items[i].uid);
             } }
+            this.wonAmount=this._formatCurrencyReverse(this.wonAmount,this.format);
             this.wonAmount+=parseInt(this.newwonAmount);
+            this.wonAmount=this._formatCurrency(this.wonAmount,this.format);
+            this.newwonAmount=this._formatCurrency(this.newwonAmount,this.format);
               setTimeout(function(){
                 this.shadowRoot.querySelector('#newwonAmount').classList.remove('slide');
               }.bind(this),2000);
-              this.shadowRoot.querySelector('#'+ev.target.id+'Amount').innerHTML=this.wonAmount+' €';
+              this.shadowRoot.querySelector('#'+ev.target.id+'Amount').innerHTML=this.wonAmount;
               for (var i = 0; i < this.items.length; i++) {
                 if('id'+this.items[i].uid ==data){
                 this.document=this.items[i];
@@ -487,15 +533,21 @@
                 this._setStep('Lost',this.items[i].uid);
 
             } }
+            this.lostAmount=this._formatCurrencyReverse(this.lostAmount,this.format);
             this.lostAmount+=parseInt(this.newlostAmount);
+            this.lostAmount=this._formatCurrency(this.lostAmount,this.format);
+            this.newlostAmount=this._formatCurrency(this.newlostAmount,this.format);
               setTimeout(function(){
                 this.shadowRoot.querySelector('#newlostAmount').classList.remove('slide');
               }.bind(this),2000);
-              this.shadowRoot.querySelector('#'+ev.target.id+'Amount').innerHTML=this.lostAmount+' €';
+              this.shadowRoot.querySelector('#'+ev.target.id+'Amount').innerHTML=this.lostAmount;
 
             }
             this.shadowRoot.querySelector('#' + data).remove();
-
+         setTimeout(function(){  let nuxeoApp = document.querySelector('nuxeo-app');
+        var searchForm = nuxeoApp.$.drawer.querySelector('nuxeo-search-form[name="opportunity-list"');
+        if(searchForm){
+        searchForm._search();} }, 1000);
 
         },
         dragLeave: function(ev){
@@ -503,12 +555,6 @@
           ev.target.classList.remove('footerDrop');
           ev.target.classList.remove('over');
         },
-        _formatCurrency: function(val) {
-         if(val == null){
-         return "";
-         }
-         return val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-         },
 
         _setStep: function(value,inputID){
          this.params = {
@@ -521,6 +567,31 @@
               this.$.setProperty.execute();
 
          },
+         _getValue: async function(){
+         let params = {};
+         params.name = "CurrencyFormat";
+         this.$.getOption.params = params;
+         let result = await this.$.getOption.execute().then(function(response){
+             if(response === null){
+                return ",";
+             }else{
+                return response.value;
+             }
+         }.bind(this));
+         return result;
+      },
+      _formatCurrency: function(val, format) {
+        if(val == null){
+          return "";
+        }
+        return val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, format);
+      },
+      _formatCurrencyReverse: function(val, format) {
+        if(val == null){
+          return "";
+        }
+        return parseInt(val.toString().split(format).join(''));
+      }
 
 
 
