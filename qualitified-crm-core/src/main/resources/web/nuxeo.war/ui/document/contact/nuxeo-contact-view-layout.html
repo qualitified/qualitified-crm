@@ -50,7 +50,7 @@
 
         <div class="dataTable">
           <nuxeo-page-provider id="opportunityProvider"
-                               query="select * from Opportunity where ecm:currentLifeCycleState != 'deleted' and ecm:isTrashed = 0 and opportunity:mainContact = '[[document.uid]]' ORDER BY dc:title ASC"
+                               query="select * from Opportunity where ecm:currentLifeCycleState != 'deleted' and ecm:isTrashed = 0 and opportunity:mainContact = '[[document.uid]]' "
                                page-size="40"
                                aggregations="{{opportunityAggregations}}"
                                enrichers="thumbnail, permissions"
@@ -142,7 +142,7 @@
 
         <div class="dataTable">
           <nuxeo-page-provider id="interactionProvider"
-                               query="select * from Interaction where ecm:currentLifeCycleState != 'deleted' and ecm:isTrashed = 0 and interaction:contact IN ('[[document.uid]]') ORDER BY interaction:date DESC"
+                               query="select * from Interaction where ecm:currentLifeCycleState != 'deleted' and ecm:isTrashed = 0 and interaction:contact IN ('[[document.uid]]') "
                                page-size="40"
                                aggregations="{{interactionAggregations}}"
                                enrichers="thumbnail, permissions"
@@ -322,7 +322,7 @@
 
         <div class="dataTable">
           <nuxeo-page-provider id="documentProvider"
-                               query="select * from Document where ecm:primaryType in ('File', 'Folder', 'Picture', 'Video', 'Audio') and ecm:currentLifeCycleState != 'deleted' and ecm:isTrashed = 0 and ecm:parentId = '[[document.uid]]' ORDER BY dc:title ASC"
+                               query="select * from Document where ecm:primaryType in ('File', 'Folder', 'Picture', 'Video', 'Audio') and ecm:currentLifeCycleState != 'deleted' and ecm:isTrashed = 0 and ecm:parentId = '[[document.uid]]' "
                                page-size="40"
                                aggregations="{{documentAggregations}}"
                                enrichers="thumbnail, permissions"

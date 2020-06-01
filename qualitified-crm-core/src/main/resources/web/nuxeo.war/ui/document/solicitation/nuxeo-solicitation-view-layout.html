@@ -47,7 +47,7 @@
                              role="widget"
                              id="interactionProvider"
 
-                             query="SELECT * FROM Interaction WHERE ecm:currentLifeCycleState != 'deleted' and ecm:isTrashed = 0 and ecm:parentId = '[[document.uid]]' ORDER BY interaction:date DESC"
+                             query="SELECT * FROM Interaction WHERE ecm:currentLifeCycleState != 'deleted' and ecm:isTrashed = 0 and ecm:parentId = '[[document.uid]]' "
                              page-size="5"
                              params="[[params]]"
                              aggregations="{{interactionAggregations}}"
