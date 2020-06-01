@@ -56,7 +56,8 @@ public class PreCreate implements EventListener {
             });
 
             params.put("script", scriptNote);
-            params.put("isCreation", ("emptyDocumentCreated").equals(event.getName()));
+            params.put("isCreation", ("emptyDocumentModelCreated").equals(event.getName()));
+            params.put("parentPath", ctx.getProperty("parentPath"));
 
             AutomationService automationService = Framework.getService(AutomationService.class);
 

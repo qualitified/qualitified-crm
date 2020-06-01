@@ -14,21 +14,14 @@
         fill: var(--nuxeo-link-hover-color);
       }
     </style>
-    <nuxeo-page-provider
-            role="widget"
-            id="actionProvider"
-            auto
-            query="SELECT * FROM Scripts WHERE scripts:scriptType='action' AND ecm:currentLifeCycleState != 'deleted' AND ecm:isTrashed = 0"
-            page-size="5"
-            current-page="{{actions}}">
-    </nuxeo-page-provider>
+    <nuxeo-operation id="getActions" op="Qualitified.GetActions"></nuxeo-operation>
     <paper-toast id="actionToast"></paper-toast>
     <nuxeo-connection id="nxcon" user="{{user}}"></nuxeo-connection>
     <nuxeo-operation id="runAction" op="Qualitified.RunAction" input="[[document.uid]]" params="[[params]]"></nuxeo-operation>
-    <template is="dom-repeat" items="[[actions]]">
-      <nuxeo-filter document="[[document]]" type="[[item.properties.scripts:documentTypes]]" group="[[item.properties.scripts:groups]]" user="[[user]]" expression="[[item.properties.scripts:expression]]" path="[[item.properties.scripts:path]]" permission="[[item.properties.scripts:permission]]" state="[[item.properties.scripts:state]]" facet="[[item.properties.scripts:facet]]">
+    <template is="dom-repeat" items="[[actions.actions]]">
+      <nuxeo-filter document="[[document]]" type="[[item.scripts:documentTypes]]" group="[[item.scripts:groups]]" user="[[user]]" expression="[[item.scripts:expression]]" path="[[item.scripts:path]]" permission="[[item.scripts:permission]]" state="[[item.scripts:state]]" facet="[[item.scripts:facet]]">
         <template>
-          <paper-icon-button id="[[_trim(item.title)]]" icon="[[item.properties.scripts:icon]]" on-tap="_runOperation" action-id="[[item.uid]]" action-name="[[item.title]]"></paper-icon-button>
+          <paper-icon-button id="[[_trim(item.title)]]" icon="[[item.scripts:icon]]" on-tap="_runOperation" action-id="[[item.uid]]" action-name="[[item.title]]"></paper-icon-button>
           <paper-tooltip for="[[_trim(item.title)]]">[[item.title]]</paper-tooltip>
         </template>
       </nuxeo-filter>
@@ -40,7 +33,12 @@
       behaviors: [Nuxeo.I18nBehavior,Polymer.IronResizableBehavior,Nuxeo.LayoutBehavior,Nuxeo.RoutingBehavior, Nuxeo.FormatBehavior,Nuxeo.FiltersBehavior],
       properties: {
         document: {
-          type: Object
+          type: Object,
+          observer:'_documentReady'
+        },
+        actions: {
+          type: Array,
+          notify: true
         },
         operation: {
           type: String,
@@ -65,6 +63,15 @@
         message: {
           type: String,
           value: "Done!"
+        }
+      },
+      _documentReady: function(doc){
+        if(doc){
+          console.log('Fetching actions...');
+          this.$.getActions.execute().then(function(result) {
+            this.actions = result;
+          }.bind(this));
+          //this.$.actionProvider.fetch();
         }
       },
       _runOperation: function(e){

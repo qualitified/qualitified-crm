@@ -13,14 +13,15 @@
         <div role="widget" class="title">
             <h1>[[document.properties.dc:title]]</h1>
         </div>
-        <div role="widget">
-            <label>[[i18n('label.metadata.amount')]]</label>
-            <div><qualitified-amount value="[[document.properties.opportunity:amount]]"></qualitified-amount></div>
-        </div>
 
         <div role="widget">
             <label>[[i18n('label.metadata.step')]]</label>
             <div directory-name="OppStep">[[formatDirectory(document.properties.opportunity:step)]]</div>
+        </div>
+
+        <div role="widget">
+            <label>[[i18n('label.metadata.amount')]]</label>
+            <div><qualitified-amount value="[[document.properties.opportunity:amount]]"></qualitified-amount></div>
         </div>
 
         <div role="widget">

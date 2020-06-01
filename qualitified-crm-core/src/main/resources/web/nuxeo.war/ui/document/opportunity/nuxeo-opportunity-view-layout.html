@@ -37,7 +37,8 @@
         <nuxeo-page-provider
                 role="widget"
                 id="interactionTodoProvider"
-                query="SELECT * FROM Interaction WHERE ecm:currentLifeCycleState != 'deleted' and ecm:isTrashed = 0 and ecm:parentId = '[[document.uid]]' AND ecm:currentLifeCycleState = 'todo' "
+                auto
+                query="SELECT * FROM Interaction WHERE ecm:currentLifeCycleState != 'deleted' and ecm:isTrashed = 0 and ecm:parentId = '[[document.uid]]' AND ecm:currentLifeCycleState = 'todo'"
                 page-size="1"
                 params="[[params]]"
                 aggregations="{{interactionTodoAggregations}}"
@@ -91,7 +92,8 @@
                 <nuxeo-page-provider
                         role="widget"
                         id="interactionProvider"
-                        query="SELECT * FROM Interaction WHERE ecm:currentLifeCycleState != 'deleted' and ecm:isTrashed = 0 and ecm:parentId = '[[document.uid]]' AND ecm:currentLifeCycleState = 'done' "
+                        auto
+                        query="SELECT * FROM Interaction WHERE ecm:currentLifeCycleState != 'deleted' and ecm:isTrashed = 0 and ecm:parentId = '[[document.uid]]' AND ecm:currentLifeCycleState = 'done'"
                         page-size="40"
                         params="[[params]]"
                         aggregations="{{interactionAggregations}}"

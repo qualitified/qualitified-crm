@@ -58,6 +58,14 @@
       <div>[[document.properties.address:zipCode]] [[document.properties.address:city]]</div>
       <div>[[document.properties.address:country]]</div>
     </div>
+    <div role="widget" hidden$="[[!document.properties.account:mainContact]">
+      <label>[[i18n('label.metadata.mainContact')]]</label>
+      <qualitified-document-suggestion role="widget"
+                                       value="[[document.properties.account:mainContact]]"
+                                       min-chars="0"
+                                       readOnly>
+      </qualitified-document-suggestion>
+    </div>
     <div role="widget">
       <label>[[i18n('label.metadata.responsible')]]</label>
       <div>
@@ -68,14 +76,6 @@
     <div role="widget">
       <label>[[i18n('label.metadata.description')]]</label>
       <div>[[document.properties.dc:description]]</div>
-    </div>
-    <div role="widget" hidden$="[[!document.properties.account:mainContact]">
-      <label>[[i18n('label.metadata.mainContact')]]</label>
-      <qualitified-document-suggestion role="widget"
-                                       value="[[document.properties.account:mainContact]]"
-                                       min-chars="0"
-                                       readOnly>
-      </qualitified-document-suggestion>
     </div>
   </template>
 

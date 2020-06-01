@@ -50,7 +50,7 @@
         <nuxeo-input value="{{document.properties.address:country}}" label="[[i18n('label.metadata.country')]]"
                      type="text"
                      role="widget"></nuxeo-input>
-
+        <qualitified-document-suggestion role="widget" value="{{document.properties.account:mainContact}}" label="[[i18n('label.metadata.mainContact')]]" page-provider="documents" min-chars="0" params='{ "namedParameters": "system_primaryType=Contact"}'></qualitified-document-suggestion>
         <nuxeo-user-suggestion
                 value="{{document.properties.account:responsible}}"
                 label="[[i18n('label.metadata.responsible')]]"
@@ -63,8 +63,6 @@
         <nuxeo-textarea role="widget" value="{{document.properties.dc:description}}"
                         label="[[i18n('label.metadata.description')]]"></nuxeo-textarea>
         <nuxeo-dropzone role="widget" label="[[i18n('label.metadata.logo')]]" document="[[document]]"></nuxeo-dropzone>
-        <qualitified-document-suggestion role="widget" value="{{document.properties.account:mainContact}}" label="[[i18n('label.metadata.mainContact')]]" page-provider="documents" min-chars="0" params='{ "namedParameters": "system_primaryType=Contact"}'></qualitified-document-suggestion>
-
     </template>
 
     <script>

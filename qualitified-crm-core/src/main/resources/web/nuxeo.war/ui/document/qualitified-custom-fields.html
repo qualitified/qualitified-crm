@@ -3537,7 +3537,7 @@
             i++;
           }.bind(this));
 
-          var nodeList=document.querySelector("nuxeo-app").shadowRoot.querySelector("#browser").shadowRoot.querySelector("qualitified-document-page").shadowRoot.querySelector("nuxeo-document-metadata").shadowRoot.querySelector("nuxeo-document-layout").shadowRoot.querySelector("#layout").shadowRoot.querySelector("nuxeo-account-metadata-layout").shadowRoot.querySelector("qualitified-custom-fields").shadowRoot.querySelectorAll("div.sortable");
+          var nodeList=this.shadowRoot.querySelectorAll('div.sortable');
 
           var arrayNode = [].slice.call(nodeList);
           var cleanedArrayNode = [];
@@ -3556,7 +3556,7 @@
           //sort
           tinysort(cleanedArrayNode,{attr:'id',order:'asc'});
 
-          var nodeListEdit =document.querySelector("nuxeo-app").shadowRoot.querySelector("#browser").shadowRoot.querySelector("nuxeo-document-edit-button").shadowRoot.querySelector("nuxeo-document-form-button").shadowRoot.querySelector("#layout").shadowRoot.querySelector("#layout").shadowRoot.querySelector("#layout").shadowRoot.querySelector("nuxeo-account-edit-layout").shadowRoot.querySelector("qualitified-custom-fields").shadowRoot.querySelectorAll(".sortableEdit");
+           var nodeListEdit=this.shadowRoot.querySelectorAll('.sortableEdit');
            var arrayNodeEdit = [].slice.call(nodeListEdit);
            var cleanedArrayNodeEdit = [];
            arrayNodeEdit.forEach(function(editNode){

@@ -4,7 +4,7 @@
   <extension target="org.nuxeo.ecm.core.event.EventServiceComponent" point="listener">
     <listener name="precreate"
       class="org.qualitified.crm.listener.PreCreate">
-        <event>emptyDocumentCreated</event>
+        <event>emptyDocumentModelCreated</event>
         <filters>
           <doctype>File</doctype>
           <doctype>Folder</doctype>
