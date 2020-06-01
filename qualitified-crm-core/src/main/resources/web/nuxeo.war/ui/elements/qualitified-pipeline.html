@@ -120,7 +120,7 @@
         <div id="new" class="drop" on-drop="drop" on-dragover="allowDrop" on-dragleave="dragLeave">
           <template  is="dom-repeat" items="[[itemsNew]]">
             <nuxeo-card id="id[[item.uid]]" draggable="true" on-dragstart="drag" class="card" draggable="true">
-              <a on-tap="_goToOpportunity">[[item.title]]</a> <br/><b><qualitified-amount value="[[item.properties.opportunity:amount]]"></qualitified-amount></b>
+              <a on-tap="_goToOpportunity">[[item.title]]</a> <br/><b>[[_formatCurrency(item.properties.opportunity:amount,currencyFormat,currency)]]</b>
               <br/>[[item.properties.opportunity:responsible.properties.firstName]] [[item.properties.opportunity:responsible.properties.lastName]]
               <br/><b>[[formatDate(item.properties.opportunity:closeDate)]]</b>
             </nuxeo-card>
@@ -134,7 +134,7 @@
         <div class="drop" on-drop="drop" on-dragover="allowDrop" on-dragleave="dragLeave">
           <template is="dom-repeat" items="[[itemsFirstContact]]">
             <nuxeo-card id="id[[item.uid]]" draggable="true" on-dragstart="drag" class="card" draggable="true">
-              <a on-tap="_goToOpportunity">[[item.title]]</a> <br/><b ><qualitified-amount value="[[item.properties.opportunity:amount]]"></qualitified-amount></b>
+              <a on-tap="_goToOpportunity">[[item.title]]</a> <br/><b >[[_formatCurrency(item.properties.opportunity:amount,currencyFormat,currency)]]</b>
               <br/>[[item.properties.opportunity:responsible.properties.firstName]] [[item.properties.opportunity:responsible.properties.lastName]]
               <br/><b>[[formatDate(item.properties.opportunity:closeDate)]]</b>
             </nuxeo-card>
@@ -147,7 +147,7 @@
         <div class="drop" on-drop="drop" on-dragover="allowDrop" on-dragleave="dragLeave">
           <template is="dom-repeat" items="[[itemsProposal]]">
             <nuxeo-card id="id[[item.uid]]" draggable="true" on-dragstart="drag" class="card" draggable="true">
-              <a on-tap="_goToOpportunity">[[item.title]]</a> <br/><b><qualitified-amount value="[[item.properties.opportunity:amount]]"></qualitified-amount></b>
+              <a on-tap="_goToOpportunity">[[item.title]]</a> <br/><b>[[_formatCurrency(item.properties.opportunity:amount,currencyFormat,currency)]]</b>
               <br/>[[item.properties.opportunity:responsible.properties.firstName]] [[item.properties.opportunity:responsible.properties.lastName]]
               <br/><b>[[formatDate(item.properties.opportunity:closeDate)]]</b>
             </nuxeo-card>
@@ -160,7 +160,7 @@
         <div class="drop" on-drop="drop" on-dragover="allowDrop" on-dragleave="dragLeave">
           <template is="dom-repeat" items="[[itemsNegociation]]">
             <nuxeo-card id="id[[item.uid]]" draggable="true" on-dragstart="drag" class="card" draggable="true">
-              <a on-tap="_goToOpportunity"> [[item.title]]</a> <br/><b><qualitified-amount value="[[item.properties.opportunity:amount]]"></qualitified-amount></b>
+              <a on-tap="_goToOpportunity"> [[item.title]]</a> <br/><b>[[_formatCurrency(item.properties.opportunity:amount,currencyFormat,currency)]]</b>
               <br/>[[item.properties.opportunity:responsible.properties.firstName]] [[item.properties.opportunity:responsible.properties.lastName]]
               <br/><b>[[formatDate(item.properties.opportunity:closeDate)]]</b>
             </nuxeo-card>
