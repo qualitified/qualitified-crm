@@ -8,7 +8,8 @@ Nuxeo-Component: OSGI-INF/extensions.xml,
  OSGI-INF/presave-listener-contrib.xml,
  OSGI-INF/precreate-listener-contrib.xml,
  OSGI-INF/postsave-listener-contrib.xml,
- OSGI-INF/postsave-async-listener-contrib.xml
+ OSGI-INF/postsave-async-listener-contrib.xml,
+ OSGI-INF/templateprocessor-doc-contrib.xml
 Bundle-ManifestVersion: 2
 Created-By: Qualitified
 Bundle-SymbolicName: studio.extensions.crm

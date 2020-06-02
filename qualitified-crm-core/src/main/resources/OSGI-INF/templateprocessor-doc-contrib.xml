@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+
+<component name="org.nuxeo.qualitified.contextExtension">
+
+	<extension target="org.nuxeo.template.service.TemplateProcessorComponent" point="contextExtension">
+
+		<documentation>Adds doc infos in the context
+			<ul>
+				<li>docFunctions.getDocTitle(docId)</li>
+				<li>docFunctions.getDocPath(docId)</li>
+				<li>docFunctions.getParentMetadata(docType,docMetadata)</li>
+				<li>docFunctions.getDocumentMetadata(documentId,docMetadata)</li>
+			</ul>
+		</documentation>
+
+		<contextFactory name="docFunctions" class="org.qualitified.crm.functions.DocFunctionsExtensionFactory">
+		</contextFactory>
+
+	</extension>
+</component>
