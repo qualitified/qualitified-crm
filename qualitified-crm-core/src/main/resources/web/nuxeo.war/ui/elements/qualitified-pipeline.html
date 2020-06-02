@@ -1,5 +1,5 @@
 <dom-module id="qualitified-pipeline">
-  <template>
+  <template >
     <style include="nuxeo-styles grid-styles">
           #board {
             height: calc(100%);
@@ -112,13 +112,15 @@
 
       </style>
     <nuxeo-operation id="setProperty" op="Document.SetProperty" input="[[document]]" params="[[params]]"></nuxeo-operation>
+    <nuxeo-operation id="getOption" op="Qualitified.GetOptionValue"></nuxeo-operation>
+
     <div id="board">
       <div class="column">
-        <div class="header"><h4>New <br/>[[_formatCurrency(newTotalAmount)]] €</h4><iron-icon class="icon"icon="icons:chevron-right"></iron-icon></div>
+        <div class="header"><h4>New <br/>[[_formatCurrency(newTotalAmount,currencyFormat,currency)]] </h4><iron-icon class="icon"icon="icons:chevron-right"></iron-icon></div>
         <div id="new" class="drop" on-drop="drop" on-dragover="allowDrop" on-dragleave="dragLeave">
-          <template is="dom-repeat" items="[[itemsNew]]">
+          <template  is="dom-repeat" items="[[itemsNew]]">
             <nuxeo-card id="id[[item.uid]]" draggable="true" on-dragstart="drag" class="card" draggable="true">
-              <a on-tap="_goToOpportunity">[[item.title]]</a> <br/><b><qualitified-amount value="[[item.properties.opportunity:amount]]"></qualitified-amount></b>
+              <a on-tap="_goToOpportunity">[[item.title]]</a> <br/><b>[[_formatCurrency(item.properties.opportunity:amount,currencyFormat,currency)]]</b>
               <br/>[[item.properties.opportunity:responsible.properties.firstName]] [[item.properties.opportunity:responsible.properties.lastName]]
               <br/><b>[[formatDate(item.properties.opportunity:closeDate)]]</b>
             </nuxeo-card>
@@ -128,11 +130,11 @@
       </div>
 
       <div class="column">
-        <div class="header"><h4>First Contact/Demo<br/>[[_formatCurrency(firstContactTotalAmount)]] €</h4><iron-icon class="icon"icon="icons:chevron-right"></iron-icon></div>
+        <div class="header"><h4>First Contact/Demo<br/>[[_formatCurrency(firstContactTotalAmount,currencyFormat,currency)]]</h4><iron-icon class="icon"icon="icons:chevron-right"></iron-icon></div>
         <div class="drop" on-drop="drop" on-dragover="allowDrop" on-dragleave="dragLeave">
           <template is="dom-repeat" items="[[itemsFirstContact]]">
             <nuxeo-card id="id[[item.uid]]" draggable="true" on-dragstart="drag" class="card" draggable="true">
-              <a on-tap="_goToOpportunity">[[item.title]]</a> <br/><b ><qualitified-amount value="[[item.properties.opportunity:amount]]"></qualitified-amount></b>
+              <a on-tap="_goToOpportunity">[[item.title]]</a> <br/><b >[[_formatCurrency(item.properties.opportunity:amount,currencyFormat,currency)]]</b>
               <br/>[[item.properties.opportunity:responsible.properties.firstName]] [[item.properties.opportunity:responsible.properties.lastName]]
               <br/><b>[[formatDate(item.properties.opportunity:closeDate)]]</b>
             </nuxeo-card>
@@ -141,11 +143,11 @@
       </div>
 
       <div class="column">
-        <div class="header"><h4>Proposal Sent<br/>[[_formatCurrency(proposalSentTotalAmount)]] €</h4><iron-icon class="icon" icon="icons:chevron-right"></iron-icon></div>
+        <div class="header"><h4>Proposal Sent<br/>[[_formatCurrency(proposalSentTotalAmount,currencyFormat,currency)]]</h4><iron-icon class="icon" icon="icons:chevron-right"></iron-icon></div>
         <div class="drop" on-drop="drop" on-dragover="allowDrop" on-dragleave="dragLeave">
           <template is="dom-repeat" items="[[itemsProposal]]">
             <nuxeo-card id="id[[item.uid]]" draggable="true" on-dragstart="drag" class="card" draggable="true">
-              <a on-tap="_goToOpportunity">[[item.title]]</a> <br/><b><qualitified-amount value="[[item.properties.opportunity:amount]]"></qualitified-amount></b>
+              <a on-tap="_goToOpportunity">[[item.title]]</a> <br/><b>[[_formatCurrency(item.properties.opportunity:amount,currencyFormat,currency)]]</b>
               <br/>[[item.properties.opportunity:responsible.properties.firstName]] [[item.properties.opportunity:responsible.properties.lastName]]
               <br/><b>[[formatDate(item.properties.opportunity:closeDate)]]</b>
             </nuxeo-card>
@@ -154,11 +156,11 @@
       </div>
 
       <div class="column">
-        <div class="header"><h4>Negociation<br/>[[_formatCurrency(negociationTotalAmount)]] €</h4><iron-icon class="icon" icon="icons:chevron-right"></iron-icon></div>
+        <div class="header"><h4>Negociation<br/>[[_formatCurrency(negociationTotalAmount,currencyFormat,currency)]]</h4><iron-icon class="icon" icon="icons:chevron-right"></iron-icon></div>
         <div class="drop" on-drop="drop" on-dragover="allowDrop" on-dragleave="dragLeave">
           <template is="dom-repeat" items="[[itemsNegociation]]">
             <nuxeo-card id="id[[item.uid]]" draggable="true" on-dragstart="drag" class="card" draggable="true">
-              <a on-tap="_goToOpportunity"> [[item.title]]</a> <br/><b><qualitified-amount value="[[item.properties.opportunity:amount]]"></qualitified-amount></b>
+              <a on-tap="_goToOpportunity"> [[item.title]]</a> <br/><b>[[_formatCurrency(item.properties.opportunity:amount,currencyFormat,currency)]]</b>
               <br/>[[item.properties.opportunity:responsible.properties.firstName]] [[item.properties.opportunity:responsible.properties.lastName]]
               <br/><b>[[formatDate(item.properties.opportunity:closeDate)]]</b>
             </nuxeo-card>
@@ -169,16 +171,16 @@
 
     <div class="footerContainer">
       <div id="limbo" class="footer limbo" on-dragleave="dragLeave" on-drop="dropFooter" on-dragover="allowDropFooter">
-        Limbo <span id="limboAmount">[[_formatCurrency(limboAmount)]] €</span><div id="newlimboAmount" class="limboText slider">+ [[newlimboAmount]] €</div>
+        Limbo <span id="limboAmount">[[_formatCurrency(limboAmount,currencyFormat,currency)]]</span><div id="newlimboAmount" class="limboText slider">+ [[_formatCurrency(newlimboAmount,currencyFormat,currency)]]</div>
       </div>
       <div id="nogo" class="footer nogo" on-dragleave="dragLeave" on-drop="dropFooter" on-dragover="allowDropFooter">
-        No Go <span id="nogoAmount">[[_formatCurrency(nogoAmount)]] €</span><div id="newnogoAmount" class="nogoText slider">+ [[newnogoAmount]] €</div>
+        No Go <span id="nogoAmount">[[_formatCurrency(nogoAmount,currencyFormat,currency)]]</span><div id="newnogoAmount" class="nogoText slider">+ [[_formatCurrency(newnogoAmount,currencyFormat,currency)]]</div>
       </div>
       <div id="won" class="footer won" on-dragleave="dragLeave" on-drop="dropFooter" on-dragover="allowDropFooter">
-        Won <span id="wonAmount">[[_formatCurrency(wonAmount)]] €</span><div id="newwonAmount" class="wonText slider">+ [[newwonAmount]] €</div>
+        Won <span id="wonAmount">[[_formatCurrency(wonAmount,currencyFormat,currency)]]</span><div id="newwonAmount" class="wonText slider">+ [[_formatCurrency(newwonAmount,currencyFormat,currency)]]</div>
       </div>
       <div id="lost" class="footer lost" on-dragleave="dragLeave" on-drop="dropFooter" on-dragover="allowDropFooter">
-        Lost <span id="lostAmount">[[_formatCurrency(lostAmount)]] €</span><div id="newlostAmount" class="lostText slider">+ <qualitified-amount value="[[newlostAmount]]"></qualitified-amount></div>
+        Lost <span id="lostAmount">[[_formatCurrency(lostAmount,currencyFormat,currency)]]</span><div id="newlostAmount" class="lostText slider">+ [[_formatCurrency(newlostAmount,currencyFormat,currency)]]</div>
       </div>
     </div>
 
@@ -189,11 +191,6 @@
         is: 'qualitified-pipeline',
         behaviors: [Nuxeo.RoutingBehavior, Nuxeo.FormatBehavior, Nuxeo.ChartDataBehavior, Report.DataBehavior],
         properties: {
-
-        nxProvider: {
-        type: Object,
-        observer: "_nxProviderObserver",
-        },
          document: {
         type: Object,
         },
@@ -273,11 +270,28 @@
         IdSelected: {
         type: String,
         },
-
+        currencyFormat:{
+          type: String
         },
+        currency:{
+          type: String
+        }
+        },
+
         _filterByState: function() {
 
-         if (  this.itemsNew.length == 0 && this.itemsFirstContact.length == 0  && this.itemsProposal.length== 0 && this.itemsNegociation.length== 0){
+          this.itemsNew=[];
+          this.itemsFirstContact=[];
+          this.itemsProposal=[];
+          this.itemsNegociation=[];
+          this.limboAmount=0;
+          this.nogoAmount=0;
+          this.wonAmount=0;
+          this.lostAmount=0;
+          this.newTotalAmount=0;
+          this.firstContactTotalAmount=0;
+          this.proposalSentTotalAmount=0;
+          this.negociationTotalAmount=0;
          this.itemsNew = this.items.filter(function (el) {
          return el.properties['opportunity:step'].id =='New';
          });
@@ -304,6 +318,7 @@
             if(this.items[i].properties['opportunity:step'].id =='Lost'){
             this.lostAmount+=this.items[i].properties['opportunity:amount'];
             }
+
              if(this.items[i].properties['opportunity:step'].id =='New'){
             this.newTotalAmount+=this.items[i].properties['opportunity:amount'];
             }
@@ -317,7 +332,8 @@
             this.negociationTotalAmount+=this.items[i].properties['opportunity:amount'];
             }
          }
-         }
+
+
          },
 
          _goToOpportunity:function(e){
@@ -354,6 +370,7 @@
                 if('id'+this.items[i].uid ==ev.target.id){
                 this.negociationTotalAmount-=this.items[i].properties['opportunity:amount'];
                 }}}
+
         },
         drop:function(ev){
             ev.preventDefault();
@@ -408,6 +425,10 @@
             this.shadowRoot.querySelectorAll('over').forEach(function(drop){
               drop.classList.remove('over');
             });
+                setTimeout(function(){  let nuxeoApp = document.querySelector('nuxeo-app');
+        var searchForm = nuxeoApp.$.drawer.querySelector('nuxeo-search-form[name="opportunity-list"');
+        if(searchForm){
+        searchForm._search();} }, 1000);
         },
         dropFooter: function(ev){
             ev.preventDefault();
@@ -427,7 +448,7 @@
               setTimeout(function(){
                 this.shadowRoot.querySelector('#newlimboAmount').classList.remove('slide');
               }.bind(this),2000);
-              this.shadowRoot.querySelector('#'+ev.target.id+'Amount').innerHTML=this.limboAmount+' €';
+              this.shadowRoot.querySelector('#'+ev.target.id+'Amount').innerHTML=this._formatCurrency(this.limboAmount,this.currencyFormat,this.currency);
             }
 
 
@@ -444,7 +465,7 @@
               setTimeout(function(){
                 this.shadowRoot.querySelector('#newnogoAmount').classList.remove('slide');
               }.bind(this),2000);
-              this.shadowRoot.querySelector('#'+ev.target.id+'Amount').innerHTML=this.nogoAmount+' €';
+              this.shadowRoot.querySelector('#'+ev.target.id+'Amount').innerHTML=this._formatCurrency(this.nogoAmount,this.currencyFormat,this.currency);
             }
 
 
@@ -460,14 +481,8 @@
               setTimeout(function(){
                 this.shadowRoot.querySelector('#newwonAmount').classList.remove('slide');
               }.bind(this),2000);
-              this.shadowRoot.querySelector('#'+ev.target.id+'Amount').innerHTML=this.wonAmount+' €';
-              for (var i = 0; i < this.items.length; i++) {
-                if('id'+this.items[i].uid ==data){
-                this.document=this.items[i];
-                this._setStep('Won',this.items[i].uid);
-            } }
+              this.shadowRoot.querySelector('#'+ev.target.id+'Amount').innerHTML=this._formatCurrency(this.wonAmount,this.currencyFormat,this.currency);
             }
-
 
             if(ev.target.id === 'lost'){
             this.IdSelected=ev.target.parentNode.appendChild(this.shadowRoot.querySelector('#'+data));
@@ -476,30 +491,21 @@
                  this.newlostAmount=this.items[i].properties['opportunity:amount'];
                 this.document=this.items[i];
                 this._setStep('Lost',this.items[i].uid);
-
             } }
             this.lostAmount+=parseInt(this.newlostAmount);
               setTimeout(function(){
                 this.shadowRoot.querySelector('#newlostAmount').classList.remove('slide');
               }.bind(this),2000);
-              this.shadowRoot.querySelector('#'+ev.target.id+'Amount').innerHTML=this.lostAmount+' €';
-
+              this.shadowRoot.querySelector('#'+ev.target.id+'Amount').innerHTML=this._formatCurrency(this.lostAmount,this.currencyFormat,this.currency);
             }
+
             this.shadowRoot.querySelector('#' + data).remove();
-
-
         },
         dragLeave: function(ev){
           ev.preventDefault();
           ev.target.classList.remove('footerDrop');
           ev.target.classList.remove('over');
         },
-        _formatCurrency: function(val) {
-         if(val == null){
-         return "";
-         }
-         return val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-         },
 
         _setStep: function(value,inputID){
          this.params = {
@@ -512,6 +518,46 @@
               this.$.setProperty.execute();
 
          },
+
+      _formatCurrency: function(val,format,currency) {
+        if(val == null){
+          return "";
+        }
+        return val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, format)+' '+currency+'';
+      },
+      ready: async function () {
+        const format = await this._getCurrencyFormat();
+        this.currencyFormat = format;
+        const curr = await this._getCurrency();
+        this.currency = curr;
+      },
+       _getCurrencyFormat: async function(){
+               let params = {};
+               params.name = "CurrencyFormat";
+               this.$.getOption.params = params;
+               let result = await this.$.getOption.execute().then(function(response){
+                   if(response === null){
+                      return ",";
+                   }else{
+                      return response.value;
+                   }
+               }.bind(this));
+               return result;
+        },
+       _getCurrency: async function(){
+               let params = {};
+               params.name = "Currency";
+               this.$.getOption.params = params;
+               let result = await this.$.getOption.execute().then(function(response){
+                   if(response === null){
+                      return "$";
+                   }else{
+                      return response.value;
+                   }
+               }.bind(this));
+               return result;
+        },
+
 
 
 
