@@ -38,7 +38,7 @@
                 role="widget"
                 id="interactionTodoProvider"
                 auto
-                query="SELECT * FROM Interaction WHERE ecm:currentLifeCycleState != 'deleted' and ecm:isTrashed = 0 and ecm:parentId = '[[document.uid]]' AND ecm:currentLifeCycleState = 'todo'"
+                query="SELECT * FROM Interaction WHERE ecm:currentLifeCycleState != 'deleted' and ecm:isTrashed = 0 and ecm:parentId = '[[document.uid]]' AND ecm:currentLifeCycleState = 'todo' ORDER BY interaction:date DESC"
                 page-size="1"
                 params="[[params]]"
                 aggregations="{{interactionTodoAggregations}}"
@@ -93,7 +93,7 @@
                         role="widget"
                         id="interactionProvider"
                         auto
-                        query="SELECT * FROM Interaction WHERE ecm:currentLifeCycleState != 'deleted' and ecm:isTrashed = 0 and ecm:parentId = '[[document.uid]]' AND ecm:currentLifeCycleState = 'done'"
+                        query="SELECT * FROM Interaction WHERE ecm:currentLifeCycleState != 'deleted' and ecm:isTrashed = 0 and ecm:parentId = '[[document.uid]]' AND ecm:currentLifeCycleState = 'done' ORDER BY interaction:date DESC"
                         page-size="40"
                         params="[[params]]"
                         aggregations="{{interactionAggregations}}"

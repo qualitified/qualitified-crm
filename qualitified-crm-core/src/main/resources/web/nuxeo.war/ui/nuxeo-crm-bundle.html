@@ -236,9 +236,13 @@
     </template>
 </nuxeo-slot-content>
 
-<nuxeo-slot-content name="RecordAction" slot="DOCUMENT_ACTIONS" disabled>
+<nuxeo-slot-content name="RecordAction" slot="DOCUMENT_ACTIONS" order="200">
     <template>
-        <qualitified-record-action document="[[document]]" label="Record Action"></qualitified-record-action>
+        <nuxeo-filter user="[[user]]" expression="user.isAdministrator">
+            <template>
+                <qualitified-record-action document="[[document]]" label="Record Action"></qualitified-record-action>
+            </template>
+        </nuxeo-filter>
     </template>
 </nuxeo-slot-content>
 
