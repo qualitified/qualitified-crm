@@ -37,24 +37,31 @@ public class ContextDocFunctions {
     }
     public String getParentMetadata(String type,String metadata)
     {
+        String value = "";
         type = type.trim();
         if (type.length() != 0) {
             DocumentModel parentDoc = doc.getCoreSession().getDocument(doc.getParentRef());
-            if (parentDoc != null && type.equals(parentDoc.getType())) {
-                return (String) parentDoc.getPropertyValue(metadata);
+            while (parentDoc != null && !type.equals(parentDoc.getType())) {
+                parentDoc = doc.getCoreSession().getParentDocument(parentDoc.getRef());
+
+            }
+            if (parentDoc != null) {
+                value = (String) parentDoc.getPropertyValue(metadata);
+
             }
         }
-        return "";
+        return value;
+
+
     }
     public String getDocumentMetadata(String documentId,String metadata)
     {
-        if (documentId.length() != 0) {
-            DocumentModel parentDoc = doc.getCoreSession().getDocument(doc.getParentRef());
-            if (parentDoc != null && documentId.equals(parentDoc.getId())) {
-                return (String) parentDoc.getPropertyValue(metadata);
-            }
+        String value = "";
+        DocumentModel document = doc.getCoreSession().getDocument(new IdRef(documentId));
+        if(document != null && document.getPropertyValue(metadata) != null){
+            value = (String)document.getPropertyValue(metadata);
         }
-        return "";
+        return value;
 
     }
 
