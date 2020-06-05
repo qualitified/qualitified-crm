@@ -19,6 +19,7 @@
         </style>
 
         <qualitified-pipeline items="[[opportunityList]]"></qualitified-pipeline>
+        <nuxeo-operation id="getOption" op="Qualitified.GetOptionValue"></nuxeo-operation>
         <br/>
         <nuxeo-results id="nxResultsOpportunity" nx-provider="[[nxProvider]]">
             <nuxeo-data-table name="table" icon="icons:list" class="results"
@@ -38,7 +39,7 @@
                 <nuxeo-data-table-column name="Amount" field="opportunity:amount" sort-by="opportunity:amount"
                                          flex="50">
                     <template>
-                        <qualitified-amount value="[[item.properties.opportunity:amount]]"></qualitified-amount>
+                        [[_formatCurrency(item.properties.opportunity:amount,currencyFormat)]]
                     </template>
                 </nuxeo-data-table-column>
 
@@ -75,17 +76,17 @@
       opportunityList: {
         type: Array,
         notify: true,
+        },
+      currencyFormat:{
+          type: String
+        },
+      currency:{
+          type: String
         }
     },
 
     _navigate: function(e) {
       this.fire('navigate', {doc: (e.model || e.detail).item});
-    },
-    _formatCurrency: function(val) {
-      if(val == null){
-        return "";
-      }
-      return val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
     },
       _nxProviderObserver: function() {
         this._getOpportunityListFromResults();
@@ -101,6 +102,53 @@
         this.opportunityList = this.$.nxResultsOpportunity.items;
       }.bind(this), 600);
        },
+        _formatCurrency: function(val,format) {
+        if(val == null){
+          return "";
+        }
+         if((typeof this.currency !== "undefined") && (typeof format !== "undefined") ){
+        return val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, format)+' '+this.currency+'';
+        }
+        else {
+          setTimeout(function(){  let nuxeoApp = document.querySelector('nuxeo-app');
+        var searchForm = nuxeoApp.$.drawer.querySelector('nuxeo-search-form[name="opportunity-list"');
+        if(searchForm){
+        searchForm._search();} }, 1000);
+        }
+
+      },
+      ready: async function () {
+        const format = await this._getCurrencyFormat();
+        this.currencyFormat = format;
+        const curr = await this._getCurrency();
+        this.currency = curr;
+      },
+       _getCurrencyFormat: async function(){
+               let params = {};
+               params.name = "CurrencyFormat";
+               this.$.getOption.params = params;
+               let result = await this.$.getOption.execute().then(function(response){
+                   if(response === null){
+                      return ",";
+                   }else{
+                      return response.value;
+                   }
+               }.bind(this));
+               return result;
+        },
+       _getCurrency: async function(){
+               let params = {};
+               params.name = "Currency";
+               this.$.getOption.params = params;
+               let result = await this.$.getOption.execute().then(function(response){
+                   if(response === null){
+                      return "$";
+                   }else{
+                      return response.value;
+                   }
+               }.bind(this));
+               return result;
+        },
   });
 
     </script>
