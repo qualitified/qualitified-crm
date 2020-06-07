@@ -36,6 +36,8 @@ limitations under the License.
                     name="description"
                     value="{{document.properties.dc:description}}">
     </nuxeo-textarea>
+    <nuxeo-date-picker role="widget" label="[[i18n('label.dublincore.expire')]]" name="expired" value="{{document.properties.dc:expired}}">
+    </nuxeo-date-picker>
 
     <nuxeo-dropzone role="widget"
                     label="[[i18n('file.content')]]"

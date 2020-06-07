@@ -827,12 +827,14 @@
         <state name="approved" description="Content has been approved">
           <transitions>
             <transition>delete</transition>
+            <transition>obsolete</transition>
             <transition>backToProject</transition>
           </transitions>
         </state>
         <state name="obsolete" description="Content becomes obsolete">
           <transitions>
             <transition>delete</transition>
+            <transition>backToProject</transition>
           </transitions>
         </state>
         <state name="deleted" description="Content is in the trash (before real deletion)">
@@ -1374,7 +1376,52 @@
       <sort column="dc:title" ascending="true"/>
       <pageSize>10</pageSize>
     </genericPageProvider>
+    <coreQueryPageProvider class="org.nuxeo.elasticsearch.provider.ElasticSearchNxqlPageProvider" name="expired_search">
+      <trackUsage>true</trackUsage>
+      <property name="maxResults">DEFAULT_NAVIGATION_RESULTS</property>
+      <whereClause docType="ExpiredSearch">
+        <fixedPart>
+          ecm:isVersion = 0
+          AND ecm:mixinType != 'HiddenInNavigation'
+          AND ecm:isTrashed = 0
+          AND ecm:currentLifeCycleState != 'obsolete'
+        </fixedPart>
+        <predicate operator="FULLTEXT" parameter="dc:title">
+          <field name="title" schema="expired_search"/>
+        </predicate>
+        <predicate operator="&lt;" parameter="dc:expired">
+          <field name="expired_max" schema="expired_search"/>
+        </predicate>
+        <predicate operator=">" parameter="dc:expired">
+          <field name="expired_min" schema="expired_search"/>
+        </predicate>
+      </whereClause>
+      <aggregates>
+        <aggregate id="dc_creator_agg" parameter="dc:creator" type="terms">
+          <field name="dc_creator_agg" schema="expired_search"/>
+          <properties>
+            <property name="size">10</property>
+          </properties>
+        </aggregate>
+        <aggregate id="dc_expired_agg" parameter="dc:expired" type="date_histogram">
+          <field name="dc_expired_agg" schema="expired_search"/>
+          <properties>
+            <property name="interval">month</property>
+            <property name="format">MM-yyyy</property>
+            <property name="order">key asc</property>
+          </properties>
+        </aggregate>
+      </aggregates>
+      <sort ascending="true" column="dc:expired"/>
+      <pageSize>20</pageSize>
+      <!--quickFilters>
+        <quickFilter name="approved">
+          <clause>ecm:currentLifeCycleState = 'approved'</clause>
+        </quickFilter>
+      </quickFilters-->
+    </coreQueryPageProvider>
   </extension>
+
   <extension target="org.nuxeo.automation.scripting.internals.AutomationScriptingComponent" point="operation">
     <scriptedOperation id="javascript.getCustomFields">
       <inputType>void</inputType>

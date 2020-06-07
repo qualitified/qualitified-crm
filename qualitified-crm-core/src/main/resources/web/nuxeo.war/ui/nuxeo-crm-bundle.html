@@ -11,7 +11,8 @@
 <link rel="import" href="elements/qualitified-dialog-button.html">
 <link rel="import" href="elements/qualitified-option.html">
 <link rel="import" href="elements/qualitified-amount.html">
-<link rel="import" href="elements/qualitified-menu-icon.html">
+<link rel="import" href="elements/interaction-menu-icon.html">
+<link rel="import" href="elements/expired-menu-icon.html">
 
 <!-- Contribution of element 'custom-document-page' for slot 'DOCUMENT_VIEWS_PAGES' -->
 <nuxeo-slot-content name="myViewPage" slot="DOCUMENT_VIEWS_PAGES" >
@@ -61,7 +62,7 @@
 
 <nuxeo-slot-content name="search-for-interaction" slot="DRAWER_ITEMS" order="4">
     <template>
-        <qualitified-menu-icon label="Interactions"  name="search-for-interaction" icon="icons:thumb-up"></qualitified-menu-icon>
+        <interaction-menu-icon label="Interactions"  name="search-for-interaction" icon="icons:thumb-up" badge-query="SELECT * FROM Interaction WHERE ecm:isTrashed = 0 AND ecm:isCheckedInVersion = 0 AND ecm:currentLifeCycleState = 'todo'"></interaction-menu-icon>
     </template>
 </nuxeo-slot-content>
 <!-- Contribution of element 'nuxeo-search-form' for slot 'DRAWER_PAGES' -->
@@ -122,12 +123,12 @@
   </template>
 </nuxeo-slot-content> -->
 
-<nuxeo-slot-content name="expiredSearchMenuButton" slot="DRAWER_ITEMS" order="40" disabled>
+<nuxeo-slot-content name="expiredSearchMenuButton" slot="DRAWER_ITEMS" order="40">
     <template>
-        <nuxeo-menu-icon name="expiredSearch" icon="nuxeo:expired" label="app.expiredSearch"></nuxeo-menu-icon>
+        <expired-menu-icon name="expiredSearch" icon="nuxeo:expired" label="app.expiredSearch"></expired-menu-icon>
     </template>
 </nuxeo-slot-content>
-<nuxeo-slot-content name="expiredSearchMenuPage" slot="DRAWER_PAGES" disabled>
+<nuxeo-slot-content name="expiredSearchMenuPage" slot="DRAWER_PAGES">
     <template>
         <nuxeo-search-form name="expiredSearch" search-name="expired" queue auto
                            provider="expired_search" schemas="dublincore,common,uid"
@@ -135,7 +136,7 @@
     </template>
 </nuxeo-slot-content>
 
-<!--nuxeo-slot-content name="tasksDrawerItem" slot="DRAWER_ITEMS" order="50" disabled>
+<nuxeo-slot-content name="tasksDrawerItem" slot="DRAWER_ITEMS" order="50" disabled>
   <template>
     <nuxeo-menu-icon name="tasks" icon="nuxeo:tasks" id="menuTasks" label="app.tasks" badge="[[taskCount]]"></nuxeo-menu-icon>
   </template>
@@ -144,7 +145,7 @@
   <template>
     <nuxeo-tasks-drawer name="tasks" tasks="[[tasks]]" current-task="[[currentTask]]"></nuxeo-tasks-drawer>
   </template>
-</nuxeo-slot-content-->
+</nuxeo-slot-content>
 
 <nuxeo-slot-content name="browseDrawerItem" slot="DRAWER_ITEMS" order="10" disabled>
     <template>
