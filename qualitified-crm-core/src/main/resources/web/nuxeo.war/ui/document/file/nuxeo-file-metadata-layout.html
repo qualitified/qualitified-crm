@@ -22,10 +22,20 @@ limitations under the License.
 -->
 <link rel="import" href="../qualitified-custom-fields.html">
 <dom-module id="nuxeo-file-metadata-layout">
-
   <template>
+    <style>
+      .valign{
+        vertical-align:top;
+      }
+    </style>
     <div role="widget">
       <h1>[[document.properties.dc:title]]</h1>
+    </div>
+    <div>
+      <nuxeo-tag uppercase="">[[formatLifecycleState(document.state)]]</nuxeo-tag>
+      <nuxeo-date datetime="[[document.properties.dc:modified]]"></nuxeo-date>
+      <nuxeo-user-tag class="valign" user="[[document.properties.dc:lastContributor]]"></nuxeo-user-tag>
+      <nuxeo-document-versions class="valign" document="[[document]]"></nuxeo-document-versions>
     </div>
     <qualitified-custom-fields document="{{document}}" mode="view"></qualitified-custom-fields>
     <div role="widget" hidden$="[[!document.properties.dc:description]]">
