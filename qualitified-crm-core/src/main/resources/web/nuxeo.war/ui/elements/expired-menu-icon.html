@@ -1,4 +1,4 @@
-<dom-module id="qualitified-menu-icon">
+<dom-module id="expired-menu-icon">
     <template>
         <style>
       :host {
@@ -44,7 +44,7 @@
     </template>
     <script>
     Polymer({
-      is: 'qualitified-menu-icon',
+      is: 'expired-menu-icon',
       behaviors: [Nuxeo.I18nBehavior, Nuxeo.RoutingBehavior],
       properties: {
         /**
@@ -89,6 +89,11 @@
           type: String,
           value:""
         },
+
+        badgeQuery: {
+          type: String,
+          value:""
+        },
         params:{
           type: Object,
           value: {}
@@ -130,7 +135,7 @@
         this._getCount();
       },
       _getCount(){
-        this.params.query="SELECT * FROM Interaction WHERE ecm:isTrashed = 0 AND ecm:isCheckedInVersion = 0 AND ecm:currentLifeCycleState = 'todo'";
+        this.params.query = "SELECT * FROM Document WHERE ecm:isVersion = 0 AND ecm:mixinType != 'HiddenInNavigation' AND ecm:isTrashed = 0 AND ecm:currentLifeCycleState != 'obsolete' AND dc:expired <= DATE '"+ new Date().toISOString().split('T')[0]+"'";
         this.$.query.execute().then(function(result) {
             this.badge = result.resultsCount;
         }.bind(this));

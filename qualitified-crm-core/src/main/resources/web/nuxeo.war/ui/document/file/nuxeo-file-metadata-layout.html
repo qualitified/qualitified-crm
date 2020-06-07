@@ -32,6 +32,10 @@ limitations under the License.
       <label>[[i18n('label.dublincore.description')]]</label>
       <div name="description" class="multiline">[[document.properties.dc:description]]</div>
     </div>
+    <div role="widget" hidden$="[[!document.properties.dc:expired]]">
+      <label>[[i18n('label.dublincore.expire')]]</label>
+      <nuxeo-date name="expired" datetime="[[document.properties.dc:expired]]"></nuxeo-date>
+    </div>
   </template>
 
   <script>
@@ -42,8 +46,16 @@ limitations under the License.
         /**
          * @doctype File
          */
-        document: Object
-      }
+        document: {
+            type: Object,
+            observer: '_documentReady'
+          }
+      },
+       _documentReady: function(doc){
+          if(doc){
+              document.querySelector("nuxeo-app").shadowRoot.querySelector("#menu > expired-menu-icon")._getCount();
+          }
+        }
     });
   </script>
 
