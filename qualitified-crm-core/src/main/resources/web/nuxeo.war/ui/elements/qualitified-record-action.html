@@ -193,8 +193,8 @@
         }.bind(this));
       },
 
+      //listeners
       _addListeners: function(){
-        //listeners
         //Add To Collection
         let collectionDialog = document.querySelector('nuxeo-app').shadowRoot.querySelector('#drawerPanel').querySelector('paper-header-panel').querySelector('#pages').querySelector('#browser').shadowRoot.querySelector('nuxeo-page').querySelector('div').querySelector('div').querySelector('nuxeo-actions-menu').querySelector('nuxeo-add-to-collection-button').shadowRoot.querySelector('nuxeo-dialog');
         if(typeof collectionDialog != 'undefined' && collectionDialog !== null && collectionDialog.getAttribute('hasListener') == null){
@@ -223,6 +223,66 @@
           }.bind(this));
           favoriteElement.setAttribute('hasListener',true);
         }
+
+        //Block Inheritance
+        let permissionBlock = document.querySelector("nuxeo-app").shadowRoot.querySelector("#browser").shadowRoot.querySelector("#permissions").shadowRoot.querySelector("#block");
+        if(typeof permissionBlock != 'undefined' && permissionBlock !== null && permissionBlock.getAttribute('hasListener') == null){
+          permissionBlock.addEventListener("click", function(){
+              this._recordAction("Block Permission Inheritance","Document.BlockPermissionInheritance(input,{});");
+          }.bind(this));
+          permissionBlock.setAttribute('hasListener',true);
+        }
+
+        //Unblock Inheritance
+        let permissionUnblock = document.querySelector("nuxeo-app").shadowRoot.querySelector("#browser").shadowRoot.querySelector("#permissions").shadowRoot.querySelector("#unblock");
+        if(typeof permissionUnblock != 'undefined' && permissionUnblock !== null && permissionUnblock.getAttribute('hasListener') == null){
+          permissionUnblock.addEventListener("click", function(){
+              this._recordAction("Unblock Permission Inheritance","Document.UnblockPermissionInheritance(input,{});");
+          }.bind(this));
+          permissionUnblock.setAttribute('hasListener',true);
+        }
+
+        //Notify
+        let notifyButton = document.querySelector("nuxeo-app").shadowRoot.querySelector("#browser").shadowRoot.querySelector("nuxeo-notifications-toggle-button");
+        if(typeof notifyButton != 'undefined' && notifyButton !== null && notifyButton.getAttribute('hasListener') == null){
+          notifyButton.shadowRoot.querySelector("div").addEventListener("click", function(){
+              let nb = document.querySelector("nuxeo-app").shadowRoot.querySelector("#browser").shadowRoot.querySelector("nuxeo-notifications-toggle-button");
+              if(typeof nb.subscribed != 'undefined' && nb.subscribed == true){
+                this._recordAction("Stop Notifications","Document.Unsubscribe(input,{});");
+              }else{
+                this._recordAction("Notify Me","Document.Subscribe(input,{});");
+              }
+          }.bind(this));
+          notifyButton.setAttribute('hasListener',true);
+        }
+
+        //Add to Clipboard
+        //TODO find a way to do this
+
+        //Lock
+        let lockButton = document.querySelector("nuxeo-app").shadowRoot.querySelector("#browser").shadowRoot.querySelector("nuxeo-lock-toggle-button");
+        if(typeof lockButton != 'undefined' && lockButton !== null && lockButton.getAttribute('hasListener') == null){
+          lockButton.shadowRoot.querySelector("div").addEventListener("click", function(){
+              let lb = document.querySelector("nuxeo-app").shadowRoot.querySelector("#browser").shadowRoot.querySelector("nuxeo-lock-toggle-button");
+              if(typeof lb.locked != 'undefined' && lb.locked == true){
+                this._recordAction("Unlock","Document.Unlock(input,{});");
+              }else{
+                this._recordAction("Lock","Document.Lock(input,{});");
+              }
+          }.bind(this));
+          lockButton.setAttribute('hasListener',true);
+        }
+
+        //Publish
+        let publishButton = document.querySelector("nuxeo-app").shadowRoot.querySelector("#browser").shadowRoot.querySelector("nuxeo-publish-button").shadowRoot.querySelector("#internalPublish").shadowRoot.querySelector("#publish");
+        if(typeof publishButton != 'undefined' && publishButton !== null && publishButton.getAttribute('hasListener') == null){
+          publishButton.addEventListener("click", function(){
+              let section = document.querySelector("nuxeo-app").shadowRoot.querySelector("#browser").shadowRoot.querySelector("nuxeo-actions-menu").shadowRoot.querySelector("nuxeo-publish-button").shadowRoot.querySelector("#internalPublish").shadowRoot.querySelector("#target").shadowRoot.querySelector("#s2").shadowRoot.querySelector("#input > div > div > span");
+              this._recordAction("Publish to "+section.innerText,"Document.Publish(input,{target:\""+section.getAttribute("data-item-id")+"\"});");
+          }.bind(this));
+          publishButton.setAttribute('hasListener',true);
+        }
+
       },
 
       _recordAction: function(actionName, actionContent){

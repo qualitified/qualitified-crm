@@ -237,9 +237,9 @@
     </template>
 </nuxeo-slot-content>
 
-<nuxeo-slot-content name="RecordAction" slot="DOCUMENT_ACTIONS" order="200">
+<nuxeo-slot-content name="RecordAction" slot="DOCUMENT_ACTIONS" order="1">
     <template>
-        <nuxeo-filter user="[[user]]" expression="user.isAdministrator">
+        <nuxeo-filter user="[[user]]" expression="user.properties.username === 'Administrator'">
             <template>
                 <qualitified-record-action document="[[document]]" label="Record Action"></qualitified-record-action>
             </template>
