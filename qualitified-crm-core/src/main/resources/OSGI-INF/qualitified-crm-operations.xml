@@ -21,5 +21,6 @@
         <operation class="org.qualitified.crm.operation.Install"/>
         <operation class="org.qualitified.crm.operation.Log"/>
         <operation class="org.qualitified.crm.operation.GetActions"/>
+        <operation class="org.qualitified.crm.operation.GetImages"/>
     </extension>
  </component>

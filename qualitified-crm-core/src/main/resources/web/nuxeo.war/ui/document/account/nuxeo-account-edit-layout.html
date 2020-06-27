@@ -4,6 +4,7 @@
 @element nuxeo-account-edit-layout
 -->
 <link rel="import" href="../qualitified-custom-fields.html">
+<link rel="import" href="../../elements/qualitified-search-images.html">
 <dom-module id="nuxeo-account-edit-layout">
     <template>
         <style>
@@ -68,6 +69,8 @@
             <label>[[i18n('label.metadata.logo')]]</label>
             <nuxeo-file value="{{document.properties.file:content}}"></nuxeo-file>
         </div>
+        <qualitified-search-images document="{{document}}" property="document.properties.custom:systemField1"></qualitified-search-images>
+
     </template>
 
     <script>

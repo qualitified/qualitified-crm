@@ -1,4 +1,5 @@
 <link rel="import" href="../qualitified-custom-fields.html">
+<link rel="import" href="../../elements/qualitified-search-images.html">
 <dom-module id="nuxeo-contact-edit-layout">
     <template>
         <style>
@@ -8,6 +9,8 @@
 
         </style>
         <!--nuxeo-input value="{{document.properties.dc:title}}" label="Title" role="widget"></nuxeo-input-->
+        <nuxeo-operation id="getImages" op="Qualitified.GetImages"></nuxeo-operation>
+        <nuxeo-operation id="getOption" op="Qualitified.GetOptionValue"></nuxeo-operation>
 
         <nuxeo-directory-suggestion value="{{document.properties.person:civility}}"
                                     label="[[i18n('label.metadata.civility')]]" directory-name="Civility" role="widget"
@@ -56,11 +59,14 @@
 
         <nuxeo-user-suggestion  value="{{document.properties.contact:responsible}}" label="[[i18n('label.metadata.responsible')]]" search-type="USER_TYPE" role="widget" min-chars="0">
         </nuxeo-user-suggestion>
+        <qualitified-custom-fields document="{{document}}" mode="edit"></qualitified-custom-fields>
+
         <div role="widget">
             <label>[[i18n('label.metadata.contact.picture')]]</label>
             <nuxeo-file value="{{document.properties.file:content}}"></nuxeo-file>
         </div>
-        <qualitified-custom-fields document="{{document}}" mode="edit"></qualitified-custom-fields>
+        <qualitified-search-images document="{{document}}" property="document.properties.custom:systemField1"></qualitified-search-images>
+
     </template>
 
     <script>
@@ -78,7 +84,6 @@
             type: Object
           }
         }
-
       });
     })();
 
