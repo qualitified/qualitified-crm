@@ -75,7 +75,11 @@
       <artifactId>jsch</artifactId>
       <version>0.1.55</version>
     </dependency>
-
+    <dependency>
+      <groupId>com.mailjet</groupId>
+      <artifactId>mailjet-client</artifactId>
+      <version>4.5.0</version>
+    </dependency>
   </dependencies>
 
 
