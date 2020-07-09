@@ -95,6 +95,11 @@
           <div>[[item.parentId]]</div>
         </template>
       </nuxeo-data-table-column>
+      <nuxeo-data-table-column name="[[i18n('label.metadata.custom.multiline')]]">
+        <template>
+          <div>[[item.multiline]]</div>
+        </template>
+      </nuxeo-data-table-column>
 
       <nuxeo-data-table-form>
         <template>
@@ -112,6 +117,8 @@
             <nuxeo-input role="widget" value="{{item.primaryType}}" label="Primary Type"></nuxeo-input>
             <nuxeo-input role="widget" value="{{item.path}}" label="Path"></nuxeo-input>
             <nuxeo-input role="widget" value="{{item.parentId}}" label="Parent Id"></nuxeo-input>
+            <paper-checkbox checked="{{item.multiline}}"></paper-checkbox> Multiline
+
           </div>
         </template>
       </nuxeo-data-table-form>

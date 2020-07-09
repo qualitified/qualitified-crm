@@ -24,26 +24,128 @@
 
         <iron-pages selected="[[mode]]" attr-for-selected="name" class="vertical layout flex">
             <div name="edit" class="vertical layout flex">
-                <nuxeo-input hidden$="[[!stringField1Visible]]" role="widget" value="{{document.properties.custom:stringField1}}" label="[[stringField1Label]]" required="[[stringField1Required]]" class="sortableEdit" id="[[stringField1Order]]"></nuxeo-input>
-                <nuxeo-input hidden$="[[!stringField2Visible]]" role="widget" value="{{document.properties.custom:stringField2}}" label="[[stringField2Label]]" required="[[stringField2Required]]" class="sortableEdit" id="[[stringField2Order]]"></nuxeo-input>
-                <nuxeo-input hidden$="[[!stringField3Visible]]" role="widget" value="{{document.properties.custom:stringField3}}" label="[[stringField3Label]]" required="[[stringField3Required]]" class="sortableEdit" id="[[stringField3Order]]"></nuxeo-input>
-                <nuxeo-input hidden$="[[!stringField4Visible]]" role="widget" value="{{document.properties.custom:stringField4}}" label="[[stringField4Label]]" required="[[stringField4Required]]" class="sortableEdit" id="[[stringField4Order]]"></nuxeo-input>
-                <nuxeo-input hidden$="[[!stringField5Visible]]" role="widget" value="{{document.properties.custom:stringField5}}" label="[[stringField5Label]]" required="[[stringField5Required]]" class="sortableEdit" id="[[stringField5Order]]"></nuxeo-input>
-                <nuxeo-input hidden$="[[!stringField6Visible]]" role="widget" value="{{document.properties.custom:stringField6}}" label="[[stringField6Label]]" required="[[stringField6Required]]" class="sortableEdit" id="[[stringField6Order]]"></nuxeo-input>
-                <nuxeo-input hidden$="[[!stringField7Visible]]" role="widget" value="{{document.properties.custom:stringField7}}" label="[[stringField7Label]]" required="[[stringField7Required]]" class="sortableEdit" id="[[stringField7Order]]"></nuxeo-input>
-                <nuxeo-input hidden$="[[!stringField8Visible]]" role="widget" value="{{document.properties.custom:stringField8}}" label="[[stringField8Label]]" required="[[stringField8Required]]" class="sortableEdit" id="[[stringField8Order]]"></nuxeo-input>
-                <nuxeo-input hidden$="[[!stringField9Visible]]" role="widget" value="{{document.properties.custom:stringField9}}" label="[[stringField9Label]]" required="[[stringField9Required]]" class="sortableEdit" id="[[stringField9Order]]"></nuxeo-input>
-                <nuxeo-input hidden$="[[!stringField10Visible]]" role="widget" value="{{document.properties.custom:stringField10}}" label="[[stringField10Label]]" required="[[stringField10Required]]" class="sortableEdit" id="[[stringField10Order]]"></nuxeo-input>
-                <nuxeo-input hidden$="[[!stringField11Visible]]" role="widget" value="{{document.properties.custom:stringField11}}" label="[[stringField11Label]]" required="[[stringField11Required]]" class="sortableEdit" id="[[stringField11Order]]"></nuxeo-input>
-                <nuxeo-input hidden$="[[!stringField12Visible]]" role="widget" value="{{document.properties.custom:stringField12}}" label="[[stringField12Label]]" required="[[stringField12Required]]" class="sortableEdit" id="[[stringField12Order]]"></nuxeo-input>
-                <nuxeo-input hidden$="[[!stringField13Visible]]" role="widget" value="{{document.properties.custom:stringField13}}" label="[[stringField13Label]]" required="[[stringField13Required]]" class="sortableEdit" id="[[stringField13Order]]"></nuxeo-input>
-                <nuxeo-input hidden$="[[!stringField14Visible]]" role="widget" value="{{document.properties.custom:stringField14}}" label="[[stringField14Label]]" required="[[stringField14Required]]" class="sortableEdit" id="[[stringField14Order]]"></nuxeo-input>
-                <nuxeo-input hidden$="[[!stringField15Visible]]" role="widget" value="{{document.properties.custom:stringField15}}" label="[[stringField15Label]]" required="[[stringField15Required]]" class="sortableEdit" id="[[stringField15Order]]"></nuxeo-input>
-                <nuxeo-input hidden$="[[!stringField16Visible]]" role="widget" value="{{document.properties.custom:stringField16}}" label="[[stringField16Label]]" required="[[stringField16Required]]" class="sortableEdit" id="[[stringField16Order]]"></nuxeo-input>
-                <nuxeo-input hidden$="[[!stringField17Visible]]" role="widget" value="{{document.properties.custom:stringField17}}" label="[[stringField17Label]]" required="[[stringField17Required]]" class="sortableEdit" id="[[stringField17Order]]"></nuxeo-input>
-                <nuxeo-input hidden$="[[!stringField18Visible]]" role="widget" value="{{document.properties.custom:stringField18}}" label="[[stringField18Label]]" required="[[stringField18Required]]" class="sortableEdit" id="[[stringField18Order]]"></nuxeo-input>
-                <nuxeo-input hidden$="[[!stringField19Visible]]" role="widget" value="{{document.properties.custom:stringField19}}" label="[[stringField19Label]]" required="[[stringField19Required]]" class="sortableEdit" id="[[stringField19Order]]"></nuxeo-input>
-                <nuxeo-input hidden$="[[!stringField20Visible]]" role="widget" value="{{document.properties.custom:stringField20}}" label="[[stringField20Label]]" required="[[stringField20Required]]" class="sortableEdit" id="[[stringField20Order]]"></nuxeo-input>
+                <template is="dom-if" if="[[stringField1Multiline]]">
+                    <nuxeo-textarea hidden$="[[!stringField1Visible]]" role="widget" value="{{document.properties.custom:stringField1}}" label="[[stringField1Label]]" required="[[stringField1Required]]" class="sortableEdit" id="[[stringField1Order]]"></nuxeo-textarea>
+                </template>
+
+                <template is="dom-if" if="[[stringField2Multiline]]">
+                    <nuxeo-textarea hidden$="[[!stringField2Visible]]" role="widget" value="{{document.properties.custom:stringField2}}" label="[[stringField2Label]]" required="[[stringField2Required]]" class="sortableEdit" id="[[stringField2Order]]"></nuxeo-textarea>
+                </template>
+                <template is="dom-if" if="[[stringField3Multiline]]">
+                    <nuxeo-textarea hidden$="[[!stringField3Visible]]" role="widget" value="{{document.properties.custom:stringField3}}" label="[[stringField3Label]]" required="[[stringField3Required]]" class="sortableEdit" id="[[stringField3Order]]"></nuxeo-textarea>
+                </template>
+                <template is="dom-if" if="[[stringField4Multiline]]">
+                    <nuxeo-textarea hidden$="[[!stringField4Visible]]" role="widget" value="{{document.properties.custom:stringField4}}" label="[[stringField4Label]]" required="[[stringField4Required]]" class="sortableEdit" id="[[stringField4Order]]"></nuxeo-textarea>
+                </template>
+                <template is="dom-if" if="[[stringField5Multiline]]">
+                    <nuxeo-textarea hidden$="[[!stringField5Visible]]" role="widget" value="{{document.properties.custom:stringField5}}" label="[[stringField5Label]]" required="[[stringField5Required]]" class="sortableEdit" id="[[stringField5Order]]"></nuxeo-textarea>
+                </template>
+                <template is="dom-if" if="[[stringField6Multiline]]">
+                    <nuxeo-textarea hidden$="[[!stringField6Visible]]" role="widget" value="{{document.properties.custom:stringField6}}" label="[[stringField1Label]]" required="[[stringField6Required]]" class="sortableEdit" id="[[stringField6Order]]"></nuxeo-textarea>
+                </template>
+                <template is="dom-if" if="[[stringField7Multiline]]">
+                    <nuxeo-textarea hidden$="[[!stringField7Visible]]" role="widget" value="{{document.properties.custom:stringField7}}" label="[[stringField7Label]]" required="[[stringField7Required]]" class="sortableEdit" id="[[stringField7Order]]"></nuxeo-textarea>
+                </template>
+                <template is="dom-if" if="[[stringField8Multiline]]">
+                    <nuxeo-textarea hidden$="[[!stringField8Visible]]" role="widget" value="{{document.properties.custom:stringField8}}" label="[[stringField8Label]]" required="[[stringField8Required]]" class="sortableEdit" id="[[stringField8Order]]"></nuxeo-textarea>
+                </template>
+                <template is="dom-if" if="[[stringField9Multiline]]">
+                    <nuxeo-textarea hidden$="[[!stringField9Visible]]" role="widget" value="{{document.properties.custom:stringField9}}" label="[[stringField9Label]]" required="[[stringField9Required]]" class="sortableEdit" id="[[stringField9Order]]"></nuxeo-textarea>
+                </template>
+                <template is="dom-if" if="[[stringField10Multiline]]">
+                    <nuxeo-textarea hidden$="[[!stringField10Visible]]" role="widget" value="{{document.properties.custom:stringField10}}" label="[[stringField10Label]]" required="[[stringField10Required]]" class="sortableEdit" id="[[stringField10Order]]"></nuxeo-textarea>
+                </template>
+                <template is="dom-if" if="[[stringField11Multiline]]">
+                    <nuxeo-textarea hidden$="[[!stringField11Visible]]" role="widget" value="{{document.properties.custom:stringField11}}" label="[[stringField11Label]]" required="[[stringField11Required]]" class="sortableEdit" id="[[stringField11Order]]"></nuxeo-textarea>
+                </template>
+                <template is="dom-if" if="[[stringField12Multiline]]">
+                    <nuxeo-textarea hidden$="[[!stringField12Visible]]" role="widget" value="{{document.properties.custom:stringField12}}" label="[[stringField12Label]]" required="[[stringField12Required]]" class="sortableEdit" id="[[stringField12Order]]"></nuxeo-textarea>
+                </template>
+                <template is="dom-if" if="[[stringField13Multiline]]">
+                    <nuxeo-textarea hidden$="[[!stringField13Visible]]" role="widget" value="{{document.properties.custom:stringField13}}" label="[[stringField13Label]]" required="[[stringField13Required]]" class="sortableEdit" id="[[stringField13Order]]"></nuxeo-textarea>
+                </template>
+                <template is="dom-if" if="[[stringField14Multiline]]">
+                    <nuxeo-textarea hidden$="[[!stringField14Visible]]" role="widget" value="{{document.properties.custom:stringField14}}" label="[[stringField14Label]]" required="[[stringField14Required]]" class="sortableEdit" id="[[stringField14Order]]"></nuxeo-textarea>
+                </template>
+                <template is="dom-if" if="[[stringField15Multiline]]">
+                    <nuxeo-textarea hidden$="[[!stringField15Visible]]" role="widget" value="{{document.properties.custom:stringField15}}" label="[[stringField15Label]]" required="[[stringField15Required]]" class="sortableEdit" id="[[stringField15Order]]"></nuxeo-textarea>
+                </template>
+                <template is="dom-if" if="[[stringField16Multiline]]">
+                    <nuxeo-textarea hidden$="[[!stringField16Visible]]" role="widget" value="{{document.properties.custom:stringField16}}" label="[[stringField16Label]]" required="[[stringField16Required]]" class="sortableEdit" id="[[stringField16Order]]"></nuxeo-textarea>
+                </template>
+                <template is="dom-if" if="[[stringField17Multiline]]">
+                    <nuxeo-textarea hidden$="[[!stringField17Visible]]" role="widget" value="{{document.properties.custom:stringField17}}" label="[[stringField17Label]]" required="[[stringField17Required]]" class="sortableEdit" id="[[stringField17Order]]"></nuxeo-textarea>
+                </template>
+                <template is="dom-if" if="[[stringField18Multiline]]">
+                    <nuxeo-textarea hidden$="[[!stringField18Visible]]" role="widget" value="{{document.properties.custom:stringField18}}" label="[[stringField18Label]]" required="[[stringField18Required]]" class="sortableEdit" id="[[stringField18Order]]"></nuxeo-textarea>
+                </template>
+                <template is="dom-if" if="[[stringField19Multiline]]">
+                    <nuxeo-textarea hidden$="[[!stringField19Visible]]" role="widget" value="{{document.properties.custom:stringField19}}" label="[[stringField19Label]]" required="[[stringField19Required]]" class="sortableEdit" id="[[stringField19Order]]"></nuxeo-textarea>
+                </template>
+                <template is="dom-if" if="[[stringField20Multiline]]">
+                    <nuxeo-textarea hidden$="[[!stringField20Visible]]" role="widget" value="{{document.properties.custom:stringField20}}" label="[[stringField20Label]]" required="[[stringField20Required]]" class="sortableEdit" id="[[stringField20Order]]"></nuxeo-textarea>
+                </template>
+
+                <template is="dom-if" if="[[!stringField1Multiline]]">
+                    <nuxeo-input hidden$="[[!stringField1Visible]]" role="widget" value="{{document.properties.custom:stringField1}}" label="[[stringField1Label]]" required="[[stringField1Required]]" class="sortableEdit" id="[[stringField1Order]]"></nuxeo-input>
+                </template>
+                <template is="dom-if" if="[[!stringField2Multiline]]">
+                    <nuxeo-input hidden$="[[!stringField2Visible]]" role="widget" value="{{document.properties.custom:stringField2}}" label="[[stringField2Label]]" required="[[stringField2Required]]" class="sortableEdit" id="[[stringField2Order]]"></nuxeo-input>
+                </template>
+                <template is="dom-if" if="[[!stringField3Multiline]]">
+                    <nuxeo-input hidden$="[[!stringField3Visible]]" role="widget" value="{{document.properties.custom:stringField3}}" label="[[stringField3Label]]" required="[[stringField3Required]]" class="sortableEdit" id="[[stringField3Order]]"></nuxeo-input>
+                </template>
+                <template is="dom-if" if="[[!stringField4Multiline]]">
+                    <nuxeo-input hidden$="[[!stringField4Visible]]" role="widget" value="{{document.properties.custom:stringField4}}" label="[[stringField4Label]]" required="[[stringField4Required]]" class="sortableEdit" id="[[stringField4Order]]"></nuxeo-input>
+                </template>
+                <template is="dom-if" if="[[!stringField5Multiline]]">
+                    <nuxeo-input hidden$="[[!stringField5Visible]]" role="widget" value="{{document.properties.custom:stringField5}}" label="[[stringField5Label]]" required="[[stringField5Required]]" class="sortableEdit" id="[[stringField5Order]]"></nuxeo-input>
+                </template>
+                <template is="dom-if" if="[[!stringField6Multiline]]">
+                    <nuxeo-input hidden$="[[!stringField6Visible]]" role="widget" value="{{document.properties.custom:stringField6}}" label="[[stringField6Label]]" required="[[stringField6Required]]" class="sortableEdit" id="[[stringField6Order]]"></nuxeo-input>
+                </template>
+                <template is="dom-if" if="[[!stringField7Multiline]]">
+                    <nuxeo-input hidden$="[[!stringField7Visible]]" role="widget" value="{{document.properties.custom:stringField7}}" label="[[stringField7Label]]" required="[[stringField7Required]]" class="sortableEdit" id="[[stringField7Order]]"></nuxeo-input>
+                </template>
+                <template is="dom-if" if="[[!stringField8Multiline]]">
+                    <nuxeo-input hidden$="[[!stringField8Visible]]" role="widget" value="{{document.properties.custom:stringField8}}" label="[[stringField8Label]]" required="[[stringField8Required]]" class="sortableEdit" id="[[stringField8Order]]"></nuxeo-input>
+                </template>
+                <template is="dom-if" if="[[!stringField9Multiline]]">
+                    <nuxeo-input hidden$="[[!stringField9Visible]]" role="widget" value="{{document.properties.custom:stringField9}}" label="[[stringField9Label]]" required="[[stringField9Required]]" class="sortableEdit" id="[[stringField9Order]]"></nuxeo-input>
+                </template>
+                <template is="dom-if" if="[[!stringField10Multiline]]">
+                    <nuxeo-input hidden$="[[!stringField10Visible]]" role="widget" value="{{document.properties.custom:stringField10}}" label="[[stringField10Label]]" required="[[stringField10Required]]" class="sortableEdit" id="[[stringField10Order]]"></nuxeo-input>
+                </template>
+                <template is="dom-if" if="[[!stringField11Multiline]]">
+                    <nuxeo-input hidden$="[[!stringField11Visible]]" role="widget" value="{{document.properties.custom:stringField11}}" label="[[stringField11Label]]" required="[[stringField11Required]]" class="sortableEdit" id="[[stringField11Order]]"></nuxeo-input>
+                </template>
+                <template is="dom-if" if="[[!stringField12Multiline]]">
+                    <nuxeo-input hidden$="[[!stringField12Visible]]" role="widget" value="{{document.properties.custom:stringField12}}" label="[[stringField12Label]]" required="[[stringField12Required]]" class="sortableEdit" id="[[stringField12Order]]"></nuxeo-input>
+                </template>
+                <template is="dom-if" if="[[!stringField13Multiline]]">
+                    <nuxeo-input hidden$="[[!stringField13Visible]]" role="widget" value="{{document.properties.custom:stringField13}}" label="[[stringField13Label]]" required="[[stringField13Required]]" class="sortableEdit" id="[[stringField13Order]]"></nuxeo-input>
+                </template>
+                <template is="dom-if" if="[[!stringField14Multiline]]">
+                    <nuxeo-input hidden$="[[!stringField14Visible]]" role="widget" value="{{document.properties.custom:stringField14}}" label="[[stringField14Label]]" required="[[stringField14Required]]" class="sortableEdit" id="[[stringField14Order]]"></nuxeo-input>
+                </template>
+                <template is="dom-if" if="[[!stringField15Multiline]]">
+                    <nuxeo-input hidden$="[[!stringField15Visible]]" role="widget" value="{{document.properties.custom:stringField15}}" label="[[stringField15Label]]" required="[[stringField15Required]]" class="sortableEdit" id="[[stringField15Order]]"></nuxeo-input>
+                </template>
+                <template is="dom-if" if="[[!stringField16Multiline]]">
+                    <nuxeo-input hidden$="[[!stringField16Visible]]" role="widget" value="{{document.properties.custom:stringField16}}" label="[[stringField16Label]]" required="[[stringField16Required]]" class="sortableEdit" id="[[stringField16Order]]"></nuxeo-input>
+                </template>
+                <template is="dom-if" if="[[!stringField17Multiline]]">
+                    <nuxeo-input hidden$="[[!stringField17Visible]]" role="widget" value="{{document.properties.custom:stringField17}}" label="[[stringField17Label]]" required="[[stringField17Required]]" class="sortableEdit" id="[[stringField17Order]]"></nuxeo-input>
+                </template>
+                <template is="dom-if" if="[[!stringField18Multiline]]">
+                    <nuxeo-input hidden$="[[!stringField18Visible]]" role="widget" value="{{document.properties.custom:stringField18}}" label="[[stringField18Label]]" required="[[stringField18Required]]" class="sortableEdit" id="[[stringField18Order]]"></nuxeo-input>
+                </template>
+                <template is="dom-if" if="[[!stringField19Multiline]]">
+                    <nuxeo-input hidden$="[[!stringField19Visible]]" role="widget" value="{{document.properties.custom:stringField19}}" label="[[stringField19Label]]" required="[[stringField19Required]]" class="sortableEdit" id="[[stringField19Order]]"></nuxeo-input>
+                </template>
+                <template is="dom-if" if="[[!stringField20Multiline]]">
+                    <nuxeo-input hidden$="[[!stringField20Visible]]" role="widget" value="{{document.properties.custom:stringField20}}" label="[[stringField20Label]]" required="[[stringField20Required]]" class="sortableEdit" id="[[stringField20Order]]"></nuxeo-input>
+                </template>
 
                 <nuxeo-directory-suggestion hidden$="[[!vocabularyField1Visible]]" role="widget" value="{{document.properties.custom:vocabularyField1}}" label="[[vocabularyField1Label]]" required="[[vocabularyField1Required]]" directory-name="[[vocabularyField1Name]]" min-chars="0" multiple="[[vocabularyField1Multivalue]]" class="sortableEdit" id="[[vocabularyField1Order]]"></nuxeo-directory-suggestion>
                 <nuxeo-directory-suggestion hidden$="[[!vocabularyField2Visible]]" role="widget" value="{{document.properties.custom:vocabularyField2}}" label="[[vocabularyField2Label]]" required="[[vocabularyField2Required]]" directory-name="[[vocabularyField2Name]]" min-chars="0" multiple="[[vocabularyField2Multivalue]]" class="sortableEdit" id="[[vocabularyField2Order]]"></nuxeo-directory-suggestion>
@@ -2471,7 +2573,87 @@
         },
         documentField10Order : {
           type: Number
-        }
+        },
+        stringField1Multiline : {
+            type: Boolean,
+            value: false
+         },
+         stringField2Multiline : {
+            type: Boolean,
+            value: false
+         },
+         stringField3Multiline : {
+            type: Boolean,
+            value: false
+         },
+         stringField4Multiline : {
+            type: Boolean,
+            value: false
+         },
+         stringField5Multiline : {
+            type: Boolean,
+            value: false
+         },
+         stringField6Multiline : {
+            type: Boolean,
+            value: false
+         },
+         stringField7Multiline : {
+            type: Boolean,
+            value: false
+         },
+         stringField8Multiline : {
+            type: Boolean,
+            value: false
+         },
+         stringField9Multiline : {
+            type: Boolean,
+            value: false
+         },
+         stringField10Multiline : {
+            type: Boolean,
+            value: false
+         },
+          stringField11Multiline : {
+            type: Boolean,
+            value: false
+         },
+          stringField12Multiline : {
+            type: Boolean,
+            value: false
+         },
+          stringField13Multiline : {
+            type: Boolean,
+            value: false
+         },
+          stringField14Multiline : {
+            type: Boolean,
+            value: false
+         },
+          stringField15Multiline : {
+            type: Boolean,
+            value: false
+         },
+          stringField16Multiline : {
+            type: Boolean,
+            value: false
+         },
+          stringField17Multiline : {
+            type: Boolean,
+            value: false
+         },
+          stringField18Multiline : {
+            type: Boolean,
+            value: false
+         },
+          stringField19Multiline : {
+            type: Boolean,
+            value: false
+         },
+          stringField20Multiline : {
+            type: Boolean,
+            value: false
+         }
 
       },
       ready: function(){
@@ -2860,120 +3042,140 @@
               this.stringField1Label = field.label;
               this.stringField1Required = this._isVisible(field.readGroup,field.editGroup,field.hiddenGroup)? field.required : false;
               this.stringField1Order = i;
+              this.stringField1Multiline = field.multiline !== null  ? field.multiline : false;
             }
             if(field.fieldName === 'stringField2'){
               this.stringField2Visible = this._isVisible(field.readGroup,field.editGroup,field.hiddenGroup);
               this.stringField2Label = field.label;
               this.stringField2Required = this._isVisible(field.readGroup,field.editGroup,field.hiddenGroup)? field.required : false;
               this.stringField2Order = i;
+              this.stringField2Multiline = field.multiline !== null  ? field.multiline : false;
             }
             if(field.fieldName === 'stringField3'){
               this.stringField3Visible = this._isVisible(field.readGroup,field.editGroup,field.hiddenGroup);
               this.stringField3Label = field.label;
               this.stringField3Required = this._isVisible(field.readGroup,field.editGroup,field.hiddenGroup)? field.required : false;
               this.stringField3Order = i;
+              this.stringField3Multiline = field.multiline !== null  ? field.multiline : false;
             }
             if(field.fieldName === 'stringField4'){
                 this.stringField4Visible = this._isVisible(field.readGroup,field.editGroup,field.hiddenGroup);
                 this.stringField4Label = field.label;
                 this.stringField4Required = this._isVisible(field.readGroup,field.editGroup,field.hiddenGroup)? field.required : false;
                 this.stringField4Order = i;
+                this.stringField4Multiline = field.multiline !== null  ? field.multiline : false;
             }
             if(field.fieldName === 'stringField5'){
                 this.stringField5Visible = this._isVisible(field.readGroup,field.editGroup,field.hiddenGroup);
                 this.stringField5Label = field.label;
                 this.stringField5Required = this._isVisible(field.readGroup,field.editGroup,field.hiddenGroup)? field.required : false;
                 this.stringField5Order = i;
+                this.stringField5Multiline = field.multiline !== null  ? field.multiline : false;
             }
             if(field.fieldName === 'stringField6'){
                 this.stringField6Visible = this._isVisible(field.readGroup,field.editGroup,field.hiddenGroup);
                 this.stringField6Label = field.label;
                 this.stringField6Required = this._isVisible(field.readGroup,field.editGroup,field.hiddenGroup)? field.required : false;
                 this.stringField6Order = i;
+                this.stringField6Multiline = field.multiline !== null  ? field.multiline : false;
             }
             if(field.fieldName === 'stringField7'){
                 this.stringField7Visible = this._isVisible(field.readGroup,field.editGroup,field.hiddenGroup);
                 this.stringField7Label = field.label;
                 this.stringField7Required = this._isVisible(field.readGroup,field.editGroup,field.hiddenGroup)? field.required : false;
                 this.stringField7Order = i;
+                this.stringField7Multiline = field.multiline !== null  ? field.multiline : false;
             }
             if(field.fieldName === 'stringField8'){
                 this.stringField8Visible = this._isVisible(field.readGroup,field.editGroup,field.hiddenGroup);
                 this.stringField8Label = field.label;
                 this.stringField8Required = this._isVisible(field.readGroup,field.editGroup,field.hiddenGroup)? field.required : false;
                 this.stringField8Order = i;
+                this.stringField8Multiline = field.multiline !== null  ? field.multiline : false;
             }
             if(field.fieldName === 'stringField9'){
                 this.stringField9Visible = this._isVisible(field.readGroup,field.editGroup,field.hiddenGroup);
                 this.stringField9Label = field.label;
                 this.stringField9Required = this._isVisible(field.readGroup,field.editGroup,field.hiddenGroup)? field.required : false;
                 this.stringField9Order = i;
+                this.stringField9Multiline = field.multiline !== null  ? field.multiline : false;
             }
             if(field.fieldName === 'stringField10'){
                 this.stringField10Visible = this._isVisible(field.readGroup,field.editGroup,field.hiddenGroup);
                 this.stringField10Label = field.label;
                 this.stringField10Required = this._isVisible(field.readGroup,field.editGroup,field.hiddenGroup)? field.required : false;
                 this.stringField10Order = i;
+                this.stringField10Multiline = field.multiline !== null  ? field.multiline : false;
             }
             if(field.fieldName === 'stringField11'){
               this.stringField11Visible = this._isVisible(field.readGroup,field.editGroup,field.hiddenGroup);
               this.stringField11Label = field.label;
               this.stringField11Required = this._isVisible(field.readGroup,field.editGroup,field.hiddenGroup)? field.required : false;
               this.stringField11Order = i;
+              this.stringField11Multiline = field.multiline !== null  ? field.multiline : false;
             }
             if(field.fieldName === 'stringField12'){
               this.stringField12Visible = this._isVisible(field.readGroup,field.editGroup,field.hiddenGroup);
               this.stringField12Label = field.label;
               this.stringField12Required = this._isVisible(field.readGroup,field.editGroup,field.hiddenGroup)? field.required : false;
               this.stringField12Order = i;
+              this.stringField12Multiline = field.multiline !== null  ? field.multiline : false;
             }
             if(field.fieldName === 'stringField13'){
               this.stringField13Visible = this._isVisible(field.readGroup,field.editGroup,field.hiddenGroup);
               this.stringField13Label = field.label;
               this.stringField13Required = this._isVisible(field.readGroup,field.editGroup,field.hiddenGroup)? field.required : false;
               this.stringField13Order = i;
+              this.stringField13Multiline = field.multiline !== null  ? field.multiline : false;
             }
             if(field.fieldName === 'stringField14'){
                 this.stringField14Visible = this._isVisible(field.readGroup,field.editGroup,field.hiddenGroup);
                 this.stringField14Label = field.label;
                 this.stringField14Required = this._isVisible(field.readGroup,field.editGroup,field.hiddenGroup)? field.required : false;
                 this.stringField14Order = i;
+                this.stringField14Multiline = field.multiline !== null  ? field.multiline : false;
             }
             if(field.fieldName === 'stringField15'){
                 this.stringField15Visible = this._isVisible(field.readGroup,field.editGroup,field.hiddenGroup);
                 this.stringField15Label = field.label;
                 this.stringField15Required = this._isVisible(field.readGroup,field.editGroup,field.hiddenGroup)? field.required : false;
                 this.stringField15Order = i;
+                this.stringField15Multiline = field.multiline !== null  ? field.multiline : false;
             }
             if(field.fieldName === 'stringField16'){
                 this.stringField16Visible = this._isVisible(field.readGroup,field.editGroup,field.hiddenGroup);
                 this.stringField16Label = field.label;
                 this.stringField16Required = this._isVisible(field.readGroup,field.editGroup,field.hiddenGroup)? field.required : false;
                 this.stringField16Order = i;
+                this.stringField16Multiline = field.multiline !== null  ? field.multiline : false;
             }
             if(field.fieldName === 'stringField17'){
                 this.stringField17Visible = this._isVisible(field.readGroup,field.editGroup,field.hiddenGroup);
                 this.stringField17Label = field.label;
                 this.stringField17Required = this._isVisible(field.readGroup,field.editGroup,field.hiddenGroup)? field.required : false;
                 this.stringField17Order = i;
+                this.stringField17Multiline = field.multiline !== null  ? field.multiline : false;
             }
             if(field.fieldName === 'stringField18'){
                 this.stringField18Visible = this._isVisible(field.readGroup,field.editGroup,field.hiddenGroup);
                 this.stringField18Label = field.label;
                 this.stringField18Required = this._isVisible(field.readGroup,field.editGroup,field.hiddenGroup)? field.required : false;
                 this.stringField18Order = i;
+                this.stringField18Multiline = field.multiline !== null  ? field.multiline : false;
             }
             if(field.fieldName === 'stringField19'){
                 this.stringField19Visible = this._isVisible(field.readGroup,field.editGroup,field.hiddenGroup);
                 this.stringField19Label = field.label;
                 this.stringField19Required = this._isVisible(field.readGroup,field.editGroup,field.hiddenGroup)? field.required : false;
                 this.stringField19Order = i;
+                this.stringField19Multiline = field.multiline !== null  ? field.multiline : false;
             }
             if(field.fieldName === 'stringField20'){
                 this.stringField20Visible = this._isVisible(field.readGroup,field.editGroup,field.hiddenGroup);
                 this.stringField20Label = field.label;
                 this.stringField20Required = this._isVisible(field.readGroup,field.editGroup,field.hiddenGroup)? field.required : false;
                 this.stringField20Order = i;
+                this.stringField20Multiline = field.multiline !== null  ? field.multiline : false;
             }
 
             if(field.fieldName === 'vocabularyField1'){
@@ -3572,7 +3774,7 @@
              }
            });
            //sort
-           tinysort(cleanedArrayNodeEdit,{attr:'id',order:'asc'});
+           //tinysort(cleanedArrayNodeEdit,{attr:'id',order:'asc'});
         }
       }
     });
