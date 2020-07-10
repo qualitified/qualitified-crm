@@ -45,7 +45,7 @@
         <qualitified-custom-fields document="{{document}}" mode="view"></qualitified-custom-fields>
         <div role="widget" hidden$="[[!document.properties.dc:description]]">
             <label>[[i18n('label.metadata.description')]]</label>
-            <div>[[document.properties.dc:description]]</div>
+            <div><pre>[[document.properties.dc:description]]</pre></div>
         </div>
     </template>
     <script>
