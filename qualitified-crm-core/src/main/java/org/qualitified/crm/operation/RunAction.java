@@ -49,7 +49,10 @@ public class RunAction {
             });
 
             params.put("script", scriptNote);
-            logger.warn("Running Action ["+this.actionName+">"+ action.getTitle() + "]...");
+            String title = CoreInstance.doPrivileged(session, (session) -> {
+                return (String) session.getDocument(new IdRef(action.getId())).getTitle();
+            });
+            logger.warn("Running Action ["+this.actionName+">"+ title + "]...");
             AutomationService automationService = Framework.getService(AutomationService.class);
             operationContext.put("scriptId", action.getId());
             try {

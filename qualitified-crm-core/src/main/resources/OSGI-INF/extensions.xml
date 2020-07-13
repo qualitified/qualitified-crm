@@ -1370,11 +1370,11 @@
         <fixedPart quoteParameters="false">
           ecm:isVersion = 0
           AND ecm:isTrashed = 0
-          AND dc:title ILIKE '%?%'</fixedPart>
+          AND ecm:fulltext = '?*'</fixedPart>
       </whereClause>
       <searchDocumentType>documents_pp</searchDocumentType>
       <sort column="dc:title" ascending="true"/>
-      <pageSize>10</pageSize>
+      <pageSize>-1</pageSize>
     </genericPageProvider>
     <coreQueryPageProvider class="org.nuxeo.elasticsearch.provider.ElasticSearchNxqlPageProvider" name="expired_search">
       <trackUsage>true</trackUsage>
