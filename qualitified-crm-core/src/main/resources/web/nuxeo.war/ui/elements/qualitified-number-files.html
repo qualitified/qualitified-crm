@@ -5,7 +5,7 @@
 
     <nuxeo-operation id="queryOp" op="Document.Query" params="[[params]]"></nuxeo-operation>
 
-    <nuxeo-data-table-column id="column" name="Files" flex="0">
+    <nuxeo-data-table-column id="column" name="[[i18n('label.documents')]]" flex="0">
       <template>
         <nuxeo-tag style="display: none;" icon="icons:content-copy" id$="nbFiles_{{item.uid}}"></nuxeo-tag>
         {{_getNbFiles(item)}}
@@ -16,7 +16,7 @@
   <script>
     Polymer({
       is: 'qualitified-number-files',
-      behaviors: [Nuxeo.FiltersBehavior],
+      behaviors: [Nuxeo.FiltersBehavior, Nuxeo.LayoutBehavior],
       properties: {
         nxDataTable: {
           type: Object,
@@ -45,11 +45,11 @@
 
       _getOption: function (params) {
         this.paramsOption = {
-          query: "SELECT * FROM Document WHERE ecm:currentLifeCycleState != 'deleted' AND ecm:mixinType != 'HiddenInNavigation' AND ecm:isVersion = 0 AND ecm:isTrashed = 0 AND ecm:primaryType = 'Option'"
+          query: "SELECT * FROM Document WHERE ecm:currentLifeCycleState != 'deleted' AND ecm:mixinType != 'HiddenInNavigation' AND ecm:isVersion = 0 AND ecm:isTrashed = 0 AND ecm:primaryType = 'Option' AND dc:title = 'NbChildrenDocuments'"
         };
 
         this.$.queryOpOption.execute().then(function (data) {
-          this.option = data.entries[0].properties["option:nbFilesQuery"];
+          this.option = data.entries[0].properties["option:value"];
         }.bind(this));
       },
 
@@ -76,7 +76,7 @@
                 };
 
                 if(this.option){
-                  this.params.query += this.option;                
+                  this.params.query += (this.option !== null && this.option !== '') ? " AND " + this.option : "";
                 }
 
                 this.$.queryOp.execute().then(function (data) {

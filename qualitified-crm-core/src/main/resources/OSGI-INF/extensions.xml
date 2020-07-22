@@ -1647,9 +1647,15 @@
         <templateItem typeName="Objects" id="Objects" title="Objects" description=""/>
         <templateItem typeName="Scripts" id="Scripts" title="Scripts" description=""/>
         <templateItem typeName="Calendar" id="Calendar.conf" title="Calendar.conf" description=""/>
-        <templateItem typeName="Option" id="Option" title="Option" description=""/>
         <templateItem typeName="Options" id="Options" title="Options" description=""/>
-
+      </template>
+    </factoryBinding>
+    <factoryBinding name="OptionFactory" factoryName="SimpleTemplateFactory" targetType="Options">
+      <template>
+        <templateItem typeName="Option" id="Currency" title="Currency" description=""/>
+        <templateItem typeName="Option" id="CurrencyFormat" title="CurrencyFormat" description="Possible values are: ',' or ' '"/>
+        <templateItem typeName="Option" id="ImageSearchEnabled" title="ImageSearchEnabled" description="true or false"/>
+        <templateItem typeName="Option" id="NbChildrenDocuments" title="NbChildrenDocuments" description="Query condition for number of children documents in a folderish document."/>
       </template>
     </factoryBinding>
     <factoryBinding name="RootFactory" factoryName="SimpleTemplateRootFactory" targetType="Root">

@@ -115,5 +115,6 @@
   "label.ui.aggregate.from_1000":"Plus de 1000",
   "label.next.best.action": "Prochaine action recommandée",
   "laber.or": "Ou",
-  "label.search.image": "Rechercher une image"
+  "label.search.image": "Rechercher une image",
+  "label.documents": "Documents"
 }
