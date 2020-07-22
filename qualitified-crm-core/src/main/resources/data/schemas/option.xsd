@@ -36,7 +36,4 @@
     </xs:sequence>
   </xs:complexType>
   <xs:element name="value" type="xs:string"/>
-
-  <xs:element name="nbFilesQuery" type="xs:string"/>
-
 </xs:schema>

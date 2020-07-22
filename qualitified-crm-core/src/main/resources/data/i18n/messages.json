@@ -105,5 +105,6 @@
   "label.ui.aggregate.from_1000":"More than 1000",
   "label.next.best.action": "Next Best Action",
   "laber.or": "Or",
-  "label.search.image": "Search an Image"
+  "label.search.image": "Search an Image",
+  "label.documents": "Documents"
 }
