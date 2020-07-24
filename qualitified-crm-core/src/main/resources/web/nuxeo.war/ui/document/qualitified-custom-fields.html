@@ -254,7 +254,7 @@
                 <qualitified-document-suggestion hidden$="[[!documentField7Visible]]"  role="widget" value="{{document.properties.custom:documentField7}}" label="[[documentField7Label]]" page-provider="documents" min-chars="0" params="[[documents7Params]]" multiple="[[documentField7Multivalue]]" class="sortableEdit" id="[[documentField7Order]]"></qualitified-document-suggestion>
                 <qualitified-document-suggestion hidden$="[[!documentField8Visible]]"  role="widget" value="{{document.properties.custom:documentField8}}" label="[[documentField8Label]]" page-provider="documents" min-chars="0" params="[[documents8Params]]" multiple="[[documentField8Multivalue]]" class="sortableEdit" id="[[documentField8Order]]"></qualitified-document-suggestion>
                 <qualitified-document-suggestion hidden$="[[!documentField9Visible]]"  role="widget" value="{{document.properties.custom:documentField9}}" label="[[documentField9Label]]" page-provider="documents" min-chars="0" params="[[documents9Params]]" multiple="[[documentField9Multivalue]]" class="sortableEdit" id="[[documentField9Order]]"></qualitified-document-suggestion>
-                <qualitified-document-suggestion hidden$="[[!documentField10Visible]]"  role="widget" value="{{document.properties.custom:documentField10}}" label="[[documentField10Label]]" page-provider="documents" min-chars="0" params="[[documents10Params]]" multiple="[[documentField10Multivalue]]" class="sortableEdit" id="[[documentField10Order]]"></qualitified-document-suggestion>
+                <qualitified-document-suggestion hidden$="[[!documentField10Visible]]" role="widget" value="{{document.properties.custom:documentField10}}" label="[[documentField10Label]]" page-provider="documents" min-chars="0" params="[[documents10Params]]" multiple="[[documentField10Multivalue]]" class="sortableEdit" id="[[documentField10Order]]"></qualitified-document-suggestion>
 
             </div>
 
@@ -687,17 +687,66 @@
                     <label>[[systemField10Label]]</label>
                     <div>[[document.properties.custom:systemField10]]</div>
                 </div>
-
-                <qualitified-document-suggestion hidden$="[[!documentField1Visible]]"  role="widget" class="sortable" id="[[documentField1Order]]" value="{{document.properties.custom:documentField1}}" label="[[documentField1Label]]" readonly="true"></qualitified-document-suggestion>
-                <qualitified-document-suggestion hidden$="[[!documentField2Visible]]"  role="widget" class="sortable" id="[[documentField2Order]]" value="{{document.properties.custom:documentField2}}" label="[[documentField2Label]]" readonly="true"></qualitified-document-suggestion>
-                <qualitified-document-suggestion hidden$="[[!documentField3Visible]]"  role="widget" class="sortable" id="[[documentField3Order]]" value="{{document.properties.custom:documentField3}}" label="[[documentField3Label]]" readonly="true"></qualitified-document-suggestion>
-                <qualitified-document-suggestion hidden$="[[!documentField4Visible]]"  role="widget" class="sortable" id="[[documentField4Order]]" value="{{document.properties.custom:documentField4}}" label="[[documentField4Label]]" readonly="true"></qualitified-document-suggestion>
-                <qualitified-document-suggestion hidden$="[[!documentField5Visible]]"  role="widget" class="sortable" id="[[documentField5Order]]" value="{{document.properties.custom:documentField5}}" label="[[documentField5Label]]" readonly="true"></qualitified-document-suggestion>
-                <qualitified-document-suggestion hidden$="[[!documentField6Visible]]"  role="widget" class="sortable" id="[[documentField6Order]]" value="{{document.properties.custom:documentField6}}" label="[[documentField6Label]]" readonly="true"></qualitified-document-suggestion>
-                <qualitified-document-suggestion hidden$="[[!documentField7Visible]]"  role="widget" class="sortable" id="[[documentField7Order]]" value="{{document.properties.custom:documentField7}}" label="[[documentField7Label]]" readonly="true"></qualitified-document-suggestion>
-                <qualitified-document-suggestion hidden$="[[!documentField8Visible]]"  role="widget" class="sortable" id="[[documentField8Order]]" value="{{document.properties.custom:documentField8}}" label="[[documentField8Label]]" readonly="true"></qualitified-document-suggestion>
-                <qualitified-document-suggestion hidden$="[[!documentField9Visible]]"  role="widget" class="sortable" id="[[documentField9Order]]" value="{{document.properties.custom:documentField9}}" label="[[documentField9Label]]" readonly="true"></qualitified-document-suggestion>
-                <qualitified-document-suggestion hidden$="[[!documentField10Visible]]"  role="widget" class="sortable" id="[[documentField10Order]]" value="{{document.properties.custom:documentField10}}" label="[[documentField10Label]]" readonly="true"></qualitified-document-suggestion>
+                <template is="dom-if" if="[[documentField1Link]]">
+                <qualitified-document-suggestion hidden$="[[!documentField1Visible]]"  clickable="true" role="widget" class="sortable" id="[[documentField1Order]]" value="{{document.properties.custom:documentField1}}" label="[[documentField1Label]]" readonly="true"></qualitified-document-suggestion>
+                </template>
+                <template is="dom-if" if="[[documentField2Link]]">
+                <qualitified-document-suggestion hidden$="[[!documentField2Visible]]"  clickable="true" role="widget" class="sortable" id="[[documentField2Order]]" value="{{document.properties.custom:documentField2}}" label="[[documentField2Label]]" readonly="true"></qualitified-document-suggestion>
+                </template>
+                <template is="dom-if" if="[[documentField3Link]]">
+                <qualitified-document-suggestion hidden$="[[!documentField3Visible]]"  clickable="true" role="widget" class="sortable" id="[[documentField3Order]]" value="{{document.properties.custom:documentField3}}" label="[[documentField3Label]]" readonly="true"></qualitified-document-suggestion>
+                </template>
+                <template is="dom-if" if="[[documentField4Link]]">
+                    <qualitified-document-suggestion hidden$="[[!documentField4Visible]]"  clickable="true" role="widget" class="sortable" id="[[documentField4Order]]" value="{{document.properties.custom:documentField4}}" label="[[documentField4Label]]" readonly="true"></qualitified-document-suggestion>
+                </template>
+                <template is="dom-if" if="[[documentField5Link]]">
+                    <qualitified-document-suggestion hidden$="[[!documentField5Visible]]"  clickable="true" role="widget" class="sortable" id="[[documentField5Order]]" value="{{document.properties.custom:documentField5}}" label="[[documentField5Label]]" readonly="true"></qualitified-document-suggestion>
+                </template>
+                <template is="dom-if" if="[[documentField6Link]]">
+                    <qualitified-document-suggestion hidden$="[[!documentField6Visible]]"  clickable="true" role="widget" class="sortable" id="[[documentField6Order]]" value="{{document.properties.custom:documentField6}}" label="[[documentField6Label]]" readonly="true"></qualitified-document-suggestion>
+                </template>
+                <template is="dom-if" if="[[documentField7Link]]">
+                    <qualitified-document-suggestion hidden$="[[!documentField7Visible]]"  clickable="true" role="widget" class="sortable" id="[[documentField7Order]]" value="{{document.properties.custom:documentField7}}" label="[[documentField7Label]]" readonly="true"></qualitified-document-suggestion>
+                </template>
+                <template is="dom-if" if="[[documentField8Link]]">
+                    <qualitified-document-suggestion hidden$="[[!documentField8Visible]]"  clickable="true" role="widget" class="sortable" id="[[documentField8Order]]" value="{{document.properties.custom:documentField8}}" label="[[documentField8Label]]" readonly="true"></qualitified-document-suggestion>
+                </template>
+                <template is="dom-if" if="[[documentField9Link]]">
+                    <qualitified-document-suggestion hidden$="[[!documentField9Visible]]"  clickable="true" role="widget" class="sortable" id="[[documentField9Order]]" value="{{document.properties.custom:documentField9}}" label="[[documentField9Label]]" readonly="true"></qualitified-document-suggestion>
+                </template>
+                <template is="dom-if" if="[[documentField10Link]]">
+                     <qualitified-document-suggestion hidden$="[[!documentField10Visible]]" clickable="true" role="widget" class="sortable" id="[[documentField10Order]]" value="{{document.properties.custom:documentField10}}" label="[[documentField10Label]]" readonly="true"></qualitified-document-suggestion>
+                </template>
+                <template is="dom-if" if="[[!documentField1Link]]">
+                    <qualitified-document-suggestion hidden$="[[!documentField1Visible]]"  clickable="false" role="widget" class="sortable" id="[[documentField1Order]]" value="{{document.properties.custom:documentField1}}" label="[[documentField1Label]]" readonly="true"></qualitified-document-suggestion>
+                </template>
+                <template is="dom-if" if="[[!documentField2Link]]">
+                    <qualitified-document-suggestion hidden$="[[!documentField2Visible]]"  clickable="false" role="widget" class="sortable" id="[[documentField2Order]]" value="{{document.properties.custom:documentField2}}" label="[[documentField2Label]]" readonly="true"></qualitified-document-suggestion>
+                </template>
+                <template is="dom-if" if="[[!documentField3Link]]">
+                    <qualitified-document-suggestion hidden$="[[!documentField3Visible]]"  clickable="false" role="widget" class="sortable" id="[[documentField3Order]]" value="{{document.properties.custom:documentField3}}" label="[[documentField3Label]]" readonly="true"></qualitified-document-suggestion>
+                </template>
+                <template is="dom-if" if="[[!documentField4Link]]">
+                    <qualitified-document-suggestion hidden$="[[!documentField4Visible]]"  clickable="false" role="widget" class="sortable" id="[[documentField4Order]]" value="{{document.properties.custom:documentField4}}" label="[[documentField4Label]]" readonly="true"></qualitified-document-suggestion>
+                </template>
+                <template is="dom-if" if="[[!documentField5Link]]">
+                    <qualitified-document-suggestion hidden$="[[!documentField5Visible]]"  clickable="false" role="widget" class="sortable" id="[[documentField5Order]]" value="{{document.properties.custom:documentField5}}" label="[[documentField5Label]]" readonly="true"></qualitified-document-suggestion>
+                </template>
+                <template is="dom-if" if="[[!documentField6Link]]">
+                    <qualitified-document-suggestion hidden$="[[!documentField6Visible]]"  clickable="false" role="widget" class="sortable" id="[[documentField6Order]]" value="{{document.properties.custom:documentField6}}" label="[[documentField6Label]]" readonly="true"></qualitified-document-suggestion>
+                </template>
+                <template is="dom-if" if="[[!documentField7Link]]">
+                    <qualitified-document-suggestion hidden$="[[!documentField7Visible]]"  clickable="false" role="widget" class="sortable" id="[[documentField7Order]]" value="{{document.properties.custom:documentField7}}" label="[[documentField7Label]]" readonly="true"></qualitified-document-suggestion>
+                </template>
+                <template is="dom-if" if="[[!documentField8Link]]">
+                    <qualitified-document-suggestion hidden$="[[!documentField8Visible]]"  clickable="false" role="widget" class="sortable" id="[[documentField8Order]]" value="{{document.properties.custom:documentField8}}" label="[[documentField8Label]]" readonly="true"></qualitified-document-suggestion>
+                </template>
+                <template is="dom-if" if="[[!documentField9Link]]">
+                    <qualitified-document-suggestion hidden$="[[!documentField9Visible]]"  clickable="false" role="widget" class="sortable" id="[[documentField9Order]]" value="{{document.properties.custom:documentField9}}" label="[[documentField9Label]]" readonly="true"></qualitified-document-suggestion>
+                </template>
+                <template is="dom-if" if="[[!documentField10Link]]">
+                    <qualitified-document-suggestion hidden$="[[!documentField10Visible]]" clickable="false" role="widget" class="sortable" id="[[documentField10Order]]" value="{{document.properties.custom:documentField10}}" label="[[documentField10Label]]" readonly="true"></qualitified-document-suggestion>
+                </template>
 
             </div>
         </iron-pages>
@@ -2574,6 +2623,47 @@
         documentField10Order : {
           type: Number
         },
+        documentField1Link: {
+          type: Boolean,
+          value: false
+
+         },
+          documentField2Link: {
+           type: Boolean,
+           value: false
+         },
+          documentField3Link: {
+            type: Boolean,
+            value: false
+         },
+          documentField4Link: {
+            type: Boolean,
+            value: false
+         },
+          documentField5Link: {
+            type: Boolean,
+            value: false
+         },
+          documentField6Link: {
+           type: Boolean,
+           value: false
+         },
+          documentField7Link: {
+            type: Boolean,
+            value: false
+         },
+          documentField8Link: {
+            type: Boolean,
+            value: false
+         },
+          documentField9Link: {
+            type: Boolean,
+            value: false
+         },
+          documentField10Link: {
+            type: Boolean,
+            value: false
+         },
         stringField1Multiline : {
             type: Boolean,
             value: false
@@ -2773,6 +2863,7 @@
               this.documentField1Required = this._isVisible(field.readGroup,field.editGroup,field.hiddenGroup)? field.required : false;
               this.documentField1Order = i;
               this.documentField1Multivalue = field.multivalue;
+              this.documentField1Link = field.link!== null  ? field.link : false;;
               var namedParameters = "";
               if(field.parentId !== null && field.parentId !== ""){
                 namedParameters = "system_parentId=" + field.parentId;
@@ -2800,6 +2891,7 @@
               this.documentField2Required = this._isVisible(field.readGroup,field.editGroup,field.hiddenGroup)? field.required : false;
               this.documentField2Order = i;
               this.documentField2Multivalue = field.multivalue;
+              this.documentField2Link = field.link!== null  ? field.link : false;
               var namedParameters = "";
               if(field.parentId !== null && field.parentId !== ""){
                 namedParameters = "system_parentId=" + field.parentId;
@@ -2827,6 +2919,7 @@
               this.documentField3Required = this._isVisible(field.readGroup,field.editGroup,field.hiddenGroup)? field.required : false;
               this.documentField3Order = i;
               this.documentField3Multivalue = field.multivalue;
+              this.documentField3Link = field.link!== null  ? field.link : false;
               var namedParameters = "";
               if(field.parentId !== null && field.parentId !== ""){
                 namedParameters = "system_parentId=" + field.parentId;
@@ -2854,6 +2947,7 @@
               this.documentField4Required = this._isVisible(field.readGroup,field.editGroup,field.hiddenGroup)? field.required : false;
               this.documentField4Order = i;
               this.documentField4Multivalue = field.multivalue;
+              this.documentField4Link = field.link!== null  ? field.link : false;
               var namedParameters = "";
               if(field.parentId !== null && field.parentId !== ""){
                 namedParameters = "system_parentId=" + field.parentId;
@@ -2881,6 +2975,7 @@
               this.documentField5Required = this._isVisible(field.readGroup,field.editGroup,field.hiddenGroup)? field.required : false;
               this.documentField5Order = i;
               this.documentField5Multivalue = field.multivalue;
+              this.documentField5Link = field.link!== null  ? field.link : false;
               var namedParameters = "";
               if(field.parentId !== null && field.parentId !== ""){
                 namedParameters = "system_parentId=" + field.parentId;
@@ -2908,6 +3003,7 @@
               this.documentField6Required = this._isVisible(field.readGroup,field.editGroup,field.hiddenGroup)? field.required : false;
               this.documentField6Order = i;
               this.documentField6Multivalue = field.multivalue;
+              this.documentField6Link = field.link!== null  ? field.link : false;
               var namedParameters = "";
               if(field.parentId !== null && field.parentId !== ""){
                 namedParameters = "system_parentId=" + field.parentId;
@@ -2935,6 +3031,7 @@
               this.documentField7Required = this._isVisible(field.readGroup,field.editGroup,field.hiddenGroup)? field.required : false;
               this.documentField7Order = i;
               this.documentField7Multivalue = field.multivalue;
+              this.documentField7Link = field.link!== null  ? field.link : false;
               var namedParameters = "";
               if(field.parentId !== null && field.parentId !== ""){
                 namedParameters = "system_parentId=" + field.parentId;
@@ -2962,6 +3059,7 @@
               this.documentField8Required = this._isVisible(field.readGroup,field.editGroup,field.hiddenGroup)? field.required : false;
               this.documentField8Order = i;
               this.documentField8Multivalue = field.multivalue;
+              this.documentField8Link = field.link!== null  ? field.link : false;
               var namedParameters = "";
               if(field.parentId !== null && field.parentId !== ""){
                 namedParameters = "system_parentId=" + field.parentId;
@@ -2989,6 +3087,7 @@
               this.documentField9Required = this._isVisible(field.readGroup,field.editGroup,field.hiddenGroup)? field.required : false;
               this.documentField9Order = i;
               this.documentField9Multivalue = field.multivalue;
+              this.documentField9Link = field.link!== null  ? field.link : false;
               var namedParameters = "";
               if(field.parentId !== null && field.parentId !== ""){
                 namedParameters = "system_parentId=" + field.parentId;
@@ -3016,6 +3115,7 @@
               this.documentField10Required = this._isVisible(field.readGroup,field.editGroup,field.hiddenGroup)? field.required : false;
               this.documentField10Order = i;
               this.documentField10Multivalue = field.multivalue;
+              this.documentField10Link = field.link!== null  ? field.link : false;
               var namedParameters = "";
               if(field.parentId !== null && field.parentId !== ""){
                 namedParameters = "system_parentId=" + field.parentId;

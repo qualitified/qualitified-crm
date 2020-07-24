@@ -62,8 +62,11 @@ limitations under the License.
           }
       },
        _documentReady: function(doc){
-          if(doc){
-              document.querySelector("nuxeo-app").shadowRoot.querySelector("#menu > expired-menu-icon")._getCount();
+          var expiredMenu=document.querySelector("nuxeo-app").shadowRoot.querySelector("#menu > expired-menu-icon");
+
+          if(doc && menu !==null){
+
+              expiredMenu._getCount();
           }
         }
     });
