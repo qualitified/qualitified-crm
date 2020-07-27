@@ -27,7 +27,7 @@
 
     <nuxeo-operation id="op" op="Document.FetchByProperty"></nuxeo-operation>
 
-    <nuxeo-selectivity id="s2" operation="[[operation]]" label="[[label]]" min-chars="[[minChars]]" frequency="[[frequency]]" multiple="[[multiple]]" params="[[_computeParams(params.*, pageProvider, schemas, repository)]]" placeholder="[[placeholder]]" error-message="[[errorMessage]]" readonly="[[readonly]]" value="{{value}}" selected-items="{{selectedItems}}" selected-item="{{selectedItem}}" selection-formatter="[[selectionFormatter]]" result-formatter="[[resultFormatter]]" required="[[required]]" invalid="[[invalid]]" init-selection="[[initSelection]]" id-function="[[_idFunction]]" stay-open-on-select="[[stayOpenOnSelect]]" enrichers="[[enrichers]]">
+    <nuxeo-selectivity id="s2" operation="[[operation]]"  label="[[label]]" min-chars="[[minChars]]" frequency="[[frequency]]" multiple="[[multiple]]" params="[[_computeParams(params.*, pageProvider, schemas, repository)]]" placeholder="[[placeholder]]" error-message="[[errorMessage]]" readonly="[[readonly]]" value="{{value}}" selected-items="{{selectedItems}}" selected-item="{{selectedItem}}" selection-formatter="[[selectionFormatter]]" result-formatter="[[resultFormatter]]" required="[[required]]" invalid="[[invalid]]" init-selection="[[initSelection]]" id-function="[[_idFunction]]" stay-open-on-select="[[stayOpenOnSelect]]" enrichers="[[enrichers]]">
     </nuxeo-selectivity>
 
   </template>
@@ -111,6 +111,10 @@
             multiple: {
               type: Boolean,
               value: false,
+            },
+             clickable: {
+              type: String,
+
             },
 
             /**
@@ -246,9 +250,16 @@
         _selectionFormatter(doc) {
           //return `<a >${doc.title}</a>`;
           //TODO Make the link optional
+
           let defaultIcon = (doc && doc.properties && doc.properties["common:icon"])? doc.properties["common:icon"] : "";
           let img = (doc.type === "Contact" || doc.type === "Account")? `<img style="vertical-align: middle;height: 25px;width: 25px;border-radius: 20px;box-sizing: border-box;margin-right: 8px;" src="/nuxeo/nxfile/default/${doc.uid}/file:content/" onError="this.onerror=null;this.src='/nuxeo/${defaultIcon}';">` : `<img style="vertical-align: middle;height: 25px;width: 25px;border-radius: 20px;box-sizing: border-box;margin-right: 8px;" src="/nuxeo/${defaultIcon}">`;
-          return `<a href="${this.urlFor('browse', doc.path)}" style="text-decoration: none;color:#000000">${img}${doc.title}</a>`;
+          if(this.clickable === "true"){
+             return `<a href="${this.urlFor('browse', doc.path)}" style="text-decoration: none;color:#000000">${img}${doc.title}</a>`;
+          }
+          else {
+              return `${img}${doc.title}`;
+
+          }
         }
 
         _resultFormatter(doc) {
