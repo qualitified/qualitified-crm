@@ -4,7 +4,7 @@
   <parent>
     <groupId>org.qualitified.crm</groupId>
     <artifactId>qualitified-crm-parent</artifactId>
-    <version>4.1.4</version>
+    <version>4.2-SNAPSHOT</version>
   </parent>
   <artifactId>qualitified-crm-core</artifactId>
   <name>Qualitified CRM core</name>
