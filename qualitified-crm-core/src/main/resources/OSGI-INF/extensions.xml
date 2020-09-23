@@ -1718,6 +1718,28 @@
       <table>studio_vocabulary_Civility</table>
       <dataFile>data/vocabularies/Civility.csv</dataFile>
     </directory>
+      <directory name="Type">
+          <schema>vocabulary</schema>
+          <dataSource>java:/nxsqldirectory</dataSource>
+          <cacheTimeout>3600</cacheTimeout>
+          <cacheMaxSize>1000</cacheMaxSize>
+          <idField>id</idField>
+          <autoincrementIdField>false</autoincrementIdField>
+          <createTablePolicy>on_missing_columns</createTablePolicy>
+          <table>studio_vocabulary_Type</table>
+          <dataFile>data/vocabularies/Type.csv</dataFile>
+      </directory>
+    <directory name="customField">
+      <schema>vocabulary</schema>
+      <dataSource>java:/nxsqldirectory</dataSource>
+      <cacheTimeout>3600</cacheTimeout>
+      <cacheMaxSize>1000</cacheMaxSize>
+      <idField>id</idField>
+      <autoincrementIdField>false</autoincrementIdField>
+      <createTablePolicy>always</createTablePolicy>
+      <table>studio_vocabulary_customField</table>
+      <dataFile>data/vocabularies/customField.csv</dataFile>
+    </directory>
     <directory name="IntActivity">
       <schema>vocabulary</schema>
       <dataSource>java:/nxsqldirectory</dataSource>

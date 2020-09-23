@@ -1,0 +1,11 @@
+id,label,obsolete,ordering
+string,String,0,0
+integer,Integer,0,10
+date,Date,0,20
+double,Double,0,30
+boolean,Boolean,0,40
+document,Document,0,50
+file,File,0,60
+
+
+
