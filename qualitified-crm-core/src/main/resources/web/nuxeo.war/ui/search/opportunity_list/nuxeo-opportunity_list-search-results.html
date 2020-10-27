@@ -57,6 +57,14 @@
                     </template>
                 </nuxeo-data-table-column>
 
+                <nuxeo-data-table-column name="[[i18n('label.metadata.zone')]]" field="opportunity:zone" sort-by="opportunity:zone"
+                                         flex="50">
+                    <template>
+                        [[formatDirectory(item.properties.opportunity:zone)]]
+                    </template>
+                </nuxeo-data-table-column>
+
+
 
             </nuxeo-data-table>
         </nuxeo-results>

@@ -1169,6 +1169,13 @@
             <property name="size">0</property>
           </properties>
         </aggregate>
+        <aggregate id="opportunity_zone_agg" type="terms" parameter="opportunity:zone">
+          <field schema="opportunity_list_pp" name="opportunity_zone_agg"/>
+          <properties>
+            <property name="order">count desc</property>
+            <property name="size">0</property>
+          </properties>
+        </aggregate>
       </aggregates>
       <sort column="opportunity:amount" ascending="false"/>
       <pageSize>10</pageSize>
@@ -1188,6 +1195,13 @@
       <aggregates>
         <aggregate id="account_type_agg" type="terms" parameter="account:accountType">
           <field schema="account_list_pp" name="account_type_agg"/>
+          <properties>
+            <property name="order">count desc</property>
+            <property name="size">0</property>
+          </properties>
+        </aggregate>
+        <aggregate id="account_industry_type_agg" type="terms" parameter="account:typeOfIndustry">
+          <field schema="account_list_pp" name="account_industry_type_agg"/>
           <properties>
             <property name="order">count desc</property>
             <property name="size">0</property>
@@ -1751,6 +1765,17 @@
       <table>studio_vocabulary_OppStep</table>
       <dataFile>data/vocabularies/OppStep.csv</dataFile>
     </directory>
+    <directory name="Zone">
+      <schema>vocabulary</schema>
+      <dataSource>java:/nxsqldirectory</dataSource>
+      <cacheTimeout>3600</cacheTimeout>
+      <cacheMaxSize>1000</cacheMaxSize>
+      <idField>id</idField>
+      <autoincrementIdField>false</autoincrementIdField>
+      <createTablePolicy>on_missing_columns</createTablePolicy>
+      <table>studio_vocabulary_Zone</table>
+      <dataFile>data/vocabularies/Zone.csv</dataFile>
+    </directory>
     <directory name="Role">
       <schema>vocabulary</schema>
       <dataSource>java:/nxsqldirectory</dataSource>
@@ -1772,6 +1797,17 @@
       <createTablePolicy>on_missing_columns</createTablePolicy>
       <table>studio_vocabulary_AccountType</table>
       <dataFile>data/vocabularies/AccountType.csv</dataFile>
+    </directory>
+    <directory name="Industry">
+      <schema>vocabulary</schema>
+      <dataSource>java:/nxsqldirectory</dataSource>
+      <cacheTimeout>3600</cacheTimeout>
+      <cacheMaxSize>1000</cacheMaxSize>
+      <idField>id</idField>
+      <autoincrementIdField>false</autoincrementIdField>
+      <createTablePolicy>on_missing_columns</createTablePolicy>
+      <table>studio_vocabulary_Industry</table>
+      <dataFile>data/vocabularies/Industry.csv</dataFile>
     </directory>
     <directory name="SolicitationCategory">
       <schema>vocabulary</schema>

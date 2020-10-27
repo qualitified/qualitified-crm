@@ -33,6 +33,7 @@
     </xs:sequence>
   </xs:complexType>
   <xs:element name="account_type_agg" type="nxs:stringList"/>
+  <xs:element name="account_industry_type_agg" type="nxs:stringList"/>
   <xs:element name="system_fulltext" type="xs:string"/>
   <xs:element name="dublincore_title" type="xs:string"/>
   <xs:element name="responsible_agg" type="nxs:stringList"/>

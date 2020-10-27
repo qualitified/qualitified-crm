@@ -20,6 +20,14 @@
                 directory-name="AccountType"
                 min-chars="0">
         </nuxeo-directory-suggestion>
+        <nuxeo-directory-suggestion
+                role="widget"
+                value="{{document.properties.account:typeOfIndustry}}"
+                label="[[i18n('label.metadata.typeOfIndustry')]]"
+                required="false"
+                directory-name="Industry"
+                min-chars="0">
+        </nuxeo-directory-suggestion>
         <nuxeo-input role="widget" value="{{document.properties.account:turnover}}"
                      label="[[i18n('label.metadata.turnover')]]"></nuxeo-input>
         <nuxeo-input role="widget" value="{{document.properties.account:website}}"
