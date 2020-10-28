@@ -49,7 +49,12 @@
             </template>
           </nuxeo-data-table-column>
 
-
+          <nuxeo-data-table-column name="[[i18n('label.metadata.typeOfIndustry')]]" field="account:typeOfIndustry" sort-by="account:typeOfIndustry"
+                                   flex="50">
+            <template>
+              [[formatDirectory(item.properties.account:typeOfIndustry)]]
+            </template>
+          </nuxeo-data-table-column>
 
           <nuxeo-data-table-column name="[[i18n('label.metadata.email')]]" field="account:email" sort-by="account:email" flex="100">
             <template>

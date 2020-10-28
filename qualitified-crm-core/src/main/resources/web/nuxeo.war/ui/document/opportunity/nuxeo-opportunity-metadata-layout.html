@@ -22,6 +22,11 @@
         </div>
 
         <div role="widget">
+            <label>[[i18n('label.metadata.zone')]]</label>
+            <div directory-name="Zone">[[formatDirectory(document.properties.opportunity:zone)]]</div>
+        </div>
+
+        <div role="widget">
             <label>[[i18n('label.metadata.amount')]]</label>
             <div>[[_formatCurrency(document.properties.opportunity:amount,currencyFormat,currency)]]</div>
         </div>

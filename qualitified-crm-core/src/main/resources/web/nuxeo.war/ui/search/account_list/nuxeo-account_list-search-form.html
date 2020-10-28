@@ -77,6 +77,12 @@
       </nuxeo-dropdown-aggregation>
     </div>
 
+    <div class="layout vertical row">
+      <label>[[i18n('label.metadata.typeOfIndustry')]]</label>
+      <nuxeo-checkbox-aggregation data="[[aggregations.account_industry_type_agg]]" value="{{params.account_industry_type_agg}}">
+      </nuxeo-checkbox-aggregation>
+    </div>
+
     <!-- Create a new Account -->
     <div class="actions layout vertical style-scope nuxeo-search-form">
       <paper-button noink="" id="new" class="primary horizontal layout center" on-tap="_openDialog" elevation="0">

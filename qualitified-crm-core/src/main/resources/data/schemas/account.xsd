@@ -37,6 +37,11 @@
       <xs:restriction base="xs:string" ref:resolver="directoryResolver" ref:directory="AccountType"/>
     </xs:simpleType>
   </xs:element>
+  <xs:element name="typeOfIndustry" nillable="false" nxsv:nillable="false">
+    <xs:simpleType>
+      <xs:restriction base="xs:string" ref:resolver="directoryResolver" ref:directory="Industry"/>
+    </xs:simpleType>
+  </xs:element>
   <xs:element name="mainContact" type="xs:string"></xs:element>
   <xs:element name="turnover" type="xs:double"/>
   <xs:element name="website" type="xs:string"/>

@@ -41,6 +41,11 @@
       <xs:restriction base="xs:string" ref:resolver="directoryResolver" ref:directory="OppStep"/>
     </xs:simpleType>
   </xs:element>
+  <xs:element name="zone">
+    <xs:simpleType>
+      <xs:restriction base="xs:string" ref:resolver="directoryResolver" ref:directory="Zone"/>
+    </xs:simpleType>
+  </xs:element>
   <xs:element name="responsible">
     <xs:simpleType>
       <xs:restriction base="xs:string" ref:resolver="userManagerResolver" ref:type="user"/>
