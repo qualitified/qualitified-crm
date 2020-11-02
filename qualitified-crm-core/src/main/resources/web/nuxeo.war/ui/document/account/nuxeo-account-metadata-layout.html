@@ -4,6 +4,8 @@
 @element nuxeo-account-metadata-layout
 -->
 <link rel="import" href="../qualitified-custom-fields.html">
+<link rel="import" href="../../elements/copy-to-clipboard.html">
+
 <dom-module id="nuxeo-account-metadata-layout">
   <template>
     <style>
@@ -21,6 +23,7 @@
         color:var(--nuxeo-secondary-color);
       }
     </style>
+    <paper-toast id="linkToast"></paper-toast>
     <div role="widget" class="title">
       <h1><template is="dom-if" if="[[_hasProfileImg(document.properties.file:content)]]">
         <img style="vertical-align: text-bottom;" class="account-view-layout" src="/nuxeo/nxfile/default/[[document.uid]]/file:content/">
@@ -28,7 +31,17 @@
     </div>
     <div role="widget">
       <label>[[i18n('label.metadata.type')]]</label>
-      <div>[[formatDirectory(document.properties.account:accountType)]]</div>
+      <div>
+        [[formatDirectory(document.properties.account:accountType)]]
+        <copy-to-clipboard
+                id="copyToClipboard"
+                clipboard-value-to-copy="[[formatDirectory(document.properties.account:accountType)]]"
+                clipboard-value-copied="{{copiedValue}}"
+                clipboard-trigger-id="copyButton"
+        ></copy-to-clipboard>
+        <paper-icon-button id="copyButton" icon="icons:content-copy" on-tap="_copied"></paper-icon-button>
+        <paper-tooltip for="copyButton" position="right">Copier le metadata</paper-tooltip>
+      </div>
     </div>
     <div role="widget">
       <label>[[i18n('label.metadata.typeOfIndustry')]]</label>
@@ -126,7 +139,11 @@
             return true;
           }
           return false;
-        }
+        },
+        _copied: function(){
+            this.$.linkToast.text = "Copié !";
+            this.$.linkToast.open();
+         }
       });
     })();
   </script>

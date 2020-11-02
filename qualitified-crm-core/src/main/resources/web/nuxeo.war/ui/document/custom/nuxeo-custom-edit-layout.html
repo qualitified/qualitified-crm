@@ -105,6 +105,11 @@
           <div>[[item.link]]</div>
         </template>
       </nuxeo-data-table-column>
+        <nuxeo-data-table-column name="[[i18n('label.metadata.custom.copy')]]">
+          <template>
+            <div>[[item.copy]]</div>
+          </template>
+      </nuxeo-data-table-column>
 
       <nuxeo-data-table-form>
         <template>
@@ -123,7 +128,8 @@
             <nuxeo-input role="widget" value="{{item.path}}" label="Path"></nuxeo-input>
             <nuxeo-input role="widget" value="{{item.parentId}}" label="Parent Id"></nuxeo-input>
             <paper-checkbox checked="{{item.multiline}}"></paper-checkbox> Multiline <br/>
-            <paper-checkbox checked="{{item.link}}"></paper-checkbox> Link
+            <paper-checkbox checked="{{item.link}}"></paper-checkbox> Link <br/>
+            <paper-checkbox checked="{{item.copy}}"></paper-checkbox> Copyable
 
 
           </div>
