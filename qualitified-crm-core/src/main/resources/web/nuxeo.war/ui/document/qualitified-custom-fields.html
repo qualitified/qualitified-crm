@@ -5,389 +5,1226 @@
 -->
 <script src="../dist/tinysort.min.js"></script>
 <dom-module id="qualitified-custom-fields">
+    <link rel="import" href="../../elements/copy-to-clipboard.html">
+
     <template>
 
         <style>
       *[role=widget] {
         padding: 5px;
       }
+      paper-icon-button {
+       color: #c8c8c8a8;
+       width: 30px !important;
+       height: 30px !important;
+      }
 
       #booleanField {
         display: -webkit-box;
       }
 
-    </style>
+
+        </style>
+        <paper-toast id="linkToast"></paper-toast>
 
         <nuxeo-connection id="nxcon" user="{{user}}"></nuxeo-connection>
-        <nuxeo-operation id="getCustomFields" op="getCustomFieldsChain" input="[[document.uid]]" params="[[params]]"></nuxeo-operation>
-        <nuxeo-operation id="getVocabularyLabel" op="javascript.getVocabularyLabel" input="[[document.uid]]" params="[[params2]]"></nuxeo-operation>
+        <nuxeo-operation id="getCustomFields" op="getCustomFieldsChain" input="[[document.uid]]"
+                         params="[[params]]"></nuxeo-operation>
+        <nuxeo-operation id="getVocabularyLabel" op="javascript.getVocabularyLabel" input="[[document.uid]]"
+                         params="[[params2]]"></nuxeo-operation>
 
         <iron-pages selected="[[mode]]" attr-for-selected="name" class="vertical layout flex">
             <div name="edit" class="vertical layout flex">
                 <template is="dom-if" if="[[stringField1Multiline]]">
-                    <nuxeo-textarea hidden$="[[!stringField1Visible]]" role="widget" value="{{document.properties.custom:stringField1}}" label="[[stringField1Label]]" required="[[stringField1Required]]" class="sortableEdit" id="[[stringField1Order]]"></nuxeo-textarea>
+                    <nuxeo-textarea hidden$="[[!stringField1Visible]]" role="widget"
+                                    value="{{document.properties.custom:stringField1}}" label="[[stringField1Label]]"
+                                    required="[[stringField1Required]]" class="sortableEdit"
+                                    id="[[stringField1Order]]"></nuxeo-textarea>
                 </template>
 
                 <template is="dom-if" if="[[stringField2Multiline]]">
-                    <nuxeo-textarea hidden$="[[!stringField2Visible]]" role="widget" value="{{document.properties.custom:stringField2}}" label="[[stringField2Label]]" required="[[stringField2Required]]" class="sortableEdit" id="[[stringField2Order]]"></nuxeo-textarea>
+                    <nuxeo-textarea hidden$="[[!stringField2Visible]]" role="widget"
+                                    value="{{document.properties.custom:stringField2}}" label="[[stringField2Label]]"
+                                    required="[[stringField2Required]]" class="sortableEdit"
+                                    id="[[stringField2Order]]"></nuxeo-textarea>
                 </template>
                 <template is="dom-if" if="[[stringField3Multiline]]">
-                    <nuxeo-textarea hidden$="[[!stringField3Visible]]" role="widget" value="{{document.properties.custom:stringField3}}" label="[[stringField3Label]]" required="[[stringField3Required]]" class="sortableEdit" id="[[stringField3Order]]"></nuxeo-textarea>
+                    <nuxeo-textarea hidden$="[[!stringField3Visible]]" role="widget"
+                                    value="{{document.properties.custom:stringField3}}" label="[[stringField3Label]]"
+                                    required="[[stringField3Required]]" class="sortableEdit"
+                                    id="[[stringField3Order]]"></nuxeo-textarea>
                 </template>
                 <template is="dom-if" if="[[stringField4Multiline]]">
-                    <nuxeo-textarea hidden$="[[!stringField4Visible]]" role="widget" value="{{document.properties.custom:stringField4}}" label="[[stringField4Label]]" required="[[stringField4Required]]" class="sortableEdit" id="[[stringField4Order]]"></nuxeo-textarea>
+                    <nuxeo-textarea hidden$="[[!stringField4Visible]]" role="widget"
+                                    value="{{document.properties.custom:stringField4}}" label="[[stringField4Label]]"
+                                    required="[[stringField4Required]]" class="sortableEdit"
+                                    id="[[stringField4Order]]"></nuxeo-textarea>
                 </template>
                 <template is="dom-if" if="[[stringField5Multiline]]">
-                    <nuxeo-textarea hidden$="[[!stringField5Visible]]" role="widget" value="{{document.properties.custom:stringField5}}" label="[[stringField5Label]]" required="[[stringField5Required]]" class="sortableEdit" id="[[stringField5Order]]"></nuxeo-textarea>
+                    <nuxeo-textarea hidden$="[[!stringField5Visible]]" role="widget"
+                                    value="{{document.properties.custom:stringField5}}" label="[[stringField5Label]]"
+                                    required="[[stringField5Required]]" class="sortableEdit"
+                                    id="[[stringField5Order]]"></nuxeo-textarea>
                 </template>
                 <template is="dom-if" if="[[stringField6Multiline]]">
-                    <nuxeo-textarea hidden$="[[!stringField6Visible]]" role="widget" value="{{document.properties.custom:stringField6}}" label="[[stringField1Label]]" required="[[stringField6Required]]" class="sortableEdit" id="[[stringField6Order]]"></nuxeo-textarea>
+                    <nuxeo-textarea hidden$="[[!stringField6Visible]]" role="widget"
+                                    value="{{document.properties.custom:stringField6}}" label="[[stringField1Label]]"
+                                    required="[[stringField6Required]]" class="sortableEdit"
+                                    id="[[stringField6Order]]"></nuxeo-textarea>
                 </template>
                 <template is="dom-if" if="[[stringField7Multiline]]">
-                    <nuxeo-textarea hidden$="[[!stringField7Visible]]" role="widget" value="{{document.properties.custom:stringField7}}" label="[[stringField7Label]]" required="[[stringField7Required]]" class="sortableEdit" id="[[stringField7Order]]"></nuxeo-textarea>
+                    <nuxeo-textarea hidden$="[[!stringField7Visible]]" role="widget"
+                                    value="{{document.properties.custom:stringField7}}" label="[[stringField7Label]]"
+                                    required="[[stringField7Required]]" class="sortableEdit"
+                                    id="[[stringField7Order]]"></nuxeo-textarea>
                 </template>
                 <template is="dom-if" if="[[stringField8Multiline]]">
-                    <nuxeo-textarea hidden$="[[!stringField8Visible]]" role="widget" value="{{document.properties.custom:stringField8}}" label="[[stringField8Label]]" required="[[stringField8Required]]" class="sortableEdit" id="[[stringField8Order]]"></nuxeo-textarea>
+                    <nuxeo-textarea hidden$="[[!stringField8Visible]]" role="widget"
+                                    value="{{document.properties.custom:stringField8}}" label="[[stringField8Label]]"
+                                    required="[[stringField8Required]]" class="sortableEdit"
+                                    id="[[stringField8Order]]"></nuxeo-textarea>
                 </template>
                 <template is="dom-if" if="[[stringField9Multiline]]">
-                    <nuxeo-textarea hidden$="[[!stringField9Visible]]" role="widget" value="{{document.properties.custom:stringField9}}" label="[[stringField9Label]]" required="[[stringField9Required]]" class="sortableEdit" id="[[stringField9Order]]"></nuxeo-textarea>
+                    <nuxeo-textarea hidden$="[[!stringField9Visible]]" role="widget"
+                                    value="{{document.properties.custom:stringField9}}" label="[[stringField9Label]]"
+                                    required="[[stringField9Required]]" class="sortableEdit"
+                                    id="[[stringField9Order]]"></nuxeo-textarea>
                 </template>
                 <template is="dom-if" if="[[stringField10Multiline]]">
-                    <nuxeo-textarea hidden$="[[!stringField10Visible]]" role="widget" value="{{document.properties.custom:stringField10}}" label="[[stringField10Label]]" required="[[stringField10Required]]" class="sortableEdit" id="[[stringField10Order]]"></nuxeo-textarea>
+                    <nuxeo-textarea hidden$="[[!stringField10Visible]]" role="widget"
+                                    value="{{document.properties.custom:stringField10}}" label="[[stringField10Label]]"
+                                    required="[[stringField10Required]]" class="sortableEdit"
+                                    id="[[stringField10Order]]"></nuxeo-textarea>
                 </template>
                 <template is="dom-if" if="[[stringField11Multiline]]">
-                    <nuxeo-textarea hidden$="[[!stringField11Visible]]" role="widget" value="{{document.properties.custom:stringField11}}" label="[[stringField11Label]]" required="[[stringField11Required]]" class="sortableEdit" id="[[stringField11Order]]"></nuxeo-textarea>
+                    <nuxeo-textarea hidden$="[[!stringField11Visible]]" role="widget"
+                                    value="{{document.properties.custom:stringField11}}" label="[[stringField11Label]]"
+                                    required="[[stringField11Required]]" class="sortableEdit"
+                                    id="[[stringField11Order]]"></nuxeo-textarea>
                 </template>
                 <template is="dom-if" if="[[stringField12Multiline]]">
-                    <nuxeo-textarea hidden$="[[!stringField12Visible]]" role="widget" value="{{document.properties.custom:stringField12}}" label="[[stringField12Label]]" required="[[stringField12Required]]" class="sortableEdit" id="[[stringField12Order]]"></nuxeo-textarea>
+                    <nuxeo-textarea hidden$="[[!stringField12Visible]]" role="widget"
+                                    value="{{document.properties.custom:stringField12}}" label="[[stringField12Label]]"
+                                    required="[[stringField12Required]]" class="sortableEdit"
+                                    id="[[stringField12Order]]"></nuxeo-textarea>
                 </template>
                 <template is="dom-if" if="[[stringField13Multiline]]">
-                    <nuxeo-textarea hidden$="[[!stringField13Visible]]" role="widget" value="{{document.properties.custom:stringField13}}" label="[[stringField13Label]]" required="[[stringField13Required]]" class="sortableEdit" id="[[stringField13Order]]"></nuxeo-textarea>
+                    <nuxeo-textarea hidden$="[[!stringField13Visible]]" role="widget"
+                                    value="{{document.properties.custom:stringField13}}" label="[[stringField13Label]]"
+                                    required="[[stringField13Required]]" class="sortableEdit"
+                                    id="[[stringField13Order]]"></nuxeo-textarea>
                 </template>
                 <template is="dom-if" if="[[stringField14Multiline]]">
-                    <nuxeo-textarea hidden$="[[!stringField14Visible]]" role="widget" value="{{document.properties.custom:stringField14}}" label="[[stringField14Label]]" required="[[stringField14Required]]" class="sortableEdit" id="[[stringField14Order]]"></nuxeo-textarea>
+                    <nuxeo-textarea hidden$="[[!stringField14Visible]]" role="widget"
+                                    value="{{document.properties.custom:stringField14}}" label="[[stringField14Label]]"
+                                    required="[[stringField14Required]]" class="sortableEdit"
+                                    id="[[stringField14Order]]"></nuxeo-textarea>
                 </template>
                 <template is="dom-if" if="[[stringField15Multiline]]">
-                    <nuxeo-textarea hidden$="[[!stringField15Visible]]" role="widget" value="{{document.properties.custom:stringField15}}" label="[[stringField15Label]]" required="[[stringField15Required]]" class="sortableEdit" id="[[stringField15Order]]"></nuxeo-textarea>
+                    <nuxeo-textarea hidden$="[[!stringField15Visible]]" role="widget"
+                                    value="{{document.properties.custom:stringField15}}" label="[[stringField15Label]]"
+                                    required="[[stringField15Required]]" class="sortableEdit"
+                                    id="[[stringField15Order]]"></nuxeo-textarea>
                 </template>
                 <template is="dom-if" if="[[stringField16Multiline]]">
-                    <nuxeo-textarea hidden$="[[!stringField16Visible]]" role="widget" value="{{document.properties.custom:stringField16}}" label="[[stringField16Label]]" required="[[stringField16Required]]" class="sortableEdit" id="[[stringField16Order]]"></nuxeo-textarea>
+                    <nuxeo-textarea hidden$="[[!stringField16Visible]]" role="widget"
+                                    value="{{document.properties.custom:stringField16}}" label="[[stringField16Label]]"
+                                    required="[[stringField16Required]]" class="sortableEdit"
+                                    id="[[stringField16Order]]"></nuxeo-textarea>
                 </template>
                 <template is="dom-if" if="[[stringField17Multiline]]">
-                    <nuxeo-textarea hidden$="[[!stringField17Visible]]" role="widget" value="{{document.properties.custom:stringField17}}" label="[[stringField17Label]]" required="[[stringField17Required]]" class="sortableEdit" id="[[stringField17Order]]"></nuxeo-textarea>
+                    <nuxeo-textarea hidden$="[[!stringField17Visible]]" role="widget"
+                                    value="{{document.properties.custom:stringField17}}" label="[[stringField17Label]]"
+                                    required="[[stringField17Required]]" class="sortableEdit"
+                                    id="[[stringField17Order]]"></nuxeo-textarea>
                 </template>
                 <template is="dom-if" if="[[stringField18Multiline]]">
-                    <nuxeo-textarea hidden$="[[!stringField18Visible]]" role="widget" value="{{document.properties.custom:stringField18}}" label="[[stringField18Label]]" required="[[stringField18Required]]" class="sortableEdit" id="[[stringField18Order]]"></nuxeo-textarea>
+                    <nuxeo-textarea hidden$="[[!stringField18Visible]]" role="widget"
+                                    value="{{document.properties.custom:stringField18}}" label="[[stringField18Label]]"
+                                    required="[[stringField18Required]]" class="sortableEdit"
+                                    id="[[stringField18Order]]"></nuxeo-textarea>
                 </template>
                 <template is="dom-if" if="[[stringField19Multiline]]">
-                    <nuxeo-textarea hidden$="[[!stringField19Visible]]" role="widget" value="{{document.properties.custom:stringField19}}" label="[[stringField19Label]]" required="[[stringField19Required]]" class="sortableEdit" id="[[stringField19Order]]"></nuxeo-textarea>
+                    <nuxeo-textarea hidden$="[[!stringField19Visible]]" role="widget"
+                                    value="{{document.properties.custom:stringField19}}" label="[[stringField19Label]]"
+                                    required="[[stringField19Required]]" class="sortableEdit"
+                                    id="[[stringField19Order]]"></nuxeo-textarea>
                 </template>
                 <template is="dom-if" if="[[stringField20Multiline]]">
-                    <nuxeo-textarea hidden$="[[!stringField20Visible]]" role="widget" value="{{document.properties.custom:stringField20}}" label="[[stringField20Label]]" required="[[stringField20Required]]" class="sortableEdit" id="[[stringField20Order]]"></nuxeo-textarea>
+                    <nuxeo-textarea hidden$="[[!stringField20Visible]]" role="widget"
+                                    value="{{document.properties.custom:stringField20}}" label="[[stringField20Label]]"
+                                    required="[[stringField20Required]]" class="sortableEdit"
+                                    id="[[stringField20Order]]"></nuxeo-textarea>
                 </template>
 
                 <template is="dom-if" if="[[!stringField1Multiline]]">
-                    <nuxeo-input hidden$="[[!stringField1Visible]]" role="widget" value="{{document.properties.custom:stringField1}}" label="[[stringField1Label]]" required="[[stringField1Required]]" class="sortableEdit" id="[[stringField1Order]]"></nuxeo-input>
+                    <nuxeo-input hidden$="[[!stringField1Visible]]" role="widget"
+                                 value="{{document.properties.custom:stringField1}}" label="[[stringField1Label]]"
+                                 required="[[stringField1Required]]" class="sortableEdit"
+                                 id="[[stringField1Order]]"></nuxeo-input>
                 </template>
                 <template is="dom-if" if="[[!stringField2Multiline]]">
-                    <nuxeo-input hidden$="[[!stringField2Visible]]" role="widget" value="{{document.properties.custom:stringField2}}" label="[[stringField2Label]]" required="[[stringField2Required]]" class="sortableEdit" id="[[stringField2Order]]"></nuxeo-input>
+                    <nuxeo-input hidden$="[[!stringField2Visible]]" role="widget"
+                                 value="{{document.properties.custom:stringField2}}" label="[[stringField2Label]]"
+                                 required="[[stringField2Required]]" class="sortableEdit"
+                                 id="[[stringField2Order]]"></nuxeo-input>
                 </template>
                 <template is="dom-if" if="[[!stringField3Multiline]]">
-                    <nuxeo-input hidden$="[[!stringField3Visible]]" role="widget" value="{{document.properties.custom:stringField3}}" label="[[stringField3Label]]" required="[[stringField3Required]]" class="sortableEdit" id="[[stringField3Order]]"></nuxeo-input>
+                    <nuxeo-input hidden$="[[!stringField3Visible]]" role="widget"
+                                 value="{{document.properties.custom:stringField3}}" label="[[stringField3Label]]"
+                                 required="[[stringField3Required]]" class="sortableEdit"
+                                 id="[[stringField3Order]]"></nuxeo-input>
                 </template>
                 <template is="dom-if" if="[[!stringField4Multiline]]">
-                    <nuxeo-input hidden$="[[!stringField4Visible]]" role="widget" value="{{document.properties.custom:stringField4}}" label="[[stringField4Label]]" required="[[stringField4Required]]" class="sortableEdit" id="[[stringField4Order]]"></nuxeo-input>
+                    <nuxeo-input hidden$="[[!stringField4Visible]]" role="widget"
+                                 value="{{document.properties.custom:stringField4}}" label="[[stringField4Label]]"
+                                 required="[[stringField4Required]]" class="sortableEdit"
+                                 id="[[stringField4Order]]"></nuxeo-input>
                 </template>
                 <template is="dom-if" if="[[!stringField5Multiline]]">
-                    <nuxeo-input hidden$="[[!stringField5Visible]]" role="widget" value="{{document.properties.custom:stringField5}}" label="[[stringField5Label]]" required="[[stringField5Required]]" class="sortableEdit" id="[[stringField5Order]]"></nuxeo-input>
+                    <nuxeo-input hidden$="[[!stringField5Visible]]" role="widget"
+                                 value="{{document.properties.custom:stringField5}}" label="[[stringField5Label]]"
+                                 required="[[stringField5Required]]" class="sortableEdit"
+                                 id="[[stringField5Order]]"></nuxeo-input>
                 </template>
                 <template is="dom-if" if="[[!stringField6Multiline]]">
-                    <nuxeo-input hidden$="[[!stringField6Visible]]" role="widget" value="{{document.properties.custom:stringField6}}" label="[[stringField6Label]]" required="[[stringField6Required]]" class="sortableEdit" id="[[stringField6Order]]"></nuxeo-input>
+                    <nuxeo-input hidden$="[[!stringField6Visible]]" role="widget"
+                                 value="{{document.properties.custom:stringField6}}" label="[[stringField6Label]]"
+                                 required="[[stringField6Required]]" class="sortableEdit"
+                                 id="[[stringField6Order]]"></nuxeo-input>
                 </template>
                 <template is="dom-if" if="[[!stringField7Multiline]]">
-                    <nuxeo-input hidden$="[[!stringField7Visible]]" role="widget" value="{{document.properties.custom:stringField7}}" label="[[stringField7Label]]" required="[[stringField7Required]]" class="sortableEdit" id="[[stringField7Order]]"></nuxeo-input>
+                    <nuxeo-input hidden$="[[!stringField7Visible]]" role="widget"
+                                 value="{{document.properties.custom:stringField7}}" label="[[stringField7Label]]"
+                                 required="[[stringField7Required]]" class="sortableEdit"
+                                 id="[[stringField7Order]]"></nuxeo-input>
                 </template>
                 <template is="dom-if" if="[[!stringField8Multiline]]">
-                    <nuxeo-input hidden$="[[!stringField8Visible]]" role="widget" value="{{document.properties.custom:stringField8}}" label="[[stringField8Label]]" required="[[stringField8Required]]" class="sortableEdit" id="[[stringField8Order]]"></nuxeo-input>
+                    <nuxeo-input hidden$="[[!stringField8Visible]]" role="widget"
+                                 value="{{document.properties.custom:stringField8}}" label="[[stringField8Label]]"
+                                 required="[[stringField8Required]]" class="sortableEdit"
+                                 id="[[stringField8Order]]"></nuxeo-input>
                 </template>
                 <template is="dom-if" if="[[!stringField9Multiline]]">
-                    <nuxeo-input hidden$="[[!stringField9Visible]]" role="widget" value="{{document.properties.custom:stringField9}}" label="[[stringField9Label]]" required="[[stringField9Required]]" class="sortableEdit" id="[[stringField9Order]]"></nuxeo-input>
+                    <nuxeo-input hidden$="[[!stringField9Visible]]" role="widget"
+                                 value="{{document.properties.custom:stringField9}}" label="[[stringField9Label]]"
+                                 required="[[stringField9Required]]" class="sortableEdit"
+                                 id="[[stringField9Order]]"></nuxeo-input>
                 </template>
                 <template is="dom-if" if="[[!stringField10Multiline]]">
-                    <nuxeo-input hidden$="[[!stringField10Visible]]" role="widget" value="{{document.properties.custom:stringField10}}" label="[[stringField10Label]]" required="[[stringField10Required]]" class="sortableEdit" id="[[stringField10Order]]"></nuxeo-input>
+                    <nuxeo-input hidden$="[[!stringField10Visible]]" role="widget"
+                                 value="{{document.properties.custom:stringField10}}" label="[[stringField10Label]]"
+                                 required="[[stringField10Required]]" class="sortableEdit"
+                                 id="[[stringField10Order]]"></nuxeo-input>
                 </template>
                 <template is="dom-if" if="[[!stringField11Multiline]]">
-                    <nuxeo-input hidden$="[[!stringField11Visible]]" role="widget" value="{{document.properties.custom:stringField11}}" label="[[stringField11Label]]" required="[[stringField11Required]]" class="sortableEdit" id="[[stringField11Order]]"></nuxeo-input>
+                    <nuxeo-input hidden$="[[!stringField11Visible]]" role="widget"
+                                 value="{{document.properties.custom:stringField11}}" label="[[stringField11Label]]"
+                                 required="[[stringField11Required]]" class="sortableEdit"
+                                 id="[[stringField11Order]]"></nuxeo-input>
                 </template>
                 <template is="dom-if" if="[[!stringField12Multiline]]">
-                    <nuxeo-input hidden$="[[!stringField12Visible]]" role="widget" value="{{document.properties.custom:stringField12}}" label="[[stringField12Label]]" required="[[stringField12Required]]" class="sortableEdit" id="[[stringField12Order]]"></nuxeo-input>
+                    <nuxeo-input hidden$="[[!stringField12Visible]]" role="widget"
+                                 value="{{document.properties.custom:stringField12}}" label="[[stringField12Label]]"
+                                 required="[[stringField12Required]]" class="sortableEdit"
+                                 id="[[stringField12Order]]"></nuxeo-input>
                 </template>
                 <template is="dom-if" if="[[!stringField13Multiline]]">
-                    <nuxeo-input hidden$="[[!stringField13Visible]]" role="widget" value="{{document.properties.custom:stringField13}}" label="[[stringField13Label]]" required="[[stringField13Required]]" class="sortableEdit" id="[[stringField13Order]]"></nuxeo-input>
+                    <nuxeo-input hidden$="[[!stringField13Visible]]" role="widget"
+                                 value="{{document.properties.custom:stringField13}}" label="[[stringField13Label]]"
+                                 required="[[stringField13Required]]" class="sortableEdit"
+                                 id="[[stringField13Order]]"></nuxeo-input>
                 </template>
                 <template is="dom-if" if="[[!stringField14Multiline]]">
-                    <nuxeo-input hidden$="[[!stringField14Visible]]" role="widget" value="{{document.properties.custom:stringField14}}" label="[[stringField14Label]]" required="[[stringField14Required]]" class="sortableEdit" id="[[stringField14Order]]"></nuxeo-input>
+                    <nuxeo-input hidden$="[[!stringField14Visible]]" role="widget"
+                                 value="{{document.properties.custom:stringField14}}" label="[[stringField14Label]]"
+                                 required="[[stringField14Required]]" class="sortableEdit"
+                                 id="[[stringField14Order]]"></nuxeo-input>
                 </template>
                 <template is="dom-if" if="[[!stringField15Multiline]]">
-                    <nuxeo-input hidden$="[[!stringField15Visible]]" role="widget" value="{{document.properties.custom:stringField15}}" label="[[stringField15Label]]" required="[[stringField15Required]]" class="sortableEdit" id="[[stringField15Order]]"></nuxeo-input>
+                    <nuxeo-input hidden$="[[!stringField15Visible]]" role="widget"
+                                 value="{{document.properties.custom:stringField15}}" label="[[stringField15Label]]"
+                                 required="[[stringField15Required]]" class="sortableEdit"
+                                 id="[[stringField15Order]]"></nuxeo-input>
                 </template>
                 <template is="dom-if" if="[[!stringField16Multiline]]">
-                    <nuxeo-input hidden$="[[!stringField16Visible]]" role="widget" value="{{document.properties.custom:stringField16}}" label="[[stringField16Label]]" required="[[stringField16Required]]" class="sortableEdit" id="[[stringField16Order]]"></nuxeo-input>
+                    <nuxeo-input hidden$="[[!stringField16Visible]]" role="widget"
+                                 value="{{document.properties.custom:stringField16}}" label="[[stringField16Label]]"
+                                 required="[[stringField16Required]]" class="sortableEdit"
+                                 id="[[stringField16Order]]"></nuxeo-input>
                 </template>
                 <template is="dom-if" if="[[!stringField17Multiline]]">
-                    <nuxeo-input hidden$="[[!stringField17Visible]]" role="widget" value="{{document.properties.custom:stringField17}}" label="[[stringField17Label]]" required="[[stringField17Required]]" class="sortableEdit" id="[[stringField17Order]]"></nuxeo-input>
+                    <nuxeo-input hidden$="[[!stringField17Visible]]" role="widget"
+                                 value="{{document.properties.custom:stringField17}}" label="[[stringField17Label]]"
+                                 required="[[stringField17Required]]" class="sortableEdit"
+                                 id="[[stringField17Order]]"></nuxeo-input>
                 </template>
                 <template is="dom-if" if="[[!stringField18Multiline]]">
-                    <nuxeo-input hidden$="[[!stringField18Visible]]" role="widget" value="{{document.properties.custom:stringField18}}" label="[[stringField18Label]]" required="[[stringField18Required]]" class="sortableEdit" id="[[stringField18Order]]"></nuxeo-input>
+                    <nuxeo-input hidden$="[[!stringField18Visible]]" role="widget"
+                                 value="{{document.properties.custom:stringField18}}" label="[[stringField18Label]]"
+                                 required="[[stringField18Required]]" class="sortableEdit"
+                                 id="[[stringField18Order]]"></nuxeo-input>
                 </template>
                 <template is="dom-if" if="[[!stringField19Multiline]]">
-                    <nuxeo-input hidden$="[[!stringField19Visible]]" role="widget" value="{{document.properties.custom:stringField19}}" label="[[stringField19Label]]" required="[[stringField19Required]]" class="sortableEdit" id="[[stringField19Order]]"></nuxeo-input>
+                    <nuxeo-input hidden$="[[!stringField19Visible]]" role="widget"
+                                 value="{{document.properties.custom:stringField19}}" label="[[stringField19Label]]"
+                                 required="[[stringField19Required]]" class="sortableEdit"
+                                 id="[[stringField19Order]]"></nuxeo-input>
                 </template>
                 <template is="dom-if" if="[[!stringField20Multiline]]">
-                    <nuxeo-input hidden$="[[!stringField20Visible]]" role="widget" value="{{document.properties.custom:stringField20}}" label="[[stringField20Label]]" required="[[stringField20Required]]" class="sortableEdit" id="[[stringField20Order]]"></nuxeo-input>
+                    <nuxeo-input hidden$="[[!stringField20Visible]]" role="widget"
+                                 value="{{document.properties.custom:stringField20}}" label="[[stringField20Label]]"
+                                 required="[[stringField20Required]]" class="sortableEdit"
+                                 id="[[stringField20Order]]"></nuxeo-input>
+                </template>
+                <template is="dom-if" if="[[stringField11Multiline]]">
+                    <nuxeo-textarea hidden$="[[!stringField11Visible]]" role="widget"
+                                    value="{{document.properties.custom:stringField11}}" label="[[stringField11Label]]"
+                                    required="[[stringField11Required]]" class="sortableEdit"
+                                    id="[[stringField11Order]]"></nuxeo-textarea>
                 </template>
 
-                <nuxeo-directory-suggestion hidden$="[[!vocabularyField1Visible]]" role="widget" value="{{document.properties.custom:vocabularyField1}}" label="[[vocabularyField1Label]]" required="[[vocabularyField1Required]]" directory-name="[[vocabularyField1Name]]" min-chars="0" multiple="[[vocabularyField1Multivalue]]" class="sortableEdit" id="[[vocabularyField1Order]]"></nuxeo-directory-suggestion>
-                <nuxeo-directory-suggestion hidden$="[[!vocabularyField2Visible]]" role="widget" value="{{document.properties.custom:vocabularyField2}}" label="[[vocabularyField2Label]]" required="[[vocabularyField2Required]]" directory-name="[[vocabularyField2Name]]" min-chars="0" multiple="[[vocabularyField2Multivalue]]" class="sortableEdit" id="[[vocabularyField2Order]]"></nuxeo-directory-suggestion>
-                <nuxeo-directory-suggestion hidden$="[[!vocabularyField3Visible]]" role="widget" value="{{document.properties.custom:vocabularyField3}}" label="[[vocabularyField3Label]]" required="[[vocabularyField3Required]]" directory-name="[[vocabularyField3Name]]" min-chars="0" multiple="[[vocabularyField3Multivalue]]" class="sortableEdit" id="[[vocabularyField3Order]]"></nuxeo-directory-suggestion>
-                <nuxeo-directory-suggestion hidden$="[[!vocabularyField4Visible]]" role="widget" value="{{document.properties.custom:vocabularyField4}}" label="[[vocabularyField4Label]]" required="[[vocabularyField4Required]]" directory-name="[[vocabularyField4Name]]" min-chars="0" multiple="[[vocabularyField4Multivalue]]" class="sortableEdit" id="[[vocabularyField4Order]]"></nuxeo-directory-suggestion>
-                <nuxeo-directory-suggestion hidden$="[[!vocabularyField5Visible]]" role="widget" value="{{document.properties.custom:vocabularyField5}}" label="[[vocabularyField5Label]]" required="[[vocabularyField5Required]]" directory-name="[[vocabularyField5Name]]" min-chars="0" multiple="[[vocabularyField5Multivalue]]" class="sortableEdit" id="[[vocabularyField5Order]]"></nuxeo-directory-suggestion>
-                <nuxeo-directory-suggestion hidden$="[[!vocabularyField6Visible]]" role="widget" value="{{document.properties.custom:vocabularyField6}}" label="[[vocabularyField6Label]]" required="[[vocabularyField6Required]]" directory-name="[[vocabularyField6Name]]" min-chars="0" multiple="[[vocabularyField6Multivalue]]" class="sortableEdit" id="[[vocabularyField6Order]]"></nuxeo-directory-suggestion>
-                <nuxeo-directory-suggestion hidden$="[[!vocabularyField7Visible]]" role="widget" value="{{document.properties.custom:vocabularyField7}}" label="[[vocabularyField7Label]]" required="[[vocabularyField7Required]]" directory-name="[[vocabularyField7Name]]" min-chars="0" multiple="[[vocabularyField7Multivalue]]" class="sortableEdit" id="[[vocabularyField7Order]]"></nuxeo-directory-suggestion>
-                <nuxeo-directory-suggestion hidden$="[[!vocabularyField8Visible]]" role="widget" value="{{document.properties.custom:vocabularyField8}}" label="[[vocabularyField8Label]]" required="[[vocabularyField8Required]]" directory-name="[[vocabularyField8Name]]" min-chars="0" multiple="[[vocabularyField8Multivalue]]" class="sortableEdit" id="[[vocabularyField8Order]]"></nuxeo-directory-suggestion>
-                <nuxeo-directory-suggestion hidden$="[[!vocabularyField9Visible]]" role="widget" value="{{document.properties.custom:vocabularyField9}}" label="[[vocabularyField9Label]]" required="[[vocabularyField9Required]]" directory-name="[[vocabularyField9Name]]" min-chars="0" multiple="[[vocabularyField9Multivalue]]" class="sortableEdit" id="[[vocabularyField9Order]]"></nuxeo-directory-suggestion>
-                <nuxeo-directory-suggestion hidden$="[[!vocabularyField10Visible]]" role="widget" value="{{document.properties.custom:vocabularyField10}}" label="[[vocabularyField10Label]]" required="[[vocabularyField10Required]]" directory-name="[[vocabularyField10Name]]" min-chars="0" multiple="[[vocabularyField10Multivalue]]" class="sortableEdit" id="[[vocabularyField10Order]]"></nuxeo-directory-suggestion>
+                <nuxeo-directory-suggestion hidden$="[[!vocabularyField1Visible]]" role="widget"
+                                            value="{{document.properties.custom:vocabularyField1}}"
+                                            label="[[vocabularyField1Label]]" required="[[vocabularyField1Required]]"
+                                            directory-name="[[vocabularyField1Name]]" min-chars="0"
+                                            multiple="[[vocabularyField1Multivalue]]" class="sortableEdit"
+                                            id="[[vocabularyField1Order]]"></nuxeo-directory-suggestion>
+                <nuxeo-directory-suggestion hidden$="[[!vocabularyField2Visible]]" role="widget"
+                                            value="{{document.properties.custom:vocabularyField2}}"
+                                            label="[[vocabularyField2Label]]" required="[[vocabularyField2Required]]"
+                                            directory-name="[[vocabularyField2Name]]" min-chars="0"
+                                            multiple="[[vocabularyField2Multivalue]]" class="sortableEdit"
+                                            id="[[vocabularyField2Order]]"></nuxeo-directory-suggestion>
+                <nuxeo-directory-suggestion hidden$="[[!vocabularyField3Visible]]" role="widget"
+                                            value="{{document.properties.custom:vocabularyField3}}"
+                                            label="[[vocabularyField3Label]]" required="[[vocabularyField3Required]]"
+                                            directory-name="[[vocabularyField3Name]]" min-chars="0"
+                                            multiple="[[vocabularyField3Multivalue]]" class="sortableEdit"
+                                            id="[[vocabularyField3Order]]"></nuxeo-directory-suggestion>
+                <nuxeo-directory-suggestion hidden$="[[!vocabularyField4Visible]]" role="widget"
+                                            value="{{document.properties.custom:vocabularyField4}}"
+                                            label="[[vocabularyField4Label]]" required="[[vocabularyField4Required]]"
+                                            directory-name="[[vocabularyField4Name]]" min-chars="0"
+                                            multiple="[[vocabularyField4Multivalue]]" class="sortableEdit"
+                                            id="[[vocabularyField4Order]]"></nuxeo-directory-suggestion>
+                <nuxeo-directory-suggestion hidden$="[[!vocabularyField5Visible]]" role="widget"
+                                            value="{{document.properties.custom:vocabularyField5}}"
+                                            label="[[vocabularyField5Label]]" required="[[vocabularyField5Required]]"
+                                            directory-name="[[vocabularyField5Name]]" min-chars="0"
+                                            multiple="[[vocabularyField5Multivalue]]" class="sortableEdit"
+                                            id="[[vocabularyField5Order]]"></nuxeo-directory-suggestion>
+                <nuxeo-directory-suggestion hidden$="[[!vocabularyField6Visible]]" role="widget"
+                                            value="{{document.properties.custom:vocabularyField6}}"
+                                            label="[[vocabularyField6Label]]" required="[[vocabularyField6Required]]"
+                                            directory-name="[[vocabularyField6Name]]" min-chars="0"
+                                            multiple="[[vocabularyField6Multivalue]]" class="sortableEdit"
+                                            id="[[vocabularyField6Order]]"></nuxeo-directory-suggestion>
+                <nuxeo-directory-suggestion hidden$="[[!vocabularyField7Visible]]" role="widget"
+                                            value="{{document.properties.custom:vocabularyField7}}"
+                                            label="[[vocabularyField7Label]]" required="[[vocabularyField7Required]]"
+                                            directory-name="[[vocabularyField7Name]]" min-chars="0"
+                                            multiple="[[vocabularyField7Multivalue]]" class="sortableEdit"
+                                            id="[[vocabularyField7Order]]"></nuxeo-directory-suggestion>
+                <nuxeo-directory-suggestion hidden$="[[!vocabularyField8Visible]]" role="widget"
+                                            value="{{document.properties.custom:vocabularyField8}}"
+                                            label="[[vocabularyField8Label]]" required="[[vocabularyField8Required]]"
+                                            directory-name="[[vocabularyField8Name]]" min-chars="0"
+                                            multiple="[[vocabularyField8Multivalue]]" class="sortableEdit"
+                                            id="[[vocabularyField8Order]]"></nuxeo-directory-suggestion>
+                <nuxeo-directory-suggestion hidden$="[[!vocabularyField9Visible]]" role="widget"
+                                            value="{{document.properties.custom:vocabularyField9}}"
+                                            label="[[vocabularyField9Label]]" required="[[vocabularyField9Required]]"
+                                            directory-name="[[vocabularyField9Name]]" min-chars="0"
+                                            multiple="[[vocabularyField9Multivalue]]" class="sortableEdit"
+                                            id="[[vocabularyField9Order]]"></nuxeo-directory-suggestion>
+                <nuxeo-directory-suggestion hidden$="[[!vocabularyField10Visible]]" role="widget"
+                                            value="{{document.properties.custom:vocabularyField10}}"
+                                            label="[[vocabularyField10Label]]" required="[[vocabularyField10Required]]"
+                                            directory-name="[[vocabularyField10Name]]" min-chars="0"
+                                            multiple="[[vocabularyField10Multivalue]]" class="sortableEdit"
+                                            id="[[vocabularyField10Order]]"></nuxeo-directory-suggestion>
 
-                <nuxeo-user-suggestion hidden$="[[!userField1Visible]]" role="widget" value="{{document.properties.custom:userField1}}" label="[[userField1Label]]" search-type="USER_TYPE" required="[[userField1Required]]" min-chars="0" class="sortableEdit" id="[[userField1Order]]"></nuxeo-user-suggestion>
-                <nuxeo-user-suggestion hidden$="[[!userField2Visible]]" role="widget" value="{{document.properties.custom:userField2}}" label="[[userField2Label]]" search-type="USER_TYPE" required="[[userField2Required]]" min-chars="0" class="sortableEdit" id="[[userField2Order]]"></nuxeo-user-suggestion>
-                <nuxeo-user-suggestion hidden$="[[!userField3Visible]]" role="widget" value="{{document.properties.custom:userField3}}" label="[[userField3Label]]" search-type="USER_TYPE" required="[[userField3Required]]" min-chars="0" class="sortableEdit" id="[[userField3Order]]"></nuxeo-user-suggestion>
-                <nuxeo-user-suggestion hidden$="[[!userField4Visible]]" role="widget" value="{{document.properties.custom:userField4}}" label="[[userField4Label]]" search-type="USER_TYPE" required="[[userField4Required]]" min-chars="0" class="sortableEdit" id="[[userField4Order]]"></nuxeo-user-suggestion>
-                <nuxeo-user-suggestion hidden$="[[!userField5Visible]]" role="widget" value="{{document.properties.custom:userField5}}" label="[[userField5Label]]" search-type="USER_TYPE" required="[[userField5Required]]" min-chars="0" class="sortableEdit" id="[[userField5Order]]"></nuxeo-user-suggestion>
-                <nuxeo-user-suggestion hidden$="[[!userField6Visible]]" role="widget" value="{{document.properties.custom:userField6}}" label="[[userField6Label]]" search-type="USER_TYPE" required="[[userField6Required]]" min-chars="0" class="sortableEdit" id="[[userField6Order]]"></nuxeo-user-suggestion>
-                <nuxeo-user-suggestion hidden$="[[!userField7Visible]]" role="widget" value="{{document.properties.custom:userField7}}" label="[[userField7Label]]" search-type="USER_TYPE" required="[[userField7Required]]" min-chars="0" class="sortableEdit" id="[[userField7Order]]"></nuxeo-user-suggestion>
-                <nuxeo-user-suggestion hidden$="[[!userField8Visible]]" role="widget" value="{{document.properties.custom:userField8}}" label="[[userField8Label]]" search-type="USER_TYPE" required="[[userField8Required]]" min-chars="0" class="sortableEdit" id="[[userField8Order]]"></nuxeo-user-suggestion>
-                <nuxeo-user-suggestion hidden$="[[!userField9Visible]]" role="widget" value="{{document.properties.custom:userField9}}" label="[[userField9Label]]" search-type="USER_TYPE" required="[[userField9Required]]" min-chars="0" class="sortableEdit" id="[[userField9Order]]"></nuxeo-user-suggestion>
-                <nuxeo-user-suggestion hidden$="[[!userField10Visible]]" role="widget" value="{{document.properties.custom:userField10}}" label="[[userField10Label]]" search-type="USER_TYPE" required="[[userField10Required]]" min-chars="0" class="sortableEdit" id="[[userField10Order]]"></nuxeo-user-suggestion>
+                <nuxeo-user-suggestion hidden$="[[!userField1Visible]]" role="widget"
+                                       value="{{document.properties.custom:userField1}}" label="[[userField1Label]]"
+                                       search-type="USER_TYPE" required="[[userField1Required]]" min-chars="0"
+                                       class="sortableEdit" id="[[userField1Order]]"></nuxeo-user-suggestion>
+                <nuxeo-user-suggestion hidden$="[[!userField2Visible]]" role="widget"
+                                       value="{{document.properties.custom:userField2}}" label="[[userField2Label]]"
+                                       search-type="USER_TYPE" required="[[userField2Required]]" min-chars="0"
+                                       class="sortableEdit" id="[[userField2Order]]"></nuxeo-user-suggestion>
+                <nuxeo-user-suggestion hidden$="[[!userField3Visible]]" role="widget"
+                                       value="{{document.properties.custom:userField3}}" label="[[userField3Label]]"
+                                       search-type="USER_TYPE" required="[[userField3Required]]" min-chars="0"
+                                       class="sortableEdit" id="[[userField3Order]]"></nuxeo-user-suggestion>
+                <nuxeo-user-suggestion hidden$="[[!userField4Visible]]" role="widget"
+                                       value="{{document.properties.custom:userField4}}" label="[[userField4Label]]"
+                                       search-type="USER_TYPE" required="[[userField4Required]]" min-chars="0"
+                                       class="sortableEdit" id="[[userField4Order]]"></nuxeo-user-suggestion>
+                <nuxeo-user-suggestion hidden$="[[!userField5Visible]]" role="widget"
+                                       value="{{document.properties.custom:userField5}}" label="[[userField5Label]]"
+                                       search-type="USER_TYPE" required="[[userField5Required]]" min-chars="0"
+                                       class="sortableEdit" id="[[userField5Order]]"></nuxeo-user-suggestion>
+                <nuxeo-user-suggestion hidden$="[[!userField6Visible]]" role="widget"
+                                       value="{{document.properties.custom:userField6}}" label="[[userField6Label]]"
+                                       search-type="USER_TYPE" required="[[userField6Required]]" min-chars="0"
+                                       class="sortableEdit" id="[[userField6Order]]"></nuxeo-user-suggestion>
+                <nuxeo-user-suggestion hidden$="[[!userField7Visible]]" role="widget"
+                                       value="{{document.properties.custom:userField7}}" label="[[userField7Label]]"
+                                       search-type="USER_TYPE" required="[[userField7Required]]" min-chars="0"
+                                       class="sortableEdit" id="[[userField7Order]]"></nuxeo-user-suggestion>
+                <nuxeo-user-suggestion hidden$="[[!userField8Visible]]" role="widget"
+                                       value="{{document.properties.custom:userField8}}" label="[[userField8Label]]"
+                                       search-type="USER_TYPE" required="[[userField8Required]]" min-chars="0"
+                                       class="sortableEdit" id="[[userField8Order]]"></nuxeo-user-suggestion>
+                <nuxeo-user-suggestion hidden$="[[!userField9Visible]]" role="widget"
+                                       value="{{document.properties.custom:userField9}}" label="[[userField9Label]]"
+                                       search-type="USER_TYPE" required="[[userField9Required]]" min-chars="0"
+                                       class="sortableEdit" id="[[userField9Order]]"></nuxeo-user-suggestion>
+                <nuxeo-user-suggestion hidden$="[[!userField10Visible]]" role="widget"
+                                       value="{{document.properties.custom:userField10}}" label="[[userField10Label]]"
+                                       search-type="USER_TYPE" required="[[userField10Required]]" min-chars="0"
+                                       class="sortableEdit" id="[[userField10Order]]"></nuxeo-user-suggestion>
 
-                <nuxeo-input hidden$="[[!doubleField1Visible]]" role="widget" value="{{document.properties.custom:doubleField1}}" label="[[doubleField1Label]]" required="[[doubleField1Required]]" class="sortableEdit" id="[[doubleField1Order]]"></nuxeo-input>
-                <nuxeo-input hidden$="[[!doubleField2Visible]]" role="widget" value="{{document.properties.custom:doubleField2}}" label="[[doubleField2Label]]" required="[[doubleField2Required]]" class="sortableEdit" id="[[doubleField2Order]]"></nuxeo-input>
-                <nuxeo-input hidden$="[[!doubleField3Visible]]" role="widget" value="{{document.properties.custom:doubleField3}}" label="[[doubleField3Label]]" required="[[doubleField3Required]]" class="sortableEdit" id="[[doubleField3Order]]"></nuxeo-input>
-                <nuxeo-input hidden$="[[!doubleField4Visible]]" role="widget" value="{{document.properties.custom:doubleField4}}" label="[[doubleField4Label]]" required="[[doubleField4Required]]" class="sortableEdit" id="[[doubleField4Order]]"></nuxeo-input>
-                <nuxeo-input hidden$="[[!doubleField5Visible]]" role="widget" value="{{document.properties.custom:doubleField5}}" label="[[doubleField5Label]]" required="[[doubleField5Required]]" class="sortableEdit" id="[[doubleField5Order]]"></nuxeo-input>
-                <nuxeo-input hidden$="[[!doubleField6Visible]]" role="widget" value="{{document.properties.custom:doubleField6}}" label="[[doubleField6Label]]" required="[[doubleField6Required]]" class="sortableEdit" id="[[doubleField6Order]]"></nuxeo-input>
-                <nuxeo-input hidden$="[[!doubleField7Visible]]" role="widget" value="{{document.properties.custom:doubleField7}}" label="[[doubleField7Label]]" required="[[doubleField7Required]]" class="sortableEdit" id="[[doubleField7Order]]"></nuxeo-input>
-                <nuxeo-input hidden$="[[!doubleField8Visible]]" role="widget" value="{{document.properties.custom:doubleField8}}" label="[[doubleField8Label]]" required="[[doubleField8Required]]" class="sortableEdit" id="[[doubleField8Order]]"></nuxeo-input>
-                <nuxeo-input hidden$="[[!doubleField9Visible]]" role="widget" value="{{document.properties.custom:doubleField9}}" label="[[doubleField9Label]]" required="[[doubleField9Required]]" class="sortableEdit" id="[[doubleField9Order]]"></nuxeo-input>
-                <nuxeo-input hidden$="[[!doubleField10Visible]]" role="widget" value="{{document.properties.custom:doubleField10}}" label="[[doubleField10Label]]" required="[[doubleField10Required]]" class="sortableEdit" id="[[doubleField10Order]]"></nuxeo-input>
+                <nuxeo-input hidden$="[[!doubleField1Visible]]" role="widget"
+                             value="{{document.properties.custom:doubleField1}}" label="[[doubleField1Label]]"
+                             required="[[doubleField1Required]]" class="sortableEdit"
+                             id="[[doubleField1Order]]"></nuxeo-input>
+                <nuxeo-input hidden$="[[!doubleField2Visible]]" role="widget"
+                             value="{{document.properties.custom:doubleField2}}" label="[[doubleField2Label]]"
+                             required="[[doubleField2Required]]" class="sortableEdit"
+                             id="[[doubleField2Order]]"></nuxeo-input>
+                <nuxeo-input hidden$="[[!doubleField3Visible]]" role="widget"
+                             value="{{document.properties.custom:doubleField3}}" label="[[doubleField3Label]]"
+                             required="[[doubleField3Required]]" class="sortableEdit"
+                             id="[[doubleField3Order]]"></nuxeo-input>
+                <nuxeo-input hidden$="[[!doubleField4Visible]]" role="widget"
+                             value="{{document.properties.custom:doubleField4}}" label="[[doubleField4Label]]"
+                             required="[[doubleField4Required]]" class="sortableEdit"
+                             id="[[doubleField4Order]]"></nuxeo-input>
+                <nuxeo-input hidden$="[[!doubleField5Visible]]" role="widget"
+                             value="{{document.properties.custom:doubleField5}}" label="[[doubleField5Label]]"
+                             required="[[doubleField5Required]]" class="sortableEdit"
+                             id="[[doubleField5Order]]"></nuxeo-input>
+                <nuxeo-input hidden$="[[!doubleField6Visible]]" role="widget"
+                             value="{{document.properties.custom:doubleField6}}" label="[[doubleField6Label]]"
+                             required="[[doubleField6Required]]" class="sortableEdit"
+                             id="[[doubleField6Order]]"></nuxeo-input>
+                <nuxeo-input hidden$="[[!doubleField7Visible]]" role="widget"
+                             value="{{document.properties.custom:doubleField7}}" label="[[doubleField7Label]]"
+                             required="[[doubleField7Required]]" class="sortableEdit"
+                             id="[[doubleField7Order]]"></nuxeo-input>
+                <nuxeo-input hidden$="[[!doubleField8Visible]]" role="widget"
+                             value="{{document.properties.custom:doubleField8}}" label="[[doubleField8Label]]"
+                             required="[[doubleField8Required]]" class="sortableEdit"
+                             id="[[doubleField8Order]]"></nuxeo-input>
+                <nuxeo-input hidden$="[[!doubleField9Visible]]" role="widget"
+                             value="{{document.properties.custom:doubleField9}}" label="[[doubleField9Label]]"
+                             required="[[doubleField9Required]]" class="sortableEdit"
+                             id="[[doubleField9Order]]"></nuxeo-input>
+                <nuxeo-input hidden$="[[!doubleField10Visible]]" role="widget"
+                             value="{{document.properties.custom:doubleField10}}" label="[[doubleField10Label]]"
+                             required="[[doubleField10Required]]" class="sortableEdit"
+                             id="[[doubleField10Order]]"></nuxeo-input>
 
-                <nuxeo-date-picker hidden$="[[!dateField1Visible]]" role="widget" value="{{document.properties.custom:dateField1}}" label="[[dateField1Label]]" required="[[dateField1Required]]" class="sortableEdit" id="[[dateField1Order]]"></nuxeo-date-picker>
-                <nuxeo-date-picker hidden$="[[!dateField2Visible]]" role="widget" value="{{document.properties.custom:dateField2}}" label="[[dateField2Label]]" required="[[dateField2Required]]" class="sortableEdit" id="[[dateField2Order]]"></nuxeo-date-picker>
-                <nuxeo-date-picker hidden$="[[!dateField3Visible]]" role="widget" value="{{document.properties.custom:dateField3}}" label="[[dateField3Label]]" required="[[dateField3Required]]" class="sortableEdit" id="[[dateField3Order]]"></nuxeo-date-picker>
-                <nuxeo-date-picker hidden$="[[!dateField4Visible]]" role="widget" value="{{document.properties.custom:dateField4}}" label="[[dateField4Label]]" required="[[dateField4Required]]" class="sortableEdit" id="[[dateField4Order]]"></nuxeo-date-picker>
-                <nuxeo-date-picker hidden$="[[!dateField5Visible]]" role="widget" value="{{document.properties.custom:dateField5}}" label="[[dateField5Label]]" required="[[dateField5Required]]" class="sortableEdit" id="[[dateField5Order]]"></nuxeo-date-picker>
-                <nuxeo-date-picker hidden$="[[!dateField6Visible]]" role="widget" value="{{document.properties.custom:dateField6}}" label="[[dateField6Label]]" required="[[dateField6Required]]" class="sortableEdit" id="[[dateField6Order]]"></nuxeo-date-picker>
-                <nuxeo-date-picker hidden$="[[!dateField7Visible]]" role="widget" value="{{document.properties.custom:dateField7}}" label="[[dateField7Label]]" required="[[dateField7Required]]" class="sortableEdit" id="[[dateField7Order]]"></nuxeo-date-picker>
-                <nuxeo-date-picker hidden$="[[!dateField8Visible]]" role="widget" value="{{document.properties.custom:dateField8}}" label="[[dateField8Label]]" required="[[dateField8Required]]" class="sortableEdit" id="[[dateField8Order]]"></nuxeo-date-picker>
-                <nuxeo-date-picker hidden$="[[!dateField9Visible]]" role="widget" value="{{document.properties.custom:dateField9}}" label="[[dateField9Label]]" required="[[dateField9Required]]" class="sortableEdit" id="[[dateField9Order]]"></nuxeo-date-picker>
-                <nuxeo-date-picker hidden$="[[!dateField10Visible]]" role="widget" value="{{document.properties.custom:dateField10}}" label="[[dateField10Label]]" required="[[dateField10Required]]" class="sortableEdit" id="[[dateField10Order]]"></nuxeo-date-picker>
-                <nuxeo-date-picker hidden$="[[!dateField11Visible]]" role="widget" value="{{document.properties.custom:dateField11}}" label="[[dateField11Label]]" required="[[dateField11Required]]" class="sortableEdit" id="[[dateField11Order]]"></nuxeo-date-picker>
-                <nuxeo-date-picker hidden$="[[!dateField12Visible]]" role="widget" value="{{document.properties.custom:dateField12}}" label="[[dateField12Label]]" required="[[dateField12Required]]" class="sortableEdit" id="[[dateField12Order]]"></nuxeo-date-picker>
-                <nuxeo-date-picker hidden$="[[!dateField13Visible]]" role="widget" value="{{document.properties.custom:dateField13}}" label="[[dateField13Label]]" required="[[dateField13Required]]" class="sortableEdit" id="[[dateField13Order]]"></nuxeo-date-picker>
-                <nuxeo-date-picker hidden$="[[!dateField14Visible]]" role="widget" value="{{document.properties.custom:dateField14}}" label="[[dateField14Label]]" required="[[dateField14Required]]" class="sortableEdit" id="[[dateField14Order]]"></nuxeo-date-picker>
-                <nuxeo-date-picker hidden$="[[!dateField15Visible]]" role="widget" value="{{document.properties.custom:dateField15}}" label="[[dateField15Label]]" required="[[dateField15Required]]" class="sortableEdit" id="[[dateField15Order]]"></nuxeo-date-picker>
-                <nuxeo-date-picker hidden$="[[!dateField16Visible]]" role="widget" value="{{document.properties.custom:dateField16}}" label="[[dateField16Label]]" required="[[dateField16Required]]" class="sortableEdit" id="[[dateField16Order]]"></nuxeo-date-picker>
-                <nuxeo-date-picker hidden$="[[!dateField17Visible]]" role="widget" value="{{document.properties.custom:dateField17}}" label="[[dateField17Label]]" required="[[dateField17Required]]" class="sortableEdit" id="[[dateField17Order]]"></nuxeo-date-picker>
-                <nuxeo-date-picker hidden$="[[!dateField18Visible]]" role="widget" value="{{document.properties.custom:dateField18}}" label="[[dateField18Label]]" required="[[dateField18Required]]" class="sortableEdit" id="[[dateField18Order]]"></nuxeo-date-picker>
-                <nuxeo-date-picker hidden$="[[!dateField19Visible]]" role="widget" value="{{document.properties.custom:dateField19}}" label="[[dateField19Label]]" required="[[dateField19Required]]" class="sortableEdit" id="[[dateField19Order]]"></nuxeo-date-picker>
-                <nuxeo-date-picker hidden$="[[!dateField20Visible]]" role="widget" value="{{document.properties.custom:dateField20}}" label="[[dateField20Label]]" required="[[dateField20Required]]" class="sortableEdit" id="[[dateField20Order]]"></nuxeo-date-picker>
+                <nuxeo-date-picker hidden$="[[!dateField1Visible]]" role="widget"
+                                   value="{{document.properties.custom:dateField1}}" label="[[dateField1Label]]"
+                                   required="[[dateField1Required]]" class="sortableEdit"
+                                   id="[[dateField1Order]]"></nuxeo-date-picker>
+                <nuxeo-date-picker hidden$="[[!dateField2Visible]]" role="widget"
+                                   value="{{document.properties.custom:dateField2}}" label="[[dateField2Label]]"
+                                   required="[[dateField2Required]]" class="sortableEdit"
+                                   id="[[dateField2Order]]"></nuxeo-date-picker>
+                <nuxeo-date-picker hidden$="[[!dateField3Visible]]" role="widget"
+                                   value="{{document.properties.custom:dateField3}}" label="[[dateField3Label]]"
+                                   required="[[dateField3Required]]" class="sortableEdit"
+                                   id="[[dateField3Order]]"></nuxeo-date-picker>
+                <nuxeo-date-picker hidden$="[[!dateField4Visible]]" role="widget"
+                                   value="{{document.properties.custom:dateField4}}" label="[[dateField4Label]]"
+                                   required="[[dateField4Required]]" class="sortableEdit"
+                                   id="[[dateField4Order]]"></nuxeo-date-picker>
+                <nuxeo-date-picker hidden$="[[!dateField5Visible]]" role="widget"
+                                   value="{{document.properties.custom:dateField5}}" label="[[dateField5Label]]"
+                                   required="[[dateField5Required]]" class="sortableEdit"
+                                   id="[[dateField5Order]]"></nuxeo-date-picker>
+                <nuxeo-date-picker hidden$="[[!dateField6Visible]]" role="widget"
+                                   value="{{document.properties.custom:dateField6}}" label="[[dateField6Label]]"
+                                   required="[[dateField6Required]]" class="sortableEdit"
+                                   id="[[dateField6Order]]"></nuxeo-date-picker>
+                <nuxeo-date-picker hidden$="[[!dateField7Visible]]" role="widget"
+                                   value="{{document.properties.custom:dateField7}}" label="[[dateField7Label]]"
+                                   required="[[dateField7Required]]" class="sortableEdit"
+                                   id="[[dateField7Order]]"></nuxeo-date-picker>
+                <nuxeo-date-picker hidden$="[[!dateField8Visible]]" role="widget"
+                                   value="{{document.properties.custom:dateField8}}" label="[[dateField8Label]]"
+                                   required="[[dateField8Required]]" class="sortableEdit"
+                                   id="[[dateField8Order]]"></nuxeo-date-picker>
+                <nuxeo-date-picker hidden$="[[!dateField9Visible]]" role="widget"
+                                   value="{{document.properties.custom:dateField9}}" label="[[dateField9Label]]"
+                                   required="[[dateField9Required]]" class="sortableEdit"
+                                   id="[[dateField9Order]]"></nuxeo-date-picker>
+                <nuxeo-date-picker hidden$="[[!dateField10Visible]]" role="widget"
+                                   value="{{document.properties.custom:dateField10}}" label="[[dateField10Label]]"
+                                   required="[[dateField10Required]]" class="sortableEdit"
+                                   id="[[dateField10Order]]"></nuxeo-date-picker>
+                <nuxeo-date-picker hidden$="[[!dateField11Visible]]" role="widget"
+                                   value="{{document.properties.custom:dateField11}}" label="[[dateField11Label]]"
+                                   required="[[dateField11Required]]" class="sortableEdit"
+                                   id="[[dateField11Order]]"></nuxeo-date-picker>
+                <nuxeo-date-picker hidden$="[[!dateField12Visible]]" role="widget"
+                                   value="{{document.properties.custom:dateField12}}" label="[[dateField12Label]]"
+                                   required="[[dateField12Required]]" class="sortableEdit"
+                                   id="[[dateField12Order]]"></nuxeo-date-picker>
+                <nuxeo-date-picker hidden$="[[!dateField13Visible]]" role="widget"
+                                   value="{{document.properties.custom:dateField13}}" label="[[dateField13Label]]"
+                                   required="[[dateField13Required]]" class="sortableEdit"
+                                   id="[[dateField13Order]]"></nuxeo-date-picker>
+                <nuxeo-date-picker hidden$="[[!dateField14Visible]]" role="widget"
+                                   value="{{document.properties.custom:dateField14}}" label="[[dateField14Label]]"
+                                   required="[[dateField14Required]]" class="sortableEdit"
+                                   id="[[dateField14Order]]"></nuxeo-date-picker>
+                <nuxeo-date-picker hidden$="[[!dateField15Visible]]" role="widget"
+                                   value="{{document.properties.custom:dateField15}}" label="[[dateField15Label]]"
+                                   required="[[dateField15Required]]" class="sortableEdit"
+                                   id="[[dateField15Order]]"></nuxeo-date-picker>
+                <nuxeo-date-picker hidden$="[[!dateField16Visible]]" role="widget"
+                                   value="{{document.properties.custom:dateField16}}" label="[[dateField16Label]]"
+                                   required="[[dateField16Required]]" class="sortableEdit"
+                                   id="[[dateField16Order]]"></nuxeo-date-picker>
+                <nuxeo-date-picker hidden$="[[!dateField17Visible]]" role="widget"
+                                   value="{{document.properties.custom:dateField17}}" label="[[dateField17Label]]"
+                                   required="[[dateField17Required]]" class="sortableEdit"
+                                   id="[[dateField17Order]]"></nuxeo-date-picker>
+                <nuxeo-date-picker hidden$="[[!dateField18Visible]]" role="widget"
+                                   value="{{document.properties.custom:dateField18}}" label="[[dateField18Label]]"
+                                   required="[[dateField18Required]]" class="sortableEdit"
+                                   id="[[dateField18Order]]"></nuxeo-date-picker>
+                <nuxeo-date-picker hidden$="[[!dateField19Visible]]" role="widget"
+                                   value="{{document.properties.custom:dateField19}}" label="[[dateField19Label]]"
+                                   required="[[dateField19Required]]" class="sortableEdit"
+                                   id="[[dateField19Order]]"></nuxeo-date-picker>
+                <nuxeo-date-picker hidden$="[[!dateField20Visible]]" role="widget"
+                                   value="{{document.properties.custom:dateField20}}" label="[[dateField20Label]]"
+                                   required="[[dateField20Required]]" class="sortableEdit"
+                                   id="[[dateField20Order]]"></nuxeo-date-picker>
 
-                <nuxeo-input hidden$="[[!integerField1Visible]]" role="widget" value="{{document.properties.custom:integerField1}}" label="[[integerField1Label]]" required="[[integerField1Required]]" class="sortableEdit" id="[[integerField1Order]]"></nuxeo-input>
-                <nuxeo-input hidden$="[[!integerField2Visible]]" role="widget" value="{{document.properties.custom:integerField2}}" label="[[integerField2Label]]" required="[[integerField2Required]]" class="sortableEdit" id="[[integerField2Order]]"></nuxeo-input>
-                <nuxeo-input hidden$="[[!integerField3Visible]]" role="widget" value="{{document.properties.custom:integerField3}}" label="[[integerField3Label]]" required="[[integerField3Required]]" class="sortableEdit" id="[[integerField3Order]]"></nuxeo-input>
-                <nuxeo-input hidden$="[[!integerField4Visible]]" role="widget" value="{{document.properties.custom:integerField4}}" label="[[integerField4Label]]" required="[[integerField4Required]]" class="sortableEdit" id="[[integerField4Order]]"></nuxeo-input>
-                <nuxeo-input hidden$="[[!integerField5Visible]]" role="widget" value="{{document.properties.custom:integerField5}}" label="[[integerField5Label]]" required="[[integerField5Required]]" class="sortableEdit" id="[[integerField5Order]]"></nuxeo-input>
-                <nuxeo-input hidden$="[[!integerField6Visible]]" role="widget" value="{{document.properties.custom:integerField6}}" label="[[integerField6Label]]" required="[[integerField6Required]]" class="sortableEdit" id="[[integerField6Order]]"></nuxeo-input>
-                <nuxeo-input hidden$="[[!integerField7Visible]]" role="widget" value="{{document.properties.custom:integerField7}}" label="[[integerField7Label]]" required="[[integerField7Required]]" class="sortableEdit" id="[[integerField7Order]]"></nuxeo-input>
-                <nuxeo-input hidden$="[[!integerField8Visible]]" role="widget" value="{{document.properties.custom:integerField8}}" label="[[integerField8Label]]" required="[[integerField8Required]]" class="sortableEdit" id="[[integerField8Order]]"></nuxeo-input>
-                <nuxeo-input hidden$="[[!integerField9Visible]]" role="widget" value="{{document.properties.custom:integerField9}}" label="[[integerField9Label]]" required="[[integerField9Required]]" class="sortableEdit" id="[[integerField9Order]]"></nuxeo-input>
-                <nuxeo-input hidden$="[[!integerField10Visible]]" role="widget" value="{{document.properties.custom:integerField10}}" label="[[integerField10Label]]" required="[[integerField10Required]]" class="sortableEdit" id="[[integerField10Order]]"></nuxeo-input>
+                <nuxeo-input hidden$="[[!integerField1Visible]]" role="widget"
+                             value="{{document.properties.custom:integerField1}}" label="[[integerField1Label]]"
+                             required="[[integerField1Required]]" class="sortableEdit"
+                             id="[[integerField1Order]]"></nuxeo-input>
+                <nuxeo-input hidden$="[[!integerField2Visible]]" role="widget"
+                             value="{{document.properties.custom:integerField2}}" label="[[integerField2Label]]"
+                             required="[[integerField2Required]]" class="sortableEdit"
+                             id="[[integerField2Order]]"></nuxeo-input>
+                <nuxeo-input hidden$="[[!integerField3Visible]]" role="widget"
+                             value="{{document.properties.custom:integerField3}}" label="[[integerField3Label]]"
+                             required="[[integerField3Required]]" class="sortableEdit"
+                             id="[[integerField3Order]]"></nuxeo-input>
+                <nuxeo-input hidden$="[[!integerField4Visible]]" role="widget"
+                             value="{{document.properties.custom:integerField4}}" label="[[integerField4Label]]"
+                             required="[[integerField4Required]]" class="sortableEdit"
+                             id="[[integerField4Order]]"></nuxeo-input>
+                <nuxeo-input hidden$="[[!integerField5Visible]]" role="widget"
+                             value="{{document.properties.custom:integerField5}}" label="[[integerField5Label]]"
+                             required="[[integerField5Required]]" class="sortableEdit"
+                             id="[[integerField5Order]]"></nuxeo-input>
+                <nuxeo-input hidden$="[[!integerField6Visible]]" role="widget"
+                             value="{{document.properties.custom:integerField6}}" label="[[integerField6Label]]"
+                             required="[[integerField6Required]]" class="sortableEdit"
+                             id="[[integerField6Order]]"></nuxeo-input>
+                <nuxeo-input hidden$="[[!integerField7Visible]]" role="widget"
+                             value="{{document.properties.custom:integerField7}}" label="[[integerField7Label]]"
+                             required="[[integerField7Required]]" class="sortableEdit"
+                             id="[[integerField7Order]]"></nuxeo-input>
+                <nuxeo-input hidden$="[[!integerField8Visible]]" role="widget"
+                             value="{{document.properties.custom:integerField8}}" label="[[integerField8Label]]"
+                             required="[[integerField8Required]]" class="sortableEdit"
+                             id="[[integerField8Order]]"></nuxeo-input>
+                <nuxeo-input hidden$="[[!integerField9Visible]]" role="widget"
+                             value="{{document.properties.custom:integerField9}}" label="[[integerField9Label]]"
+                             required="[[integerField9Required]]" class="sortableEdit"
+                             id="[[integerField9Order]]"></nuxeo-input>
+                <nuxeo-input hidden$="[[!integerField10Visible]]" role="widget"
+                             value="{{document.properties.custom:integerField10}}" label="[[integerField10Label]]"
+                             required="[[integerField10Required]]" class="sortableEdit"
+                             id="[[integerField10Order]]"></nuxeo-input>
 
-                <div id="booleanField"><template is="dom-if" if="[[booleanField1Visible]]"><paper-checkbox role="widget" hidden$="[[!booleanField1Visible]]" checked="{{document.properties.custom:booleanField1}}" class="sortableEdit" id="[[booleanField1Order]]"></paper-checkbox> <div>[[booleanField1Label]]</div> </template></div>
-                <div id="booleanField"><template is="dom-if" if="[[booleanField2Visible]]"><paper-checkbox role="widget" hidden$="[[!booleanField2Visible]]" checked="{{document.properties.custom:booleanField2}}" class="sortableEdit" id="[[booleanField2Order]]"></paper-checkbox> <div>[[booleanField2Label]]</div></template></div>
-                <div id="booleanField"><template is="dom-if" if="[[booleanField3Visible]]"><paper-checkbox role="widget" hidden$="[[!booleanField3Visible]]" checked="{{document.properties.custom:booleanField3}}" class="sortableEdit" id="[[booleanField3Order]]"></paper-checkbox> <div>[[booleanField3Label]]</div></template></div>
-                <div id="booleanField"><template is="dom-if" if="[[booleanField4Visible]]"><paper-checkbox role="widget" hidden$="[[!booleanField4Visible]]" checked="{{document.properties.custom:booleanField4}}" class="sortableEdit" id="[[booleanField4Order]]"></paper-checkbox> <div>[[booleanField4Label]]</div></template></div>
-                <div id="booleanField"><template is="dom-if" if="[[booleanField5Visible]]"><paper-checkbox role="widget" hidden$="[[!booleanField5Visible]]" checked="{{document.properties.custom:booleanField5}}" class="sortableEdit" id="[[booleanField5Order]]"></paper-checkbox> <div>[[booleanField5Label]]</div></template></div>
-                <div id="booleanField"><template is="dom-if" if="[[booleanField6Visible]]"><paper-checkbox role="widget" hidden$="[[!booleanField6Visible]]" checked="{{document.properties.custom:booleanField6}}" class="sortableEdit" id="[[booleanField6Order]]"></paper-checkbox> <div>[[booleanField6Label]]</div></template></div>
-                <div id="booleanField"><template is="dom-if" if="[[booleanField7Visible]]"><paper-checkbox role="widget" hidden$="[[!booleanField7Visible]]" checked="{{document.properties.custom:booleanField7}}" class="sortableEdit" id="[[booleanField7Order]]"></paper-checkbox> <div>[[booleanField7Label]]</div></template></div>
-                <div id="booleanField"><template is="dom-if" if="[[booleanField8Visible]]"><paper-checkbox role="widget" hidden$="[[!booleanField8Visible]]" checked="{{document.properties.custom:booleanField8}}" class="sortableEdit" id="[[booleanField8Order]]"></paper-checkbox> <div>[[booleanField8Label]]</div></template></div>
-                <div id="booleanField"><template is="dom-if" if="[[booleanField9Visible]]"><paper-checkbox role="widget" hidden$="[[!booleanField9Visible]]" checked="{{document.properties.custom:booleanField9}}" class="sortableEdit" id="[[booleanField9Order]]"></paper-checkbox> <div>[[booleanField9Label]]</div></template></div>
-                <div id="booleanField"><template is="dom-if" if="[[booleanField10Visible]]"><paper-checkbox role="widget" hidden$="[[!booleanField10Visible]]" checked="{{document.properties.custom:booleanField10}}" class="sortableEdit" id="[[booleanField10Order]]"></paper-checkbox> <div>[[booleanField10Label]]</div></template></div>
+                <div id="booleanField">
+                    <template is="dom-if" if="[[booleanField1Visible]]">
+                        <paper-checkbox role="widget" hidden$="[[!booleanField1Visible]]"
+                                        checked="{{document.properties.custom:booleanField1}}" class="sortableEdit"
+                                        id="[[booleanField1Order]]"></paper-checkbox>
+                        <div>[[booleanField1Label]]</div>
+                    </template>
+                </div>
+                <div id="booleanField">
+                    <template is="dom-if" if="[[booleanField2Visible]]">
+                        <paper-checkbox role="widget" hidden$="[[!booleanField2Visible]]"
+                                        checked="{{document.properties.custom:booleanField2}}" class="sortableEdit"
+                                        id="[[booleanField2Order]]"></paper-checkbox>
+                        <div>[[booleanField2Label]]</div>
+                    </template>
+                </div>
+                <div id="booleanField">
+                    <template is="dom-if" if="[[booleanField3Visible]]">
+                        <paper-checkbox role="widget" hidden$="[[!booleanField3Visible]]"
+                                        checked="{{document.properties.custom:booleanField3}}" class="sortableEdit"
+                                        id="[[booleanField3Order]]"></paper-checkbox>
+                        <div>[[booleanField3Label]]</div>
+                    </template>
+                </div>
+                <div id="booleanField">
+                    <template is="dom-if" if="[[booleanField4Visible]]">
+                        <paper-checkbox role="widget" hidden$="[[!booleanField4Visible]]"
+                                        checked="{{document.properties.custom:booleanField4}}" class="sortableEdit"
+                                        id="[[booleanField4Order]]"></paper-checkbox>
+                        <div>[[booleanField4Label]]</div>
+                    </template>
+                </div>
+                <div id="booleanField">
+                    <template is="dom-if" if="[[booleanField5Visible]]">
+                        <paper-checkbox role="widget" hidden$="[[!booleanField5Visible]]"
+                                        checked="{{document.properties.custom:booleanField5}}" class="sortableEdit"
+                                        id="[[booleanField5Order]]"></paper-checkbox>
+                        <div>[[booleanField5Label]]</div>
+                    </template>
+                </div>
+                <div id="booleanField">
+                    <template is="dom-if" if="[[booleanField6Visible]]">
+                        <paper-checkbox role="widget" hidden$="[[!booleanField6Visible]]"
+                                        checked="{{document.properties.custom:booleanField6}}" class="sortableEdit"
+                                        id="[[booleanField6Order]]"></paper-checkbox>
+                        <div>[[booleanField6Label]]</div>
+                    </template>
+                </div>
+                <div id="booleanField">
+                    <template is="dom-if" if="[[booleanField7Visible]]">
+                        <paper-checkbox role="widget" hidden$="[[!booleanField7Visible]]"
+                                        checked="{{document.properties.custom:booleanField7}}" class="sortableEdit"
+                                        id="[[booleanField7Order]]"></paper-checkbox>
+                        <div>[[booleanField7Label]]</div>
+                    </template>
+                </div>
+                <div id="booleanField">
+                    <template is="dom-if" if="[[booleanField8Visible]]">
+                        <paper-checkbox role="widget" hidden$="[[!booleanField8Visible]]"
+                                        checked="{{document.properties.custom:booleanField8}}" class="sortableEdit"
+                                        id="[[booleanField8Order]]"></paper-checkbox>
+                        <div>[[booleanField8Label]]</div>
+                    </template>
+                </div>
+                <div id="booleanField">
+                    <template is="dom-if" if="[[booleanField9Visible]]">
+                        <paper-checkbox role="widget" hidden$="[[!booleanField9Visible]]"
+                                        checked="{{document.properties.custom:booleanField9}}" class="sortableEdit"
+                                        id="[[booleanField9Order]]"></paper-checkbox>
+                        <div>[[booleanField9Label]]</div>
+                    </template>
+                </div>
+                <div id="booleanField">
+                    <template is="dom-if" if="[[booleanField10Visible]]">
+                        <paper-checkbox role="widget" hidden$="[[!booleanField10Visible]]"
+                                        checked="{{document.properties.custom:booleanField10}}" class="sortableEdit"
+                                        id="[[booleanField10Order]]"></paper-checkbox>
+                        <div>[[booleanField10Label]]</div>
+                    </template>
+                </div>
 
-                <div hidden$="[[!fileField1Visible]]" role="widget"><label>[[fileField1Label]]</label><nuxeo-file hidden$="[[!fileField1Visible]]" value="{{document.properties.custom:fileField1}}" class="sortableEdit" id="[[fileField1Order]]"></nuxeo-file><!--a href="[[document.properties.custom:fileField1.data]]">[[document.properties.custom:fileField1.name]]</a--></div>
-                <div hidden$="[[!fileField2Visible]]" role="widget"><label>[[fileField2Label]]</label><nuxeo-file hidden$="[[!fileField2Visible]]" value="{{document.properties.custom:fileField2}}" class="sortableEdit" id="[[fileField2Order]]"></nuxeo-file><!--a href="[[document.properties.custom:fileField2.data]]">[[document.properties.custom:fileField2.name]]</a--></div>
-                <div hidden$="[[!fileField3Visible]]" role="widget"><label>[[fileField3Label]]</label><nuxeo-file hidden$="[[!fileField3Visible]]" value="{{document.properties.custom:fileField3}}" class="sortableEdit" id="[[fileField3Order]]"></nuxeo-file><!--a href="[[document.properties.custom:fileField3.data]]">[[document.properties.custom:fileField3.name]]</a--></div>
-                <div hidden$="[[!fileField4Visible]]" role="widget"><label>[[fileField4Label]]</label><nuxeo-file hidden$="[[!fileField4Visible]]" value="{{document.properties.custom:fileField4}}" class="sortableEdit" id="[[fileField4Order]]"></nuxeo-file><!--a href="[[document.properties.custom:fileField4.data]]">[[document.properties.custom:fileField4.name]]</a--></div>
-                <div hidden$="[[!fileField5Visible]]" role="widget"><label>[[fileField5Label]]</label><nuxeo-file hidden$="[[!fileField5Visible]]" value="{{document.properties.custom:fileField5}}" class="sortableEdit" id="[[fileField5Order]]"></nuxeo-file><!--a href="[[document.properties.custom:fileField5.data]]">[[document.properties.custom:fileField5.name]]</a--></div>
-                <div hidden$="[[!fileField6Visible]]" role="widget"><label>[[fileField6Label]]</label><nuxeo-file hidden$="[[!fileField6Visible]]" value="{{document.properties.custom:fileField6}}" class="sortableEdit" id="[[fileField6Order]]"></nuxeo-file><!--a href="[[document.properties.custom:fileField6.data]]">[[document.properties.custom:fileField6.name]]</a--></div>
-                <div hidden$="[[!fileField7Visible]]" role="widget"><label>[[fileField7Label]]</label><nuxeo-file hidden$="[[!fileField7Visible]]" value="{{document.properties.custom:fileField7}}" class="sortableEdit" id="[[fileField7Order]]"></nuxeo-file><!--a href="[[document.properties.custom:fileField7.data]]">[[document.properties.custom:fileField7.name]]</a--></div>
-                <div hidden$="[[!fileField8Visible]]" role="widget"><label>[[fileField8Label]]</label><nuxeo-file hidden$="[[!fileField8Visible]]" value="{{document.properties.custom:fileField8}}" class="sortableEdit" id="[[fileField8Order]]"></nuxeo-file><!--a href="[[document.properties.custom:fileField8.data]]">[[document.properties.custom:fileField8.name]]</a--></div>
-                <div hidden$="[[!fileField9Visible]]" role="widget"><label>[[fileField9Label]]</label><nuxeo-file hidden$="[[!fileField9Visible]]" value="{{document.properties.custom:fileField9}}" class="sortableEdit" id="[[fileField9Order]]"></nuxeo-file><!--a href="[[document.properties.custom:fileField9.data]]">[[document.properties.custom:fileField9.name]]</a--></div>
-                <div hidden$="[[!fileField10Visible]]" role="widget"><label>[[fileField10Label]]</label><nuxeo-file hidden$="[[!fileField10Visible]]" rvalue="{{document.properties.custom:fileField10}}" class="sortableEdit" id="[[fileField10Order]]"></nuxeo-file><!--a href="[[document.properties.custom:fileField10.data]]">[[document.properties.custom:fileField10.name]]</a--></div>
+                <div hidden$="[[!fileField1Visible]]" role="widget"><label>[[fileField1Label]]</label>
+                    <nuxeo-file hidden$="[[!fileField1Visible]]" value="{{document.properties.custom:fileField1}}"
+                                class="sortableEdit" id="[[fileField1Order]]"></nuxeo-file>
+                    <!--a href="[[document.properties.custom:fileField1.data]]">[[document.properties.custom:fileField1.name]]</a-->
+                </div>
+                <div hidden$="[[!fileField2Visible]]" role="widget"><label>[[fileField2Label]]</label>
+                    <nuxeo-file hidden$="[[!fileField2Visible]]" value="{{document.properties.custom:fileField2}}"
+                                class="sortableEdit" id="[[fileField2Order]]"></nuxeo-file>
+                    <!--a href="[[document.properties.custom:fileField2.data]]">[[document.properties.custom:fileField2.name]]</a-->
+                </div>
+                <div hidden$="[[!fileField3Visible]]" role="widget"><label>[[fileField3Label]]</label>
+                    <nuxeo-file hidden$="[[!fileField3Visible]]" value="{{document.properties.custom:fileField3}}"
+                                class="sortableEdit" id="[[fileField3Order]]"></nuxeo-file>
+                    <!--a href="[[document.properties.custom:fileField3.data]]">[[document.properties.custom:fileField3.name]]</a-->
+                </div>
+                <div hidden$="[[!fileField4Visible]]" role="widget"><label>[[fileField4Label]]</label>
+                    <nuxeo-file hidden$="[[!fileField4Visible]]" value="{{document.properties.custom:fileField4}}"
+                                class="sortableEdit" id="[[fileField4Order]]"></nuxeo-file>
+                    <!--a href="[[document.properties.custom:fileField4.data]]">[[document.properties.custom:fileField4.name]]</a-->
+                </div>
+                <div hidden$="[[!fileField5Visible]]" role="widget"><label>[[fileField5Label]]</label>
+                    <nuxeo-file hidden$="[[!fileField5Visible]]" value="{{document.properties.custom:fileField5}}"
+                                class="sortableEdit" id="[[fileField5Order]]"></nuxeo-file>
+                    <!--a href="[[document.properties.custom:fileField5.data]]">[[document.properties.custom:fileField5.name]]</a-->
+                </div>
+                <div hidden$="[[!fileField6Visible]]" role="widget"><label>[[fileField6Label]]</label>
+                    <nuxeo-file hidden$="[[!fileField6Visible]]" value="{{document.properties.custom:fileField6}}"
+                                class="sortableEdit" id="[[fileField6Order]]"></nuxeo-file>
+                    <!--a href="[[document.properties.custom:fileField6.data]]">[[document.properties.custom:fileField6.name]]</a-->
+                </div>
+                <div hidden$="[[!fileField7Visible]]" role="widget"><label>[[fileField7Label]]</label>
+                    <nuxeo-file hidden$="[[!fileField7Visible]]" value="{{document.properties.custom:fileField7}}"
+                                class="sortableEdit" id="[[fileField7Order]]"></nuxeo-file>
+                    <!--a href="[[document.properties.custom:fileField7.data]]">[[document.properties.custom:fileField7.name]]</a-->
+                </div>
+                <div hidden$="[[!fileField8Visible]]" role="widget"><label>[[fileField8Label]]</label>
+                    <nuxeo-file hidden$="[[!fileField8Visible]]" value="{{document.properties.custom:fileField8}}"
+                                class="sortableEdit" id="[[fileField8Order]]"></nuxeo-file>
+                    <!--a href="[[document.properties.custom:fileField8.data]]">[[document.properties.custom:fileField8.name]]</a-->
+                </div>
+                <div hidden$="[[!fileField9Visible]]" role="widget"><label>[[fileField9Label]]</label>
+                    <nuxeo-file hidden$="[[!fileField9Visible]]" value="{{document.properties.custom:fileField9}}"
+                                class="sortableEdit" id="[[fileField9Order]]"></nuxeo-file>
+                    <!--a href="[[document.properties.custom:fileField9.data]]">[[document.properties.custom:fileField9.name]]</a-->
+                </div>
+                <div hidden$="[[!fileField10Visible]]" role="widget"><label>[[fileField10Label]]</label>
+                    <nuxeo-file hidden$="[[!fileField10Visible]]" rvalue="{{document.properties.custom:fileField10}}"
+                                class="sortableEdit" id="[[fileField10Order]]"></nuxeo-file>
+                    <!--a href="[[document.properties.custom:fileField10.data]]">[[document.properties.custom:fileField10.name]]</a-->
+                </div>
 
-                <nuxeo-input hidden$="[[!systemField1Visible]]" role="widget" value="{{document.properties.custom:systemField1}}" label="[[systemField1Label]]" required="[[systemField1Required]]" class="sortableEdit" id="[[systemField1Order]]"></nuxeo-input>
-                <nuxeo-input hidden$="[[!systemField2Visible]]" role="widget" value="{{document.properties.custom:systemField2}}" label="[[systemField2Label]]" required="[[systemField2Required]]" class="sortableEdit" id="[[systemField2Order]]"></nuxeo-input>
-                <nuxeo-input hidden$="[[!systemField3Visible]]" role="widget" value="{{document.properties.custom:systemField3}}" label="[[systemField3Label]]" required="[[systemField3Required]]" class="sortableEdit" id="[[systemField3Order]]"></nuxeo-input>
-                <nuxeo-input hidden$="[[!systemField4Visible]]" role="widget" value="{{document.properties.custom:systemField4}}" label="[[systemField4Label]]" required="[[systemField4Required]]" class="sortableEdit" id="[[systemField4Order]]"></nuxeo-input>
-                <nuxeo-input hidden$="[[!systemField5Visible]]" role="widget" value="{{document.properties.custom:systemField5}}" label="[[systemField5Label]]" required="[[systemField5Required]]" class="sortableEdit" id="[[systemField5Order]]"></nuxeo-input>
-                <nuxeo-input hidden$="[[!systemField6Visible]]" role="widget" value="{{document.properties.custom:systemField6}}" label="[[systemField6Label]]" required="[[systemField6Required]]" class="sortableEdit" id="[[systemField6Order]]"></nuxeo-input>
-                <nuxeo-input hidden$="[[!systemField7Visible]]" role="widget" value="{{document.properties.custom:systemField7}}" label="[[systemField7Label]]" required="[[systemField7Required]]" class="sortableEdit" id="[[systemField7Order]]"></nuxeo-input>
-                <nuxeo-input hidden$="[[!systemField8Visible]]" role="widget" value="{{document.properties.custom:systemField8}}" label="[[systemField8Label]]" required="[[systemField8Required]]" class="sortableEdit" id="[[systemField8Order]]"></nuxeo-input>
-                <nuxeo-input hidden$="[[!systemField9Visible]]" role="widget" value="{{document.properties.custom:systemField9}}" label="[[systemField9Label]]" required="[[systemField9Required]]" class="sortableEdit" id="[[systemField9Order]]"></nuxeo-input>
-                <nuxeo-input hidden$="[[!systemField10Visible]]" role="widget" value="{{document.properties.custom:systemField10}}" label="[[systemField10Label]]" required="[[systemField10Required]]" class="sortableEdit" id="[[systemField10Order]]"></nuxeo-input>
+                <nuxeo-input hidden$="[[!systemField1Visible]]" role="widget"
+                             value="{{document.properties.custom:systemField1}}" label="[[systemField1Label]]"
+                             required="[[systemField1Required]]" class="sortableEdit"
+                             id="[[systemField1Order]]"></nuxeo-input>
+                <nuxeo-input hidden$="[[!systemField2Visible]]" role="widget"
+                             value="{{document.properties.custom:systemField2}}" label="[[systemField2Label]]"
+                             required="[[systemField2Required]]" class="sortableEdit"
+                             id="[[systemField2Order]]"></nuxeo-input>
+                <nuxeo-input hidden$="[[!systemField3Visible]]" role="widget"
+                             value="{{document.properties.custom:systemField3}}" label="[[systemField3Label]]"
+                             required="[[systemField3Required]]" class="sortableEdit"
+                             id="[[systemField3Order]]"></nuxeo-input>
+                <nuxeo-input hidden$="[[!systemField4Visible]]" role="widget"
+                             value="{{document.properties.custom:systemField4}}" label="[[systemField4Label]]"
+                             required="[[systemField4Required]]" class="sortableEdit"
+                             id="[[systemField4Order]]"></nuxeo-input>
+                <nuxeo-input hidden$="[[!systemField5Visible]]" role="widget"
+                             value="{{document.properties.custom:systemField5}}" label="[[systemField5Label]]"
+                             required="[[systemField5Required]]" class="sortableEdit"
+                             id="[[systemField5Order]]"></nuxeo-input>
+                <nuxeo-input hidden$="[[!systemField6Visible]]" role="widget"
+                             value="{{document.properties.custom:systemField6}}" label="[[systemField6Label]]"
+                             required="[[systemField6Required]]" class="sortableEdit"
+                             id="[[systemField6Order]]"></nuxeo-input>
+                <nuxeo-input hidden$="[[!systemField7Visible]]" role="widget"
+                             value="{{document.properties.custom:systemField7}}" label="[[systemField7Label]]"
+                             required="[[systemField7Required]]" class="sortableEdit"
+                             id="[[systemField7Order]]"></nuxeo-input>
+                <nuxeo-input hidden$="[[!systemField8Visible]]" role="widget"
+                             value="{{document.properties.custom:systemField8}}" label="[[systemField8Label]]"
+                             required="[[systemField8Required]]" class="sortableEdit"
+                             id="[[systemField8Order]]"></nuxeo-input>
+                <nuxeo-input hidden$="[[!systemField9Visible]]" role="widget"
+                             value="{{document.properties.custom:systemField9}}" label="[[systemField9Label]]"
+                             required="[[systemField9Required]]" class="sortableEdit"
+                             id="[[systemField9Order]]"></nuxeo-input>
+                <nuxeo-input hidden$="[[!systemField10Visible]]" role="widget"
+                             value="{{document.properties.custom:systemField10}}" label="[[systemField10Label]]"
+                             required="[[systemField10Required]]" class="sortableEdit"
+                             id="[[systemField10Order]]"></nuxeo-input>
 
-                <qualitified-document-suggestion hidden$="[[!documentField1Visible]]"  role="widget" value="{{document.properties.custom:documentField1}}" label="[[documentField1Label]]" page-provider="documents" min-chars="0" params="[[documents1Params]]" multiple="[[documentField1Multivalue]]" class="sortableEdit" id="[[documentField1Order]]"></qualitified-document-suggestion>
-                <qualitified-document-suggestion hidden$="[[!documentField2Visible]]"  role="widget" value="{{document.properties.custom:documentField2}}" label="[[documentField2Label]]" page-provider="documents" min-chars="0" params="[[documents2Params]]" multiple="[[documentField2Multivalue]]" class="sortableEdit" id="[[documentField2Order]]"></qualitified-document-suggestion>
-                <qualitified-document-suggestion hidden$="[[!documentField3Visible]]"  role="widget" value="{{document.properties.custom:documentField3}}" label="[[documentField3Label]]" page-provider="documents" min-chars="0" params="[[documents3Params]]" multiple="[[documentField3Multivalue]]" class="sortableEdit" id="[[documentField3Order]]"></qualitified-document-suggestion>
-                <qualitified-document-suggestion hidden$="[[!documentField4Visible]]"  role="widget" value="{{document.properties.custom:documentField4}}" label="[[documentField4Label]]" page-provider="documents" min-chars="0" params="[[documents4Params]]" multiple="[[documentField4Multivalue]]" class="sortableEdit" id="[[documentField4Order]]"></qualitified-document-suggestion>
-                <qualitified-document-suggestion hidden$="[[!documentField5Visible]]"  role="widget" value="{{document.properties.custom:documentField5}}" label="[[documentField5Label]]" page-provider="documents" min-chars="0" params="[[documents5Params]]" multiple="[[documentField5Multivalue]]" class="sortableEdit" id="[[documentField5Order]]"></qualitified-document-suggestion>
-                <qualitified-document-suggestion hidden$="[[!documentField6Visible]]"  role="widget" value="{{document.properties.custom:documentField6}}" label="[[documentField6Label]]" page-provider="documents" min-chars="0" params="[[documents6Params]]" multiple="[[documentField6Multivalue]]" class="sortableEdit" id="[[documentField6Order]]"></qualitified-document-suggestion>
-                <qualitified-document-suggestion hidden$="[[!documentField7Visible]]"  role="widget" value="{{document.properties.custom:documentField7}}" label="[[documentField7Label]]" page-provider="documents" min-chars="0" params="[[documents7Params]]" multiple="[[documentField7Multivalue]]" class="sortableEdit" id="[[documentField7Order]]"></qualitified-document-suggestion>
-                <qualitified-document-suggestion hidden$="[[!documentField8Visible]]"  role="widget" value="{{document.properties.custom:documentField8}}" label="[[documentField8Label]]" page-provider="documents" min-chars="0" params="[[documents8Params]]" multiple="[[documentField8Multivalue]]" class="sortableEdit" id="[[documentField8Order]]"></qualitified-document-suggestion>
-                <qualitified-document-suggestion hidden$="[[!documentField9Visible]]"  role="widget" value="{{document.properties.custom:documentField9}}" label="[[documentField9Label]]" page-provider="documents" min-chars="0" params="[[documents9Params]]" multiple="[[documentField9Multivalue]]" class="sortableEdit" id="[[documentField9Order]]"></qualitified-document-suggestion>
-                <qualitified-document-suggestion hidden$="[[!documentField10Visible]]" role="widget" value="{{document.properties.custom:documentField10}}" label="[[documentField10Label]]" page-provider="documents" min-chars="0" params="[[documents10Params]]" multiple="[[documentField10Multivalue]]" class="sortableEdit" id="[[documentField10Order]]"></qualitified-document-suggestion>
+                <qualitified-document-suggestion hidden$="[[!documentField1Visible]]" role="widget"
+                                                 value="{{document.properties.custom:documentField1}}"
+                                                 label="[[documentField1Label]]" page-provider="documents" min-chars="0"
+                                                 params="[[documents1Params]]" multiple="[[documentField1Multivalue]]"
+                                                 class="sortableEdit"
+                                                 id="[[documentField1Order]]"></qualitified-document-suggestion>
+                <qualitified-document-suggestion hidden$="[[!documentField2Visible]]" role="widget"
+                                                 value="{{document.properties.custom:documentField2}}"
+                                                 label="[[documentField2Label]]" page-provider="documents" min-chars="0"
+                                                 params="[[documents2Params]]" multiple="[[documentField2Multivalue]]"
+                                                 class="sortableEdit"
+                                                 id="[[documentField2Order]]"></qualitified-document-suggestion>
+                <qualitified-document-suggestion hidden$="[[!documentField3Visible]]" role="widget"
+                                                 value="{{document.properties.custom:documentField3}}"
+                                                 label="[[documentField3Label]]" page-provider="documents" min-chars="0"
+                                                 params="[[documents3Params]]" multiple="[[documentField3Multivalue]]"
+                                                 class="sortableEdit"
+                                                 id="[[documentField3Order]]"></qualitified-document-suggestion>
+                <qualitified-document-suggestion hidden$="[[!documentField4Visible]]" role="widget"
+                                                 value="{{document.properties.custom:documentField4}}"
+                                                 label="[[documentField4Label]]" page-provider="documents" min-chars="0"
+                                                 params="[[documents4Params]]" multiple="[[documentField4Multivalue]]"
+                                                 class="sortableEdit"
+                                                 id="[[documentField4Order]]"></qualitified-document-suggestion>
+                <qualitified-document-suggestion hidden$="[[!documentField5Visible]]" role="widget"
+                                                 value="{{document.properties.custom:documentField5}}"
+                                                 label="[[documentField5Label]]" page-provider="documents" min-chars="0"
+                                                 params="[[documents5Params]]" multiple="[[documentField5Multivalue]]"
+                                                 class="sortableEdit"
+                                                 id="[[documentField5Order]]"></qualitified-document-suggestion>
+                <qualitified-document-suggestion hidden$="[[!documentField6Visible]]" role="widget"
+                                                 value="{{document.properties.custom:documentField6}}"
+                                                 label="[[documentField6Label]]" page-provider="documents" min-chars="0"
+                                                 params="[[documents6Params]]" multiple="[[documentField6Multivalue]]"
+                                                 class="sortableEdit"
+                                                 id="[[documentField6Order]]"></qualitified-document-suggestion>
+                <qualitified-document-suggestion hidden$="[[!documentField7Visible]]" role="widget"
+                                                 value="{{document.properties.custom:documentField7}}"
+                                                 label="[[documentField7Label]]" page-provider="documents" min-chars="0"
+                                                 params="[[documents7Params]]" multiple="[[documentField7Multivalue]]"
+                                                 class="sortableEdit"
+                                                 id="[[documentField7Order]]"></qualitified-document-suggestion>
+                <qualitified-document-suggestion hidden$="[[!documentField8Visible]]" role="widget"
+                                                 value="{{document.properties.custom:documentField8}}"
+                                                 label="[[documentField8Label]]" page-provider="documents" min-chars="0"
+                                                 params="[[documents8Params]]" multiple="[[documentField8Multivalue]]"
+                                                 class="sortableEdit"
+                                                 id="[[documentField8Order]]"></qualitified-document-suggestion>
+                <qualitified-document-suggestion hidden$="[[!documentField9Visible]]" role="widget"
+                                                 value="{{document.properties.custom:documentField9}}"
+                                                 label="[[documentField9Label]]" page-provider="documents" min-chars="0"
+                                                 params="[[documents9Params]]" multiple="[[documentField9Multivalue]]"
+                                                 class="sortableEdit"
+                                                 id="[[documentField9Order]]"></qualitified-document-suggestion>
+                <qualitified-document-suggestion hidden$="[[!documentField10Visible]]" role="widget"
+                                                 value="{{document.properties.custom:documentField10}}"
+                                                 label="[[documentField10Label]]" page-provider="documents"
+                                                 min-chars="0" params="[[documents10Params]]"
+                                                 multiple="[[documentField10Multivalue]]" class="sortableEdit"
+                                                 id="[[documentField10Order]]"></qualitified-document-suggestion>
 
             </div>
 
             <div name="view" class="vertical layout flex">
                 <div hidden$="[[!stringField1Visible]]" role="widget" class="sortable" id="[[stringField1Order]]">
                     <label>[[stringField1Label]]</label>
-                    <div>[[document.properties.custom:stringField1]]</div>
+                    <div>[[document.properties.custom:stringField1]]
+                        <template is="dom-if" if="[[stringField1Copy]]">
+                            <copy-to-clipboard
+                                    id="copyToClipboard"
+                                    clipboard-value-to-copy="[[document.properties.custom:stringField1]]"
+                                    clipboard-value-copied="{{copiedValue}}"
+                                    clipboard-trigger-id="copyButton1"
+                            ></copy-to-clipboard>
+                            <paper-icon-button id="copyButton1" icon="icons:content-copy"
+                                               on-tap="_copied"></paper-icon-button>
+                            <paper-tooltip for="copyButton1" position="right">
+                                [[i18n('label.metadata.custom.copy.tooltip')]]
+                            </paper-tooltip>
+                        </template>
+                    </div>
                 </div>
                 <div hidden$="[[!stringField2Visible]]" role="widget" class="sortable" id="[[stringField2Order]]">
                     <label>[[stringField2Label]]</label>
-                    <div>[[document.properties.custom:stringField2]]</div>
+                    <div>[[document.properties.custom:stringField2]]
+                        <template is="dom-if" if="[[stringField2Copy]]">
+                            <copy-to-clipboard
+                                    id="copyToClipboard"
+                                    clipboard-value-to-copy="[[document.properties.custom:stringField2]]"
+                                    clipboard-value-copied="{{copiedValue}}"
+                                    clipboard-trigger-id="copyButton2"
+                            ></copy-to-clipboard>
+                            <paper-icon-button id="copyButton2" icon="icons:content-copy"
+                                               on-tap="_copied"></paper-icon-button>
+                            <paper-tooltip for="copyButton2" position="right">
+                                [[i18n('label.metadata.custom.copy.tooltip')]]
+                            </paper-tooltip>
+                        </template>
+                    </div>
                 </div>
                 <div hidden$="[[!stringField3Visible]]" role="widget" class="sortable" id="[[stringField3Order]]">
                     <label>[[stringField3Label]]</label>
-                    <div>[[document.properties.custom:stringField3]]</div>
+                    <div>[[document.properties.custom:stringField3]]
+                        <template is="dom-if" if="[[stringField3Copy]]">
+                            <copy-to-clipboard
+                                    id="copyToClipboard"
+                                    clipboard-value-to-copy="[[document.properties.custom:stringField3]]"
+                                    clipboard-value-copied="{{copiedValue}}"
+                                    clipboard-trigger-id="copyButton3"
+                            ></copy-to-clipboard>
+                            <paper-icon-button id="copyButton3" icon="icons:content-copy"
+                                               on-tap="_copied"></paper-icon-button>
+                            <paper-tooltip for="copyButton3" position="right">
+                                [[i18n('label.metadata.custom.copy.tooltip')]]
+                            </paper-tooltip>
+                        </template>
+                    </div>
                 </div>
                 <div hidden$="[[!stringField4Visible]]" role="widget" class="sortable" id="[[stringField4Order]]">
                     <label>[[stringField4Label]]</label>
-                    <div>[[document.properties.custom:stringField4]]</div>
+                    <div>[[document.properties.custom:stringField4]]
+                        <template is="dom-if" if="[[stringField4Copy]]">
+                            <copy-to-clipboard
+                                    id="copyToClipboard"
+                                    clipboard-value-to-copy="[[document.properties.custom:stringField4]]"
+                                    clipboard-value-copied="{{copiedValue}}"
+                                    clipboard-trigger-id="copyButton4"
+                            ></copy-to-clipboard>
+                            <paper-icon-button id="copyButton4" icon="icons:content-copy"
+                                               on-tap="_copied"></paper-icon-button>
+                            <paper-tooltip for="copyButton4" position="right">
+                                [[i18n('label.metadata.custom.copy.tooltip')]]
+                            </paper-tooltip>
+                        </template>
+                    </div>
                 </div>
                 <div hidden$="[[!stringField5Visible]]" role="widget" class="sortable" id="[[stringField5Order]]">
                     <label>[[stringField5Label]]</label>
-                    <div>[[document.properties.custom:stringField5]]</div>
+                    <div>[[document.properties.custom:stringField5]]
+                        <template is="dom-if" if="[[stringField5Copy]]">
+                            <copy-to-clipboard
+                                    id="copyToClipboard"
+                                    clipboard-value-to-copy="[[document.properties.custom:stringField5]]"
+                                    clipboard-value-copied="{{copiedValue}}"
+                                    clipboard-trigger-id="copyButton5"
+                            ></copy-to-clipboard>
+                            <paper-icon-button id="copyButton5" icon="icons:content-copy"
+                                               on-tap="_copied"></paper-icon-button>
+                            <paper-tooltip for="copyButton5" position="right">
+                                [[i18n('label.metadata.custom.copy.tooltip')]]
+                            </paper-tooltip>
+                        </template>
+                    </div>
                 </div>
                 <div hidden$="[[!stringField6Visible]]" role="widget" class="sortable" id="[[stringField6Order]]">
                     <label>[[stringField6Label]]</label>
-                    <div>[[document.properties.custom:stringField6]]</div>
+                    <div>[[document.properties.custom:stringField6]]
+                        <template is="dom-if" if="[[stringField6Copy]]">
+                            <copy-to-clipboard
+                                    id="copyToClipboard"
+                                    clipboard-value-to-copy="[[document.properties.custom:stringField6]]"
+                                    clipboard-value-copied="{{copiedValue}}"
+                                    clipboard-trigger-id="copyButton6"
+                            ></copy-to-clipboard>
+                            <paper-icon-button id="copyButton6" icon="icons:content-copy"
+                                               on-tap="_copied"></paper-icon-button>
+                            <paper-tooltip for="copyButton6" position="right">
+                                [[i18n('label.metadata.custom.copy.tooltip')]]
+                            </paper-tooltip>
+                        </template>
+                    </div>
                 </div>
                 <div hidden$="[[!stringField7Visible]]" role="widget" class="sortable" id="[[stringField7Order]]">
                     <label>[[stringField7Label]]</label>
-                    <div>[[document.properties.custom:stringField7]]</div>
+                    <div>[[document.properties.custom:stringField7]]
+                        <template is="dom-if" if="[[stringField7Copy]]">
+                            <copy-to-clipboard
+                                    id="copyToClipboard"
+                                    clipboard-value-to-copy="[[document.properties.custom:stringField7]]"
+                                    clipboard-value-copied="{{copiedValue}}"
+                                    clipboard-trigger-id="copyButton7"
+                            ></copy-to-clipboard>
+                            <paper-icon-button id="copyButton7" icon="icons:content-copy"
+                                               on-tap="_copied"></paper-icon-button>
+                            <paper-tooltip for="copyButton7" position="right">
+                                [[i18n('label.metadata.custom.copy.tooltip')]]
+                            </paper-tooltip>
+                        </template>
+                    </div>
                 </div>
                 <div hidden$="[[!stringField8Visible]]" role="widget" class="sortable" id="[[stringField8Order]]">
                     <label>[[stringField8Label]]</label>
-                    <div>[[document.properties.custom:stringField8]]</div>
+                    <div>[[document.properties.custom:stringField8]]
+                        <template is="dom-if" if="[[stringField8Copy]]">
+                            <copy-to-clipboard
+                                    id="copyToClipboard"
+                                    clipboard-value-to-copy="[[document.properties.custom:stringField8]]"
+                                    clipboard-value-copied="{{copiedValue}}"
+                                    clipboard-trigger-id="copyButton8"
+                            ></copy-to-clipboard>
+                            <paper-icon-button id="copyButton8" icon="icons:content-copy"
+                                               on-tap="_copied"></paper-icon-button>
+                            <paper-tooltip for="copyButton8" position="right">
+                                [[i18n('label.metadata.custom.copy.tooltip')]]
+                            </paper-tooltip>
+                        </template>
+                    </div>
                 </div>
                 <div hidden$="[[!stringField9Visible]]" role="widget" class="sortable" id="[[stringField9Order]]">
                     <label>[[stringField9Label]]</label>
-                    <div>[[document.properties.custom:stringField9]]</div>
+                    <div>[[document.properties.custom:stringField9]]
+                        <template is="dom-if" if="[[stringField9Copy]]">
+                            <copy-to-clipboard
+                                    id="copyToClipboard"
+                                    clipboard-value-to-copy="[[document.properties.custom:stringField9]]"
+                                    clipboard-value-copied="{{copiedValue}}"
+                                    clipboard-trigger-id="copyButton9"
+                            ></copy-to-clipboard>
+                            <paper-icon-button id="copyButton9" icon="icons:content-copy"
+                                               on-tap="_copied"></paper-icon-button>
+                            <paper-tooltip for="copyButton9" position="right">
+                                [[i18n('label.metadata.custom.copy.tooltip')]]
+                            </paper-tooltip>
+                        </template>
+                    </div>
                 </div>
                 <div hidden$="[[!stringField10Visible]]" role="widget" class="sortable" id="[[stringField10Order]]">
                     <label>[[stringField10Label]]</label>
-                    <div>[[document.properties.custom:stringField10]]</div>
+                    <div>[[document.properties.custom:stringField10]]
+                        <template is="dom-if" if="[[stringField10Copy]]">
+                            <copy-to-clipboard
+                                    id="copyToClipboard"
+                                    clipboard-value-to-copy="[[document.properties.custom:stringField10]]"
+                                    clipboard-value-copied="{{copiedValue}}"
+                                    clipboard-trigger-id="copyButton10"
+                            ></copy-to-clipboard>
+                            <paper-icon-button id="copyButton10" icon="icons:content-copy"
+                                               on-tap="_copied"></paper-icon-button>
+                            <paper-tooltip for="copyButton10" position="right">
+                                [[i18n('label.metadata.custom.copy.tooltip')]]
+                            </paper-tooltip>
+                        </template>
+                    </div>
                 </div>
                 <div hidden$="[[!stringField11Visible]]" role="widget" class="sortable" id="[[stringField11Order]]">
                     <label>[[stringField11Label]]</label>
-                    <div>[[document.properties.custom:stringField11]]</div>
+                    <div>[[document.properties.custom:stringField11]]
+                        <template is="dom-if" if="[[stringField11Copy]]">
+                            <copy-to-clipboard
+                                    id="copyToClipboard"
+                                    clipboard-value-to-copy="[[document.properties.custom:stringField11]]"
+                                    clipboard-value-copied="{{copiedValue}}"
+                                    clipboard-trigger-id="copyButton11"
+                            ></copy-to-clipboard>
+                            <paper-icon-button id="copyButton11" icon="icons:content-copy"
+                                               on-tap="_copied"></paper-icon-button>
+                            <paper-tooltip for="copyButton11" position="right">
+                                [[i18n('label.metadata.custom.copy.tooltip')]]
+                            </paper-tooltip>
+                        </template>
+                    </div>
                 </div>
                 <div hidden$="[[!stringField12Visible]]" role="widget" class="sortable" id="[[stringField12Order]]">
                     <label>[[stringField12Label]]</label>
-                    <div>[[document.properties.custom:stringField12]]</div>
+                    <div>[[document.properties.custom:stringField12]]
+                        <template is="dom-if" if="[[stringField12Copy]]">
+                            <copy-to-clipboard
+                                    id="copyToClipboard"
+                                    clipboard-value-to-copy="[[document.properties.custom:stringField12]]"
+                                    clipboard-value-copied="{{copiedValue}}"
+                                    clipboard-trigger-id="copyButton12"
+                            ></copy-to-clipboard>
+                            <paper-icon-button id="copyButton12" icon="icons:content-copy"
+                                               on-tap="_copied"></paper-icon-button>
+                            <paper-tooltip for="copyButton12" position="right">
+                                [[i18n('label.metadata.custom.copy.tooltip')]]
+                            </paper-tooltip>
+                        </template>
+                    </div>
                 </div>
                 <div hidden$="[[!stringField13Visible]]" role="widget" class="sortable" id="[[stringField13Order]]">
                     <label>[[stringField13Label]]</label>
-                    <div>[[document.properties.custom:stringField13]]</div>
+                    <div>[[document.properties.custom:stringField13]]
+                        <template is="dom-if" if="[[stringField13Copy]]">
+                            <copy-to-clipboard
+                                    id="copyToClipboard"
+                                    clipboard-value-to-copy="[[document.properties.custom:stringField13]]"
+                                    clipboard-value-copied="{{copiedValue}}"
+                                    clipboard-trigger-id="copyButton13"
+                            ></copy-to-clipboard>
+                            <paper-icon-button id="copyButton13" icon="icons:content-copy"
+                                               on-tap="_copied"></paper-icon-button>
+                            <paper-tooltip for="copyButton13" position="right">
+                                [[i18n('label.metadata.custom.copy.tooltip')]]
+                            </paper-tooltip>
+                        </template>
+                    </div>
                 </div>
                 <div hidden$="[[!stringField14Visible]]" role="widget" class="sortable" id="[[stringField14Order]]">
                     <label>[[stringField14Label]]</label>
-                    <div>[[document.properties.custom:stringField14]]</div>
+                    <div>[[document.properties.custom:stringField14]]
+                        <template is="dom-if" if="[[stringField14Copy]]">
+                            <copy-to-clipboard
+                                    id="copyToClipboard"
+                                    clipboard-value-to-copy="[[document.properties.custom:stringField14]]"
+                                    clipboard-value-copied="{{copiedValue}}"
+                                    clipboard-trigger-id="copyButton14"
+                            ></copy-to-clipboard>
+                            <paper-icon-button id="copyButton14" icon="icons:content-copy"
+                                               on-tap="_copied"></paper-icon-button>
+                            <paper-tooltip for="copyButton14" position="right">
+                                [[i18n('label.metadata.custom.copy.tooltip')]]
+                            </paper-tooltip>
+                        </template>
+                    </div>
                 </div>
                 <div hidden$="[[!stringField15Visible]]" role="widget" class="sortable" id="[[stringField15Order]]">
                     <label>[[stringField15Label]]</label>
-                    <div>[[document.properties.custom:stringField15]]</div>
+                    <div>[[document.properties.custom:stringField15]]
+                        <template is="dom-if" if="[[stringField15Copy]]">
+                            <copy-to-clipboard
+                                    id="copyToClipboard"
+                                    clipboard-value-to-copy="[[document.properties.custom:stringField15]]"
+                                    clipboard-value-copied="{{copiedValue}}"
+                                    clipboard-trigger-id="copyButton15"
+                            ></copy-to-clipboard>
+                            <paper-icon-button id="copyButton15" icon="icons:content-copy"
+                                               on-tap="_copied"></paper-icon-button>
+                            <paper-tooltip for="copyButton15" position="right">
+                                [[i18n('label.metadata.custom.copy.tooltip')]]
+                            </paper-tooltip>
+                        </template>
+                    </div>
                 </div>
                 <div hidden$="[[!stringField16Visible]]" role="widget" class="sortable" id="[[stringField16Order]]">
                     <label>[[stringField16Label]]</label>
-                    <div>[[document.properties.custom:stringField16]]</div>
+                    <div>[[document.properties.custom:stringField16]]
+                        <template is="dom-if" if="[[stringField16Copy]]">
+                            <copy-to-clipboard
+                                    id="copyToClipboard"
+                                    clipboard-value-to-copy="[[document.properties.custom:stringField16]]"
+                                    clipboard-value-copied="{{copiedValue}}"
+                                    clipboard-trigger-id="copyButton16"
+                            ></copy-to-clipboard>
+                            <paper-icon-button id="copyButton16" icon="icons:content-copy"
+                                               on-tap="_copied"></paper-icon-button>
+                            <paper-tooltip for="copyButton16" position="right">
+                                [[i18n('label.metadata.custom.copy.tooltip')]]
+                            </paper-tooltip>
+                        </template>
+                    </div>
                 </div>
                 <div hidden$="[[!stringField17Visible]]" role="widget" class="sortable" id="[[stringField17Order]]">
                     <label>[[stringField17Label]]</label>
-                    <div>[[document.properties.custom:stringField17]]</div>
+                    <div>[[document.properties.custom:stringField17]]
+                        <template is="dom-if" if="[[stringField17Copy]]">
+                            <copy-to-clipboard
+                                    id="copyToClipboard"
+                                    clipboard-value-to-copy="[[document.properties.custom:stringField17]]"
+                                    clipboard-value-copied="{{copiedValue}}"
+                                    clipboard-trigger-id="copyButton17"
+                            ></copy-to-clipboard>
+                            <paper-icon-button id="copyButton17" icon="icons:content-copy"
+                                               on-tap="_copied"></paper-icon-button>
+                            <paper-tooltip for="copyButton17" position="right">
+                                [[i18n('label.metadata.custom.copy.tooltip')]]
+                            </paper-tooltip>
+                        </template>
+                    </div>
                 </div>
                 <div hidden$="[[!stringField18Visible]]" role="widget" class="sortable" id="[[stringField18Order]]">
                     <label>[[stringField18Label]]</label>
-                    <div>[[document.properties.custom:stringField18]]</div>
+                    <div>[[document.properties.custom:stringField18]]
+                        <template is="dom-if" if="[[stringField18Copy]]">
+                            <copy-to-clipboard
+                                    id="copyToClipboard"
+                                    clipboard-value-to-copy="[[document.properties.custom:stringField18]]"
+                                    clipboard-value-copied="{{copiedValue}}"
+                                    clipboard-trigger-id="copyButton18"
+                            ></copy-to-clipboard>
+                            <paper-icon-button id="copyButton18" icon="icons:content-copy"
+                                               on-tap="_copied"></paper-icon-button>
+                            <paper-tooltip for="copyButton18" position="right">
+                                [[i18n('label.metadata.custom.copy.tooltip')]]
+                            </paper-tooltip>
+                        </template>
+                    </div>
                 </div>
                 <div hidden$="[[!stringField19Visible]]" role="widget" class="sortable" id="[[stringField19Order]]">
                     <label>[[stringField19Label]]</label>
-                    <div>[[document.properties.custom:stringField19]]</div>
+                    <div>[[document.properties.custom:stringField19]]
+                        <template is="dom-if" if="[[stringField19Copy]]">
+                            <copy-to-clipboard
+                                    id="copyToClipboard"
+                                    clipboard-value-to-copy="[[document.properties.custom:stringField19]]"
+                                    clipboard-value-copied="{{copiedValue}}"
+                                    clipboard-trigger-id="copyButton19"
+                            ></copy-to-clipboard>
+                            <paper-icon-button id="copyButton19" icon="icons:content-copy"
+                                               on-tap="_copied"></paper-icon-button>
+                            <paper-tooltip for="copyButton19" position="right">
+                                [[i18n('label.metadata.custom.copy.tooltip')]]
+                            </paper-tooltip>
+                        </template>
+                    </div>
                 </div>
                 <div hidden$="[[!stringField20Visible]]" role="widget" class="sortable" id="[[stringField20Order]]">
                     <label>[[stringField20Label]]</label>
-                    <div>[[document.properties.custom:stringField20]]</div>
+                    <div>[[document.properties.custom:stringField20]]
+                        <template is="dom-if" if="[[stringField20Copy]]">
+                            <copy-to-clipboard
+                                    id="copyToClipboard"
+                                    clipboard-value-to-copy="[[document.properties.custom:stringField20]]"
+                                    clipboard-value-copied="{{copiedValue}}"
+                                    clipboard-trigger-id="copyButton20"
+                            ></copy-to-clipboard>
+                            <paper-icon-button id="copyButton20" icon="icons:content-copy"
+                                               on-tap="_copied"></paper-icon-button>
+                            <paper-tooltip for="copyButton20" position="right">
+                                [[i18n('label.metadata.custom.copy.tooltip')]]
+                            </paper-tooltip>
+                        </template>
+                    </div>
                 </div>
 
-                <div hidden$="[[!vocabularyField1Visible]]" role="widget" class="sortable" id="[[vocabularyField1Order]]">
+                <div hidden$="[[!vocabularyField1Visible]]" role="widget" class="sortable"
+                     id="[[vocabularyField1Order]]">
                     <label>[[vocabularyField1Label]]</label>
-                    <div style="display:none;">[[formatDirectory(document.properties.custom:vocabularyField1, vocabularyField1Name, "vocabularyField1")]]</div>
+                    <div style="display:none;">[[formatDirectory(document.properties.custom:vocabularyField1,
+                        vocabularyField1Name, "vocabularyField1")]]
+                    </div>
                     <div>[[vocabularyField1Value]]</div>
                 </div>
-                <div hidden$="[[!vocabularyField2Visible]]" role="widget" class="sortable" id="[[vocabularyField2Order]]">
+                <div hidden$="[[!vocabularyField2Visible]]" role="widget" class="sortable"
+                     id="[[vocabularyField2Order]]">
                     <label>[[vocabularyField2Label]]</label>
-                    <div style="display:none;">[[formatDirectory(document.properties.custom:vocabularyField2, vocabularyField2Name, "vocabularyField2")]]</div>
+                    <div style="display:none;">[[formatDirectory(document.properties.custom:vocabularyField2,
+                        vocabularyField2Name, "vocabularyField2")]]
+                    </div>
                     <div>[[vocabularyField2Value]]</div>
                 </div>
-                <div hidden$="[[!vocabularyField3Visible]]" role="widget" class="sortable" id="[[vocabularyField3Order]]">
+                <div hidden$="[[!vocabularyField3Visible]]" role="widget" class="sortable"
+                     id="[[vocabularyField3Order]]">
                     <label>[[vocabularyField3Label]]</label>
-                    <div style="display:none;">[[formatDirectory(document.properties.custom:vocabularyField3, vocabularyField3Name, "vocabularyField3")]]</div>
+                    <div style="display:none;">[[formatDirectory(document.properties.custom:vocabularyField3,
+                        vocabularyField3Name, "vocabularyField3")]]
+                    </div>
                     <div>[[vocabularyField3Value]]</div>
                 </div>
-                <div hidden$="[[!vocabularyField4Visible]]" role="widget" class="sortable" id="[[vocabularyField4Order]]">
+                <div hidden$="[[!vocabularyField4Visible]]" role="widget" class="sortable"
+                     id="[[vocabularyField4Order]]">
                     <label>[[vocabularyField4Label]]</label>
-                    <div style="display:none;">[[formatDirectory(document.properties.custom:vocabularyField4, vocabularyField4Name, "vocabularyField4")]]</div>
+                    <div style="display:none;">[[formatDirectory(document.properties.custom:vocabularyField4,
+                        vocabularyField4Name, "vocabularyField4")]]
+                    </div>
                     <div>[[vocabularyField4Value]]</div>
                 </div>
-                <div hidden$="[[!vocabularyField5Visible]]" role="widget" class="sortable" id="[[vocabularyField5Order]]">
+                <div hidden$="[[!vocabularyField5Visible]]" role="widget" class="sortable"
+                     id="[[vocabularyField5Order]]">
                     <label>[[vocabularyField5Label]]</label>
-                    <div style="display:none;">[[formatDirectory(document.properties.custom:vocabularyField5, vocabularyField5Name, "vocabularyField5")]]</div>
+                    <div style="display:none;">[[formatDirectory(document.properties.custom:vocabularyField5,
+                        vocabularyField5Name, "vocabularyField5")]]
+                    </div>
                     <div>[[vocabularyField5Value]]</div>
                 </div>
-                <div hidden$="[[!vocabularyField6Visible]]" role="widget" class="sortable" id="[[vocabularyField6Order]]">
+                <div hidden$="[[!vocabularyField6Visible]]" role="widget" class="sortable"
+                     id="[[vocabularyField6Order]]">
                     <label>[[vocabularyField6Label]]</label>
-                    <div style="display:none;">[[formatDirectory(document.properties.custom:vocabularyField6, vocabularyField6Name, "vocabularyField6")]]</div>
+                    <div style="display:none;">[[formatDirectory(document.properties.custom:vocabularyField6,
+                        vocabularyField6Name, "vocabularyField6")]]
+                    </div>
                     <div>[[vocabularyField6Value]]</div>
                 </div>
-                <div hidden$="[[!vocabularyField7Visible]]" role="widget" class="sortable" id="[[vocabularyField7Order]]">
+                <div hidden$="[[!vocabularyField7Visible]]" role="widget" class="sortable"
+                     id="[[vocabularyField7Order]]">
                     <label>[[vocabularyField7Label]]</label>
-                    <div style="display:none;">[[formatDirectory(document.properties.custom:vocabularyField7, vocabularyField7Name, "vocabularyField7")]]</div>
+                    <div style="display:none;">[[formatDirectory(document.properties.custom:vocabularyField7,
+                        vocabularyField7Name, "vocabularyField7")]]
+                    </div>
                     <div>[[vocabularyField7Value]]</div>
                 </div>
-                <div hidden$="[[!vocabularyField8Visible]]" role="widget" class="sortable" id="[[vocabularyField8Order]]">
+                <div hidden$="[[!vocabularyField8Visible]]" role="widget" class="sortable"
+                     id="[[vocabularyField8Order]]">
                     <label>[[vocabularyField8Label]]</label>
-                    <div style="display:none;">[[formatDirectory(document.properties.custom:vocabularyField8, vocabularyField8Name, "vocabularyField8")]]</div>
+                    <div style="display:none;">[[formatDirectory(document.properties.custom:vocabularyField8,
+                        vocabularyField8Name, "vocabularyField8")]]
+                    </div>
                     <div>[[vocabularyField8Value]]</div>
                 </div>
-                <div hidden$="[[!vocabularyField9Visible]]" role="widget" class="sortable" id="[[vocabularyField9Order]]">
+                <div hidden$="[[!vocabularyField9Visible]]" role="widget" class="sortable"
+                     id="[[vocabularyField9Order]]">
                     <label>[[vocabularyField9Label]]</label>
-                    <div style="display:none;">[[formatDirectory(document.properties.custom:vocabularyField9, vocabularyField9Name, "vocabularyField9")]]</div>
+                    <div style="display:none;">[[formatDirectory(document.properties.custom:vocabularyField9,
+                        vocabularyField9Name, "vocabularyField9")]]
+                    </div>
                     <div>[[vocabularyField2Value]]</div>
                 </div>
-                <div hidden$="[[!vocabularyField10Visible]]" role="widget" class="sortable" id="[[vocabularyField10Order]]">
+                <div hidden$="[[!vocabularyField10Visible]]" role="widget" class="sortable"
+                     id="[[vocabularyField10Order]]">
                     <label>[[vocabularyField10Label]]</label>
-                    <div style="display:none;">[[formatDirectory(document.properties.custom:vocabularyField10, vocabularyField10Name, "vocabularyField10")]]</div>
+                    <div style="display:none;">[[formatDirectory(document.properties.custom:vocabularyField10,
+                        vocabularyField10Name, "vocabularyField10")]]
+                    </div>
                     <div>[[vocabularyField10Value]]</div>
                 </div>
 
@@ -556,55 +1393,95 @@
 
                 <div hidden$="[[!userField1Visible]]" role="widget" class="sortable" id="[[userField1Order]]">
                     <label>[[userField1Label]]</label>
-                    <div><nuxeo-user-tag user="[[document.properties.custom:userField1]]"></nuxeo-user-tag></div>
+                    <div>
+                        <nuxeo-user-tag user="[[document.properties.custom:userField1]]"></nuxeo-user-tag>
+                    </div>
                 </div>
                 <div hidden$="[[!userField2Visible]]" role="widget" class="sortable" id="[[userField2Order]]">
                     <label>[[userField2Label]]</label>
-                    <div><nuxeo-user-tag user="[[document.properties.custom:userField2]]"></nuxeo-user-tag></div>
+                    <div>
+                        <nuxeo-user-tag user="[[document.properties.custom:userField2]]"></nuxeo-user-tag>
+                    </div>
                 </div>
                 <div hidden$="[[!userField3Visible]]" role="widget" class="sortable" id="[[userField3Order]]">
                     <label>[[userField3Label]]</label>
-                    <div><nuxeo-user-tag user="[[document.properties.custom:userField3]]"></nuxeo-user-tag></div>
+                    <div>
+                        <nuxeo-user-tag user="[[document.properties.custom:userField3]]"></nuxeo-user-tag>
+                    </div>
                 </div>
                 <div hidden$="[[!userField4Visible]]" role="widget" class="sortable" id="[[userField4Order]]">
                     <label>[[userField4Label]]</label>
-                    <div><nuxeo-user-tag user="[[document.properties.custom:userField4]]"></nuxeo-user-tag></div>
+                    <div>
+                        <nuxeo-user-tag user="[[document.properties.custom:userField4]]"></nuxeo-user-tag>
+                    </div>
                 </div>
                 <div hidden$="[[!userField5Visible]]" role="widget" class="sortable" id="[[userField5Order]]">
                     <label>[[userField5Label]]</label>
-                    <div><nuxeo-user-tag user="[[document.properties.custom:userField5]]"></nuxeo-user-tag></div>
+                    <div>
+                        <nuxeo-user-tag user="[[document.properties.custom:userField5]]"></nuxeo-user-tag>
+                    </div>
                 </div>
                 <div hidden$="[[!userField6Visible]]" role="widget" class="sortable" id="[[userField6Order]]">
                     <label>[[userField6Label]]</label>
-                    <div><nuxeo-user-tag user="[[document.properties.custom:userField6]]"></nuxeo-user-tag></div>
+                    <div>
+                        <nuxeo-user-tag user="[[document.properties.custom:userField6]]"></nuxeo-user-tag>
+                    </div>
                 </div>
                 <div hidden$="[[!userField7Visible]]" role="widget" class="sortable" id="[[userField7Order]]">
                     <label>[[userField7Label]]</label>
-                    <div><nuxeo-user-tag user="[[document.properties.custom:userField7]]"></nuxeo-user-tag></div>
+                    <div>
+                        <nuxeo-user-tag user="[[document.properties.custom:userField7]]"></nuxeo-user-tag>
+                    </div>
                 </div>
                 <div hidden$="[[!userField8Visible]]" role="widget" class="sortable" id="[[userField8Order]]">
                     <label>[[userField8Label]]</label>
-                    <div><nuxeo-user-tag user="[[document.properties.custom:userField8]]"></nuxeo-user-tag></div>
+                    <div>
+                        <nuxeo-user-tag user="[[document.properties.custom:userField8]]"></nuxeo-user-tag>
+                    </div>
                 </div>
                 <div hidden$="[[!userField9Visible]]" role="widget" class="sortable" id="[[userField9Order]]">
                     <label>[[userField9Label]]</label>
-                    <div><nuxeo-user-tag user="[[document.properties.custom:userField9]]"></nuxeo-user-tag></div>
+                    <div>
+                        <nuxeo-user-tag user="[[document.properties.custom:userField9]]"></nuxeo-user-tag>
+                    </div>
                 </div>
                 <div hidden$="[[!userField10Visible]]" role="widget" class="sortable" id="[[userField10Order]]">
                     <label>[[userField10Label]]</label>
-                    <div><nuxeo-user-tag user="[[document.properties.custom:userField10]]"></nuxeo-user-tag></div>
+                    <div>
+                        <nuxeo-user-tag user="[[document.properties.custom:userField10]]"></nuxeo-user-tag>
+                    </div>
                 </div>
 
-                <div hidden$="[[!fileField1Visible]]" role="widget" class="sortable" id="[[fileField1Order]]"><label>[[fileField1Label]]</label><br><a href="[[document.properties.custom:fileField1.data]]">[[document.properties.custom:fileField1.name]]</a></div>
-                <div hidden$="[[!fileField2Visible]]" role="widget" class="sortable" id="[[fileField2Order]]"><label>[[fileField2Label]]</label><br><a href="[[document.properties.custom:fileField2.data]]">[[document.properties.custom:fileField2.name]]</a></div>
-                <div hidden$="[[!fileField3Visible]]" role="widget" class="sortable" id="[[fileField3Order]]"><label>[[fileField3Label]]</label><br><a href="[[document.properties.custom:fileField3.data]]">[[document.properties.custom:fileField3.name]]</a></div>
-                <div hidden$="[[!fileField4Visible]]" role="widget" class="sortable" id="[[fileField4Order]]"><label>[[fileField4Label]]</label><br><a href="[[document.properties.custom:fileField4.data]]">[[document.properties.custom:fileField4.name]]</a></div>
-                <div hidden$="[[!fileField5Visible]]" role="widget" class="sortable" id="[[fileField5Order]]"><label>[[fileField5Label]]</label><br><a href="[[document.properties.custom:fileField5.data]]">[[document.properties.custom:fileField5.name]]</a></div>
-                <div hidden$="[[!fileField6Visible]]" role="widget" class="sortable" id="[[fileField6Order]]"><label>[[fileField6Label]]</label><br><a href="[[document.properties.custom:fileField6.data]]">[[document.properties.custom:fileField6.name]]</a></div>
-                <div hidden$="[[!fileField7Visible]]" role="widget" class="sortable" id="[[fileField7Order]]"><label>[[fileField7Label]]</label><br><a href="[[document.properties.custom:fileField7.data]]">[[document.properties.custom:fileField7.name]]</a></div>
-                <div hidden$="[[!fileField8Visible]]" role="widget" class="sortable" id="[[fileField8Order]]"><label>[[fileField8Label]]</label><br><a href="[[document.properties.custom:fileField8.data]]">[[document.properties.custom:fileField8.name]]</a></div>
-                <div hidden$="[[!fileField9Visible]]" role="widget" class="sortable" id="[[fileField9Order]]"><label>[[fileField9Label]]</label><br><a href="[[document.properties.custom:fileField9.data]]">[[document.properties.custom:fileField9.name]]</a></div>
-                <div hidden$="[[!fileField10Visible]]" role="widget" class="sortable" id="[[fileField10Order]]"><label>[[fileField10Label]]</label><br><a href="[[document.properties.custom:fileField10.data]]">[[document.properties.custom:fileField10.name]]</a></div>
+                <div hidden$="[[!fileField1Visible]]" role="widget" class="sortable" id="[[fileField1Order]]"><label>[[fileField1Label]]</label><br><a
+                        href="[[document.properties.custom:fileField1.data]]">[[document.properties.custom:fileField1.name]]</a>
+                </div>
+                <div hidden$="[[!fileField2Visible]]" role="widget" class="sortable" id="[[fileField2Order]]"><label>[[fileField2Label]]</label><br><a
+                        href="[[document.properties.custom:fileField2.data]]">[[document.properties.custom:fileField2.name]]</a>
+                </div>
+                <div hidden$="[[!fileField3Visible]]" role="widget" class="sortable" id="[[fileField3Order]]"><label>[[fileField3Label]]</label><br><a
+                        href="[[document.properties.custom:fileField3.data]]">[[document.properties.custom:fileField3.name]]</a>
+                </div>
+                <div hidden$="[[!fileField4Visible]]" role="widget" class="sortable" id="[[fileField4Order]]"><label>[[fileField4Label]]</label><br><a
+                        href="[[document.properties.custom:fileField4.data]]">[[document.properties.custom:fileField4.name]]</a>
+                </div>
+                <div hidden$="[[!fileField5Visible]]" role="widget" class="sortable" id="[[fileField5Order]]"><label>[[fileField5Label]]</label><br><a
+                        href="[[document.properties.custom:fileField5.data]]">[[document.properties.custom:fileField5.name]]</a>
+                </div>
+                <div hidden$="[[!fileField6Visible]]" role="widget" class="sortable" id="[[fileField6Order]]"><label>[[fileField6Label]]</label><br><a
+                        href="[[document.properties.custom:fileField6.data]]">[[document.properties.custom:fileField6.name]]</a>
+                </div>
+                <div hidden$="[[!fileField7Visible]]" role="widget" class="sortable" id="[[fileField7Order]]"><label>[[fileField7Label]]</label><br><a
+                        href="[[document.properties.custom:fileField7.data]]">[[document.properties.custom:fileField7.name]]</a>
+                </div>
+                <div hidden$="[[!fileField8Visible]]" role="widget" class="sortable" id="[[fileField8Order]]"><label>[[fileField8Label]]</label><br><a
+                        href="[[document.properties.custom:fileField8.data]]">[[document.properties.custom:fileField8.name]]</a>
+                </div>
+                <div hidden$="[[!fileField9Visible]]" role="widget" class="sortable" id="[[fileField9Order]]"><label>[[fileField9Label]]</label><br><a
+                        href="[[document.properties.custom:fileField9.data]]">[[document.properties.custom:fileField9.name]]</a>
+                </div>
+                <div hidden$="[[!fileField10Visible]]" role="widget" class="sortable" id="[[fileField10Order]]"><label>[[fileField10Label]]</label><br><a
+                        href="[[document.properties.custom:fileField10.data]]">[[document.properties.custom:fileField10.name]]</a>
+                </div>
 
                 <div hidden$="[[!booleanField1Visible]]" role="widget" class="sortable" id="[[booleanField1Order]]">
                     <label>[[booleanField1Label]]</label>
@@ -688,64 +1565,144 @@
                     <div>[[document.properties.custom:systemField10]]</div>
                 </div>
                 <template is="dom-if" if="[[documentField1Link]]">
-                <qualitified-document-suggestion hidden$="[[!documentField1Visible]]"  clickable="true" role="widget" class="sortable" id="[[documentField1Order]]" value="{{document.properties.custom:documentField1}}" label="[[documentField1Label]]" readonly="true"></qualitified-document-suggestion>
+                    <qualitified-document-suggestion hidden$="[[!documentField1Visible]]" clickable="true" role="widget"
+                                                     class="sortable" id="[[documentField1Order]]"
+                                                     value="{{document.properties.custom:documentField1}}"
+                                                     label="[[documentField1Label]]"
+                                                     readonly="true"></qualitified-document-suggestion>
                 </template>
                 <template is="dom-if" if="[[documentField2Link]]">
-                <qualitified-document-suggestion hidden$="[[!documentField2Visible]]"  clickable="true" role="widget" class="sortable" id="[[documentField2Order]]" value="{{document.properties.custom:documentField2}}" label="[[documentField2Label]]" readonly="true"></qualitified-document-suggestion>
+                    <qualitified-document-suggestion hidden$="[[!documentField2Visible]]" clickable="true" role="widget"
+                                                     class="sortable" id="[[documentField2Order]]"
+                                                     value="{{document.properties.custom:documentField2}}"
+                                                     label="[[documentField2Label]]"
+                                                     readonly="true"></qualitified-document-suggestion>
                 </template>
                 <template is="dom-if" if="[[documentField3Link]]">
-                <qualitified-document-suggestion hidden$="[[!documentField3Visible]]"  clickable="true" role="widget" class="sortable" id="[[documentField3Order]]" value="{{document.properties.custom:documentField3}}" label="[[documentField3Label]]" readonly="true"></qualitified-document-suggestion>
+                    <qualitified-document-suggestion hidden$="[[!documentField3Visible]]" clickable="true" role="widget"
+                                                     class="sortable" id="[[documentField3Order]]"
+                                                     value="{{document.properties.custom:documentField3}}"
+                                                     label="[[documentField3Label]]"
+                                                     readonly="true"></qualitified-document-suggestion>
                 </template>
                 <template is="dom-if" if="[[documentField4Link]]">
-                    <qualitified-document-suggestion hidden$="[[!documentField4Visible]]"  clickable="true" role="widget" class="sortable" id="[[documentField4Order]]" value="{{document.properties.custom:documentField4}}" label="[[documentField4Label]]" readonly="true"></qualitified-document-suggestion>
+                    <qualitified-document-suggestion hidden$="[[!documentField4Visible]]" clickable="true" role="widget"
+                                                     class="sortable" id="[[documentField4Order]]"
+                                                     value="{{document.properties.custom:documentField4}}"
+                                                     label="[[documentField4Label]]"
+                                                     readonly="true"></qualitified-document-suggestion>
                 </template>
                 <template is="dom-if" if="[[documentField5Link]]">
-                    <qualitified-document-suggestion hidden$="[[!documentField5Visible]]"  clickable="true" role="widget" class="sortable" id="[[documentField5Order]]" value="{{document.properties.custom:documentField5}}" label="[[documentField5Label]]" readonly="true"></qualitified-document-suggestion>
+                    <qualitified-document-suggestion hidden$="[[!documentField5Visible]]" clickable="true" role="widget"
+                                                     class="sortable" id="[[documentField5Order]]"
+                                                     value="{{document.properties.custom:documentField5}}"
+                                                     label="[[documentField5Label]]"
+                                                     readonly="true"></qualitified-document-suggestion>
                 </template>
                 <template is="dom-if" if="[[documentField6Link]]">
-                    <qualitified-document-suggestion hidden$="[[!documentField6Visible]]"  clickable="true" role="widget" class="sortable" id="[[documentField6Order]]" value="{{document.properties.custom:documentField6}}" label="[[documentField6Label]]" readonly="true"></qualitified-document-suggestion>
+                    <qualitified-document-suggestion hidden$="[[!documentField6Visible]]" clickable="true" role="widget"
+                                                     class="sortable" id="[[documentField6Order]]"
+                                                     value="{{document.properties.custom:documentField6}}"
+                                                     label="[[documentField6Label]]"
+                                                     readonly="true"></qualitified-document-suggestion>
                 </template>
                 <template is="dom-if" if="[[documentField7Link]]">
-                    <qualitified-document-suggestion hidden$="[[!documentField7Visible]]"  clickable="true" role="widget" class="sortable" id="[[documentField7Order]]" value="{{document.properties.custom:documentField7}}" label="[[documentField7Label]]" readonly="true"></qualitified-document-suggestion>
+                    <qualitified-document-suggestion hidden$="[[!documentField7Visible]]" clickable="true" role="widget"
+                                                     class="sortable" id="[[documentField7Order]]"
+                                                     value="{{document.properties.custom:documentField7}}"
+                                                     label="[[documentField7Label]]"
+                                                     readonly="true"></qualitified-document-suggestion>
                 </template>
                 <template is="dom-if" if="[[documentField8Link]]">
-                    <qualitified-document-suggestion hidden$="[[!documentField8Visible]]"  clickable="true" role="widget" class="sortable" id="[[documentField8Order]]" value="{{document.properties.custom:documentField8}}" label="[[documentField8Label]]" readonly="true"></qualitified-document-suggestion>
+                    <qualitified-document-suggestion hidden$="[[!documentField8Visible]]" clickable="true" role="widget"
+                                                     class="sortable" id="[[documentField8Order]]"
+                                                     value="{{document.properties.custom:documentField8}}"
+                                                     label="[[documentField8Label]]"
+                                                     readonly="true"></qualitified-document-suggestion>
                 </template>
                 <template is="dom-if" if="[[documentField9Link]]">
-                    <qualitified-document-suggestion hidden$="[[!documentField9Visible]]"  clickable="true" role="widget" class="sortable" id="[[documentField9Order]]" value="{{document.properties.custom:documentField9}}" label="[[documentField9Label]]" readonly="true"></qualitified-document-suggestion>
+                    <qualitified-document-suggestion hidden$="[[!documentField9Visible]]" clickable="true" role="widget"
+                                                     class="sortable" id="[[documentField9Order]]"
+                                                     value="{{document.properties.custom:documentField9}}"
+                                                     label="[[documentField9Label]]"
+                                                     readonly="true"></qualitified-document-suggestion>
                 </template>
                 <template is="dom-if" if="[[documentField10Link]]">
-                     <qualitified-document-suggestion hidden$="[[!documentField10Visible]]" clickable="true" role="widget" class="sortable" id="[[documentField10Order]]" value="{{document.properties.custom:documentField10}}" label="[[documentField10Label]]" readonly="true"></qualitified-document-suggestion>
+                    <qualitified-document-suggestion hidden$="[[!documentField10Visible]]" clickable="true"
+                                                     role="widget" class="sortable" id="[[documentField10Order]]"
+                                                     value="{{document.properties.custom:documentField10}}"
+                                                     label="[[documentField10Label]]"
+                                                     readonly="true"></qualitified-document-suggestion>
                 </template>
                 <template is="dom-if" if="[[!documentField1Link]]">
-                    <qualitified-document-suggestion hidden$="[[!documentField1Visible]]"  clickable="false" role="widget" class="sortable" id="[[documentField1Order]]" value="{{document.properties.custom:documentField1}}" label="[[documentField1Label]]" readonly="true"></qualitified-document-suggestion>
+                    <qualitified-document-suggestion hidden$="[[!documentField1Visible]]" clickable="false"
+                                                     role="widget" class="sortable" id="[[documentField1Order]]"
+                                                     value="{{document.properties.custom:documentField1}}"
+                                                     label="[[documentField1Label]]"
+                                                     readonly="true"></qualitified-document-suggestion>
                 </template>
                 <template is="dom-if" if="[[!documentField2Link]]">
-                    <qualitified-document-suggestion hidden$="[[!documentField2Visible]]"  clickable="false" role="widget" class="sortable" id="[[documentField2Order]]" value="{{document.properties.custom:documentField2}}" label="[[documentField2Label]]" readonly="true"></qualitified-document-suggestion>
+                    <qualitified-document-suggestion hidden$="[[!documentField2Visible]]" clickable="false"
+                                                     role="widget" class="sortable" id="[[documentField2Order]]"
+                                                     value="{{document.properties.custom:documentField2}}"
+                                                     label="[[documentField2Label]]"
+                                                     readonly="true"></qualitified-document-suggestion>
                 </template>
                 <template is="dom-if" if="[[!documentField3Link]]">
-                    <qualitified-document-suggestion hidden$="[[!documentField3Visible]]"  clickable="false" role="widget" class="sortable" id="[[documentField3Order]]" value="{{document.properties.custom:documentField3}}" label="[[documentField3Label]]" readonly="true"></qualitified-document-suggestion>
+                    <qualitified-document-suggestion hidden$="[[!documentField3Visible]]" clickable="false"
+                                                     role="widget" class="sortable" id="[[documentField3Order]]"
+                                                     value="{{document.properties.custom:documentField3}}"
+                                                     label="[[documentField3Label]]"
+                                                     readonly="true"></qualitified-document-suggestion>
                 </template>
                 <template is="dom-if" if="[[!documentField4Link]]">
-                    <qualitified-document-suggestion hidden$="[[!documentField4Visible]]"  clickable="false" role="widget" class="sortable" id="[[documentField4Order]]" value="{{document.properties.custom:documentField4}}" label="[[documentField4Label]]" readonly="true"></qualitified-document-suggestion>
+                    <qualitified-document-suggestion hidden$="[[!documentField4Visible]]" clickable="false"
+                                                     role="widget" class="sortable" id="[[documentField4Order]]"
+                                                     value="{{document.properties.custom:documentField4}}"
+                                                     label="[[documentField4Label]]"
+                                                     readonly="true"></qualitified-document-suggestion>
                 </template>
                 <template is="dom-if" if="[[!documentField5Link]]">
-                    <qualitified-document-suggestion hidden$="[[!documentField5Visible]]"  clickable="false" role="widget" class="sortable" id="[[documentField5Order]]" value="{{document.properties.custom:documentField5}}" label="[[documentField5Label]]" readonly="true"></qualitified-document-suggestion>
+                    <qualitified-document-suggestion hidden$="[[!documentField5Visible]]" clickable="false"
+                                                     role="widget" class="sortable" id="[[documentField5Order]]"
+                                                     value="{{document.properties.custom:documentField5}}"
+                                                     label="[[documentField5Label]]"
+                                                     readonly="true"></qualitified-document-suggestion>
                 </template>
                 <template is="dom-if" if="[[!documentField6Link]]">
-                    <qualitified-document-suggestion hidden$="[[!documentField6Visible]]"  clickable="false" role="widget" class="sortable" id="[[documentField6Order]]" value="{{document.properties.custom:documentField6}}" label="[[documentField6Label]]" readonly="true"></qualitified-document-suggestion>
+                    <qualitified-document-suggestion hidden$="[[!documentField6Visible]]" clickable="false"
+                                                     role="widget" class="sortable" id="[[documentField6Order]]"
+                                                     value="{{document.properties.custom:documentField6}}"
+                                                     label="[[documentField6Label]]"
+                                                     readonly="true"></qualitified-document-suggestion>
                 </template>
                 <template is="dom-if" if="[[!documentField7Link]]">
-                    <qualitified-document-suggestion hidden$="[[!documentField7Visible]]"  clickable="false" role="widget" class="sortable" id="[[documentField7Order]]" value="{{document.properties.custom:documentField7}}" label="[[documentField7Label]]" readonly="true"></qualitified-document-suggestion>
+                    <qualitified-document-suggestion hidden$="[[!documentField7Visible]]" clickable="false"
+                                                     role="widget" class="sortable" id="[[documentField7Order]]"
+                                                     value="{{document.properties.custom:documentField7}}"
+                                                     label="[[documentField7Label]]"
+                                                     readonly="true"></qualitified-document-suggestion>
                 </template>
                 <template is="dom-if" if="[[!documentField8Link]]">
-                    <qualitified-document-suggestion hidden$="[[!documentField8Visible]]"  clickable="false" role="widget" class="sortable" id="[[documentField8Order]]" value="{{document.properties.custom:documentField8}}" label="[[documentField8Label]]" readonly="true"></qualitified-document-suggestion>
+                    <qualitified-document-suggestion hidden$="[[!documentField8Visible]]" clickable="false"
+                                                     role="widget" class="sortable" id="[[documentField8Order]]"
+                                                     value="{{document.properties.custom:documentField8}}"
+                                                     label="[[documentField8Label]]"
+                                                     readonly="true"></qualitified-document-suggestion>
                 </template>
                 <template is="dom-if" if="[[!documentField9Link]]">
-                    <qualitified-document-suggestion hidden$="[[!documentField9Visible]]"  clickable="false" role="widget" class="sortable" id="[[documentField9Order]]" value="{{document.properties.custom:documentField9}}" label="[[documentField9Label]]" readonly="true"></qualitified-document-suggestion>
+                    <qualitified-document-suggestion hidden$="[[!documentField9Visible]]" clickable="false"
+                                                     role="widget" class="sortable" id="[[documentField9Order]]"
+                                                     value="{{document.properties.custom:documentField9}}"
+                                                     label="[[documentField9Label]]"
+                                                     readonly="true"></qualitified-document-suggestion>
                 </template>
                 <template is="dom-if" if="[[!documentField10Link]]">
-                    <qualitified-document-suggestion hidden$="[[!documentField10Visible]]" clickable="false" role="widget" class="sortable" id="[[documentField10Order]]" value="{{document.properties.custom:documentField10}}" label="[[documentField10Label]]" readonly="true"></qualitified-document-suggestion>
+                    <qualitified-document-suggestion hidden$="[[!documentField10Visible]]" clickable="false"
+                                                     role="widget" class="sortable" id="[[documentField10Order]]"
+                                                     value="{{document.properties.custom:documentField10}}"
+                                                     label="[[documentField10Label]]"
+                                                     readonly="true"></qualitified-document-suggestion>
                 </template>
 
             </div>
@@ -2743,11 +3700,95 @@
           stringField20Multiline : {
             type: Boolean,
             value: false
-         }
+         },
+         stringField1Copy: {
+          type: Boolean,
+          value: false
 
+         },
+          stringField2Copy: {
+           type: Boolean,
+           value: false
+         },
+          stringField3Copy: {
+            type: Boolean,
+            value: false
+         },
+          stringField4Copy: {
+            type: Boolean,
+            value: false
+         },
+          stringField5Copy: {
+            type: Boolean,
+            value: false
+         },
+          stringField6Copy: {
+           type: Boolean,
+           value: false
+         },
+          stringField7Copy: {
+            type: Boolean,
+            value: false
+         },
+          stringField8Copy: {
+            type: Boolean,
+            value: false
+         },
+          stringField9Copy: {
+            type: Boolean,
+            value: false
+         },
+          stringField10Copy: {
+            type: Boolean,
+            value: false
+         },
+          stringField11Copy: {
+            type: Boolean,
+            value: false
+         },
+         stringField12Copy: {
+            type: Boolean,
+            value: false
+         },
+         stringField13Copy: {
+            type: Boolean,
+            value: false
+         },
+         stringField14Copy: {
+            type: Boolean,
+            value: false
+         },
+         stringField15Copy: {
+            type: Boolean,
+            value: false
+         },
+         stringField16Copy: {
+            type: Boolean,
+            value: false
+         },
+         stringField17Copy: {
+            type: Boolean,
+            value: false
+         },
+         stringField18Copy: {
+            type: Boolean,
+            value: false
+         },
+         stringField19Copy: {
+            type: Boolean,
+            value: false
+         },
+         stringField20Copy: {
+            type: Boolean,
+            value: false
+         }
       },
       ready: function(){
       },
+       _copied: function(){
+            this.$.linkToast.text = this.i18n('label.metadata.custom.copy.toast');
+            this.$.linkToast.open();
+         },
       _getCustomFields: function(){
         if(this.document){
           this.params = {
@@ -3143,6 +4184,7 @@
               this.stringField1Required = this._isVisible(field.readGroup,field.editGroup,field.hiddenGroup)? field.required : false;
               this.stringField1Order = i;
               this.stringField1Multiline = field.multiline !== null  ? field.multiline : false;
+              this.stringField1Copy = field.copy !== null ? field.copy : false;
             }
             if(field.fieldName === 'stringField2'){
               this.stringField2Visible = this._isVisible(field.readGroup,field.editGroup,field.hiddenGroup);
@@ -3150,6 +4192,7 @@
               this.stringField2Required = this._isVisible(field.readGroup,field.editGroup,field.hiddenGroup)? field.required : false;
               this.stringField2Order = i;
               this.stringField2Multiline = field.multiline !== null  ? field.multiline : false;
+              this.stringField2Copy = field.copy !== null ? field.copy : false;
             }
             if(field.fieldName === 'stringField3'){
               this.stringField3Visible = this._isVisible(field.readGroup,field.editGroup,field.hiddenGroup);
@@ -3157,6 +4200,7 @@
               this.stringField3Required = this._isVisible(field.readGroup,field.editGroup,field.hiddenGroup)? field.required : false;
               this.stringField3Order = i;
               this.stringField3Multiline = field.multiline !== null  ? field.multiline : false;
+              this.stringField3Copy = field.copy !== null ? field.copy : false;
             }
             if(field.fieldName === 'stringField4'){
                 this.stringField4Visible = this._isVisible(field.readGroup,field.editGroup,field.hiddenGroup);
@@ -3164,6 +4208,7 @@
                 this.stringField4Required = this._isVisible(field.readGroup,field.editGroup,field.hiddenGroup)? field.required : false;
                 this.stringField4Order = i;
                 this.stringField4Multiline = field.multiline !== null  ? field.multiline : false;
+                this.stringField4Copy = field.copy !== null ? field.copy : false;
             }
             if(field.fieldName === 'stringField5'){
                 this.stringField5Visible = this._isVisible(field.readGroup,field.editGroup,field.hiddenGroup);
@@ -3171,6 +4216,7 @@
                 this.stringField5Required = this._isVisible(field.readGroup,field.editGroup,field.hiddenGroup)? field.required : false;
                 this.stringField5Order = i;
                 this.stringField5Multiline = field.multiline !== null  ? field.multiline : false;
+                this.stringField5Copy = field.copy !== null ? field.copy : false;
             }
             if(field.fieldName === 'stringField6'){
                 this.stringField6Visible = this._isVisible(field.readGroup,field.editGroup,field.hiddenGroup);
@@ -3178,6 +4224,7 @@
                 this.stringField6Required = this._isVisible(field.readGroup,field.editGroup,field.hiddenGroup)? field.required : false;
                 this.stringField6Order = i;
                 this.stringField6Multiline = field.multiline !== null  ? field.multiline : false;
+                this.stringField6Copy = field.copy !== null ? field.copy : false;
             }
             if(field.fieldName === 'stringField7'){
                 this.stringField7Visible = this._isVisible(field.readGroup,field.editGroup,field.hiddenGroup);
@@ -3185,6 +4232,7 @@
                 this.stringField7Required = this._isVisible(field.readGroup,field.editGroup,field.hiddenGroup)? field.required : false;
                 this.stringField7Order = i;
                 this.stringField7Multiline = field.multiline !== null  ? field.multiline : false;
+                this.stringField7Copy = field.copy !== null ? field.copy : false;
             }
             if(field.fieldName === 'stringField8'){
                 this.stringField8Visible = this._isVisible(field.readGroup,field.editGroup,field.hiddenGroup);
@@ -3192,6 +4240,7 @@
                 this.stringField8Required = this._isVisible(field.readGroup,field.editGroup,field.hiddenGroup)? field.required : false;
                 this.stringField8Order = i;
                 this.stringField8Multiline = field.multiline !== null  ? field.multiline : false;
+                this.stringField8Copy = field.copy !== null ? field.copy : false;
             }
             if(field.fieldName === 'stringField9'){
                 this.stringField9Visible = this._isVisible(field.readGroup,field.editGroup,field.hiddenGroup);
@@ -3199,6 +4248,7 @@
                 this.stringField9Required = this._isVisible(field.readGroup,field.editGroup,field.hiddenGroup)? field.required : false;
                 this.stringField9Order = i;
                 this.stringField9Multiline = field.multiline !== null  ? field.multiline : false;
+                this.stringField9Copy = field.copy !== null ? field.copy : false;
             }
             if(field.fieldName === 'stringField10'){
                 this.stringField10Visible = this._isVisible(field.readGroup,field.editGroup,field.hiddenGroup);
@@ -3206,6 +4256,7 @@
                 this.stringField10Required = this._isVisible(field.readGroup,field.editGroup,field.hiddenGroup)? field.required : false;
                 this.stringField10Order = i;
                 this.stringField10Multiline = field.multiline !== null  ? field.multiline : false;
+                this.stringField10Copy = field.copy !== null ? field.copy : false;
             }
             if(field.fieldName === 'stringField11'){
               this.stringField11Visible = this._isVisible(field.readGroup,field.editGroup,field.hiddenGroup);
@@ -3213,6 +4264,8 @@
               this.stringField11Required = this._isVisible(field.readGroup,field.editGroup,field.hiddenGroup)? field.required : false;
               this.stringField11Order = i;
               this.stringField11Multiline = field.multiline !== null  ? field.multiline : false;
+              this.stringField11Copy = field.copy !== null ? field.copy : false;
+
             }
             if(field.fieldName === 'stringField12'){
               this.stringField12Visible = this._isVisible(field.readGroup,field.editGroup,field.hiddenGroup);
@@ -3220,6 +4273,8 @@
               this.stringField12Required = this._isVisible(field.readGroup,field.editGroup,field.hiddenGroup)? field.required : false;
               this.stringField12Order = i;
               this.stringField12Multiline = field.multiline !== null  ? field.multiline : false;
+                              this.stringField12Copy = field.copy !== null ? field.copy : false;
+
             }
             if(field.fieldName === 'stringField13'){
               this.stringField13Visible = this._isVisible(field.readGroup,field.editGroup,field.hiddenGroup);
@@ -3227,6 +4282,8 @@
               this.stringField13Required = this._isVisible(field.readGroup,field.editGroup,field.hiddenGroup)? field.required : false;
               this.stringField13Order = i;
               this.stringField13Multiline = field.multiline !== null  ? field.multiline : false;
+                              this.stringField13Copy = field.copy !== null ? field.copy : false;
+
             }
             if(field.fieldName === 'stringField14'){
                 this.stringField14Visible = this._isVisible(field.readGroup,field.editGroup,field.hiddenGroup);
@@ -3234,6 +4291,8 @@
                 this.stringField14Required = this._isVisible(field.readGroup,field.editGroup,field.hiddenGroup)? field.required : false;
                 this.stringField14Order = i;
                 this.stringField14Multiline = field.multiline !== null  ? field.multiline : false;
+                                this.stringField14Copy = field.copy !== null ? field.copy : false;
+
             }
             if(field.fieldName === 'stringField15'){
                 this.stringField15Visible = this._isVisible(field.readGroup,field.editGroup,field.hiddenGroup);
@@ -3241,6 +4300,8 @@
                 this.stringField15Required = this._isVisible(field.readGroup,field.editGroup,field.hiddenGroup)? field.required : false;
                 this.stringField15Order = i;
                 this.stringField15Multiline = field.multiline !== null  ? field.multiline : false;
+                                this.stringField15Copy = field.copy !== null ? field.copy : false;
+
             }
             if(field.fieldName === 'stringField16'){
                 this.stringField16Visible = this._isVisible(field.readGroup,field.editGroup,field.hiddenGroup);
@@ -3248,6 +4309,8 @@
                 this.stringField16Required = this._isVisible(field.readGroup,field.editGroup,field.hiddenGroup)? field.required : false;
                 this.stringField16Order = i;
                 this.stringField16Multiline = field.multiline !== null  ? field.multiline : false;
+                                this.stringField16Copy = field.copy !== null ? field.copy : false;
+
             }
             if(field.fieldName === 'stringField17'){
                 this.stringField17Visible = this._isVisible(field.readGroup,field.editGroup,field.hiddenGroup);
@@ -3255,6 +4318,8 @@
                 this.stringField17Required = this._isVisible(field.readGroup,field.editGroup,field.hiddenGroup)? field.required : false;
                 this.stringField17Order = i;
                 this.stringField17Multiline = field.multiline !== null  ? field.multiline : false;
+                                this.stringField17Copy = field.copy !== null ? field.copy : false;
+
             }
             if(field.fieldName === 'stringField18'){
                 this.stringField18Visible = this._isVisible(field.readGroup,field.editGroup,field.hiddenGroup);
@@ -3262,6 +4327,8 @@
                 this.stringField18Required = this._isVisible(field.readGroup,field.editGroup,field.hiddenGroup)? field.required : false;
                 this.stringField18Order = i;
                 this.stringField18Multiline = field.multiline !== null  ? field.multiline : false;
+                                this.stringField18Copy = field.copy !== null ? field.copy : false;
+
             }
             if(field.fieldName === 'stringField19'){
                 this.stringField19Visible = this._isVisible(field.readGroup,field.editGroup,field.hiddenGroup);
@@ -3269,6 +4336,8 @@
                 this.stringField19Required = this._isVisible(field.readGroup,field.editGroup,field.hiddenGroup)? field.required : false;
                 this.stringField19Order = i;
                 this.stringField19Multiline = field.multiline !== null  ? field.multiline : false;
+                                this.stringField19Copy = field.copy !== null ? field.copy : false;
+
             }
             if(field.fieldName === 'stringField20'){
                 this.stringField20Visible = this._isVisible(field.readGroup,field.editGroup,field.hiddenGroup);
@@ -3276,6 +4345,8 @@
                 this.stringField20Required = this._isVisible(field.readGroup,field.editGroup,field.hiddenGroup)? field.required : false;
                 this.stringField20Order = i;
                 this.stringField20Multiline = field.multiline !== null  ? field.multiline : false;
+                                                this.stringField20Copy = field.copy !== null ? field.copy : false;
+
             }
 
             if(field.fieldName === 'vocabularyField1'){
@@ -3878,5 +4949,6 @@
         }
       }
     });
-  </script>
+
+    </script>
 </dom-module>

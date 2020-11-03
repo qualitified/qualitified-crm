@@ -1,0 +1,24 @@
+<link rel="import" href="../copy-to-clipboard-behavior.html">
+<dom-module id="copy-to-clipboard">
+    <script>
+    Polymer({
+      is: 'copy-to-clipboard',
+
+      behaviors: [
+        Polymer.CopyToClipboardBehavior
+      ],
+
+      properties: {
+        clipboardTriggerId: String
+      },
+
+      attached: function () {
+        if (this.clipboardTriggerId) {
+          var trigger = this.parentNode.querySelector('#' + this.clipboardTriggerId)
+
+          if (trigger) this.clipboardSetup(trigger)
+        }
+      }
+    })
+  </script>
+</dom-module>
