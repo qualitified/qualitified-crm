@@ -1,0 +1,36 @@
+<link rel="import" href="../qualitified-custom-fields.html">
+<dom-module id="nuxeo-campaign-view-layout">
+  <template>
+    <style>
+      *[role=widget] {
+        padding: 5px;
+      }
+    </style>
+    <div role="widget"><label>Mailjet Html Part</label><div name="mailjetHtmlPart">[[document.properties.campaign:mailjetHtmlPart]]</div></div>
+
+    <div role="widget"><label>Mailjet Message Href</label><div name="mailjetMessageHref">[[document.properties.campaign:mailjetMessageHref]]</div></div>
+
+    <div role="widget"><label>Mailjet Subject</label><div name="mailjetSubject">[[document.properties.campaign:mailjetSubject]]</div></div>
+
+    <div role="widget"><label>Mailjet Text Part</label><div name="mailjetTextPart">[[document.properties.campaign:mailjetTextPart]]</div>
+    </div>
+
+  </template>
+
+  <script>
+    Polymer({
+      is: 'nuxeo-campaign-view-layout',
+      behaviors: [Nuxeo.LayoutBehavior],
+      properties: {
+
+        /**
+         * @doctype campaign
+         */
+        document: {
+          type: Object,
+        },
+
+      }
+    });
+  </script>
+</dom-module>
