@@ -1,24 +1,43 @@
-<link rel="import" href="../copy-to-clipboard-behavior.html">
+<link href="../copy-to-clipboard-behavior.html" rel="import">
 <dom-module id="copy-to-clipboard">
+    <template>
+
+        <style>
+      paper-icon-button {
+       color: #c8c8c8a8;
+       width: 30px !important;
+       height: 30px !important;
+      }
+
+
+        </style>
+
+        <paper-toast id="linkToast"></paper-toast>
+        <paper-icon-button icon="icons:content-copy" id="copyButtonId"
+                           on-tap="_copied"></paper-icon-button>
+        <paper-tooltip for="copyButtonId" position="right">
+            [[i18n('label.metadata.custom.copy.tooltip')]]
+        </paper-tooltip>
+    </template>
+
     <script>
     Polymer({
       is: 'copy-to-clipboard',
 
       behaviors: [
-        Polymer.CopyToClipboardBehavior
+        Polymer.CopyToClipboardBehavior,Nuxeo.I18nBehavior
       ],
 
-      properties: {
-        clipboardTriggerId: String
-      },
 
       attached: function () {
-        if (this.clipboardTriggerId) {
-          var trigger = this.parentNode.querySelector('#' + this.clipboardTriggerId)
+        if (this.$.copyButtonId) this.clipboardSetup(this.$.copyButtonId)
 
-          if (trigger) this.clipboardSetup(trigger)
-        }
-      }
+      },
+      _copied: function(){
+            this.$.linkToast.text = this.i18n('label.metadata.custom.copy.toast');
+            this.$.linkToast.open();
+         }
     })
-  </script>
+
+    </script>
 </dom-module>
