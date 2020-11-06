@@ -226,6 +226,7 @@
       <facet name="NXTag"/>
       <facet name="Folderish"/>
     </doctype>
+
     <doctype name="Account" append="true">
       <subtypes>
         <type>Interaction</type>
