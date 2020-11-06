@@ -66,27 +66,4 @@
       </xs:list>
     </xs:simpleType>
   </xs:element>
-  <xs:element name="mailjetFromEmail" type="xs:string"/>
-  <xs:element name="mailjetFromName" type="xs:string"/>
-  <xs:element name="mailjetToEmail" type="xs:string"/>
-  <xs:element name="mailjetToName" type="xs:string"/>
-  <xs:element name="mailjetStatus" type="xs:string"/>
-  <xs:element name="mailjetMessageID" type="xs:string"/>
-  <xs:element name="mailjetMessageUUID" type="xs:string"/>
-  <xs:element name="mailjetCount" type="xs:integer"/>
-  <xs:element name="mailjetCampaignId">
-    <xs:simpleType>
-      <xs:restriction base="xs:string" ref:resolver="documentResolver" ref:store="id"/>
-    </xs:simpleType>
-  </xs:element>  <xs:complexType name="mailjetData">
-    <xs:sequence>
-      <xs:element name="comment" type="xs:string"/>
-      <xs:element name="eventAt" type="xs:date"/>
-      <xs:element name="eventType" type="xs:string"/>
-      <xs:element name="state" type="xs:string"/>
-      <xs:element name="userAgent" type="xs:string"/>
-      <xs:element name="userAgentID" type="xs:integer"/>
-    </xs:sequence>
-  </xs:complexType>
-
 </xs:schema>

@@ -12,7 +12,6 @@
     <schema name="address" prefix="address" override="true" src="data/schemas/address.xsd"/>
     <schema name="file_schema" prefix="file_schema" override="true" src="data/schemas/file_schema.xsd"/>
     <schema name="interaction" prefix="interaction" override="true" src="data/schemas/interaction.xsd"/>
-    <schema name="campaign" prefix="campaign" override="true" src="data/schemas/campaign.xsd"/>
     <schema name="marketing" prefix="marketing" override="true" src="data/schemas/marketing.xsd"/>
     <schema name="opportunity" prefix="opportunity" override="true" src="data/schemas/opportunity.xsd"/>
     <schema name="option" prefix="option" override="true" src="data/schemas/option.xsd"/>
@@ -85,16 +84,6 @@
     <doctype name="Folder" append="true">
       <subtypes>
         <type>Account</type>
-      </subtypes>
-    </doctype>
-    <doctype name="Folder" append="true">
-      <subtypes>
-        <type>Campaign</type>
-      </subtypes>
-    </doctype>
-    <doctype name="Workspace" append="true">
-      <subtypes>
-        <type>Campaign</type>
       </subtypes>
     </doctype>
     <doctype name="Workspace" append="true">
@@ -212,8 +201,9 @@
 
 
 
+
     <!-- mahmoud -->
-    <doctype name="Campaign" extends="Document">
+  <doctype name="Campaign" extends="Document">
     <schema name="campaign"/>
       <schema name="dublincore"/>
       <schema name="common"/>
@@ -226,6 +216,9 @@
       <facet name="NXTag"/>
       <facet name="Folderish"/>
     </doctype>
+
+
+    </doctype>
     <doctype name="Account" append="true">
       <subtypes>
         <type>Interaction</type>
@@ -234,7 +227,6 @@
     <doctype name="Marketing" extends="Domain">
       <schema name="marketing"/>
       <subtypes>
-        <type>Campaign</type>
         <type>Account</type>
         <type>Contact</type>
       </subtypes>
@@ -521,9 +513,6 @@
     <types>
       <type name="Options">default</type>
     </types>
-    <types>
-      <type name="Campaign">default</type>
-    </types>
 
   </extension>
   <extension target="org.nuxeo.ecm.platform.types.TypeService" point="types">
@@ -559,12 +548,6 @@
     </type>
     <type id="Contact">
       <label>Contact</label>
-      <icon>/img/ic_account_circle_black_24dp_2x.png</icon>
-      <bigIcon>/img/ic_account_circle_black_24dp_2x.png</bigIcon>
-      <description></description>
-    </type>
-    <type id="Campaign">
-      <label>Campaign</label>
       <icon>/img/ic_account_circle_black_24dp_2x.png</icon>
       <bigIcon>/img/ic_account_circle_black_24dp_2x.png</bigIcon>
       <description></description>
@@ -1711,8 +1694,6 @@
         <templateItem typeName="Sales" id="Sales" title="Sales" description=""/>
         <!--templateItem typeName="Marketing" id="Marketing" title="Marketing" description=""/>
         <templateItem typeName="Services" id="Services" title="Services" description=""/-->
-        <!--templateItem typeName="Campaign" id="Campaign" title="Campaign" description=""/-->
-
         <templateItem typeName="Admin" id="Admin" title="Admin" description=""/>
         <!--templateItem typeName="Sales" id="Test" title="Test" description=""/-->
       </template>
@@ -1727,8 +1708,6 @@
       <template>
         <templateItem typeName="Sales" id="Sales" title="Sales" description=""/>
         <templateItem typeName="Marketing" id="Marketing" title="Marketing" description=""/>
-        <!--templateItem typeName="Campaign" id="Campaign" title="Campaign" description=""/-->
-
         <templateItem typeName="Services" id="Services" title="Services" description=""/>
         <templateItem typeName="Admin" id="Admin" title="Admin" description=""/>
       </template>
@@ -1890,7 +1869,6 @@
       <rule grant="true">
         <permission>AddChildren</permission>
         <type>Account</type>
-        <type>Campaign</type>
         <type>Folder</type>
         <type>Domain</type>
         <type>Admin</type>
@@ -1909,7 +1887,6 @@
         <type>File</type>
         <type>Interaction</type>
         <type>Silhouette</type>
-        <type>Campaign</type>
       </rule>
     </filter>
   </extension>
