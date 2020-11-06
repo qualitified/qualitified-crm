@@ -209,17 +209,10 @@
         <type>File</type>
       </subtypes>
     </doctype>
-    <doctype name="Interaction" extends="Document">
-      <schema name="interaction"/>
-      <schema name="dublincore"/>
-      <schema name="common"/>
-      <schema name="uid"/>
-      <schema name="files"/>
-      <schema name="note"/>
-      <schema name="custom"/>
-      <facet name="NXTag"/>
-    </doctype>
-    <!-- mahmoud-->
+
+
+
+    <!-- mahmoud -->
     <doctype name="Campaign" extends="Document">
     <schema name="campaign"/>
       <schema name="dublincore"/>
