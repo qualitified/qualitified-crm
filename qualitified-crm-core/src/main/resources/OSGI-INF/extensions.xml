@@ -219,7 +219,6 @@
       <schema name="common"/>
       <schema name="uid"/>
       <schema name="files"/>
-      <schema name="dublincore"/>
       <schema name="picture"/>
       <schema name="custom"/>
       <facet name="Picture"/>
@@ -305,6 +304,7 @@
     </doctype>
     <doctype name="Marketing" append="true">
       <subtypes>
+        <type>Campaign</type>
         <type>Silhouette</type>
       </subtypes>
     </doctype>
@@ -1728,7 +1728,7 @@
       <template>
         <templateItem typeName="Sales" id="Sales" title="Sales" description=""/>
         <templateItem typeName="Marketing" id="Marketing" title="Marketing" description=""/>
-        <!--templateItem typeName="Campaign" id="Campaign" title="Campaign" description=""/-->
+        <templateItem typeName="Campaign" id="Campaign" title="Campaign" description=""/>
 
         <templateItem typeName="Services" id="Services" title="Services" description=""/>
         <templateItem typeName="Admin" id="Admin" title="Admin" description=""/>
