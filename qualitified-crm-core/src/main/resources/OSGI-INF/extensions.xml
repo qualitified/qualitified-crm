@@ -217,8 +217,6 @@
       <facet name="Folderish"/>
     </doctype>
 
-
-    </doctype>
     <doctype name="Account" append="true">
       <subtypes>
         <type>Interaction</type>
