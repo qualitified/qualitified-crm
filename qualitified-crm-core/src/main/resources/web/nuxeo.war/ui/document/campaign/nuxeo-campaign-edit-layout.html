@@ -1,22 +1,27 @@
-<link rel="import" href="../qualitified-custom-fields.html">
+<link href="../qualitified-custom-fields.html" rel="import">
 <dom-module id="nuxeo-campaign-edit-layout">
-  <template>
-    <style>
+    <template>
+        <style>
       *[role=widget] {
         padding: 5px;
       }
-    </style>
-    <nuxeo-input value="{{document.properties.campaign:mailjetHtmlPart}}" label="Mailjet Html Part" type="text" maxlength="999999999" name="mailjetHtmlPart" role="widget"></nuxeo-input>
 
-    <nuxeo-input value="{{document.properties.campaign:mailjetMessageHref}}" label="Mailjet Message Href" type="text" name="mailjetMessageHref" role="widget"></nuxeo-input>
+        </style>
+        <nuxeo-input label="Mailjet Html Part" maxlength="999999999" name="mailjetHtmlPart"
+                     role="widget" type="text" value="{{document.properties.campaign:mailjetHtmlPart}}"></nuxeo-input>
 
-    <nuxeo-input value="{{document.properties.campaign:mailjetSubject}}" label="Mailjet Subject" type="text" name="mailjetSubject" role="widget"></nuxeo-input>
+        <nuxeo-input label="Mailjet Message Href" name="mailjetMessageHref"
+                     role="widget" type="text" value="{{document.properties.campaign:mailjetMessageHref}}"></nuxeo-input>
 
-    <nuxeo-input value="{{document.properties.campaign:mailjetTextPart}}" label="Mailjet Text Part" type="text" maxlength="999999999" name="mailjetTextPart" role="widget"></nuxeo-input>
+        <nuxeo-input label="Mailjet Subject" name="mailjetSubject" role="widget"
+                     type="text" value="{{document.properties.campaign:mailjetSubject}}"></nuxeo-input>
 
-  </template>
+        <nuxeo-input label="Mailjet Text Part" maxlength="999999999" name="mailjetTextPart"
+                     role="widget" type="text" value="{{document.properties.campaign:mailjetTextPart}}"></nuxeo-input>
 
-  <script>
+    </template>
+
+    <script>
     Polymer({
       is: 'nuxeo-campaign-edit-layout',
       behaviors: [Nuxeo.LayoutBehavior],
@@ -31,5 +36,6 @@
 
       }
     });
-  </script>
+
+    </script>
 </dom-module>
