@@ -214,6 +214,7 @@
       <schema name="common"/>
       <schema name="uid"/>
       <schema name="campaign"/>
+      <schema name="picture"/>
       <schema name="custom"/>
       <facet name="NXTag"/>
     </doctype>
@@ -294,9 +295,9 @@
     </doctype>
     <doctype name="Marketing" append="true">
       <subtypes>
+        <type>Campaign</type>
         <type>Silhouette</type>
         <type>Campaign</type>
-
       </subtypes>
     </doctype>
     <doctype name="ScriptNote" extends="Note">
