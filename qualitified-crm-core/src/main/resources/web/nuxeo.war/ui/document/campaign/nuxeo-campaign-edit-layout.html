@@ -1,0 +1,41 @@
+<link href="../qualitified-custom-fields.html" rel="import">
+<dom-module id="nuxeo-campaign-edit-layout">
+    <template>
+        <style>
+      *[role=widget] {
+        padding: 5px;
+      }
+
+        </style>
+        <nuxeo-input label="Mailjet Html Part" maxlength="999999999" name="mailjetHtmlPart"
+                     role="widget" type="text" value="{{document.properties.campaign:mailjetHtmlPart}}"></nuxeo-input>
+
+        <nuxeo-input label="Mailjet Message Href" name="mailjetMessageHref"
+                     role="widget" type="text" value="{{document.properties.campaign:mailjetMessageHref}}"></nuxeo-input>
+
+        <nuxeo-input label="Mailjet Subject" name="mailjetSubject" role="widget"
+                     type="text" value="{{document.properties.campaign:mailjetSubject}}"></nuxeo-input>
+
+        <nuxeo-input label="Mailjet Text Part" maxlength="999999999" name="mailjetTextPart"
+                     role="widget" type="text" value="{{document.properties.campaign:mailjetTextPart}}"></nuxeo-input>
+
+    </template>
+
+    <script>
+    Polymer({
+      is: 'nuxeo-campaign-edit-layout',
+      behaviors: [Nuxeo.LayoutBehavior],
+      properties: {
+
+        /**
+         * @doctype campaign
+         */
+        document: {
+          type: Object
+        }
+
+      }
+    });
+
+    </script>
+</dom-module>
