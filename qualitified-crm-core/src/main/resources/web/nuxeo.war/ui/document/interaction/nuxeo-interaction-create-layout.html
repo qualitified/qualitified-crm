@@ -22,11 +22,11 @@
     <qualitified-document-suggestion role="widget" value="{{document.properties.interaction:contact}}" label="[[i18n('label.metadata.contact')]]" page-provider="documents" min-chars="0" multiple="true" params='{ "namedParameters": "system_primaryType=Contact"}'></qualitified-document-suggestion>
 
     <qualitified-custom-fields document="{{document}}" mode="edit"></qualitified-custom-fields>
-    <nuxeo-document-suggestion value="{{document.properties.interaction:mailjetCampaignId}}" label="Mailjet Campaign Id" name="mailjetCampaignId" role="widget"></nuxeo-document-suggestion>
+    <nuxeo-document-suggestion value="{{document.properties.interaction:campaignId}}" label="Campaign Id" name="campaignId" role="widget"></nuxeo-document-suggestion>
 
-    <nuxeo-input value="{{document.properties.interaction:mailjetCount}}" label="Mailjet Count" type="number" name="mailjetCount" role="widget"></nuxeo-input>
+    <nuxeo-input value="{{document.properties.interaction:count}}" label="Count" type="number" name="count" role="widget"></nuxeo-input>
 
-    <nuxeo-data-table role="widget" label="Mailjet Data" items="{{document.properties.interaction:mailjetData}}" orderable="true" editable="true" name="mailjetData">
+    <nuxeo-data-table role="widget" label="data" items="{{document.properties.interaction:data}}" orderable="true" editable="true" name="data">
 
 
       <nuxeo-data-table-column name="Comment">
@@ -77,19 +77,19 @@
       </nuxeo-data-table-form>
     </nuxeo-data-table>
 
-    <nuxeo-input value="{{document.properties.interaction:mailjetFromEmail}}" label="Mailjet From Email" type="text" name="mailjetFromEmail" role="widget"></nuxeo-input>
+    <nuxeo-input value="{{document.properties.interaction:fromEmail}}" label="From Email" type="text" name="fromEmail" role="widget"></nuxeo-input>
 
-    <nuxeo-input value="{{document.properties.interaction:mailjetFromName}}" label="Mailjet From Name" type="text" name="mailjetFromName" role="widget"></nuxeo-input>
+    <nuxeo-input value="{{document.properties.interaction:fromName}}" label="From Name" type="text" name="fromName" role="widget"></nuxeo-input>
 
-    <nuxeo-input value="{{document.properties.interaction:mailjetMessageID}}" label="Mailjet Message I D" type="text" name="mailjetMessageID" role="widget"></nuxeo-input>
+    <nuxeo-input value="{{document.properties.interaction:messageID}}" label="Message I D" type="text" name="messageID" role="widget"></nuxeo-input>
 
-    <nuxeo-input value="{{document.properties.interaction:mailjetMessageUUID}}" label="Mailjet Message U U I D" type="text" name="mailjetMessageUUID" role="widget"></nuxeo-input>
+    <nuxeo-input value="{{document.properties.interaction:messageUUID}}" label="Message U U I D" type="text" name="messageUUID" role="widget"></nuxeo-input>
 
-    <nuxeo-input value="{{document.properties.interaction:mailjetStatus}}" label="Mailjet Status" type="text" name="mailjetStatus" role="widget"></nuxeo-input>
+    <nuxeo-input value="{{document.properties.interaction:statusMail}}" label="Status" type="text" name="statusMail" role="widget"></nuxeo-input>
 
-    <nuxeo-input value="{{document.properties.interaction:mailjetToEmail}}" label="Mailjet To Email" type="text" name="mailjetToEmail" role="widget"></nuxeo-input>
+    <nuxeo-input value="{{document.properties.interaction:toEmail}}" label="To Email" type="text" name="toEmail" role="widget"></nuxeo-input>
 
-    <nuxeo-input value="{{document.properties.interaction:mailjetToName}}" label="Mailjet To Name" type="text" name="mailjetToName" role="widget"></nuxeo-input>
+    <nuxeo-input value="{{document.properties.interaction:toName}}" label="To Name" type="text" name="toName" role="widget"></nuxeo-input>
 
   </template>
 
