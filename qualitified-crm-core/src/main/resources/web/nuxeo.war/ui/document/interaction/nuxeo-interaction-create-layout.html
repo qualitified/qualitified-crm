@@ -26,56 +26,7 @@
 
     <nuxeo-input value="{{document.properties.interaction:count}}" label="Count" type="number" name="count" role="widget"></nuxeo-input>
 
-    <nuxeo-data-table role="widget" label="data" items="{{document.properties.interaction:data}}" orderable="true" editable="true" name="data">
 
-
-      <nuxeo-data-table-column name="Comment">
-        <template>
-          [[item.comment]]
-        </template>
-      </nuxeo-data-table-column>
-
-      <nuxeo-data-table-column name="Event At">
-        <template>
-          <nuxeo-date role="widget" datetime="[[item.eventAt]]" name="eventAt"></nuxeo-date>
-        </template>
-      </nuxeo-data-table-column>
-
-      <nuxeo-data-table-column name="Eventtype">
-        <template>
-          [[item.eventtype]]
-        </template>
-      </nuxeo-data-table-column>
-
-      <nuxeo-data-table-column name="State">
-        <template>
-          [[item.state]]
-        </template>
-      </nuxeo-data-table-column>
-
-      <nuxeo-data-table-column name="User Agent">
-        <template>
-          [[item.userAgent]]
-        </template>
-      </nuxeo-data-table-column>
-
-      <nuxeo-data-table-column name="User Agent I D">
-        <template>
-          [[item.userAgentID]]
-        </template>
-      </nuxeo-data-table-column>
-
-      <nuxeo-data-table-form>
-        <template>
-          <nuxeo-input value="{{item.comment}}" label="Comment" type="text" name="comment"></nuxeo-input>
-          <nuxeo-date-picker value="{{item.eventAt}}" label="Event At" name="eventAt"></nuxeo-date-picker>
-          <nuxeo-input value="{{item.eventtype}}" label="Eventtype" type="text" name="eventtype"></nuxeo-input>
-          <nuxeo-input value="{{item.state}}" label="State" type="text" name="state"></nuxeo-input>
-          <nuxeo-input value="{{item.userAgent}}" label="User Agent" type="text" name="userAgent"></nuxeo-input>
-          <nuxeo-input value="{{item.userAgentID}}" label="User Agent I D" type="number" name="userAgentID"></nuxeo-input>
-        </template>
-      </nuxeo-data-table-form>
-    </nuxeo-data-table>
 
     <nuxeo-input value="{{document.properties.interaction:fromEmail}}" label="From Email" type="text" name="fromEmail" role="widget"></nuxeo-input>
 
