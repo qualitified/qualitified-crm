@@ -78,15 +78,21 @@
     <xs:simpleType>
       <xs:restriction base="xs:string" ref:resolver="documentResolver" ref:store="id"/>
     </xs:simpleType>
-  </xs:element>  <xs:complexType name="data">
-  <xs:sequence>
-    <xs:element name="comment" type="xs:string"/>
-    <xs:element name="eventAt" type="xs:date"/>
-    <xs:element name="eventType" type="xs:string"/>
-    <xs:element name="state" type="xs:string"/>
-    <xs:element name="userAgent" type="xs:string"/>
-    <xs:element name="userAgentID" type="xs:integer"/>
-  </xs:sequence>
-</xs:complexType>
-
+  </xs:element>
+  <xs:element name="data" type="nxs:interaction_dataListType"/>
+  <xs:complexType name="interaction_dataListType">
+    <xs:sequence>
+      <xs:element name="item" type="nxs:interaction_dataType" minOccurs="0" maxOccurs="unbounded"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="interaction_dataType">
+    <xs:sequence>
+      <xs:element name="comment" type="xs:string"/>
+      <xs:element name="eventAt" type="xs:double"/>
+      <xs:element name="eventTypes" type="xs:string"/>
+      <xs:element name="state" type="xs:string"/>
+      <xs:element name="userAgent" type="xs:string"/>
+      <xs:element name="userAgentID" type="xs:integer"/>
+    </xs:sequence>
+  </xs:complexType>
 </xs:schema>
