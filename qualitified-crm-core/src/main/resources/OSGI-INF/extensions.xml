@@ -216,6 +216,7 @@
       <schema name="campaign"/>
       <schema name="picture"/>
       <schema name="custom"/>
+      <facet name="Folderish"/>
       <facet name="NXTag"/>
     </doctype>
     <doctype name="Account" append="true">
@@ -224,6 +225,7 @@
       </subtypes>
     </doctype>
     <doctype name="Marketing" extends="Domain">
+      <facet name="Folderish"/>
       <schema name="marketing"/>
       <subtypes>
         <type>Account</type>
@@ -292,6 +294,11 @@
       <schema name="person"/>
       <schema name="custom"/>
       <schema name="address"/>
+    </doctype>
+    <doctype name="Campaign" append="true">
+      <subtypes>
+        <type>Contact</type>
+      </subtypes>
     </doctype>
     <doctype name="Marketing" append="true">
       <subtypes>
@@ -387,6 +394,8 @@
       <facet name="ContentViewDisplay"/>
       <facet name="SavedSearch"/>
       <facet name="HiddenInNavigation"/>
+      <facet name="Collection" />
+      <facet name="Folderish"/>
       <schema name="campaign"/>
     </doctype>
     <doctype name="opportunity_list_pp" extends="Document">
