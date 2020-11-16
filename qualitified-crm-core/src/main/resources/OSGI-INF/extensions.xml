@@ -1169,6 +1169,13 @@
             <property name="size">0</property>
           </properties>
         </aggregate>
+        <aggregate id="opportunity_industry_type_agg" type="terms" parameter="opportunity:typeOfIndustry">
+          <field schema="opportunity_list_pp" name="opportunity_industry_type_agg"/>
+          <properties>
+            <property name="order">count desc</property>
+            <property name="size">0</property>
+          </properties>
+        </aggregate>
         <aggregate id="opportunity_zone_agg" type="terms" parameter="opportunity:zone">
           <field schema="opportunity_list_pp" name="opportunity_zone_agg"/>
           <properties>
@@ -1202,6 +1209,13 @@
         </aggregate>
         <aggregate id="account_industry_type_agg" type="terms" parameter="account:typeOfIndustry">
           <field schema="account_list_pp" name="account_industry_type_agg"/>
+          <properties>
+            <property name="order">count desc</property>
+            <property name="size">0</property>
+          </properties>
+        </aggregate>
+        <aggregate id="account_zone_agg" type="terms" parameter="account:zone">
+          <field schema="account_list_pp" name="account_zone_agg"/>
           <properties>
             <property name="order">count desc</property>
             <property name="size">0</property>
