@@ -48,6 +48,7 @@ public class FetchMailHistory {
         ctx.getLoginStack().push(lc);
         MessageID = (String) interactionDoc.getPropertyValue("interaction:messageID");
         JSONObject response= emailingService.fetchHistory(Long.parseLong(MessageID));
+        Calendar cal = Calendar.getInstance();
 
         List<Map<String, Object>> mailHistory = new ArrayList<Map<String, Object>>();
 
@@ -55,27 +56,16 @@ public class FetchMailHistory {
             Map<String, Object> Details = new HashMap<String, Object>();
             JSONObject dataObject =response.getJSONArray("data").getJSONObject(i);
             Details.put("comment",dataObject.getString("Comment"));
-            Calendar cal = Calendar.getInstance();
-            DateFormat dateFormat = new SimpleDateFormat("yyyy-mm-dd hh:mm:ss");
             cal.setTimeInMillis(dataObject.getLong("EventAt"));
-            /*String eventAt = dateFormat.format(cal.getTime());*/
             Details.put("eventAt",cal.getTime());
-            Details.put("eventTyp", dataObject.getString("EventType"));
+            Details.put("eventTypes", dataObject.getString("EventType"));
             Details.put("state", dataObject.getString("State"));
             Details.put("userAgent", dataObject.getString("Useragent"));
-            Details.put("userAgentI", Long.toString(dataObject.getLong("UseragentID")));
+            Details.put("userAgentID", Long.toString(dataObject.getLong("UseragentID")));
             mailHistory.add(Details);
         }
         interactionDoc.setPropertyValue("interaction:data", (Serializable) mailHistory);
         documentManager.saveDocument(interactionDoc);
-//        customDocType.setPropertyValue("schemaPrefix:metadataName", (Serializable) mailDetails);
-
-
-
-
-
-        /*DocumentRef pathRef = new PathRef("/Sales/new interaction");
-        DocumentModel doc = documentManager.getDocument(pathRef);*/
 
     }
 

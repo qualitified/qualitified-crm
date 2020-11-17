@@ -67,12 +67,6 @@ public class SendMail {
 
         interactionDoc.setPropertyValue("interaction:messageID", MessageID);
         documentManager.saveDocument(interactionDoc);
-//        emailingService.fetchHistory();
-
-
-
-        /*DocumentRef pathRef = new PathRef("/Sales/new interaction");
-        DocumentModel doc = documentManager.getDocument(pathRef);*/
 
     }
 
