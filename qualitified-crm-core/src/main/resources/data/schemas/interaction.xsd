@@ -66,4 +66,33 @@
       </xs:list>
     </xs:simpleType>
   </xs:element>
+  <xs:element name="fromEmail" type="xs:string"/>
+  <xs:element name="fromName" type="xs:string"/>
+  <xs:element name="toEmail" type="xs:string"/>
+  <xs:element name="toName" type="xs:string"/>
+  <xs:element name="statusMail" type="xs:string"/>
+  <xs:element name="messageID" type="xs:string"/>
+  <xs:element name="messageUUID" type="xs:string"/>
+  <xs:element name="count" type="xs:integer"/>
+  <xs:element name="campaignId">
+    <xs:simpleType>
+      <xs:restriction base="xs:string" ref:resolver="documentResolver" ref:store="id"/>
+    </xs:simpleType>
+  </xs:element>
+  <xs:element name="data" type="nxs:interaction_dataListType"/>
+  <xs:complexType name="interaction_dataListType">
+    <xs:sequence>
+      <xs:element name="item" type="nxs:interaction_dataType" minOccurs="0" maxOccurs="unbounded"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="interaction_dataType">
+    <xs:sequence>
+      <xs:element name="comment" type="xs:string"/>
+      <xs:element name="eventAt" type="xs:double"/>
+      <xs:element name="eventTypes" type="xs:string"/>
+      <xs:element name="state" type="xs:string"/>
+      <xs:element name="userAgent" type="xs:string"/>
+      <xs:element name="userAgentID" type="xs:integer"/>
+    </xs:sequence>
+  </xs:complexType>
 </xs:schema>

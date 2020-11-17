@@ -3,6 +3,7 @@
 <component name="studio.extensions.crm" version="1.0.0">
   <require>org.nuxeo.runtime.started</require>
   <extension target="org.nuxeo.ecm.core.schema.TypeService" point="schema">
+    <schema name="campaign" prefix="campaign" override="true" src="data/schemas/campaign.xsd"/>
     <schema name="calendar" prefix="calendar" override="true" src="data/schemas/calendar.xsd"/>
     <schema name="account" prefix="account" override="true" src="data/schemas/account.xsd"/>
     <schema name="folder" prefix="folder" override="true" src="data/schemas/folder.xsd"/>
@@ -54,8 +55,8 @@
       <schema name="dublincore"/>
       <schema name="option"/>
       <facet name="Folderish"/>
-        <facet name="NXTag"/>
-        <subtypes>
+      <facet name="NXTag"/>
+      <subtypes>
         <type>Option</type>
       </subtypes>
     </doctype>
@@ -208,6 +209,15 @@
       <schema name="custom"/>
       <facet name="NXTag"/>
     </doctype>
+    <doctype name="Campaign" extends="Document">
+      <schema name="dublincore"/>
+      <schema name="common"/>
+      <schema name="uid"/>
+      <schema name="campaign"/>
+      <schema name="picture"/>
+      <schema name="custom"/>
+      <facet name="NXTag"/>
+    </doctype>
     <doctype name="Account" append="true">
       <subtypes>
         <type>Interaction</type>
@@ -285,7 +295,9 @@
     </doctype>
     <doctype name="Marketing" append="true">
       <subtypes>
+        <type>Campaign</type>
         <type>Silhouette</type>
+        <type>Campaign</type>
       </subtypes>
     </doctype>
     <doctype name="ScriptNote" extends="Note">
@@ -370,6 +382,12 @@
       <subtypes>
         <type>Workspace</type>
       </subtypes>
+    </doctype>
+    <doctype name="campaign" extends="Document">
+      <facet name="ContentViewDisplay"/>
+      <facet name="SavedSearch"/>
+      <facet name="HiddenInNavigation"/>
+      <schema name="campaign"/>
     </doctype>
     <doctype name="opportunity_list_pp" extends="Document">
       <facet name="ContentViewDisplay"/>
@@ -539,6 +557,12 @@
       <label>Contact</label>
       <icon>/img/ic_account_circle_black_24dp_2x.png</icon>
       <bigIcon>/img/ic_account_circle_black_24dp_2x.png</bigIcon>
+      <description></description>
+    </type>
+    <type id="Campaign">
+      <label>Campaign</label>
+      <icon>/img/ic_business_black_24dp_1x.png</icon>
+      <bigIcon>/img/ic_business_black_24dp_2x.png</bigIcon>
       <description></description>
     </type>
     <type id="File">
@@ -1299,7 +1323,7 @@
       <sort column="dc:modified" ascending="false"/>
       <pageSize>10</pageSize>
     </genericPageProvider>
-   <genericPageProvider class="org.nuxeo.elasticsearch.provider.ElasticSearchNxqlPageProvider" name="person_list">
+    <genericPageProvider class="org.nuxeo.elasticsearch.provider.ElasticSearchNxqlPageProvider" name="person_list">
       <trackUsage>true</trackUsage>
       <property name="coreSession">#{documentManager}</property>
       <whereClause>
@@ -1899,7 +1923,7 @@
     </corsConfig>
   </extension> -->
   <extension target="org.nuxeo.ecm.platform.web.common.requestcontroller.service.RequestControllerService" point="corsConfig">
-    <corsConfig name="extranet" allowOrigin="*" allowSubdomains="false" exposedHeaders="" maxAge="-1" supportedHeaders="*" 
+    <corsConfig name="extranet" allowOrigin="*" allowSubdomains="false" exposedHeaders="" maxAge="-1" supportedHeaders="*"
                 supportedMethods="GET,POST,HEAD,OPTIONS,DELETE,PUT" supportsCredentials="true">
       <pattern>/nuxeo/.*</pattern>
     </corsConfig>

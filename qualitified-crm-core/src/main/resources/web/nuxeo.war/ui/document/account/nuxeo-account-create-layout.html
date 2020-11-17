@@ -73,7 +73,8 @@
 
         <qualitified-custom-fields document="{{document}}" mode="edit"></qualitified-custom-fields>
         <nuxeo-textarea role="widget" value="{{document.properties.dc:description}}"
-                        label="[[i18n('label.metadata.description')]]"></nuxeo-textarea>
+                        label="[[i18n('label.metadata.description')]]">
+        </nuxeo-textarea>
         <nuxeo-dropzone role="widget" label="[[i18n('label.metadata.logo')]]" document="[[document]]"></nuxeo-dropzone>
         <qualitified-search-images document="{{document}}" property="document.properties.custom:systemField1"></qualitified-search-images>
 

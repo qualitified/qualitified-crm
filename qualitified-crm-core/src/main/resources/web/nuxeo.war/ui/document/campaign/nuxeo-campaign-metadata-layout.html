@@ -1,0 +1,55 @@
+<link href="../qualitified-custom-fields.html" rel="import">
+<dom-module id="nuxeo-campaign-metadata-layout">
+    <template>
+        <style>
+            *[role=widget] {
+                padding: 5px;
+            }
+            .account-view-layout {
+                height: 32px;
+                width: 32px;
+                border-radius: 0px;
+                box-sizing: border-box;
+                margin-right: 8px;
+            }
+            .title{
+                color:var(--nuxeo-secondary-color);
+            }
+
+        </style>
+        <div role="widget"><label>Html Part</label>
+            <div name="htmlPart">[[document.properties.campaign:htmlPart]]</div>
+        </div>
+
+        <div role="widget"><label>Message Href</label>
+            <div name="messageHref">[[document.properties.campaign:messageHref]]</div>
+        </div>
+
+        <div role="widget"><label>Subject</label>
+            <div name="subject">[[document.properties.campaign:subject]]</div>
+        </div>
+
+        <div role="widget"><label>Text Part</label>
+            <div name="textPart">[[document.properties.campaign:textPart]]</div>
+        </div>
+
+    </template>
+
+    <script>
+        Polymer({
+            is: 'nuxeo-campaign-metadata-layout',
+            behaviors: [Nuxeo.LayoutBehavior],
+            properties: {
+
+                /**
+                 * @doctype campaign
+                 */
+                document: {
+                    type: Object
+                }
+
+            }
+        });
+
+    </script>
+</dom-module>

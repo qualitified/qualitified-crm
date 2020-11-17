@@ -2,25 +2,25 @@
 <dom-module id="nuxeo-interaction-metadata-layout">
     <template>
         <style>
-      *[role=widget] {
-        padding: 5px;
-      }
-      .wrap {
-        white-space: pre-wrap;
-      }
-      .account-view-layout {
-        height: 25px;
-        width: 25px;
-        border-radius: 20px;
-        box-sizing: border-box;
-        margin-right: 8px;
-      }
+            *[role=widget] {
+                padding: 5px;
+            }
+            .wrap {
+                white-space: pre-wrap;
+            }
+            .account-view-layout {
+                height: 25px;
+                width: 25px;
+                border-radius: 20px;
+                box-sizing: border-box;
+                margin-right: 8px;
+            }
 
-      .title{
-        color:var(--nuxeo-secondary-color);
-      }
+            .title{
+                color:var(--nuxeo-secondary-color);
+            }
 
-      </style>
+        </style>
         <div role="widget" class="title">
             <h1 directory-name="IntActivity">
                 [[formatDirectory(document.properties.interaction:activity)]] - [[document.properties.dc:title]] - [[formatDirectory(document.properties.interaction:status)]]
@@ -63,57 +63,57 @@
     </template>
 
     <script>
-    (function() {
-      'use strict';
-      Polymer({
-        is: 'nuxeo-interaction-metadata-layout',
-        behaviors: [Nuxeo.LayoutBehavior],
-        properties: {
+        (function() {
+            'use strict';
+            Polymer({
+                is: 'nuxeo-interaction-metadata-layout',
+                behaviors: [Nuxeo.LayoutBehavior],
+                properties: {
 
-          /**
-           * @doctype Interaction
-           */
-          document: {
-            type: Object,
-            observer: '_documentReady'
-          }
-        },
-        /**
-         * Returns the label for the given directory entry.
-         */
-        formatDirectory: function(value) {
-          if (value && value['entity-type'] && value['entity-type'] === 'directoryEntry') {
-            if (value.properties && value.properties.label) {
-              return value.properties.label;
-            } else {
-              var label = 'label_' + ((window.nuxeo.I18n.language) ? window.nuxeo.I18n.language.split('-')[0] : 'en');
-              return value.properties[label] || value.properties['label_en']
-            }
-          } else {
-            return value;
-          }
-        },
-        formatDate: function(date) {
-          return moment(date).format('MMMM D, YYYY');
-        },
-        _hasNote: function(doc){
-          return doc && doc.properties['note:note'] !== null;
-        },
-        _hasProfileImg: function(value){
-          var img = document.createElement('img');
-          img.src = "/nuxeo/nxfile/default/"+ value +"/file:content/";
-          return "/nuxeo/nxfile/default/"+ value +"/file:content/";
-        },
-        _navigate: function(oEvent) {
-          this.navigateTo('document', oEvent.model.get('contact'));
-        },
-         _documentReady: function(doc){
-          if(doc){
-              document.querySelector("nuxeo-app").shadowRoot.querySelector("#menu > interaction-menu-icon")._getCount();
-          }
-        }
-      });
-    })();
+                    /**
+                     * @doctype Interaction
+                     */
+                    document: {
+                        type: Object,
+                        observer: '_documentReady'
+                    }
+                },
+                /**
+                 * Returns the label for the given directory entry.
+                 */
+                formatDirectory: function(value) {
+                    if (value && value['entity-type'] && value['entity-type'] === 'directoryEntry') {
+                        if (value.properties && value.properties.label) {
+                            return value.properties.label;
+                        } else {
+                            var label = 'label_' + ((window.nuxeo.I18n.language) ? window.nuxeo.I18n.language.split('-')[0] : 'en');
+                            return value.properties[label] || value.properties['label_en']
+                        }
+                    } else {
+                        return value;
+                    }
+                },
+                formatDate: function(date) {
+                    return moment(date).format('MMMM D, YYYY');
+                },
+                _hasNote: function(doc){
+                    return doc && doc.properties['note:note'] !== null;
+                },
+                _hasProfileImg: function(value){
+                    var img = document.createElement('img');
+                    img.src = "/nuxeo/nxfile/default/"+ value +"/file:content/";
+                    return "/nuxeo/nxfile/default/"+ value +"/file:content/";
+                },
+                _navigate: function(oEvent) {
+                    this.navigateTo('document', oEvent.model.get('contact'));
+                },
+                _documentReady: function(doc){
+                    if(doc){
+                        document.querySelector("nuxeo-app").shadowRoot.querySelector("#menu > interaction-menu-icon")._getCount();
+                    }
+                }
+            });
+        })();
 
 
     </script>
