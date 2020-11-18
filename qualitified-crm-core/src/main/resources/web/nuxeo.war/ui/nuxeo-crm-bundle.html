@@ -84,7 +84,17 @@
     <nuxeo-menu-icon icon="qualitified:solicitation" name="solicitation-list" label="app.solicitations"></nuxeo-menu-icon>
   </template>
 </nuxeo-slot-content> -->
-
+<nuxeo-slot-content name="campaign-list" slot="DRAWER_PAGES" >
+    <template>
+        <nuxeo-search-form provider="campaign_list" schemas="campaign,dublincore" search-name="campaign_list" name="campaign-list" auto="true"></nuxeo-search-form>
+    </template>
+</nuxeo-slot-content>
+<!-- Contribution of element 'nuxeo-menu-icon' for slot 'SEARCH_MENU_BUTTONS' -->
+<nuxeo-slot-content name="campaign-list" slot="DRAWER_ITEMS" order="5">
+    <template>
+        <nuxeo-menu-icon icon="icons:search" name="campaign-list" label="Campaign"></nuxeo-menu-icon>
+    </template>
+</nuxeo-slot-content>
 <!-- Contribution of element 'nuxeo-search-form' for slot 'DRAWER_PAGES' -->
 <nuxeo-slot-content name="account-list" slot="DRAWER_PAGES" >
     <template>

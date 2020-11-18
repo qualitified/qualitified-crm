@@ -1,0 +1,140 @@
+
+<link rel="import" href="../../qualitified-icons.html">
+<link rel="import" href="../../elements/nuxeo-document-create-popup-modified.html">
+<dom-module id="nuxeo-campaign_list-search-form">
+  <template>
+    <style include="iron-flex">
+      :host {
+        display: block;
+      }
+
+      .row {
+        box-sizing: border-box;
+        margin-bottom: 1rem;
+        padding: 0 1rem;
+        width: 100%;
+      }
+
+      label {
+        color: #434343;
+        font-size: 0.8em;
+        font-weight: 700;
+        margin-bottom: 5px;
+      }
+
+      input {
+        background-color: #fff;
+        border: 1px solid #ddd;
+        border-radius: .2em;
+        box-sizing: border-box;
+        color: rgba(0,0,0,.75);
+        display: block;
+        font-size: 0.8em;
+        height: 2rem;
+        margin: 0;
+        padding: .5rem;
+        width: 100%;
+      }
+
+    </style>
+
+    <div class="layout vertical row">
+      <label>title</label>
+      <nuxeo-input id="searchInput"
+                   autofocus="true"
+                   value="{{params.system_fulltext}}"
+                   tabindex="0"
+                   type="search"
+                   no-label-float>
+      </nuxeo-input>
+
+    </div>
+    <div role="widget">
+
+      <nuxeo-dropdown-box-aggregation value="{{params.campaign_createdDate_agg}}" data="[[aggregations.campaign_createdDate_agg]]">
+      </nuxeo-dropdown-box-aggregation>
+    </div>
+
+
+    <div class="layout vertical row">
+      <label>campaign date</label>
+      <nuxeo-date-picker value="{{params.campaign_closeDate_min}}"
+                         label="from"></nuxeo-date-picker>
+      <nuxeo-date-picker value="{{params.campaign_closeDate_max}}"
+                         label="to"></nuxeo-date-picker>
+    </div>
+    <div class="layout vertical row">
+      <label>date</label>
+      <nuxeo-checkbox-aggregation
+              data="[[aggregations.campaign_createdDate_agg]]"
+              value="{{params.campaign_createdDate_agg}}">
+      </nuxeo-checkbox-aggregation>
+    </div>
+
+    <div class="layout vertical row">
+      <label>status</label>
+      <nuxeo-checkbox-aggregation
+              data="[[aggregations.campaign_status_agg]]"
+              value="{{params.campaign_status_agg}}">
+      </nuxeo-checkbox-aggregation>
+    </div>
+
+  </template>
+
+  <script>
+    Polymer({
+      is: 'nuxeo-campaign_list-search-form',
+      behaviors: [Nuxeo.LayoutBehavior, Nuxeo.RoutingBehavior, Nuxeo.FormatBehavior, Nuxeo.DocumentCreationBehavior],
+      properties: {
+
+
+        params: {
+          type: Object,
+          value: {},
+          notify: true,
+          observer: "_setDatesMaxMin"
+        },
+        aggregations: {
+          type: Object,
+          value: {},
+          notify: true,
+        },
+        searchTerm: {
+          type: String,
+          notify: true,
+          observer: '_addFullTextSearch'
+        }
+      },
+
+      _addFullTextSearch: function() {
+        if (this.searchTerm) {
+          console.log(this.searchTerm);
+          this.set('params.system_fulltext', this.searchTerm + '*');
+        } else {
+          if (this.params.system_fulltext) {
+            this.set('params.system_fulltext', '');
+            delete this.params.system_fulltext;
+          }
+        }
+      },
+      _checkForEnter: function(e) {
+        if (e.keyCode === 13) {
+          this.fire('trigger-search');
+        }
+      },
+      clear: function() {
+        this.searchTerm = '';
+      },
+      _setDatesMaxMin: function () {
+        if(moment().format('M') > 6){
+          this.set('params.opportunity_closeDate_min', moment().format('YYYY')+'-07-01');
+          this.set('params.opportunity_closeDate_max', moment().format('YYYY')+'-12-31');
+
+        }else{
+          this.set('params.opportunity_closeDate_min', moment().format('YYYY')+'-01-01');
+          this.set('params.opportunity_closeDate_max', moment().format('YYYY')+'-06-30');
+        }
+      }
+    });
+  </script>
+</dom-module>
