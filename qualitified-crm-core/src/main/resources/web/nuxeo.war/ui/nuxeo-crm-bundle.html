@@ -92,7 +92,7 @@
 <!-- Contribution of element 'nuxeo-menu-icon' for slot 'SEARCH_MENU_BUTTONS' -->
 <nuxeo-slot-content name="campaign-list" slot="DRAWER_ITEMS" order="5">
     <template>
-        <nuxeo-menu-icon icon="icons:search" name="campaign-list" label="Campaign"></nuxeo-menu-icon>
+        <nuxeo-menu-icon icon="icons:mail" name="campaign-list" label="Campaign"></nuxeo-menu-icon>
     </template>
 </nuxeo-slot-content>
 <!-- Contribution of element 'nuxeo-search-form' for slot 'DRAWER_PAGES' -->
@@ -147,14 +147,14 @@
 </nuxeo-slot-content>
 
 <nuxeo-slot-content name="tasksDrawerItem" slot="DRAWER_ITEMS" order="50" disabled>
-  <template>
-    <nuxeo-menu-icon name="tasks" icon="nuxeo:tasks" id="menuTasks" label="app.tasks" badge="[[taskCount]]"></nuxeo-menu-icon>
-  </template>
+    <template>
+        <nuxeo-menu-icon name="tasks" icon="nuxeo:tasks" id="menuTasks" label="app.tasks" badge="[[taskCount]]"></nuxeo-menu-icon>
+    </template>
 </nuxeo-slot-content>
 <nuxeo-slot-content name="tasksDrawerPage" slot="DRAWER_PAGES" disabled>
-  <template>
-    <nuxeo-tasks-drawer name="tasks" tasks="[[tasks]]" current-task="[[currentTask]]"></nuxeo-tasks-drawer>
-  </template>
+    <template>
+        <nuxeo-tasks-drawer name="tasks" tasks="[[tasks]]" current-task="[[currentTask]]"></nuxeo-tasks-drawer>
+    </template>
 </nuxeo-slot-content>
 
 <nuxeo-slot-content name="browseDrawerItem" slot="DRAWER_ITEMS" order="10" disabled>

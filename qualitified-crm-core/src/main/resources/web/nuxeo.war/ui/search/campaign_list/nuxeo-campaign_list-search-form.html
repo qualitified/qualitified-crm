@@ -40,12 +40,21 @@
 
     <div class="layout vertical row">
       <label>title</label>
-      <nuxeo-input id="searchInput"
+      <!--nuxeo-input id="searchInput"
                    autofocus="true"
                    value="{{params.system_fulltext}}"
                    tabindex="0"
                    type="search"
                    no-label-float>
+      </--nuxeo-input-->
+      <nuxeo-input role="widget"
+                   id="searchInput"
+                   type="search"
+                   label="[[i18n('defaultSearch.fullText')]]"
+                   value="{{searchTerm}}"
+                   placeholder="[[i18n('defaultSearch.fullText.placeholder')]]"
+                   autofocus
+                   on-keydown="_checkForEnter">
       </nuxeo-input>
 
     </div>
@@ -101,8 +110,8 @@
         },
         searchTerm: {
           type: String,
-          notify: true,
-          observer: '_addFullTextSearch'
+
+          observer: "_addFullTextSearch"
         }
       },
 
