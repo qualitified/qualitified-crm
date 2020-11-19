@@ -56,7 +56,12 @@
                         <span class$="[[item.state]] state">[[item.state]]</span>
                     </template>
                 </nuxeo-data-table-column>
-
+                <nuxeo-data-table-column name="[[i18n('label.metadata.typeOfIndustry')]]" field="opportunity:typeOfIndustry" sort-by="opportunity:typeOfIndustry"
+                                         flex="50">
+                    <template>
+                        [[formatDirectory(item.properties.opportunity:typeOfIndustry)]]
+                    </template>
+                </nuxeo-data-table-column>
                 <nuxeo-data-table-column name="[[i18n('label.metadata.zone')]]" field="opportunity:zone" sort-by="opportunity:zone"
                                          flex="50">
                     <template>
