@@ -34,15 +34,13 @@
                     </template>
                 </nuxeo-data-table-column>
 
-                <nuxeo-data-table-column name="[[i18n('label.document.type.account')]]" field="dc:modified"
-                                         sort-by="dc:modified" flex="60">
+                <nuxeo-data-table-column name="[[i18n('label.document.type.account')]]" flex="60">
                     <template>
                         [[item.contextParameters.interactionDocEnricher.accountTitle]]
                     </template>
                 </nuxeo-data-table-column>
 
-                <nuxeo-data-table-column name="[[i18n('label.document.type.opportunity')]]" field="dc:modified"
-                                         sort-by="dc:modified" flex="60">
+                <nuxeo-data-table-column name="[[i18n('label.document.type.opportunity')]]" flex="60">
                     <template>
                         [[item.contextParameters.interactionDocEnricher.opportunityTitle]]
                     </template>
