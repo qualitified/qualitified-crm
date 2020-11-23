@@ -68,7 +68,7 @@
 <!-- Contribution of element 'nuxeo-search-form' for slot 'DRAWER_PAGES' -->
 <nuxeo-slot-content name="search-for-interaction" slot="DRAWER_PAGES">
     <template>
-        <nuxeo-search-form provider="interaction_list" schemas="interaction,dublincore" search-name="interaction_list" auto="true" display-auto-control="true" name="search-for-interaction" ></nuxeo-search-form>
+        <nuxeo-search-form provider="interaction_list" schemas="interaction,dublincore" enrichers="interactionDocEnricher,thumbnail,permissions,highlight" search-name="interaction_list" auto="true" display-auto-control="true" name="search-for-interaction" ></nuxeo-search-form>
     </template>
 </nuxeo-slot-content>
 

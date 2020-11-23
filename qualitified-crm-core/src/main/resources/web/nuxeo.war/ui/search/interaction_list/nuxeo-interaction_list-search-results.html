@@ -34,6 +34,19 @@
                     </template>
                 </nuxeo-data-table-column>
 
+                <nuxeo-data-table-column name="[[i18n('label.document.type.account')]]" field="dc:modified"
+                                         sort-by="dc:modified" flex="60">
+                    <template>
+                        [[item.contextParameters.interactionDocEnricher.accountTitle]]
+                    </template>
+                </nuxeo-data-table-column>
+
+                <nuxeo-data-table-column name="[[i18n('label.document.type.opportunity')]]" field="dc:modified"
+                                         sort-by="dc:modified" flex="60">
+                    <template>
+                        [[item.contextParameters.interactionDocEnricher.opportunityTitle]]
+                    </template>
+                </nuxeo-data-table-column>
                 <nuxeo-data-table-column name="[[i18n('label.metadata.activity')]]" field="interaction:activity"
                                          sort-by="interaction:activity" flex="60">
                     <template>
@@ -67,6 +80,7 @@
                         <nuxeo-user-tag user="[[item.properties.dc:lastContributor]]"></nuxeo-user-tag>
                     </template>
                 </nuxeo-data-table-column>
+
 
             </nuxeo-data-table>
 
@@ -103,7 +117,7 @@
           {field: 'state', label: this.i18n('searchResults.sort.field.state'), order: 'asc'},
           {field: 'dc:nature', label: this.i18n('searchResults.sort.field.nature'), order: 'asc'},
           {field: 'dc:coverage', label: this.i18n('searchResults.sort.field.coverage'), order: 'asc'}
-        ];
+          ];
       },
 
       _navigate: function(e) {
