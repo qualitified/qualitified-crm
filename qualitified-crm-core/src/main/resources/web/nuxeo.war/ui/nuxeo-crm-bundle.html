@@ -13,6 +13,10 @@
 <link rel="import" href="elements/qualitified-amount.html">
 <link rel="import" href="elements/interaction-menu-icon.html">
 <link rel="import" href="elements/expired-menu-icon.html">
+<link rel="import" href="elements/qualitified-group-menu.html">
+<link rel="import" href="elements/qualitified-group-menu2.html">
+
+
 
 <!-- Contribution of element 'custom-document-page' for slot 'DOCUMENT_VIEWS_PAGES' -->
 <nuxeo-slot-content name="myViewPage" slot="DOCUMENT_VIEWS_PAGES" >
@@ -42,13 +46,13 @@
     </template>
 </nuxeo-slot-content>
 <!-- Contribution of element 'nuxeo-menu-icon' for slot 'SEARCH_MENU_BUTTONS' -->
-<nuxeo-slot-content name="opportunity-list" slot="DRAWER_ITEMS" order="2">
+<nuxeo-slot-content name="opportunity-list" slot="DRAWER_ITEMS" order="2" disabled>
     <template>
         <nuxeo-menu-icon icon="icons:work" name="opportunity-list" label="Opportunities"></nuxeo-menu-icon>
     </template>
 </nuxeo-slot-content>
 
-<nuxeo-slot-content name="search-for-contacts" slot="DRAWER_ITEMS" order="3">
+<nuxeo-slot-content name="search-for-contacts" slot="DRAWER_ITEMS" order="3" disabled>
     <template>
         <nuxeo-menu-icon label="Contacts"   name="search-for-contacts" icon="icons:account-box"></nuxeo-menu-icon>
     </template>
@@ -60,7 +64,7 @@
     </template>
 </nuxeo-slot-content>
 
-<nuxeo-slot-content name="search-for-interaction" slot="DRAWER_ITEMS" order="4">
+<nuxeo-slot-content name="search-for-interaction" slot="DRAWER_ITEMS" order="4" disabled>
     <template>
         <interaction-menu-icon label="Interactions"  name="search-for-interaction" icon="icons:thumb-up" badge-query="SELECT * FROM Interaction WHERE ecm:isTrashed = 0 AND ecm:isCheckedInVersion = 0 AND ecm:currentLifeCycleState = 'todo'"></interaction-menu-icon>
     </template>
@@ -85,6 +89,16 @@
   </template>
 </nuxeo-slot-content> -->
 
+<nuxeo-slot-content name="qualitified-group-menu" slot="DRAWER_ITEMS" order="35">
+    <template>
+        <qualitified-group-menu></qualitified-group-menu>
+    </template>
+</nuxeo-slot-content>
+<nuxeo-slot-content name="qualitified-group-menu2" slot="DRAWER_ITEMS" order="37">
+    <template>
+        <qualitified-group-menu2></qualitified-group-menu2>
+    </template>
+</nuxeo-slot-content>
 <!-- Contribution of element 'nuxeo-search-form' for slot 'DRAWER_PAGES' -->
 <nuxeo-slot-content name="account-list" slot="DRAWER_PAGES" >
     <template>
@@ -92,7 +106,7 @@
     </template>
 </nuxeo-slot-content>
 <!-- Contribution of element 'nuxeo-menu-icon' for slot 'SEARCH_MENU_BUTTONS' -->
-<nuxeo-slot-content name="account-list" slot="DRAWER_ITEMS" order="1">
+<nuxeo-slot-content name="account-list" slot="DRAWER_ITEMS" order="1" disabled>
     <template>
         <nuxeo-menu-icon icon="qualitified:account" name="account-list" label="Accounts"></nuxeo-menu-icon>
     </template>
@@ -137,14 +151,308 @@
 </nuxeo-slot-content>
 
 <nuxeo-slot-content name="tasksDrawerItem" slot="DRAWER_ITEMS" order="50" disabled>
-  <template>
-    <nuxeo-menu-icon name="tasks" icon="nuxeo:tasks" id="menuTasks" label="app.tasks" badge="[[taskCount]]"></nuxeo-menu-icon>
-  </template>
+    <template>
+        <nuxeo-menu-icon name="tasks" icon="nuxeo:tasks" id="menuTasks" label="app.tasks" badge="[[taskCount]]"></nuxeo-menu-icon>
+    </template>
 </nuxeo-slot-content>
 <nuxeo-slot-content name="tasksDrawerPage" slot="DRAWER_PAGES" disabled>
+    <template>
+        <nuxeo-tasks-drawer name="tasks" tasks="[[tasks]]" current-task="[[currentTask]]"></nuxeo-tasks-drawer>
+    </template>
+</nuxeo-slot-content>
+
+<nuxeo-slot-content name="browseDrawerItem" slot="DRAWER_ITEMS" order="10" disabled>
+    <template>
+        <nuxeo-menu-icon name="browser" icon="nuxeo:browse" label="app.browse"></nuxeo-menu-icon>
+    </template>
+</nuxeo-slot-content>
+<nuxeo-slot-content name="browseDrawerPage" slot="DRAWER_PAGES" disabled>
+    <template>
+        <nuxeo-document-tree name="browser" id="navTree" label="app.browse" current-document="[[document]]"></nuxeo-document-tree>
+    </template>
+</nuxeo-slot-content>
+
+<nuxeo-slot-content name="personalWorkspaceDrawerItem" slot="DRAWER_ITEMS" order="80" disabled>
+    <template>
+        <nuxeo-menu-icon name="personalWorkspace" icon="nuxeo:user-space" label="app.personalSpace"></nuxeo-menu-icon>
+    </template>
+</nuxeo-slot-content>
+<nuxeo-slot-content name="personalWorkspaceDrawerPage" slot="DRAWER_PAGES" disabled>
+    <template>
+        <nuxeo-document-tree name="personalWorkspace" label="app.personalSpace"
+                             current-document="[[document]]"
+                             root-doc-path="[[userWorkspace]]"></nuxeo-document-tree>
+    </template>
+</nuxeo-slot-content>
+
+<nuxeo-slot-content name="damSearchMenuButtons" slot="DRAWER_ITEMS" disabled>
+    <template>
+        <nuxeo-menu-icon id="assetsSearchButton" name="assetsSearch" route="search:assets" icon="icons:perm-media" label="dam.assets.heading">
+        </nuxeo-menu-icon>
+    </template>
+</nuxeo-slot-content>
+
+<!-- Contribution of element 'nuxeo-menu-icon' for slot 'DRAWER_ITEMS' -->
+<nuxeo-slot-content name="sales" slot="DRAWER_ITEMS" order="10" >
+    <template>
+        <nuxeo-menu-icon label="Sales" name="sales" icon="nuxeo:browse"></nuxeo-menu-icon>
+    </template>
+</nuxeo-slot-content>
+<!-- Contribution of element 'nuxeo-document-tree' for slot 'DRAWER_PAGES' -->
+<nuxeo-slot-content name="sales" slot="DRAWER_PAGES" >
+    <template>
+        <nuxeo-document-tree user="[[user]]" root-doc-path="/Sales" name="sales"></nuxeo-document-tree>
+    </template>
+</nuxeo-slot-content>
+
+<nuxeo-slot-content name="customizationDrawerItem" slot="DRAWER_ITEMS" order="200">
+    <template>
+        <nuxeo-filter user="[[user]]" expression="user.isAdministrator">
+            <template>
+                <nuxeo-menu-icon name="customization" icon="icons:build" label="app.customization"></nuxeo-menu-icon>
+            </template>
+        </nuxeo-filter>
+    </template>
+</nuxeo-slot-content>
+
+<nuxeo-slot-content name="customizationDrawerPage" slot="DRAWER_PAGES" order="200">
+    <template>
+        <nuxeo-document-tree root-doc-path="/Admin" label="app.customization" name="customization" ></nuxeo-document-tree>
+    </template>
+</nuxeo-slot-content>
+
+<nuxeo-slot-content name="RunUnitTests" slot="DOCUMENT_ACTIONS">
+    <template>
+        <nuxeo-filter document="[[document]]" type="Scripts" expression="document.title.startsWith('UnitTests')">
+            <template>
+                <qualitified-operation-button document="[[document]]" operation="Qualitified.RunUnitTests" icon="icons:verified-user" label="Run Tests"></qualitified-operation-button>
+            </template>
+        </nuxeo-filter>
+    </template>
+</nuxeo-slot-content>
+
+<nuxeo-slot-content name="RunUnitTest" slot="DOCUMENT_ACTIONS">
+    <template>
+        <nuxeo-filter document="[[document]]" type="ScriptNote" expression="document.title.startsWith('UnitTest')">
+            <template>
+                <qualitified-operation-button document="[[document]]" operation="Qualitified.RunUnitTest" icon="icons:verified-user" label="Run Test"></qualitified-operation-button>
+            </template>
+        </nuxeo-filter>
+    </template>
+</nuxeo-slot-content>
+
+<nuxeo-slot-content name="Deploy" slot="DOCUMENT_ACTIONS">
+    <template>
+        <nuxeo-filter document="[[document]]" type="Admin,Objects,Custom,Scripts,ScriptNote,TemplateRoot,Options,Option">
+            <template>
+                <qualitified-dialog-button document="[[document]]" operation="Qualitified.Deploy" icon="icons:check" label="Deploy"></qualitified-dialog-button>
+            </template>
+        </nuxeo-filter>
+    </template>
+</nuxeo-slot-content>
+
+<nuxeo-slot-content name="RecordAction" slot="DOCUMENT_ACTIONS" order="1">
+    <template>
+        <nuxeo-filter user="[[user]]" expression="user.properties.username === 'Administrator'">
+            <template>
+                <qualitified-record-action document="[[document]]" label="Record Action (Beta)"></qualitified-record-action>
+            </template>
+        </nuxeo-filter>
+    </template>
+</nuxeo-slot-content>
+
+<nuxeo-slot-content name="actions" slot="DOCUMENT_ACTIONS">
+    <template>
+        <qualitified-action-buttons document="[[document]]"></qualitified-action-buttons>
+    </template>
+</nuxeo-slot-content>
+
+
+
+
+<!-- Imports -->
+<link rel="import" href="document/custom-document-page.html">
+<link rel="import" href="document/qualitified-document-page.html">
+<link rel="import" href="document/sales/nuxeo-sales-settings-button.html">
+<link rel="import" href="qualitified-icons.html">
+<link rel="import" href="elements/qualitified-document-suggestion.html">
+<link rel="import" href="elements/qualitified-operation-button.html">
+<link rel="import" href="elements/qualitified-record-action.html">
+<link rel="import" href="elements/qualitified-action-buttons.html">
+<link rel="import" href="elements/qualitified-number-files.html">
+<link rel="import" href="elements/qualitified-dialog-button.html">
+<link rel="import" href="elements/qualitified-option.html">
+<link rel="import" href="elements/qualitified-amount.html">
+<link rel="import" href="elements/interaction-menu-icon.html">
+<link rel="import" href="elements/expired-menu-icon.html">
+<link rel="import" href="elements/qualitified-group-menu.html">
+<link rel="import" href="elements/qualitified-group-menu2.html">
+
+
+
+<!-- Contribution of element 'custom-document-page' for slot 'DOCUMENT_VIEWS_PAGES' -->
+<nuxeo-slot-content name="myViewPage" slot="DOCUMENT_VIEWS_PAGES" >
+    <template>
+        <nuxeo-filter document="[[document]]" type="Sales,Marketing,Services,Admin,Root">
+            <template>
+                <custom-document-page name="view" document="[[document]]"></custom-document-page>
+            </template>
+        </nuxeo-filter>
+    </template>
+</nuxeo-slot-content>
+<nuxeo-slot-content name="myQualitifiedViewPage" slot="DOCUMENT_VIEWS_PAGES" >
+    <template>
+        <nuxeo-filter document="[[document]]" type="Account,Opportunity,Contact,Interaction,Solicitation,File,Custom,Objects,Scripts,Options,Option">
+            <template>
+                <qualitified-document-page name="view" document="[[document]]"></qualitified-document-page>
+            </template>
+        </nuxeo-filter>
+    </template>
+</nuxeo-slot-content>
+
+
+<!-- Contribution of element 'nuxeo-search-form' for slot 'DRAWER_PAGES' -->
+<nuxeo-slot-content name="opportunity-list" slot="DRAWER_PAGES" >
+    <template>
+        <nuxeo-search-form provider="opportunity_list" schemas="opportunity" search-name="opportunity_list" name="opportunity-list" auto="true"></nuxeo-search-form>
+    </template>
+</nuxeo-slot-content>
+<!-- Contribution of element 'nuxeo-menu-icon' for slot 'SEARCH_MENU_BUTTONS' -->
+<nuxeo-slot-content name="opportunity-list" slot="DRAWER_ITEMS" order="2" disabled>
+    <template>
+        <nuxeo-menu-icon icon="icons:work" name="opportunity-list" label="Opportunities"></nuxeo-menu-icon>
+    </template>
+</nuxeo-slot-content>
+
+<nuxeo-slot-content name="search-for-contacts" slot="DRAWER_ITEMS" order="3" disabled>
+    <template>
+        <nuxeo-menu-icon label="Contacts"   name="search-for-contacts" icon="icons:account-box"></nuxeo-menu-icon>
+    </template>
+</nuxeo-slot-content>
+<!-- Contribution of element 'nuxeo-search-form' for slot 'DRAWER_PAGES' -->
+<nuxeo-slot-content name="search-for-contacts" slot="DRAWER_PAGES">
+    <template>
+        <nuxeo-search-form provider="person_list" schemas="person,dublincore" search-name="person_list" auto="true" display-auto-control="true" name="search-for-contacts" ></nuxeo-search-form>
+    </template>
+</nuxeo-slot-content>
+
+<nuxeo-slot-content name="search-for-interaction" slot="DRAWER_ITEMS" order="4" disabled>
+    <template>
+        <interaction-menu-icon label="Interactions"  name="search-for-interaction" icon="icons:thumb-up" badge-query="SELECT * FROM Interaction WHERE ecm:isTrashed = 0 AND ecm:isCheckedInVersion = 0 AND ecm:currentLifeCycleState = 'todo'"></interaction-menu-icon>
+    </template>
+</nuxeo-slot-content>
+<!-- Contribution of element 'nuxeo-search-form' for slot 'DRAWER_PAGES' -->
+<nuxeo-slot-content name="search-for-interaction" slot="DRAWER_PAGES">
+    <template>
+        <nuxeo-search-form provider="interaction_list" schemas="interaction,dublincore" search-name="interaction_list" auto="true" display-auto-control="true" name="search-for-interaction" ></nuxeo-search-form>
+    </template>
+</nuxeo-slot-content>
+
+<!-- Contribution of element 'nuxeo-search-form' for slot 'DRAWER_PAGES' -->
+<nuxeo-slot-content name="solicitation-list" slot="DRAWER_PAGES" >
+    <template>
+        <nuxeo-search-form provider="solicitation_list" schemas="solicitation" search-name="solicitation_list" name="solicitation-list" auto="true"></nuxeo-search-form>
+    </template>
+</nuxeo-slot-content>
+<!-- Contribution of element 'nuxeo-menu-icon' for slot 'SEARCH_MENU_BUTTONS' -->
+<!-- <nuxeo-slot-content name="solicitation-list" slot="DRAWER_ITEMS" order="3">
   <template>
-    <nuxeo-tasks-drawer name="tasks" tasks="[[tasks]]" current-task="[[currentTask]]"></nuxeo-tasks-drawer>
+    <nuxeo-menu-icon icon="qualitified:solicitation" name="solicitation-list" label="app.solicitations"></nuxeo-menu-icon>
   </template>
+</nuxeo-slot-content> -->
+
+<nuxeo-slot-content name="qualitified-group-menu" slot="DRAWER_ITEMS" order="35">
+    <template>
+        <qualitified-group-menu></qualitified-group-menu>
+    </template>
+</nuxeo-slot-content>
+<nuxeo-slot-content name="qualitified-group-menu2" slot="DRAWER_ITEMS" order="37">
+    <template>
+        <qualitified-group-menu2></qualitified-group-menu2>
+    </template>
+</nuxeo-slot-content>
+<!-- Contribution of element 'nuxeo-search-form' for slot 'DRAWER_PAGES' -->
+<nuxeo-slot-content name="account-list" slot="DRAWER_PAGES" >
+    <template>
+        <nuxeo-search-form provider="account_list" schemas="account" search-name="account_list" name="account-list" auto="true"></nuxeo-search-form>
+    </template>
+</nuxeo-slot-content>
+<!-- Contribution of element 'nuxeo-menu-icon' for slot 'SEARCH_MENU_BUTTONS' -->
+<nuxeo-slot-content name="account-list" slot="DRAWER_ITEMS" order="1" disabled>
+    <template>
+        <nuxeo-menu-icon icon="qualitified:account" name="account-list" label="Accounts"></nuxeo-menu-icon>
+    </template>
+</nuxeo-slot-content>
+
+<!-- Contribution of element 'nuxeo-menu-icon' for slot 'DRAWER_ITEMS' -->
+<nuxeo-slot-content name="defaultSearchMenuButton" slot="DRAWER_ITEMS" order="30" >
+    <template>
+        <nuxeo-menu-icon label="app.search" name="defaultSearch" icon="icons:search"></nuxeo-menu-icon>
+    </template>
+</nuxeo-slot-content>
+<!-- Contribution of element 'nuxeo-search-form' for slot 'DRAWER_PAGES' -->
+<nuxeo-slot-content name="defaultSearchMenuPage" slot="DRAWER_PAGES" >
+    <template>
+        <nuxeo-search-form name="defaultSearch" search-name="default" auto="" display-auto-control="" provider="default_search" schemas="dublincore,common,uid"></nuxeo-search-form>
+    </template>
+</nuxeo-slot-content>
+
+
+<!-- Contribution of element 'nuxeo-sales-settings-button' for slot 'DOCUMENT_ACTIONS' -->
+<!-- <nuxeo-slot-content name="Settings" slot="DOCUMENT_ACTIONS" >
+  <template>
+    <nuxeo-filter document="[[document]]" type="Sales">
+    <template>
+      <nuxeo-sales-settings-button document="[[document]]"></nuxeo-sales-settings-button>
+    </template>
+    </nuxeo-filter>
+  </template>
+</nuxeo-slot-content> -->
+
+<nuxeo-slot-content name="expiredSearchMenuButton" slot="DRAWER_ITEMS" order="40">
+    <template>
+        <expired-menu-icon name="expiredSearch" icon="nuxeo:expired" label="app.expiredSearch"></expired-menu-icon>
+    </template>
+</nuxeo-slot-content>
+<nuxeo-slot-content name="expiredSearchMenuPage" slot="DRAWER_PAGES">
+    <template>
+        <nuxeo-search-form name="expiredSearch" search-name="expired" queue auto
+                           provider="expired_search" schemas="dublincore,common,uid"
+                           label="expiredSearch.expiredDocuments"></nuxeo-search-form>
+    </template>
+</nuxeo-slot-content>
+<nuxeo-slot-content name="campaign-list" slot="DRAWER_PAGES" >
+    <template>
+        <nuxeo-search-form provider="campaign_list" schemas="campaign,dublincore" search-name="campaign_list" name="campaign-list" auto="true"></nuxeo-search-form>
+    </template>
+</nuxeo-slot-content>
+<!-- Contribution of element 'nuxeo-menu-icon' for slot 'SEARCH_MENU_BUTTONS' -->
+<nuxeo-slot-content name="campaign-list" slot="DRAWER_ITEMS" order="5" disabled>
+    <template>
+        <nuxeo-menu-icon icon="icons:mail" name="campaign-list" label="Campaign"></nuxeo-menu-icon>
+    </template>
+</nuxeo-slot-content>
+
+<nuxeo-slot-content name="silhouette-list" slot="DRAWER_PAGES" >
+    <template>
+        <nuxeo-search-form provider="silhouette_list" schemas="silhouette,dublincore" search-name="silhouette_list" name="silhouette-list" auto="true"></nuxeo-search-form>
+    </template>
+</nuxeo-slot-content>
+<!-- Contribution of element 'nuxeo-menu-icon' for slot 'SEARCH_MENU_BUTTONS' -->
+<nuxeo-slot-content name="silhouette-list" slot="DRAWER_ITEMS" order="5" >
+    <template>
+        <nuxeo-menu-icon icon="qualitified:silhouette" name="silhouette-list" label="silhouette"></nuxeo-menu-icon>
+    </template>
+</nuxeo-slot-content>
+<nuxeo-slot-content name="tasksDrawerItem" slot="DRAWER_ITEMS" order="50" disabled>
+    <template>
+        <nuxeo-menu-icon name="tasks" icon="nuxeo:tasks" id="menuTasks" label="app.tasks" badge="[[taskCount]]"></nuxeo-menu-icon>
+    </template>
+</nuxeo-slot-content>
+<nuxeo-slot-content name="tasksDrawerPage" slot="DRAWER_PAGES" disabled>
+    <template>
+        <nuxeo-tasks-drawer name="tasks" tasks="[[tasks]]" current-task="[[currentTask]]"></nuxeo-tasks-drawer>
+    </template>
 </nuxeo-slot-content>
 
 <nuxeo-slot-content name="browseDrawerItem" slot="DRAWER_ITEMS" order="10" disabled>

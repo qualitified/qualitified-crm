@@ -1,0 +1,129 @@
+<!--
+`nuxeo-account_list-search-form`
+@group Nuxeo UI
+@element nuxeo-account_list-search-form
+-->
+<link rel="import" href="../../qualitified-icons.html">
+<link rel="import" href="../../elements/nuxeo-document-create-popup-modified.html">
+<dom-module id="nuxeo-silhouette_list-search-form">
+    <template>
+        <style include="iron-flex">
+            :host {
+                display: block;
+            }
+            ​
+            .row {
+                box-sizing: border-box;
+                margin-bottom: 1rem;
+                padding: 0 1rem;
+                width: 100%;
+            }
+            ​
+            label {
+                color: #434343;
+                font-size: 0.8em;
+                font-weight: 700;
+                margin-bottom: 5px;
+            }
+            ​
+            input {
+                background-color: #fff;
+                border: 1px solid #ddd;
+                border-radius: .2em;
+                box-sizing: border-box;
+                color: rgba(0,0,0,.75);
+                display: block;
+                font-size: 0.8em;
+                height: 2rem;
+                margin: 0;
+                padding: .5rem;
+                width: 100%;
+            }
+            ​
+        </style>
+        <nuxeo-connection id="nxcon" user="{{currentUser}}"></nuxeo-connection>
+        <nuxeo-connection id="nxcon" user="{{user}}"></nuxeo-connection>
+        ​
+        <nuxeo-input role="widget"
+                     id="searchInput"
+                     type="search"
+                     label="[[i18n('defaultSearch.fullText')]]"
+                     value="{{searchTerm}}"
+                     placeholder="[[i18n('defaultSearch.fullText.placeholder')]]"
+                     autofocus
+                     on-keydown="_checkForEnter">
+        </nuxeo-input>
+        <br/>
+        ​
+        <div class="layout vertical row">
+            <nuxeo-date-picker value="{{params.datefield1_min}}" label="date de la  dernière visite (Min)" role="widget"></nuxeo-date-picker>
+            <nuxeo-date-picker value="{{params.datefield1_max}}" label="date de la  dernière visite(Max)" role="widget"></nuxeo-date-picker>
+        </div>
+        ​
+        ​
+    </template>
+    ​
+    <script>
+        Polymer({
+            is: 'nuxeo-silhouette_list-search-form',
+            behaviors: [Nuxeo.LayoutBehavior, Nuxeo.RoutingBehavior, Nuxeo.FormatBehavior, Nuxeo.DocumentCreationBehavior],
+            properties: {
+​
+        /**
+         * @search account_list
+         */
+        params: {
+            type: Object,
+                value: {},
+            notify: true,
+        },
+        aggregations: {
+            type: Object,
+                value: {},
+            notify: true,
+        },
+        searchTerm: {
+            type: String,
+                notify: true,
+                observer: '_addFullTextSearch'
+        }
+        },
+        ​
+      _addFullTextSearch: function() {
+          if (this.searchTerm) {
+              console.log(this.searchTerm);
+              this.set('params.system_fulltext', this.searchTerm + '*');
+          } else {
+              if (this.params.system_fulltext) {
+                  this.set('params.system_fulltext', '');
+                  delete this.params.system_fulltext;
+              }
+          }
+      },
+        _checkForEnter: function(e) {
+            if (e.keyCode === 13) {
+                this.fire('trigger-search');
+            }
+        },
+        ​
+      clear: function() {
+          this.searchTerm = '';
+      },
+        ​
+      _openDialog: function() {
+          this.$.importPopup.toggleDialog();
+          var accountBtn;
+          var docTypes = this.$.importPopup.shadowRoot.querySelector('#simpleCreation').shadowRoot.querySelector('iron-pages > div.vertical.iron-selected > div.container > paper-dialog-scrollable > div').getElementsByClassName('docTypeButton');
+          for (var i = 0; i < docTypes.length; i++) {
+              //docTypes[i].hidden = true;
+              if(docTypes[i].getAttribute('name') === "Account"){
+                  accountBtn = docTypes[i];
+                  accountBtn.click();
+                  return;
+              }
+          }
+​
+      }
+        });
+    </script>
+</dom-module>

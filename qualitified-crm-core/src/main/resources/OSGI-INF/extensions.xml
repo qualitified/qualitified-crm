@@ -40,11 +40,21 @@
     <schema name="var_Taskb50" prefix="var_Taskb50" override="true" src="data/schemas/var_Taskb50.xsd"/>
     <schema name="var_SolicitationWorkflow" prefix="var_SolicitationWorkflow" override="true" src="data/schemas/var_SolicitationWorkflow.xsd"/>
     <schema name="documents_pp" prefix="documents_pp" override="true" src="data/schemas/documents_pp.xsd"/>
+    <schema name="campaign_list_pp" prefix="campaign_list_pp" override="true" src="data/schemas/campaign_list_pp.xsd"/>
+    <schema name="silhouette_list_pp" prefix="silhouette_list_pp" override="true" src="data/schemas/silhouette_list_pp.xsd"/>
+
   </extension>
   <extension target="org.nuxeo.ecm.core.schema.TypeService" point="doctype">
     <facet name="NXTag">
       <schema name="facetedTag"/>
     </facet>
+
+    <doctype name="silhouette_list_pp" extends="Document">
+      <facet name="ContentViewDisplay"/>
+      <facet name="SavedSearch"/>
+      <facet name="HiddenInNavigation"/>
+      <schema name="silhouette_list_pp"/>
+    </doctype>
     <doctype name="Calendar" extends="File">
       <schema name="calendar"/>
     </doctype>
@@ -59,6 +69,12 @@
       <subtypes>
         <type>Option</type>
       </subtypes>
+    </doctype>
+    <doctype name="opportunity_list_pp" extends="Document">
+      <facet name="ContentViewDisplay"/>
+      <facet name="SavedSearch"/>
+      <facet name="HiddenInNavigation"/>
+      <schema name="opportunity_list_pp"/>
     </doctype>
     <doctype name="Account" extends="Document">
       <schema name="account"/>
@@ -209,7 +225,7 @@
       <schema name="custom"/>
       <facet name="NXTag"/>
     </doctype>
-    <doctype name="Campaign" extends="Document">
+    <doctype name="Campaign" extends="Collection">
       <schema name="dublincore"/>
       <schema name="common"/>
       <schema name="uid"/>
@@ -293,6 +309,7 @@
       <schema name="custom"/>
       <schema name="address"/>
     </doctype>
+
     <doctype name="Marketing" append="true">
       <subtypes>
         <type>Campaign</type>
@@ -383,7 +400,13 @@
         <type>Workspace</type>
       </subtypes>
     </doctype>
-    <doctype name="campaign" extends="Document">
+    <doctype name="campaign_list_pp" extends="Document">
+      <facet name="ContentViewDisplay"/>
+      <facet name="SavedSearch"/>
+      <facet name="HiddenInNavigation"/>
+      <schema name="campaign_list_pp"/>
+    </doctype>
+    <doctype name="campaign" extends="Collection">
       <facet name="ContentViewDisplay"/>
       <facet name="SavedSearch"/>
       <facet name="HiddenInNavigation"/>
@@ -466,6 +489,7 @@
     <types>
       <type name="Admin">default</type>
     </types>
+
     <types>
       <type name="Contact">default</type>
     </types>
@@ -561,8 +585,8 @@
     </type>
     <type id="Campaign">
       <label>Campaign</label>
-      <icon>/img/ic_business_black_24dp_1x.png</icon>
-      <bigIcon>/img/ic_business_black_24dp_2x.png</bigIcon>
+      <icon>/img/mailfolder_100.png</icon>
+      <bigIcon>/img/mailfolder_100.png</bigIcon>
       <description></description>
     </type>
     <type id="File">
@@ -1204,6 +1228,32 @@
       <sort column="opportunity:amount" ascending="false"/>
       <pageSize>10</pageSize>
     </genericPageProvider>
+    <genericPageProvider class="org.nuxeo.elasticsearch.provider.ElasticSearchNxqlPageProvider" name="silhouette_list">
+      <property name="coreSession">#{documentManager}</property>
+      <whereClause>
+        <predicate id="system_fulltext" parameter="ecm:fulltext" operator="FULLTEXT ALL">
+          <field schema="silhouette_list_pp" name="system_fulltext"/>
+        </predicate>
+        <predicate parameter="custom:dateField1" operator="BETWEEN">
+          <field schema="silhouette_list_pp" name="datefield1_min"/>
+          <field schema="silhouette_list_pp" name="datefield1_max"/>
+        </predicate>
+        <fixedPart>ecm:mixinType != 'HiddenInNavigation' AND ecm:isCheckedInVersion = 0 AND ecm:currentLifeCycleState != 'deleted' AND ecm:isTrashed = 0 AND  ecm:primaryType = 'Silhouette' </fixedPart>
+      </whereClause>
+      <searchDocumentType>silhouette_list_pp</searchDocumentType>
+      <aggregates>
+        <aggregate id="followed_links_agg" type="terms" parameter="silhouette:followedLinks">
+          <field schema="silhouette_list_pp" name="followed_links_agg"/>
+          <properties>
+            <property name="order">count desc</property>
+            <property name="size">0</property>
+          </properties>
+        </aggregate>
+      </aggregates>
+      <sort column="custom:dateField1" ascending="false" />
+      <pageSize>10</pageSize>
+    </genericPageProvider>
+
     <genericPageProvider class="org.nuxeo.elasticsearch.provider.ElasticSearchNxqlPageProvider" name="account_list">
       <property name="coreSession">#{documentManager}</property>
       <whereClause>
@@ -1260,6 +1310,56 @@
             <range key="from_1000" from="1000"/>
           </ranges>
         </aggregate>
+      </aggregates>
+      <sort column="dc:title" ascending="true"/>
+      <pageSize>10</pageSize>
+    </genericPageProvider>
+    <!--cpmaign page provoder -->
+    <genericPageProvider class="org.nuxeo.elasticsearch.provider.ElasticSearchNxqlPageProvider" name="campaign_list">
+      <trackUsage>true</trackUsage>
+      <property name="coreSession">#{documentManager}</property>
+      <whereClause>
+        <predicate id="system_fulltext" parameter="ecm:fulltext" operator="FULLTEXT ALL">
+          <field schema="campaign_list_pp" name="system_fulltext"/>
+        </predicate>
+
+        <predicate parameter="dc:created" operator="BETWEEN">
+          <field schema="campaign_list_pp" name="campaign_closeDate_min" />
+          <field schema="campaign_list_pp" name="campaign_closeDate_max" />
+        </predicate>
+        <!--predicate id="dublincore_title" parameter="dc:title" operator="ILIKE">
+          <field schema="campaign_list_pp" name="dublincore_title"/>
+        </predicate-->
+        <fixedPart>ecm:mixinType != 'HiddenInNavigation' AND ecm:isCheckedInVersion = 0 AND ecm:isTrashed = 0 AND ecm:currentLifeCycleState != 'deleted' AND ecm:primaryType = 'Campaign'</fixedPart>
+      </whereClause>
+      <searchDocumentType>campaign_list_pp</searchDocumentType>
+
+      <aggregates>
+
+        <aggregate id="campaign_createdDate_agg" type="date_range" parameter="dc:created">
+          <field schema="campaign_list_pp" name="campaign_createdDate_agg"/>
+          <properties/>
+          <dateRanges>
+
+            <dateRange key="Last 24 hours" fromDate="now" toDate="now+24h"/>
+            <dateRange key="Last 7 days" fromDate="now" toDate="now+7d"/>
+            <dateRange key="Last 30 days" fromDate="now-1M" toDate="now"/>
+            <dateRange key="More than 30 days" fromDate="now-1y" toDate="now-1M"/>
+
+
+
+          </dateRanges>
+        </aggregate>
+
+
+        <aggregate id="campaign_status_agg" type="terms" parameter="campaign:status">
+          <field schema="campaign_list_pp" name="campaign_status_agg"/>
+          <properties>
+            <property name="order">count desc</property>
+            <property name="size">0</property>
+          </properties>
+        </aggregate>
+
       </aggregates>
       <sort column="dc:title" ascending="true"/>
       <pageSize>10</pageSize>
@@ -1799,6 +1899,17 @@
       <createTablePolicy>on_missing_columns</createTablePolicy>
       <table>studio_vocabulary_Zone</table>
       <dataFile>data/vocabularies/Zone.csv</dataFile>
+    </directory>
+    <directory name="StatusCampaign">
+      <schema>vocabulary</schema>
+      <dataSource>java:/nxsqldirectory</dataSource>
+      <cacheTimeout>3600</cacheTimeout>
+      <cacheMaxSize>1000</cacheMaxSize>
+      <idField>id</idField>
+      <autoincrementIdField>false</autoincrementIdField>
+      <createTablePolicy>on_missing_columns</createTablePolicy>
+      <table>studio_vocabulary_StatusCampaign</table>
+      <dataFile>data/vocabularies/StatusCampaign.csv</dataFile>
     </directory>
     <directory name="Role">
       <schema>vocabulary</schema>
