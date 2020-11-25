@@ -112,6 +112,7 @@
     </template>
 </nuxeo-slot-content>
 
+
 <!-- Contribution of element 'nuxeo-menu-icon' for slot 'DRAWER_ITEMS' -->
 <nuxeo-slot-content name="defaultSearchMenuButton" slot="DRAWER_ITEMS" order="30" >
     <template>
@@ -435,13 +436,13 @@
 
 <nuxeo-slot-content name="silhouette-list" slot="DRAWER_PAGES" >
     <template>
-        <nuxeo-search-form provider="silhouette_list" schemas="silhouette,dublincore" search-name="silhouette_list" name="silhouette-list" auto="true"></nuxeo-search-form>
+        <nuxeo-search-form provider="silhouette_list" schemas="silhouette,dublincore,person,address" search-name="silhouette_list" name="silhouette-list" auto="true"></nuxeo-search-form>
     </template>
 </nuxeo-slot-content>
 <!-- Contribution of element 'nuxeo-menu-icon' for slot 'SEARCH_MENU_BUTTONS' -->
-<nuxeo-slot-content name="silhouette-list" slot="DRAWER_ITEMS" order="5" >
+<nuxeo-slot-content name="silhouette-list" slot="DRAWER_ITEMS" order="22" disabled>
     <template>
-        <nuxeo-menu-icon icon="qualitified:silhouette" name="silhouette-list" label="silhouette"></nuxeo-menu-icon>
+        <nuxeo-menu-icon icon=icon="nuxeo:user" name="silhouette-list" label="silhouette"></nuxeo-menu-icon>
     </template>
 </nuxeo-slot-content>
 <nuxeo-slot-content name="tasksDrawerItem" slot="DRAWER_ITEMS" order="50" disabled>

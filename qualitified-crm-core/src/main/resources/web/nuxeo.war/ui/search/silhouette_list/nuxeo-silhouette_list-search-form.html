@@ -68,62 +68,55 @@
             is: 'nuxeo-silhouette_list-search-form',
             behaviors: [Nuxeo.LayoutBehavior, Nuxeo.RoutingBehavior, Nuxeo.FormatBehavior, Nuxeo.DocumentCreationBehavior],
             properties: {
-​
-        /**
-         * @search account_list
-         */
-        params: {
-            type: Object,
-                value: {},
-            notify: true,
-        },
-        aggregations: {
-            type: Object,
-                value: {},
-            notify: true,
-        },
-        searchTerm: {
-            type: String,
-                notify: true,
-                observer: '_addFullTextSearch'
-        }
-        },
-        ​
-      _addFullTextSearch: function() {
-          if (this.searchTerm) {
-              console.log(this.searchTerm);
-              this.set('params.system_fulltext', this.searchTerm + '*');
-          } else {
-              if (this.params.system_fulltext) {
-                  this.set('params.system_fulltext', '');
-                  delete this.params.system_fulltext;
-              }
-          }
-      },
-        _checkForEnter: function(e) {
-            if (e.keyCode === 13) {
-                this.fire('trigger-search');
-            }
-        },
-        ​
-      clear: function() {
-          this.searchTerm = '';
-      },
-        ​
-      _openDialog: function() {
-          this.$.importPopup.toggleDialog();
-          var accountBtn;
-          var docTypes = this.$.importPopup.shadowRoot.querySelector('#simpleCreation').shadowRoot.querySelector('iron-pages > div.vertical.iron-selected > div.container > paper-dialog-scrollable > div').getElementsByClassName('docTypeButton');
-          for (var i = 0; i < docTypes.length; i++) {
-              //docTypes[i].hidden = true;
-              if(docTypes[i].getAttribute('name') === "Account"){
-                  accountBtn = docTypes[i];
-                  accountBtn.click();
-                  return;
-              }
-          }
-​
-      }
+
+
+                params: {
+                    type: Object,
+                    value: {},
+                    notify: true,
+                    observer: "_setDatesMaxMin"
+                },
+                aggregations: {
+                    type: Object,
+                    value: {},
+                    notify: true,
+                },
+                searchTerm: {
+                    type: String,
+
+                    observer: "_addFullTextSearch"
+                }
+            },
+
+            _addFullTextSearch: function() {
+                if (this.searchTerm) {
+                    console.log(this.searchTerm);
+                    this.set('params.system_fulltext', this.searchTerm + '*');
+                } else {
+                    if (this.params.system_fulltext) {
+                        this.set('params.system_fulltext', '');
+                        delete this.params.system_fulltext;
+                    }
+                }
+            },
+            _checkForEnter: function(e) {
+                if (e.keyCode === 13) {
+                    this.fire('trigger-search');
+                }
+            },
+            clear: function() {
+                this.searchTerm = '';
+            },
+            /*_setDatesMaxMin: function () {
+                if(moment().format('M') > 6){
+                    this.set('params.datefield1_min', moment().format('YYYY')+'-07-01');
+                    this.set('params.datefield1_max', moment().format('YYYY')+'-12-31');
+
+                }else{
+                    this.set('params.datefield1_min', moment().format('YYYY')+'-01-01');
+                    this.set('params.datefield1_max', moment().format('YYYY')+'-06-30');
+                }
+            }*/
         });
     </script>
 </dom-module>

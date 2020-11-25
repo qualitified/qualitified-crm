@@ -48,13 +48,6 @@
     <facet name="NXTag">
       <schema name="facetedTag"/>
     </facet>
-
-    <doctype name="silhouette_list_pp" extends="Document">
-      <facet name="ContentViewDisplay"/>
-      <facet name="SavedSearch"/>
-      <facet name="HiddenInNavigation"/>
-      <schema name="silhouette_list_pp"/>
-    </doctype>
     <doctype name="Calendar" extends="File">
       <schema name="calendar"/>
     </doctype>
@@ -309,7 +302,6 @@
       <schema name="custom"/>
       <schema name="address"/>
     </doctype>
-
     <doctype name="Marketing" append="true">
       <subtypes>
         <type>Campaign</type>
@@ -405,6 +397,12 @@
       <facet name="SavedSearch"/>
       <facet name="HiddenInNavigation"/>
       <schema name="campaign_list_pp"/>
+    </doctype>
+    <doctype name="silhouette_list_pp" extends="Document">
+      <facet name="ContentViewDisplay"/>
+      <facet name="SavedSearch"/>
+      <facet name="HiddenInNavigation"/>
+      <schema name="silhouette_list_pp"/>
     </doctype>
     <doctype name="campaign" extends="Collection">
       <facet name="ContentViewDisplay"/>
@@ -1242,18 +1240,11 @@
       </whereClause>
       <searchDocumentType>silhouette_list_pp</searchDocumentType>
       <aggregates>
-        <aggregate id="followed_links_agg" type="terms" parameter="silhouette:followedLinks">
-          <field schema="silhouette_list_pp" name="followed_links_agg"/>
-          <properties>
-            <property name="order">count desc</property>
-            <property name="size">0</property>
-          </properties>
-        </aggregate>
+
       </aggregates>
       <sort column="custom:dateField1" ascending="false" />
       <pageSize>10</pageSize>
     </genericPageProvider>
-
     <genericPageProvider class="org.nuxeo.elasticsearch.provider.ElasticSearchNxqlPageProvider" name="account_list">
       <property name="coreSession">#{documentManager}</property>
       <whereClause>
