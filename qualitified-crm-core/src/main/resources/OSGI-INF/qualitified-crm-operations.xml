@@ -22,5 +22,7 @@
         <operation class="org.qualitified.crm.operation.Log"/>
         <operation class="org.qualitified.crm.operation.GetActions"/>
         <operation class="org.qualitified.crm.operation.GetImages"/>
+        <operation class="org.qualitified.crm.operation.SendMail"/>
+        <operation class="org.qualitified.crm.operation.FetchMailHistory"/>
     </extension>
  </component>

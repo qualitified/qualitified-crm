@@ -41,7 +41,12 @@
       <xs:restriction base="xs:string" ref:resolver="directoryResolver" ref:directory="OppStep"/>
     </xs:simpleType>
   </xs:element>
-  <xs:element name="zone">
+  <xs:element name="typeOfIndustry" nillable="false" nxsv:nillable="false">
+    <xs:simpleType>
+      <xs:restriction base="xs:string" ref:resolver="directoryResolver" ref:directory="Industry"/>
+    </xs:simpleType>
+  </xs:element>
+  <xs:element name="zone" nillable="false" nxsv:nillable="false">
     <xs:simpleType>
       <xs:restriction base="xs:string" ref:resolver="directoryResolver" ref:directory="Zone"/>
     </xs:simpleType>

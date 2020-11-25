@@ -41,7 +41,9 @@
     <schema name="var_SolicitationWorkflow" prefix="var_SolicitationWorkflow" override="true" src="data/schemas/var_SolicitationWorkflow.xsd"/>
     <schema name="documents_pp" prefix="documents_pp" override="true" src="data/schemas/documents_pp.xsd"/>
     <schema name="campaign_list_pp" prefix="campaign_list_pp" override="true" src="data/schemas/campaign_list_pp.xsd"/>
+
     <schema name="silhouette_list_pp" prefix="silhouette_list_pp" override="true" src="data/schemas/silhouette_list_pp.xsd"/>
+
 
   </extension>
   <extension target="org.nuxeo.ecm.core.schema.TypeService" point="doctype">
@@ -207,6 +209,12 @@
       <subtypes>
         <type>File</type>
       </subtypes>
+    </doctype>
+    <doctype name="campaign_list_pp" extends="Document">
+      <facet name="ContentViewDisplay"/>
+      <facet name="SavedSearch"/>
+      <facet name="HiddenInNavigation"/>
+      <schema name="campaign_list_pp"/>
     </doctype>
     <doctype name="Interaction" extends="Document">
       <schema name="interaction"/>
@@ -392,18 +400,15 @@
         <type>Workspace</type>
       </subtypes>
     </doctype>
-    <doctype name="campaign_list_pp" extends="Document">
-      <facet name="ContentViewDisplay"/>
-      <facet name="SavedSearch"/>
-      <facet name="HiddenInNavigation"/>
-      <schema name="campaign_list_pp"/>
-    </doctype>
+
+  
     <doctype name="silhouette_list_pp" extends="Document">
       <facet name="ContentViewDisplay"/>
       <facet name="SavedSearch"/>
       <facet name="HiddenInNavigation"/>
       <schema name="silhouette_list_pp"/>
     </doctype>
+
     <doctype name="campaign" extends="Collection">
       <facet name="ContentViewDisplay"/>
       <facet name="SavedSearch"/>
@@ -1215,6 +1220,13 @@
             <property name="size">0</property>
           </properties>
         </aggregate>
+        <aggregate id="opportunity_industry_type_agg" type="terms" parameter="opportunity:typeOfIndustry">
+          <field schema="opportunity_list_pp" name="opportunity_industry_type_agg"/>
+          <properties>
+            <property name="order">count desc</property>
+            <property name="size">0</property>
+          </properties>
+        </aggregate>
         <aggregate id="opportunity_zone_agg" type="terms" parameter="opportunity:zone">
           <field schema="opportunity_list_pp" name="opportunity_zone_agg"/>
           <properties>
@@ -1226,6 +1238,7 @@
       <sort column="opportunity:amount" ascending="false"/>
       <pageSize>10</pageSize>
     </genericPageProvider>
+
     <genericPageProvider class="org.nuxeo.elasticsearch.provider.ElasticSearchNxqlPageProvider" name="silhouette_list">
       <property name="coreSession">#{documentManager}</property>
       <whereClause>
@@ -1243,8 +1256,8 @@
 
       </aggregates>
       <sort column="custom:dateField1" ascending="false" />
-      <pageSize>10</pageSize>
-    </genericPageProvider>
+
+    
     <genericPageProvider class="org.nuxeo.elasticsearch.provider.ElasticSearchNxqlPageProvider" name="account_list">
       <property name="coreSession">#{documentManager}</property>
       <whereClause>
@@ -1267,6 +1280,13 @@
         </aggregate>
         <aggregate id="account_industry_type_agg" type="terms" parameter="account:typeOfIndustry">
           <field schema="account_list_pp" name="account_industry_type_agg"/>
+          <properties>
+            <property name="order">count desc</property>
+            <property name="size">0</property>
+          </properties>
+        </aggregate>
+        <aggregate id="account_zone_agg" type="terms" parameter="account:zone">
+          <field schema="account_list_pp" name="account_zone_agg"/>
           <properties>
             <property name="order">count desc</property>
             <property name="size">0</property>
@@ -1433,6 +1453,21 @@
           </properties>
         </aggregate>
       </aggregates>
+    </genericPageProvider>
+    <genericPageProvider class="org.nuxeo.elasticsearch.provider.ElasticSearchNxqlPageProvider" name="campaigns">
+      <trackUsage>true</trackUsage>
+      <property name="coreSession">#{documentManager}</property>
+      <whereClause>
+        <fixedPart quoteParameters="false">
+          ecm:mixinType != 'HiddenInNavigation'
+          AND ecm:isVersion = 0
+          AND ecm:isTrashed = 0
+          AND ecm:primaryType = 'Campaign'
+          AND ecm:fulltext = '?*'</fixedPart>
+      </whereClause>
+      <searchDocumentType>campaign</searchDocumentType>
+      <sort column="dc:title" ascending="true"/>
+      <pageSize>10</pageSize>
     </genericPageProvider>
     <genericPageProvider class="org.nuxeo.elasticsearch.provider.ElasticSearchNxqlPageProvider" name="interaction_list">
       <trackUsage>true</trackUsage>
@@ -1858,6 +1893,17 @@
       <table>studio_vocabulary_IntActivity</table>
       <dataFile>data/vocabularies/IntActivity.csv</dataFile>
     </directory>
+    <directory name="StatusCampaign">
+      <schema>vocabulary</schema>
+      <dataSource>java:/nxsqldirectory</dataSource>
+      <cacheTimeout>3600</cacheTimeout>
+      <cacheMaxSize>1000</cacheMaxSize>
+      <idField>id</idField>
+      <autoincrementIdField>false</autoincrementIdField>
+      <createTablePolicy>on_missing_columns</createTablePolicy>
+      <table>studio_vocabulary_StatusCampaign</table>
+      <dataFile>data/vocabularies/StatusCampaign.csv</dataFile>
+    </directory>
     <directory name="IntStatus">
       <schema>vocabulary</schema>
       <dataSource>java:/nxsqldirectory</dataSource>
@@ -1891,17 +1937,7 @@
       <table>studio_vocabulary_Zone</table>
       <dataFile>data/vocabularies/Zone.csv</dataFile>
     </directory>
-    <directory name="StatusCampaign">
-      <schema>vocabulary</schema>
-      <dataSource>java:/nxsqldirectory</dataSource>
-      <cacheTimeout>3600</cacheTimeout>
-      <cacheMaxSize>1000</cacheMaxSize>
-      <idField>id</idField>
-      <autoincrementIdField>false</autoincrementIdField>
-      <createTablePolicy>on_missing_columns</createTablePolicy>
-      <table>studio_vocabulary_StatusCampaign</table>
-      <dataFile>data/vocabularies/StatusCampaign.csv</dataFile>
-    </directory>
+  
     <directory name="Role">
       <schema>vocabulary</schema>
       <dataSource>java:/nxsqldirectory</dataSource>
