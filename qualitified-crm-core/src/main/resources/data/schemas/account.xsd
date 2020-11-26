@@ -70,4 +70,9 @@
       <xs:restriction base="xs:string" ref:resolver="userManagerResolver" ref:type="user"/>
     </xs:simpleType>
   </xs:element>
+  <xs:element name="status">
+    <xs:simpleType>
+      <xs:restriction base="xs:string" ref:resolver="directoryResolver" ref:directory="StatusAccount"/>
+    </xs:simpleType>
+  </xs:element>
 </xs:schema>

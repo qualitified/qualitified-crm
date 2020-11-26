@@ -76,7 +76,13 @@
       <nuxeo-dropdown-aggregation data="[[aggregations.responsible_agg]]" value="{{params.responsible_agg}}" multiple="">
       </nuxeo-dropdown-aggregation>
     </div>
-
+    <div class="layout vertical row">
+      <label>status</label>
+      <nuxeo-checkbox-aggregation
+              data="[[aggregations.account_status_agg]]"
+              value="{{params.account_status_agg}}">
+      </nuxeo-checkbox-aggregation>
+    </div>
     <div class="layout vertical row">
       <label>[[i18n('label.metadata.typeOfIndustry')]]</label>
       <nuxeo-checkbox-aggregation data="[[aggregations.account_industry_type_agg]]" value="{{params.account_industry_type_agg}}">

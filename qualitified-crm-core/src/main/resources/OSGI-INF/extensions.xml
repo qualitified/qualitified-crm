@@ -1285,6 +1285,13 @@
             <property name="size">0</property>
           </properties>
         </aggregate>
+        <aggregate id="account_status_agg" type="terms" parameter="account:status">
+          <field schema="account_list_pp" name="account_status_agg"/>
+          <properties>
+            <property name="order">count desc</property>
+            <property name="size">0</property>
+          </properties>
+        </aggregate>
         <aggregate id="account_zone_agg" type="terms" parameter="account:zone">
           <field schema="account_list_pp" name="account_zone_agg"/>
           <properties>
@@ -1959,6 +1966,17 @@
       <createTablePolicy>on_missing_columns</createTablePolicy>
       <table>studio_vocabulary_AccountType</table>
       <dataFile>data/vocabularies/AccountType.csv</dataFile>
+    </directory>
+    <directory name="StatusAccount">
+      <schema>vocabulary</schema>
+      <dataSource>java:/nxsqldirectory</dataSource>
+      <cacheTimeout>3600</cacheTimeout>
+      <cacheMaxSize>1000</cacheMaxSize>
+      <idField>id</idField>
+      <autoincrementIdField>false</autoincrementIdField>
+      <createTablePolicy>on_missing_columns</createTablePolicy>
+      <table>studio_vocabulary_StatusAccount</table>
+      <dataFile>data/vocabularies/StatusAccount.csv</dataFile>
     </directory>
     <directory name="Industry">
       <schema>vocabulary</schema>
