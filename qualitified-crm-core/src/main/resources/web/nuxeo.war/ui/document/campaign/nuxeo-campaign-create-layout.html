@@ -22,10 +22,14 @@
 
         <nuxeo-input label="Text Part" maxlength="999999999" name="textPart"
                      role="widget" type="text" value="{{document.properties.campaign:textPart}}"></nuxeo-input>
+        <nuxeo-directory-suggestion role="widget" value="{{document.properties.campaign:status}}"
+                                    label="status" directory-name="StatusCampaign"
+                                    min-chars="0" ></nuxeo-directory-suggestion>
 
         <nuxeo-directory-suggestion role="widget" value="{{document.properties.campaign:status}}"
                                     label="status" directory-name="StatusCampaign"
                                     min-chars="0" ></nuxeo-directory-suggestion>
+    </template>
     </template>
 
     <script>
