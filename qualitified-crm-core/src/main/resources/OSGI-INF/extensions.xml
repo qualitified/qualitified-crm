@@ -1253,10 +1253,10 @@
       </whereClause>
       <searchDocumentType>silhouette_list_pp</searchDocumentType>
       <aggregates>
-
       </aggregates>
       <sort column="custom:dateField1" ascending="false" />
-
+      <pageSize>10</pageSize>
+    </genericPageProvider>
     
     <genericPageProvider class="org.nuxeo.elasticsearch.provider.ElasticSearchNxqlPageProvider" name="account_list">
       <property name="coreSession">#{documentManager}</property>
