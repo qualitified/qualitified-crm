@@ -23,7 +23,12 @@
 
     <qualitified-custom-fields document="{{document}}" mode="edit"></qualitified-custom-fields>
 
-    <nuxeo-document-suggestion value="{{document.properties.interaction:campaignId}}" label="Campaign Id" name="campaignId" role="widget"></nuxeo-document-suggestion>
+   <qualitified-document-suggestion
+            role="widget"
+            value="{{document.properties.interaction:campaignId}}"
+            label="Campaign Id" name="campaignId" page-provider="campaigns"
+            min-chars="0">
+    </qualitified-document-suggestion>
 
     <nuxeo-input value="{{document.properties.interaction:count}}" label="Count" type="number" name="count" role="widget"></nuxeo-input>
 

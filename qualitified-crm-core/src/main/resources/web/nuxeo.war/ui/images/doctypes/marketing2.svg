@@ -1,10 +1,14 @@
 <?xml version="1.0" standalone="no"?>
 <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 20010904//EN"
  "http://www.w3.org/TR/2001/REC-SVG-20010904/DTD/svg10.dtd">
-<svg id="marketing" version="1.0" xmlns="http://www.w3.org/2000/svg"
-     width="300.000000pt" height="300.000000pt" viewBox="0 0 340.000000 340.000000" preserveAspectRatio="xMidYMid meet">
-    <g transform="translate(0.000000,300.000000) scale(0.140000,-0.140000)" stroke="none">
-
+<svg version="1.0" xmlns="http://www.w3.org/2000/svg"
+ width="200.000000pt" height="200.000000pt" viewBox="0 0 200.000000 200.000000"
+ preserveAspectRatio="xMidYMid meet">
+<metadata>
+Created by potrace 1.15, written by Peter Selinger 2001-2017
+</metadata>
+<g transform="translate(0.000000,200.000000) scale(0.100000,-0.100000)"
+fill="#B18844" stroke="none">
 <path d="M935 1904 c-191 -28 -346 -96 -470 -206 -56 -50 -68 -81 -43 -106 22
 -22 48 -13 106 36 179 148 371 208 585 182 109 -14 130 -7 125 39 -2 20 -12
 29 -40 38 -39 13 -214 24 -263 17z"/>

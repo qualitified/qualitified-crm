@@ -1,0 +1,162 @@
+<dom-module id="qualitified-group-menu">
+    <template>
+        <style include="nuxeo-styles">
+            /* https://www.w3schools.com/howto/tryit.asp?filename=tryhow_css_js_dropdown_hover */
+            .dropdown {
+                position: relative;
+                display: inline-block;
+            }
+            .dropdown:focus-within {
+                outline: none;
+            }
+            .appsMenuContent {
+                display: none;
+                position: fixed;
+                background-color: var(--nuxeo-sidebar_-_background-color);
+                box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+                z-index: 99;
+                left: 52px;
+                overflow-y: auto;
+                overflow-x: hidden;
+            }
+            .appsMenuContent tr {
+                text-decoration: none;
+                display: block;
+            }
+            .appsMenuContent tr:hover {
+                background-color: var(--nuxeo-sidebar-menu-hover);
+                cursor: pointer;
+            }
+            .dropdown:hover .appsBtn {
+                color: var(--nuxeo-sidebar-menu-hover);
+            }
+            .subMenuTitle {
+                color: #B45A00;
+            }
+            .appsBtn::before,
+            .appsBtn::after {
+                content: '';
+                position: absolute;
+                bottom: 16px;
+                right: 4px;
+                border-color: transparent;
+                border-style: solid;
+            }
+            .appsBtn::after {}
+            .appsBtn::before {
+                border-width: 0.28em;
+                border-right-color: var(--nuxeo-sidebar-menu);
+                border-bottom-color: var(--nuxeo-sidebar-menu);
+            }
+            table {
+                border-spacing: 0px;
+            }
+            paper-icon-button {
+                color: var(--nuxeo-sidebar-menu);
+                height: 48px;
+                padding: 12px 13px;
+                width: var(--nuxeo-sidebar-width);
+            }
+            tr {
+                min-width: 200px;
+            }
+        </style>
+        <div class="dropdown">
+            <paper-icon-button id="btn" class="appsBtn withoutDrawer" icon="nuxeo:browse" on-tap="_closeDrawer">
+            </paper-icon-button>
+            <div id="content" class="appsMenuContent">
+                <table id="table">
+                    <tr data-item="account-list" on-tap="_open">
+                        <td>
+                            <paper-icon-button name="account-list" icon="qualitified:account"></paper-icon-button>
+                        </td>
+                        <td>
+                            <div class="subMenuTitle onHover">Account</div>
+                        </td>
+                    </tr>
+                    <tr data-item="opportunity-list" on-tap="_open">
+                        <td>
+                            <paper-icon-button name="opportunity-list" icon="icons:work"></paper-icon-button>
+                        </td>
+                        <td>
+                            <div class="subMenuTitle">Opportunity</div>
+                        </td>
+                    </tr>
+                    <tr data-item="search-for-contacts" on-tap="_open">
+                        <td>
+                            <paper-icon-button name="search-for-contacts" icon="icons:account-box"></paper-icon-button>
+                        </td>
+                        <td>
+                            <div class="subMenuTitle">Contact</div>
+                        </td>
+                    </tr>
+                    <tr data-item="search-for-interaction" on-tap="_open">
+                        <td>
+                            <paper-icon-button name="search-for-interaction" icon="icons:thumb-up"></paper-icon-button>
+                        </td>
+                        <td>
+                            <div class="subMenuTitle">Interaction</div>
+                        </td>
+                    </tr>
+
+                </table>
+            </div>
+        </div>
+    </template>
+    <script>
+        Polymer({
+            is: 'qualitified-group-menu',
+            behaviors: [Nuxeo.LayoutBehavior],
+            properties: {
+                mouseIsOverBtnOrMenu: Boolean,
+            },
+            ready: function () {
+                this.$.btn.addEventListener("mouseover", function (e) {
+                    this.$.content.style.top = this.$.btn.getBoundingClientRect().top + "px";
+                    this.$.content.style.display = 'inline-block';
+                }.bind(this));
+                this.$.btn.addEventListener("mouseover", function (e) {
+                    this.mouseIsOverBtnOrMenu = true;
+                }.bind(this));
+                this.$.btn.addEventListener("mouseleave", function (e) {
+                    this.mouseIsOverBtnOrMenu = false;
+                }.bind(this));
+                this.$.table.addEventListener("mouseover", function (e) {
+                    this.mouseIsOverBtnOrMenu = true;
+                }.bind(this));
+                this.$.table.addEventListener("mouseleave", function (e) {
+                    this.mouseIsOverBtnOrMenu = false;
+                }.bind(this));
+                this.$.table.addEventListener("mouseleave", function (e) {
+                    if (!this.mouseIsOverBtnOrMenu) {
+                        this.$.content.style.display = 'none';
+                    }
+                }.bind(this));
+                this.$.btn.addEventListener("mouseleave", function (e) {
+                    setTimeout(function () {
+                        if (!this.mouseIsOverBtnOrMenu) {
+                            this.$.content.style.display = 'none';
+                        }
+                    }.bind(this), 200);
+                }.bind(this));
+                this.$.btn.addEventListener("tap", function (e) {
+                    setTimeout(function () {
+                        this._closeDrawer();
+                    }.bind(this), 30);
+                }.bind(this));
+            },
+            _closeDrawer: function () {
+                document.querySelector('nuxeo-app')._closeDrawer();
+            },
+            _open: function (e) {
+                var chosenMenu = e.currentTarget.dataset.item;
+                setTimeout(function () {
+                    var app = document.querySelector('nuxeo-app');
+                    var el = app.root.querySelector('paper-drawer-panel').querySelector('paper-listbox');
+                    el.select(chosenMenu);
+                    app._openDrawer();
+                }, 20);
+            }
+        });
+    </script>
+</dom-module>

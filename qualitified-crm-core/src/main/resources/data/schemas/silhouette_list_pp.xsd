@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:nxs="http://www.nuxeo.org/ecm/project/schemas/mgena-SANDBOX/campaign" xmlns:nxsv="http://www.nuxeo.org/ecm/schemas/core/validation/" xmlns:ref="http://www.nuxeo.org/ecm/schemas/core/external-references/" targetNamespace="http://www.nuxeo.org/ecm/project/schemas/mgena-SANDBOX/campaign">
+
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:nxs="http://www.nuxeo.org/ecm/project/schemas/mgena-SANDBOX/silhouette_list_pp" xmlns:nxsv="http://www.nuxeo.org/ecm/schemas/core/validation/" xmlns:ref="http://www.nuxeo.org/ecm/schemas/core/external-references/" targetNamespace="http://www.nuxeo.org/ecm/project/schemas/mgena-SANDBOX/silhouette_list_pp">
+    <!-- helper XSD definitions for list types -->
     <xs:complexType name="content">
         <xs:sequence>
             <xs:element name="encoding" type="xs:string"/>
@@ -30,25 +32,8 @@
             <xs:element name="item" type="nxs:content" minOccurs="0" maxOccurs="unbounded"/>
         </xs:sequence>
     </xs:complexType>
-    <xs:element name="htmlPart">
-        <xs:simpleType>
-            <xs:restriction base="xs:string">
-                <xs:maxLength value="999999999"/>
-            </xs:restriction>
-        </xs:simpleType>
-    </xs:element>
-    <xs:element name="messageHref" type="xs:string"/>
-    <xs:element name="subject" type="xs:string"/>
-    <xs:element name="textPart">
-        <xs:simpleType>
-            <xs:restriction base="xs:string">
-                <xs:maxLength value="999999999"/>
-            </xs:restriction>
-        </xs:simpleType>
-    </xs:element>
-    <xs:element name="status">
-        <xs:simpleType>
-            <xs:restriction base="xs:string" ref:resolver="directoryResolver" ref:directory="StatusCampaign"/>
-        </xs:simpleType>
-    </xs:element>
+    <xs:element name="system_fulltext" type="xs:string"/>
+    <xs:element name="datefield1_min" type="xs:date"/>
+    <xs:element name="datefield1_max" type="xs:date"/>
+
 </xs:schema>

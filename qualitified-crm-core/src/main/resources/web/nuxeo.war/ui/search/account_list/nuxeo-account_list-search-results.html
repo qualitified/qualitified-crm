@@ -55,6 +55,12 @@
               [[formatDirectory(item.properties.account:typeOfIndustry)]]
             </template>
           </nuxeo-data-table-column>
+          <nuxeo-data-table-column name="[[i18n('label.metadata.zone')]]" field="account:zone" sort-by="account:zone"
+                                   flex="50">
+            <template>
+              [[formatDirectory(item.properties.account:zone)]]
+            </template>
+          </nuxeo-data-table-column>
 
           <nuxeo-data-table-column name="[[i18n('label.metadata.email')]]" field="account:email" sort-by="account:email" flex="100">
             <template>

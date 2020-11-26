@@ -38,26 +38,27 @@
         width: 100%;
       }
 
+
         </style>
 
         <!-- Full Text -->
-        <nuxeo-input role="widget"
+        <nuxeo-input autofocus
                      id="searchInput"
-                     type="search"
                      label="[[i18n('defaultSearch.fullText')]]"
-                     value="{{searchTerm}}"
+                     on-keydown="_checkForEnter"
                      placeholder="[[i18n('defaultSearch.fullText.placeholder')]]"
-                     autofocus
-                     on-keydown="_checkForEnter">
+                     role="widget"
+                     type="search"
+                     value="{{searchTerm}}">
         </nuxeo-input>
         <br/>
 
         <div class="layout vertical row">
             <label>[[i18n('label.metadata.closedate')]]</label>
-            <nuxeo-date-picker value="{{params.opportunity_closeDate_min}}"
-                               label="[[i18n('opportunity.list.from')]]"></nuxeo-date-picker>
-            <nuxeo-date-picker value="{{params.opportunity_closeDate_max}}"
-                               label="[[i18n('opportunity.list.to')]]"></nuxeo-date-picker>
+            <nuxeo-date-picker label="[[i18n('opportunity.list.from')]]"
+                               value="{{params.opportunity_closeDate_min}}"></nuxeo-date-picker>
+            <nuxeo-date-picker label="[[i18n('opportunity.list.to')]]"
+                               value="{{params.opportunity_closeDate_max}}"></nuxeo-date-picker>
         </div>
 
         <div class="layout vertical row">
@@ -91,10 +92,17 @@
 
         <div class="layout vertical row">
             <label>[[i18n('label.metadata.responsible')]]</label>
-            <nuxeo-dropdown-aggregation data="[[aggregations.responsible_agg]]" value="{{params.responsible_agg}}" multiple="">
+            <nuxeo-dropdown-aggregation data="[[aggregations.responsible_agg]]" multiple=""
+                                        value="{{params.responsible_agg}}">
             </nuxeo-dropdown-aggregation>
         </div>
-
+        <div class="layout vertical row">
+            <label>[[i18n('label.metadata.typeOfIndustry')]]</label>
+            <nuxeo-checkbox-aggregation
+                    data="[[aggregations.opportunity_industry_type_agg]]"
+                    value="{{params.opportunity_industry_type_agg}}">
+            </nuxeo-checkbox-aggregation>
+        </div>
         <div class="layout vertical row">
             <label>[[i18n('label.metadata.zone')]]</label>
             <nuxeo-checkbox-aggregation
@@ -164,6 +172,7 @@
       }
     }
   });
+
 
     </script>
 </dom-module>

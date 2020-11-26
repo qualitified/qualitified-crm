@@ -30,6 +30,9 @@
                 directory-name="Industry"
                 min-chars="0">
         </nuxeo-directory-suggestion>
+        <nuxeo-directory-suggestion role="widget" value="{{document.properties.account:zone}}"
+                                    required="false" label="[[i18n('label.metadata.zone')]]" directory-name="Zone"
+                                    min-chars="0"></nuxeo-directory-suggestion>
         <nuxeo-input role="widget" value="{{document.properties.account:turnover}}"
                      label="[[i18n('label.metadata.turnover')]]"></nuxeo-input>
         <nuxeo-input role="widget" value="{{document.properties.account:website}}"
