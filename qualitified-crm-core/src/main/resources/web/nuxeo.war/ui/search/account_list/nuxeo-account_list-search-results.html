@@ -81,7 +81,12 @@
               [[item.properties.account:country]]
             </template>
           </nuxeo-data-table-column>
-
+          <nuxeo-data-table-column name="status" field="account:status" sort-by="account:status"
+                                   flex="50">
+            <template>
+              [[formatDirectory(item.properties.account:status)]]
+            </template>
+          </nuxeo-data-table-column>
           <nuxeo-data-table-column name="[[i18n('label.metadata.website')]]" field="account:website" sort-by="account:website"
                                    flex="60">
             <template>
@@ -147,7 +152,13 @@
           value:''
         }
     },
-
+    attached: function() {
+      this.sortOptions = [
+        {field: 'dc:title', label: this.i18n('searchResults.sort.field.title'), order: 'asc'},
+        {field: 'dc:created', label: this.i18n('searchResults.sort.field.created'), order: 'desc'},
+        {field: 'account:status', label: "status", order: 'asc'}
+      ];
+    },
     _getCustomFields: function(){
       this.params = {
         documentType:'Account'

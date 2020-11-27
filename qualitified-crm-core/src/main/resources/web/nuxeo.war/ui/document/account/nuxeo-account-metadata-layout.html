@@ -54,6 +54,7 @@
       <label>[[i18n('label.metadata.phone')]]</label>
       <div>[[document.properties.account:phoneNumber]]</div>
     </div>
+
     <div role="widget">
       <label>[[i18n('label.metadata.email')]]</label>
       <div>[[document.properties.account:email]]</div>
@@ -65,6 +66,10 @@
       <div>[[document.properties.address:address3]]</div>
       <div>[[document.properties.address:zipCode]] [[document.properties.address:city]]</div>
       <div>[[document.properties.address:country]]</div>
+    </div>
+    <div role="widget">
+      <label>status</label>
+      <div directory-name="StatusAccount">[[formatDirectory(document.properties.account:status)]]</div>
     </div>
     <div role="widget" hidden$="[[!document.properties.account:mainContact]">
       <label>[[i18n('label.metadata.mainContact')]]</label>
