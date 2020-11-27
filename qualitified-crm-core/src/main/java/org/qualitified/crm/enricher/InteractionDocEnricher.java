@@ -45,12 +45,23 @@ public class InteractionDocEnricher extends AbstractJsonEnricher<DocumentModel> 
         DocumentModel parentDoc = session.getDocument(doc.getParentRef());
 
         ObjectNode parentObject = o.createObjectNode();
-        if(parentDoc.getType().equals("Account")){
+
+        if (parentDoc.getType().equals("Account")) {
+
             parentObject.put("accountTitle", parentDoc.getTitle());
             parentObject.put("OpportunityTitle", "");
-        }else if(parentDoc.getType().equals("Opportunity")){
+
+        } else if (parentDoc.getType().equals("Opportunity")) {
+            DocumentModel parentOfParentDoc = session.getDocument(parentDoc.getParentRef());
+
+            if (parentOfParentDoc.getType().equals("Account")) {
+                parentObject.put("accountTitle", parentOfParentDoc.getTitle());
+            } else {
+                parentObject.put("accountTitle", "");
+            }
+
             parentObject.put("opportunityTitle", parentDoc.getTitle());
-            parentObject.put("accountTitle", "");
+
         }
          else {
             parentObject.put("opportunityTitle", "");
