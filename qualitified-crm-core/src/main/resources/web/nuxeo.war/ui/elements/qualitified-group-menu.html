@@ -24,14 +24,32 @@
                 display: block;
             }
             .appsMenuContent tr:hover {
-                background-color: var(--nuxeo-sidebar-menu-hover);
+                background-color: white;
                 cursor: pointer;
             }
+            .appsMenuContent:hover {
+                color: black;
+                cursor: pointer;
+            }
+            .dropdown:hover .paper-icon-button td {
+                color: black;
+
+            }
+            .hov:hover{
+                color: black;
+                cursor: pointer;
+
+            }
+
+
             .dropdown:hover .appsBtn {
                 color: var(--nuxeo-sidebar-menu-hover);
             }
             .subMenuTitle {
-                color: #B45A00;
+                color: white;
+            }
+            .subMenuTitle:hover {
+                color: orange;
             }
             .appsBtn::before,
             .appsBtn::after {
@@ -52,7 +70,7 @@
                 border-spacing: 0px;
             }
             paper-icon-button {
-                color: var(--nuxeo-sidebar-menu);
+
                 height: 48px;
                 padding: 12px 13px;
                 width: var(--nuxeo-sidebar-width);
@@ -62,41 +80,41 @@
             }
         </style>
         <div class="dropdown">
-            <paper-icon-button id="btn" class="appsBtn withoutDrawer"  icon="qualitified:sales" on-tap="_closeDrawer">
+            <paper-icon-button id="btn" class="appsBtn withoutDrawer"  icon="qualitified:sales"  style="color:var(--nuxeo-sidebar-menu)" on-tap="_closeDrawer">
             </paper-icon-button>
             <div id="content" class="appsMenuContent">
                 <table id="table">
-                    <tr data-item="account-list" on-tap="_open">
-                        <td>
-                            <paper-icon-button name="account-list" icon="qualitified:account" style="color:#B45A00;"></paper-icon-button>
+
+                    <tr  data-item="account-list" on-tap="_open" class="subMenuTitle onHover" >
+                        <td >
+                            <paper-icon-button  name="account-list" icon="qualitified:account" ></paper-icon-button>
                         </td>
-                        <td>
-                            <div class="subMenuTitle onHover">Account</div>
-                        </td>
+                        <td> <div  >Account</div></td>
                     </tr>
-                    <tr data-item="opportunity-list" on-tap="_open">
+
+                    <tr data-item="opportunity-list" on-tap="_open" class="subMenuTitle onHover">
                         <td>
-                            <paper-icon-button name="opportunity-list" icon="icons:work" style="color:#B45A00;">
+                            <paper-icon-button  name="opportunity-list" icon="icons:work" >
                             </paper-icon-button>
                         </td>
                         <td>
-                            <div class="subMenuTitle">Opportunity</div>
+                            <div >Opportunity</div>
                         </td>
                     </tr>
-                    <tr data-item="search-for-contacts" on-tap="_open">
+                    <tr data-item="search-for-contacts" on-tap="_open" class="subMenuTitle onHover">
                         <td>
-                            <paper-icon-button name="search-for-contacts" icon="icons:account-box"style="color:#B45A00;"></paper-icon-button>
+                            <paper-icon-button  name="search-for-contacts" icon="icons:account-box"></paper-icon-button>
                         </td>
                         <td>
-                            <div class="subMenuTitle">Contact</div>
+                            <div >Contact</div>
                         </td>
                     </tr>
-                    <tr data-item="search-for-interaction" on-tap="_open">
+                    <tr data-item="search-for-interaction" on-tap="_open" class="subMenuTitle onHover">
                         <td>
-                            <paper-icon-button name="search-for-interaction" icon="icons:thumb-up"style="color:#B45A00;"></paper-icon-button>
+                            <paper-icon-button  name="search-for-interaction" icon="icons:thumb-up"></paper-icon-button>
                         </td>
                         <td>
-                            <div class="subMenuTitle">Interaction</div>
+                            <div>Interaction</div>
                         </td>
                     </tr>
 
