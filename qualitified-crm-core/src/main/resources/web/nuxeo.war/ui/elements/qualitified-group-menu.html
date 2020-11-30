@@ -78,40 +78,56 @@
             tr {
                 min-width: 200px;
             }
+
         </style>
+
+
+        <nuxeo-operation id="query" op="Repository.Query" params="{{params}}"></nuxeo-operation>
         <div class="dropdown">
-            <paper-icon-button id="btn" class="appsBtn withoutDrawer"  icon="qualitified:sales"  style="color:var(--nuxeo-sidebar-menu)" on-tap="_closeDrawer">
+            <paper-icon-button class="appsBtn withoutDrawer" icon="qualitified:sales" id="btn"
+                               on-tap="_closeDrawer" style="color:var(--nuxeo-sidebar-menu)">
             </paper-icon-button>
-            <div id="content" class="appsMenuContent">
+            <div class="appsMenuContent" id="content">
                 <table id="table">
 
-                    <tr  data-item="account-list" on-tap="_open" class="subMenuTitle onHover" >
-                        <td >
-                            <paper-icon-button  name="account-list" icon="qualitified:account" ></paper-icon-button>
+                    <tr class="subMenuTitle onHover" data-item="account-list" on-tap="_open">
+                        <td>
+                            <paper-icon-button icon="qualitified:account" name="account-list"></paper-icon-button>
                         </td>
-                        <td> <div  >Account</div></td>
+                        <td>
+                            <div>Account</div>
+                        </td>
                     </tr>
 
-                    <tr data-item="opportunity-list" on-tap="_open" class="subMenuTitle onHover">
+                    <tr class="subMenuTitle onHover" data-item="opportunity-list" on-tap="_open">
                         <td>
-                            <paper-icon-button  name="opportunity-list" icon="icons:work" >
+                            <paper-icon-button icon="icons:work" name="opportunity-list">
                             </paper-icon-button>
                         </td>
                         <td>
-                            <div >Opportunity</div>
+                            <div>Opportunity</div>
                         </td>
                     </tr>
-                    <tr data-item="search-for-contacts" on-tap="_open" class="subMenuTitle onHover">
+                    <tr class="subMenuTitle onHover" data-item="search-for-contacts" on-tap="_open">
                         <td>
-                            <paper-icon-button  name="search-for-contacts" icon="icons:account-box"></paper-icon-button>
+                            <paper-icon-button icon="icons:account-box" name="search-for-contacts"></paper-icon-button>
                         </td>
                         <td>
-                            <div >Contact</div>
+                            <div>Contact</div>
                         </td>
                     </tr>
-                    <tr data-item="search-for-interaction" on-tap="_open" class="subMenuTitle onHover">
+                    <tr class="subMenuTitle onHover" data-item="search-for-interaction" on-tap="_open">
                         <td>
-                            <paper-icon-button  name="search-for-interaction" icon="icons:thumb-up"></paper-icon-button>
+                            <paper-icon-button icon="icons:thumb-up" id="button" name$="[[name]]"
+                                               noink=""></paper-icon-button>
+                            <nuxeo-tooltip animation-delay="0" for="button" offset="0" position="right">
+                                [[i18n(label)]]
+                            </nuxeo-tooltip>
+                            <template if="[[badge]]" is="dom-if">
+                                <paper-badge for="button" label="[[badge]]"></paper-badge>
+                            </template>
+
+
                         </td>
                         <td>
                             <div>Interaction</div>
@@ -128,8 +144,23 @@
             behaviors: [Nuxeo.LayoutBehavior],
             properties: {
                 mouseIsOverBtnOrMenu: Boolean,
+                badge: {
+                    type: String,
+                    value:""
+                },
+
+                badgeQuery: {
+                    type: String,
+                    value:""
+                },
+                 params:{
+                     type: Object,
+                     value: {}
+                 }
             },
             ready: function () {
+                    this._getCount();
+
                 this.$.btn.addEventListener("mouseover", function (e) {
                     this.$.content.style.top = this.$.btn.getBoundingClientRect().top + "px";
                     this.$.content.style.display = 'inline-block';
@@ -167,6 +198,7 @@
             _closeDrawer: function () {
                 document.querySelector('nuxeo-app')._closeDrawer();
             },
+
             _open: function (e) {
                 var chosenMenu = e.currentTarget.dataset.item;
                 setTimeout(function () {
@@ -175,7 +207,14 @@
                     el.select(chosenMenu);
                     app._openDrawer();
                 }, 20);
-            }
+            },
+             _getCount(){
+        this.params.query = this.badgeQuery;
+        this.$.query.execute().then(function(result) {
+            this.badge = result.resultsCount;
+        }.bind(this));
+        }
         });
+
     </script>
 </dom-module>
