@@ -80,8 +80,6 @@
             }
 
         </style>
-
-
         <nuxeo-operation id="query" op="Repository.Query" params="{{params}}"></nuxeo-operation>
         <div class="dropdown">
             <paper-icon-button class="appsBtn withoutDrawer" icon="qualitified:sales" id="btn"
@@ -208,12 +206,12 @@
                     app._openDrawer();
                 }, 20);
             },
-             _getCount(){
-        this.params.query = this.badgeQuery;
+             _getCount:function(){
+          this.params.query = "SELECT * FROM Document WHERE ecm:isVersion = 0 AND ecm:mixinType != 'HiddenInNavigation' AND ecm:isTrashed = 0 AND ecm:currentLifeCycleState != 'obsolete' AND dc:expired <= DATE '"+ new Date().toISOString().split('T')[0]+"'";
         this.$.query.execute().then(function(result) {
             this.badge = result.resultsCount;
         }.bind(this));
-        }
+      }
         });
 
     </script>
