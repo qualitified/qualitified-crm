@@ -34,6 +34,7 @@
   "Solicitations" : "Sollicitations",
   "Attachments" : "Pièces jointes",
   "command.new.account": "Créer un nouveau compte",
+  "command.new.campaign": "Créer",
   "label.metadata.opportunity.title": "Titre",
   "label.metadata.amount" : "Montant",
   "label.metadata.step" : "Etape",
