@@ -15,9 +15,17 @@
         <nuxeo-directory-suggestion role="widget" value="{{document.properties.opportunity:step}}"
                                     label="[[i18n('label.metadata.step')]]" directory-name="OppStep"
                                     min-chars="0" required></nuxeo-directory-suggestion>
+        <nuxeo-directory-suggestion
+                role="widget"
+                value="{{document.properties.opportunity:typeOfIndustry}}"
+                label="[[i18n('label.metadata.typeOfIndustry')]]"
+                required="false"
+                directory-name="Industry"
+                min-chars="0">
+        </nuxeo-directory-suggestion>
         <nuxeo-directory-suggestion role="widget" value="{{document.properties.opportunity:zone}}"
-                                    label="[[i18n('label.metadata.zone')]]" directory-name="Zone"
-                                    min-chars="0" required></nuxeo-directory-suggestion>
+                                    required="false" label="[[i18n('label.metadata.zone')]]" directory-name="Zone"
+                                    min-chars="0"></nuxeo-directory-suggestion>
 
         <nuxeo-input role="widget" value="{{document.properties.opportunity:amount}}"
                      label="[[i18n('label.metadata.amount')]]" required></nuxeo-input>

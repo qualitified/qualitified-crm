@@ -32,7 +32,10 @@
         <div role="widget"><label>Text Part</label>
             <div name="textPart">[[document.properties.campaign:textPart]]</div>
         </div>
-
+        <div role="widget">
+            <label>status</label>
+            <div directory-name="StatusCampaign">[[formatDirectory(document.properties.campaign:status)]]</div>
+        </div>
     </template>
 
     <script>

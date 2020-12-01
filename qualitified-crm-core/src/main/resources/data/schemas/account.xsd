@@ -42,6 +42,11 @@
       <xs:restriction base="xs:string" ref:resolver="directoryResolver" ref:directory="Industry"/>
     </xs:simpleType>
   </xs:element>
+  <xs:element name="zone" nillable="false" nxsv:nillable="false">
+    <xs:simpleType>
+      <xs:restriction base="xs:string" ref:resolver="directoryResolver" ref:directory="Zone"/>
+    </xs:simpleType>
+  </xs:element>
   <xs:element name="mainContact" type="xs:string"></xs:element>
   <xs:element name="turnover" type="xs:double"/>
   <xs:element name="website" type="xs:string"/>
@@ -63,6 +68,11 @@
   <xs:element name="responsible">
     <xs:simpleType>
       <xs:restriction base="xs:string" ref:resolver="userManagerResolver" ref:type="user"/>
+    </xs:simpleType>
+  </xs:element>
+  <xs:element name="status">
+    <xs:simpleType>
+      <xs:restriction base="xs:string" ref:resolver="directoryResolver" ref:directory="StatusAccount"/>
     </xs:simpleType>
   </xs:element>
 </xs:schema>

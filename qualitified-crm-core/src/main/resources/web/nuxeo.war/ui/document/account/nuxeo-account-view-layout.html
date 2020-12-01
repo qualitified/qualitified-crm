@@ -400,7 +400,10 @@
             </nuxeo-data-table>
           </nuxeo-results>
         </div>
-
+        <div role="widget">
+          <label>status</label>
+          <div directory-name="StatusAccount">[[formatDirectory(document.properties.account:status)]]</div>
+        </div>
         <div class="dataTable">
           <nuxeo-page-provider id="documentProvider"
                                query="select * from Document where ecm:primaryType not in ('Opportunity', 'Contact', 'Interaction', 'Solicitation') and ecm:currentLifeCycleState != 'deleted' and ecm:isCheckedInVersion = 0 and ecm:isTrashed = 0 and ecm:parentId = '[[document.uid]]' "

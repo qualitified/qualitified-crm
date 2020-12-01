@@ -82,7 +82,7 @@
           document: {
             type: Object,
             observer: '_documentReady'
-          }
+          },
         },
         /**
          * Returns the label for the given directory entry.
@@ -114,9 +114,10 @@
           this.navigateTo('document', oEvent.model.get('contact'));
         },
          _documentReady: function(doc){
-          if(doc){
-              document.querySelector("nuxeo-app").shadowRoot.querySelector("#menu > interaction-menu-icon")._getCount();
-          }
+            var selector=  document.querySelector("nuxeo-app").shadowRoot.querySelector("qualitified-group-menu");
+            if(doc && selector !==null){
+                selector._getCount();
+            }
         }
       });
     })();
