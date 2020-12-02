@@ -50,7 +50,7 @@ public class FetchMailHistory {
         JSONObject response= emailingService.fetchHistory(Long.parseLong(MessageID));
         Calendar cal = Calendar.getInstance();
 
-        List<Map<String, Object>> mailHistory = new ArrayList<Map<String, Object>>();
+            List<Map<String, Object>> mailHistory = new ArrayList<Map<String, Object>>();
 
         for (int i = 0; i < response.getLong("count"); i++) {
             Map<String, Object> Details = new HashMap<String, Object>();

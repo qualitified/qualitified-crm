@@ -21,7 +21,7 @@
       }
 
       </style>
-        <nuxeo-operation id="sendMail" op="Qualitified.SendMail" input="[[document]]"></nuxeo-operation>
+        <nuxeo-operation id="sendMail" op="BulkSendMailChain"></nuxeo-operation>
         <paper-icon-button id="button" icon="icons:credit-card" on-tap="_sendMail"></paper-icon-button>
         <paper-tooltip for="button">send mail</paper-tooltip>
         <nuxeo-operation id="fetchMailHistory" op="Qualitified.FetchMailHistory" input="[[document]]"></nuxeo-operation>

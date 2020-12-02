@@ -24,5 +24,6 @@
         <operation class="org.qualitified.crm.operation.GetImages"/>
         <operation class="org.qualitified.crm.operation.SendMail"/>
         <operation class="org.qualitified.crm.operation.FetchMailHistory"/>
+        <operation class="org.qualitified.crm.operation.BulkSendMailAction"/>
     </extension>
  </component>

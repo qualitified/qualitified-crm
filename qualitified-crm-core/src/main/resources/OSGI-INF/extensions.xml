@@ -841,6 +841,9 @@
     <handler chainId="runScheduler5Chain">
       <event>event5</event>
     </handler>
+    <handler chainId="BulkSendMailChain">
+      <event>BulkSendMailEvent</event>
+    </handler>
   </extension>
   <extension target="org.nuxeo.ecm.core.lifecycle.LifeCycleService" point="lifecycle">
     <lifecycle name="default" defaultInitial="project">
@@ -1157,6 +1160,12 @@
         <param type="boolean" name="save">false</param>
       </operation>
       <operation id="Document.Save"/>
+    </chain>
+    <chain id="BulkSendMailChain">
+      <operation id="Auth.LoginAs">
+        <param type="string" name="name">Administrator</param>
+      </operation>
+      <operation id="Qualitified.BulkSendMailAction"/>
     </chain>
 
   </extension>
@@ -2131,6 +2140,12 @@
       <username>Administrator</username>
       <cronExpression>0/10 * * * * ?</cronExpression>
     </schedule>
+    <!--<schedule id="BulkSendMailScheduler">
+      <eventId>BulkSendMailEvent</eventId>
+      <eventCategory>default</eventCategory>
+      <username>Administrator</username>
+      <cronExpression>0 0 7 * * ?</cronExpression>
+    </schedule>-->
   </extension>
   <extension target="org.nuxeo.ecm.core.api.DocumentValidationService" point="activations">
     <validation context="createDocument" activated="false"/>
