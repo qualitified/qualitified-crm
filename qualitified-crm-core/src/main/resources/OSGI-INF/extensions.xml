@@ -234,6 +234,12 @@
       <schema name="picture"/>
       <schema name="custom"/>
       <facet name="NXTag"/>
+      <facet name="Folderish"/>
+    </doctype>
+    <doctype name="Campaign" append="true">
+      <subtypes>
+        <type>Contact</type>
+      </subtypes>
     </doctype>
     <doctype name="Account" append="true">
       <subtypes>
@@ -413,7 +419,9 @@
       <facet name="ContentViewDisplay"/>
       <facet name="SavedSearch"/>
       <facet name="HiddenInNavigation"/>
+      <facet name="Folderish"/>
       <schema name="campaign"/>
+
     </doctype>
     <doctype name="opportunity_list_pp" extends="Document">
       <facet name="ContentViewDisplay"/>
@@ -1907,7 +1915,7 @@
       <cacheMaxSize>1000</cacheMaxSize>
       <idField>id</idField>
       <autoincrementIdField>false</autoincrementIdField>
-      <createTablePolicy>on_missing_columns</createTablePolicy>
+      <createTablePolicy>always</createTablePolicy>
       <table>studio_vocabulary_StatusCampaign</table>
       <dataFile>data/vocabularies/StatusCampaign.csv</dataFile>
     </directory>
