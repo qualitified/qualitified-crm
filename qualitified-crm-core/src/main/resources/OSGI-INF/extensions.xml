@@ -234,6 +234,12 @@
       <schema name="picture"/>
       <schema name="custom"/>
       <facet name="NXTag"/>
+      <facet name="Folderish"/>
+    </doctype>
+    <doctype name="Campaign" append="true">
+      <subtypes>
+        <type>Contact</type>
+      </subtypes>
     </doctype>
     <doctype name="Account" append="true">
       <subtypes>
@@ -1977,7 +1983,7 @@
       <cacheMaxSize>1000</cacheMaxSize>
       <idField>id</idField>
       <autoincrementIdField>false</autoincrementIdField>
-      <createTablePolicy>on_missing_columns</createTablePolicy>
+      <createTablePolicy>always</createTablePolicy>
       <table>studio_vocabulary_StatusAccount</table>
       <dataFile>data/vocabularies/StatusAccount.csv</dataFile>
     </directory>

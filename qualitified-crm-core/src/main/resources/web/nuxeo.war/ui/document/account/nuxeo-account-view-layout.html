@@ -400,9 +400,10 @@
             </nuxeo-data-table>
           </nuxeo-results>
         </div>
-        </div>
+
+        <div class="dataTable">
           <nuxeo-page-provider id="documentProvider"
-                               query="select * from Document where ecm:primaryType not in ('Opportunity', 'Contact', 'Interaction', 'Solicitation') and ecm:currentLifeCycleState != 'deleted' and ecm:isCheckedInVersion = 0 and ecm:isTrashed = 0 and ecm:parentId = '[[document.uid]]' "
+                               query="select * from Document where ecm:primaryType in ('File', 'Folder', 'Picture', 'Video', 'Audio') and ecm:currentLifeCycleState != 'deleted' and ecm:isTrashed = 0 and ecm:parentId = '[[document.uid]]' "
                                page-size="40"
                                aggregations="{{documentAggregations}}"
                                enrichers="thumbnail, permissions"
