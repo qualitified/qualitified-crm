@@ -315,12 +315,15 @@
       <schema name="person"/>
       <schema name="custom"/>
       <schema name="address"/>
+      <schema name="picture"/>
+      <facet name="Picture"/>
+      <facet name="NXTag"/>
+      <facet name="Folderish"/>
     </doctype>
     <doctype name="Marketing" append="true">
       <subtypes>
         <type>Campaign</type>
         <type>Silhouette</type>
-        <type>Campaign</type>
       </subtypes>
     </doctype>
     <doctype name="ScriptNote" extends="Note">

@@ -8,6 +8,7 @@
       }
 
         </style>
+
         <nuxeo-directory-suggestion value="{{civility}}" label="[[i18n('label.metadata.civility')]]"
                                     directory-name="Civility" role="widget" min-chars="0"></nuxeo-directory-suggestion>
 
@@ -61,7 +62,6 @@
                         document="[[document]]"></nuxeo-dropzone>
         <qualitified-search-images document="{{document}}" property="document.properties.custom:systemField1"></qualitified-search-images>
 
-
     </template>
 
     <script>
@@ -69,6 +69,7 @@
       'use strict';
       Polymer({
         is: 'nuxeo-silhouette-create-layout',
+        behaviors: [Nuxeo.LayoutBehavior],
         properties: {
 
           /**
