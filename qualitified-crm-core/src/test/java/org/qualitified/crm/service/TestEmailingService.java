@@ -43,5 +43,5 @@ public class TestEmailingService {
     public void IsMailServiceNull(){
         EmailingService emailingService = Framework.getService(EmailingService.class);
         Assert.assertNotNull(emailingService);
-//        Assert.assertEquals("Hello",emailingService.fetchHistory());
+       //Assert.assertEquals("Hello",emailingService.fetchHistory());
 }}
