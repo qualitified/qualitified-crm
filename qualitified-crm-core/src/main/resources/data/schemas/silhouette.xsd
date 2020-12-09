@@ -37,4 +37,5 @@
       <xs:restriction base="xs:string" ref:resolver="userManagerResolver" ref:type="user"/>
     </xs:simpleType>
   </xs:element>
+  <xs:element name="followedLinks" type="nxs:stringList"/>
 </xs:schema>

@@ -1264,6 +1264,13 @@
       </whereClause>
       <searchDocumentType>silhouette_list_pp</searchDocumentType>
       <aggregates>
+        <aggregate id="followed_links_agg" type="terms" parameter="silhouette:followedLinks">
+          <field schema="silhouette_list_pp" name="followed_links_agg"/>
+          <properties>
+            <property name="order">count desc</property>
+            <property name="size">0</property>
+          </properties>
+        </aggregate>
       </aggregates>
       <sort column="custom:dateField1" ascending="false" />
       <pageSize>10</pageSize>
