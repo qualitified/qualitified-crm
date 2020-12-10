@@ -1,0 +1,9 @@
+Bundle-ActivationPolicy: lazy
+Bundle-ClassPath: .
+Manifest-Version: 1.0
+Bundle-Vendor: Qualitified
+Bundle-Version: 1.0.0
+Bundle-Name: qualitified-crm-restapi
+Fragment-Host: org.nuxeo.ecm.platform.restapi.server
+Bundle-ManifestVersion: 2
+Bundle-SymbolicName: org.qualitified.crm.qualitified-crm-restapi;singleton=true
