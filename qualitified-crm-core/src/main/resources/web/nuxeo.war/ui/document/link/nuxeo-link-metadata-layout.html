@@ -1,0 +1,95 @@
+<link rel="import" href="../../elements/copy-to-clipboard.html">
+<link rel="import" href="../qualitified-custom-fields.html">
+<dom-module id="nuxeo-link-metadata-layout">
+    <template>
+        <style>
+            *[role=widget] {
+                padding: 5px;
+            }
+            .wrap {
+                white-space: pre-wrap;
+            }
+            .account-view-layout {
+                height: 25px;
+                width: 25px;
+                border-radius: 20px;
+                box-sizing: border-box;
+                margin-right: 8px;
+            }
+
+            .title{
+                color:var(--nuxeo-secondary-color);
+            }
+
+        </style>
+        <paper-toast id="linkToast"></paper-toast>
+        <div role="widget" class="title">
+            <h1>
+                [[document.properties.dc:title]]
+            </h1>
+        </div>
+
+        <div role="widget" hidden$="[[!document.properties.dc:description]]">
+            <label>Description</label>
+            <div>
+                <pre class="wrap">[[document.properties.dc:description]]</pre>
+            </div>
+        </div>
+        <div role="widget">
+            <label>Lien</label>
+            <div>
+                <a href="[[document.properties.link:href]]" target="_blank">[[document.properties.link:href]]</a>
+            </div>
+        </div>
+
+        <div role="widget">
+            <label>Lien suivi</label>
+            <div>
+                [[trackedLink]]
+                <copy-to-clipboard
+                        id="copyToClipboard"
+                        clipboard-value-to-copy="[[trackedLink]]"
+                        clipboard-value-copied="{{copiedValue}}"
+                        clipboard-trigger-id="copyButton"
+                ></copy-to-clipboard>
+                <paper-icon-button id="copyButton" icon="icons:content-copy" on-tap="_copied"></paper-icon-button>
+                <paper-tooltip for="copyButton" position="right">Copier le lien suivi</paper-tooltip>
+            </div>
+        </div>
+
+        <qualitified-custom-fields document="{{document}}" mode="view"></qualitified-custom-fields>
+
+    </template>
+
+    <script>
+        (function() {
+            'use strict';
+            Polymer({
+                is: 'nuxeo-link-metadata-layout',
+                behaviors: [Nuxeo.LayoutBehavior],
+                properties: {
+
+                    /**
+                     * @doctype Link
+                     */
+                    document: {
+                        type: Object,
+                        observer: '_documentReady'
+                    },
+                    trackedLink :{
+                        type: String
+                    }
+                },
+                _documentReady: function(doc){
+                    if(this.document){
+                        this.trackedLink = document.location.protocol +"//"+document.location.host+"/nuxeo/site/api/v1/link/"+this.document.properties["dc:title"];
+                    }
+                },
+                _copied: function(){
+                    this.$.linkToast.text = "Copié !";
+                    this.$.linkToast.open();
+                }
+            });
+        })();
+    </script>
+</dom-module>

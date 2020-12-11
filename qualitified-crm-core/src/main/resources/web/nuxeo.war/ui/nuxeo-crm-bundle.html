@@ -50,6 +50,18 @@
     </template>
 </nuxeo-slot-content>
 
+<nuxeo-slot-content name="link-list" slot="DRAWER_PAGES" >
+    <template>
+        <nuxeo-search-form provider="link_list" schemas="link,dublincore" search-name="link_list" name="link-list" auto="true"></nuxeo-search-form>
+    </template>
+</nuxeo-slot-content>
+<!-- Contribution of element 'nuxeo-menu-icon' for slot 'SEARCH_MENU_BUTTONS' -->
+<nuxeo-slot-content name="link-list" slot="DRAWER_ITEMS" order="20" >
+    <template>
+        <nuxeo-menu-icon icon="qualitified:link" name="link-list" label="links"></nuxeo-menu-icon>
+    </template>
+</nuxeo-slot-content>
+
 <nuxeo-slot-content name="search-for-contacts" slot="DRAWER_ITEMS" order="3" disabled>
     <template>
         <nuxeo-menu-icon label="Contacts"   name="search-for-contacts" icon="icons:account-box"></nuxeo-menu-icon>
