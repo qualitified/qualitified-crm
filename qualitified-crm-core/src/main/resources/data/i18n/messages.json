@@ -94,6 +94,8 @@
   "app.title.search.person_list": "Contact",
   "app.title.search.interaction_list": "Interaction",
   "app.title.search.silhouette_list": "Silhouette",
+  "app.title.search.automation_list": "Automation",
+  "app.title.search.note_list": "Note",
   "opportunity.list.from": "From",
   "opportunity.list.to": "To",
   "home.calendar": "Calendar",
