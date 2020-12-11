@@ -651,8 +651,8 @@
     </type>
     <type id="Link">
       <label>Link</label>
-      <icon>/img/ic_code_black_24dp_1x.png</icon>
-      <bigIcon>/img/ic_code_black_24dp_2x.png</bigIcon>
+      <icon>/img/link.png</icon>
+      <bigIcon>/img/link.png</bigIcon>
       <description></description>
     </type>
     <type id="File">
