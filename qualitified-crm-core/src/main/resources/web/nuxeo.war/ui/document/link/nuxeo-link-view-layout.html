@@ -1,9 +1,41 @@
 <dom-module id="nuxeo-link-view-layout">
     <template>
-        <style>
+        <style include="nuxeo-styles shared-css">
             *[role=widget] {
                 padding: 5px;
             }
+
+            nuxeo-data-table {
+                height: 100%;
+            }
+
+            .dataTable{
+                /*height: 300px;*/
+            }
+
+            .queue-thumbnail {
+                height: 32px;
+                width: 32px;
+                border-radius: 20px;
+                box-sizing: border-box;
+                margin-right: 8px;
+            }
+
+            .queue-thumbnail ::content img {
+                height: 32px;
+                width: 32px;
+                border-radius: 20px;
+                box-sizing: border-box;
+                margin-right: 8px;
+            }
+            .results {
+                @apply(--layout-vertical);
+                @apply(--layout-flex);
+                /* min-height: calc(60vh - 14em); */
+                /*margin-top: 8px;*/
+            }
+
+
         </style>
     </template>
 
@@ -12,14 +44,86 @@
             'use strict';
             Polymer({
                 is: 'nuxeo-link-view-layout',
+
                 behaviors: [Nuxeo.LayoutBehavior],
                 properties: {
+
                     /**
-                     * @doctype Link
+                     * @doctype link
                      */
                     document: {
                         type: Object
                     },
+
+                    params: {
+                        type: Object,
+                        value: {},
+                        notify: true
+                    }
+                },
+                observers: [
+                    '_refresh(params)',
+                    '_observeDocument(document)'
+                ],
+                ready: function() {
+                    this.selected = 0;
+                    if (this.document) {
+                        this.params = {'ecm_parentId': this.document.uid};
+                    }
+
+                    this.contactProvider = this.$.contactProvider;
+
+                    this.documentProvider = this.$.documentProvider;
+                },
+                _observeDocument: function() {
+                    if (this.document) {
+                        this.params = {'ecm_parentId': this.document.uid};
+                    }
+                },
+                _refresh: function() {
+                    this.$.contactProvider.page = 1;
+                },
+                _formatCurrency: function(val) {
+                    if(val == null){
+                        return "";
+                    }
+                    return val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ");
+                },
+                _navigate: function(e) {
+                    var detail = {
+                        doc: e.detail.item,
+                    };
+                    if(detail.doc){
+                        page('/browse' + detail.doc.path);
+                    }
+                },
+                _formatDate: function(date) {
+                    return moment(date).format('MMMM D, YYYY');
+                },
+                _thumbnail: function(doc) {
+                    if (doc && doc.uid) {
+                        if (doc.contextParameters && doc.contextParameters.thumbnail.url) {
+                            return doc.contextParameters.thumbnail.url;
+                        } else {
+                            var baseUrl = this.$.nxcon.url;
+                            return baseUrl + '/api/v1/id/' + doc.uid + '/@rendition/thumbnail';
+                        }
+                    }
+                },
+                /**
+                 * Returns the label for the given directory entry.
+                 */
+                formatDirectory: function(value) {
+                    if (value && value['entity-type'] && value['entity-type'] === 'directoryEntry') {
+                        if (value.properties && value.properties.label) {
+                            return value.properties.label;
+                        } else {
+                            var label = 'label_' + ((window.nuxeo.I18n.language) ? window.nuxeo.I18n.language.split('-')[0] : 'en');
+                            return value.properties[label] || value.properties['label_en']
+                        }
+                    } else {
+                        return value;
+                    }
                 }
             });
         })();
