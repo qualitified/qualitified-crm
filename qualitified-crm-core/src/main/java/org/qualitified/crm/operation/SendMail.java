@@ -10,6 +10,7 @@ import org.nuxeo.ecm.automation.core.Constants;
 import org.nuxeo.ecm.automation.core.annotations.Context;
 import org.nuxeo.ecm.automation.core.annotations.Operation;
 import org.nuxeo.ecm.automation.core.annotations.OperationMethod;
+import org.nuxeo.ecm.automation.core.annotations.Param;
 import org.nuxeo.ecm.core.api.*;
 import com.mailjet.client.errors.MailjetException;
 import com.mailjet.client.errors.MailjetSocketTimeoutException;
@@ -18,55 +19,80 @@ import org.qualitified.crm.service.EmailingService;
 
 import javax.security.auth.login.LoginContext;
 import javax.security.auth.login.LoginException;
+import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Operation(id = SendMail.ID, category = Constants.CAT_EXECUTION, label = "SendMail", description = "SendMail...")
 public class SendMail {
 
     public final static String ID = "Qualitified.SendMail";
-    private Log logger = LogFactory.getLog(SendMail.class);
-
-
     @Context
     protected OperationContext ctx;
-
     @Context
     protected CoreSession documentManager;
+    @Param(name = "statusMail")
+    protected String statusMail;
+
+    private Log logger = LogFactory.getLog(SendMail.class);
     private String MessageID;
+    private Map<String, Object> mailDetails = new HashMap<String, Object>();
 
 
     @OperationMethod
-    public void run(DocumentModel interactionDoc) throws OperationException, LoginException, JSONException, MailjetSocketTimeoutException, MailjetException {
-        EmailingService emailingService = Framework.getService(EmailingService.class);
+    public void run(DocumentModel interactionDoc) throws OperationException, LoginException, JSONException, MailjetSocketTimeoutException {
         LoginContext lc = Framework.loginAsUser("Administrator");
         ctx.getLoginStack().push(lc);
+
+        EmailingService emailingService = Framework.getService(EmailingService.class);
         IdRef idRef = new IdRef((String) interactionDoc.getPropertyValue("interaction:campaignId"));
-        DocumentModel campaignDoc = documentManager.getDocument(idRef);
+        DocumentModel campaignDoc = (idRef.reference()!= null)
+                                  ? documentManager.getDocument(idRef)
+                                  : documentManager.getDocument(new PathRef("/New marketing/mail campaign"));
 
-        List<String> mailDetails = new ArrayList<>();
+        String fromEmail = (interactionDoc.getPropertyValue("interaction:fromEmail") != null)
+                         ? (String) interactionDoc.getPropertyValue("interaction:fromEmail")
+                         : "fs.bilel@gmail.com";
+        mailDetails.put("fromEmail",fromEmail);
+        String fromName = (interactionDoc.getPropertyValue("interaction:fromName") != null)
+                        ? (String) interactionDoc.getPropertyValue("interaction:fromName")
+                        : "Fatnassi BILEL";
+        mailDetails.put("fromName",fromName);
+        String toEmail = (interactionDoc.getPropertyValue("interaction:toEmail") != null)
+                       ? (String) interactionDoc.getPropertyValue("interaction:toEmail")
+                       : "bfatnassi@qualitified.com";
+        mailDetails.put("toEmail",toEmail);
+        String toName = (interactionDoc.getPropertyValue("interaction:toName") != null)
+                      ? (String) interactionDoc.getPropertyValue("interaction:toName")
+                      : "BFatnassi";
+        mailDetails.put("toName",toName);
+        String subject = (campaignDoc.getPropertyValue("campaign:subject") != null)
+                       ? (String) campaignDoc.getPropertyValue("campaign:subject")
+                       : "Mail from qualitified";
+        mailDetails.put("subject",subject);
+        String textPart = (campaignDoc.getPropertyValue("campaign:textPart") != null)
+                        ? (String) campaignDoc.getPropertyValue("campaign:textPart")
+                        : "This is a replacement Mail for interaction documents with empty mail details";
+        mailDetails.put("textPart",textPart);
+        String htmlPart = (campaignDoc.getPropertyValue("campaign:htmlPart") != null)
+                        ? (String) campaignDoc.getPropertyValue("campaign:htmlPart")
+                        : "<h3>Please check details in interaction documents...</h3>";
+        mailDetails.put("htmlPart",htmlPart);
 
-        String fromEmail = (String) interactionDoc.getPropertyValue("interaction:fromEmail");
-        mailDetails.add(fromEmail);
-        String fromName = (String) interactionDoc.getPropertyValue("interaction:fromName");
-        mailDetails.add(fromName);
-        String toEmail = (String) interactionDoc.getPropertyValue("interaction:toEmail");
-        mailDetails.add(toEmail);
-        String toName = (String) interactionDoc.getPropertyValue("interaction:toName");
-        mailDetails.add(toName);
-        String subject = (String) campaignDoc.getPropertyValue("campaign:subject");
-        mailDetails.add(subject);
-        String textPart = (String) campaignDoc.getPropertyValue("campaign:textPart");
-        mailDetails.add(textPart);
-        String htmlPart = (String) campaignDoc.getPropertyValue("campaign:htmlPart");
-        mailDetails.add(htmlPart);
+        try {
+            JSONArray response = emailingService.send(mailDetails);
+            MessageID = Long.toString(response.getJSONObject(0).getJSONArray("To")
+                    .getJSONObject(0).getLong("MessageID"));
+        } catch (MailjetException e) {
+            logger.error("Error while running mailjet service", e);
+        } finally {
+            interactionDoc.setPropertyValue("interaction:statusMail", statusMail);
+            interactionDoc.setPropertyValue("interaction:messageID", MessageID);
+            documentManager.saveDocument(interactionDoc);
+        }
 
-        JSONArray response = emailingService.send(mailDetails);
-        MessageID = Long.toString(response.getJSONObject(0).getJSONArray("To")
-                .getJSONObject(0).getLong("MessageID"));
-
-        interactionDoc.setPropertyValue("interaction:messageID", MessageID);
-        documentManager.saveDocument(interactionDoc);
 
     }
 

@@ -10,8 +10,9 @@ Nuxeo-Component: OSGI-INF/extensions.xml,
  OSGI-INF/postsave-listener-contrib.xml,
  OSGI-INF/postsave-async-listener-contrib.xml,
  OSGI-INF/templateprocessor-doc-contrib.xml,
- OSGI-INF/mailjet-emailing-service.xml,
- OSGI-INF/interaction-enricher-contrib.xml
+ OSGI-INF/interaction-enricher-contrib.xml,
+ OSGI-INF/mailjet-emailing-service.xml
 Bundle-ManifestVersion: 2
 Created-By: Qualitified
 Bundle-SymbolicName: studio.extensions.crm
+

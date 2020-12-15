@@ -21,12 +21,12 @@
       }
 
       </style>
-        <!--<nuxeo-operation id="sendMail" op="BulkSendMailChain"></nuxeo-operation>
+        <nuxeo-operation id="sendMail" op="BulkSendMailChain"></nuxeo-operation>
         <paper-icon-button id="button" icon="icons:credit-card" on-tap="_sendMail"></paper-icon-button>
         <paper-tooltip for="button">send mail</paper-tooltip>
         <nuxeo-operation id="fetchMailHistory" op="Qualitified.FetchMailHistory" input="[[document]]"></nuxeo-operation>
         <paper-icon-button id="button1" icon="icons:credit-card" on-tap="_fetchMailHistory"></paper-icon-button>
-        <paper-tooltip for="button1">fetch mail history</paper-tooltip>-->
+        <paper-tooltip for="button1">fetch mail history</paper-tooltip>
         <div role="widget" class="title">
             <h1 directory-name="IntActivity">
                 [[formatDirectory(document.properties.interaction:activity)]] - [[document.properties.dc:title]] - [[formatDirectory(document.properties.interaction:status)]]
@@ -82,7 +82,7 @@
           document: {
             type: Object,
             observer: '_documentReady'
-          },
+          }
         },
         /**
          * Returns the label for the given directory entry.
@@ -114,11 +114,17 @@
           this.navigateTo('document', oEvent.model.get('contact'));
         },
          _documentReady: function(doc){
-            var selector=  document.querySelector("nuxeo-app").shadowRoot.querySelector("qualitified-group-menu");
-            if(doc && selector !==null){
-                selector._getCount();
-            }
-        }
+          if(doc){
+              document.querySelector("nuxeo-app").shadowRoot.querySelector("#menu > interaction-menu-icon")._getCount();
+          }
+        },
+        _sendMail: function(){
+          console.log(this.document);
+            this.$.sendMail.execute();
+          },
+          _fetchMailHistory: function(){
+            this.$.fetchMailHistory.execute();
+          }
       });
     })();
 

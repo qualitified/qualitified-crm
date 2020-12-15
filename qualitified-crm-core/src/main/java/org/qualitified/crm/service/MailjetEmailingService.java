@@ -15,6 +15,7 @@ import org.nuxeo.runtime.api.Framework;
 import org.nuxeo.runtime.model.DefaultComponent;
 
 import java.util.List;
+import java.util.Map;
 
 public class MailjetEmailingService extends DefaultComponent implements EmailingService {
     MailjetClient client;
@@ -26,7 +27,7 @@ public class MailjetEmailingService extends DefaultComponent implements Emailing
 
 
     @Override
-    public JSONArray send(List<String> mailDetails) throws JSONException, MailjetSocketTimeoutException, MailjetException {
+    public JSONArray send(Map<String, Object> mailDetails) throws JSONException, MailjetSocketTimeoutException, MailjetException {
 
         client = new MailjetClient(apiKey, secretKey, new ClientOptions("v3.1"));
         request = new MailjetRequest(Emailv31.resource)
@@ -34,15 +35,15 @@ public class MailjetEmailingService extends DefaultComponent implements Emailing
                         .put(new JSONObject()
                                 .put(Emailv31.Message.FROM,
                                         new JSONObject()
-                                                .put("Email", mailDetails.get(0))
-                                                .put("Name", mailDetails.get(1)))
+                                                .put("Email", mailDetails.get("fromEmail"))
+                                                .put("Name", mailDetails.get("fromName")))
                                 .put(Emailv31.Message.TO, new JSONArray()
                                         .put(new JSONObject()
-                                                .put("Email", mailDetails.get(2))
-                                                .put("Name", mailDetails.get(3))))
-                                .put(Emailv31.Message.SUBJECT, mailDetails.get(4))
-                                .put(Emailv31.Message.TEXTPART, mailDetails.get(5))
-                                .put(Emailv31.Message.HTMLPART, mailDetails.get(6))
+                                                .put("Email", mailDetails.get("toEmail"))
+                                                .put("Name", mailDetails.get("toName"))))
+                                .put(Emailv31.Message.SUBJECT, mailDetails.get("subject"))
+                                .put(Emailv31.Message.TEXTPART, mailDetails.get("textPart"))
+                                .put(Emailv31.Message.HTMLPART, mailDetails.get("htmlPart"))
                                 .put(Emailv31.Message.CUSTOMID, "AppGettingStartedTest")));
         response = client.post(request);
 
