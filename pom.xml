@@ -9,7 +9,7 @@
 
   <groupId>org.qualitified.crm</groupId>
   <artifactId>qualitified-crm-parent</artifactId>
-  <version>4.2-SNAPSHOT</version>
+  <version>4.3-SNAPSHOT</version>
   <name>Qualitified CRM parent</name>
   <description>Qualitified CRM</description>
   <packaging>pom</packaging>
@@ -18,6 +18,8 @@
     <module>qualitified-crm-core</module>
     <module>qualitified-crm-custom</module>
     <module>qualitified-crm-package</module>
+    <module>qualitified-crm-restapi</module>
+
   </modules>
 
   <repositories>
@@ -83,6 +85,11 @@
       <dependency>
         <groupId>org.qualitified.crm</groupId>
         <artifactId>qualitified-crm-package</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.qualitified.crm</groupId>
+        <artifactId>qualitified-crm-restapi</artifactId>
         <version>${project.version}</version>
       </dependency>
       <!-- https://mvnrepository.com/artifact/commons-net/commons-net -->

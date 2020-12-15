@@ -51,4 +51,5 @@
             <xs:restriction base="xs:string" ref:resolver="directoryResolver" ref:directory="StatusCampaign"/>
         </xs:simpleType>
     </xs:element>
+    <xs:element name="sendDate" type="xs:date"/>
 </xs:schema>

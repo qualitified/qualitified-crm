@@ -1,0 +1,142 @@
+<link rel="import" href="../../qualitified-icons.html">
+<link rel="import" href="../../elements/nuxeo-document-create-popup-modified.html">
+<dom-module id="nuxeo-link_list-search-form">
+  <template>
+    <style include="iron-flex">
+      :host {
+        display: block;
+      }
+
+      .row {
+        box-sizing: border-box;
+        margin-bottom: 1rem;
+        padding: 0 1rem;
+        width: 100%;
+      }
+
+      label {
+        color: #434343;
+        font-size: 0.8em;
+        font-weight: 700;
+        margin-bottom: 5px;
+      }
+
+      input {
+        background-color: #fff;
+        border: 1px solid #ddd;
+        border-radius: .2em;
+        box-sizing: border-box;
+        color: rgba(0,0,0,.75);
+        display: block;
+        font-size: 0.8em;
+        height: 2rem;
+        margin: 0;
+        padding: .5rem;
+        width: 100%;
+      }
+
+    </style>
+
+    <div class="layout vertical row">
+      <label>title</label>
+      <!--nuxeo-input id="searchInput"
+                   autofocus="true"
+                   value="{{params.system_fulltext}}"
+                   tabindex="0"
+                   type="search"
+                   no-label-float>
+      </--nuxeo-input-->
+      <nuxeo-input role="widget"
+                   id="searchInput"
+                   type="search"
+                   label="[[i18n('defaultSearch.fullText')]]"
+                   value="{{searchTerm}}"
+                   placeholder="[[i18n('defaultSearch.fullText.placeholder')]]"
+                   autofocus
+                   on-keydown="_checkForEnter">
+      </nuxeo-input>
+
+    </div>
+
+    <!-- Create a new link -->
+    <div class="actions layout vertical style-scope nuxeo-search-form">
+      <paper-button noink="" id="new" class="primary horizontal layout center" on-tap="_openDialog" elevation="0">
+        <iron-icon icon="icons:link"></iron-icon> New Link
+      </paper-button>
+    </div>
+
+    <nuxeo-document id="defaultDoc"
+                    auto
+                    doc-path="/Marketing/"
+                    enrichers="permissions, subtypes"
+                    response="{{parent}}">
+    </nuxeo-document>
+
+    <nuxeo-document-create-popup-modified id="importPopup"
+                                          parent="[[parent]]"
+                                          default-path="/Marketing/">
+    </nuxeo-document-create-popup-modified>
+    <!-- /Create a new Campaign -->
+
+  </template>
+
+  <script>
+    Polymer({
+      is: 'nuxeo-link_list-search-form',
+      behaviors: [Nuxeo.LayoutBehavior, Nuxeo.RoutingBehavior, Nuxeo.FormatBehavior, Nuxeo.DocumentCreationBehavior],
+      properties: {
+
+
+        params: {
+          type: Object,
+          value: {},
+          notify: true
+
+        },
+        aggregations: {
+          type: Object,
+          value: {},
+          notify: true,
+        },
+        searchTerm: {
+          type: String,
+
+          observer: "_addFullTextSearch"
+        }
+      },
+
+      _addFullTextSearch: function() {
+        if (this.searchTerm) {
+          console.log(this.searchTerm);
+          this.set('params.system_fulltext', this.searchTerm + '*');
+        } else {
+          if (this.params.system_fulltext) {
+            this.set('params.system_fulltext', '');
+            delete this.params.system_fulltext;
+          }
+        }
+      },
+      _checkForEnter: function(e) {
+        if (e.keyCode === 13) {
+          this.fire('trigger-search');
+        }
+      },
+      clear: function() {
+        this.searchTerm = '';
+      },
+
+      _openDialog: function() {
+        this.$.importPopup.toggleDialog();
+        var linkBtn;
+        var docTypes = this.$.importPopup.shadowRoot.querySelector('#simpleCreation').shadowRoot.querySelector('iron-pages > div.vertical.iron-selected > div.container > paper-dialog-scrollable > div').getElementsByClassName('docTypeButton');
+        for (var i = 0; i < docTypes.length; i++) {
+          if(docTypes[i].getAttribute('name') === "Link"){
+            linkBtn = docTypes[i];
+            linkBtn.click();
+            return;
+          }
+        }
+      }
+    });
+  </script>
+</dom-module>

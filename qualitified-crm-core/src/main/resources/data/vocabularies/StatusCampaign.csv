@@ -1,4 +1,5 @@
 id,label,obsolete,ordering
 Draft,Draft,0,0
 Ready,Ready,0,10
-Sent,Sent,0,20
+InProgress,InProgress,0,20
+Sent,Sent,0,30

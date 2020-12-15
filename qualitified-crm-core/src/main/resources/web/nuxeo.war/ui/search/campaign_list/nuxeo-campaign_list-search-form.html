@@ -86,6 +86,25 @@
               value="{{params.campaign_status_agg}}">
       </nuxeo-checkbox-aggregation>
     </div>
+    <!-- Create a new Campaign -->
+    <div class="actions layout vertical style-scope nuxeo-search-form">
+      <paper-button noink="" id="new" class="primary horizontal layout center" on-tap="_openDialog" elevation="0">
+        <iron-icon icon="icons:mail"></iron-icon> [[i18n('command.new.campaign')]]
+      </paper-button>
+    </div>
+
+    <nuxeo-document id="defaultDoc"
+                    auto
+                    doc-path="/Marketing/"
+                    enrichers="permissions, subtypes"
+                    response="{{parent}}">
+    </nuxeo-document>
+
+    <nuxeo-document-create-popup-modified id="importPopup"
+                                          parent="[[parent]]"
+                                          default-path="/Marketing/">
+    </nuxeo-document-create-popup-modified>
+    <!-- /Create a new Campaign -->
 
   </template>
 
@@ -141,6 +160,18 @@
         }else{
           this.set('params.opportunity_closeDate_min', moment().format('YYYY')+'-01-01');
           this.set('params.opportunity_closeDate_max', moment().format('YYYY')+'-06-30');
+        }
+      },
+      _openDialog: function() {
+        this.$.importPopup.toggleDialog();
+        var campaignBtn;
+        var docTypes = this.$.importPopup.shadowRoot.querySelector('#simpleCreation').shadowRoot.querySelector('iron-pages > div.vertical.iron-selected > div.container > paper-dialog-scrollable > div').getElementsByClassName('docTypeButton');
+        for (var i = 0; i < docTypes.length; i++) {
+          if(docTypes[i].getAttribute('name') === "Campaign"){
+            campaignBtn = docTypes[i];
+            campaignBtn.click();
+            return;
+          }
         }
       }
     });

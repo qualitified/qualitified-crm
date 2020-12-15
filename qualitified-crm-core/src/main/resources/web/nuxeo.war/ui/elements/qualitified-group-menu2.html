@@ -24,14 +24,33 @@
                 display: block;
             }
             .appsMenuContent tr:hover {
-                background-color: var(--nuxeo-sidebar-menu-hover);
+                background-color: white;
                 cursor: pointer;
             }
+            .appsMenuContent:hover {
+                color: black;
+                cursor: pointer;
+            }
+            .dropdown:hover .paper-icon-button td {
+                color: black;
+
+            }
+            .hov:hover{
+                color: black;
+                cursor: pointer;
+
+            }
+
+
             .dropdown:hover .appsBtn {
                 color: var(--nuxeo-sidebar-menu-hover);
             }
             .subMenuTitle {
-                color: #B45A00;
+                color: white;
+            }
+            .subMenuTitle:hover {
+                color: orange;
+                cursor: pointer;
             }
             .appsBtn::before,
             .appsBtn::after {
@@ -52,39 +71,66 @@
                 border-spacing: 0px;
             }
             paper-icon-button {
-                color: var(--nuxeo-sidebar-menu);
+
                 height: 48px;
                 padding: 12px 13px;
                 width: var(--nuxeo-sidebar-width);
             }
+
             tr {
                 min-width: 200px;
             }
         </style>
         <div class="dropdown">
             <!--paper-icon-button id="btn" class="appsBtn withoutDrawer"  draggable="false" src="images/doctypes/marketing2.svg" style="width: 100%; height: 100%;" on-tap="_closeDrawer"-->
-                <paper-icon-button id="btn" class="appsBtn withoutDrawer"  icon="qualitified:marketing" on-tap="_closeDrawer">
+            <paper-icon-button id="btn" class="appsBtn withoutDrawer"  icon="qualitified:marketing" style="color:var(--nuxeo-sidebar-menu)" on-tap="_closeDrawer">
 
-                </paper-icon-button>
+            </paper-icon-button>
 
             <div id="content" class="appsMenuContent">
                 <table id="table">
-                    <tr data-item="campaign-list" on-tap="_open">
+                    <tr data-item="campaign-list" on-tap="_open" class="subMenuTitle onHover">
                         <td>
-                            <paper-icon-button name="campaign-list" icon="icons:mail"></paper-icon-button>
+                            <paper-icon-button   name="campaign-list" icon="icons:mail" ></paper-icon-button>
                         </td>
                         <td>
-                            <div class="subMenuTitle onHover">Campaign</div>
-                        </td>
-                    </tr>
-                    <tr data-item="silhouette-list" on-tap="_open">
-                        <td>
-                            <paper-icon-button name="nuxeo-silhouette-view-layout" icon="nuxeo:user" ></paper-icon-button>
-                        </td>
-                        <td>
-                            <div class="subMenuTitle">Silhouette</div>
+                            <div >Campaign</div>
                         </td>
                     </tr>
+                    <tr data-item="silhouette-list" on-tap="_open" class="subMenuTitle onHover">
+                        <td>
+                            <paper-icon-button name="nuxeo-silhouette-view-layout" icon="nuxeo:user"  ></paper-icon-button>
+                        </td>
+                        <td>
+                            <div >Silhouette</div>
+                        </td>
+                    </tr>
+
+                    <tr data-item="link-list" on-tap="_open" class="subMenuTitle onHover">
+                        <td>
+                            <paper-icon-button name="nuxeo-link-view-layout" icon="qualitified:link"  ></paper-icon-button>
+                        </td>
+                        <td>
+                            <div >Link</div>
+                        </td>
+                    </tr>
+                    <tr data-item="automation-list" on-tap="_open" class="subMenuTitle onHover">
+                        <td>
+                            <paper-icon-button name="automation-list" icon="nuxeo:settings"  ></paper-icon-button>
+                        </td>
+                        <td>
+                            <div >Automation</div>
+                        </td>
+                    </tr>
+                    <tr data-item="note-list" on-tap="_open" class="subMenuTitle onHover">
+                        <td>
+                            <paper-icon-button name="note-list" icon="icons:speaker-notes"  ></paper-icon-button>
+                        </td>
+                        <td>
+                            <div >Note</div>
+                        </td>
+                    </tr>
+
 
                 </table>
             </div>
