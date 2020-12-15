@@ -28,7 +28,7 @@
 </nuxeo-slot-content>
 <nuxeo-slot-content name="myQualitifiedViewPage" slot="DOCUMENT_VIEWS_PAGES" >
     <template>
-        <nuxeo-filter document="[[document]]" type="Account,Link,Opportunity,Contact,Silhouette,Interaction,Solicitation,File,Custom,Objects,Scripts,Options,Option">
+        <nuxeo-filter document="[[document]]" type="Account,Opportunity,Contact,Silhouette,Automation,Interaction,Solicitation,File,Custom,Objects,Scripts,Options,Option,Note">
             <template>
                 <qualitified-document-page name="view" document="[[document]]"></qualitified-document-page>
             </template>
@@ -129,6 +129,23 @@
 <nuxeo-slot-content name="silhouette-list" slot="DRAWER_ITEMS" order="22" disabled>
     <template>
         <nuxeo-menu-icon icon=icon="nuxeo:user" name="silhouette-list" label="silhouette"></nuxeo-menu-icon>
+    </template>
+</nuxeo-slot-content>
+<nuxeo-slot-content name="automation-list" slot="DRAWER_PAGES" >
+    <template>
+        <nuxeo-search-form provider="automation_list" schemas="automation,dublincore,person,address" search-name="automation_list" name="automation-list" auto="true"></nuxeo-search-form>
+    </template>
+</nuxeo-slot-content>
+
+<nuxeo-slot-content name="automation-list" slot="DRAWER_ITEMS" order="22" disabled>
+    <template>
+        <nuxeo-menu-icon icon="nuxeo:settings" name="automation-list" label="automation"></nuxeo-menu-icon>
+    </template>
+</nuxeo-slot-content>
+
+<nuxeo-slot-content name="note-list" slot="DRAWER_PAGES" >
+    <template>
+        <nuxeo-search-form provider="note_list" schemas="note,custom,dublincore" search-name="note_list" name="note-list" auto="true"></nuxeo-search-form>
     </template>
 </nuxeo-slot-content>
 <!-- Contribution of element 'nuxeo-search-form' for slot 'DRAWER_PAGES' -->

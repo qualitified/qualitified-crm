@@ -59,7 +59,11 @@
             <nuxeo-date-picker value="{{params.datefield1_min}}" label="date de la  dernière visite (Min)" role="widget"></nuxeo-date-picker>
             <nuxeo-date-picker value="{{params.datefield1_max}}" label="date de la  dernière visite(Max)" role="widget"></nuxeo-date-picker>
         </div>
-        ​
+
+        ​<div class="layout vertical row">
+        <label>Lien(s) suivi(s)</label>
+        <nuxeo-dropdown-aggregation data="[[aggregations.followed_links_agg]]" value="{{params.followed_links_agg}}" multiple=""></nuxeo-dropdown-aggregation>
+        </div>
         ​
     </template>
     ​
