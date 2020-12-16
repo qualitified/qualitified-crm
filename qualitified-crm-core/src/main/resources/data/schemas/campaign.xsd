@@ -52,4 +52,6 @@
         </xs:simpleType>
     </xs:element>
     <xs:element name="sendDate" type="xs:date"/>
+    <xs:element name="automation_list_pp" type="xs:string"></xs:element>
+
 </xs:schema>

@@ -1495,8 +1495,12 @@
         <predicate id="system_fulltext" parameter="ecm:fulltext" operator="FULLTEXT ALL">
           <field schema="automation_list_pp" name="system_fulltext"/>
         </predicate>
-
-        <fixedPart>ecm:mixinType != 'HiddenInNavigation' AND ecm:isCheckedInVersion = 0 AND ecm:currentLifeCycleState != 'deleted' AND ecm:isTrashed = 0 AND  ecm:primaryType = 'Automation' </fixedPart>
+        <fixedPart quoteParameters="false">
+          ecm:mixinType != 'HiddenInNavigation'
+          AND ecm:isVersion = 0
+          AND ecm:isTrashed = 0
+          AND ecm:primaryType = 'Automation'
+          AND ecm:fulltext = '?*'</fixedPart>
       </whereClause>
       <searchDocumentType>automation_list_pp</searchDocumentType>
       <sort column="dc:title" ascending="true" />

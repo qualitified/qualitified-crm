@@ -28,7 +28,8 @@
 </nuxeo-slot-content>
 <nuxeo-slot-content name="myQualitifiedViewPage" slot="DOCUMENT_VIEWS_PAGES" >
     <template>
-        <nuxeo-filter document="[[document]]" type="Account,Link,Opportunity,Contact,Silhouette,Automation,Interaction,Solicitation,File,Custom,Objects,Scripts,Options,Option,Note">
+
+        <nuxeo-filter document="[[document]]" type="Account,Campaign,Link,Opportunity,Contact,Silhouette,Automation,Interaction,Solicitation,File,Custom,Objects,Scripts,Options,Option,Note">
             <template>
                 <qualitified-document-page name="view" document="[[document]]"></qualitified-document-page>
             </template>
@@ -110,7 +111,7 @@
 </nuxeo-slot-content> -->
 <nuxeo-slot-content name="campaign-list" slot="DRAWER_PAGES" >
     <template>
-        <nuxeo-search-form provider="campaign_list" schemas="campaign,dublincore,contact,person,address" search-name="campaign_list" name="campaign-list" auto="true"></nuxeo-search-form>
+        <nuxeo-search-form provider="campaign_list" schemas="campaign,dublincore,contact,person,address,automation_list_pp,automation_list,custom" search-name="campaign_list" name="campaign-list" auto="true"></nuxeo-search-form>
     </template>
 </nuxeo-slot-content>
 

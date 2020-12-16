@@ -16,22 +16,23 @@
                 color:var(--nuxeo-secondary-color);
             }
         </style>
-        <div role="widget"><label>Html Part</label>
-            <div name="htmlPart">[[document.properties.campaign:htmlPart]]</div>
+        <div role="widget" class="title">
+            <h1>
+                [[document.properties.dc:title]]
+            </h1>
         </div>
-        <div role="widget"><label>Message Href</label>
-            <div name="messageHref">[[document.properties.campaign:messageHref]]</div>
+
+
+        <div role="widget" hidden$="[[!document.properties.campaign:automation_list_pp]]">
+            <label>Automation</label>
+            <qualitified-document-suggestion role="widget"
+                                             value="[[document.properties.campaign:automation_list_pp]]"
+                                             min-chars="0"
+                                             clickable="true"
+                                             readOnly>
+            </qualitified-document-suggestion>
         </div>
-        <div role="widget"><label>Subject</label>
-            <div name="subject">[[document.properties.campaign:subject]]</div>
-        </div>
-        <div role="widget"><label>Text Part</label>
-            <div name="textPart">[[document.properties.campaign:textPart]]</div>
-        </div>
-        <div role="widget">
-            <label>status</label>
-            <div directory-name="StatusCampaign">[[formatDirectory(document.properties.campaign:status)]]</div>
-        </div>
+
         <div role="widget">
             <label>Send date</label>
             <div>[[formatDate(document.properties.campaign:sendDate)]]</div>
