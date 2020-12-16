@@ -8,34 +8,29 @@
         </style>
         <nuxeo-input label="Titre" role="widget"
                      value="{{document.properties.dc:title}}"></nuxeo-input>
-        <nuxeo-input label="Html Part" maxlength="999999999" name="htmlPart"
-                     role="widget" type="text" value="{{document.properties.campaign:htmlPart}}"></nuxeo-input>
-        <nuxeo-input label="Message Href" name="messageHref"
-                     role="widget" type="text" value="{{document.properties.campaign:messageHref}}"></nuxeo-input>
-        <nuxeo-input label="Subject" name="subject" role="widget"
-                     type="text" value="{{document.properties.campaign:subject}}"></nuxeo-input>
-        <nuxeo-input label="Text Part" maxlength="999999999" name="textPart"
-                     role="widget" type="text" value="{{document.properties.campaign:textPart}}"></nuxeo-input>
+
         <nuxeo-directory-suggestion role="widget" value="{{document.properties.campaign:status}}"
                                     label="status" directory-name="StatusCampaign"
                                     min-chars="0" ></nuxeo-directory-suggestion>
-        <nuxeo-date-picker value="{{document.properties.campaign:sendDate}}" label="sendDate" required="true" role="widget"></nuxeo-date-picker>
+        <qualitified-document-suggestion role="widget" value="{{document.properties.campaign:automation_list_pp}}" label="Automation" page-provider="automation_list" min-chars="0" params='{ "namedParameters": "system_primaryType=Automation"}'></qualitified-document-suggestion>
 
+
+        <nuxeo-date-picker value="{{document.properties.campaign:sendDate}}" label="sendDate" required="true" role="widget"></nuxeo-date-picker>
     </template>
 
 
     <script>
-    Polymer({
-      is: 'nuxeo-campaign-edit-layout',
-      behaviors: [Nuxeo.LayoutBehavior],
-      properties: {
-        /**
-         * @doctype campaign
-         */
-        document: {
-          type: Object
-        }
-      }
-    });
+        Polymer({
+            is: 'nuxeo-campaign-edit-layout',
+            behaviors: [Nuxeo.LayoutBehavior],
+            properties: {
+                /**
+                 * @doctype campaign
+                 */
+                document: {
+                    type: Object
+                }
+            }
+        });
     </script>
 </dom-module>
