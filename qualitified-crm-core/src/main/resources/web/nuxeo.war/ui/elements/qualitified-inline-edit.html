@@ -82,6 +82,16 @@
                                    min-chars="0">
                 </nuxeo-date-picker>
             </template>
+            <template is="dom-if" if="[[_isDocument(metadata)]]">
+                <qualitified-document-suggestion role="widget"
+                                                 value="{{value}}"
+                                                 label="[[i18n(label)]]"
+                                                 page-provider="documents"
+                                                 min-chars="0"
+                                                 params='{ "namedParameters": "system_primaryType=Note"}'>
+                </qualitified-document-suggestion>
+
+            </template>
 
             <div class="buttons">
                 <paper-button noink dialog-dismiss on-tap="_cancel">Cancel</paper-button>
@@ -130,6 +140,10 @@
         value: 'input'
       },
       directory:{
+        type: String,
+        value: ''
+      },
+      namedParameters:{
         type: String,
         value: ''
       }
@@ -203,6 +217,9 @@
     },
     _isDate: function(value){
       return value && value == 'date';
+    },
+    _isDocument: function(value){
+        return value && value == 'document';
     }
   });
   </script>
