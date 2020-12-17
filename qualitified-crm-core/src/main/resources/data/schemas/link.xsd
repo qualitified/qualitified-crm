@@ -34,5 +34,6 @@
 </xs:sequence>
 </xs:complexType>
 <xs:element name="href" type="xs:string"/>
+    <xs:element name="system_fulltext" type="xs:string"/>
 
-        </xs:schema>
+</xs:schema>
