@@ -29,6 +29,10 @@
       <groupId>org.qualitified.crm</groupId>
       <artifactId>qualitified-crm-custom</artifactId>
     </dependency>
+    <dependency>
+      <groupId>org.qualitified.crm</groupId>
+      <artifactId>qualitified-crm-restapi</artifactId>
+    </dependency>
   </dependencies>
 
   <build>

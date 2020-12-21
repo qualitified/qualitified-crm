@@ -76,13 +76,14 @@
     </doctype>
 
     <doctype name="Link" extends="Document">
+      <schema name="link"/>
       <schema name="dublincore"/>
       <schema name="common"/>
       <schema name="uid"/>
-      <schema name="link"/>
       <schema name="custom"/>
       <facet name="NXTag"/>
     </doctype>
+
     <doctype name="Account" extends="Document">
       <schema name="account"/>
       <schema name="dublincore"/>
@@ -269,7 +270,6 @@
       <subtypes>
         <type>Account</type>
         <type>Contact</type>
-        <type>Link</type>
       </subtypes>
     </doctype>
     <doctype name="Root" append="true">
@@ -432,7 +432,7 @@
       </subtypes>
     </doctype>
 
-  
+
     <doctype name="silhouette_list_pp" extends="Document">
       <facet name="ContentViewDisplay"/>
       <facet name="SavedSearch"/>
@@ -603,7 +603,9 @@
     <types>
       <type name="Options">default</type>
     </types>
-
+    <types>
+      <type name="Link">default</type>
+    </types>
   </extension>
   <extension target="org.nuxeo.ecm.platform.types.TypeService" point="types">
     <type id="Calendar">
@@ -1342,7 +1344,7 @@
       <sort column="custom:dateField1" ascending="false" />
       <pageSize>10</pageSize>
     </genericPageProvider>
-    
+
     <genericPageProvider class="org.nuxeo.elasticsearch.provider.ElasticSearchNxqlPageProvider" name="account_list">
       <property name="coreSession">#{documentManager}</property>
       <whereClause>
@@ -1424,11 +1426,6 @@
         <predicate id="system_fulltext" parameter="ecm:fulltext" operator="FULLTEXT ALL">
           <field schema="link_list_pp" name="system_fulltext"/>
         </predicate>
-
-
-        <!--predicate id="dublincore_title" parameter="dc:title" operator="ILIKE">
-          <field schema="campaign_list_pp" name="dublincore_title"/>
-        </predicate-->
         <fixedPart>ecm:mixinType != 'HiddenInNavigation' AND ecm:isCheckedInVersion = 0 AND ecm:isTrashed = 0 AND ecm:currentLifeCycleState != 'deleted' AND ecm:primaryType = 'Link'</fixedPart>
       </whereClause>
       <searchDocumentType>link_list_pp</searchDocumentType>
@@ -2080,7 +2077,7 @@
       <table>studio_vocabulary_Zone</table>
       <dataFile>data/vocabularies/Zone.csv</dataFile>
     </directory>
-  
+
     <directory name="Role">
       <schema>vocabulary</schema>
       <dataSource>java:/nxsqldirectory</dataSource>
@@ -2311,7 +2308,7 @@
       <grantPattern>${org.nuxeo.ecm.contextPath}/site/api/v1/link/.*</grantPattern>
     </openUrl>
     <openUrl name="Register">
-      <grantPattern>${org.nuxeo.ecm.contextPath}/site/api/v1/register.*</grantPattern>
+      <grantPattern>${org.nuxeo.ecm.contextPath}/site/api/v1/register/.*</grantPattern>
     </openUrl>
   </extension>
   <!-- Trash Migration: https://doc.nuxeo.com/nxdoc/upgrade-from-lts-2017-to-lts-2019/ -->
