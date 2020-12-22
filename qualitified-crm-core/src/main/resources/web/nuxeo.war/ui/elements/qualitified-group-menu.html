@@ -251,7 +251,7 @@
                 }, 20);
             },
             _getCount:function(){
-          this.params.query = "SELECT * FROM Document WHERE ecm:isVersion = 0 AND ecm:mixinType != 'HiddenInNavigation' AND ecm:isTrashed = 0  AND ecm:currentLifeCycleState ='done'";
+          this.params.query = "SELECT * FROM Document WHERE ecm:isVersion = 0 AND ecm:mixinType != 'HiddenInNavigation' AND ecm:isTrashed = 0  AND ecm:currentLifeCycleState ='todo'";
         this.$.query.execute().then(function(result) {
             this.badge = result.resultsCount;
         }.bind(this));
