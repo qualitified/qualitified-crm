@@ -47,6 +47,8 @@
     <schema name="silhouette_list_pp" prefix="silhouette_list_pp" override="true" src="data/schemas/silhouette_list_pp.xsd"/>
     <schema name="note_list_pp" prefix="note_list_pp" override="true" src="data/schemas/note_list_pp.xsd"/>
     <schema name="html" prefix="html" override="true" src="data/schemas/html.xsd"/>
+    <schema name="email" prefix="email" override="true" src="data/schemas/email.xsd"/>
+
 
   </extension>
   <extension target="org.nuxeo.ecm.core.schema.TypeService" point="doctype">
@@ -255,6 +257,19 @@
       <facet name="NXTag"/>
       <facet name="Folderish"/>
     </doctype>
+    <doctype name="Email" extends="Collection">
+      <schema name="dublincore"/>
+      <schema name="common"/>
+      <schema name="uid"/>
+      <schema name="email"/>
+      <schema name="custom"/>
+      <schema name="html"/>
+      <schema name="picture"/>
+      <schema name="note"/>
+      <facet name="Picture"/>
+      <facet name="NXTag"/>
+      <facet name="Folderish"/>
+    </doctype>
     <doctype name="Campaign" append="true">
       <subtypes>
         <type>Contact</type>
@@ -346,6 +361,7 @@
         <type>Link</type>
         <type>Automation</type>
         <type>Note</type>
+        <type>Email</type>
       </subtypes>
     </doctype>
     <doctype name="ScriptNote" extends="Note">
@@ -649,6 +665,12 @@
       <label>Campaign</label>
       <icon>/img/mailfolder_100.png</icon>
       <bigIcon>/img/mailfolder_100.png</bigIcon>
+      <description></description>
+    </type>
+    <type id="Email">
+      <label>Email</label>
+      <icon>/img/Email.png</icon>
+      <bigIcon>/img/Emai.png</bigIcon>
       <description></description>
     </type>
     <type id="Link">

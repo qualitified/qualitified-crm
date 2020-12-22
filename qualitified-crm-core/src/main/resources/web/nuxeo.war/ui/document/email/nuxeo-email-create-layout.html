@@ -1,0 +1,53 @@
+
+--><dom-module id="nuxeo-email-create-layout">
+
+  <template>
+    <style>
+      *[role=widget] {
+        margin-bottom: 8px;
+      }
+    </style>
+    <nuxeo-input role="widget" value="{{document.properties.dc:title}}" label="[[i18n('title')]]" required="true"></nuxeo-input>
+
+    <nuxeo-textarea role="widget" value="{{document.properties.dc:description}}" label="Description"></nuxeo-textarea>
+
+    <nuxeo-select
+            role="widget"
+            label="format"
+            options="[[formats]]"
+            selected="{{document.properties.note:mime_type}}"
+
+    >
+    </nuxeo-select>
+    <nuxeo-dropzone role="widget" label="Visuel"
+                    document="[[document]]"></nuxeo-dropzone>
+    <qualitified-custom-fields document="{{document}}" mode="edit"></qualitified-custom-fields>
+
+
+
+
+
+  </template>
+
+  <script>
+    Polymer({
+      is: 'nuxeo-email-create-layout',
+      behaviors: [Nuxeo.LayoutBehavior],
+      properties: {
+        /**
+         * @doctype email
+         */
+        document: Object,
+
+        formats: Array
+      },
+
+      ready() {
+        this.formats = [
+          { id: 'text/html', label: this.formatMimeType('text/html') }
+        ];
+      }
+    });
+  </script>
+
+</dom-module>
