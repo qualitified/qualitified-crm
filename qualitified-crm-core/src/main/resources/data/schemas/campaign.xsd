@@ -52,6 +52,10 @@
         </xs:simpleType>
     </xs:element>
     <xs:element name="sendDate" type="xs:date"/>
-    <xs:element name="automation_list_pp" type="xs:string"></xs:element>
+    <xs:element name="automationId">
+        <xs:simpleType>
+            <xs:restriction base="xs:string" ref:resolver="documentResolver" ref:store="path"/>
+        </xs:simpleType>
+    </xs:element>
 
 </xs:schema>

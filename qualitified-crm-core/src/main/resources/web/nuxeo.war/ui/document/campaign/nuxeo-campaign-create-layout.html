@@ -13,7 +13,7 @@
                                     label="status" directory-name="StatusCampaign"
                                     min-chars="0" ></nuxeo-directory-suggestion>
 
-        <qualitified-document-suggestion role="widget" value="{{document.properties.campaign:automation_list_pp}}" label="Automation" page-provider="automation_list" min-chars="0" params='{ "namedParameters": "system_primaryType=Automation"}'></qualitified-document-suggestion>
+        <qualitified-document-suggestion role="widget" value="{{document.properties.campaign:automationId}}" label="Automation" page-provider="automation_list" min-chars="0" params='{ "namedParameters": "system_primaryType=Automation"}'></qualitified-document-suggestion>
 
         <nuxeo-date-picker value="{{document.properties.campaign:sendDate}}" label="sendDate" required="true" role="widget"></nuxeo-date-picker>
     </template>
