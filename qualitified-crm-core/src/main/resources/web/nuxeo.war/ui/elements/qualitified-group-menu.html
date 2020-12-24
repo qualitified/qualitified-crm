@@ -41,7 +41,6 @@
 
             }
 
-
             .dropdown:hover .appsBtn {
                 color: var(--nuxeo-sidebar-menu-hover);
             }
@@ -74,10 +73,18 @@
                 height: 48px;
                 padding: 12px 13px;
                 width: var(--nuxeo-sidebar-width);
+
             }
             tr {
                 min-width: 200px;
             }
+            paper-badge {
+                --paper-badge-margin-left: -24px;
+                --paper-badge-margin-bottom: -24px;
+                --paper-badge-width: 16px;
+                --paper-badge-height: 16px;
+            }
+
 
         </style>
         <nuxeo-operation id="query" op="Repository.Query" params="{{params}}"></nuxeo-operation>
@@ -134,14 +141,11 @@
                             <template if="[[badge]]" is="dom-if">
                                 <paper-badge for="button" label="[[badge]]"></paper-badge>
                             </template>
-
-
                         </td></a>
                         <td>
                             <div>Interaction</div>
                         </td>
                     </tr>
-
                 </table>
             </div>
         </div>

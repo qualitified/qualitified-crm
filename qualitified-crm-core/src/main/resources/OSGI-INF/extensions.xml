@@ -2013,8 +2013,8 @@
       </acl>
       <template>
         <templateItem typeName="Sales" id="Sales" title="Sales" description=""/>
-        <!--templateItem typeName="Marketing" id="Marketing" title="Marketing" description=""/>
-        <templateItem typeName="Services" id="Services" title="Services" description=""/-->
+        <templateItem typeName="Marketing" id="Marketing" title="Marketing" description=""/>
+        <!--templateItem typeName="Services" id="Services" title="Services" description=""/-->
         <templateItem typeName="Admin" id="Admin" title="Admin" description=""/>
         <!--templateItem typeName="Sales" id="Test" title="Test" description=""/-->
       </template>
