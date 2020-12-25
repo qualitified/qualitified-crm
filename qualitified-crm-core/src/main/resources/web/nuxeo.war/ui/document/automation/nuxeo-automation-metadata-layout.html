@@ -42,7 +42,7 @@
         </div>
 
         <div role="widget" hidden$="[[!document.properties.dc:description]]">
-            <label>Description</label>
+            <label>[[i18n('label.description')]]</label>
             <div>
                 <pre class="wrap">[[document.properties.dc:description]]</pre>
             </div>
@@ -53,14 +53,14 @@
             <div>
                 <!--Start-->
                 <a href="/nuxeo/ui/#!/doc/[[document.properties.custom:documentField1]]" target="_blank"><paper-icon-button id="documentField1" class="icon-color" icon="icons:home"></paper-icon-button></a>
-                <paper-tooltip for="documentField1">Envoyer le courriel de démarrage</paper-tooltip>
+                <paper-tooltip for="documentField1">[[i18n('label.metadata.automation.send.tooltip')]]</paper-tooltip>
                 <qualitified-inline-edit document="[[document]]" property="custom:documentField1" label="" named-parameters="system_primaryType=Note" metadata="document"></qualitified-inline-edit>
                 <div>
                     <paper-icon-button icon="icons:arrow-downward"></paper-icon-button>
                 </div>
                 <!--Wait-->
                 <paper-icon-button id="integerField1" icon="icons:query-builder"></paper-icon-button>
-                <paper-tooltip for="integerField1">Attendre [[document.properties.custom:integerField1]] jour(s)</paper-tooltip>
+                <paper-tooltip for="integerField1">[[i18n('label.metadata.automation.wait.tooltip')]] [[document.properties.custom:integerField1]] [[i18n('label.metadata.automation.days.tooltip')]]</paper-tooltip>
                 <qualitified-inline-edit document="[[document]]" property="custom:integerField1" label=""></qualitified-inline-edit>
                 <div>
                     <paper-icon-button icon="icons:arrow-downward"></paper-icon-button>
@@ -68,7 +68,7 @@
                 <div>
                     <!--Send-->
                     <a href="/nuxeo/ui/#!/doc/[[document.properties.custom:documentField2]]" target="_blank"><paper-icon-button id="send1" class="icon-color" icon="icons:send"></paper-icon-button></a>
-                    <paper-tooltip for="send1">Envoyer la première infolettre</paper-tooltip>
+                    <paper-tooltip for="send1">[[i18n('label.metadata.automation.send1.tooltip')]]</paper-tooltip>
                     <qualitified-inline-edit document="[[document]]" property="custom:documentField2" label="" named-parameters="system_primaryType=Note" metadata="document"></qualitified-inline-edit>
                 </div>
             </div>
@@ -79,7 +79,7 @@
                 <!--Right-->
                 <iron-icon style="width:60px;height:60px" icon="icons:subdirectory-arrow-right"></iron-icon>
                 <paper-icon-button id="end1" icon="nuxeo:cross"></paper-icon-button>
-                <paper-tooltip for="end1">Fin</paper-tooltip>
+                <paper-tooltip for="end1">[[i18n('label.metadata.automation.end.tooltip')]]</paper-tooltip>
             </div>
 
             <div>
@@ -87,7 +87,7 @@
                     <div>
                         <!--Opened-->
                         <paper-icon-button id="open1" class="icon-color" icon="icons:drafts"></paper-icon-button>
-                        <paper-tooltip for="open1">Si ouvert</paper-tooltip>
+                        <paper-tooltip for="open1">[[i18n('label.metadata.automation.open.tooltip')]]</paper-tooltip>
                     </div>
                     <div>
                         <paper-icon-button icon="icons:arrow-downward"></paper-icon-button>
@@ -95,7 +95,7 @@
                     <div>
                         <!--Wait-->
                         <paper-icon-button id="integerField2" icon="icons:query-builder"></paper-icon-button>
-                        <paper-tooltip for="integerField2">Attendre [[document.properties.custom:integerField2]] jour(s)</paper-tooltip>
+                        <paper-tooltip for="integerField2">[[i18n('label.metadata.automation.wait.tooltip')]] [[document.properties.custom:integerField2]] [[i18n('label.metadata.automation.days.tooltip')]]</paper-tooltip>
                     </div>
                     <div style="padding-right:16px">
                         <qualitified-inline-edit document="[[document]]" property="custom:integerField2" label=""></qualitified-inline-edit>
@@ -106,7 +106,7 @@
                     <div>
                         <!--Send-->
                         <a href="/nuxeo/ui/#!/doc/[[document.properties.custom:documentField3]]" target="_blank"><paper-icon-button id="send2" class="icon-color" icon="icons:send"></paper-icon-button></a>
-                        <paper-tooltip for="send2">Envoyer la deuxième infolettre</paper-tooltip>
+                        <paper-tooltip for="send2">[[i18n('label.metadata.automation.send2.tooltip')]]</paper-tooltip>
                         <qualitified-inline-edit document="[[document]]" property="custom:documentField3" label="" named-parameters="system_primaryType=Note" metadata="document"></qualitified-inline-edit>
                     </div>
 
@@ -120,7 +120,7 @@
                 <!--Right-->
                 <iron-icon style="width:60px;height:60px" icon="icons:subdirectory-arrow-right"></iron-icon>
                 <paper-icon-button id="end2" icon="nuxeo:cross"></paper-icon-button>
-                <paper-tooltip for="end2">Fin</paper-tooltip>
+                <paper-tooltip for="end2">[[i18n('label.metadata.automation.end.tooltip')]]</paper-tooltip>
             </div>
 
 
@@ -129,7 +129,7 @@
                     <div>
                         <!--Opened-->
                         <paper-icon-button id="open2" class="icon-color" icon="icons:drafts"></paper-icon-button>
-                        <paper-tooltip for="open2">Si ouvert</paper-tooltip>
+                        <paper-tooltip for="open2">[[i18n('label.metadata.automation.open.tooltip')]]</paper-tooltip>
                     </div>
                     <div>
                         <paper-icon-button icon="icons:arrow-downward"></paper-icon-button>
@@ -137,7 +137,7 @@
                     <div>
                         <!--Wait-->
                         <paper-icon-button id="integerField3" icon="icons:query-builder"></paper-icon-button>
-                        <paper-tooltip for="integerField3">Attendre [[document.properties.custom:integerField3]] jour(s)</paper-tooltip>
+                        <paper-tooltip for="integerField3">[[i18n('label.metadata.automation.wait.tooltip')]] [[document.properties.custom:integerField3]] [[i18n('label.metadata.automation.days.tooltip')]]</paper-tooltip>
                     </div>
                     <div style="padding-right:16px">
                         <qualitified-inline-edit document="[[document]]" property="custom:integerField3" label=""></qualitified-inline-edit>
@@ -148,7 +148,7 @@
                     <div>
                         <!--Send-->
                         <a href="/nuxeo/ui/#!/doc/[[document.properties.custom:documentField4]]" target="_blank"><paper-icon-button id="send3" class="icon-color" icon="icons:send"></paper-icon-button></a>
-                        <paper-tooltip for="send3">Envoyer la troisième infolettre</paper-tooltip>
+                        <paper-tooltip for="send3">[[i18n('label.metadata.automation.send3.tooltip')]]</paper-tooltip>
                         <qualitified-inline-edit document="[[document]]" property="custom:documentField4" label="" named-parameters="system_primaryType=Note" metadata="document"></qualitified-inline-edit>
 
                     </div>
@@ -158,7 +158,7 @@
                     <div>
                         <!--Stop -->
                         <paper-icon-button id="end3" icon="nuxeo:cross"></paper-icon-button>
-                        <paper-tooltip for="end3">Fin</paper-tooltip>
+                        <paper-tooltip for="end3">[[i18n('label.metadata.automation.end.tooltip')]]</paper-tooltip>
                     </div>
 
                 </div>
@@ -181,11 +181,17 @@
           document: {
             type: Object,
             observer: '_documentReady'
+          },
+          params:{
+            type: Object,
+            value: {}
           }
         },
+
+
         _documentReady: function(doc){
 
-         },
+        }
 
       });
     })();

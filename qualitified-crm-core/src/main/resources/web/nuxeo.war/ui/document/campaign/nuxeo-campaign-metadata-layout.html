@@ -24,7 +24,7 @@
 
 
         <div role="widget" hidden$="[[!document.properties.campaign:automationId]]">
-            <label>Automation</label>
+            <label>[[i18n('label.metadata.automation.title')]]</label>
             <qualitified-document-suggestion role="widget"
                                              value="[[document.properties.campaign:automationId]]"
                                              min-chars="0"
@@ -34,7 +34,7 @@
         </div>
 
         <div role="widget">
-            <label>Send date</label>
+            <label>[[i18n('label.metadata.campaign.sendDate')]]</label>
             <div>[[formatDate(document.properties.campaign:sendDate)]]</div>
         </div>
     </template>

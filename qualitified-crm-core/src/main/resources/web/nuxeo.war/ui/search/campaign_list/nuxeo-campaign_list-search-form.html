@@ -38,6 +38,7 @@
     </style>
 
     <div class="layout vertical row">
+      <label>[[i18n('label.metadata.title')]]</label>
       <nuxeo-input role="widget"
                    id="searchInput"
                    type="search"
@@ -56,14 +57,14 @@
 
 
     <div class="layout vertical row">
-      <label>campaign date</label>
+      <label>[[i18n('label.metadata.createdDate')]]</label>
       <nuxeo-date-picker value="{{params.campaign_closeDate_min}}"
                          label="from"></nuxeo-date-picker>
       <nuxeo-date-picker value="{{params.campaign_closeDate_max}}"
                          label="to"></nuxeo-date-picker>
     </div>
     <div class="layout vertical row">
-      <label>date</label>
+      <label>[[i18n('label.metadata.createdDate')]]</label>
       <nuxeo-checkbox-aggregation
               data="[[aggregations.campaign_createdDate_agg]]"
               value="{{params.campaign_createdDate_agg}}">
@@ -71,7 +72,7 @@
     </div>
 
     <div class="layout vertical row">
-      <label>status</label>
+      <label>[[i18n('label.metadata.status')]]</label>
       <nuxeo-checkbox-aggregation
               data="[[aggregations.campaign_status_agg]]"
               value="{{params.campaign_status_agg}}">
@@ -80,7 +81,7 @@
     <!-- Create a new Campaign -->
     <div class="actions layout vertical style-scope nuxeo-search-form">
       <paper-button noink="" id="new" class="primary horizontal layout center" on-tap="_openDialog" elevation="0">
-        <iron-icon icon="icons:mail"></iron-icon> [[i18n('command.new.campaign')]]
+        <iron-icon icon="icons:mail"></iron-icon> [[i18n('command.new')]]
       </paper-button>
     </div>
 

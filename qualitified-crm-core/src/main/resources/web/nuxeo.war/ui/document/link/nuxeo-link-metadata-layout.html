@@ -24,27 +24,26 @@
         </div>
 
         <div role="widget" hidden$="[[!document.properties.dc:description]]">
-            <label>Description</label>
+            <label>[[i18n('label.description')]]</label>
             <div>
                 <pre class="wrap">[[document.properties.dc:description]]</pre>
             </div>
         </div>
         <div role="widget">
-            <label>Lien</label>
+            <label>[[i18n('label.metadata.link.href')]]</label>
             <div>
                 <a href="[[document.properties.link:href]]" target="_blank">[[document.properties.link:href]]</a>
             </div>
         </div>
 
         <div role="widget">
-            <label>Lien suivi</label>
+            <label>[[i18n('label.metadata.link.follow')]]</label>
             <div>
                 [[trackedLink]]
                 <copy-to-clipboard
                         id="copyToClipboard"
                         clipboard-value-to-copy="[[trackedLink]]"
                         clipboard-value-copied="{{copiedValue}}"
-                        clipboard-trigger-id="copyButton"
                 ></copy-to-clipboard>
 
             </div>
@@ -59,7 +58,7 @@
             'use strict';
             Polymer({
                 is: 'nuxeo-link-metadata-layout',
-                behaviors: [Nuxeo.LayoutBehavior],
+                behaviors: [Nuxeo.LayoutBehavior,Nuxeo.I18nBehavior],
                 properties: {
 
                     /**
@@ -78,10 +77,6 @@
                     if(this.document){
                         this.trackedLink = document.location.protocol +"//"+document.location.host+"/nuxeo/site/api/v1/link/"+this.document.properties["dc:title"];
                     }
-                },
-                _copied: function(){
-                    this.$.linkToast.text = "Copié !";
-                    this.$.linkToast.open();
                 }
             });
         })();

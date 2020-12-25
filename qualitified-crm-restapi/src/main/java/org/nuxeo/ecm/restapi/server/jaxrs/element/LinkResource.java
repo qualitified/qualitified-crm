@@ -54,7 +54,7 @@ public class LinkResource extends DefaultObject {
         return new UnrestrictedRunner() {
             @Override
             public Object getLinkDocument(CoreSession session, String linkCode) throws NuxeoException {
-                List<DocumentModel> links = session.query("SELECT * FROM Link WHERE ecm:isProxy = 0 AND ecm:isCheckedInVersion = 0 AND ecm:isTrashed = 0 AND ecm:currentLifeCycleState != 'deleted' AND dc:title ILIKE '"+linkCode+"' ORDER BY dc:created ASC");
+                List<DocumentModel> links = session.query("SELECT * FROM Link WHERE ecm:isProxy = 0 AND ecm:isCheckedInVersion = 0 AND ecm:isTrashed = 0  AND dc:title ILIKE '"+linkCode+"' ORDER BY dc:created ASC");
                 if(links.size()>0){
                     return session.getDocument(new IdRef(links.get(0).getId()));
                 }else{
