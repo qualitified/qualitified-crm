@@ -1,4 +1,3 @@
-<link rel="import" href="../../elements/copy-to-clipboard.html">
 <link rel="import" href="../qualitified-custom-fields.html">
 <dom-module id="nuxeo-link-metadata-layout">
     <template>
@@ -18,7 +17,6 @@
                 color:var(--nuxeo-secondary-color);
             }
         </style>
-        <paper-toast id="linkToast"></paper-toast>
         <div role="widget" class="title">
             <h1>
                 [[document.properties.dc:title]]
@@ -47,6 +45,7 @@
                         clipboard-value-to-copy="[[trackedLink]]"
                         clipboard-value-copied="{{copiedValue}}"
                 ></copy-to-clipboard>
+
             </div>
         </div>
 
@@ -70,7 +69,8 @@
                         observer: '_documentReady'
                     },
                     trackedLink :{
-                        type: String
+                        type: String,
+                        value:""
                     }
                 },
                 _documentReady: function(doc){

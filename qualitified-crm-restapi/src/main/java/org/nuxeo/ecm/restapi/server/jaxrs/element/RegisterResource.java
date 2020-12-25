@@ -89,13 +89,13 @@ public class RegisterResource extends DefaultObject {
                     coreSession.saveDocument(silhouette);
                 }
                 //if(properties.containsKey("custom:booleanField1")){
-                    DocumentModel interactionModel = coreSession.createDocumentModel(input, "interaction", "Interaction");
-                    interactionModel.setPropertyValue("dc:title", silhouette.getPropertyValue("custom:systemField1"));
-                    interactionModel.setPropertyValue("interaction:status", "DONE");
-                    interactionModel.setPropertyValue("interaction:activity", "Inscription");
-                    interactionModel.setPropertyValue("interaction:date", Calendar.getInstance());
-                    interactionModel.setPropertyValue("custom:systemField1", silhouette.getId());
-                    coreSession.createDocument(interactionModel);
+                DocumentModel interactionModel = coreSession.createDocumentModel(input, "interaction", "Interaction");
+                interactionModel.setPropertyValue("dc:title", silhouette.getPropertyValue("custom:systemField1"));
+                interactionModel.setPropertyValue("interaction:status", "DONE");
+                interactionModel.setPropertyValue("interaction:activity", "Inscription");
+                interactionModel.setPropertyValue("interaction:date", Calendar.getInstance());
+                interactionModel.setPropertyValue("custom:systemField1", silhouette.getId());
+                coreSession.createDocument(interactionModel);
                 /*}else{
                     //Filled form to be a customer
                 }*/

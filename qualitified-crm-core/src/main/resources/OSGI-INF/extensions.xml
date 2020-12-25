@@ -47,6 +47,10 @@
     <schema name="silhouette_list_pp" prefix="silhouette_list_pp" override="true" src="data/schemas/silhouette_list_pp.xsd"/>
     <schema name="note_list_pp" prefix="note_list_pp" override="true" src="data/schemas/note_list_pp.xsd"/>
     <schema name="html" prefix="html" override="true" src="data/schemas/html.xsd"/>
+    <schema name="email" prefix="email" override="true" src="data/schemas/email.xsd"/>
+    <schema name="email_list_pp" prefix="email_list_pp" override="true" src="data/schemas/email_list_pp.xsd"/>
+
+
 
   </extension>
   <extension target="org.nuxeo.ecm.core.schema.TypeService" point="doctype">
@@ -76,13 +80,14 @@
     </doctype>
 
     <doctype name="Link" extends="Document">
+      <schema name="link"/>
       <schema name="dublincore"/>
       <schema name="common"/>
       <schema name="uid"/>
-      <schema name="link"/>
       <schema name="custom"/>
       <facet name="NXTag"/>
     </doctype>
+
     <doctype name="Account" extends="Document">
       <schema name="account"/>
       <schema name="dublincore"/>
@@ -254,6 +259,19 @@
       <facet name="NXTag"/>
       <facet name="Folderish"/>
     </doctype>
+    <doctype name="Email" extends="Document">
+      <schema name="dublincore"/>
+      <schema name="common"/>
+      <schema name="uid"/>
+      <schema name="email"/>
+      <schema name="custom"/>
+      <schema name="html"/>
+      <schema name="picture"/>
+      <schema name="note"/>
+      <facet name="Picture"/>
+      <facet name="NXTag"/>
+      <facet name="Folderish"/>
+    </doctype>
     <doctype name="Campaign" append="true">
       <subtypes>
         <type>Contact</type>
@@ -269,7 +287,6 @@
       <subtypes>
         <type>Account</type>
         <type>Contact</type>
-        <type>Link</type>
       </subtypes>
     </doctype>
     <doctype name="Root" append="true">
@@ -346,6 +363,7 @@
         <type>Link</type>
         <type>Automation</type>
         <type>Note</type>
+        <type>Email</type>
       </subtypes>
     </doctype>
     <doctype name="ScriptNote" extends="Note">
@@ -432,7 +450,7 @@
       </subtypes>
     </doctype>
 
-  
+
     <doctype name="silhouette_list_pp" extends="Document">
       <facet name="ContentViewDisplay"/>
       <facet name="SavedSearch"/>
@@ -470,6 +488,12 @@
       <facet name="SavedSearch"/>
       <facet name="HiddenInNavigation"/>
       <schema name="note_list_pp"/>
+    </doctype>
+    <doctype name="email_list" extends="Document">
+      <facet name="ContentViewDisplay"/>
+      <facet name="SavedSearch"/>
+      <facet name="HiddenInNavigation"/>
+      <schema name="email_list_pp"/>
     </doctype>
     <doctype name="opportunity_list_pp" extends="Document">
       <facet name="ContentViewDisplay"/>
@@ -603,7 +627,9 @@
     <types>
       <type name="Options">default</type>
     </types>
-
+    <types>
+      <type name="Link">default</type>
+    </types>
   </extension>
   <extension target="org.nuxeo.ecm.platform.types.TypeService" point="types">
     <type id="Calendar">
@@ -647,6 +673,12 @@
       <label>Campaign</label>
       <icon>/img/mailfolder_100.png</icon>
       <bigIcon>/img/mailfolder_100.png</bigIcon>
+      <description></description>
+    </type>
+    <type id="Email">
+      <label>Email</label>
+      <icon>/img/Email.png</icon>
+      <bigIcon>/img/Email.png</bigIcon>
       <description></description>
     </type>
     <type id="Link">
@@ -1342,7 +1374,7 @@
       <sort column="custom:dateField1" ascending="false" />
       <pageSize>10</pageSize>
     </genericPageProvider>
-    
+
     <genericPageProvider class="org.nuxeo.elasticsearch.provider.ElasticSearchNxqlPageProvider" name="account_list">
       <property name="coreSession">#{documentManager}</property>
       <whereClause>
@@ -1424,11 +1456,6 @@
         <predicate id="system_fulltext" parameter="ecm:fulltext" operator="FULLTEXT ALL">
           <field schema="link_list_pp" name="system_fulltext"/>
         </predicate>
-
-
-        <!--predicate id="dublincore_title" parameter="dc:title" operator="ILIKE">
-          <field schema="campaign_list_pp" name="dublincore_title"/>
-        </predicate-->
         <fixedPart>ecm:mixinType != 'HiddenInNavigation' AND ecm:isCheckedInVersion = 0 AND ecm:isTrashed = 0 AND ecm:currentLifeCycleState != 'deleted' AND ecm:primaryType = 'Link'</fixedPart>
       </whereClause>
       <searchDocumentType>link_list_pp</searchDocumentType>
@@ -1458,25 +1485,17 @@
         <fixedPart>ecm:mixinType != 'HiddenInNavigation' AND ecm:isCheckedInVersion = 0 AND ecm:isTrashed = 0 AND ecm:currentLifeCycleState != 'deleted' AND ecm:primaryType = 'Campaign'</fixedPart>
       </whereClause>
       <searchDocumentType>campaign_list_pp</searchDocumentType>
-
       <aggregates>
-
         <aggregate id="campaign_createdDate_agg" type="date_range" parameter="dc:created">
           <field schema="campaign_list_pp" name="campaign_createdDate_agg"/>
           <properties/>
           <dateRanges>
-
             <dateRange key="Last 24 hours" fromDate="now" toDate="now+24h"/>
             <dateRange key="Last 7 days" fromDate="now" toDate="now+7d"/>
             <dateRange key="Last 30 days" fromDate="now-1M" toDate="now"/>
             <dateRange key="More than 30 days" fromDate="now-1y" toDate="now-1M"/>
-
-
-
           </dateRanges>
         </aggregate>
-
-
         <aggregate id="campaign_status_agg" type="terms" parameter="campaign:status">
           <field schema="campaign_list_pp" name="campaign_status_agg"/>
           <properties>
@@ -1484,7 +1503,6 @@
             <property name="size">0</property>
           </properties>
         </aggregate>
-
       </aggregates>
       <sort column="dc:title" ascending="true"/>
       <pageSize>10</pageSize>
@@ -1495,12 +1513,12 @@
         <predicate id="system_fulltext" parameter="ecm:fulltext" operator="FULLTEXT ALL">
           <field schema="automation_list_pp" name="system_fulltext"/>
         </predicate>
-        <fixedPart quoteParameters="false">
+        <fixedPart >
           ecm:mixinType != 'HiddenInNavigation'
           AND ecm:isVersion = 0
           AND ecm:isTrashed = 0
           AND ecm:primaryType = 'Automation'
-          AND ecm:fulltext = '?*'</fixedPart>
+          </fixedPart>
       </whereClause>
       <searchDocumentType>automation_list_pp</searchDocumentType>
       <sort column="dc:title" ascending="true" />
@@ -1515,6 +1533,18 @@
         <fixedPart>ecm:mixinType != 'HiddenInNavigation' AND ecm:isCheckedInVersion = 0 AND ecm:currentLifeCycleState != 'deleted' AND ecm:isTrashed = 0 AND  ecm:primaryType = 'Note' </fixedPart>
       </whereClause>
       <searchDocumentType>note_list</searchDocumentType>
+      <sort column="dc:title" ascending="true" />
+      <pageSize>10</pageSize>
+    </genericPageProvider>
+    <genericPageProvider class="org.nuxeo.elasticsearch.provider.ElasticSearchNxqlPageProvider" name="email_list">
+      <property name="coreSession">#{documentManager}</property>
+      <whereClause>
+        <predicate id="system_fulltext" parameter="ecm:fulltext" operator="FULLTEXT ALL">
+          <field schema="email_list_pp" name="system_fulltext"/>
+        </predicate>
+        <fixedPart>ecm:mixinType != 'HiddenInNavigation' AND ecm:isCheckedInVersion = 0 AND ecm:currentLifeCycleState != 'deleted' AND ecm:isTrashed = 0 AND  ecm:primaryType = 'Email' </fixedPart>
+      </whereClause>
+      <searchDocumentType>email_list</searchDocumentType>
       <sort column="dc:title" ascending="true" />
       <pageSize>10</pageSize>
     </genericPageProvider>
@@ -1974,8 +2004,8 @@
       </acl>
       <template>
         <templateItem typeName="Sales" id="Sales" title="Sales" description=""/>
-        <!--templateItem typeName="Marketing" id="Marketing" title="Marketing" description=""/>
-        <templateItem typeName="Services" id="Services" title="Services" description=""/-->
+        <templateItem typeName="Marketing" id="Marketing" title="Marketing" description=""/>
+        <!--templateItem typeName="Services" id="Services" title="Services" description=""/-->
         <templateItem typeName="Admin" id="Admin" title="Admin" description=""/>
         <!--templateItem typeName="Sales" id="Test" title="Test" description=""/-->
       </template>
@@ -2080,7 +2110,7 @@
       <table>studio_vocabulary_Zone</table>
       <dataFile>data/vocabularies/Zone.csv</dataFile>
     </directory>
-  
+
     <directory name="Role">
       <schema>vocabulary</schema>
       <dataSource>java:/nxsqldirectory</dataSource>
@@ -2305,6 +2335,14 @@
       <include>RemoveChildren</include>
       <include>Remove</include>
     </permission>
+  </extension>
+  <extension point="openUrl" target="org.nuxeo.ecm.platform.ui.web.auth.service.PluggableAuthenticationService">
+    <openUrl name="Link">
+      <grantPattern>${org.nuxeo.ecm.contextPath}/site/api/v1/link/.*</grantPattern>
+    </openUrl>
+    <openUrl name="Register">
+      <grantPattern>${org.nuxeo.ecm.contextPath}/site/api/v1/register/.*</grantPattern>
+    </openUrl>
   </extension>
   <!-- Trash Migration: https://doc.nuxeo.com/nxdoc/upgrade-from-lts-2017-to-lts-2019/ -->
   <!-- <require>org.nuxeo.ecm.core.trash.service.migrator</require>

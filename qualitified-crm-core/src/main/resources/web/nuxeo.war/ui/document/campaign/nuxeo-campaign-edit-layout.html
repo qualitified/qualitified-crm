@@ -12,8 +12,7 @@
         <nuxeo-directory-suggestion role="widget" value="{{document.properties.campaign:status}}"
                                     label="[[i18n('label.metadata.status')]]" directory-name="StatusCampaign"
                                     min-chars="0" ></nuxeo-directory-suggestion>
-        <qualitified-document-suggestion role="widget" value="{{document.properties.campaign:automation_list_pp}}" label="[[i18n('label.metadata.automation.title')]]" page-provider="automation_list" min-chars="0"></qualitified-document-suggestion>
-
+        <qualitified-document-suggestion role="widget" value="{{document.properties.campaign:automationId}}" label="[[i18n('label.metadata.automation.title')]]" name="automation_list_pp" page-provider="documents" min-chars="0" params='{ "namedParameters": "system_primaryType=Automation"}'></qualitified-document-suggestion>
 
         <nuxeo-date-picker value="{{document.properties.campaign:sendDate}}" label="[[i18n('label.metadata.campaign.sendDate')]]" required="true" role="widget"></nuxeo-date-picker>
     </template>
