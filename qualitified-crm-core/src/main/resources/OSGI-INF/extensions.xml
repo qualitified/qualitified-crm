@@ -1485,25 +1485,17 @@
         <fixedPart>ecm:mixinType != 'HiddenInNavigation' AND ecm:isCheckedInVersion = 0 AND ecm:isTrashed = 0 AND ecm:currentLifeCycleState != 'deleted' AND ecm:primaryType = 'Campaign'</fixedPart>
       </whereClause>
       <searchDocumentType>campaign_list_pp</searchDocumentType>
-
       <aggregates>
-
         <aggregate id="campaign_createdDate_agg" type="date_range" parameter="dc:created">
           <field schema="campaign_list_pp" name="campaign_createdDate_agg"/>
           <properties/>
           <dateRanges>
-
             <dateRange key="Last 24 hours" fromDate="now" toDate="now+24h"/>
             <dateRange key="Last 7 days" fromDate="now" toDate="now+7d"/>
             <dateRange key="Last 30 days" fromDate="now-1M" toDate="now"/>
             <dateRange key="More than 30 days" fromDate="now-1y" toDate="now-1M"/>
-
-
-
           </dateRanges>
         </aggregate>
-
-
         <aggregate id="campaign_status_agg" type="terms" parameter="campaign:status">
           <field schema="campaign_list_pp" name="campaign_status_agg"/>
           <properties>
@@ -1511,7 +1503,6 @@
             <property name="size">0</property>
           </properties>
         </aggregate>
-
       </aggregates>
       <sort column="dc:title" ascending="true"/>
       <pageSize>10</pageSize>
@@ -1522,17 +1513,33 @@
         <predicate id="system_fulltext" parameter="ecm:fulltext" operator="FULLTEXT ALL">
           <field schema="automation_list_pp" name="system_fulltext"/>
         </predicate>
-        <fixedPart quoteParameters="false">
+        <fixedPart >
           ecm:mixinType != 'HiddenInNavigation'
           AND ecm:isVersion = 0
           AND ecm:isTrashed = 0
           AND ecm:primaryType = 'Automation'
-          AND ecm:fulltext = '?*'</fixedPart>
+          </fixedPart>
       </whereClause>
       <searchDocumentType>automation_list_pp</searchDocumentType>
       <sort column="dc:title" ascending="true" />
       <pageSize>10</pageSize>
     </genericPageProvider>
+    <genericPageProvider class="org.nuxeo.elasticsearch.provider.ElasticSearchNxqlPageProvider" name="automation">
+    <property name="coreSession">#{documentManager}</property>
+    <whereClause>
+
+      <fixedPart quoteParameters="false">
+        ecm:mixinType != 'HiddenInNavigation'
+        AND ecm:isVersion = 0
+        AND ecm:isTrashed = 0
+        AND ecm:primaryType = 'Automation'
+        AND ecm:fulltext = '?*'</fixedPart>
+    </whereClause>
+    <searchDocumentType>automation_list_pp</searchDocumentType>
+    <sort column="dc:title" ascending="true" />
+    <pageSize>10</pageSize>
+  </genericPageProvider>
+
     <genericPageProvider class="org.nuxeo.elasticsearch.provider.ElasticSearchNxqlPageProvider" name="note_list">
       <property name="coreSession">#{documentManager}</property>
       <whereClause>
