@@ -6,12 +6,12 @@
                 padding: 5px;
             }
         </style>
+        link.title
+        <nuxeo-input role="widget" value="{{document.properties.dc:title}}" label="[[i18n('label.metadata.link.title')]]" required="true"></nuxeo-input>
 
-        <nuxeo-input role="widget" value="{{document.properties.dc:title}}" label="Code" required="true"></nuxeo-input>
+        <nuxeo-textarea role="widget" value="{{document.properties.dc:description}}" label="[[i18n('label.description')]]"></nuxeo-textarea>
 
-        <nuxeo-textarea role="widget" value="{{document.properties.dc:description}}" label="Description"></nuxeo-textarea>
-
-        <nuxeo-input role="widget" value="{{document.properties.link:href}}" label="Lien" required="true"></nuxeo-input>
+        <nuxeo-input role="widget" value="{{document.properties.link:href}}" label="[[i18n('label.metadata.link.href')]]" required="true"></nuxeo-input>
 
         <qualitified-custom-fields document="{{document}}" mode="edit"></qualitified-custom-fields>
 

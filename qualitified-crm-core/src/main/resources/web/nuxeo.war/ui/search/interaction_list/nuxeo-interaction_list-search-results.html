@@ -26,7 +26,7 @@
             <nuxeo-data-table class="results" settings-enabled="" empty-label="[[i18n('searchResults.noResults')]]"
                               selection-enabled="" on-row-clicked="_navigate" icon="nuxeo:view-list" name="table">
 
-                <nuxeo-data-table-column name="Title" field="dc:title" sort-by="dc:title" flex="60">
+                <nuxeo-data-table-column name="[[i18n('label.metadata.title')]]" field="dc:title" sort-by="dc:title" flex="60">
                     <template>
                         <nuxeo-document-thumbnail document="[[item]]"></nuxeo-document-thumbnail>
                         <a class="ellipsis" href$="[[urlFor('browse', item.path)]]"
@@ -66,13 +66,13 @@
                     </template>
                 </nuxeo-data-table-column>
 
-                <nuxeo-data-table-column name="Modified" field="dc:modified" sort-by="dc:modified" flex="60">
+                <nuxeo-data-table-column name="[[i18n('label.metadata.modified')]]" field="dc:modified" sort-by="dc:modified" flex="60">
                     <template>
                         [[formatDate(item.properties.dc:modified)]]
                     </template>
                 </nuxeo-data-table-column>
 
-                <nuxeo-data-table-column name="Last Contributor" field="dc:lastContributor" sort-by="dc:lastContributor"
+                <nuxeo-data-table-column name="[[i18n('label.metadata.lastContributor')]]" field="dc:lastContributor" sort-by="dc:lastContributor"
                                          flex="60">
                     <template>
                         <nuxeo-user-tag user="[[item.properties.dc:lastContributor]]"></nuxeo-user-tag>

@@ -33,18 +33,18 @@
                           display-quick-filters
                           on-row-clicked="_navigate">
 
-          <nuxeo-data-table-column name="Titre" field="dc:title" sort-by="dc:title" flex="100">
+          <nuxeo-data-table-column name="[[i18n('label.metadata.title')]]" field="dc:title" sort-by="dc:title" flex="100">
             <template>
               <nuxeo-document-thumbnail document="[[item]]"></nuxeo-document-thumbnail>
               <a class="ellipsis" href$="[[urlFor('browse', item.path)]]" on-click="_navigate">[[item.title]]</a>
             </template>
           </nuxeo-data-table-column>
-          <nuxeo-data-table-column name="Modified" field="dc:modified" sort-by="dc:modified" flex="60">
+          <nuxeo-data-table-column name="[[i18n('label.metadata.modified')]]" field="dc:modified" sort-by="dc:modified" flex="60">
             <template>
               [[formatDate(item.properties.dc:modified)]]
             </template>
           </nuxeo-data-table-column>
-          <nuxeo-data-table-column name="Last Contributor" field="dc:lastContributor" sort-by="dc:lastContributor"
+          <nuxeo-data-table-column name="[[i18n('label.metadata.lastContributor')]]" field="dc:lastContributor" sort-by="dc:lastContributor"
                                    flex="60">
             <template>
               <nuxeo-user-tag user="[[item.properties.dc:lastContributor]]"></nuxeo-user-tag>

@@ -21,7 +21,7 @@
       <nuxeo-data-table class="results" settings-enabled="" empty-label="[[i18n('searchResults.noResults')]]"
                         selection-enabled="" on-row-clicked="_navigate" icon="nuxeo:view-list" name="table">
 
-        <nuxeo-data-table-column name="Title" field="dc:title" sort-by="dc:title" flex="60">
+        <nuxeo-data-table-column name="[[i18n('label.metadata.title')]]" field="dc:title" sort-by="dc:title" flex="60">
           <template>
             <nuxeo-document-thumbnail document="[[item]]"></nuxeo-document-thumbnail>
             <a class="ellipsis" href$="[[urlFor('browse', item.path)]]"
@@ -30,7 +30,7 @@
         </nuxeo-data-table-column>
 
 
-        <nuxeo-data-table-column name="status" field="campaign:status" sort-by="campaign:status"
+        <nuxeo-data-table-column name="[[i18n('label.metadata.status')]]" field="campaign:status" sort-by="campaign:status"
                                  flex="50">
           <template>
             [[formatDirectory(item.properties.campaign:status)]]
@@ -40,7 +40,7 @@
 
 
 
-        <nuxeo-data-table-column name="campaign date" field="dc:created" sort-by="dc:created" flex="60">
+        <nuxeo-data-table-column name="[[i18n('label.metadata.createdDate')]]" field="dc:created" sort-by="dc:created" flex="60">
           <template>
             [[formatDate(item.properties.dc:created)]]
           </template>

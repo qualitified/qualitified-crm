@@ -6,9 +6,9 @@
         padding: 5px;
       }
     </style>
-    <nuxeo-input role="widget" value="{{document.properties.dc:title}}" label="Titre" required="true"></nuxeo-input>
+    <nuxeo-input role="widget" value="{{document.properties.dc:title}}" label="[[i18n('label.metadata.title')]]" required="true"></nuxeo-input>
 
-    <nuxeo-textarea role="widget" value="{{document.properties.dc:description}}" label="Description"></nuxeo-textarea>
+    <nuxeo-textarea role="widget" value="{{document.properties.dc:description}}" label="[[i18n('label.description')]]"></nuxeo-textarea>
 
     <qualitified-custom-fields document="{{document}}" mode="edit"></qualitified-custom-fields>
 

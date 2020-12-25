@@ -33,37 +33,37 @@
 
             <nuxeo-data-table class="results" settings-enabled="" empty-label="[[i18n('searchResults.noResults')]]"
                               selection-enabled="" on-row-clicked="_navigate" icon="nuxeo:view-list" name="table">
-                <nuxeo-data-table-column name="title" field="dc:title" sort-by="dc:title" flex="60"  >
+                <nuxeo-data-table-column name="[[i18n('label.metadata.title')]]" field="dc:title" sort-by="dc:title" flex="60"  >
                 <template>
                     [[item.properties.dc:title]]
                 </template>
                 </nuxeo-data-table-column>
 
-                <nuxeo-data-table-column name="Date de la dérniere visite" field="custom:dateField1"
+                <nuxeo-data-table-column name="[[i18n('label.silhouette.last.visit')]]" field="custom:dateField1"
                                          sort-by="custom:dateField1" flex="60">
                     <template>
                         [[formatDate(item.properties.custom:dateField1)]]
                     </template>
                 </nuxeo-data-table-column>
-                <nuxeo-data-table-column name="Nom" field="person:lastName"
+                <nuxeo-data-table-column name="[[i18n('label.metadata.person.lastName')]]" field="person:lastName"
                                          sort-by="person:lastName" flex="60">
                     <template>[[item.properties.person:lastName]]</nuxeo-input>
                     </template>
                 </nuxeo-data-table-column>
-                <nuxeo-data-table-column name="Prénom" field="person:firstName"
+                <nuxeo-data-table-column name="[[i18n('label.metadata.person.firstName')]]" field="person:firstName"
                                          sort-by="person:firstName" flex="60">
                     <template>[[item.properties.person:firstName]]</template>
                 </nuxeo-data-table-column>
-                <nuxeo-data-table-column name="email" field="person:email"
+                <nuxeo-data-table-column name="[[i18n('label.metadata.email')]]" field="person:email"
                                          sort-by="person:email" flex="60">
                     <template>[[item.properties.person:email]]</template>
                 </nuxeo-data-table-column>
-                <nuxeo-data-table-column name="Modified" field="dc:modified" sort-by="dc:modified" flex="60"  >
+                <nuxeo-data-table-column name="[[i18n('label.metadata.modified')]]" field="dc:modified" sort-by="dc:modified" flex="60"  >
                     <template>
                         [[formatDate(item.properties.dc:modified)]]
                     </template>
                 </nuxeo-data-table-column>
-                <nuxeo-data-table-column name="Last Contributor" field="dc:lastContributor" sort-by="dc:lastContributor"
+                <nuxeo-data-table-column name="[[i18n('label.metadata.lastContributor')]]" field="dc:lastContributor" sort-by="dc:lastContributor"
                                          flex="60"  hidden>
                     <template>
                         <nuxeo-user-tag user="[[item.properties.dc:lastContributor]]"></nuxeo-user-tag>

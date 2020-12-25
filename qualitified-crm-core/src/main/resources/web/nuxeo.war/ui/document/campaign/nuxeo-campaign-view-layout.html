@@ -78,26 +78,26 @@
                         </template>
                     </nuxeo-data-table-column>
 
-                    <nuxeo-data-table-column name="Role" field="person:Role" sort-by="person:Role" flex="60">
+                    <nuxeo-data-table-column name="[[i18n('label.metadata.role')]]" field="person:Role" sort-by="person:Role" flex="60">
                         <template>
                             [[formatDirectory(item.properties.person:Role)]]
                         </template>
                     </nuxeo-data-table-column>
 
-                    <nuxeo-data-table-column name="E-mail"  field="person:email" sort-by="person:email" flex="100">
+                    <nuxeo-data-table-column name="[[i18n('label.metadata.email')]]"  field="person:email" sort-by="person:email" flex="100">
                         <template>
                             [[item.properties.person:email]]
                         </template>
                     </nuxeo-data-table-column>
 
-                    <nuxeo-data-table-column name="Phone_Number" field="person:phoneNumber" sort-by="person:phoneNumber"
+                    <nuxeo-data-table-column name="[[i18n('label.metadata.phone')]]" field="person:phoneNumber" sort-by="person:phoneNumber"
                                              flex="60">
                         <template>
                             [[item.properties.person:phoneNumber]]
                         </template>
                     </nuxeo-data-table-column>
 
-                    <nuxeo-data-table-column name="Modified" field="dc:modified" sort-by="dc:modified" flex="60">
+                    <nuxeo-data-table-column name="[[i18n('label.metadata.modified')]]" field="dc:modified" sort-by="dc:modified" flex="60">
                         <template>
                             [[formatDate(item.properties.dc:modified)]]
                         </template>
