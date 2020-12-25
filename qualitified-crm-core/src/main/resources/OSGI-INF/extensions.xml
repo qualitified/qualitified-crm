@@ -257,7 +257,6 @@
       <schema name="picture"/>
       <schema name="custom"/>
       <facet name="NXTag"/>
-      <facet name="Folderish"/>
     </doctype>
     <doctype name="Email" extends="Document">
       <schema name="dublincore"/>
@@ -272,11 +271,7 @@
       <facet name="NXTag"/>
       <facet name="Folderish"/>
     </doctype>
-    <doctype name="Campaign" append="true">
-      <subtypes>
-        <type>Contact</type>
-      </subtypes>
-    </doctype>
+
     <doctype name="Account" append="true">
       <subtypes>
         <type>Interaction</type>
