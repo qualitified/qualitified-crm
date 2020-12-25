@@ -1524,22 +1524,6 @@
       <sort column="dc:title" ascending="true" />
       <pageSize>10</pageSize>
     </genericPageProvider>
-    <genericPageProvider class="org.nuxeo.elasticsearch.provider.ElasticSearchNxqlPageProvider" name="automation">
-    <property name="coreSession">#{documentManager}</property>
-    <whereClause>
-
-      <fixedPart quoteParameters="false">
-        ecm:mixinType != 'HiddenInNavigation'
-        AND ecm:isVersion = 0
-        AND ecm:isTrashed = 0
-        AND ecm:primaryType = 'Automation'
-        AND ecm:fulltext = '?*'</fixedPart>
-    </whereClause>
-    <searchDocumentType>automation_list_pp</searchDocumentType>
-    <sort column="dc:title" ascending="true" />
-    <pageSize>10</pageSize>
-  </genericPageProvider>
-
     <genericPageProvider class="org.nuxeo.elasticsearch.provider.ElasticSearchNxqlPageProvider" name="note_list">
       <property name="coreSession">#{documentManager}</property>
       <whereClause>
