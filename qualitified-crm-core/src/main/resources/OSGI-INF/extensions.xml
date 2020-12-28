@@ -86,6 +86,9 @@
       <schema name="uid"/>
       <schema name="custom"/>
       <facet name="NXTag"/>
+      <facet name="ContentViewDisplay"/>
+      <facet name="SavedSearch"/>
+      <facet name="HiddenInNavigation"/>
     </doctype>
 
     <doctype name="Account" extends="Document">
@@ -190,6 +193,7 @@
       <schema name="picture"/>
       <schema name="custom"/>
       <schema name="address"/>
+      <schema name="collectionMember"/>
       <facet name="Picture"/>
       <facet name="NXTag"/>
       <facet name="Folderish"/>
@@ -305,6 +309,7 @@
         <type>Video</type>
         <type>Audio</type>
         <type>Note</type>
+        <type>Interaction</type>
       </subtypes>
     </doctype>
     <doctype name="Account" append="true">
@@ -359,6 +364,7 @@
         <type>Automation</type>
         <type>Note</type>
         <type>Email</type>
+        <type>Interaction</type>
       </subtypes>
     </doctype>
     <doctype name="ScriptNote" extends="Note">
@@ -937,8 +943,8 @@
     <handler chainId="runScheduler5Chain">
       <event>event5</event>
     </handler>
-    <handler chainId="BulkSendMailChain">
-      <event>BulkSendMailEvent</event>
+    <handler chainId="EmailingProcessChain">
+      <event>EmailingProcessEvent</event>
     </handler>
   </extension>
   <extension target="org.nuxeo.ecm.core.lifecycle.LifeCycleService" point="lifecycle">
@@ -1257,13 +1263,12 @@
       </operation>
       <operation id="Document.Save"/>
     </chain>
-    <chain id="BulkSendMailChain">
+    <chain id="EmailingProcessChain">
       <operation id="Auth.LoginAs">
         <param type="string" name="name">Administrator</param>
       </operation>
-      <operation id="Qualitified.BulkSendMailAction"/>
+      <operation id="Qualitified.EmailingProcess"/>
     </chain>
-
   </extension>
   <extension target="org.nuxeo.ecm.platform.query.api.PageProviderService" point="providers">
     <genericPageProvider class="org.nuxeo.elasticsearch.provider.ElasticSearchNxqlPageProvider" name="opportunity_list">
@@ -2310,19 +2315,26 @@
       <username>Administrator</username>
       <cronExpression>0/10 * * * * ?</cronExpression>
     </schedule>
-    <!--<schedule id="BulkSendMailScheduler">
-      <eventId>BulkSendMailEvent</eventId>
+    <schedule id="EmailingProcessScheduler">
+      <eventId>EmailingProcessEvent</eventId>
       <eventCategory>default</eventCategory>
       <username>Administrator</username>
       <cronExpression>0 0 7 * * ?</cronExpression>
-    </schedule>-->
+    </schedule>
   </extension>
   <extension target="org.nuxeo.ecm.core.api.DocumentValidationService" point="activations">
     <validation context="createDocument" activated="false"/>
     <validation context="saveDocument" activated="false"/>
     <validation context="importDocument" activated="false"/>
   </extension>
-
+  <extension point="openUrl" target="org.nuxeo.ecm.platform.ui.web.auth.service.PluggableAuthenticationService">
+    <openUrl name="Link">
+      <grantPattern>${org.nuxeo.ecm.contextPath}/site/api/v1/Link/.*</grantPattern>
+    </openUrl>
+    <openUrl name="Register">
+      <grantPattern>${org.nuxeo.ecm.contextPath}/site/api/v1/register/.*</grantPattern>
+    </openUrl>
+  </extension>
   <extension point="permissions" target="org.nuxeo.ecm.core.security.SecurityService">
     <permission name="ReadWrite">
       <include>Read</include>

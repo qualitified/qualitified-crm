@@ -21,8 +21,8 @@ public class MailjetEmailingService extends DefaultComponent implements Emailing
     MailjetClient client;
     MailjetRequest request;
     MailjetResponse response;
-    String apiKey= Framework.getProperty("mailjetservice.apikey");
-    String secretKey=Framework.getProperty("mailjetservice.secretkey");
+    String apiKey= Framework.getProperty("mailjetService.apikey");
+    String secretKey=Framework.getProperty("mailjetService.secretkey");
 
 
 
