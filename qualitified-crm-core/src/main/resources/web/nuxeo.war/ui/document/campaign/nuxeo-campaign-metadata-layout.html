@@ -32,7 +32,15 @@
                                              readOnly>
             </qualitified-document-suggestion>
         </div>
-
+        <div role="widget" hidden$="[[!document.properties.campaign:status]]">
+            <label>[[i18n('label.metadata.status')]]</label>
+            <nuxeo-directory-suggestion role="widget"
+                                             value="[[document.properties.campaign:status]]"
+                                             directory-name="StatusCampaign"
+                                             min-chars="0"
+                                             readOnly>
+            </nuxeo-directory-suggestion>
+        </div>
         <div role="widget">
             <label>[[i18n('label.metadata.campaign.sendDate')]]</label>
             <div>[[formatDate(document.properties.campaign:sendDate)]]</div>

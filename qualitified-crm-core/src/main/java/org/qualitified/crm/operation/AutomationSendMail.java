@@ -74,6 +74,7 @@ public class AutomationSendMail {
             JSONArray response = emailingService.send(mailDetails);
             MessageID = Long.toString(response.getJSONObject(0).getJSONArray("To")
                     .getJSONObject(0).getLong("MessageID"));
+            interactionDoc.setPropertyValue("interaction:messageID",MessageID);
         } catch (MailjetException e) {
             logger.error("Error while running mailjet service", e);
         } finally {

@@ -2,9 +2,7 @@ package org.qualitified.crm.operation;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.jetbrains.annotations.NotNull;
 import org.json.JSONException;
-import org.nuxeo.ecm.automation.AutomationService;
 import org.nuxeo.ecm.automation.OperationContext;
 import org.nuxeo.ecm.automation.OperationException;
 import org.nuxeo.ecm.automation.core.Constants;
@@ -20,12 +18,13 @@ import org.nuxeo.ecm.core.bulk.BulkService;
 import org.nuxeo.ecm.core.bulk.message.BulkCommand;
 import org.nuxeo.ecm.core.bulk.message.BulkStatus;
 import org.nuxeo.runtime.api.Framework;
-import org.qualitified.crm.operation.EmailingProcess;
+
 import javax.security.auth.login.LoginContext;
 import javax.security.auth.login.LoginException;
 import java.io.Serializable;
 import java.time.Duration;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -49,10 +48,12 @@ public class EmailingProcess {
     public void run() throws OperationException, LoginException, JSONException, InterruptedException {
         LoginContext lc = Framework.loginAsUser("Administrator");
         ctx.getLoginStack().push(lc);
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
         DocumentModelList campaignDocuments = documentManager
                 .query("SELECT * FROM Campaign " +
-                        "WHERE campaign:sendDate <=  '"+ LocalDateTime.now() +"' " +
+                        "WHERE campaign:sendDate <=  '"+ LocalDateTime.now().format(formatter) +"' " +
+                        "AND campaign:status = 'Ready' " +
                         "AND ecm:isProxy = 0 AND ecm:isCheckedInVersion = 0  " +
                         "AND ecm:currentLifeCycleState != 'deleted' " +
                         "AND ecm:isTrashed = 0");
@@ -60,19 +61,28 @@ public class EmailingProcess {
         if ( !campaignDocuments.isEmpty() ) {
             for (DocumentModel campaignDoc : campaignDocuments) {
 
-                BulkStatus prepareStatus = prepareMailBulk(campaignDoc);
+                BulkStatus prepareMailBulkStatus = prepareMailBulk(campaignDoc);
 
-                if (prepareStatus.isCompleted()) {
-                    log.info("Interactions have been created for all '"+ campaignDoc.getTitle()+"' contacts ");
-                    sendMailBulk(campaignDoc);
-                }
+                if (prepareMailBulkStatus.isCompleted()) {
+                    logger.info("Interactions have been created for all '"+ campaignDoc.getTitle()+"' contacts ");
+                    BulkStatus sendMailBulkStatus = sendMailBulk(campaignDoc);
+                    campaignDoc.setPropertyValue("campaign:status","In Progress");
+                    documentManager.saveDocument(campaignDoc);
+
+                    if (sendMailBulkStatus.isCompleted()) {
+                        logger.info("Emails have been sent for all '"+ campaignDoc.getTitle()+"' contacts ");
+                        campaignDoc.setPropertyValue("campaign:status","Sent");                    documentManager.saveDocument(campaignDoc);
+                        documentManager.saveDocument(campaignDoc);
+                    } else logger.error("Something wrong with the sendMailBulk");
+
+                } else logger.error("Something wrong with the prepareMailBulk");
             }
 
-        } else log.warn("No campaign found, please create at least one");
+        } else logger.error("No campaign found, please check the send date or the status");
 
     }
 
-    private void sendMailBulk(DocumentModel campaignDoc) throws InterruptedException {
+    private BulkStatus sendMailBulk(DocumentModel campaignDoc) throws InterruptedException {
         Map<String, Serializable> mailContentParam =new HashMap<>();
 
         IdRef automationDocId = new IdRef((String) campaignDoc.getPropertyValue("campaign:automationId"));
@@ -101,7 +111,8 @@ public class EmailingProcess {
         sendMailBulkService.await(sendMailCommandId, Duration.ofMinutes(1));
 
         // get status
-        BulkStatus status = sendMailBulkService.getStatus(sendMailCommandId);
+        BulkStatus sendMailBulkStatus = sendMailBulkService.getStatus(sendMailCommandId);
+        return sendMailBulkStatus;
     }
 
     private BulkStatus prepareMailBulk(DocumentModel campaignDoc) throws InterruptedException {
@@ -130,7 +141,7 @@ public class EmailingProcess {
         prepareMailBulkService.await(prepareMailCommandId, Duration.ofMinutes(1));
 
         // get status
-        BulkStatus prepareStatus = prepareMailBulkService.getStatus(prepareMailCommandId);
-        return prepareStatus;
+        BulkStatus prepareMailBulkStatus = prepareMailBulkService.getStatus(prepareMailCommandId);
+        return prepareMailBulkStatus;
     }
 }
