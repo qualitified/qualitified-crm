@@ -27,6 +27,9 @@
         <nuxeo-operation id="fetchMailHistory" op="Qualitified.BulkSendMailAction"></nuxeo-operation>
         <paper-icon-button id="button1" icon="icons:credit-card" on-tap="_fetchMailHistory"></paper-icon-button>
         <paper-tooltip for="button1">fetch mail history</paper-tooltip>
+        <nuxeo-operation id="emailingProcess" op="EmailingProcessChain"></nuxeo-operation>
+        <paper-icon-button id="button2" icon="icons:credit-card" on-tap=_emailingProcess></paper-icon-button>
+        <paper-tooltip for="button2">email process</paper-tooltip>
         <div role="widget" class="title">
             <h1 directory-name="IntActivity">
                 [[formatDirectory(document.properties.interaction:activity)]] - [[document.properties.dc:title]] - [[formatDirectory(document.properties.interaction:status)]]
@@ -121,6 +124,9 @@
         _sendMail: function(){
           console.log(this.document);
             this.$.sendMail.execute();
+          },
+          _emailingProcess: function(){
+            this.$.emailingProcess.execute();
           },
           _fetchMailHistory: function(){
             this.$.fetchMailHistory.execute();
