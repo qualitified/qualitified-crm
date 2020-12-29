@@ -68,6 +68,7 @@
   "label.metadata.automation.title":"Automatisation",
   "label.metadata.campaign.title":"Campagne",
   "label.metadata.campaign.sendDate":"Date d'envoi",
+  "label.metadata.campaign.status":"Status",
   "label.metadata.link.title":"Code",
   "label.metadata.link.href":"Lien",
   "label.metadata.link.follow":"Lien suivi",
