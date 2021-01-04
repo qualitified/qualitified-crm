@@ -479,11 +479,11 @@
       <facet name="HiddenInNavigation"/>
       <schema name="automation_list_pp"/>
     </doctype>
-    <doctype name="Note" append="true">
+    <!--doctype name="Note" append="true">
       <schema name="html"/>
       <schema name="picture"/>
       <facet name="Picture"/>
-    </doctype>
+    </doctype-->
     <doctype name="note_list" extends="Document">
       <facet name="ContentViewDisplay"/>
       <facet name="SavedSearch"/>
