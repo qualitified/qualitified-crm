@@ -672,14 +672,14 @@
     </type>
     <type id="Campaign">
       <label>Campaign</label>
-      <icon>/img/mailfolder_100.png</icon>
-      <bigIcon>/img/mailfolder_100.png</bigIcon>
+      <icon>/img/campaign_X1.png</icon>
+      <bigIcon>/img/campaign_X2.png</bigIcon>
       <description></description>
     </type>
     <type id="Email">
       <label>Email</label>
-      <icon>/img/Email.png</icon>
-      <bigIcon>/img/Email.png</bigIcon>
+      <icon>/img/mailfolder_100.png</icon>
+      <bigIcon>/img/mailfolder_100.png</bigIcon>
       <description></description>
     </type>
     <type id="Link">

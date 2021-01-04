@@ -42,6 +42,11 @@
             </nuxeo-directory-suggestion>
         </div>
         <div role="widget">
+            <label>[[i18n('label.metadata.campaign.status')]]</label>
+            <div>[[formatDirectory(document.properties.campaign:status)]]</div>
+
+        </div>
+        <div role="widget">
             <label>[[i18n('label.metadata.campaign.sendDate')]]</label>
             <div>[[formatDate(document.properties.campaign:sendDate)]]</div>
         </div>
