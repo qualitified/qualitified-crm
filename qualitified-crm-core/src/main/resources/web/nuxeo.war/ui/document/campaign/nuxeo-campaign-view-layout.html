@@ -43,7 +43,9 @@
         </nuxeo-page-provider>
 
         <nuxeo-results id="results" name="[[document.uid]]" items="{{items}}" on-navigate="_navigate" selected-items="{{selectedItems}}" empty-label="[[i18n('collections.noDocument')]]" empty-label-when-filtered="[[i18n('collections.noDocumentWhenFiltered')]]">
-
+            <div slot="selectionActions">
+                <nuxeo-slot slot="COLLECTION_ACTIONS" model="[[actionContext]]"></nuxeo-slot>
+            </div>
             <nuxeo-data-table class="results" name="table" icon="nuxeo:view-list"
                               settings-enabled
                               empty-label="[[emptyLabel]]"
@@ -89,12 +91,6 @@
                 </nuxeo-data-table-column>
             </nuxeo-data-table>
             </nuxeo-results>
-
-
-
-
-
-
     </template>
 
     <script>
