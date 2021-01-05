@@ -57,5 +57,10 @@
             <xs:restriction base="xs:string" ref:resolver="documentResolver" ref:store="path"/>
         </xs:simpleType>
     </xs:element>
+    <xs:element name="person">
+        <xs:simpleType>
+            <xs:restriction base="xs:string" ref:resolver="documentResolver" ref:store="path"/>
+        </xs:simpleType>
+    </xs:element>
 
 </xs:schema>

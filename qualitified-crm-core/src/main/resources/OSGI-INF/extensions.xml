@@ -49,6 +49,7 @@
     <schema name="html" prefix="html" override="true" src="data/schemas/html.xsd"/>
     <schema name="email" prefix="email" override="true" src="data/schemas/email.xsd"/>
     <schema name="email_list_pp" prefix="email_list_pp" override="true" src="data/schemas/email_list_pp.xsd"/>
+    <schema name="targeting" prefix="targeting" override="true" src="data/schemas/targeting.xsd"/>
 
 
 
@@ -78,7 +79,12 @@
       <facet name="HiddenInNavigation"/>
       <schema name="opportunity_list_pp"/>
     </doctype>
-
+    <doctype name="targeting" extends="Document">
+      <facet name="ContentViewDisplay"/>
+      <facet name="SavedSearch"/>
+      <facet name="HiddenInNavigation"/>
+      <schema name="targeting"/>
+    </doctype>
     <doctype name="Link" extends="Document">
       <schema name="link"/>
       <schema name="dublincore"/>
@@ -673,7 +679,7 @@
     <type id="Campaign">
       <label>Campaign</label>
       <icon>/img/mailfolder_100.png</icon>
-      <bigIcon>/img/mailfolder_100.png</bigIcon>
+      <bigIcon>/img/mailfolder_git pull100.png</bigIcon>
       <description></description>
     </type>
     <type id="Email">
@@ -1375,6 +1381,54 @@
       <pageSize>10</pageSize>
     </genericPageProvider>
 
+    <genericPageProvider class="org.nuxeo.elasticsearch.provider.ElasticSearchNxqlPageProvider" name="targeting_list">
+      <trackUsage>true</trackUsage>
+      <property name="coreSession">#{documentManager}</property>
+      <whereClause>
+        <predicate id="system_fulltext" parameter="ecm:fulltext" operator="FULLTEXT ALL">
+          <field schema="targeting" name="system_fulltext"/>
+        </predicate>
+        <predicate parameter="custom:dateField1" operator="BETWEEN">
+          <field schema="targeting" name="datefield1_min"/>
+          <field schema="targeting" name="datefield1_max"/>
+        </predicate>
+
+        <predicate parameter="person:firstName" operator="=">
+          <field schema="targeting" name="person_firstName"/>
+        </predicate>
+        <predicate parameter="person:lastName" operator="=">
+          <field schema="targeting" name="person_lastName"/>
+        </predicate>
+        <fixedPart>ecm:mixinType != 'HiddenInNavigation' AND ecm:isCheckedInVersion = 0 AND ecm:currentLifeCycleState != 'deleted' AND ecm:isTrashed = 0 AND  ecm:primaryType IN ('Silhouette', 'Contact')</fixedPart>
+
+      </whereClause>
+      <searchDocumentType>targeting</searchDocumentType>
+      <aggregates>
+        <aggregate id="followed_links_agg" type="terms" parameter="silhouette:followedLinks">
+          <field schema="targeting" name="followed_links_agg"/>
+          <properties>
+            <property name="order">count desc</property>
+            <property name="size">0</property>
+          </properties>
+        </aggregate>
+        <aggregate id="person_role_agg" type="terms" parameter="person:Role">
+          <field schema="targeting" name="person_role_agg"/>
+          <properties>
+            <property name="order">count desc</property>
+            <property name="size">0</property>
+          </properties>
+        </aggregate>
+        <aggregate id="responsible_agg" type="terms" parameter="contact:responsible">
+          <field schema="targeting" name="responsible_agg"/>
+          <properties>
+            <property name="order">count desc</property>
+            <property name="size">0</property>
+          </properties>
+        </aggregate>
+      </aggregates>
+      <sort column="custom:dateField1" ascending="false" />
+      <pageSize>10</pageSize>
+    </genericPageProvider>
     <genericPageProvider class="org.nuxeo.elasticsearch.provider.ElasticSearchNxqlPageProvider" name="account_list">
       <property name="coreSession">#{documentManager}</property>
       <whereClause>

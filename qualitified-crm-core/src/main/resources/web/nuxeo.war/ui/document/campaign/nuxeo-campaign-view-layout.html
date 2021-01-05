@@ -39,7 +39,7 @@
 
         </style>
 
-        <nuxeo-page-provider id="provider" provider="default_content_collection" schemas="dublincore,common" page-size="40" enrichers="thumbnail, permissions">
+        <nuxeo-page-provider id="provider"   provider="default_content_collection" schemas="dublincore,common,person,uid" page-size="40" enrichers="thumbnail, permissions">
         </nuxeo-page-provider>
 
         <nuxeo-default-results id="results" name="[[document.uid]]" items="{{items}}" on-navigate="_navigate" selected-items="{{selectedItems}}" empty-label="[[i18n('collections.noDocument')]]" empty-label-when-filtered="[[i18n('collections.noDocumentWhenFiltered')]]" hide-content-view-actions="">
