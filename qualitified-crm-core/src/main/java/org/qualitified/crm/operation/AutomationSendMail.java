@@ -61,7 +61,13 @@ public class AutomationSendMail {
         mailDetails.put("fromName",fromName);
         String toEmail = (String) contactDoc.getPropertyValue("person:email");
         mailDetails.put("toEmail",toEmail);
-        String toName = contactDoc.getPropertyValue("person:lastName") + (String) contactDoc.getPropertyValue("person:firstName");
+        String firstName = (contactDoc.getPropertyValue("person:firstName")!= null)
+                         ? (String) contactDoc.getPropertyValue("person:firstName")
+                         : "";
+        String lastName = (contactDoc.getPropertyValue("person:lastName")!= null)
+                        ? (String) contactDoc.getPropertyValue("person:lastName")
+                        : "";
+        String toName = lastName +""+ firstName;
         mailDetails.put("toName",toName);
         String subject = mailSubject;
         mailDetails.put("subject",subject);
@@ -75,8 +81,10 @@ public class AutomationSendMail {
             MessageID = Long.toString(response.getJSONObject(0).getJSONArray("To")
                     .getJSONObject(0).getLong("MessageID"));
             interactionDoc.setPropertyValue("interaction:messageID",MessageID);
-        } catch (MailjetException e) {
-            logger.error("Error while running mailjet service", e);
+        } catch (MailjetException m) {
+            logger.error("Error while running mailjet service", m);
+        } catch (JSONException j) {
+            logger.error("Mailjet service authentication error,expired or unvalidated apikey", j);
         } finally {
             interactionDoc.setPropertyValue("interaction:status", "DONE");
             documentManager.saveDocument(interactionDoc);
