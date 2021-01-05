@@ -3,6 +3,7 @@ package org.qualitified.crm.operation;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.json.JSONException;
+import org.nuxeo.ecm.automation.AutomationService;
 import org.nuxeo.ecm.automation.OperationContext;
 import org.nuxeo.ecm.automation.OperationException;
 import org.nuxeo.ecm.automation.core.Constants;
@@ -18,6 +19,7 @@ import org.nuxeo.ecm.core.bulk.BulkService;
 import org.nuxeo.ecm.core.bulk.message.BulkCommand;
 import org.nuxeo.ecm.core.bulk.message.BulkStatus;
 import org.nuxeo.runtime.api.Framework;
+import org.qualitified.crm.operation.SendMailBulk;
 
 import javax.security.auth.login.LoginContext;
 import javax.security.auth.login.LoginException;
@@ -27,8 +29,6 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 import java.util.Map;
-
-import static org.nuxeo.ecm.automation.core.operations.blob.RunConverter.log;
 
 @Operation(id = EmailingProcess.ID, category = Constants.CAT_EXECUTION, label = "EmailingProcess", description = "EmailingProcess...")
 public class EmailingProcess {
@@ -43,11 +43,16 @@ public class EmailingProcess {
     @Context
     protected CoreSession documentManager;
 
+    Map<String, Serializable> sendMailBulkParams =new HashMap<>();
+    Map<String, Serializable> prepareMailBulkParams =new HashMap<>();
+
 
     @OperationMethod
     public void run() throws OperationException, LoginException, JSONException, InterruptedException {
         LoginContext lc = Framework.loginAsUser("Administrator");
         ctx.getLoginStack().push(lc);
+        AutomationService automation = Framework.getService(AutomationService.class);
+
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
         DocumentModelList campaignDocuments = documentManager
@@ -61,17 +66,28 @@ public class EmailingProcess {
         if ( !campaignDocuments.isEmpty() ) {
             for (DocumentModel campaignDoc : campaignDocuments) {
 
-                BulkStatus prepareMailBulkStatus = prepareMailBulk(campaignDoc);
+                IdRef automationDocId = new IdRef((String) campaignDoc.getPropertyValue("campaign:automationId"));
+                DocumentModel automationDoc = documentManager.getDocument(automationDocId);
+                IdRef emailDocId = new IdRef((String) automationDoc.getPropertyValue("custom:documentField1"));
+                DocumentModel emailDoc = documentManager.getDocument(emailDocId);
+
+                sendMailBulkParams.put("campaignId",campaignDoc.getId());
+                sendMailBulkParams.put("subject", emailDoc.getTitle());
+                sendMailBulkParams.put("htmlPart", emailDoc.getPropertyValue("html:content"));
+                prepareMailBulkParams.put("campaignId",campaignDoc.getId());
+                // run operation that will trigger the PrepareMailBulk
+                BulkStatus prepareMailBulkStatus = (BulkStatus) automation.run(ctx,"Qualitified.PrepareMailBulk",prepareMailBulkParams);
 
                 if (prepareMailBulkStatus.isCompleted()) {
                     logger.info("Interactions have been created for all '"+ campaignDoc.getTitle()+"' contacts ");
-                    BulkStatus sendMailBulkStatus = sendMailBulk(campaignDoc);
+                    // run operation that will trigger the SendMailBulk
+                    BulkStatus sendMailBulkStatus = (BulkStatus) automation.run(ctx,"Qualitified.SendMailBulk",sendMailBulkParams);
                     campaignDoc.setPropertyValue("campaign:status","In Progress");
                     documentManager.saveDocument(campaignDoc);
 
                     if (sendMailBulkStatus.isCompleted()) {
                         logger.info("Emails have been sent for all '"+ campaignDoc.getTitle()+"' contacts ");
-                        campaignDoc.setPropertyValue("campaign:status","Sent");                    documentManager.saveDocument(campaignDoc);
+                        campaignDoc.setPropertyValue("campaign:status","Sent");
                         documentManager.saveDocument(campaignDoc);
                     } else logger.error("Something wrong with the sendMailBulk");
 
@@ -82,7 +98,7 @@ public class EmailingProcess {
 
     }
 
-    private BulkStatus sendMailBulk(DocumentModel campaignDoc) throws InterruptedException {
+    /*private BulkStatus sendMailBulk(DocumentModel campaignDoc) throws InterruptedException {
         Map<String, Serializable> mailContentParam =new HashMap<>();
 
         IdRef automationDocId = new IdRef((String) campaignDoc.getPropertyValue("campaign:automationId"));
@@ -113,9 +129,9 @@ public class EmailingProcess {
         // get status
         BulkStatus sendMailBulkStatus = sendMailBulkService.getStatus(sendMailCommandId);
         return sendMailBulkStatus;
-    }
+    }*/
 
-    private BulkStatus prepareMailBulk(DocumentModel campaignDoc) throws InterruptedException {
+   /* private BulkStatus prepareMailBulk(DocumentModel campaignDoc) throws InterruptedException {
         Map<String, Serializable> campaignIdParam = new HashMap<>();
         campaignIdParam.put("campaignId", campaignDoc.getId());
 
@@ -143,5 +159,5 @@ public class EmailingProcess {
         // get status
         BulkStatus prepareMailBulkStatus = prepareMailBulkService.getStatus(prepareMailCommandId);
         return prepareMailBulkStatus;
-    }
+    }*/
 }

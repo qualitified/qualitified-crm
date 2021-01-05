@@ -26,5 +26,10 @@
         <operation class="org.qualitified.crm.operation.AutomationSendMail"/>
         <operation class="org.qualitified.crm.operation.CreateInteractions"/>
         <operation class="org.qualitified.crm.operation.EmailingProcess"/>
+        <operation class="org.qualitified.crm.operation.EmailingHistoryProcess"/>
+        <operation class="org.qualitified.crm.operation.SendMailBulk"/>
+        <operation class="org.qualitified.crm.operation.PrepareMailBulk"/>
+
+
     </extension>
  </component>

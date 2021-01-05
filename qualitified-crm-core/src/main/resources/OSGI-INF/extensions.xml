@@ -485,11 +485,11 @@
       <facet name="HiddenInNavigation"/>
       <schema name="automation_list_pp"/>
     </doctype>
-    <doctype name="Note" append="true">
+    <!--doctype name="Note" append="true">
       <schema name="html"/>
       <schema name="picture"/>
       <facet name="Picture"/>
-    </doctype>
+    </doctype-->
     <doctype name="note_list" extends="Document">
       <facet name="ContentViewDisplay"/>
       <facet name="SavedSearch"/>
@@ -684,8 +684,8 @@
     </type>
     <type id="Email">
       <label>Email</label>
-      <icon>/img/Email.png</icon>
-      <bigIcon>/img/Email.png</bigIcon>
+      <icon>/img/mailfolder_100.png</icon>
+      <bigIcon>/img/mailfolder_100.png</bigIcon>
       <description></description>
     </type>
     <type id="Link">
@@ -2369,12 +2369,12 @@
       <username>Administrator</username>
       <cronExpression>0/10 * * * * ?</cronExpression>
     </schedule>
-    <schedule id="EmailingProcessScheduler">
+    <!--<schedule id="EmailingProcessScheduler">
       <eventId>EmailingProcessEvent</eventId>
       <eventCategory>default</eventCategory>
       <username>Administrator</username>
       <cronExpression>0 0 7 * * ?</cronExpression>
-    </schedule>
+    </schedule>-->
   </extension>
   <extension target="org.nuxeo.ecm.core.api.DocumentValidationService" point="activations">
     <validation context="createDocument" activated="false"/>
