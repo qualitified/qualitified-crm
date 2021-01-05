@@ -678,8 +678,8 @@
     </type>
     <type id="Email">
       <label>Email</label>
-      <icon>/img/mailfolder_100.png</icon>
-      <bigIcon>/img/mailfolder_100.png</bigIcon>
+      <icon>/img/mail_100.png</icon>
+      <bigIcon>/img/mail_100.png</bigIcon>
       <description></description>
     </type>
     <type id="Link">
