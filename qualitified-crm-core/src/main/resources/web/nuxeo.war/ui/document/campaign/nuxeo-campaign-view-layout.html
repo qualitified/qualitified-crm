@@ -39,14 +39,62 @@
 
         </style>
 
-        <nuxeo-page-provider id="provider" provider="default_content_collection" schemas="dublincore,person,common" page-size="40" enrichers="thumbnail, permissions">
+        <nuxeo-page-provider id="provider" provider="default_content_collection" schemas="dublincore,silhouette,person,common"  page-size="40" enrichers="thumbnail, permissions">
         </nuxeo-page-provider>
 
-        <nuxeo-default-results id="results" name="[[document.uid]]" items="{{items}}" on-navigate="_navigate" selected-items="{{selectedItems}}" empty-label="[[i18n('collections.noDocument')]]" empty-label-when-filtered="[[i18n('collections.noDocumentWhenFiltered')]]" hide-content-view-actions="">
-            <div slot="selectionActions">
-                <nuxeo-slot slot="COLLECTION_ACTIONS" model="[[actionContext]]"></nuxeo-slot>
-            </div>
-        </nuxeo-default-results>
+        <nuxeo-results id="results" name="[[document.uid]]" items="{{items}}" on-navigate="_navigate" selected-items="{{selectedItems}}" empty-label="[[i18n('collections.noDocument')]]" empty-label-when-filtered="[[i18n('collections.noDocumentWhenFiltered')]]">
+
+            <nuxeo-data-table class="results" name="table" icon="nuxeo:view-list"
+                              settings-enabled
+                              empty-label="[[emptyLabel]]"
+                              empty-label-when-filtered="[[emptyLabelWhenFiltered]]"
+                              selection-enabled
+                              display-quick-filters
+                              on-row-clicked="_navigate">
+
+                <nuxeo-data-table-column name="[[i18n('documentContentView.datatable.header.title')]]"
+                                         field="dc:title" sort-by="dc:title" filter-by="title"  flex="100">
+                    <template>
+                        <img class="queue-thumbnail" src="[[_thumbnail(item)]]">
+                        <a class="title ellipsis" href$="#!/browse[[item.path]]" on-tap="_navigate">[[item.title]]</a>
+                    </template>
+                </nuxeo-data-table-column>
+
+
+
+                <nuxeo-data-table-column name="E-mail"  field="person:email" sort-by="person:email" flex="100">
+                    <template>
+                        [[item.properties.person:email]]
+                    </template>
+                </nuxeo-data-table-column>
+
+                <nuxeo-data-table-column name="Modified" field="dc:modified" sort-by="dc:modified" flex="60">
+                    <template>
+                        [[formatDate(item.properties.dc:modified)]]
+                    </template>
+                </nuxeo-data-table-column>
+
+                <nuxeo-data-table-column name="[[i18n('documentContentView.datatable.header.lastContributor')]]"
+                                         filter-by="dc_last_contributor_agg" field="dc:lastContributor" sort-by="dc:lastContributor" flex="50" hidden>
+                    <template is="header">
+                        <nuxeo-dropdown-aggregation
+                                placeholder="[[i18n('documentContentView.datatable.header.lastContributor')]]"
+                                data="[[contactAggregations.dc_last_contributor_agg]]"
+                                value="{{column.filterValue}}" multiple>
+                        </nuxeo-dropdown-aggregation>
+                    </template>
+                    <template>
+                        <nuxeo-user-tag user="[[item.properties.dc:lastContributor]]"></nuxeo-user-tag>
+                    </template>
+                </nuxeo-data-table-column>
+            </nuxeo-data-table>
+            </nuxeo-results>
+
+
+
+
+
+
     </template>
 
     <script>
@@ -85,7 +133,6 @@
                     }
                 },
 
-
                 _navigate: function(e) {
                     var detail = {
                         doc: e.detail.item,
@@ -94,7 +141,16 @@
                         page('/browse' + detail.doc.path);
                     }
                 },
-
+                _thumbnail: function(doc) {
+                    if (doc && doc.uid) {
+                       if (doc.contextParameters && doc.contextParameters.thumbnail.url) {
+                            return doc.contextParameters.thumbnail.url;
+                       } else {
+                         var baseUrl = this.$.nxcon.url;
+                        return baseUrl + '/api/v1/id/' + doc.uid + '/@rendition/thumbnail';
+                        }
+                    }
+                },
 
                 _documentChanged: function () {
                     if (this.document && this.hasFacet(this.document, 'Collection')) {
