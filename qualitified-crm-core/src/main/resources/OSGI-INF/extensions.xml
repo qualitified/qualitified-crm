@@ -2320,12 +2320,12 @@
       <username>Administrator</username>
       <cronExpression>0/10 * * * * ?</cronExpression>
     </schedule>
-    <schedule id="EmailingProcessScheduler">
+    <!--<schedule id="EmailingProcessScheduler">
       <eventId>EmailingProcessEvent</eventId>
       <eventCategory>default</eventCategory>
       <username>Administrator</username>
       <cronExpression>0 0 7 * * ?</cronExpression>
-    </schedule>
+    </schedule>-->
   </extension>
   <extension target="org.nuxeo.ecm.core.api.DocumentValidationService" point="activations">
     <validation context="createDocument" activated="false"/>
