@@ -19,12 +19,10 @@ import org.nuxeo.ecm.core.bulk.BulkService;
 import org.nuxeo.ecm.core.bulk.message.BulkCommand;
 import org.nuxeo.ecm.core.bulk.message.BulkStatus;
 import org.nuxeo.runtime.api.Framework;
-import org.qualitified.crm.operation.SendMailBulk;
 
 import javax.security.auth.login.LoginContext;
 import javax.security.auth.login.LoginException;
 import java.io.Serializable;
-import java.time.Duration;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
@@ -44,15 +42,11 @@ public class EmailingProcess {
     protected CoreSession documentManager;
 
     Map<String, Serializable> sendMailBulkParams =new HashMap<>();
-    Map<String, Serializable> prepareMailBulkParams =new HashMap<>();
-
 
     @OperationMethod
     public void run() throws OperationException, LoginException, JSONException, InterruptedException {
         LoginContext lc = Framework.loginAsUser("Administrator");
         ctx.getLoginStack().push(lc);
-        AutomationService automation = Framework.getService(AutomationService.class);
-
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
         DocumentModelList campaignDocuments = documentManager
@@ -66,6 +60,8 @@ public class EmailingProcess {
         if ( !campaignDocuments.isEmpty() ) {
             for (DocumentModel campaignDoc : campaignDocuments) {
 
+                campaignDoc.setPropertyValue("campaign:status","In ");
+                documentManager.saveDocument(campaignDoc);
                 IdRef automationDocId = new IdRef((String) campaignDoc.getPropertyValue("campaign:automationId"));
                 DocumentModel automationDoc = documentManager.getDocument(automationDocId);
                 IdRef emailDocId = new IdRef((String) automationDoc.getPropertyValue("custom:documentField1"));
@@ -74,66 +70,17 @@ public class EmailingProcess {
                 sendMailBulkParams.put("campaignId",campaignDoc.getId());
                 sendMailBulkParams.put("subject", emailDoc.getTitle());
                 sendMailBulkParams.put("htmlPart", emailDoc.getPropertyValue("html:content"));
-                prepareMailBulkParams.put("campaignId",campaignDoc.getId());
                 // run operation that will trigger the PrepareMailBulk
-                BulkStatus prepareMailBulkStatus = (BulkStatus) automation.run(ctx,"Qualitified.PrepareMailBulk",prepareMailBulkParams);
-
-                if (prepareMailBulkStatus.isCompleted()) {
-                    logger.info("Interactions have been created for all '"+ campaignDoc.getTitle()+"' contacts ");
-                    // run operation that will trigger the SendMailBulk
-                    BulkStatus sendMailBulkStatus = (BulkStatus) automation.run(ctx,"Qualitified.SendMailBulk",sendMailBulkParams);
-                    campaignDoc.setPropertyValue("campaign:status","In Progress");
-                    documentManager.saveDocument(campaignDoc);
-
-                    if (sendMailBulkStatus.isCompleted()) {
-                        logger.info("Emails have been sent for all '"+ campaignDoc.getTitle()+"' contacts ");
-                        campaignDoc.setPropertyValue("campaign:status","Sent");
-                        documentManager.saveDocument(campaignDoc);
-                    } else logger.error("Something wrong with the sendMailBulk");
-
-                } else logger.error("Something wrong with the prepareMailBulk");
+                prepareMailBulk(sendMailBulkParams);
+                campaignDoc.setPropertyValue("campaign:status","Sent");
+                documentManager.saveDocument(campaignDoc);
             }
 
         } else logger.error("No campaign found, please check the send date or the status");
 
     }
 
-    /*private BulkStatus sendMailBulk(DocumentModel campaignDoc) throws InterruptedException {
-        Map<String, Serializable> mailContentParam =new HashMap<>();
-
-        IdRef automationDocId = new IdRef((String) campaignDoc.getPropertyValue("campaign:automationId"));
-        DocumentModel automationDoc = documentManager.getDocument(automationDocId);
-        IdRef emailDocId =new IdRef((String) automationDoc.getPropertyValue("custom:documentField1"));
-        DocumentModel emailDoc = documentManager.getDocument(emailDocId);
-
-        mailContentParam.put("subject", emailDoc.getTitle());
-        mailContentParam.put("htmlPart", emailDoc.getPropertyValue("html:content"));
-        BulkCommand sendMailCommand = new BulkCommand.Builder(AutomationBulkAction.ACTION_NAME,
-                "SELECT * FROM Interaction WHERE interaction:activity= 'Emailing' " +
-                        "AND interaction:status= 'TODO' AND interaction:campaignId ='"+ campaignDoc.getId()+"' " +
-                        "AND ecm:isProxy = 0 AND ecm:isTrashed = 0 AND ecm:isCheckedInVersion = 0 " +
-                        "AND ecm:currentLifeCycleState != 'deleted' ")
-                .repository("default")
-                .user("Administrator")
-                .param(AutomationBulkAction.OPERATION_ID, "Qualitified.AutomationSendMail")
-                .param(AutomationBulkAction.OPERATION_PARAMETERS, (Serializable) mailContentParam)
-                .build();
-
-        // run command
-        BulkService sendMailBulkService = Framework.getService(BulkService.class);
-        String sendMailCommandId = sendMailBulkService.submit(sendMailCommand);
-
-        // await end of computation
-        sendMailBulkService.await(sendMailCommandId, Duration.ofMinutes(1));
-
-        // get status
-        BulkStatus sendMailBulkStatus = sendMailBulkService.getStatus(sendMailCommandId);
-        return sendMailBulkStatus;
-    }*/
-
-   /* private BulkStatus prepareMailBulk(DocumentModel campaignDoc) throws InterruptedException {
-        Map<String, Serializable> campaignIdParam = new HashMap<>();
-        campaignIdParam.put("campaignId", campaignDoc.getId());
+    private BulkStatus prepareMailBulk(Map<String, Serializable> sendMailBulkParams) throws InterruptedException {
 
         BulkCommand prepareMailCommand = new BulkCommand.Builder(AutomationBulkAction.ACTION_NAME,
                 "SELECT * FROM Document " +
@@ -142,11 +89,11 @@ public class EmailingProcess {
                         "AND ecm:isCheckedInVersion = 0 " +
                         "AND ecm:currentLifeCycleState !='deleted'" +
                         "AND ecm:isTrashed = 0 " +
-                        "AND collectionMember:collectionIds/* = '"+campaignDoc.getId()+"' ")
+                        "AND collectionMember:collectionIds/* = '"+sendMailBulkParams.get("campaignId")+"' ")
                 .repository("default")
                 .user("Administrator")
-                .param(AutomationBulkAction.OPERATION_ID,"Qualitified.CreateInteractions")
-                .param(AutomationBulkAction.OPERATION_PARAMETERS, (Serializable) campaignIdParam)
+                .param(AutomationBulkAction.OPERATION_ID,"Qualitified.SendMail")
+                .param(AutomationBulkAction.OPERATION_PARAMETERS, (Serializable) sendMailBulkParams)
                 .build();
 
         // run command
@@ -154,10 +101,10 @@ public class EmailingProcess {
         String prepareMailCommandId = prepareMailBulkService.submit(prepareMailCommand);
 
         // await end of computation
-        prepareMailBulkService.await(prepareMailCommandId, Duration.ofMinutes(1));
+        //prepareMailBulkService.await(prepareMailCommandId, Duration.ofMinutes(1));
 
         // get status
         BulkStatus prepareMailBulkStatus = prepareMailBulkService.getStatus(prepareMailCommandId);
         return prepareMailBulkStatus;
-    }*/
+    }
 }
