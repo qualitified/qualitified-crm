@@ -5,7 +5,8 @@
   "Lost": "Perdu",
   "Limbo": "Infructueux",
   "label.metadata.link" : "Lien",
-  "label.metadata.campaign" : "campagne",
+  "campaign" : "campagne",
+
   "label.metadata.followed_link" : "Lien suivis",
   "label.document.type.interaction":"Interaction",
   "label.document.type.account":"Client",
