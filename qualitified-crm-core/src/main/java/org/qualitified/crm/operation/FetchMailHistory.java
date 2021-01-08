@@ -14,6 +14,7 @@ import org.nuxeo.ecm.automation.core.Constants;
 import org.nuxeo.ecm.automation.core.annotations.Context;
 import org.nuxeo.ecm.automation.core.annotations.Operation;
 import org.nuxeo.ecm.automation.core.annotations.OperationMethod;
+import org.nuxeo.ecm.automation.core.annotations.Param;
 import org.nuxeo.ecm.core.api.CoreSession;
 import org.nuxeo.ecm.core.api.DocumentModel;
 import org.nuxeo.runtime.api.Framework;
@@ -38,6 +39,11 @@ public class FetchMailHistory {
 
     @Context
     protected CoreSession documentManager;
+
+    @Param(name = "Status")
+    protected String status;
+
+
     private String MessageID;
 
 
@@ -65,6 +71,8 @@ public class FetchMailHistory {
             mailHistory.add(Details);
         }
         interactionDoc.setPropertyValue("interaction:data", (Serializable) mailHistory);
+        interactionDoc.setPropertyValue("interaction:statusMail", (Serializable) mailHistory.get(mailHistory.size()-1).get("eventTypes"));
+
         documentManager.saveDocument(interactionDoc);
 
     }
