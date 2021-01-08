@@ -1,4 +1,6 @@
 <link href="../qualitified-custom-fields.html" rel="import">
+<link rel="import" href="../../nuxeo-chart-data-behavior.html">
+
 <dom-module id="nuxeo-campaign-metadata-layout">
     <template>
         <style>
@@ -20,6 +22,22 @@
             <h1>
                 [[document.properties.dc:title]]
             </h1>
+            <!-- Top 10 creators -->
+            <nuxeo-repository-data ecm-primary-type="Interaction"
+                                   where="[[_setWhereTerm(document.uid)]]"
+                                   grouped-by="interaction:statusMail"
+                                   data="{{data}}"
+            >
+            </nuxeo-repository-data>
+
+            <div class="card-content" style="float:right">
+                <chart-pie values="[[_values(data)]]"
+                           series="[[_series(data)]]"
+                           labels="[[_labels(data)]]"
+                           colors="[[colors]]"
+                           options='{"responsive": true, "animation": false}'>
+                </chart-pie>
+            </div>
         </div>
 
 
@@ -35,10 +53,10 @@
         <div role="widget" hidden$="[[!document.properties.campaign:status]]">
             <label>[[i18n('label.metadata.status')]]</label>
             <nuxeo-directory-suggestion role="widget"
-                                             value="[[document.properties.campaign:status]]"
-                                             directory-name="StatusCampaign"
-                                             min-chars="0"
-                                             readOnly>
+                                        value="[[document.properties.campaign:status]]"
+                                        directory-name="StatusCampaign"
+                                        min-chars="0"
+                                        readOnly>
             </nuxeo-directory-suggestion>
         </div>
         <div role="widget">
@@ -50,20 +68,44 @@
             <label>[[i18n('label.metadata.campaign.sendDate')]]</label>
             <div>[[formatDate(document.properties.campaign:sendDate)]]</div>
         </div>
+
     </template>
 
     <script>
+    (function() {
+      'use strict';
         Polymer({
             is: 'nuxeo-campaign-metadata-layout',
-            behaviors: [Nuxeo.LayoutBehavior],
+            behaviors: [Nuxeo.LayoutBehavior, Nuxeo.ChartDataBehavior],
             properties: {
                 /**
                  * @doctype campaign
                  */
                 document: {
-                    type: Object
+                    type: Object,
+                    observer: '_documentReady'
+                },
+                colors: {
+                    type: Array,
+                    value: ['#E67E22', '#F6DDCC', '#ffffb3', '#bebada', '#80b1d3', '#fdb462', '#b3de69', '#fccde5', '#d9d9d9', '#bc80bd']
                 }
+            },
+
+            _documentReady: function(doc){
+            },
+            _setWhereTerm: function (campaignId) {
+              if (campaignId) {
+                var where = {};
+                var terms = {};
+                var must = [];
+                where["interaction:campaignId"] = campaignId;
+                terms["term"] = where;
+                must=[terms];
+                return must;
+              }
+              return "";
             }
         });
+      })();
     </script>
 </dom-module>
