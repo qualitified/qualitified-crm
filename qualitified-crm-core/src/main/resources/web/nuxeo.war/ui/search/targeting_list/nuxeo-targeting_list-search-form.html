@@ -45,6 +45,13 @@
         ​
 
         ​
+        <div class="layout vertical row">
+            <label>Type</label>
+            <nuxeo-checkbox-aggregation
+                    data="[[aggregations.contact_silhouette_agg]]"
+                    value="{{params.contact_silhouette_agg}}">
+            </nuxeo-checkbox-aggregation>
+        </div>
         <!-- Full Text -->
         <nuxeo-input role="widget"
                      id="searchInput"
@@ -67,6 +74,8 @@
                     value="{{params.person_role_agg}}">
             </nuxeo-checkbox-aggregation>
         </div>
+
+
 
         <div class="layout vertical row">
             <label>[[i18n('label.metadata.responsible')]]</label>

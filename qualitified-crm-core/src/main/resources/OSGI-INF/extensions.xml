@@ -1418,6 +1418,14 @@
             <property name="size">0</property>
           </properties>
         </aggregate>
+        <aggregate id="contact_silhouette_agg" type="terms" parameter="ecm:primaryType">
+          <field schema="targeting" name="contact_silhouette_agg"/>
+          <properties>
+            <property name="order">count desc</property>
+            <property name="size">0</property>
+          </properties>
+        </aggregate>
+
         <aggregate id="responsible_agg" type="terms" parameter="contact:responsible">
           <field schema="targeting" name="responsible_agg"/>
           <properties>
