@@ -1,123 +1,132 @@
-<script src="../../dist/quill.js"></script>
-<link rel="import" href="../../dist/quill-snow.html">
 <dom-module id="qualitified-html-editor" assetpath="bower_components/nuxeo-ui-elements/widgets/">
     <template>
-        <style include="quill-snow">
-          #editor {
-            outline: none;
-            height: 100%;
-            min-height: 30em;
-          }
+        <style include="alloy-ocean">
+            #editor {
+                outline: none;
+                height: 100%;
+                min-height: 30em;
+            }
 
-          div#editor > * {
-            margin-top: 0;
-          }
+            .ae-placeholder:empty:not(:focus):before {
+                color: grey;
+                font-style: italic;
+            }
+
+            div#editor > * {
+                margin-top: 0;
+            }
         </style>
 
-        <div id="editor"></div>
+        <div id="editor" data-placeholder$="[[placeholder]]"></div>
     </template>
     <script>
-    {
-      /**
-       * `qualitified-html-editor`
-       * @memberof Nuxeo
-       * @demo demo/nuxeo-html-editor/index.html
-       */
-      class HTMLEditor extends Nuxeo.Element {
+        {
+            /**
+             * `qualitified-html-editor`
+             * @memberof Nuxeo
+             * @demo demo/qualitified-html-editor/index.html
+             */
+            class HTMLEditor extends Nuxeo.Element {
 
-        static get is() {
-          return 'qualitified-html-editor';
+                static get is() {
+                    return 'qualitified-html-editor';
+                }
+
+                static get properties() {
+                    return {
+                        element: Object,
+
+                        value: {
+                            type: String,
+                            notify: true,
+                            observer: '_valueChanged',
+                        },
+
+                        placeholder: {
+                            type: String,
+                            value: 'Type here...',
+                        },
+
+                        readOnly: Boolean,
+
+                        hideToolbars: Boolean,
+                    };
+                }
+
+                connectedCallback() {
+                    super.connectedCallback();
+                    setTimeout(() => {
+                        this._init();
+                    }, 100);
+                }
+
+                _init() {
+                    // init editor
+                    const toolbars = this.hideToolbars ? {} : {
+                        add: {
+                            buttons: ['image', 'camera', 'hline', 'table'],
+                            tabIndex: 2,
+                        },
+                        styles: {
+                            selections: [
+                                {
+                                    name: 'link',
+                                    buttons: ['linkEdit'],
+                                    test: AlloyEditor.SelectionTest.link,
+                                },
+                                {
+                                    name: 'image',
+                                    buttons: ['imageLeft', 'imageCenter', 'imageRight'],
+                                    test: AlloyEditor.SelectionTest.image,
+                                },
+                                {
+                                    name: 'text',
+                                    buttons: ['styles', 'bold', 'italic', 'underline', 'strike', 'paragraphLeft', 'paragraphCenter',
+                                        'paragraphJustify', 'ul', 'ol', 'quote', 'link', 'removeFormat'],
+                                    test: AlloyEditor.SelectionTest.text,
+                                },
+                                {
+                                    name: 'table',
+                                    buttons: ['tableRow', 'tableColumn', 'tableCell', 'tableRemove'],
+                                    getArrowBoxClasses: AlloyEditor.SelectionGetArrowBoxClasses.table,
+                                    setPosition: AlloyEditor.SelectionSetPosition.table,
+                                    test: AlloyEditor.SelectionTest.table,
+                                },
+                            ],
+                            tabIndex: 1,
+                        },
+                    };
+                    const editor = AlloyEditor.editable(this.$.editor, {
+                        readOnly: this.readOnly,
+                        uiNode: this.root,
+                        toolbars,
+                        allowedContent: true
+                    });
+                    this.element = editor.get('nativeEditor');
+                    // set initial value
+                    this.element.setData(this.value);
+
+                    this.element.on('change', this._updateValue.bind(this));
+
+                    this.element.on('actionPerformed', this._updateValue.bind(this));
+                }
+
+                _updateValue() {
+                    this._internalChange = true;
+                    this.value = this.element.getData();
+                    this._internalChange = false;
+                }
+
+                _valueChanged() {
+                    if (this.element && !this._internalChange) {
+                        this.element.setData(this.value);
+                    }
+                }
+
+            }
+
+            customElements.define(HTMLEditor.is, HTMLEditor);
+            Nuxeo.HTMLEditor = HTMLEditor;
         }
-
-        static get properties() {
-          return {
-            element: Object,
-
-            value: {
-              type: String,
-              notify: true,
-              observer: '_valueChanged'
-            },
-
-            placeholder: {
-              type: String,
-              value: 'Type here...',
-            },
-
-            readOnly: {
-              type: Boolean,
-              value: false,
-              reflectToAttribute: true,
-            },
-
-            _editor: {
-              type: Object,
-            },
-
-            hideToolbars: Boolean,
-          };
-        }
-
-        static get observers() {
-            return ['_valueChanged(value, _editor)', '_readOnlyChanged(readOnly, _editor)'];
-    	}
-
-        /*static get importMeta() {
-            return import.meta;
-        }*/
-
-
-
-    ready() {
-      super.ready();
-      // init editor
-      const toolbar = [
-        [{ header: [1, 2, 3, 4, 5, 6, false] }], // headings
-        ['bold', 'italic', 'underline', 'strike'], // style buttons
-        [{ align: '' }, { align: 'center' }, { align: 'right' }], // text alignment
-        [{ color: [] }, { background: [] }], // dropdown with defaults from theme
-        [{ script: 'sub' }, { script: 'super' }], // superscript/subscript
-        ['blockquote'], // blockquote
-        [{ list: 'ordered' }, { list: 'bullet' }], // lists
-        ['link', 'image'], // links and media
-        ['clean'], // remove formatting button
-      ];
-
-      const { placeholder, readOnly } = this;
-      this._editor = new Quill(this.$.editor, { theme: 'snow', modules: { toolbar }, placeholder, readOnly });
-
-      // update value on change
-      this._editor.on('text-change', () => {
-        this._updateValue();
-        //this._debouncer = Polymer.Debouncer.debounce(this._debouncer, timeOut.after(200), () => this._updateValue());
-      });
-    }
-
-    _updateValue() {
-      this._internalChange = true;
-      this.value = this._editor.root.innerHTML;
-      this._internalChange = false;
-    }
-
-    _valueChanged() {
-      if (this._editor && !this._internalChange) {
-        const delta = this._editor.clipboard.convert('<div class=\'ql-editor\' style="white-space: normal;">'+this.value+'<p><br></p></div>');
-        //const delta = this._editor.clipboard.convert({ html: this.value });
-        this._editor.setContents(delta);
-        //this._editor.setContents(delta, Quill.sources.USER);
-        //this._editor.setSelection(0, Quill.sources.SILENT);
-      }
-    }
-
-    _readOnlyChanged() {
-      if (this._editor) {
-        this._editor.enable(!this.readOnly);
-        this._editor.getModule('toolbar').container.style.display = this.readOnly ? 'none' : '';
-      }
-    }
-  }
-
-  customElements.define(HTMLEditor.is, HTMLEditor);
-}
-  </script>
+    </script>
 </dom-module>

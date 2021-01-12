@@ -18,16 +18,17 @@ limitations under the License.
 @group Nuxeo UI
 @element nuxeo-email-view-layout
 -->
-<link rel="import" href="qualitified-email-editor.html">
+<link rel="import" href="qualitified-note-editor.html">
 <dom-module id="nuxeo-email-view-layout">
 
   <template>
     <style>
-      qualitified-email-editor {
+      qualitified-note-editor {
         @apply --paper-card;
       }
     </style>
-    <qualitified-email-editor role="widget" document="[[document]]"></qualitified-email-editor>
+    <!--qualitified-email-editor role="widget" document="[[document]]"></qualitified-email-editor-->
+    <qualitified-note-editor role="widget" document="[[document]]"></qualitified-note-editor>
   </template>
 
   <script>
