@@ -25,6 +25,8 @@
         <operation class="org.qualitified.crm.operation.FetchMailHistory"/>
         <operation class="org.qualitified.crm.operation.SendMail"/>
         <operation class="org.qualitified.crm.operation.EmailingProcess"/>
+        <operation class="org.qualitified.crm.operation.EmailingHistoryProcess"/>
+
 
     </extension>
  </component>
