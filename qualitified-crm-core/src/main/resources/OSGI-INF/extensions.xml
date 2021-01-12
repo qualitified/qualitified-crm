@@ -952,6 +952,9 @@
     <handler chainId="EmailingProcessChain">
       <event>EmailingProcessEvent</event>
     </handler>
+    <handler chainId="EmailingHistoryProcessChain">
+      <event>EmailingHistoryProcessEvent</event>
+    </handler>
   </extension>
   <extension target="org.nuxeo.ecm.core.lifecycle.LifeCycleService" point="lifecycle">
     <lifecycle name="default" defaultInitial="project">
@@ -1274,6 +1277,12 @@
         <param type="string" name="name">Administrator</param>
       </operation>
       <operation id="Qualitified.EmailingProcess"/>
+    </chain>
+    <chain id="EmailingHistoryProcessChain">
+      <operation id="Auth.LoginAs">
+        <param type="string" name="name">Administrator</param>
+      </operation>
+      <operation id="Qualitified.EmailingHistoryProcess"/>
     </chain>
   </extension>
   <extension target="org.nuxeo.ecm.platform.query.api.PageProviderService" point="providers">
@@ -2377,12 +2386,18 @@
       <username>Administrator</username>
       <cronExpression>0/10 * * * * ?</cronExpression>
     </schedule>
-    <!--<schedule id="EmailingProcessScheduler">
+    <schedule id="EmailingProcessScheduler">
       <eventId>EmailingProcessEvent</eventId>
       <eventCategory>default</eventCategory>
       <username>Administrator</username>
       <cronExpression>0 0 7 * * ?</cronExpression>
-    </schedule>-->
+    </schedule>
+    <schedule id="EmailingHistoryProcessScheduler">
+      <eventId>EmailingHistoryProcessEvent</eventId>
+      <eventCategory>default</eventCategory>
+      <username>Administrator</username>
+      <cronExpression>0 0 0 * * ?</cronExpression>
+    </schedule>
   </extension>
   <extension target="org.nuxeo.ecm.core.api.DocumentValidationService" point="activations">
     <validation context="createDocument" activated="false"/>
