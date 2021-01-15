@@ -55,7 +55,7 @@ public class FetchMailHistory {
         MessageID = (String) interactionDoc.getPropertyValue("interaction:messageID");
         JSONObject response= emailingService.fetchHistory(Long.parseLong(MessageID));
         Calendar cal = Calendar.getInstance();
-
+           int kk= 0;
             List<Map<String, Object>> mailHistory = new ArrayList<Map<String, Object>>();
 
         for (int i = 0; i < response.getLong("count"); i++) {
@@ -71,8 +71,27 @@ public class FetchMailHistory {
             mailHistory.add(Details);
         }
         interactionDoc.setPropertyValue("interaction:data", (Serializable) mailHistory);
-        interactionDoc.setPropertyValue("interaction:statusMail", (Serializable) mailHistory.get(mailHistory.size()-1).get("eventTypes"));
 
+            int isSent = (mailHistory.size()>0)
+                    ? 1
+                    : 0;
+            int isOpened = (mailHistory.size()>1)
+                    ? 1
+                    : 0;
+            int isClicked = (mailHistory.size()>4)
+                    ? 1
+                    : 0;
+            int isDelivered = (isSent==1 && isOpened==1)
+                    ? 1
+                    : 0;
+
+        interactionDoc.setPropertyValue("interaction:isSent", isSent);
+        interactionDoc.setPropertyValue("interaction:isDelivered", isDelivered);
+        interactionDoc.setPropertyValue("interaction:isOpened", isOpened);
+        interactionDoc.setPropertyValue("interaction:isClicked", isClicked);
+
+
+        interactionDoc.setPropertyValue("interaction:statusMail", (Serializable) mailHistory.get(mailHistory.size()-1).get("eventTypes"));
         documentManager.saveDocument(interactionDoc);
 
     }

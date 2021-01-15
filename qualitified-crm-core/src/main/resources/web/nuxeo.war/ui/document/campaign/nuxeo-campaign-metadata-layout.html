@@ -63,6 +63,58 @@
             <label>[[i18n('label.metadata.campaign.sendDate')]]</label>
             <div>[[formatDate(document.properties.campaign:sendDate)]]</div>
         </div>
+        <!-- Number of documents -->
+        <nuxeo-repository-data ecm-primary-type="Interaction"
+                               where="[[_setWhereTerm(document.uid)]]"
+                               metrics="sum(interaction:isSent)" data="{{sentCount}}"
+                               index="[[index]]">
+        </nuxeo-repository-data>
+
+        <paper-card heading="Mails sent" elevation="2">
+            <div class="card-content">
+                <iron-icon icon="icons:description"></iron-icon>
+                <h1>[[sentCount]]</h1>
+            </div>
+        </paper-card>
+        <!-- Number of documents -->
+        <nuxeo-repository-data ecm-primary-type="Interaction"
+                               where="[[_setWhereTerm(document.uid)]]"
+                               metrics="sum(interaction:isDelivered)" data="{{deliveredCount}}"
+                               index="[[index]]">
+        </nuxeo-repository-data>
+
+        <paper-card heading="Mails delivered" elevation="2">
+            <div class="card-content">
+                <iron-icon icon="icons:description"></iron-icon>
+                <h1>[[deliveredCount]]</h1>
+            </div>
+        </paper-card>
+        <!-- Number of documents -->
+        <nuxeo-repository-data ecm-primary-type="Interaction"
+                               where="[[_setWhereTerm(document.uid)]]"
+                               metrics="sum(interaction:isOpened)" data="{{openedCount}}"
+                               index="[[index]]">
+        </nuxeo-repository-data>
+
+        <paper-card heading="Mails opened" elevation="2">
+            <div class="card-content">
+                <iron-icon icon="icons:description"></iron-icon>
+                <h1>[[openedCount]]</h1>
+            </div>
+        </paper-card>
+        <!-- Number of documents -->
+        <nuxeo-repository-data ecm-primary-type="Interaction"
+                               where="[[_setWhereTerm(document.uid)]]"
+                               metrics="sum(interaction:isClicked)" data="{{clickedCount}}"
+                               index="[[index]]">
+        </nuxeo-repository-data>
+
+        <paper-card heading="Mails clicked" elevation="2">
+            <div class="card-content">
+                <iron-icon icon="icons:description"></iron-icon>
+                <h1>[[clickedCount]]</h1>
+            </div>
+        </paper-card>
 
     </template>
 
@@ -87,15 +139,24 @@
             },
 
             _documentReady: function(doc){
+
             },
+
             _setWhereTerm: function (campaignId) {
               if (campaignId) {
-                var where = {};
-                var terms = {};
+                var where1 = {};
+                var where2 = {};
+
+                var term1 = {};
+                var term2 = {};
                 var must = [];
-                where["interaction:campaignId"] = campaignId;
-                terms["term"] = where;
-                must=[terms];
+                where1["interaction:campaignId"] = campaignId;
+                where2["ecm:isTrashed"] = "false";
+                term1["term"] = where1;
+                term2["term"] = where2;
+
+                must=[term1,term2];
+                console.log(must);
                 return must;
               }
               return "";
