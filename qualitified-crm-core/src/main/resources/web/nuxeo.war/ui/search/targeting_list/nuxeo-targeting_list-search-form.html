@@ -44,15 +44,7 @@
         <nuxeo-connection id="nxcon" user="{{user}}"></nuxeo-connection>
         ​
 
-        ​
-        <div class="layout vertical row">
-            <label>Type</label>
-            <nuxeo-checkbox-aggregation
-                    data="[[aggregations.contact_silhouette_agg]]"
-                    value="{{params.contact_silhouette_agg}}">
-            </nuxeo-checkbox-aggregation>
-        </div>
-        <!-- Full Text -->
+        ​ <!-- Full Text -->
         <nuxeo-input role="widget"
                      id="searchInput"
                      type="search"
@@ -62,6 +54,15 @@
                      autofocus
                      on-keydown="_checkForEnter">
         </nuxeo-input>
+
+        <div class="layout vertical row">
+            <label>Type</label>
+            <nuxeo-checkbox-aggregation
+                    data="[[aggregations.contact_silhouette_agg]]"
+                    value="{{params.contact_silhouette_agg}}">
+            </nuxeo-checkbox-aggregation>
+        </div>
+
 
         <nuxeo-input role="widget" value="{{params.person_firstName}}" label="[[i18n('label.metadata.firstname')]]"
                      type="text"></nuxeo-input>
