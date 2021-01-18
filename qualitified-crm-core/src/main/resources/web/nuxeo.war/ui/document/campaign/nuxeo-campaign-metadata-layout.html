@@ -264,12 +264,14 @@
             _documentReady: function(doc){
             },
 
-            _getPartialPercent: function(partialCount,totalCount){
-            var count = (partialCount * 100)/totalCount;
-            if (count == 100) {
-            return count;
-            }
-            return count.toFixed(2);
+           _getPartialPercent: function(partialCount,totalCount){
+                var count = (partialCount * 100)/totalCount;
+                if (isNaN(count)){
+                 return 0;
+                    } else if (count == 100) {
+                    return count;
+                    } else
+                return count.toFixed(2);
             },
             _setWhereTerm: function (campaignId) {
               if (campaignId) {
