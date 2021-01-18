@@ -1,6 +1,5 @@
 <link href="../qualitified-custom-fields.html" rel="import">
 <link rel="import" href="../../nuxeo-chart-data-behavior.html">
-
 <dom-module id="nuxeo-campaign-metadata-layout">
     <template>
         <style>
@@ -17,6 +16,13 @@
             .title{
                 color:var(--nuxeo-secondary-color);
             }
+            paper-card {
+               display: inline-flex;
+               box-sizing: border-box;
+               margin-left: 8px;
+               width: 250px;
+            }
+
         </style>
         <div role="widget" class="title">
             <h1>
@@ -29,7 +35,6 @@
                                    data="{{data}}"
             >
             </nuxeo-repository-data>
-
             <div class="card-content" style="float:right">
                 <chart-pie values="[[_values(data)]]"
                            series="[[_series(data)]]"
@@ -39,8 +44,7 @@
                 </chart-pie>
             </div>
         </div>
-
-        <div role="widget" hidden$="[[!document.properties.campaign:automationId]]">
+        <div role="widget" hidden$="[[!document.properties.campaign:automationId]]" style="width:60%;">
             <label>[[i18n('label.metadata.automation.title')]]</label>
             <qualitified-document-suggestion role="widget"
                                              value="[[document.properties.campaign:automationId]]"
@@ -49,7 +53,7 @@
                                              readOnly>
             </qualitified-document-suggestion>
         </div>
-        <div role="widget" hidden$="[[!document.properties.campaign:status]]">
+        <div role="widget" hidden$="[[!document.properties.campaign:status]]" style="width:60%;">
             <label>[[i18n('label.metadata.status')]]</label>
             <nuxeo-directory-suggestion role="widget"
                                         value="[[document.properties.campaign:status]]"
@@ -63,8 +67,181 @@
             <div>[[formatDate(document.properties.campaign:sendDate)]]</div>
         </div>
 
-    </template>
+        <nuxeo-repository-data data="{{sentCount}}"
+                               ecm-primary-type="Interaction"
+                               index="[[index]]" metrics="sum(interaction:isSent)"
+                               where="[[_setWhereTerm(document.uid)]]">
+        </nuxeo-repository-data>
 
+        <nuxeo-repository-data data="{{deliveredCount}}"
+                               ecm-primary-type="Interaction"
+                               index="[[index]]" metrics="sum(interaction:isDelivered)"
+                               where="[[_setWhereTerm(document.uid)]]">
+        </nuxeo-repository-data>
+
+        <nuxeo-repository-data data="{{openedCount}}"
+                               ecm-primary-type="Interaction"
+                               index="[[index]]" metrics="sum(interaction:isOpened)"
+                               where="[[_setWhereTerm(document.uid)]]">
+        </nuxeo-repository-data>
+
+        <nuxeo-repository-data data="{{clickedCount}}"
+                               ecm-primary-type="Interaction"
+                               index="[[index]]" metrics="sum(interaction:isClicked)"
+                               where="[[_setWhereTerm(document.uid)]]">
+        </nuxeo-repository-data>
+
+        <div class="horizontal justified">
+            <paper-card>
+                <table border="0" cellpadding="0" cellspacing="0" width="100%">
+                    <tbody>
+                    <tr>
+                        <td>
+                            <div style="display:block;text-align:center;background-color:white;padding-top:25px">
+                                <div style="display:inline-block;width:14px;height:14px;border-radius:40px;background-color:#c7e3ff">
+
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td align="center" style="background:white;font-size:0px;padding:5px;word-break:break-word">
+                            <div style="font-family:Roboto,Helvetica,Arial;font-size:32px;font-weight:bold;line-height:40px;text-align:center;color:#555555">
+                                [[sentCount]]
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td align="center" style="background:white;font-size:0px;padding:0px 25px;word-break:break-word">
+                            <div style="font-family:Roboto,Helvetica,Arial;font-size:14px;line-height:20px;text-align:center;color:#888888">
+                                Emails
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td align="center" style="background:white;font-size:0px;padding:10px 25px;word-break:break-word">
+                            <div style="font-family:Roboto,Helvetica,Arial;font-size:16px;font-weight:bold;line-height:24px;text-align:center;color:#555555">
+                                SENT
+                            </div>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </paper-card>
+            <paper-card>
+                <table border="0" cellpadding="0" cellspacing="0" width="100%">
+                    <tbody>
+                    <tr>
+                        <td>
+                            <div style="display:block;text-align:center;background-color:white;padding-top:25px">
+                                <div style="display:inline-block;width:14px;height:14px;border-radius:40px;background-color:#c5baff">
+
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td align="center" style="background:white;font-size:0px;padding:5px;word-break:break-word">
+                            <div style="font-family:Roboto,Helvetica,Arial;font-size:32px;font-weight:bold;line-height:40px;text-align:center;color:#555555">
+                                [[deliveredCount]]
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td align="center" style="background:white;font-size:0px;padding:0px 25px;word-break:break-word">
+                            <div style="font-family:Roboto,Helvetica,Arial;font-size:14px;line-height:20px;text-align:center;color:#888888">
+                                [[_getPartialPercent(deliveredCount,sentCount)]]%
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td align="center" style="background:white;font-size:0px;padding:10px 25px;word-break:break-word">
+                            <div style="font-family:Roboto,Helvetica,Arial;font-size:16px;font-weight:bold;line-height:24px;text-align:center;color:#555555">
+                                DELIVERED
+                            </div>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </paper-card>
+            <paper-card>
+                <table border="0" cellpadding="0" cellspacing="0" width="100%">
+                    <tbody>
+                    <tr>
+                        <td>
+                            <div style="display:block;text-align:center;background-color:white;padding-top:25px">
+                                <div style="display:inline-block;width:14px;height:14px;border-radius:40px;background-color:#39e6ac">
+
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td align="center" style="background:white;font-size:0px;padding:5px;word-break:break-word">
+                            <div style="font-family:Roboto,Helvetica,Arial;font-size:32px;font-weight:bold;line-height:40px;text-align:center;color:#555555">
+                                [[_getPartialPercent(openedCount,sentCount)]]%
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td align="center" style="background:white;font-size:0px;padding:0px 25px;word-break:break-word">
+                            <div style="font-family:Roboto,Helvetica,Arial;font-size:14px;line-height:20px;text-align:center;color:#888888">
+                                [[openedCount]]
+                            </div>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td align="center" style="background:white;font-size:0px;padding:10px 25px;word-break:break-word">
+                            <div style="font-family:Roboto,Helvetica,Arial;font-size:16px;font-weight:bold;line-height:24px;text-align:center;color:#555555">
+                                OPENED
+                            </div>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </paper-card>
+            <paper-card>
+                <table border="0" cellpadding="0" cellspacing="0" width="100%">
+                    <tbody>
+                    <tr>
+                        <td>
+                            <div style="display:block;text-align:center;background-color:white;padding-top:25px">
+                                <div style="display:inline-block;width:14px;height:14px;border-radius:40px;background-color:#ffaef1">
+
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+
+
+                    <tr>
+                        <td align="center" style="background:white;font-size:0px;padding:5px;word-break:break-word">
+                            <div style="font-family:Roboto,Helvetica,Arial;font-size:32px;font-weight:bold;line-height:40px;text-align:center;color:#555555">
+                                [[_getPartialPercent(clickedCount,sentCount)]]%
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td align="center" style="background:white;font-size:0px;padding:0px 25px;word-break:break-word">
+                            <div style="font-family:Roboto,Helvetica,Arial;font-size:14px;line-height:20px;text-align:center;color:#888888">
+                                [[clickedCount]]
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td align="center" style="background:white;font-size:0px;padding:10px 25px;word-break:break-word">
+                            <div style="font-family:Roboto,Helvetica,Arial;font-size:16px;font-weight:bold;line-height:24px;text-align:center;color:#555555">
+                                CLICKED
+                            </div>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </paper-card>
+        </div>
+    </template>
     <script>
     (function() {
       'use strict';
@@ -84,17 +261,29 @@
                     value: ['#E67E22', '#F6DDCC', '#ffffb3', '#bebada', '#80b1d3', '#fdb462', '#b3de69', '#fccde5', '#d9d9d9', '#bc80bd']
                 }
             },
-
             _documentReady: function(doc){
+            },
+
+            _getPartialPercent: function(partialCount,totalCount){
+            var count = (partialCount * 100)/totalCount;
+            if (count == 100) {
+            return count;
+            }
+            return count.toFixed(2);
             },
             _setWhereTerm: function (campaignId) {
               if (campaignId) {
-                var where = {};
-                var terms = {};
+                var where1 = {};
+                var where2 = {};
+                var term1 = {};
+                var term2 = {};
                 var must = [];
-                where["interaction:campaignId"] = campaignId;
-                terms["term"] = where;
-                must=[terms];
+                where1["interaction:campaignId"] = campaignId;
+                where2["ecm:isTrashed"] = "false";
+                term1["term"] = where1;
+                term2["term"] = where2;
+                must=[term1,term2];
+                console.log(must);
                 return must;
               }
               return "";

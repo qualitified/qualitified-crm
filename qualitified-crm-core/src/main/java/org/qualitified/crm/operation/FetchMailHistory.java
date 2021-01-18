@@ -45,7 +45,11 @@ public class FetchMailHistory {
 
 
     private String MessageID;
-
+    int isSent = 0;
+    int isOpened = 0;
+    int isClicked = 0;
+    int isDelivered = 0;
+    String statusMail = null;
 
     @OperationMethod
     public void run(DocumentModel interactionDoc) throws OperationException, LoginException, MailjetSocketTimeoutException, JSONException, MailjetException {
@@ -55,7 +59,6 @@ public class FetchMailHistory {
         MessageID = (String) interactionDoc.getPropertyValue("interaction:messageID");
         JSONObject response= emailingService.fetchHistory(Long.parseLong(MessageID));
         Calendar cal = Calendar.getInstance();
-
             List<Map<String, Object>> mailHistory = new ArrayList<Map<String, Object>>();
 
         for (int i = 0; i < response.getLong("count"); i++) {
@@ -71,9 +74,35 @@ public class FetchMailHistory {
             Details.put("userAgentID", userAgentID);*/
             mailHistory.add(Details);
         }
-        interactionDoc.setPropertyValue("interaction:data", (Serializable) mailHistory);
-        interactionDoc.setPropertyValue("interaction:statusMail", (Serializable) mailHistory.get(mailHistory.size()-1).get("eventTypes"));
 
+
+        for (int i = 0; i < mailHistory.size(); i++) {
+            if (mailHistory.get(i).get("state").equals("")) {
+                isDelivered=1;
+                switch (mailHistory.get(i).get("eventTypes").toString()) {
+                    case "sent":
+                        isSent = 1;
+                        statusMail = "Not opened";
+                    break;
+                    case "opened":
+                        isOpened = 1;
+                        statusMail = "Opened";
+                        break;
+                    case "clicked":
+                        isClicked = 1;
+                    break;
+
+                }
+            }
+
+        }   
+
+        interactionDoc.setPropertyValue("interaction:data", (Serializable) mailHistory);
+        interactionDoc.setPropertyValue("interaction:isSent", isSent);
+        interactionDoc.setPropertyValue("interaction:isDelivered", isDelivered);
+        interactionDoc.setPropertyValue("interaction:isOpened", isOpened);
+        interactionDoc.setPropertyValue("interaction:isClicked", isClicked);
+        interactionDoc.setPropertyValue("interaction:statusMail", statusMail);
         documentManager.saveDocument(interactionDoc);
 
     }
