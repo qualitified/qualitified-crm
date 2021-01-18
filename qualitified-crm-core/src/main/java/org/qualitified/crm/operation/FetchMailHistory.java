@@ -64,13 +64,14 @@ public class FetchMailHistory {
         for (int i = 0; i < response.getLong("count"); i++) {
             Map<String, Object> Details = new HashMap<String, Object>();
             JSONObject dataObject =response.getJSONArray("data").getJSONObject(i);
-            Details.put("comment",dataObject.getString("Comment"));
-            cal.setTimeInMillis(dataObject.getLong("EventAt"));
-            Details.put("eventAt",cal.getTime());
+            //Details.put("comment",dataObject.getString("Comment"));
+            //cal.setTimeInMillis(dataObject.getLong("EventAt"));
+           // Details.put("eventAt",null);
             Details.put("eventTypes", dataObject.getString("EventType"));
-            Details.put("state", dataObject.getString("State"));
+            /*Details.put("state", dataObject.getString("State"));
             Details.put("userAgent", dataObject.getString("Useragent"));
-            Details.put("userAgentID", Long.toString(dataObject.getLong("UseragentID")));
+            int userAgentID = Math.toIntExact(dataObject.getLong("UseragentID"));
+            Details.put("userAgentID", userAgentID);*/
             mailHistory.add(Details);
         }
 

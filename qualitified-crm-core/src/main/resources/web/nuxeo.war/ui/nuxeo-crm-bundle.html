@@ -29,7 +29,7 @@
 <nuxeo-slot-content name="myQualitifiedViewPage" slot="DOCUMENT_VIEWS_PAGES" >
     <template>
 
-        <nuxeo-filter document="[[document]]" type="Account,Email,Campaign,Link,Opportunity,Contact,Silhouette,Automation,Interaction,Solicitation,File,Custom,Objects,Scripts,Options,Option,Note">
+        <nuxeo-filter document="[[document]]" type="Account,Email,Campaign,Link,Opportunity,Contact,Silhouette,Automation,Interaction,Solicitation,File,Custom,Objects,Scripts,Options,Option,Note,Targeting">
             <template>
                 <qualitified-document-page name="view" document="[[document]]"></qualitified-document-page>
             </template>
@@ -50,6 +50,20 @@
         <nuxeo-menu-icon icon="icons:work" name="opportunity-list" label="Opportunities"></nuxeo-menu-icon>
     </template>
 </nuxeo-slot-content>
+<nuxeo-slot-content name="targeting-list" slot="DRAWER_PAGES" >
+    <template>
+        <nuxeo-search-form provider="targeting_list" schemas="targeting,dublincore,contact,person,address,silhouette,person_list_pp,silhouette_list_pp" search-name="targeting_list" name="targeting-list" auto="true"></nuxeo-search-form>
+    </template>
+</nuxeo-slot-content>
+<!-- Contribution of element 'nuxeo-menu-icon' for slot 'SEARCH_MENU_BUTTONS' -->
+<nuxeo-slot-content name="targeting-list" slot="DRAWER_ITEMS" order="2" disabled>
+    <template>
+        <nuxeo-menu-icon icon="qualitified:targeting" name="targeting-list" label="targeting"></nuxeo-menu-icon>
+    </template>
+</nuxeo-slot-content>
+
+
+
 
 <nuxeo-slot-content name="link-list" slot="DRAWER_PAGES" >
     <template>

@@ -83,6 +83,7 @@
                 --paper-badge-margin-bottom: -24px;
                 --paper-badge-width: 16px;
                 --paper-badge-height: 16px;
+                --paper-badge-background: black;
             }
 
 
@@ -255,7 +256,7 @@
                 }, 20);
             },
             _getCount:function(){
-          this.params.query = "SELECT * FROM Document WHERE ecm:isVersion = 0 AND ecm:mixinType != 'HiddenInNavigation' AND ecm:isTrashed = 0  AND ecm:currentLifeCycleState ='todo'";
+          this.params.query = "SELECT * FROM Document WHERE ecm:isVersion = 0 AND ecm:mixinType != 'HiddenInNavigation' AND ecm:isTrashed = 0  AND interaction:status ='TODO'";
         this.$.query.execute().then(function(result) {
             this.badge = result.resultsCount;
         }.bind(this));

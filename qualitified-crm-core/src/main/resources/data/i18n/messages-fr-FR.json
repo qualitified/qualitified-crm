@@ -4,6 +4,10 @@
   "Won": "Gagné",
   "Lost": "Perdu",
   "Limbo": "Infructueux",
+  "label.metadata.link" : "Lien",
+  "campaign" : "campagne",
+
+  "label.metadata.followed_link" : "Lien suivis",
   "label.document.type.interaction":"Interaction",
   "label.document.type.account":"Client",
   "label.document.type.opportunity":"Opportunité",
@@ -68,6 +72,7 @@
   "label.metadata.automation.title":"Automatisation",
   "label.metadata.campaign.title":"Campagne",
   "label.metadata.campaign.sendDate":"Date d'envoi",
+  "label.metadata.campaign.status":"Status",
   "label.metadata.link.title":"Code",
   "label.metadata.link.href":"Lien",
   "label.metadata.link.follow":"Lien suivi",

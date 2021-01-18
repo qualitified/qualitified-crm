@@ -51,7 +51,7 @@ public class EmailingProcess {
 
         DocumentModelList campaignDocuments = documentManager
                 .query("SELECT * FROM Campaign " +
-                        "WHERE campaign:sendDate <=  '"+ LocalDateTime.now().format(formatter) +"' " +
+                        "WHERE campaign:sendDate <= DATE '"+ LocalDateTime.now().format(formatter) +"' " +
                         "AND campaign:status = 'Ready' " +
                         "AND ecm:isProxy = 0 AND ecm:isCheckedInVersion = 0  " +
                         "AND ecm:currentLifeCycleState != 'deleted' " +

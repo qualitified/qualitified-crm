@@ -27,5 +27,6 @@
         <operation class="org.qualitified.crm.operation.EmailingProcess"/>
         <operation class="org.qualitified.crm.operation.EmailingHistoryProcess"/>
 
+
     </extension>
  </component>
