@@ -28,56 +28,38 @@
       <h2>[[i18n('addToCollectionButton.dialog.heading')]]</h2>
       <paper-dialog-scrollable>
         <qualitified-document-suggestion
-
                 role="widget"
-                value="{{document.properties.interaction:campaignId}}"
-                label="Campaign" name="campaignId" page-provider="campaigns"
-                min-chars="0">
-        </qualitified-document-suggestion>
+                value="{{setCollection(document.uid)}}"
+                label="[[i18n('label.metadata.campaign.title')]]"
+                page-provider="documents"
+                min-chars="0" params='{ "namedParameters": "system_primaryType=Campaign"}'></qualitified-document-suggestion>
       </paper-dialog-scrollable>
       <div class="buttons">
         <paper-button dialog-dismiss="">[[i18n('addToCollectionButton.dialog.cancel')]]</paper-button>
-        <paper-button dialog-confirm="" class="primary" name="add" on-click="_addToCollection" >
+        <paper-button dialog-confirm="" class="primary"  on-click="_addToCollection()" >
           [[i18n('addToCollectionButton.dialog.add')]]
         </paper-button>
       </div>
     </nuxeo-dialog>
+
+
   </template>
   <script>
-  {
+(function() {
+  'use strict';
 
-      class AddToCollectionButton
-        extends Polymer.mixinBehaviors([Nuxeo.I18nBehavior, Nuxeo.FiltersBehavior], Nuxeo.Element) {
-
-        static get is() {
-          return 'qualitified-add-to-campaign-button';
-        }
-
-        static get properties() {
-          return {
-            /**
-             * Input document.
-             */
-            document: Object,
-
-            /**
-             * Icon to use (iconset_name:icon_name).
-             */
-            icon: {
-              type: String,
-              value: 'nuxeo:collections',
-            },
-
-            collection: {
+  Polymer({
+      is: 'qualitified-add-to-campaign-button',
+      behaviors: [Nuxeo.I18nBehavior,Polymer.IronResizableBehavior,Nuxeo.LayoutBehavior,Nuxeo.RoutingBehavior, Nuxeo.FormatBehavior,Nuxeo.FiltersBehavior],
+      properties: {
+        document: {
+          type: Object,
+          observer:'_documentReady'
+        },
+        collection: {
               type: String,
               value: '',
             },
-
-
-
-            /**
-             * `true` if the action should display the label, `false` otherwise.
-             */
             showLabel: {
               type: Boolean,
               value: false,
@@ -86,27 +68,23 @@
             _label: {
               type: String,
               computed: '_computeLabel(i18n)',
-            },
-          };
-        }
-
-        _isAvailable(doc) {
+            }
+        },
+        _isAvailable:function(doc) {
           return this.isCollectionMember(doc);
-        }
+        },
 
-        _computeLabel() {
+        _computeLabel:function() {
           return this.i18n('addToCollectionButton.tooltip');
-        }
+        },
 
-        _toggleDialog() {
+        _toggleDialog:function() {
           this.$['add-to-collection-dialog'].toggle();
-        }
+        },
 
-        _add() {
+        _add:function() {
           if (this._isNew()) {
             const op = this.$$('#createCollectionOp');
-            // XXX
-            const name = this.$.nxSelect.selectedItem.displayLabel;
             op.params = {
               name,
               description: this.description,
@@ -118,79 +96,54 @@
           } else {
             this._addToCollection();
           }
-        }
+        },
 
-        _addToCollection() {
+        _addToCollection:function() {
           const op = this.$$('#addToCollectionOp');
           op.params = {
             collection: this.collection,
           };
+
           return op.execute().then(() => {
-            this.dispatchEvent(new CustomEvent('added-to-collection', {
+            /*this.dispatchEvent(new CustomEvent('added-to-collection', {
               composed: true,
               bubbles: true,
-              detail: { docId: this.document.uid, collectionId: this.collection },
-            }));
+              detail: { docId: this.document.uid, collectionId: this.collection},
+            }));*/
+             console.log('document uid '+this.document.uid);
+
+                 console.log('id +++'+id);
+
+
             this._resetPopup();
           });
-        }
+        },
+        setCollection:function(campaignId){
+        this.collection=campaignId;
+        return this.collection;
+        console.warn("tesssssttttttt"+this.collection);
+
+        },
 
 
-        _isValid() {
+        _isValid:function() {
           return this.collection !== '';
-        }
+        },
 
-        _isNew() {
+        _isNew:function() {
           return this.collection === -1;
-        }
+        },
 
-        _resetPopup() {
+        _resetPopup:function() {
           this.set('collection', null);
           this.description = '';
         }
 
-      }
 
-      customElements.define(AddToCollectionButton.is, AddToCollectionButton);
-      Nuxeo.AddToCollectionButton = AddToCollectionButton;
-    }
+  });
 
-    /*Polymer({
-      is: 'qualitified-add-to-campaign-button',
-      behaviors: [Nuxeo.I18nBehavior,Polymer.IronResizableBehavior,Nuxeo.LayoutBehavior,Nuxeo.RoutingBehavior, Nuxeo.FormatBehavior,Nuxeo.DocumentCreationBehavior],
-      properties: {
-        document: {
-          type: Object
-        },
-        operation: {
-          type: String,
-          value: ""
-        },
-        icon: {
-          type: String,
-          value: ""
-        },
-        label: {
-          type: String,
-          value: ""
-        },
-        params:{
-          type: Object,
-          value: {}
-        },
-        user: {
-          type: Object,
-          value: {}
-        },
+})();
 
-      },
-      _toggleDialog: function() {
-        this.$.dialog.toggle();
-      }
-
-
-
-    });*/
   </script>
 
 </dom-module>
