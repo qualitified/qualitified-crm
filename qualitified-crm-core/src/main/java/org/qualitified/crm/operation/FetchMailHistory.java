@@ -68,8 +68,8 @@ public class FetchMailHistory {
             //cal.setTimeInMillis(dataObject.getLong("EventAt"));
            // Details.put("eventAt",null);
             Details.put("eventTypes", dataObject.getString("EventType"));
-            /*Details.put("state", dataObject.getString("State"));
-            Details.put("userAgent", dataObject.getString("Useragent"));
+            Details.put("state", dataObject.getString("State"));
+            /*Details.put("userAgent", dataObject.getString("Useragent"));
             int userAgentID = Math.toIntExact(dataObject.getLong("UseragentID"));
             Details.put("userAgentID", userAgentID);*/
             mailHistory.add(Details);
