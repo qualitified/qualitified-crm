@@ -4,40 +4,158 @@
 @element qualitified-add-to-campaign-button
 -->
 
-<dom-module id="qualitified-add-to-campaign-button">
+<dom-module id="qualitified-add-to-campaign-button" assetpath="nuxeo-document-bulk-actions/">
   <template>
-    <style>
-      :host {
-        display: inline-block;
+    <style include="nuxeo-action-button-styles">
+      :host([hidden]) {
+        display: none;
       }
-      ::content iron-icon:hover {
-        fill: var(--nuxeo-link-hover-color);
+
+      /* Fix known stacking issue in iOS (NXP-24600)
+         https://github.com/PolymerElements/paper-dialog-scrollable/issues/72 */
+      paper-dialog-scrollable {
+        --paper-dialog-scrollable: {
+          -webkit-overflow-scrolling: auto;
+        };
       }
     </style>
-    <nuxeo-connection id="nxcon" user="{{user}}"></nuxeo-connection>
-    <nuxeo-operation id="operation" op="[[operation]]" input="[[document.uid]]" params="[[params]]"></nuxeo-operation>
+    <nuxeo-operation id="addToCollectionOp" op="Document.AddToCollection" input="[[document.uid]]"></nuxeo-operation>
+    <nuxeo-operation id="createCollectionOp" op="Collection.Create"></nuxeo-operation>
     <paper-icon-button id="button" icon="icons:add-box" on-tap="_toggleDialog"></paper-icon-button>
     <paper-tooltip for="button">Add to Campaign</paper-tooltip>
 
-    <nuxeo-dialog id="dialog" on-iron-overlay-closed="_dialogClosed" with-backdrop>
-      <div class="content">
-        Ajouter à une compagne
+    <nuxeo-dialog id="add-to-collection-dialog" with-backdrop="" on-iron-overlay-closed="_resetPopup" no-auto-focus="">
+      <h2>[[i18n('addToCollectionButton.dialog.heading')]]</h2>
+      <paper-dialog-scrollable>
         <qualitified-document-suggestion
+
                 role="widget"
                 value="{{document.properties.interaction:campaignId}}"
                 label="Campaign" name="campaignId" page-provider="campaigns"
                 min-chars="0">
-
         </qualitified-document-suggestion>
-      </div>
+      </paper-dialog-scrollable>
       <div class="buttons">
-        <paper-button noink dialog-dismiss on-tap="_close">Close</paper-button>
-        <paper-button noink dialog-confirm class="primary" on-tap="_ok" disabled="[[disabled]]">Ok</paper-button>
+        <paper-button dialog-dismiss="">[[i18n('addToCollectionButton.dialog.cancel')]]</paper-button>
+        <paper-button dialog-confirm="" class="primary" name="add" on-click="_addToCollection" >
+          [[i18n('addToCollectionButton.dialog.add')]]
+        </paper-button>
       </div>
     </nuxeo-dialog>
   </template>
   <script>
-    Polymer({
+  {
+
+      class AddToCollectionButton
+        extends Polymer.mixinBehaviors([Nuxeo.I18nBehavior, Nuxeo.FiltersBehavior], Nuxeo.Element) {
+
+        static get is() {
+          return 'qualitified-add-to-campaign-button';
+        }
+
+        static get properties() {
+          return {
+            /**
+             * Input document.
+             */
+            document: Object,
+
+            /**
+             * Icon to use (iconset_name:icon_name).
+             */
+            icon: {
+              type: String,
+              value: 'nuxeo:collections',
+            },
+
+            collection: {
+              type: String,
+              value: '',
+            },
+
+
+
+            /**
+             * `true` if the action should display the label, `false` otherwise.
+             */
+            showLabel: {
+              type: Boolean,
+              value: false,
+            },
+
+            _label: {
+              type: String,
+              computed: '_computeLabel(i18n)',
+            },
+          };
+        }
+
+        _isAvailable(doc) {
+          return this.isCollectionMember(doc);
+        }
+
+        _computeLabel() {
+          return this.i18n('addToCollectionButton.tooltip');
+        }
+
+        _toggleDialog() {
+          this.$['add-to-collection-dialog'].toggle();
+        }
+
+        _add() {
+          if (this._isNew()) {
+            const op = this.$$('#createCollectionOp');
+            // XXX
+            const name = this.$.nxSelect.selectedItem.displayLabel;
+            op.params = {
+              name,
+              description: this.description,
+            };
+            return op.execute().then((response) => {
+              this.collection = response.uid;
+              this._addToCollection();
+            });
+          } else {
+            this._addToCollection();
+          }
+        }
+
+        _addToCollection() {
+          const op = this.$$('#addToCollectionOp');
+          op.params = {
+            collection: this.collection,
+          };
+          return op.execute().then(() => {
+            this.dispatchEvent(new CustomEvent('added-to-collection', {
+              composed: true,
+              bubbles: true,
+              detail: { docId: this.document.uid, collectionId: this.collection },
+            }));
+            this._resetPopup();
+          });
+        }
+
+
+        _isValid() {
+          return this.collection !== '';
+        }
+
+        _isNew() {
+          return this.collection === -1;
+        }
+
+        _resetPopup() {
+          this.set('collection', null);
+          this.description = '';
+        }
+
+      }
+
+      customElements.define(AddToCollectionButton.is, AddToCollectionButton);
+      Nuxeo.AddToCollectionButton = AddToCollectionButton;
+    }
+
+    /*Polymer({
       is: 'qualitified-add-to-campaign-button',
       behaviors: [Nuxeo.I18nBehavior,Polymer.IronResizableBehavior,Nuxeo.LayoutBehavior,Nuxeo.RoutingBehavior, Nuxeo.FormatBehavior,Nuxeo.DocumentCreationBehavior],
       properties: {
@@ -64,54 +182,15 @@
           type: Object,
           value: {}
         },
-        message: {
-          type: String,
-          value: "Done!"
-        },
-        url: {
-          type: String,
-          value: ""
-        },
-        login: {
-          type: String,
-          value: ""
-        },
-        password: {
-          type: String,
-          value: ""
-        }
+
       },
       _toggleDialog: function() {
         this.$.dialog.toggle();
-      },
-      _ok: function(){
-        if (!confirm('Before deploying trashed documents will be removed on this instance. Should we proceed?')) {
-          return;
-        }
-        this.params = {
-          url:this.url, login:this.login, password:this.password,
-          context: {},
-          input: this.document.uid
-        };
-        this.$.operationToast.text = "Started Deploying...";
-        this.$.operationToast.open();
-        this.$.operation.execute().then(function(result) {
-          if(result.status === 200){
-            this.$.operationToast.text = this.message;
-          }else{
-            this.$.operationToast.text = result.error +" "+ (result.status);
-          }
-          this.$.operationToast.open();
-          this.navigateTo('browse', this.document.path);
-        }.bind(this))
-        .catch(function (error){
-            console.log(error);
-            this.$.operationToast.text = error;
-            this.navigateTo('browse', this.document.path);
-            this.$.operationToast.open();
-        }.bind(this));
       }
-    });
+
+
+
+    });*/
   </script>
 
 </dom-module>
