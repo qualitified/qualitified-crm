@@ -158,5 +158,7 @@
   "label.next.best.action": "Prochaine action recommandée",
   "laber.or": "Ou",
   "label.search.image": "Rechercher une image",
-  "label.documents": "Documents"
+  "label.documents": "Documents",
+  "addToCampaignButton.dialog.add": "Ajouter à une campagne"
+
 }

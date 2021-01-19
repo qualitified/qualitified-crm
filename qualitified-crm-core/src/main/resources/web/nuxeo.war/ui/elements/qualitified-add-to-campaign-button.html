@@ -3,55 +3,52 @@
 @group Nuxeo UI
 @element qualitified-add-to-campaign-button
 -->
-
-<dom-module id="qualitified-add-to-campaign-button" assetpath="nuxeo-document-bulk-actions/">
-  <template>
-    <style include="nuxeo-action-button-styles">
+<dom-module assetpath="nuxeo-document-bulk-actions/" id="qualitified-add-to-campaign-button">
+    <template>
+        <style include="nuxeo-action-button-styles">
       :host([hidden]) {
         display: none;
       }
-
-      /* Fix known stacking issue in iOS (NXP-24600)
-         https://github.com/PolymerElements/paper-dialog-scrollable/issues/72 */
       paper-dialog-scrollable {
         --paper-dialog-scrollable: {
           -webkit-overflow-scrolling: auto;
         };
       }
-    </style>
-    <nuxeo-operation id="addToCollectionOp" op="Document.AddToCollection" input="[[document.uid]]"></nuxeo-operation>
-    <nuxeo-operation id="createCollectionOp" op="Collection.Create"></nuxeo-operation>
-    <paper-icon-button id="button" icon="icons:add-box" on-tap="_toggleDialog"></paper-icon-button>
-    <paper-tooltip for="button">Add to Campaign</paper-tooltip>
-
-    <nuxeo-dialog id="add-to-collection-dialog" with-backdrop="" on-iron-overlay-closed="_resetPopup" no-auto-focus="">
-      <h2>[[i18n('addToCollectionButton.dialog.heading')]]</h2>
-      <paper-dialog-scrollable>
-        <qualitified-document-suggestion
-                role="widget"
-                value="{{setCollection(document.uid)}}"
-                label="[[i18n('label.metadata.campaign.title')]]"
-                page-provider="documents"
-                min-chars="0" params='{ "namedParameters": "system_primaryType=Campaign"}'></qualitified-document-suggestion>
-      </paper-dialog-scrollable>
-      <div class="buttons">
-        <paper-button dialog-dismiss="">[[i18n('addToCollectionButton.dialog.cancel')]]</paper-button>
-        <paper-button dialog-confirm="" class="primary"  on-click="_addToCollection()" >
-          [[i18n('addToCollectionButton.dialog.add')]]
-        </paper-button>
-      </div>
-    </nuxeo-dialog>
-
-
-  </template>
-  <script>
+        </style>
+        <nuxeo-operation id="addToCollectionOp" input="[[input]]" op="Document.AddToCollection"></nuxeo-operation>
+        <nuxeo-operation id="createCollectionOp" op="Collection.Create"></nuxeo-operation>
+        <paper-icon-button icon="icons:add-box" id="button" on-tap="_toggleDialog"></paper-icon-button>
+        <paper-tooltip for="button">Add to Campaign</paper-tooltip>
+        <nuxeo-dialog id="add-to-collection-dialog" no-auto-focus="" on-iron-overlay-closed="_resetPopup"
+                      with-backdrop="">
+            <h2> [[i18n('addToCampaignButton.dialog.add')]]</h2>
+            <paper-dialog-scrollable>
+                <qualitified-document-suggestion
+                        label="[[i18n('label.metadata.campaign.title')]]"
+                        min-chars="0"
+                        page-provider="documents"
+                        params='{ "namedParameters": "system_primaryType=Campaign"}'
+                        role="widget"
+                        value="{{collection}}"></qualitified-document-suggestion>
+            </paper-dialog-scrollable>
+            <div class="buttons">
+                <paper-button dialog-dismiss="">[[i18n('addToCollectionButton.dialog.cancel')]]</paper-button>
+                <paper-button class="primary" dialog-confirm="" on-tap="_addCampaign">
+                    [[i18n('addToCollectionButton.dialog.add')]]
+                </paper-button>
+            </div>
+        </nuxeo-dialog>
+    </template>
+    <script>
 (function() {
   'use strict';
-
   Polymer({
       is: 'qualitified-add-to-campaign-button',
       behaviors: [Nuxeo.I18nBehavior,Polymer.IronResizableBehavior,Nuxeo.LayoutBehavior,Nuxeo.RoutingBehavior, Nuxeo.FormatBehavior,Nuxeo.FiltersBehavior],
       properties: {
+       /**
+         * @doctype campaign
+       */
         document: {
           type: Object,
           observer:'_documentReady'
@@ -60,90 +57,47 @@
               type: String,
               value: '',
             },
-            showLabel: {
-              type: Boolean,
-              value: false,
-            },
+             selectedItems: {
+          type: Object
+        },
 
-            _label: {
-              type: String,
-              computed: '_computeLabel(i18n)',
-            }
+        _label: {
+          type: String,
+          computed: '_computeLabel(i18n)',
+        }
+        },
+        _documentReady: function(doc){
+        console.log(this.document);
         },
         _isAvailable:function(doc) {
           return this.isCollectionMember(doc);
         },
-
         _computeLabel:function() {
           return this.i18n('addToCollectionButton.tooltip');
         },
-
         _toggleDialog:function() {
           this.$['add-to-collection-dialog'].toggle();
         },
 
-        _add:function() {
-          if (this._isNew()) {
-            const op = this.$$('#createCollectionOp');
+        _addCampaign:function() {
+          if (this.selectedItems !== null && this.selectedItems.length > 0) {
+            this.input = this.selectedItems;
+            const op = this.$.addToCollectionOp;
             op.params = {
-              name,
-              description: this.description,
+                collection: this.collection,
             };
-            return op.execute().then((response) => {
-              this.collection = response.uid;
-              this._addToCollection();
+            op.execute().then(() => {
+                this._resetPopup();
             });
-          } else {
-            this._addToCollection();
           }
-        },
-
-        _addToCollection:function() {
-          const op = this.$$('#addToCollectionOp');
-          op.params = {
-            collection: this.collection,
-          };
-
-          return op.execute().then(() => {
-            /*this.dispatchEvent(new CustomEvent('added-to-collection', {
-              composed: true,
-              bubbles: true,
-              detail: { docId: this.document.uid, collectionId: this.collection},
-            }));*/
-             console.log('document uid '+this.document.uid);
-
-                 console.log('id +++'+id);
-
-
-            this._resetPopup();
-          });
-        },
-        setCollection:function(campaignId){
-        this.collection=campaignId;
-        return this.collection;
-        console.warn("tesssssttttttt"+this.collection);
-
-        },
-
-
-        _isValid:function() {
-          return this.collection !== '';
-        },
-
-        _isNew:function() {
-          return this.collection === -1;
         },
 
         _resetPopup:function() {
           this.set('collection', null);
           this.description = '';
         }
-
-
   });
-
 })();
 
-  </script>
-
+    </script>
 </dom-module>
