@@ -266,7 +266,7 @@
 
            _getPartialPercent: function(partialCount,totalCount){
                 var count = (partialCount * 100)/totalCount;
-                if (isNaN(count)){
+                if (isNaN(count) || count==0 ){
                  return 0;
                     } else if (count == 100) {
                     return count;
