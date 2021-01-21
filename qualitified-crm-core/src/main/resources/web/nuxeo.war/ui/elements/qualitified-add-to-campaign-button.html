@@ -1,0 +1,144 @@
+<!--
+`qualitified-add-to-campaign-button`
+@group Nuxeo UI
+@element qualitified-add-to-campaign-button
+-->
+<dom-module assetpath="nuxeo-document-bulk-actions/" id="qualitified-add-to-campaign-button">
+    <template>
+        <style include="nuxeo-action-button-styles">
+      :host([hidden]) {
+        display: none;
+      }
+      paper-dialog-scrollable {
+        --paper-dialog-scrollable: {
+          -webkit-overflow-scrolling: auto;
+        };
+      }
+        </style>
+        <nuxeo-operation  id="addToCollectionOp" input="[[input]]" op="Qualitified.AddToCampaign" async="true" params="[[params]]"></nuxeo-operation>
+        <nuxeo-operation id="addToCampaign" op="Qualitified.AddToCampaignBulk"  params="[[params]]" async="true" >
+        </nuxeo-operation>
+        <paper-icon-button icon="qualitified:add-to-campaign" id="button" on-tap="_toggleDialog"></paper-icon-button>
+        <paper-tooltip for="button">Add to Campaign</paper-tooltip>
+        <nuxeo-dialog id="add-to-collection-dialog" no-auto-focus="" on-iron-overlay-closed="_resetPopup"
+                      with-backdrop="">
+            <h2> [[i18n('addToCampaignButton.dialog.add')]]</h2>
+            <paper-dialog-scrollable>
+                <qualitified-document-suggestion
+                        label="[[i18n('label.metadata.campaign.title')]]"
+                        min-chars="0"
+                        page-provider="documents"
+                        params='{ "namedParameters": "system_primaryType=Campaign"}'
+                        role="widget"
+                        value="{{collection}}"></qualitified-document-suggestion>
+                <nuxeo-textarea label="[[i18n('addToCollectionButton.dialog.description')]]" value="{{description::input}}" hidden$="[[!_isNew(collection)]]">
+                </nuxeo-textarea>
+            </paper-dialog-scrollable>
+            <div class="buttons">
+                <paper-button dialog-dismiss="">[[i18n('addToCollectionButton.dialog.cancel')]]</paper-button>
+                <paper-button class="primary" dialog-confirm="" on-tap="_addCampaign">
+                    [[i18n('addToCollectionButton.dialog.add')]]
+                </paper-button>
+
+            </div>
+        </nuxeo-dialog>
+    </template>
+    <script>
+(function() {
+  'use strict';
+  Polymer({
+      is: 'qualitified-add-to-campaign-button',
+      behaviors: [Nuxeo.I18nBehavior,Polymer.IronResizableBehavior,Nuxeo.LayoutBehavior,Nuxeo.RoutingBehavior, Nuxeo.FormatBehavior,Nuxeo.FiltersBehavior],
+      properties: {
+       /**
+         * @doctype campaign
+       */
+        document: {
+          type: Object,
+          observer:'_documentReady'
+        },
+        collection: {
+              type: String,
+              value: '',
+            },
+             selectedItems: {
+          type: Object
+        },
+        nxProvider: {
+          type: Object
+        },
+         params: {
+          type: Object
+         },
+        _label: {
+          type: String,
+          computed: '_computeLabel(i18n)',
+        }
+        },
+        _documentReady: function(doc){
+        console.log(this.document);
+        },
+        _isAvailable:function(doc) {
+          return this.isCollectionMember(doc);
+        },
+        _computeLabel:function() {
+          return this.i18n('addToCollectionButton.tooltip');
+        },
+        _toggleDialog:function() {
+          this.$['add-to-collection-dialog'].toggle();
+         },
+         _addSelectedCampaign:function() {
+            const op = this.$.addToCollectionOp;
+
+            op.execute().then(() => {
+                this._resetPopup();
+            });
+        },
+        _add:function() {
+            const op = this.$.addToCampaign;
+            op.execute().then(() => {
+                this._resetPopup();
+            });
+        },
+        _addCampaign:function() {
+            this._toast("Document added to campaign!");
+            this.params = {
+               collection: this.collection,
+            };
+            if (this.selectedItems !== null && this.selectedItems.length > 0 && this.nxProvider !== null) {
+                this.input = this.selectedItems;
+                this._addSelectedCampaign();
+          }
+            if (this.nxProvider !== null && this.selectedItems.length == 0 ) {
+                this.params.providerName = this.nxProvider.provider;
+                const namedParams = {};
+                Object.keys(this.nxProvider.params).forEach((key) => {
+                    if (typeof this.nxProvider.params[key] === 'string') {
+                    namedParams[key] = this.nxProvider.params[key];
+                    } else if (this.nxProvider.params[key] != null) {
+                        namedParams[key] = JSON.stringify(this.nxProvider.params[key]);
+                    }
+                }, this);
+                this.params.namedParameters = namedParams;
+                this._add();
+            }
+        },
+        _toast: function (msg, duration) {
+            this.fire('notify', {
+              message: msg,
+              close: true,
+              duration: duration
+            });
+        },
+        _isNew:function() {
+          return this.collection === -1;
+        },
+        _resetPopup:function() {
+          this.set('collection', null);
+          this.description = '';
+        }
+  });
+})();
+
+    </script>
+</dom-module>

@@ -14,11 +14,11 @@
       }
 
     </style>
-    <nuxeo-results name="campaign_list" nx-provider="[[nxProvider]]" selected-items="{{selectedItems}}"
+    <nuxeo-results id="campaignResults" name="campaign_list" nx-provider="[[nxProvider]]" selected-items="{{selectedItems}}"
                    display-quick-filters="" display-sort="" sort-label="[[i18n('searchResults.sort.label')]]"
                    sort-options="[[sortOptions]]">
 
-      <nuxeo-data-table class="results" settings-enabled="" empty-label="[[i18n('searchResults.noResults')]]"
+      <nuxeo-data-table id="campaignTable" class="results" settings-enabled="" empty-label="[[i18n('searchResults.noResults')]]"
                         selection-enabled="" on-row-clicked="_navigate" icon="nuxeo:view-list" name="table">
 
         <nuxeo-data-table-column name="[[i18n('label.metadata.title')]]" field="dc:title" sort-by="dc:title" flex="60">
@@ -72,6 +72,24 @@
           type: Array,
           value: []
         }
+      },
+      ready: function () {
+        var btnSelectAll = this.$.campaignTable.querySelectorAll("nuxeo-data-table-row[header='']")[0].querySelector("nuxeo-data-table-checkbox");
+        btnSelectAll.shadowRoot.styleSheets[0].rules[3].style.visibility = "visible";
+        btnSelectAll.addEventListener('tap', function () {
+          var btnCheckmark = btnSelectAll.shadowRoot.querySelector("nuxeo-checkmark");
+          if (btnCheckmark.checked == true) {
+            this.$.campaignTable.selectAll();
+          } else {
+            this.$.campaignResults.clearSelection();
+          }
+        }.bind(this));
+        this.async(function () {
+            this.$.campaignResults.nxProvider.addEventListener('aggregations-changed', function () {
+              var btnCheckmark = btnSelectAll.shadowRoot.querySelector("nuxeo-checkmark");
+              btnCheckmark.checked = false;
+            }.bind(this));
+          }, 1)
       },
 
       attached: function() {

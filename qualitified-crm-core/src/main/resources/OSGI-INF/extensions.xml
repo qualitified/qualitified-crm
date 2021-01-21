@@ -1398,8 +1398,8 @@
           <field schema="targeting" name="system_fulltext"/>
         </predicate>
         <predicate parameter="custom:dateField1" operator="BETWEEN">
-          <field schema="targeting" name="datefield1_min"/>
-          <field schema="targeting" name="datefield1_max"/>
+          <field schema="targeting" name="targeting_datefield1_min"/>
+          <field schema="targeting" name="targeting_datefield1_max"/>
         </predicate>
 
         <predicate parameter="person:firstName" operator="=">
