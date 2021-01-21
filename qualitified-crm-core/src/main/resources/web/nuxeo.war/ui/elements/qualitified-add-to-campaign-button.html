@@ -103,13 +103,23 @@
         _addCampaign:function() {
         this.params = {
                 collection: this.collection,
-                action : "Qualitified.AddToCampaign",
+
             };
 
           if (this.nxProvider !== null ) {
 
           this.params.providerName = this.nxProvider.provider;
-                  this._add();
+          const namedParams = {};
+          Object.keys(this.nxProvider.params).forEach((key) => {
+            if (typeof this.nxProvider.params[key] === 'string') {
+              namedParams[key] = this.nxProvider.params[key];
+            } else if (this.nxProvider.params[key] != null) {
+              namedParams[key] = JSON.stringify(this.nxProvider.params[key]);
+            }
+          }, this);
+          this.params.namedParameters = namedParams;
+
+           this._add();
 
         }
 
