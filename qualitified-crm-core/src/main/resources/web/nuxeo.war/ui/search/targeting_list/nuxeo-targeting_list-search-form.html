@@ -83,10 +83,10 @@
             </nuxeo-dropdown-aggregation>
         </div>
 
-        <div class="layout vertical row">
+        <!--div class="layout vertical row">
             <nuxeo-date-picker value="{{params.datefield1_min}}" label="[[i18n('label.silhouette.last.visit')]](Min)" role="widget"></nuxeo-date-picker>
             <nuxeo-date-picker value="{{params.datefield1_max}}" label="[[i18n('label.silhouette.last.visit')]](Max)" role="widget"></nuxeo-date-picker>
-        </div>
+        </div-->
 
         ​<div class="layout vertical row">
         <label>[[i18n('label.links.follow')]]</label>
@@ -145,8 +145,8 @@
 
             clear: function() {
                 this.searchTerm = '';
-            },
-            _setDatesMaxMin: function () {
+            }
+            /*_setDatesMaxMin: function () {
                 if(moment().format('M') > 6){
                     this.set('params.opportunity_closeDate_min', moment().format('YYYY')+'-07-01');
                     this.set('params.opportunity_closeDate_max', moment().format('YYYY')+'-12-31');
@@ -155,7 +155,7 @@
                     this.set('params.opportunity_closeDate_min', moment().format('YYYY')+'-01-01');
                     this.set('params.opportunity_closeDate_max', moment().format('YYYY')+'-06-30');
                 }
-            }
+            }*/
 
         });
 

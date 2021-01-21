@@ -19,7 +19,7 @@
             }
 
         </style>
-        <nuxeo-results name="targeting_list" nx-provider="[[nxProvider]]" selected-items="{{selectedItems}}"
+        <nuxeo-results id="targetingResults" name="targeting_list" nx-provider="[[nxProvider]]" selected-items="{{selectedItems}}"
                        display-quick-filters="" display-sort="" sort-label="[[i18n('searchResults.sort.label')]]"
                        sort-options="[[sortOptions]]">
 
@@ -33,7 +33,7 @@
                 </template>
             </nuxeo-data-grid>
 
-            <nuxeo-data-table class="results" settings-enabled="" empty-label="[[i18n('searchResults.noResults')]]"
+            <nuxeo-data-table  id="targetingTable" class="results" settings-enabled="" empty-label="[[i18n('searchResults.noResults')]]"
                               selection-enabled="" on-row-clicked="_navigate" icon="nuxeo:view-list" name="table">
 
                 <nuxeo-data-table-column name="Title" field="dc:title" sort-by="dc:title" flex="90">
@@ -93,7 +93,24 @@
                     value: []
                 }
             },
-
+             ready: function () {
+                var btnSelectAll = this.$.targetingTable.querySelectorAll("nuxeo-data-table-row[header='']")[0].querySelector("nuxeo-data-table-checkbox");
+                btnSelectAll.shadowRoot.styleSheets[0].rules[3].style.visibility = "visible";
+                btnSelectAll.addEventListener('tap', function () {
+                  var btnCheckmark = btnSelectAll.shadowRoot.querySelector("nuxeo-checkmark");
+                  if (btnCheckmark.checked == true) {
+                    this.$.targetingTable.selectAll();
+                  } else {
+                    this.$.targetingResults.clearSelection();
+                  }
+                }.bind(this));
+                this.async(function () {
+                    this.$.targetingResults.nxProvider.addEventListener('aggregations-changed', function () {
+                        var btnCheckmark = btnSelectAll.shadowRoot.querySelector("nuxeo-checkmark");
+                        btnCheckmark.checked = false;
+                    }.bind(this));
+                }, 1)
+             },
             attached: function() {
                 this.sortOptions = [
                     {field: 'dc:title', label: this.i18n('searchResults.sort.field.title'), order: 'asc'},

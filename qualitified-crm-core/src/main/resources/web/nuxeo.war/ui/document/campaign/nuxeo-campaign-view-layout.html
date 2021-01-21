@@ -40,14 +40,14 @@
         </style>
 
 
-        <nuxeo-page-provider id="provider" provider="default_content_collection" schemas="dublincore,silhouette,person,common"  page-size="40" enrichers="thumbnail, permissions">
+        <nuxeo-page-provider id="provider" provider="default_content_collection" schemas="dublincore,silhouette,person,common,interactio"  page-size="40" enrichers="thumbnail, permissions">
         </nuxeo-page-provider>
 
         <nuxeo-results id="results" name="[[document.uid]]" items="{{items}}" on-navigate="_navigate" selected-items="{{selectedItems}}" empty-label="[[i18n('collections.noDocument')]]" empty-label-when-filtered="[[i18n('collections.noDocumentWhenFiltered')]]">
             <div slot="selectionActions">
                 <nuxeo-slot slot="COLLECTION_ACTIONS" model="[[actionContext]]"></nuxeo-slot>
             </div>
-            <nuxeo-data-table class="results" name="table" icon="nuxeo:view-list"
+            <nuxeo-data-table  id="campaignTable" class="results" name="table" icon="nuxeo:view-list"
                               settings-enabled
                               empty-label="[[emptyLabel]]"
                               empty-label-when-filtered="[[emptyLabelWhenFiltered]]"
@@ -123,6 +123,24 @@
                 observers: [
                     '_observeDocument(document)'
                 ],
+                ready: function () {
+                    var btnSelectAll = this.$.campaignTable.querySelectorAll("nuxeo-data-table-row[header='']")[0].querySelector("nuxeo-data-table-checkbox");
+                    btnSelectAll.shadowRoot.styleSheets[0].rules[3].style.visibility = "visible";
+                    btnSelectAll.addEventListener('tap', function () {
+                      var btnCheckmark = btnSelectAll.shadowRoot.querySelector("nuxeo-checkmark");
+                      if (btnCheckmark.checked == true) {
+                        this.$.campaignTable.selectAll();
+                      } else {
+                        this.$.results.clearSelection();
+                      }
+                    }.bind(this));
+                    this.async(function () {
+                        this.$.results.nxProvider.addEventListener('aggregations-changed', function () {
+                          var btnCheckmark = btnSelectAll.shadowRoot.querySelector("nuxeo-checkmark");
+                          btnCheckmark.checked = false;
+                        }.bind(this));
+                    }, 1)
+                },
 
                 _observeDocument: function() {
                     if (this.document) {

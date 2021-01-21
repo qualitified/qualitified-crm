@@ -15,9 +15,12 @@
         };
       }
         </style>
-        <nuxeo-operation id="addToCollectionOp" input="[[input]]" op="Document.AddToCollection"></nuxeo-operation>
+        <!--nuxeo-operation  id="addToCollectionOp" input="[[input]]" op="Document.AddToCollection" async="true"></nuxeo-operation-->
+        <nuxeo-operation  id="addToCollectionOp" input="[[input]]" op="Qualitified.AddToCampaign" async="true" params="[[params]]"></nuxeo-operation>
+        <nuxeo-operation id="addToCampaign" operation="Bulk.AddToCampaignBulk"  params="[[params]]"    async="true" >
+        </nuxeo-operation>
         <nuxeo-operation id="createCollectionOp" op="Collection.Create"></nuxeo-operation>
-        <paper-icon-button icon="icons:add-box" id="button" on-tap="_toggleDialog"></paper-icon-button>
+        <paper-icon-button icon="qualitified:add-to-campaign" id="button" on-tap="_toggleDialog"></paper-icon-button>
         <paper-tooltip for="button">Add to Campaign</paper-tooltip>
         <nuxeo-dialog id="add-to-collection-dialog" no-auto-focus="" on-iron-overlay-closed="_resetPopup"
                       with-backdrop="">
@@ -30,12 +33,15 @@
                         params='{ "namedParameters": "system_primaryType=Campaign"}'
                         role="widget"
                         value="{{collection}}"></qualitified-document-suggestion>
+                <nuxeo-textarea label="[[i18n('addToCollectionButton.dialog.description')]]" value="{{description::input}}" hidden$="[[!_isNew(collection)]]">
+                </nuxeo-textarea>
             </paper-dialog-scrollable>
             <div class="buttons">
                 <paper-button dialog-dismiss="">[[i18n('addToCollectionButton.dialog.cancel')]]</paper-button>
                 <paper-button class="primary" dialog-confirm="" on-tap="_addCampaign">
                     [[i18n('addToCollectionButton.dialog.add')]]
                 </paper-button>
+
             </div>
         </nuxeo-dialog>
     </template>
@@ -60,12 +66,20 @@
              selectedItems: {
           type: Object
         },
+        nxProvider: {
+          type: Object
+        },
+         params: {
+          type: Object
+         },
+
 
         _label: {
           type: String,
           computed: '_computeLabel(i18n)',
         }
         },
+
         _documentReady: function(doc){
         console.log(this.document);
         },
@@ -79,17 +93,71 @@
           this.$['add-to-collection-dialog'].toggle();
         },
 
-        _addCampaign:function() {
-          if (this.selectedItems !== null && this.selectedItems.length > 0) {
-            this.input = this.selectedItems;
-            const op = this.$.addToCollectionOp;
-            op.params = {
-                collection: this.collection,
-            };
+        _add:function() {
+            const op = this.$.addToCampaign;
+
             op.execute().then(() => {
                 this._resetPopup();
             });
+        },
+        _addCampaign:function() {
+        this.params = {
+                collection: this.collection,
+                action : "Qualitified.AddToCampaign",
+            };
+
+          if (this.nxProvider !== null ) {
+
+          this.params.providerName = this.nxProvider.provider;
+                  this._add();
+
+        }
+
+        },
+
+
+
+
+
+
+
+
+        /*_add:function() {
+            const op = this.$.addToCollectionOp;
+
+            op.execute().then(() => {
+                this._resetPopup();
+            });
+        },
+        _addCampaign:function() {
+        this.params = {
+                collection: this.collection,
+
+            };
+          if (this.selectedItems !== null && this.selectedItems.length > 0 && this.nxProvider !== null) {
+            this.input = this.selectedItems;
+            this._add();
           }
+          if (this.nxProvider !== null && this.selectedItems.length == 0) {
+
+          this.params.providerName = this.nxProvider.provider;
+          const namedParams = {};
+          Object.keys(this.nxProvider.params).forEach((key) => {
+            if (typeof this.nxProvider.params[key] === 'string') {
+              namedParams[key] = this.nxProvider.params[key];
+            } else if (this.nxProvider.params[key] != null) {
+              namedParams[key] = JSON.stringify(this.nxProvider.params[key]);
+            }
+          }, this);
+          this.params.namedParameters = namedParams;
+                  this._add();
+
+        }
+
+        },*/
+
+        _isNew:function() {
+          return this.collection === -1;
         },
 
         _resetPopup:function() {
