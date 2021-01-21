@@ -29,13 +29,6 @@ public class AddToCampaign {
     protected CollectionManager collectionManager;
     @Param(name = "collection")
     protected DocumentModel collection;
-    /*@Param(name = "providerName", required = false)
-    protected String providerName;
-
-    @Param(name = PageProviderService.NAMED_PARAMETERS, required = false, description = "Named parameters to pass to the page provider to "
-            + "fill in query variables.")
-    protected Properties namedParameters;
-*/
     @OperationMethod
    public DocumentModelList run(DocumentModelList docs) {
         for (DocumentModel doc : docs) {
@@ -50,22 +43,5 @@ public class AddToCampaign {
         collectionManager.addToCollection(collection, doc, session);
         return doc;
    }
-   /* @OperationMethod
-    public void run() throws TemplateException, IOException, OperationException {
-
-        PageProviderDefinition def = PageProviderHelper.getPageProviderDefinition(providerName);
-
-        PageProvider<DocumentModel> pp = (PageProvider<DocumentModel>) PageProviderHelper.getPageProvider(session, def,
-                namedParameters, null, null, 1000L, null, null, null, null);
-        List<DocumentModel> docs = new DocumentModelListImpl();
-
-        while (pp.isNextEntryAvailable()) {
-            DocumentModel doc = pp.getCurrentEntry();
-            docs.add(doc);
-            pp.nextEntry();
-        }
-        docs.add(pp.getCurrentEntry());
-        collectionManager.addToCollection(collection, docs, session);
-    }*/
 
 }

@@ -15,11 +15,9 @@
         };
       }
         </style>
-        <!--nuxeo-operation  id="addToCollectionOp" input="[[input]]" op="Document.AddToCollection" async="true"></nuxeo-operation-->
         <nuxeo-operation  id="addToCollectionOp" input="[[input]]" op="Qualitified.AddToCampaign" async="true" params="[[params]]"></nuxeo-operation>
-        <nuxeo-operation id="addToCampaign" operation="Bulk.AddToCampaignBulk"  params="[[params]]"    async="true" >
+        <nuxeo-operation id="addToCampaign" op="Qualitified.AddToCampaignBulk"  params="[[params]]" async="true" >
         </nuxeo-operation>
-        <nuxeo-operation id="createCollectionOp" op="Collection.Create"></nuxeo-operation>
         <paper-icon-button icon="qualitified:add-to-campaign" id="button" on-tap="_toggleDialog"></paper-icon-button>
         <paper-tooltip for="button">Add to Campaign</paper-tooltip>
         <nuxeo-dialog id="add-to-collection-dialog" no-auto-focus="" on-iron-overlay-closed="_resetPopup"
@@ -72,14 +70,11 @@
          params: {
           type: Object
          },
-
-
         _label: {
           type: String,
           computed: '_computeLabel(i18n)',
         }
         },
-
         _documentReady: function(doc){
         console.log(this.document);
         },
@@ -91,85 +86,53 @@
         },
         _toggleDialog:function() {
           this.$['add-to-collection-dialog'].toggle();
-        },
-
-        _add:function() {
-            const op = this.$.addToCampaign;
-
-            op.execute().then(() => {
-                this._resetPopup();
-            });
-        },
-        _addCampaign:function() {
-        this.params = {
-                collection: this.collection,
-
-            };
-
-          if (this.nxProvider !== null ) {
-
-          this.params.providerName = this.nxProvider.provider;
-          const namedParams = {};
-          Object.keys(this.nxProvider.params).forEach((key) => {
-            if (typeof this.nxProvider.params[key] === 'string') {
-              namedParams[key] = this.nxProvider.params[key];
-            } else if (this.nxProvider.params[key] != null) {
-              namedParams[key] = JSON.stringify(this.nxProvider.params[key]);
-            }
-          }, this);
-          this.params.namedParameters = namedParams;
-
-           this._add();
-
-        }
-
-        },
-
-
-
-
-
-
-
-
-        /*_add:function() {
+         },
+         _addSelectedCampaign:function() {
             const op = this.$.addToCollectionOp;
 
             op.execute().then(() => {
                 this._resetPopup();
             });
         },
+        _add:function() {
+            const op = this.$.addToCampaign;
+            op.execute().then(() => {
+                this._resetPopup();
+            });
+        },
         _addCampaign:function() {
-        this.params = {
-                collection: this.collection,
-
+            this._toast("Document added to campaign!");
+            this.params = {
+               collection: this.collection,
             };
-          if (this.selectedItems !== null && this.selectedItems.length > 0 && this.nxProvider !== null) {
-            this.input = this.selectedItems;
-            this._add();
+            if (this.selectedItems !== null && this.selectedItems.length > 0 && this.nxProvider !== null) {
+                this.input = this.selectedItems;
+                this._addSelectedCampaign();
           }
-          if (this.nxProvider !== null && this.selectedItems.length == 0) {
-
-          this.params.providerName = this.nxProvider.provider;
-          const namedParams = {};
-          Object.keys(this.nxProvider.params).forEach((key) => {
-            if (typeof this.nxProvider.params[key] === 'string') {
-              namedParams[key] = this.nxProvider.params[key];
-            } else if (this.nxProvider.params[key] != null) {
-              namedParams[key] = JSON.stringify(this.nxProvider.params[key]);
+            if (this.nxProvider !== null && this.selectedItems.length == 0 ) {
+                this.params.providerName = this.nxProvider.provider;
+                const namedParams = {};
+                Object.keys(this.nxProvider.params).forEach((key) => {
+                    if (typeof this.nxProvider.params[key] === 'string') {
+                    namedParams[key] = this.nxProvider.params[key];
+                    } else if (this.nxProvider.params[key] != null) {
+                        namedParams[key] = JSON.stringify(this.nxProvider.params[key]);
+                    }
+                }, this);
+                this.params.namedParameters = namedParams;
+                this._add();
             }
-          }, this);
-          this.params.namedParameters = namedParams;
-                  this._add();
-
-        }
-
-        },*/
-
+        },
+        _toast: function (msg, duration) {
+            this.fire('notify', {
+              message: msg,
+              close: true,
+              duration: duration
+            });
+        },
         _isNew:function() {
           return this.collection === -1;
         },
-
         _resetPopup:function() {
           this.set('collection', null);
           this.description = '';

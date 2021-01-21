@@ -64,7 +64,7 @@ public class AddToCampaignBulk {
     public void run() throws OperationException, LoginException, JSONException, InterruptedException {
         LoginContext lc = Framework.loginAsUser("Administrator");
         ctx.getLoginStack().push(lc);
-        Params.put("collection",collection);
+        Params.put("collection",collection.getId());
 
         if (query == null && providerName == null) {
             throw new OperationException("Query and ProviderName cannot be both null");
@@ -80,7 +80,7 @@ public class AddToCampaignBulk {
                 queryParams != null ? queryParams.toArray(new String[0]) : null);
         query = PageProviderHelper.buildQueryStringWithAggregates(provider);
 
-        BulkCommand fetchMailHistoryCommand = new BulkCommand.Builder(AutomationBulkAction.ACTION_NAME, query)
+        BulkCommand Command = new BulkCommand.Builder(AutomationBulkAction.ACTION_NAME, query)
                 .repository("default")
                 .user("Administrator")
                 .param(AutomationBulkAction.OPERATION_ID, "Qualitified.AddToCampaign")
@@ -89,10 +89,10 @@ public class AddToCampaignBulk {
 
         // run command
         BulkService BulkService = Framework.getService(BulkService.class);
-        String CommandId = BulkService.submit(fetchMailHistoryCommand);
+        String CommandId = BulkService.submit(Command);
 
         // await end of computation
-        //BulkService.await(CommandId, Duration.ofMinutes(1));
+        BulkService.await(CommandId, Duration.ofMinutes(1));
 
         // get status
         BulkStatus BulkStatus = BulkService.getStatus(CommandId);
