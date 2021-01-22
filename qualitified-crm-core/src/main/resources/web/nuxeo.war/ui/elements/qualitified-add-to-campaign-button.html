@@ -15,6 +15,10 @@
         };
       }
         </style>
+        <nuxeo-operation  id="fetchDoc"
+                          op="Document.Fetch"
+                          input="[[document]]" params='[[params1]]'>
+        </nuxeo-operation>
         <nuxeo-operation  id="addToCollectionOp" input="[[input]]" op="Qualitified.AddToCampaign" async="true" params="[[params]]"></nuxeo-operation>
         <nuxeo-operation id="addToCampaign" op="Qualitified.AddToCampaignBulk"  params="[[params]]" async="true" >
         </nuxeo-operation>
@@ -67,13 +71,20 @@
         nxProvider: {
           type: Object
         },
+        params1: {
+            type: Object
+          },
          params: {
           type: Object
          },
         _label: {
           type: String,
           computed: '_computeLabel(i18n)',
-        }
+        },
+        campaignTitle:{
+          type:String,
+          value:""
+          }
         },
         _documentReady: function(doc){
         console.log(this.document);
@@ -87,9 +98,17 @@
         _toggleDialog:function() {
           this.$['add-to-collection-dialog'].toggle();
          },
-         _addSelectedCampaign:function() {
+        _fetch: async function(id){
+            this.params1 = {
+                value:id
+            };
+            this.campaignTitle= await this.$.fetchDoc.execute().then(function(result) {
+                return result.properties["dc:title"];
+            });
+            this._toast("Document(s) added to "+ this.campaignTitle);
+        },
+        _addSelectedCampaign:function() {
             const op = this.$.addToCollectionOp;
-
             op.execute().then(() => {
                 this._resetPopup();
             });
@@ -101,13 +120,14 @@
             });
         },
         _addCampaign:function() {
-            this._toast("Document added to campaign!");
             this.params = {
                collection: this.collection,
             };
+
             if (this.selectedItems !== null && this.selectedItems.length > 0 && this.nxProvider !== null) {
                 this.input = this.selectedItems;
                 this._addSelectedCampaign();
+
           }
             if (this.nxProvider !== null && this.selectedItems.length == 0 ) {
                 this.params.providerName = this.nxProvider.provider;
@@ -122,6 +142,8 @@
                 this.params.namedParameters = namedParams;
                 this._add();
             }
+            this._fetch(this.params.collection);
+
         },
         _toast: function (msg, duration) {
             this.fire('notify', {
