@@ -343,8 +343,20 @@
         </qualitified-add-to-campaign-button>
     </template>
 </nuxeo-slot-content>
+<!-- Contribution of element 'nuxeo-add-to-collection-button' for slot 'RESULTS_SELECTION_ACTIONS' -->
+<nuxeo-slot-content name="addToCollectionSelectionAction" slot="RESULTS_SELECTION_ACTIONS" order="10" disabled>
+    <template>
+        <nuxeo-add-to-collection-documents-button documents="[[selectedItems]]">
+        </nuxeo-add-to-collection-documents-button>
+    </template>
+</nuxeo-slot-content>
 
-
+<nuxeo-slot-content name="addToCampaign" slot="RESULTS_SELECTION_ACTIONS" order="1">
+    <template>
+        <qualitified-add-to-campaign-button document="[[document]]"  selected-items="[[selectedItems]]" nx-provider=[[nxProvider]]>
+        </qualitified-add-to-campaign-button>
+    </template>
+</nuxeo-slot-content>
 
 
 
