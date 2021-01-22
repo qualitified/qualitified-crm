@@ -65,17 +65,23 @@
 
 
 
-                <nuxeo-data-table-column name="E-mail"  field="person:email" sort-by="person:email" flex="100">
+                <nuxeo-data-table-column name="E-mail"  field="person:email" sort-by="person:email" flex="50">
                     <template>
                         [[item.properties.person:email]]
                     </template>
                 </nuxeo-data-table-column>
+                <nuxeo-data-table-column name="[[i18n('documentContentView.datatable.header.type')]]" field="type"  hidden="" flex="50">
+                    <template>
+                        <nuxeo-tag>[[formatDocType(item.type)]]</nuxeo-tag>
+                    </template>
+                </nuxeo-data-table-column>
 
-                <nuxeo-data-table-column name="Modified" field="dc:modified" sort-by="dc:modified" flex="60">
+                <nuxeo-data-table-column name="Modified" field="dc:modified" sort-by="dc:modified" flex="50">
                     <template>
                         [[formatDate(item.properties.dc:modified)]]
                     </template>
                 </nuxeo-data-table-column>
+
 
                 <nuxeo-data-table-column name="[[i18n('documentContentView.datatable.header.lastContributor')]]"
                                          filter-by="dc_last_contributor_agg" field="dc:lastContributor" sort-by="dc:lastContributor" flex="50" hidden>
