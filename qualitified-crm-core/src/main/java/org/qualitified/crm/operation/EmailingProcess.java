@@ -59,28 +59,24 @@ public class EmailingProcess {
         
         if ( !campaignDocuments.isEmpty() ) {
             for (DocumentModel campaignDoc : campaignDocuments) {
-
-                campaignDoc.setPropertyValue("campaign:status","In ");
-                documentManager.saveDocument(campaignDoc);
-                IdRef automationDocId = new IdRef((String) campaignDoc.getPropertyValue("campaign:automationId"));
-                DocumentModel automationDoc = documentManager.getDocument(automationDocId);
-                IdRef emailDocId = new IdRef((String) automationDoc.getPropertyValue("custom:documentField1"));
-                DocumentModel emailDoc = documentManager.getDocument(emailDocId);
-
-                sendMailBulkParams.put("campaignId",campaignDoc.getId());
-                sendMailBulkParams.put("subject", emailDoc.getTitle());
-                sendMailBulkParams.put("htmlPart", emailDoc.getPropertyValue("html:content"));
-                // run operation that will trigger the PrepareMailBulk
-                prepareMailBulk(sendMailBulkParams);
-                campaignDoc.setPropertyValue("campaign:status","Sent");
-                documentManager.saveDocument(campaignDoc);
+                triggerSendMailBulk(campaignDoc);
             }
 
         } else logger.error("No campaign found, please check the send date or the status");
 
     }
 
-    private BulkStatus prepareMailBulk(Map<String, Serializable> sendMailBulkParams) throws InterruptedException {
+
+    @OperationMethod()
+    public void run(DocumentModel campaignDoc) throws OperationException, LoginException, JSONException, InterruptedException {
+        LoginContext lc = Framework.loginAsUser("Administrator");
+        ctx.getLoginStack().push(lc);
+        if (campaignDoc.getPropertyValue("campaign:status").equals("Ready")) {
+            triggerSendMailBulk(campaignDoc);
+        } else logger.error("This campaign is not ready yet to be sent, please check its status");
+
+    }
+    private BulkStatus sendMailBulk(Map<String, Serializable> sendMailBulkParams) throws InterruptedException {
 
         BulkCommand prepareMailCommand = new BulkCommand.Builder(AutomationBulkAction.ACTION_NAME,
                 "SELECT * FROM Document " +
@@ -106,5 +102,21 @@ public class EmailingProcess {
         // get status
         BulkStatus prepareMailBulkStatus = prepareMailBulkService.getStatus(prepareMailCommandId);
         return prepareMailBulkStatus;
+    }
+    private void triggerSendMailBulk(DocumentModel campaignDoc) throws InterruptedException {
+        campaignDoc.setPropertyValue("campaign:status", "In Progress");
+        documentManager.saveDocument(campaignDoc);
+        IdRef automationDocId = new IdRef((String) campaignDoc.getPropertyValue("campaign:automationId"));
+        DocumentModel automationDoc = documentManager.getDocument(automationDocId);
+        IdRef emailDocId = new IdRef((String) automationDoc.getPropertyValue("custom:documentField1"));
+        DocumentModel emailDoc = documentManager.getDocument(emailDocId);
+
+        sendMailBulkParams.put("campaignId", campaignDoc.getId());
+        sendMailBulkParams.put("subject", emailDoc.getTitle());
+        sendMailBulkParams.put("htmlPart", emailDoc.getPropertyValue("html:content"));
+        // run operation that will trigger the PrepareMailBulk
+        sendMailBulk(sendMailBulkParams);
+        campaignDoc.setPropertyValue("campaign:status", "Sent");
+        documentManager.saveDocument(campaignDoc);
     }
 }
