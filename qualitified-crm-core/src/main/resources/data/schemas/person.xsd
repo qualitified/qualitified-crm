@@ -52,4 +52,5 @@
   <xs:element name="firstName" type="xs:string"/>
   <xs:element name="lastName" type="xs:string"/>
   <xs:element name="phoneNumber" type="xs:string"/>
+  <xs:element name="interactionId" type="xs:string"/>
 </xs:schema>
