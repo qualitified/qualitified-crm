@@ -95,9 +95,6 @@ public class SendMail {
             interactionDoc.setPropertyValue("interaction:contact",contacts);
             documentManager.createDocument(interactionDoc);
 
-            contactDoc.setPropertyValue("person:interactionId", campaignId);
-            documentManager.saveDocument(contactDoc);
-
             logger.info("Message with subject " +mailSubject+ "sent to " +toEmail+ "from" +fromEmail);
         }
 
