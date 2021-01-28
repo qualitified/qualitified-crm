@@ -47,6 +47,7 @@ public class EmailingHistoryProcess {
         BulkCommand fetchMailHistoryCommand = new BulkCommand.Builder(AutomationBulkAction.ACTION_NAME,
                 "SELECT * FROM Interaction WHERE interaction:activity= 'Emailing' " +
                         "AND interaction:status= 'DONE' " +
+                        "AND interaction:messageID IS NOT NULL " +
                         "AND ecm:isProxy = 0 AND ecm:isTrashed = 0 AND ecm:isCheckedInVersion = 0 " +
                         "AND ecm:currentLifeCycleState != 'deleted' ")
                 .repository("default")
@@ -75,6 +76,7 @@ public class EmailingHistoryProcess {
                 "SELECT * FROM Interaction WHERE interaction:campaignId= '"+ campaignDoc.getId()+ "' " +
                         "AND interaction:activity= 'Emailing' " +
                         "AND interaction:status= 'DONE' " +
+                        "AND interaction:messageID IS NOT NULL " +
                         "AND ecm:isProxy = 0 AND ecm:isTrashed = 0 AND ecm:isCheckedInVersion = 0 " +
                         "AND ecm:currentLifeCycleState != 'deleted' ")
                 .repository("default")

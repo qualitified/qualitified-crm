@@ -53,7 +53,7 @@ public class FetchMailHistory {
     JSONObject response = null;
 
     @OperationMethod
-    public void run(DocumentModel interactionDoc) throws OperationException, LoginException, MailjetSocketTimeoutException, JSONException, MailjetException {
+    public void run(DocumentModel interactionDoc) throws OperationException, LoginException, MailjetSocketTimeoutException, JSONException {
         EmailingService emailingService = Framework.getService(EmailingService.class);
         LoginContext lc = Framework.loginAsUser("Administrator");
         ctx.getLoginStack().push(lc);
@@ -62,11 +62,8 @@ public class FetchMailHistory {
 
         try {
             response = emailingService.fetchHistory(Long.parseLong(MessageID));
-
         } catch (MailjetException m) {
             logger.error("Error while running mailjet service", m);
-        } catch (NumberFormatException j) {
-            logger.error("Please check your messageId, it might be null", j);
         } finally {
             Calendar cal = Calendar.getInstance();
             List<Map<String, Object>> mailHistory = new ArrayList<Map<String, Object>>();
