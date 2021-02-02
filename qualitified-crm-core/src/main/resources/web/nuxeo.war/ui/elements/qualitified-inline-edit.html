@@ -28,9 +28,9 @@
                                    on-tap="_editMode">
                 </paper-icon-button>
             </div>
-            ​<template is="dom-if" if="[[_isInput(metadata)]]">
-            <div>[[value]]</div>
-        </template>
+            <template is="dom-if" if="[[_isInput(metadata)]]">
+                <div>[[value]]</div>
+            </template>
             <template is="dom-if" if="[[_isText(metadata)]]">
                 <div>
                     <pre class="wrap">[[value]]</pre>
@@ -42,8 +42,18 @@
             <template is="dom-if" if="[[_isDate(metadata)]]">
                 <div>[[formatDate(value)]]</div>
             </template>
+            <template is="dom-if" if="[[_isDocument(metadata)]]">
+                <qualitified-document-suggestion role="widget"
+                                                 value="{{value}}"
+                                                 label="[[i18n(label)]]"
+                                                 page-provider="documents"
+                                                 min-chars="0"
+                                                 readonly
+                                                 params='{ "namedParameters": "system_primaryType=Email"}'>
+                </qualitified-document-suggestion>
+            </template>
         </div>
-        ​
+
         <!-- Edit -->
         <div id="edit" hidden$="[[!edit]]">
             <template is="dom-if" if="[[_isInput(metadata)]]">

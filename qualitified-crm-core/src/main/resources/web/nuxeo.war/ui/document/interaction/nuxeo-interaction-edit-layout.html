@@ -19,34 +19,40 @@
     <nuxeo-user-suggestion  value="{{document.properties.interaction:responsible}}" label="[[i18n('label.metadata.responsible')]]" search-type="USER_TYPE" role="widget" min-chars="0" multiple="true">
     </nuxeo-user-suggestion>
 
-    <qualitified-document-suggestion role="widget" value="{{document.properties.interaction:contact}}" label="[[i18n('label.metadata.contact')]]" page-provider="documents" min-chars="0" multiple="true" params='{ "namedParameters": "system_primaryType=Contact"}'></qualitified-document-suggestion>
+    <qualitified-document-suggestion
+            role="widget"
+            value="{{document.properties.interaction:contact}}"
+            multiple="true"
+            label="[[i18n('label.metadata.contact')]]" page-provider="documents" min-chars="0" params='{ "namedParameters": "system_primaryType=Contact"}'>
+
+    </qualitified-document-suggestion>
 
     <qualitified-custom-fields document="{{document}}" mode="edit"></qualitified-custom-fields>
 
-   <qualitified-document-suggestion
+    <qualitified-document-suggestion
             role="widget"
             value="{{document.properties.interaction:campaignId}}"
-            label="Campaign" name="campaignId" page-provider="campaigns"
-            min-chars="0">
+            label="Campaign" page-provider="documents" min-chars="0" params='{ "namedParameters": "system_primaryType=Campaign"}'>
+
     </qualitified-document-suggestion>
 
     <nuxeo-input value="{{document.properties.interaction:count}}" label="Count" type="number" name="count" role="widget"></nuxeo-input>
 
 
 
-   <!-- <nuxeo-input value="{{document.properties.interaction:fromEmail}}" label="From Email" type="text" name="fromEmail" role="widget"></nuxeo-input>
+    <!-- <nuxeo-input value="{{document.properties.interaction:fromEmail}}" label="From Email" type="text" name="fromEmail" role="widget"></nuxeo-input>
 
-    <nuxeo-input value="{{document.properties.interaction:fromName}}" label="From Name" type="text" name="fromName" role="widget"></nuxeo-input>
+     <nuxeo-input value="{{document.properties.interaction:fromName}}" label="From Name" type="text" name="fromName" role="widget"></nuxeo-input>
 
-    <nuxeo-input value="{{document.properties.interaction:messageID}}" label="Message I D" type="text" name="messageID" role="widget"></nuxeo-input>
+     <nuxeo-input value="{{document.properties.interaction:messageID}}" label="Message I D" type="text" name="messageID" role="widget"></nuxeo-input>
 
-    <nuxeo-input value="{{document.properties.interaction:messageUUID}}" label="Message U U I D" type="text" name="messageUUID" role="widget"></nuxeo-input>
+     <nuxeo-input value="{{document.properties.interaction:messageUUID}}" label="Message U U I D" type="text" name="messageUUID" role="widget"></nuxeo-input>
 
-    <nuxeo-input value="{{document.properties.interaction:statusMail}}" label="Status" type="text" name="statusMail" role="widget"></nuxeo-input>
+     <nuxeo-input value="{{document.properties.interaction:statusMail}}" label="Status" type="text" name="statusMail" role="widget"></nuxeo-input>
 
-    <nuxeo-input value="{{document.properties.interaction:toEmail}}" label="To Email" type="text" name="toEmail" role="widget"></nuxeo-input>
+     <nuxeo-input value="{{document.properties.interaction:toEmail}}" label="To Email" type="text" name="toEmail" role="widget"></nuxeo-input>
 
-    <nuxeo-input value="{{document.properties.interaction:toName}}" label="To Name" type="text" name="toName" role="widget"></nuxeo-input>-->
+     <nuxeo-input value="{{document.properties.interaction:toName}}" label="To Name" type="text" name="toName" role="widget"></nuxeo-input>-->
 
   </template>
 

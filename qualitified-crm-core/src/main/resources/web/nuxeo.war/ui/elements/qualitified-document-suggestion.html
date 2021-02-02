@@ -210,6 +210,16 @@
                 return this._docIdFunction.bind(this);
               },
             },
+            /**
+             * Function used to get the id from the choice document.
+             */
+            getDocIds: {
+              type: Function,
+              value() {
+                return this._getDocIds.bind(this);
+              },
+            },
+
 
             /**
              * Formatter for initial selection.
@@ -252,7 +262,7 @@
           //TODO Make the link optional
 
           let defaultIcon = (doc && doc.properties && doc.properties["common:icon"])? doc.properties["common:icon"] : "";
-          let img = (doc.type === "Contact" || doc.type === "Account")? `<img style="vertical-align: middle;height: 25px;width: 25px;border-radius: 20px;box-sizing: border-box;margin-right: 8px;" src="/nuxeo/nxfile/default/${doc.uid}/file:content/" onError="this.onerror=null;this.src='/nuxeo/${defaultIcon}';">` : `<img style="vertical-align: middle;height: 25px;width: 25px;border-radius: 20px;box-sizing: border-box;margin-right: 8px;" src="/nuxeo/${defaultIcon}">`;
+          let img = ((doc.type === "Contact" || doc.type === "Account") && doc.properties["file:content"])? `<img style="vertical-align: middle;height: 25px;width: 25px;border-radius: 20px;box-sizing: border-box;margin-right: 8px;" src="/nuxeo/nxfile/default/${doc.uid}/file:content/" onError="this.onerror=null;this.src='/nuxeo/${defaultIcon}';">` : `<img style="vertical-align: middle;height: 25px;width: 25px;border-radius: 20px;box-sizing: border-box;margin-right: 8px;" src="/nuxeo/${defaultIcon}">`;
           if(this.clickable === "true"){
              return `<a href="${this.urlFor('browse', doc.path)}" style="text-decoration: none;color:#000000">${img}${doc.title}</a>`;
           }
@@ -272,7 +282,11 @@
             if (this.multiple) {
               if (element.length > 0) {
                 if (element[0].title) {
-                  return callback(element);
+                    if (element[0].properties !== undefined ) {
+                        return callback(element);
+                      } else {
+                        return this._resolveDocs(element, callback);
+                      }
                 } else if (typeof element[0] === 'string' && element[0].length > 0) {
                   return this._resolveDocs(element, callback);
                 }
@@ -280,7 +294,11 @@
                 return callback([]);
               }
             } else if (element.title) {
-              return callback(element);
+                if (element.properties !== undefined ) {
+                  return callback(element);
+                } else {
+                  return this._resolveDocs(element, callback);
+                }
             } else if (typeof element === 'string') {
               if (element.length > 0) {
                 return this._resolveDocs(element, callback);
@@ -294,7 +312,7 @@
 
         _resolveDocs(docs, callback) {
           this.$.op.params = {
-            values: this.value,
+            values: this._getDocIds(this.value),
             property: this.idProperty,
           };
           this.$.op.execute().then((res) => {
@@ -305,13 +323,32 @@
             }
           });
         }
+          _getDocIds(docs) {
+            var docList =[];
+             if (docs.length > 0) {
+                 if (typeof docs[0] === 'string'){
+                    return docs;
+                 } else {
+                    for (var doc of docs) {
+                        docList.push(doc.uid);
+                    }
+                    return docList;
+                 }
 
+             } else {
+                if (typeof docs === 'string') {
+                   return docs;
+                } else return docs.uid
+             }
+
+        }
         _docIdFunction(doc) {
-          if (this.idProperty === 'ecm:uuid') {
-            return doc.uid;
-          } else {
-            return doc.properties[this.idProperty];
-          }
+            if (this.idProperty === 'ecm:uuid') {
+              return doc.uid;
+            } else {
+              return doc.properties[this.idProperty];
+            }
+
         }
 
       }
