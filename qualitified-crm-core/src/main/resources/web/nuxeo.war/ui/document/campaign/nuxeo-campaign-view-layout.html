@@ -37,167 +37,151 @@
             }
 
 
+
         </style>
         <nuxeo-connection id="nxcon"></nuxeo-connection>
 
-        <paper-card role="widget">
+        <div class="dataTable" hidden$="[[_isHidden(resultsCount)]]">
+            <nuxeo-page-provider enrichers="thumbnail, permissions" id="provider"
+                                 page-size="40" provider="default_content_collection"
+                                 schemas="dublincore,silhouette,person,common,interaction">
+            </nuxeo-page-provider>
 
-            <paper-tabs selected="{{selected}}" scrollable>
-                <paper-tab>[[i18n('Contacts')]]</paper-tab>
-                <template if="[[_isHidden(resultsCount)]]" is="dom-if">
-                    <paper-tab>[[i18n('Interactions')]]</paper-tab>
-                </template>
-            </paper-tabs>
-
-            <iron-pages selected="{{selected}}">
-
-                <div class="dataTable">
-                    <nuxeo-page-provider id="provider" provider="default_content_collection" schemas="dublincore,silhouette,person,common,interaction"  page-size="40" enrichers="thumbnail, permissions">
-                    </nuxeo-page-provider>
-
-                    <nuxeo-results id="results" name="[[document.uid]]" items="{{items}}" on-navigate="_navigate" selected-items="{{selectedItems}}" empty-label="[[i18n('collections.noDocument')]]" empty-label-when-filtered="[[i18n('collections.noDocumentWhenFiltered')]]">
-                        <div slot="selectionActions">
-                            <nuxeo-slot slot="COLLECTION_ACTIONS" model="[[actionContext]]"></nuxeo-slot>
-                        </div>
-                        <nuxeo-data-table  id="campaignTable" class="results" name="table" icon="nuxeo:view-list"
-                                           settings-enabled
-                                           empty-label="[[emptyLabel]]"
-                                           empty-label-when-filtered="[[emptyLabelWhenFiltered]]"
-                                           selection-enabled
-                                           display-quick-filters
-                                           on-row-clicked="_navigate">
-
-                            <nuxeo-data-table-column name="[[i18n('documentContentView.datatable.header.title')]]"
-                                                     field="dc:title" sort-by="dc:title" filter-by="title"  flex="100">
-                                <template>
-                                    <img class="queue-thumbnail" src="[[_thumbnail(item)]]">
-                                    <a class="title ellipsis" href$="#!/browse[[item.path]]" on-tap="_navigate">[[item.title]]</a>
-                                </template>
-                            </nuxeo-data-table-column>
-
-
-                            <nuxeo-data-table-column name="E-mail"  field="person:email" sort-by="person:email" flex="100">
-                                <template>
-                                    [[item.properties.person:email]]
-                                </template>
-                            </nuxeo-data-table-column>
-
-                            <nuxeo-data-table-column name="Modified" field="dc:modified" sort-by="dc:modified" flex="60">
-                                <template>
-                                    [[formatDate(item.properties.dc:modified)]]
-                                </template>
-                            </nuxeo-data-table-column>
-
-                            <nuxeo-data-table-column name="[[i18n('documentContentView.datatable.header.lastContributor')]]"
-                                                     filter-by="dc_last_contributor_agg" field="dc:lastContributor" sort-by="dc:lastContributor" flex="50" hidden>
-                                <template is="header">
-                                    <nuxeo-dropdown-aggregation
-                                            placeholder="[[i18n('documentContentView.datatable.header.lastContributor')]]"
-                                            data="[[contactAggregations.dc_last_contributor_agg]]"
-                                            value="{{column.filterValue}}" multiple>
-                                    </nuxeo-dropdown-aggregation>
-                                </template>
-                                <template>
-                                    <nuxeo-user-tag user="[[item.properties.dc:lastContributor]]"></nuxeo-user-tag>
-                                </template>
-                            </nuxeo-data-table-column>
-                        </nuxeo-data-table>
-                    </nuxeo-results>
+            <nuxeo-results empty-label="[[i18n('collections.noDocument')]]" empty-label-when-filtered="[[i18n('collections.noDocumentWhenFiltered')]]" id="results" items="{{items}}"
+                           name="[[document.uid]]" on-navigate="_navigate"
+                           selected-items="{{selectedItems}}">
+                <div slot="selectionActions">
+                    <nuxeo-slot model="[[actionContext]]" slot="COLLECTION_ACTIONS"></nuxeo-slot>
                 </div>
+                <nuxeo-data-table class="results" display-quick-filters empty-label="[[emptyLabel]]" empty-label-when-filtered="[[emptyLabelWhenFiltered]]"
+                                  icon="nuxeo:view-list"
+                                  id="campaignTable"
+                                  name="table"
+                                  on-row-clicked="_navigate"
+                                  selection-enabled
+                                  settings-enabled>
 
-                <div class="dataTable">
-                    <nuxeo-page-provider id="interactionProvider"
-                                         query="select * from Interaction where ecm:currentLifeCycleState != 'deleted' and ecm:isTrashed = 0 and interaction:campaignId = '[[document.uid]]' "
-                                         page-size="40"
-                                         aggregations="{{interactionAggregations}}"
-                                         enrichers="thumbnail, permissions, personDocEnricher"
-                                         page="[[pageNumber]]"
-                                         results-count="{{resultsCount}}"
-                                         schemas="interaction,dublincore,common"
-                                         headers='{"X-NXfetch.document": "properties", "X-NXtranslate.directoryEntry": "label"}'
-                                         fetch-aggregates>
-                    </nuxeo-page-provider>
-
-                    <nuxeo-results id="interactionResults" name="[[document.uid]]" items="{{items}}" nx-provider="[[interactionProvider]]" selected-items="{{selectedItems}}">
-
-                        <!-- Table view -->
-                        <nuxeo-data-table class="results" name="table" icon="nuxeo:view-list"
-                                          settings-enabled
-                                          empty-label="[[emptyLabel]]"
-                                          empty-label-when-filtered="[[emptyLabelWhenFiltered]]"
-                                          selection-enabled
-                                          display-quick-filters
-                                          on-row-clicked="_navigate">
-
-                            <!--<nuxeo-data-table-column name="[[i18n('documentContentView.datatable.header.title')]]"
-                                                     filter-by="title" align-right="true"  flex="100">
-                                <template>
-                                    <a class="title ellipsis" href$="#!/browse[[item.path]]" on-tap="_navigate">[[item.contextParameters.personDocEnricher.personTitle]]</a>
-                                </template>
-                            </nuxeo-data-table-column>-->
-
-                            <nuxeo-data-table-column name="Receiver" field="interaction:contact"
-                                                     sort-by="interaction:contact" flex="60">
-                                <template>
-
-                                    <qualitified-document-suggestion
-                                            value="[[item.properties.interaction:contact]]"
-                                            multiple
-                                            clickable="true"
-                                            readOnly>
-                                    </qualitified-document-suggestion>
-                                </template>
-                            </nuxeo-data-table-column>
-                            <nuxeo-data-table-column name="E-mail" flex="60">
-                                <template>
-                                    [[item.contextParameters.personDocEnricher.personEmail]]
-                                </template>
-                            </nuxeo-data-table-column>
-                            <nuxeo-data-table-column name="Sent" field="interaction:isSent"
-                                                     sort-by="interaction:isSent" flex="60">
-                                <template>
-                                    <iron-icon icon="[[_getIcon(item.properties.interaction:isSent)]]"></iron-icon>
-                                </template>
-                            </nuxeo-data-table-column>
-                            <nuxeo-data-table-column name="Delivered" field="interaction:isDelivered"
-                                                     sort-by="interaction:isDelivered" flex="60">
-                                <template>
-                                    <iron-icon icon="[[_getIcon(item.properties.interaction:isDelivered)]]"></iron-icon>
-                                </template>
-                            </nuxeo-data-table-column>
-                            <nuxeo-data-table-column name="Opened" field="interaction:isOpened"
-                                                     sort-by="interaction:isOpened" flex="60">
-                                <template>
-                                    <iron-icon icon="[[_getIcon(item.properties.interaction:isOpened)]]"></iron-icon>
-                                </template>
-                            </nuxeo-data-table-column>
-                            <nuxeo-data-table-column name="Clicked" field="interaction:isCLicked"
-                                                     sort-by="interaction:isCLicked" flex="60">
-                                <template>
-                                    <iron-icon icon="[[_getIcon(item.properties.interaction:isCLicked)]]"></iron-icon>
-                                </template>
-                            </nuxeo-data-table-column>
-
-                            <nuxeo-data-table-column name="Status" field="interaction:status"
-                                                     sort-by="interaction:status" flex="60">
-                                <template>
-                                    [[formatDirectory(item.properties.interaction:status)]]
-                                </template>
-                            </nuxeo-data-table-column>
-
-                            <nuxeo-data-table-column name="Date" field="interaction:date"
-                                                     sort-by="interaction:date" flex="60">
-                                <template>
-                                    [[formatDate(item.properties.interaction:date)]]
-                                </template>
-                            </nuxeo-data-table-column>
+                    <nuxeo-data-table-column field="dc:title"
+                                             filter-by="dc:title" flex="100" name="[[i18n('documentContentView.datatable.header.title')]]" sort-by="dc:title">
+                        <template>
+                            <img class="queue-thumbnail" src="[[_thumbnail(item)]]">
+                            <a class="title ellipsis" href$="#!/browse[[item.path]]"
+                               on-tap="_navigate">[[item.title]]</a>
+                        </template>
+                    </nuxeo-data-table-column>
 
 
-                        </nuxeo-data-table>
-                    </nuxeo-results>
-                </div>
-            </iron-pages>
-        </paper-card>
+                    <nuxeo-data-table-column field="person:email" flex="100" name="E-mail" sort-by="person:email">
+                        <template>
+                            [[item.properties.person:email]]
+                        </template>
+                    </nuxeo-data-table-column>
+
+                    <nuxeo-data-table-column field="dc:modified" flex="60" name="Modified" sort-by="dc:modified">
+                        <template>
+                            [[formatDate(item.properties.dc:modified)]]
+                        </template>
+                    </nuxeo-data-table-column>
+
+                    <nuxeo-data-table-column field="dc:lastContributor"
+                                             filter-by="dc_last_contributor_agg" flex="50"
+                                             hidden name="[[i18n('documentContentView.datatable.header.lastContributor')]]" sort-by="dc:lastContributor">
+                        <template is="header">
+                            <nuxeo-dropdown-aggregation
+                                    data="[[contactAggregations.dc_last_contributor_agg]]"
+                                    multiple
+                                    placeholder="[[i18n('documentContentView.datatable.header.lastContributor')]]" value="{{column.filterValue}}">
+                            </nuxeo-dropdown-aggregation>
+                        </template>
+                        <template>
+                            <nuxeo-user-tag user="[[item.properties.dc:lastContributor]]"></nuxeo-user-tag>
+                        </template>
+                    </nuxeo-data-table-column>
+                </nuxeo-data-table>
+            </nuxeo-results>
+        </div>
+
+        <div class="dataTable" hidden$="[[!_isHidden(resultsCount)]]">
+            <nuxeo-page-provider aggregations="{{interactionAggregations}}"
+                                 enrichers="thumbnail, permissions, personDocEnricher"
+                                 fetch-aggregates
+                                 headers='{"X-NXfetch.document": "properties", "X-NXtranslate.directoryEntry": "label"}'
+                                 id="interactionProvider"
+                                 page="[[pageNumber]]"
+                                 page-size="40"
+                                 query="select * from Interaction where ecm:currentLifeCycleState != 'deleted' and ecm:isTrashed = 0 and interaction:campaignId = '[[document.uid]]' "
+                                 results-count="{{resultsCount}}"
+                                 schemas="interaction,dublincore,common">
+            </nuxeo-page-provider>
+
+            <nuxeo-results id="interactionResults" items="{{items}}" name="[[document.uid]]"
+                           nx-provider="[[interactionProvider]]" selected-items="{{selectedItems}}">
+
+                <!-- Table view -->
+                <nuxeo-data-table class="results" display-quick-filters empty-label="[[emptyLabel]]"
+                                  empty-label-when-filtered="[[emptyLabelWhenFiltered]]"
+                                  icon="nuxeo:view-list"
+                                  name="table"
+                                  on-row-clicked="_navigate"
+                                  selection-enabled
+                                  settings-enabled>
+
+                    <nuxeo-data-table-column filter-by="title"
+                                             flex="100" name="[[i18n('documentContentView.datatable.header.title')]]">
+                        <template>
+                            <img class="queue-thumbnail" src="[[_thumbnail(item.properties.interaction:contact)]]">
+                            <a class="title ellipsis" href$="#!/browse[[item.path]]" on-tap="_navigate">[[item.contextParameters.personDocEnricher.personTitle]]</a>
+                        </template>
+                    </nuxeo-data-table-column>
+
+                    <nuxeo-data-table-column flex="60" name="E-mail">
+                        <template>
+                            [[item.contextParameters.personDocEnricher.personEmail]]
+                        </template>
+                    </nuxeo-data-table-column>
+                    <nuxeo-data-table-column field="interaction:isSent" flex="60"
+                                             name="Sent" sort-by="interaction:isSent">
+                        <template>
+                            <iron-icon icon="[[_getIcon(item.properties.interaction:isSent)]]"></iron-icon>
+                        </template>
+                    </nuxeo-data-table-column>
+                    <nuxeo-data-table-column field="interaction:isDelivered" flex="60"
+                                             name="Delivered" sort-by="interaction:isDelivered">
+                        <template>
+                            <iron-icon icon="[[_getIcon(item.properties.interaction:isDelivered)]]"></iron-icon>
+                        </template>
+                    </nuxeo-data-table-column>
+                    <nuxeo-data-table-column field="interaction:isOpened" flex="60"
+                                             name="Opened" sort-by="interaction:isOpened">
+                        <template>
+                            <iron-icon icon="[[_getIcon(item.properties.interaction:isOpened)]]"></iron-icon>
+                        </template>
+                    </nuxeo-data-table-column>
+                    <nuxeo-data-table-column field="interaction:isCLicked" flex="60"
+                                             name="Clicked" sort-by="interaction:isCLicked">
+                        <template>
+                            <iron-icon icon="[[_getIcon(item.properties.interaction:isCLicked)]]"></iron-icon>
+                        </template>
+                    </nuxeo-data-table-column>
+
+                    <nuxeo-data-table-column field="interaction:status" flex="60"
+                                             name="Status" sort-by="interaction:status">
+                        <template>
+                            [[formatDirectory(item.properties.interaction:status)]]
+                        </template>
+                    </nuxeo-data-table-column>
+
+                    <nuxeo-data-table-column field="interaction:date" flex="60"
+                                             name="Date" sort-by="interaction:date">
+                        <template>
+                            [[formatDate(item.properties.interaction:date)]]
+                        </template>
+                    </nuxeo-data-table-column>
+
+
+                </nuxeo-data-table>
+            </nuxeo-results>
+        </div>
     </template>
 
     <script>
@@ -275,7 +259,8 @@
                         page('/browse' + detail.doc.path);
                     }
                 },
-                _thumbnail: function(doc) {
+                _thumbnail: function(item) {
+                    var doc =this._getDocId(item);
                     if (doc && doc.uid) {
                        if (doc.contextParameters && doc.contextParameters.thumbnail.url) {
                             return doc.contextParameters.thumbnail.url;
@@ -284,6 +269,12 @@
                         return baseUrl + '/api/v1/id/' + doc.uid + '/@rendition/thumbnail';
                         }
                     }
+                },
+                _getDocId: function(doc) {
+                    if (doc && doc.length>0) {
+                    console.log(doc);
+                       return doc[0];
+                    } return doc;
                 },
                  /**
                    * Returns the label for the given directory entry.
@@ -314,5 +305,6 @@
                 },
             });
         })();
+
     </script>
 </dom-module>
