@@ -55,9 +55,13 @@ public class PersonDocEnricher extends AbstractJsonEnricher<DocumentModel> {
             DocumentModel personDoc = session.getDocument(new IdRef(persons[0]));
             personObject.put("personTitle", personDoc.getTitle());
             personObject.put("personEmail", (String) personDoc.getPropertyValue("person:email"));
+            personObject.put("personPhone", (String) personDoc.getPropertyValue("person:phoneNumber"));
+
         } else {
             personObject.put("personTitle", "");
             personObject.put("personEmail", "");
+            personObject.put("personPhone", "");
+
         }
         /*DocumentModelList interactionDocs = session
                 .query("SELECT * FROM Interaction " +

@@ -76,6 +76,17 @@
                             [[item.properties.person:email]]
                         </template>
                     </nuxeo-data-table-column>
+                    <nuxeo-data-table-column name="Phone Number" field="person:phoneNumber" sort-by="person:phoneNumber"
+                                             flex="60">
+                        <template>
+                            [[item.properties.person:phoneNumber]]
+                        </template>
+                    </nuxeo-data-table-column>
+                    <nuxeo-data-table-column name="[[i18n('documentContentView.datatable.header.type')]]" hidden="" flex="50">
+                        <template>
+                            <nuxeo-tag>[[formatDocType(item.type)]]</nuxeo-tag>
+                        </template>
+                    </nuxeo-data-table-column>
 
                     <nuxeo-data-table-column field="dc:modified" flex="60" name="Modified" sort-by="dc:modified">
                         <template>
@@ -134,11 +145,17 @@
                         </template>
                     </nuxeo-data-table-column>
 
-                    <nuxeo-data-table-column flex="60" name="E-mail">
+                    <nuxeo-data-table-column flex="60" name="[[i18n('label.metadata.email')]]">
                         <template>
                             [[item.contextParameters.personDocEnricher.personEmail]]
                         </template>
                     </nuxeo-data-table-column>
+                    <nuxeo-data-table-column flex="60" name="[[i18n('label.metadata.phone')]]">
+                        <template>
+                            [[item.contextParameters.personDocEnricher.personPhone]]
+                        </template>
+                    </nuxeo-data-table-column>
+
                     <nuxeo-data-table-column field="interaction:isSent" flex="60"
                                              name="Sent" sort-by="interaction:isSent">
                         <template>
