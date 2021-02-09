@@ -158,5 +158,6 @@
   "laber.or": "Or",
   "label.search.image": "Search an Image",
   "label.documents": "Documents",
-  "addToCampaignButton.dialog.add": "Add to a campaign"
+  "addToCampaignButton.dialog.add": "Add to a campaign",
+  "label.metadata.campaign.create": "Create a new campaign"
 }
