@@ -34,6 +34,8 @@ public class SendMail {
     protected CoreSession documentManager;
     @Param(name = "campaignId")
     protected String campaignId;
+    @Param(name = "emailId")
+    protected String emailId;
     @Param(name = "subject")
     protected String mailSubject;
     @Param(name = "htmlPart")
@@ -91,6 +93,8 @@ public class SendMail {
             interactionDoc.setPropertyValue("interaction:date", Calendar.getInstance());
             interactionDoc.setPropertyValue("interaction:campaignId",campaignId);
             interactionDoc.setPropertyValue("interaction:messageID",MessageID);
+            interactionDoc.setPropertyValue("custom:documentField10",emailId);
+
             contacts.add(contactDoc.getId());
             interactionDoc.setPropertyValue("interaction:contact",contacts);
             documentManager.createDocument(interactionDoc);

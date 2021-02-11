@@ -53,6 +53,10 @@
                                              readOnly>
             </qualitified-document-suggestion>
         </div>
+        <div role="widget" style="width:60%;">
+            <label>Automation Step</label>
+            <div>[[_setAutomationStep(document.properties.custom:stringField1)]]</div>
+        </div>
         <div role="widget" hidden$="[[!document.properties.campaign:status]]" style="width:60%;">
             <label>[[i18n('label.metadata.status')]]</label>
             <nuxeo-directory-suggestion role="widget"
@@ -281,6 +285,12 @@
                  hidden = true;
                 }
                 return hidden;
+            },
+            _setAutomationStep: function(currentStep){
+                if (currentStep != null ){
+                 return currentStep ;
+                }
+                return "start up mail - step0";
             },
             _setWhereTerm: function (campaignId) {
               if (campaignId) {

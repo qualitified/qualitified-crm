@@ -111,7 +111,7 @@
                                  page-size="40"
                                  query="select * from Interaction where ecm:currentLifeCycleState != 'deleted' and ecm:isTrashed = 0 and interaction:campaignId = '[[document.uid]]' "
                                  results-count="{{resultsCount}}"
-                                 schemas="interaction,dublincore,common">
+                                 schemas="interaction,dublincore,common,custom">
             </nuxeo-page-provider>
 
             <nuxeo-results id="interactionResults" items="{{items}}" name="[[document.uid]]"
@@ -134,9 +134,19 @@
                         </template>
                     </nuxeo-data-table-column>
 
-                    <nuxeo-data-table-column flex="60" name="E-mail">
+                    <nuxeo-data-table-column flex="60" name="Address">
                         <template>
                             [[item.contextParameters.personDocEnricher.personEmail]]
+                        </template>
+                    </nuxeo-data-table-column>
+                    <nuxeo-data-table-column flex="60" name="Email">
+                        <template>
+                            <qualitified-document-suggestion role="widget"
+                                                             value="[[item.properties.custom:documentField10]]"
+                                                             min-chars="0"
+                                                             clickable="true"
+                                                             readOnly>
+                            </qualitified-document-suggestion>
                         </template>
                     </nuxeo-data-table-column>
                     <nuxeo-data-table-column field="interaction:isSent" flex="60"
