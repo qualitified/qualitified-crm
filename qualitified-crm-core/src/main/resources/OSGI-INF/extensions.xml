@@ -2435,5 +2435,19 @@
       <defaultState>lifecycle</defaultState>
     </migration>
   </extension>  -->
+  <extension point="providers" target="org.nuxeo.ecm.platform.query.api.PageProviderService">
+
+    <coreQueryPageProvider name="default_campaign">
+      <property name="maxResults">PAGE_SIZE</property>
+      <pattern escapeParameters="true" quoteParameters="false">
+        SELECT * FROM Document WHERE /*+ES: INDEX(dc:title.fulltext) OPERATOR(match_phrase_prefix) */
+        dc:title ILIKE '?%' AND ecm:primaryType = 'Campaign'  AND
+        ecm:isProxy = 0 AND ecm:mixinType != 'HiddenInNavigation' AND
+        ecm:isVersion = 0 AND ecm:isTrashed = 0
+      </pattern>
+      <sort ascending="true" column="dc:title"/>
+      <pageSize>50</pageSize>
+    </coreQueryPageProvider>
+  </extension>
 
 </component>

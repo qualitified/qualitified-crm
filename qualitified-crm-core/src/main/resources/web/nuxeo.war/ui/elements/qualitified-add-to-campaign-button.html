@@ -15,6 +15,7 @@
         };
       }
         </style>
+
         <nuxeo-operation  id="fetchDoc"
                           input="[[document]]"
                           op="Document.Fetch" params='[[params1]]'>
@@ -24,31 +25,25 @@
         <nuxeo-operation  async="true" id="addToCollectionOp" input="[[input]]" op="Qualitified.AddToCampaign" params="[[params]]"></nuxeo-operation>
         <nuxeo-operation async="true" id="addToCampaign"  op="Qualitified.AddToCampaignBulk" params="[[params]]" >
         </nuxeo-operation>
+
         <paper-icon-button  icon="qualitified:add-to-campaign" id="button" on-tap="_toggleDialog"></paper-icon-button>
         <paper-tooltip for="button">[[i18n('addToCampaignButton.dialog.add')]]</paper-tooltip>
 
-        <nuxeo-dialog id="dialog" on-iron-overlay-closed="_resetPopup" with-backdrop="">
-           <div style="display: inline-flex;"> <h2>[[i18n('addToCampaignButton.dialog.add')]]<paper-icon-button  icon="nuxeo:add" id="but" on-click="_show" ></h2></paper-icon-button>
-               <paper-tooltip for="but">[[i18n('label.metadata.campaign.create')]]</paper-tooltip></div>
+            <nuxeo-dialog id="dialog" with-backdrop="" on-iron-overlay-closed="_resetPopup" no-auto-focus="">
+
+            <h2>[[i18n('addToCampaignButton.dialog.add')]]</h2>
             <paper-dialog-scrollable>
-                <qualitified-document-suggestion
-                                                 label="[[i18n('label.metadata.campaign.title')]]"
-                                                 min-chars="0"
-                                                 page-provider="documents"
-                                                 params='{ "namedParameters": "system_primaryType=Campaign"}'
-                                                 role="widget"
-                                                 value="{{collection}}"> </qualitified-document-suggestion>
-
-                <nuxeo-input hidden  id="titre"
-                             label="[[i18n('label.metadata.campaign.create')]]"  role="widget"  value="{{collection}}"></nuxeo-input>
+                <nuxeo-selectivity id="nxSelect" label="[[i18n('addToCampaignButton.dialog.add')]]" operation="Qualitified.SuggestCampaignEntry" min-chars="0" placeholder="[[i18n('addToCampaignButton.dialog.add')]]" value="{{collection}}" tagging="true" query-results-filter="[[resultsFilter]]" result-formatter="[[resultAndSelectionFormatter]]" selection-formatter="[[resultAndSelectionFormatter]]" new-entry-formatter="[[newEntryFormatter]]" required="">
+                </nuxeo-selectivity>
+                <nuxeo-textarea label="[[i18n('addToCollectionDocumentsButton.dialog.description')]]" value="{{description::input}}" hidden$="[[!_isNew(collection)]]" always-float-label="">
+                </nuxeo-textarea>
             </paper-dialog-scrollable>
-
             <div class="buttons">
                 <paper-button dialog-dismiss="" noink="">[[i18n('addToCollectionDocumentsButton.dialog.cancel')]]</paper-button>
-                <paper-button class="primary" noink="" on-tap="_addCampaign" >
+                    <paper-button dialog-confirm="" class="primary" name="add" on-click="_createCampaign" disabled$="[[!_isValid(collection)]]">
+
                     [[i18n('addToCampaignButton.dialog.add')]]
                 </paper-button>
-                <paper-button  class="primary" hidden  id="create" noink="" on-click="_createCampaign"> Create new campaign</paper-button>
             </div>
         </nuxeo-dialog>
 
@@ -93,18 +88,27 @@
           value: 'bottom'
         },
 
-        /**
-         * `true` if the action should display the label, `false` otherwise.
-         */
-        showLabel: {
-          type: Boolean,
-          value: false,
+        resultsFilter: {
+          type: Function,
+          value: function() {
+            return this._resultsFilter.bind(this);
+          }
         },
 
-        _label: {
-          type: String,
-          computed: '_computeLabel(i18n)'
+        resultAndSelectionFormatter: {
+          type: Function,
+          value: function() {
+            return this._resultAndSelectionFormatter.bind(this);
+          }
         },
+
+        newEntryFormatter: {
+          type: Function,
+          value: function() {
+            return this._newEntryFormatter.bind(this);
+          }
+        },
+
         searchName: {
          type: String
         },
@@ -125,9 +129,7 @@
                  this.$.button.style.display = "none";
                  }
         },
-        _isAvailable:function(doc) {
-          return this.isCollectionMember(doc);
-        },
+
         _computeLabel:function() {
           return this.i18n('addToCollectionButton.tooltip');
         },
@@ -178,7 +180,7 @@
                 this.params.namedParameters = namedParams;
                 this._add();
             }
-            this._fetch(this.params.collection);
+           this._fetch(this.params.collection);
         },
         _toast: function (msg, duration) {
             this.fire('notify', {
@@ -187,25 +189,38 @@
               duration: duration
             });
         },
-        _show:function(){
-            this.$.titre.hidden = false;
-            this.$.create.hidden = false;
-        },
-
        _createCampaign: function() {
+         if (this._isNew()) {
          var op = this.$.createCampaign;
          op.params = {
            'type':'Campaign',
-           'name':this.$.titre.value,
+           'name':this.$.nxSelect.selectedItem.displayLabel,
             'properties': {
-             'dc:title':this.$.titre.value
+             'dc:title':this.$.nxSelect.selectedItem.displayLabel
              }
          };
-         op.execute().then(function(response) {
-           console.log("new campaign is created"+response);
-         }.bind(this));
-         this.$.titre.hidden = true;
-         this.$.create.hidden = true;
+            return  op.execute().then(function(response) {
+                this.collection = response.uid;
+                this._addCampaign();
+            }.bind(this));
+         } else{
+            this._addCampaign();
+            }
+       },
+
+        _resultsFilter: function(entry) {
+            return entry.id.indexOf('-999999') === -1;
+        },
+
+      _resultAndSelectionFormatter: function(item) {
+        var label = item.displayLabel || item.title;
+        // if we are adding a new entry with the _newEntryFormatter
+        // we don't want to escape the HTML
+        return item.id === -1 ? label : this.$.nxSelect.escapeHTML(label);
+      },
+
+      _newEntryFormatter: function(term) {
+        return {id: -1, displayLabel: term};
       },
 
       _isNew:function() {
