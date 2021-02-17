@@ -26,6 +26,9 @@
         <operation class="org.qualitified.crm.operation.SendMail"/>
         <operation class="org.qualitified.crm.operation.EmailingProcess"/>
         <operation class="org.qualitified.crm.operation.EmailingHistoryProcess"/>
+        <operation class="org.qualitified.crm.operation.AddToCampaign"/>
+        <operation class="org.qualitified.crm.operation.AddToCampaignBulk"/>
+        <operation class="org.qualitified.crm.operation.SuggestCampaignEntry"/>
 
 
     </extension>

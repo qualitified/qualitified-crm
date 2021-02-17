@@ -91,156 +91,158 @@
                                where="[[_setWhereTerm(document.uid)]]">
         </nuxeo-repository-data>
 
-        <div class="horizontal justified">
-            <paper-card>
-                <table border="0" cellpadding="0" cellspacing="0" width="100%">
-                    <tbody>
-                    <tr>
-                        <td>
-                            <div style="display:block;text-align:center;background-color:white;padding-top:25px">
-                                <div style="display:inline-block;width:14px;height:14px;border-radius:40px;background-color:#c7e3ff">
+        <template if="[[_isHidden(sentCount)]]" is="dom-if">
+            <div class="horizontal justified">
+                <paper-card>
+                    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+                        <tbody>
+                        <tr>
+                            <td>
+                                <div style="display:block;text-align:center;background-color:white;padding-top:25px">
+                                    <div style="display:inline-block;width:14px;height:14px;border-radius:40px;background-color:#c7e3ff">
 
+                                    </div>
                                 </div>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td align="center" style="background:white;font-size:0px;padding:5px;word-break:break-word">
-                            <div style="font-family:Roboto,Helvetica,Arial;font-size:32px;font-weight:bold;line-height:40px;text-align:center;color:#555555">
-                                [[sentCount]]
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td align="center" style="background:white;font-size:0px;padding:0px 25px;word-break:break-word">
-                            <div style="font-family:Roboto,Helvetica,Arial;font-size:14px;line-height:20px;text-align:center;color:#888888">
-                                Emails
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td align="center" style="background:white;font-size:0px;padding:10px 25px;word-break:break-word">
-                            <div style="font-family:Roboto,Helvetica,Arial;font-size:16px;font-weight:bold;line-height:24px;text-align:center;color:#555555">
-                                SENT
-                            </div>
-                        </td>
-                    </tr>
-                    </tbody>
-                </table>
-            </paper-card>
-            <paper-card>
-                <table border="0" cellpadding="0" cellspacing="0" width="100%">
-                    <tbody>
-                    <tr>
-                        <td>
-                            <div style="display:block;text-align:center;background-color:white;padding-top:25px">
-                                <div style="display:inline-block;width:14px;height:14px;border-radius:40px;background-color:#c5baff">
-
+                            </td>
+                        </tr>
+                        <tr>
+                            <td align="center" style="background:white;font-size:0px;padding:5px;word-break:break-word">
+                                <div style="font-family:Roboto,Helvetica,Arial;font-size:32px;font-weight:bold;line-height:40px;text-align:center;color:#555555">
+                                    [[sentCount]]
                                 </div>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td align="center" style="background:white;font-size:0px;padding:5px;word-break:break-word">
-                            <div style="font-family:Roboto,Helvetica,Arial;font-size:32px;font-weight:bold;line-height:40px;text-align:center;color:#555555">
-                                [[deliveredCount]]
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td align="center" style="background:white;font-size:0px;padding:0px 25px;word-break:break-word">
-                            <div style="font-family:Roboto,Helvetica,Arial;font-size:14px;line-height:20px;text-align:center;color:#888888">
-                                [[_getPartialPercent(deliveredCount,sentCount)]]%
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td align="center" style="background:white;font-size:0px;padding:10px 25px;word-break:break-word">
-                            <div style="font-family:Roboto,Helvetica,Arial;font-size:16px;font-weight:bold;line-height:24px;text-align:center;color:#555555">
-                                DELIVERED
-                            </div>
-                        </td>
-                    </tr>
-                    </tbody>
-                </table>
-            </paper-card>
-            <paper-card>
-                <table border="0" cellpadding="0" cellspacing="0" width="100%">
-                    <tbody>
-                    <tr>
-                        <td>
-                            <div style="display:block;text-align:center;background-color:white;padding-top:25px">
-                                <div style="display:inline-block;width:14px;height:14px;border-radius:40px;background-color:#39e6ac">
-
+                            </td>
+                        </tr>
+                        <tr>
+                            <td align="center" style="background:white;font-size:0px;padding:0px 25px;word-break:break-word">
+                                <div style="font-family:Roboto,Helvetica,Arial;font-size:14px;line-height:20px;text-align:center;color:#888888">
+                                    Emails
                                 </div>
-                            </div>
-                        </td>
-                    </tr>
-
-                    <tr>
-                        <td align="center" style="background:white;font-size:0px;padding:5px;word-break:break-word">
-                            <div style="font-family:Roboto,Helvetica,Arial;font-size:32px;font-weight:bold;line-height:40px;text-align:center;color:#555555">
-                                [[_getPartialPercent(openedCount,sentCount)]]%
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td align="center" style="background:white;font-size:0px;padding:0px 25px;word-break:break-word">
-                            <div style="font-family:Roboto,Helvetica,Arial;font-size:14px;line-height:20px;text-align:center;color:#888888">
-                                [[openedCount]]
-                            </div>
-                        </td>
-                    </tr>
-
-                    <tr>
-                        <td align="center" style="background:white;font-size:0px;padding:10px 25px;word-break:break-word">
-                            <div style="font-family:Roboto,Helvetica,Arial;font-size:16px;font-weight:bold;line-height:24px;text-align:center;color:#555555">
-                                OPENED
-                            </div>
-                        </td>
-                    </tr>
-                    </tbody>
-                </table>
-            </paper-card>
-            <paper-card>
-                <table border="0" cellpadding="0" cellspacing="0" width="100%">
-                    <tbody>
-                    <tr>
-                        <td>
-                            <div style="display:block;text-align:center;background-color:white;padding-top:25px">
-                                <div style="display:inline-block;width:14px;height:14px;border-radius:40px;background-color:#ffaef1">
-
+                            </td>
+                        </tr>
+                        <tr>
+                            <td align="center" style="background:white;font-size:0px;padding:10px 25px;word-break:break-word">
+                                <div style="font-family:Roboto,Helvetica,Arial;font-size:16px;font-weight:bold;line-height:24px;text-align:center;color:#555555">
+                                    SENT
                                 </div>
-                            </div>
-                        </td>
-                    </tr>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </paper-card>
+                <paper-card>
+                    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+                        <tbody>
+                        <tr>
+                            <td>
+                                <div style="display:block;text-align:center;background-color:white;padding-top:25px">
+                                    <div style="display:inline-block;width:14px;height:14px;border-radius:40px;background-color:#c5baff">
+
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td align="center" style="background:white;font-size:0px;padding:5px;word-break:break-word">
+                                <div style="font-family:Roboto,Helvetica,Arial;font-size:32px;font-weight:bold;line-height:40px;text-align:center;color:#555555">
+                                    [[deliveredCount]]
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td align="center" style="background:white;font-size:0px;padding:0px 25px;word-break:break-word">
+                                <div style="font-family:Roboto,Helvetica,Arial;font-size:14px;line-height:20px;text-align:center;color:#888888">
+                                    [[_getPartialPercent(deliveredCount,sentCount)]]%
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td align="center" style="background:white;font-size:0px;padding:10px 25px;word-break:break-word">
+                                <div style="font-family:Roboto,Helvetica,Arial;font-size:16px;font-weight:bold;line-height:24px;text-align:center;color:#555555">
+                                    DELIVERED
+                                </div>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </paper-card>
+                <paper-card>
+                    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+                        <tbody>
+                        <tr>
+                            <td>
+                                <div style="display:block;text-align:center;background-color:white;padding-top:25px">
+                                    <div style="display:inline-block;width:14px;height:14px;border-radius:40px;background-color:#39e6ac">
+
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td align="center" style="background:white;font-size:0px;padding:5px;word-break:break-word">
+                                <div style="font-family:Roboto,Helvetica,Arial;font-size:32px;font-weight:bold;line-height:40px;text-align:center;color:#555555">
+                                    [[_getPartialPercent(openedCount,sentCount)]]%
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td align="center" style="background:white;font-size:0px;padding:0px 25px;word-break:break-word">
+                                <div style="font-family:Roboto,Helvetica,Arial;font-size:14px;line-height:20px;text-align:center;color:#888888">
+                                    [[openedCount]]
+                                </div>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td align="center" style="background:white;font-size:0px;padding:10px 25px;word-break:break-word">
+                                <div style="font-family:Roboto,Helvetica,Arial;font-size:16px;font-weight:bold;line-height:24px;text-align:center;color:#555555">
+                                    OPENED
+                                </div>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </paper-card>
+                <paper-card>
+                    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+                        <tbody>
+                        <tr>
+                            <td>
+                                <div style="display:block;text-align:center;background-color:white;padding-top:25px">
+                                    <div style="display:inline-block;width:14px;height:14px;border-radius:40px;background-color:#ffaef1">
+
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
 
 
-                    <tr>
-                        <td align="center" style="background:white;font-size:0px;padding:5px;word-break:break-word">
-                            <div style="font-family:Roboto,Helvetica,Arial;font-size:32px;font-weight:bold;line-height:40px;text-align:center;color:#555555">
-                                [[_getPartialPercent(clickedCount,sentCount)]]%
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td align="center" style="background:white;font-size:0px;padding:0px 25px;word-break:break-word">
-                            <div style="font-family:Roboto,Helvetica,Arial;font-size:14px;line-height:20px;text-align:center;color:#888888">
-                                [[clickedCount]]
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td align="center" style="background:white;font-size:0px;padding:10px 25px;word-break:break-word">
-                            <div style="font-family:Roboto,Helvetica,Arial;font-size:16px;font-weight:bold;line-height:24px;text-align:center;color:#555555">
-                                CLICKED
-                            </div>
-                        </td>
-                    </tr>
-                    </tbody>
-                </table>
-            </paper-card>
-        </div>
+                        <tr>
+                            <td align="center" style="background:white;font-size:0px;padding:5px;word-break:break-word">
+                                <div style="font-family:Roboto,Helvetica,Arial;font-size:32px;font-weight:bold;line-height:40px;text-align:center;color:#555555">
+                                    [[_getPartialPercent(clickedCount,sentCount)]]%
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td align="center" style="background:white;font-size:0px;padding:0px 25px;word-break:break-word">
+                                <div style="font-family:Roboto,Helvetica,Arial;font-size:14px;line-height:20px;text-align:center;color:#888888">
+                                    [[clickedCount]]
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td align="center" style="background:white;font-size:0px;padding:10px 25px;word-break:break-word">
+                                <div style="font-family:Roboto,Helvetica,Arial;font-size:16px;font-weight:bold;line-height:24px;text-align:center;color:#555555">
+                                    CLICKED
+                                </div>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </paper-card>
+            </div>
+        </template>
     </template>
     <script>
     (function() {
@@ -266,12 +268,19 @@
 
            _getPartialPercent: function(partialCount,totalCount){
                 var count = (partialCount * 100)/totalCount;
-                if (isNaN(count)){
+                if (isNaN(count) || count==0 ){
                  return 0;
                     } else if (count == 100) {
                     return count;
                     } else
                 return count.toFixed(2);
+            },
+            _isHidden: function(sentCount){
+                var hidden = false;
+                if (sentCount > 0 ){
+                 hidden = true;
+                }
+                return hidden;
             },
             _setWhereTerm: function (campaignId) {
               if (campaignId) {
@@ -285,7 +294,6 @@
                 term1["term"] = where1;
                 term2["term"] = where2;
                 must=[term1,term2];
-                console.log(must);
                 return must;
               }
               return "";

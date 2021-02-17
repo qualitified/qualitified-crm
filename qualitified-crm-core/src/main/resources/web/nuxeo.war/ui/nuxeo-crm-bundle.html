@@ -15,6 +15,8 @@
 <link rel="import" href="elements/expired-menu-icon.html">
 <link rel="import" href="elements/qualitified-group-menu.html">
 <link rel="import" href="elements/qualitified-group-menu2.html">
+<link rel="import" href="elements/qualitified-add-to-campaign-button.html">
+
 
 <!-- Contribution of element 'custom-document-page' for slot 'DOCUMENT_VIEWS_PAGES' -->
 <nuxeo-slot-content name="myViewPage" slot="DOCUMENT_VIEWS_PAGES" >
@@ -333,6 +335,26 @@
 <nuxeo-slot-content name="actions" slot="DOCUMENT_ACTIONS">
     <template>
         <qualitified-action-buttons document="[[document]]"></qualitified-action-buttons>
+    </template>
+</nuxeo-slot-content>
+<nuxeo-slot-content name="addToCampaign" slot="RESULTS_ACTIONS" order="1">
+    <template>
+        <qualitified-add-to-campaign-button document="[[document]]"  selected-items="[[selectedItems]]" nx-provider=[[nxProvider]]>
+        </qualitified-add-to-campaign-button>
+    </template>
+</nuxeo-slot-content>
+<!-- Contribution of element 'nuxeo-add-to-collection-button' for slot 'RESULTS_SELECTION_ACTIONS' -->
+<nuxeo-slot-content name="addToCollectionSelectionAction" slot="RESULTS_SELECTION_ACTIONS" order="10" >
+    <template>
+        <nuxeo-add-to-collection-documents-button documents="[[selectedItems]]" >
+        </nuxeo-add-to-collection-documents-button>
+    </template>
+</nuxeo-slot-content>
+
+<nuxeo-slot-content name="addToCampaign" slot="RESULTS_SELECTION_ACTIONS" order="1">
+    <template>
+        <qualitified-add-to-campaign-button document="[[document]]"  selected-items="[[selectedItems]]" nx-provider=[[nxProvider]]>
+        </qualitified-add-to-campaign-button>
     </template>
 </nuxeo-slot-content>
 

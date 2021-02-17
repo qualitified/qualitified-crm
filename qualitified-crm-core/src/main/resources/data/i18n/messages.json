@@ -157,5 +157,7 @@
   "label.next.best.action": "Next Best Action",
   "laber.or": "Or",
   "label.search.image": "Search an Image",
-  "label.documents": "Documents"
+  "label.documents": "Documents",
+  "addToCampaignButton.dialog.add": "Add to a campaign",
+  "label.metadata.campaign.create": "Create a new campaign"
 }

@@ -1,0 +1,7 @@
+<?xml version="1.0"?>
+<component name="org.qualitified.crm.enricher.personDocEnricher">
+
+    <extension target="org.nuxeo.ecm.core.io.MarshallerRegistry" point="marshallers">
+        <register class="org.qualitified.crm.enricher.PersonDocEnricher" enable="true" />
+    </extension>
+</component>

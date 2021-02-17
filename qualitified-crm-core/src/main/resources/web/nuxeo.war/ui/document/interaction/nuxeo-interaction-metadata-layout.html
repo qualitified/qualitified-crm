@@ -49,7 +49,7 @@
                 </template>
             </div>
         </div>
-        <div role="widget" hidden$="[[!document.properties.interaction:contact]">
+        <div role="widget" hidden$="[[_isHidden(document.properties.interaction:contact)]]">
             <label>[[i18n('label.metadata.contact')]]</label>
             <qualitified-document-suggestion role="widget"
                                              value="[[document.properties.interaction:contact]]"
@@ -70,9 +70,6 @@
         behaviors: [Nuxeo.LayoutBehavior],
         properties: {
 
-          /**
-           * @doctype Interaction
-           */
           document: {
             type: Object,
             observer: '_documentReady'
@@ -95,6 +92,13 @@
         },
         formatDate: function(date) {
           return moment(date).format('MMMM D, YYYY');
+        },
+        _isHidden: function(valueList) {
+        var hidden = true;
+          if (valueList.length>0) {
+            hidden = false;
+          }
+          return hidden;
         },
         _hasNote: function(doc){
           return doc && doc.properties['note:note'] !== null;

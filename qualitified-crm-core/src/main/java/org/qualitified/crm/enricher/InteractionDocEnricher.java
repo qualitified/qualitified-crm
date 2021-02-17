@@ -3,12 +3,14 @@ import static org.nuxeo.ecm.core.io.registry.reflect.Instantiations.SINGLETON;
 import static org.nuxeo.ecm.core.io.registry.reflect.Priorities.REFERENCE;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import org.nuxeo.ecm.core.api.CoreSession;
 import org.nuxeo.ecm.core.api.DocumentModel;
+import org.nuxeo.ecm.core.api.IdRef;
 import org.nuxeo.ecm.core.io.marshallers.json.enrichers.AbstractJsonEnricher;
 import org.nuxeo.ecm.core.io.registry.reflect.Setup;
 
@@ -42,10 +44,10 @@ public class InteractionDocEnricher extends AbstractJsonEnricher<DocumentModel> 
 
         // First create the parent document's JSON object content
         CoreSession session = doc.getCoreSession();
-        DocumentModel parentDoc = session.getDocument(doc.getParentRef());
-
         ObjectNode parentObject = o.createObjectNode();
 
+        //get parent doc info
+        DocumentModel parentDoc = session.getDocument(doc.getParentRef());
         if (parentDoc.getType().equals("Account")) {
 
             parentObject.put("accountTitle", parentDoc.getTitle());

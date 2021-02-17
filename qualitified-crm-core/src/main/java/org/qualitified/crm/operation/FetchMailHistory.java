@@ -2,10 +2,10 @@ package org.qualitified.crm.operation;
 
 import com.mailjet.client.errors.MailjetException;
 import com.mailjet.client.errors.MailjetSocketTimeoutException;
+import fr.opensagres.xdocreport.document.json.JSONArray;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.joda.time.DateTime;
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.nuxeo.ecm.automation.OperationContext;
@@ -50,61 +50,68 @@ public class FetchMailHistory {
     int isClicked = 0;
     int isDelivered = 0;
     String statusMail = null;
+    JSONObject response = null;
 
     @OperationMethod
-    public void run(DocumentModel interactionDoc) throws OperationException, LoginException, MailjetSocketTimeoutException, JSONException, MailjetException {
+    public void run(DocumentModel interactionDoc) throws OperationException, LoginException, MailjetSocketTimeoutException, JSONException {
         EmailingService emailingService = Framework.getService(EmailingService.class);
         LoginContext lc = Framework.loginAsUser("Administrator");
         ctx.getLoginStack().push(lc);
+
         MessageID = (String) interactionDoc.getPropertyValue("interaction:messageID");
-        JSONObject response= emailingService.fetchHistory(Long.parseLong(MessageID));
-        Calendar cal = Calendar.getInstance();
+
+        try {
+            response = emailingService.fetchHistory(Long.parseLong(MessageID));
+        } catch (MailjetException m) {
+            logger.error("Error while running mailjet service", m);
+        } finally {
+            Calendar cal = Calendar.getInstance();
             List<Map<String, Object>> mailHistory = new ArrayList<Map<String, Object>>();
 
-        for (int i = 0; i < response.getLong("count"); i++) {
-            Map<String, Object> Details = new HashMap<String, Object>();
-            JSONObject dataObject =response.getJSONArray("data").getJSONObject(i);
-            //Details.put("comment",dataObject.getString("Comment"));
-            //cal.setTimeInMillis(dataObject.getLong("EventAt"));
-           // Details.put("eventAt",null);
-            Details.put("eventTypes", dataObject.getString("EventType"));
-            /*Details.put("state", dataObject.getString("State"));
-            Details.put("userAgent", dataObject.getString("Useragent"));
+            for (int i = 0; i < response.getLong("count"); i++) {
+                Map<String, Object> Details = new HashMap<String, Object>();
+                JSONObject dataObject =response.getJSONArray("data").getJSONObject(i);
+                //Details.put("comment",dataObject.getString("Comment"));
+                //cal.setTimeInMillis(dataObject.getLong("EventAt"));
+                // Details.put("eventAt",null);
+                Details.put("eventTypes", dataObject.getString("EventType"));
+                Details.put("state", dataObject.getString("State"));
+            /*Details.put("userAgent", dataObject.getString("Useragent"));
             int userAgentID = Math.toIntExact(dataObject.getLong("UseragentID"));
             Details.put("userAgentID", userAgentID);*/
-            mailHistory.add(Details);
-        }
-
-
-        for (int i = 0; i < mailHistory.size(); i++) {
-            if (mailHistory.get(i).get("state").equals("")) {
-                isDelivered=1;
-                switch (mailHistory.get(i).get("eventTypes").toString()) {
-                    case "sent":
-                        isSent = 1;
-                        statusMail = "Not opened";
-                    break;
-                    case "opened":
-                        isOpened = 1;
-                        statusMail = "Opened";
-                        break;
-                    case "clicked":
-                        isClicked = 1;
-                    break;
-
-                }
+                mailHistory.add(Details);
             }
 
-        }   
 
-        interactionDoc.setPropertyValue("interaction:data", (Serializable) mailHistory);
-        interactionDoc.setPropertyValue("interaction:isSent", isSent);
-        interactionDoc.setPropertyValue("interaction:isDelivered", isDelivered);
-        interactionDoc.setPropertyValue("interaction:isOpened", isOpened);
-        interactionDoc.setPropertyValue("interaction:isClicked", isClicked);
-        interactionDoc.setPropertyValue("interaction:statusMail", statusMail);
-        documentManager.saveDocument(interactionDoc);
+            for (int i = 0; i < mailHistory.size(); i++) {
+                if (mailHistory.get(i).get("state").equals("")) {
+                    isDelivered=1;
+                    switch (mailHistory.get(i).get("eventTypes").toString()) {
+                        case "sent":
+                            isSent = 1;
+                            statusMail = "Not opened";
+                            break;
+                        case "opened":
+                            isOpened = 1;
+                            statusMail = "Opened";
+                            break;
+                        case "clicked":
+                            isClicked = 1;
+                            break;
 
+                    }
+                }
+
+            }
+
+            interactionDoc.setPropertyValue("interaction:data", (Serializable) mailHistory);
+            interactionDoc.setPropertyValue("interaction:isSent", isSent);
+            interactionDoc.setPropertyValue("interaction:isDelivered", isDelivered);
+            interactionDoc.setPropertyValue("interaction:isOpened", isOpened);
+            interactionDoc.setPropertyValue("interaction:isClicked", isClicked);
+            interactionDoc.setPropertyValue("interaction:statusMail", statusMail);
+            documentManager.saveDocument(interactionDoc);
+        }
     }
 
 }
