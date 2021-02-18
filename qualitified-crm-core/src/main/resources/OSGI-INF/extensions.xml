@@ -1434,7 +1434,13 @@
             <property name="size">0</property>
           </properties>
         </aggregate>
-
+        <aggregate id="language_agg" type="terms" parameter="person:language">
+          <field schema="targeting" name="language_agg"/>
+          <properties>
+            <property name="order">count desc</property>
+            <property name="size">0</property>
+          </properties>
+        </aggregate>
         <aggregate id="responsible_agg" type="terms" parameter="contact:responsible">
           <field schema="targeting" name="responsible_agg"/>
           <properties>

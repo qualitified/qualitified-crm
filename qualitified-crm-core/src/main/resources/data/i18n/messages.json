@@ -31,6 +31,7 @@
   "Opportunities" : "Opportunities",
   "Sales" : "Sales",
   "label.metadata.link" : "link",
+
   "campaign" : "campaign",
   "label.metadata.followed_link" : "Followed link",
   "Interactions" : "Interactions",
@@ -84,6 +85,9 @@
   "label.metadata.mainContact":"Main Contact",
   "label.metadata.opportunity":"Opportunity",
   "label.metadata.responsible":"Responsible",
+  "label.metadata.language":"Language",
+  "visualize": "visualize",
+
   "label.metadata.lastContributor":"Last Contributor",
   "label.account.type":"Account Type",
   "label.last.interaction.date": "Last Interaction Date",

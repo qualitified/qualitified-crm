@@ -54,7 +54,13 @@
                      autofocus
                      on-keydown="_checkForEnter">
         </nuxeo-input>
-
+        <div class="layout vertical row">
+            <label>[[i18n('label.metadata.language')]]</label>
+            <nuxeo-checkbox-aggregation
+                    data="[[aggregations.language_agg]]"
+                    value="{{params.language_agg}}">
+            </nuxeo-checkbox-aggregation>
+        </div>
         <div class="layout vertical row">
             <label>Type</label>
             <nuxeo-checkbox-aggregation

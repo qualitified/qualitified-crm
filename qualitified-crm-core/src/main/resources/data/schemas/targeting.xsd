@@ -41,6 +41,8 @@
     <xs:element name="datefield1_min" type="xs:date"/>
     <xs:element name="datefield1_max" type="xs:date"/>
     <xs:element name="contact_silhouette_agg" type="nxs:stringList"/>
+    <xs:element name="language_agg" type="nxs:stringList"/>
+
 
 
 
