@@ -11,115 +11,115 @@
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script>
-        var CKEDITOR_BASEPATH = '/alloy-editor/';
+        var CKEDITOR_BASEPATH = '/nuxeo/ui/alloy-editor/';
     </script>
-<link href="alloy-editor/assets/alloy-editor-ocean-min.css" rel="stylesheet"></link>
+    <link href="alloy-editor/assets/alloy-editor-ocean-min.css" rel="stylesheet"></link>
     <link href="alloy-editor/assets/alloy-editor-ocean.css" rel="stylesheet">
 
     <script src="alloy-editor/alloy-editor-all.js"></script>
-<script type="text/javascript" src="debounce.js"></script>
+    <script type="text/javascript" src="debounce.js"></script>
 
     <style>
         body {
             margin: 50px;
         }
     </style>
-            <script>
+    <script>
 
-//var child= $("#editor")[0].firstChild;
-const queryString = window.location.search;
-const urlParams = new URLSearchParams(queryString);
-$(document).ready(function() {
+        //var child= $("#editor")[0].firstChild;
+        const queryString = window.location.search;
+        const urlParams = new URLSearchParams(queryString);
+        $(document).ready(function() {
 
-   $("#editor").keyup($.debounce(2000, function() {
-        // event.preventDefault();
-        //var editor =$("#editor").val();
-        $.ajax({
-            type: "post",
-            url: "/nuxeo/site/api/v1/automation/Document.SetProperty",
-            contentType: "application/json; charset=utf-8",
-            dataType: "json",
-            data: "{" +
-                "\"params\": {" +
-                "\"xpath\": \"html:content\"," +
-                "\"value\": \"" + $("#editor").html().replace(/"/g, '\\"') + "\"" +
-                "}," +
-                "\"input\": \"" + urlParams.get('id') + "\"," +
-                "\"context\": {}" +
-                "}",
-            beforeSend: function(xhr) {
-                xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
-            },
-            error: function(returnval) {
-                $("#error").show();
-                $("#error").delay(2000).fadeOut(1000);
-            },
-            success: function(returnval) {
-                $("#success").show();
+            $("#editor").keyup($.debounce(2000, function() {
+                // event.preventDefault();
+                //var editor =$("#editor").val();
+                $.ajax({
+                    type: "post",
+                    url: "/nuxeo/site/api/v1/automation/Document.SetProperty",
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    data: "{" +
+                        "\"params\": {" +
+                        "\"xpath\": \"html:content\"," +
+                        "\"value\": \"" + $("#editor").html().replace(/"/g, '\\"') + "\"" +
+                        "}," +
+                        "\"input\": \"" + urlParams.get('id') + "\"," +
+                        "\"context\": {}" +
+                        "}",
+                    beforeSend: function(xhr) {
+                        xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
+                    },
+                    error: function(returnval) {
+                        $("#error").show();
+                        $("#error").delay(2000).fadeOut(1000);
+                    },
+                    success: function(returnval) {
+                        $("#success").show();
 
-                $("#editor").val("");
+                        $("#editor").val("");
 
-            }
-        });
-    }));
-    $.ajax({
-        url: '/nuxeo/api/v1/id/' + urlParams.get('id') + '?properties=html',
-        data: {
-            format: 'json'
-        },
+                    }
+                });
+            }));
+            $.ajax({
+                url: '/nuxeo/api/v1/id/' + urlParams.get('id') + '?properties=html',
+                data: {
+                    format: 'json'
+                },
 
-        error: function() {
-            $('#info').html('<p>An error has occurred</p>');
-        },
-        dataType: 'json',
-        success: function(data) {
-            window.ALLOYEDITOR_BASEPATH = 'alloy-editor/';
+                error: function() {
+                    $('#info').html('<p>An error has occurred</p>');
+                },
+                dataType: 'json',
+                success: function(data) {
+                    window.ALLOYEDITOR_BASEPATH = 'alloy-editor/';
 
-            var editor4 = AlloyEditor.editable('editor', {
-                mode: 'full'
+                    var editor4 = AlloyEditor.editable('editor', {
+                        mode: 'full'
+                    });
+                    setTimeout(() => {
+                        $("#editor").html(data.properties["html:content"]);
+                    }, 2000);
+
+
+                    //document.getElementById("editor").contentWindow.document.setData(JSON.stringify(data.properties["html:content"]));
+                    /* var $content = $('<p>').text(JSON.stringify(data.properties["html:content"]));
+                     $('#editor')
+                     .append($content);*/
+                },
+                type: 'GET'
             });
-            setTimeout(() => {
-                $("#editor").html(data.properties["html:content"]);
-            }, 2000);
+        });
 
 
-            //document.getElementById("editor").contentWindow.document.setData(JSON.stringify(data.properties["html:content"]));
-            /* var $content = $('<p>').text(JSON.stringify(data.properties["html:content"]));
-             $('#editor')
-             .append($content);*/
-        },
-        type: 'GET'
-    });
-});
-
-
-</script>
+    </script>
 </head>
 
 <body>
 
-    <div id="editor"  name="editor"  contenteditable="true" placeholder="Write some content here too">
+<div id="editor"  name="editor"  contenteditable="true" placeholder="Write some content here too">
 
-    </div>
+</div>
 
-    <div id="autosave"></div>
-    <!--button id="submit" class="btn btn-primary">Save</button-->
-
-
+<div id="autosave"></div>
+<!--button id="submit" class="btn btn-primary">Save</button-->
 
 
 
 
-    <div id="error" style="display:none" class="alert alert-danger alert-dismissible fade show">
-        <strong>Error!</strong> Something went wrong. Please try again.
-        <button type="button" class="close" data-dismiss="alert">&times;</button>
-    </div>
+
+
+<div id="error" style="display:none" class="alert alert-danger alert-dismissible fade show">
+    <strong>Error!</strong> Something went wrong. Please try again.
+    <button type="button" class="close" data-dismiss="alert">&times;</button>
+</div>
 
 
 
 
-    <!--script src="//unpkg.com/svg4everybody@2.1.9/dist/svg4everybody.js"></script>
-        <script>svg4everybody();</script-->
+<!--script src="//unpkg.com/svg4everybody@2.1.9/dist/svg4everybody.js"></script>
+    <script>svg4everybody();</script-->
 </body>
 
 </html>

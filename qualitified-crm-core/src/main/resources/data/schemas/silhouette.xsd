@@ -38,4 +38,9 @@
     </xs:simpleType>
   </xs:element>
   <xs:element name="followedLinks" type="nxs:stringList"/>
+  <xs:element name="language">
+    <xs:simpleType>
+      <xs:restriction base="xs:string" ref:resolver="directoryResolver" ref:directory="contactLanguage"/>
+    </xs:simpleType>
+  </xs:element>
 </xs:schema>

@@ -2148,6 +2148,17 @@
       <table>studio_vocabulary_StatusCampaign</table>
       <dataFile>data/vocabularies/StatusCampaign.csv</dataFile>
     </directory>
+    <directory name="contactLanguage">
+      <schema>vocabulary</schema>
+      <dataSource>java:/nxsqldirectory</dataSource>
+      <cacheTimeout>3600</cacheTimeout>
+      <cacheMaxSize>1000</cacheMaxSize>
+      <idField>id</idField>
+      <autoincrementIdField>false</autoincrementIdField>
+      <createTablePolicy>always</createTablePolicy>
+      <table>studio_vocabulary_contactLanguage</table>
+      <dataFile>data/vocabularies/contactLanguage.csv</dataFile>
+    </directory>
     <directory name="IntStatus">
       <schema>vocabulary</schema>
       <dataSource>java:/nxsqldirectory</dataSource>
