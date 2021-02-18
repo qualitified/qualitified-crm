@@ -29,6 +29,8 @@
         <operation class="org.qualitified.crm.operation.AddToCampaign"/>
         <operation class="org.qualitified.crm.operation.AddToCampaignBulk"/>
         <operation class="org.qualitified.crm.operation.SuggestCampaignEntry"/>
+        <operation class="org.qualitified.crm.operation.CopyBinaryToPublicFolder"/>
+
 
 
     </extension>
