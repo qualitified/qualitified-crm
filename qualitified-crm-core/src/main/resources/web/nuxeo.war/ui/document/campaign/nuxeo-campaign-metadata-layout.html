@@ -53,6 +53,17 @@
                                              readOnly>
             </qualitified-document-suggestion>
         </div>
+        <nuxeo-document auto doc-id="[[document.properties.campaign:automationId]]" response="{{automation}}"></nuxeo-document>
+
+        <div role="widget" hidden$="[[!document.properties.custom:documentField9]]" style="width:60%;">
+            <label>Next email</label>
+            <qualitified-document-suggestion role="widget"
+                                             value="[[document.properties.custom:documentField9]]"
+                                             min-chars="0"
+                                             clickable="true"
+                                             readOnly>
+            </qualitified-document-suggestion>
+        </div>
         <div role="widget" hidden$="[[!document.properties.campaign:status]]" style="width:60%;">
             <label>[[i18n('label.metadata.status')]]</label>
             <nuxeo-directory-suggestion role="widget"
@@ -282,6 +293,7 @@
                 }
                 return hidden;
             },
+
             _setWhereTerm: function (campaignId) {
               if (campaignId) {
                 var where1 = {};

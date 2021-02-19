@@ -17,6 +17,7 @@ import org.nuxeo.ecm.automation.core.annotations.OperationMethod;
 import org.nuxeo.ecm.automation.core.annotations.Param;
 import org.nuxeo.ecm.core.api.CoreSession;
 import org.nuxeo.ecm.core.api.DocumentModel;
+import org.nuxeo.ecm.core.api.IdRef;
 import org.nuxeo.runtime.api.Framework;
 import org.qualitified.crm.service.EmailingService;
 
@@ -45,10 +46,13 @@ public class FetchMailHistory {
 
 
     private String MessageID;
+    int isDelivered = 1;
     int isSent = 0;
     int isOpened = 0;
     int isClicked = 0;
-    int isDelivered = 0;
+    int isUnsubscribed = 0;
+    int isSpam = 0;
+    int isBlocked = 0;
     String statusMail = null;
     JSONObject response = null;
 
@@ -76,16 +80,14 @@ public class FetchMailHistory {
                 // Details.put("eventAt",null);
                 Details.put("eventTypes", dataObject.getString("EventType"));
                 Details.put("state", dataObject.getString("State"));
-            /*Details.put("userAgent", dataObject.getString("Useragent"));
-            int userAgentID = Math.toIntExact(dataObject.getLong("UseragentID"));
-            Details.put("userAgentID", userAgentID);*/
+                /*Details.put("userAgent", dataObject.getString("Useragent"));
+                int userAgentID = Math.toIntExact(dataObject.getLong("UseragentID"));
+                Details.put("userAgentID", userAgentID);*/
                 mailHistory.add(Details);
             }
 
 
             for (int i = 0; i < mailHistory.size(); i++) {
-                if (mailHistory.get(i).get("state").equals("")) {
-                    isDelivered=1;
                     switch (mailHistory.get(i).get("eventTypes").toString()) {
                         case "sent":
                             isSent = 1;
@@ -98,19 +100,30 @@ public class FetchMailHistory {
                         case "clicked":
                             isClicked = 1;
                             break;
-
+                        case "unsub":
+                            isUnsubscribed = 1;
+                            break;
+                        case "spam":
+                            isSpam = 1;
+                            break;
+                        case "blocked":
+                            isBlocked = 1;
+                            break;
+                        default :
+                            isDelivered = 0;
                     }
-                }
-
             }
-
+            String[] person = (String[]) interactionDoc.getPropertyValue("interaction:contact");
+            IdRef personId = new IdRef(person[0]);
+            DocumentModel personDoc = documentManager.getDocument(personId);
             interactionDoc.setPropertyValue("interaction:data", (Serializable) mailHistory);
             interactionDoc.setPropertyValue("interaction:isSent", isSent);
             interactionDoc.setPropertyValue("interaction:isDelivered", isDelivered);
             interactionDoc.setPropertyValue("interaction:isOpened", isOpened);
             interactionDoc.setPropertyValue("interaction:isClicked", isClicked);
             interactionDoc.setPropertyValue("interaction:statusMail", statusMail);
-            documentManager.saveDocument(interactionDoc);
+            personDoc.setPropertyValue("custom:integerField1",isUnsubscribed);
+            documentManager.saveDocuments(new DocumentModel[]{interactionDoc,personDoc});
         }
     }
 

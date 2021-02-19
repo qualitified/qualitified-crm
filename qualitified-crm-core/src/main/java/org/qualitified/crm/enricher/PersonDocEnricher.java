@@ -51,45 +51,21 @@ public class PersonDocEnricher extends AbstractJsonEnricher<DocumentModel> {
 
         //get contact info
         String[] persons = (String[]) doc.getPropertyValue("interaction:contact");
-        if (persons.length>0) {
+        if (persons.length > 0) {
             DocumentModel personDoc = session.getDocument(new IdRef(persons[0]));
             personObject.put("personTitle", personDoc.getTitle());
             personObject.put("personEmail", (String) personDoc.getPropertyValue("person:email"));
+            personObject.put("personSubscription", (String) personDoc.getPropertyValue("custom:integerField1"));
             personObject.put("personPhone", (String) personDoc.getPropertyValue("person:phoneNumber"));
 
         } else {
             personObject.put("personTitle", "");
             personObject.put("personEmail", "");
+            personObject.put("personSubscription", "");
+            personObject.put("personPhone", "");
             personObject.put("personPhone", "");
 
         }
-        /*DocumentModelList interactionDocs = session
-                .query("SELECT * FROM Interaction " +
-                        "WHERE interaction:contact = '"+ doc.getId() +"' " +
-                        "AND interaction:campaignId = '"+ doc.getPropertyValue("person:interactionId") +"' " +
-                        "AND interaction:status = 'DONE' " +
-                        "AND interaction:activity = 'Emailing' " +
-                        "AND ecm:isProxy = 0 AND ecm:isCheckedInVersion = 0  " +
-                        "AND ecm:currentLifeCycleState != 'deleted' " +
-                        "AND ecm:isTrashed = 0");
-
-        ObjectNode personObject = o.createObjectNode();
-        //      String interactionId = (String) doc.getPropertyValue("person:interactionId");
-        if (!interactionDocs.isEmpty()) {
-//            DocumentModel interactionDoc = session.getDocument(new IdRef(interactionId));
-            DocumentModel interactionDoc = interactionDocs.get(0);
-
-            personObject.put("mailSent", (Long) interactionDoc.getPropertyValue("interaction:isSent"));
-            personObject.put("mailDelivered", (Long)  interactionDoc.getPropertyValue("interaction:isDelivered"));
-            personObject.put("mailOpened", (Long) interactionDoc.getPropertyValue("interaction:isOpened"));
-            personObject.put("mailClicked", (Long) interactionDoc.getPropertyValue("interaction:isClicked"));
-
-        } else {
-            personObject.put("mailSent", "");
-            personObject.put("mailDelivered", "");
-            personObject.put("mailOpened", "");
-            personObject.put("mailClicked", "");
-        }*/
         return personObject;
     }
 }
