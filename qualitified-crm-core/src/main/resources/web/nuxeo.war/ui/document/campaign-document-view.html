@@ -1,0 +1,476 @@
+<dom-module id="campaign-document-view">
+    <template>
+        <style include="nuxeo-styles shared-css">
+            *[role=widget] {
+                padding: 5px;
+            }
+
+            nuxeo-data-table {
+                height: 100%;
+            }
+
+            .dataTable{
+                /*height: 300px;*/
+            }
+            .queue-thumbnail {
+                height: 32px;
+                width: 32px;
+                border-radius: 20px;
+                box-sizing: border-box;
+                margin-right: 8px;
+            }
+
+            .queue-thumbnail ::content img {
+                height: 32px;
+                width: 32px;
+                border-radius: 20px;
+                box-sizing: border-box;
+                margin-right: 8px;
+            }
+            .results {
+                @apply(--layout-vertical);
+                @apply(--layout-flex);
+                /* min-height: calc(60vh - 14em); */
+                /*margin-top: 8px;*/
+            }
+            .stats {
+               display: inline-flex;
+               box-sizing: border-box;
+               margin-left: 8px;
+               width: 250px;
+            }
+
+        </style>
+        <nuxeo-connection id="nxcon"></nuxeo-connection>
+        <nuxeo-repository-data data="{{sentCount}}"
+                               ecm-primary-type="Interaction"
+                               index="[[index]]" metrics="sum(interaction:isSent)"
+                               where="[[_setWhereTerm(document.uid,idEmail)]]">
+        </nuxeo-repository-data>
+
+        <nuxeo-repository-data data="{{deliveredCount}}"
+                               ecm-primary-type="Interaction"
+                               index="[[index]]" metrics="sum(interaction:isDelivered)"
+                               where="[[_setWhereTerm(document.uid,idEmail)]]">
+        </nuxeo-repository-data>
+
+        <nuxeo-repository-data data="{{openedCount}}"
+                               ecm-primary-type="Interaction"
+                               index="[[index]]" metrics="sum(interaction:isOpened)"
+                               where="[[_setWhereTerm(document.uid,idEmail)]]">
+        </nuxeo-repository-data>
+
+        <nuxeo-repository-data data="{{clickedCount}}"
+                               ecm-primary-type="Interaction"
+                               index="[[index]]" metrics="sum(interaction:isClicked)"
+                               where="[[_setWhereTerm(document.uid,idEmail)]]">
+        </nuxeo-repository-data>
+
+        <template if="[[_isHidden(sentCount)]]" is="dom-if">
+            <div class="horizontal justified" style="margin-left:24px;">
+                <paper-card class="stats">
+                    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+                        <tbody>
+                        <tr>
+                            <td>
+                                <div style="display:block;text-align:center;background-color:white;padding-top:25px">
+                                    <div style="display:inline-block;width:14px;height:14px;border-radius:40px;background-color:#c7e3ff">
+
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td align="center" style="background:white;font-size:0px;padding:5px;word-break:break-word">
+                                <div style="font-family:Roboto,Helvetica,Arial;font-size:32px;font-weight:bold;line-height:40px;text-align:center;color:#555555">
+                                    [[sentCount]]
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td align="center" style="background:white;font-size:0px;padding:0px 25px;word-break:break-word">
+                                <div style="font-family:Roboto,Helvetica,Arial;font-size:14px;line-height:20px;text-align:center;color:#888888">
+                                    Emails
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td align="center" style="background:white;font-size:0px;padding:10px 25px;word-break:break-word">
+                                <div style="font-family:Roboto,Helvetica,Arial;font-size:16px;font-weight:bold;line-height:24px;text-align:center;color:#555555">
+                                    SENT
+                                </div>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </paper-card>
+                <paper-card class="stats">
+                    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+                        <tbody>
+                        <tr>
+                            <td>
+                                <div style="display:block;text-align:center;background-color:white;padding-top:25px">
+                                    <div style="display:inline-block;width:14px;height:14px;border-radius:40px;background-color:#c5baff">
+
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td align="center" style="background:white;font-size:0px;padding:5px;word-break:break-word">
+                                <div style="font-family:Roboto,Helvetica,Arial;font-size:32px;font-weight:bold;line-height:40px;text-align:center;color:#555555">
+                                    [[deliveredCount]]
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td align="center" style="background:white;font-size:0px;padding:0px 25px;word-break:break-word">
+                                <div style="font-family:Roboto,Helvetica,Arial;font-size:14px;line-height:20px;text-align:center;color:#888888">
+                                    [[_getPartialPercent(deliveredCount,sentCount)]]%
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td align="center" style="background:white;font-size:0px;padding:10px 25px;word-break:break-word">
+                                <div style="font-family:Roboto,Helvetica,Arial;font-size:16px;font-weight:bold;line-height:24px;text-align:center;color:#555555">
+                                    DELIVERED
+                                </div>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </paper-card>
+                <paper-card class="stats">
+                    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+                        <tbody>
+                        <tr>
+                            <td>
+                                <div style="display:block;text-align:center;background-color:white;padding-top:25px">
+                                    <div style="display:inline-block;width:14px;height:14px;border-radius:40px;background-color:#39e6ac">
+
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td align="center" style="background:white;font-size:0px;padding:5px;word-break:break-word">
+                                <div style="font-family:Roboto,Helvetica,Arial;font-size:32px;font-weight:bold;line-height:40px;text-align:center;color:#555555">
+                                    [[_getPartialPercent(openedCount,sentCount)]]%
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td align="center" style="background:white;font-size:0px;padding:0px 25px;word-break:break-word">
+                                <div style="font-family:Roboto,Helvetica,Arial;font-size:14px;line-height:20px;text-align:center;color:#888888">
+                                    [[openedCount]]
+                                </div>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td align="center" style="background:white;font-size:0px;padding:10px 25px;word-break:break-word">
+                                <div style="font-family:Roboto,Helvetica,Arial;font-size:16px;font-weight:bold;line-height:24px;text-align:center;color:#555555">
+                                    OPENED
+                                </div>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </paper-card>
+                <paper-card class="stats">
+                    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+                        <tbody>
+                        <tr>
+                            <td>
+                                <div style="display:block;text-align:center;background-color:white;padding-top:25px">
+                                    <div style="display:inline-block;width:14px;height:14px;border-radius:40px;background-color:#ffaef1">
+
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+
+
+                        <tr>
+                            <td align="center" style="background:white;font-size:0px;padding:5px;word-break:break-word">
+                                <div style="font-family:Roboto,Helvetica,Arial;font-size:32px;font-weight:bold;line-height:40px;text-align:center;color:#555555">
+                                    [[_getPartialPercent(clickedCount,sentCount)]]%
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td align="center" style="background:white;font-size:0px;padding:0px 25px;word-break:break-word">
+                                <div style="font-family:Roboto,Helvetica,Arial;font-size:14px;line-height:20px;text-align:center;color:#888888">
+                                    [[clickedCount]]
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td align="center" style="background:white;font-size:0px;padding:10px 25px;word-break:break-word">
+                                <div style="font-family:Roboto,Helvetica,Arial;font-size:16px;font-weight:bold;line-height:24px;text-align:center;color:#555555">
+                                    CLICKED
+                                </div>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </paper-card>
+            </div>
+        </template>
+        <paper-card>
+            <div class="dataTable">
+                <nuxeo-page-provider id="interactionProvider"
+                                     aggregations="{{interactionAggregations}}"
+                                     auto
+                                     current-page="{{items}}"
+                                     params="[[params]]"
+                                     enrichers="thumbnail, permissions, personDocEnricher"
+                                     fetch-aggregates
+                                     headers='{"X-NXfetch.document": "properties", "X-NXtranslate.directoryEntry": "label"}'
+                                     page="[[pageNumber]]"
+                                     page-size="40"
+                                     query="select * from Interaction where ecm:currentLifeCycleState != 'deleted' and ecm:isTrashed = 0 and custom:documentField10 = '[[idEmail]]' and interaction:campaignId = '[[document.uid]]'"
+                                     results-count="{{resultsCount}}"
+                                     schemas="interaction,dublincore,common,custom">
+                </nuxeo-page-provider>
+
+                <nuxeo-results name="[[document.uid]]" id="interactionResults"
+                               nx-provider="[[interactionProvider]]" selected-items="{{selectedItems}}">
+
+                    <!-- Table view -->
+                    <nuxeo-data-table class="results" id="interactionTable" items="[[items]]" display-quick-filters empty-label="[[emptyLabel]]"
+                                      empty-label-when-filtered="[[emptyLabelWhenFiltered]]"
+                                      icon="nuxeo:view-list"
+                                      name="table"
+                                      id="intTable"
+                                      on-row-clicked="_navigate"
+                                      selection-enabled
+                                      settings-enabled>
+
+                        <nuxeo-data-table-column filter-by="title"
+                                                 flex="100" name="[[i18n('documentContentView.datatable.header.title')]]">
+                            <template>
+                                <img class="queue-thumbnail" src="[[_thumbnail(item.properties.interaction:contact)]]">
+                                <a class="title ellipsis" href$="#!/browse[[item.path]]" on-tap="_navigate">[[item.contextParameters.personDocEnricher.personTitle]]</a>
+                            </template>
+                        </nuxeo-data-table-column>
+
+                        <nuxeo-data-table-column flex="60" name="Address">
+                            <template>
+                                [[item.contextParameters.personDocEnricher.personEmail]]
+                            </template>
+                        </nuxeo-data-table-column>
+                        <nuxeo-data-table-column hidden="[[_isNull(item.contextParameters.personDocEnricher.personSubscription)]]" flex="60" name="Subscribed">
+                            <template>
+                                <iron-icon icon="[[_getSubIcon(item.contextParameters.personDocEnricher.personSubscription)]]" style="[[_getSubIconStyle(item.contextParameters.personDocEnricher.personSubscription)]]"></iron-icon>
+                            </template>
+                        </nuxeo-data-table-column>
+
+                        <nuxeo-data-table-column field="interaction:isSent" flex="60"
+                                                 name="Sent" sort-by="interaction:isSent">
+                            <template>
+                                <iron-icon icon="[[_getIcon(item.properties.interaction:isSent)]]" style="[[_getIconStyle(item.properties.interaction:isSent)]]"></iron-icon>
+                            </template>
+                        </nuxeo-data-table-column>
+                        <nuxeo-data-table-column field="interaction:isDelivered" flex="60"
+                                                 name="Delivered" sort-by="interaction:isDelivered">
+                            <template>
+                                <iron-icon icon="[[_getIcon(item.properties.interaction:isDelivered)]]" style="[[_getIconStyle(item.properties.interaction:isDelivered)]]"></iron-icon>
+                            </template>
+                        </nuxeo-data-table-column>
+                        <nuxeo-data-table-column field="interaction:isOpened" flex="60"
+                                                 name="Opened" sort-by="interaction:isOpened">
+                            <template>
+                                <iron-icon icon="[[_getIcon(item.properties.interaction:isOpened)]]" style="[[_getIconStyle(item.properties.interaction:isOpened)]]"></iron-icon>
+                            </template>
+                        </nuxeo-data-table-column>
+                        <nuxeo-data-table-column field="interaction:isCLicked" flex="60"
+                                                 name="Clicked" sort-by="interaction:isCLicked">
+                            <template>
+                                <iron-icon icon="[[_getIcon(item.properties.interaction:isCLicked)]]" style="[[_getIconStyle(item.properties.interaction:isCLicked)]]"></iron-icon>
+                            </template>
+                        </nuxeo-data-table-column>
+
+                        <nuxeo-data-table-column field="interaction:status" flex="60"
+                                                 name="Status" sort-by="interaction:status">
+                            <template>
+                                [[formatDirectory(item.properties.interaction:status)]]
+                            </template>
+                        </nuxeo-data-table-column>
+
+                        <nuxeo-data-table-column field="interaction:date" flex="60"
+                                                 name="Date" sort-by="interaction:date">
+                            <template>
+                                [[formatDate(item.properties.interaction:date)]]
+                            </template>
+                        </nuxeo-data-table-column>
+
+
+                    </nuxeo-data-table>
+                </nuxeo-results>
+            </div>
+        </paper-card>
+    </template>
+
+    <script>
+        (function() {
+            'use strict';
+            Polymer({
+                is: 'campaign-document-view',
+                behaviors: [Nuxeo.LayoutBehavior, Nuxeo.FiltersBehavior],
+                properties: {
+
+                    document: {
+                        type: Object,
+                        observer: '_documentChanged'
+                    },
+                    automation: {
+                        type: Object,
+                        value: {}
+                    },
+                    params: {
+                      type: Object,
+                      value: {},
+                      notify: true
+                    },
+                    idEmail: {
+                        type: String,
+                        value: ''
+                    },
+                    query: {
+                        type: String,
+                        value: ''
+                    },
+                    params: {
+                        type: Object,
+                        value: {},
+                        notify: true
+                    }
+                },
+                   observers: [
+                   '_refresh(params)',
+                   '_observeDocument(document)'
+                ],
+
+                ready: function () {
+                    if (this.document) {
+                      this.params = {'ecm_parentId': this.document.uid};
+                    }
+                    this.interactionProvider = this.$.interactionProvider;
+                    var btnSelectAll = this.$.interactionTable.querySelectorAll("nuxeo-data-table-row[header='']")[0].querySelector("nuxeo-data-table-checkbox");
+                    btnSelectAll.shadowRoot.styleSheets[0].rules[3].style.visibility = "visible";
+                    btnSelectAll.addEventListener('tap', function () {
+                      var btnCheckmark = btnSelectAll.shadowRoot.querySelector("nuxeo-checkmark");
+                      if (btnCheckmark.checked == true) {
+                        this.$.interactionTable.selectAll();
+                      } else {
+                        this.$.interactionResults.clearSelection();
+                      }
+                    }.bind(this));
+                    this.async(function () {
+                        this.$.interactionResults.nxProvider.addEventListener('aggregations-changed', function () {
+                          var btnCheckmark = btnSelectAll.shadowRoot.querySelector("nuxeo-checkmark");
+                          btnCheckmark.checked = false;
+                        }.bind(this));
+                      }, 1)
+
+                },
+                _observeDocument: function() {
+                    if (this.document) {
+                      this.params = {'ecm_parentId': this.document.uid};
+                    }
+                },
+                _refresh: function() {
+                    this.$.interactionProvider.page = 1;
+                },
+                _getSubIcon: function(unSubscriptionState) {
+                     var icon ="";
+                       if (unSubscriptionState ===1 ) {
+                          icon ="thumb-down";
+                       }  else icon ="thumb-up";
+                       return icon;
+                },
+                _getSubIconStyle: function(unSubscriptionState) {
+                     var style ="";
+                       if (unSubscriptionState ===1 ) {
+                          style="color:#f50808"
+                       }  else style="color:#2bd670";
+                       return style;
+                },
+                _getIcon: function(eventState) {
+                     var icon ="";
+                       if (eventState ===1 ) {
+                          icon ="check-circle";
+                       }  else icon ="highlight-off";
+                       return icon;
+                },
+                _getIconStyle: function(eventState) {
+                     var style ="";
+                       if (eventState ===1 ) {
+                          style="color:#2bd670"
+                       }  else style="color:#f50808";
+                       return style;
+                },
+                _isNull: function(valueToCheck) {
+                   return valueToCheck ? valueToCheck != null : false;
+                },
+                _thumbnail: function(item) {
+                    var doc =this._getDocId(item);
+                    if (doc && doc.uid) {
+                       if (doc.contextParameters && doc.contextParameters.thumbnail.url) {
+                            return doc.contextParameters.thumbnail.url;
+                       } else {
+                         var baseUrl = this.$.nxcon.url;
+                        return baseUrl + '/api/v1/id/' + doc.uid + '/@rendition/thumbnail';
+                        }
+                    }
+                },
+                _getDocId: function(doc) {
+                    if (doc && doc.length>0) {
+                    console.log(doc);
+                       return doc[0];
+                    } return doc;
+                },
+
+                _documentChanged: function () {
+                },
+                _getPartialPercent: function(partialCount,totalCount){
+                    var count = (partialCount * 100)/totalCount;
+                    if (isNaN(count) || count==0 ){
+                     return 0;
+                        } else if (count == 100) {
+                        return count;
+                        } else
+                    return count.toFixed(2);
+                },
+                _isHidden: function(sentCount){
+                    var hidden = false;
+                    if (sentCount > 0 ){
+                     hidden = true;
+                    }
+                    return hidden;
+                },
+                _setWhereTerm: function (campaignId,emailId) {
+                  if (campaignId && emailId) {
+                    var where1 = {},where2 = {},where3 = {};
+                    var term1 = {},term2 = {},term3 = {};
+                    var must = [];
+                    where1["interaction:campaignId"] = campaignId;
+                    where2["ecm:isTrashed"] = "false";
+                    where3["custom:documentField10"] = emailId;
+
+                    term1["term"] = where1;
+                    term2["term"] = where2;
+                    term3["term"] = where3;
+                    must=[term1,term2,term3];
+                    return must;
+                  }
+                  return "";
+                }
+
+            });
+        })();
+
+    </script>
+</dom-module>
