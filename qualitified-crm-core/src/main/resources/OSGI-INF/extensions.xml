@@ -2066,6 +2066,11 @@
         <templateItem typeName="Option" id="NbChildrenDocuments" title="NbChildrenDocuments" description="Query condition for number of children documents in a folderish document."/>
       </template>
     </factoryBinding>
+    <factoryBinding name="MarketingFactory" factoryName="SimpleTemplateFactory" targetType="Marketing">
+      <template>
+        <templateItem typeName="Folder" id="Resources" title="Resources" description=""/>
+      </template>
+    </factoryBinding>
     <factoryBinding name="RootFactory" factoryName="SimpleTemplateRootFactory" targetType="Root">
       <acl>
         <ace principal="Administrator" permission="Everything" granted="true"/>
@@ -2147,6 +2152,17 @@
       <createTablePolicy>always</createTablePolicy>
       <table>studio_vocabulary_StatusCampaign</table>
       <dataFile>data/vocabularies/StatusCampaign.csv</dataFile>
+    </directory>
+    <directory name="contactLanguage">
+      <schema>vocabulary</schema>
+      <dataSource>java:/nxsqldirectory</dataSource>
+      <cacheTimeout>3600</cacheTimeout>
+      <cacheMaxSize>1000</cacheMaxSize>
+      <idField>id</idField>
+      <autoincrementIdField>false</autoincrementIdField>
+      <createTablePolicy>always</createTablePolicy>
+      <table>studio_vocabulary_contactLanguage</table>
+      <dataFile>data/vocabularies/contactLanguage.csv</dataFile>
     </directory>
     <directory name="IntStatus">
       <schema>vocabulary</schema>
@@ -2435,5 +2451,19 @@
       <defaultState>lifecycle</defaultState>
     </migration>
   </extension>  -->
+  <extension point="providers" target="org.nuxeo.ecm.platform.query.api.PageProviderService">
+
+    <coreQueryPageProvider name="default_campaign">
+      <property name="maxResults">PAGE_SIZE</property>
+      <pattern escapeParameters="true" quoteParameters="false">
+        SELECT * FROM Document WHERE /*+ES: INDEX(dc:title.fulltext) OPERATOR(match_phrase_prefix) */
+        dc:title ILIKE '?%' AND ecm:primaryType = 'Campaign'  AND
+        ecm:isProxy = 0 AND ecm:mixinType != 'HiddenInNavigation' AND
+        ecm:isVersion = 0 AND ecm:isTrashed = 0
+      </pattern>
+      <sort ascending="true" column="dc:title"/>
+      <pageSize>50</pageSize>
+    </coreQueryPageProvider>
+  </extension>
 
 </component>

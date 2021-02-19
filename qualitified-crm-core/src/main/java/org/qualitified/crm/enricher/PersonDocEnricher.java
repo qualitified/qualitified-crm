@@ -63,6 +63,7 @@ public class PersonDocEnricher extends AbstractJsonEnricher<DocumentModel> {
             personObject.put("personEmail", "");
             personObject.put("personSubscription", "");
             personObject.put("personPhone", "");
+            personObject.put("personPhone", "");
 
         }
         return personObject;
