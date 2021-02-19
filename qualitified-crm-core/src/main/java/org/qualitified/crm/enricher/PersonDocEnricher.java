@@ -56,14 +56,15 @@ public class PersonDocEnricher extends AbstractJsonEnricher<DocumentModel> {
             personObject.put("personTitle", personDoc.getTitle());
             personObject.put("personEmail", (String) personDoc.getPropertyValue("person:email"));
             personObject.put("personSubscription", (String) personDoc.getPropertyValue("custom:integerField1"));
+            personObject.put("personPhone", (String) personDoc.getPropertyValue("person:phoneNumber"));
 
         } else {
             personObject.put("personTitle", "");
             personObject.put("personEmail", "");
             personObject.put("personSubscription", "");
+            personObject.put("personPhone", "");
 
         }
-
         return personObject;
     }
 }

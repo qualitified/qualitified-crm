@@ -256,9 +256,14 @@
                             </template>
                         </nuxeo-data-table-column>
 
-                        <nuxeo-data-table-column flex="60" name="Address">
+                        <nuxeo-data-table-column flex="60" name="Email address">
                             <template>
                                 [[item.contextParameters.personDocEnricher.personEmail]]
+                            </template>
+                        </nuxeo-data-table-column>
+                        <nuxeo-data-table-column flex="60" name="[[i18n('label.metadata.phone')]]">
+                            <template>
+                                [[item.contextParameters.personDocEnricher.personPhone]]
                             </template>
                         </nuxeo-data-table-column>
                         <nuxeo-data-table-column hidden="[[_isNull(item.contextParameters.personDocEnricher.personSubscription)]]" flex="60" name="Subscribed">

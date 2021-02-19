@@ -130,10 +130,15 @@
                                     [[item.properties.person:email]]
                                 </template>
                             </nuxeo-data-table-column>
+                            <nuxeo-data-table-column flex="60" name="[[i18n('label.metadata.phone')]]">
+                                <template>
+                                    [[item.properties.person:phoneNumber]]
+                                </template>
+                            </nuxeo-data-table-column>
 
                             <nuxeo-data-table-column hidden="[[_isNull(item.properties.custom:integerField1)]]" field="custom:integerField1" flex="100" name="Subscription" sort-by="custom:integerField1">
                                 <template>
-                                    <iron-icon icon="[[_getIcon(item.properties.custom:integerField1)]]" style="[[_getIconStyle(item.properties.custom:integerField1)]]"></iron-icon>
+                                    <iron-icon icon="[[_getSubIcon(item.properties.custom:integerField1)]]" style="[[_getSubIconStyle(item.properties.custom:integerField1)]]"></iron-icon>
                                 </template>
                             </nuxeo-data-table-column>
 
@@ -269,14 +274,14 @@
                 _isNull: function(valueToCheck) {
                    return valueToCheck ? valueToCheck != null : false;
                 },
-                _getIcon: function(unSubscriptionState) {
+                _getSubIcon: function(unSubscriptionState) {
                      var icon ="";
                        if (unSubscriptionState ===1 ) {
                           icon ="thumb-down";
                        }  else icon ="thumb-up";
                        return icon;
                 },
-                _getIconStyle: function(unSubscriptionState) {
+                _getSubIconStyle: function(unSubscriptionState) {
                      var style ="";
                        if (unSubscriptionState ===1 ) {
                           style="color:#f50808"
