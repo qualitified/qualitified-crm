@@ -132,25 +132,25 @@ public class EmailingProcess {
             case 3:
                 emailDocId = new IdRef(emailStepThree);
                 setContactsQuery(campaignDoc.getId(), emailStepTwo, true);
-                stepUpdate(campaignDoc,null,0,currentStep,currentSendDate,3);
+                stepUpdate(campaignDoc,contactsQuery,emailStepTwo,emailStepThree,0,2,currentSendDate,0);
                 break;
 
             case 2:
                 emailDocId = new IdRef(emailStepTwo);
                 setContactsQuery(campaignDoc.getId(), emailStepOne, true);
-                stepUpdate(campaignDoc, emailStepThree,waitStepThreeAmount,currentStep,currentSendDate,3);
+                stepUpdate(campaignDoc,contactsQuery,emailStepOne,emailStepThree,waitStepThreeAmount,1,currentSendDate,3);
                 break;
 
             case 1:
                 emailDocId = new IdRef(emailStepOne);
                 setContactsQuery(campaignDoc.getId(), emailStepZero, false);
-                stepUpdate(campaignDoc, emailStepTwo,waitStepTwoAmount,currentStep,currentSendDate,2);
+                stepUpdate(campaignDoc,contactsQuery,emailStepZero,emailStepTwo,waitStepTwoAmount,0,currentSendDate,2);
                 break;
 
             default :
                 emailDocId = new IdRef(emailStepZero);
                 setContactsQuery(campaignDoc.getId(), null, false);
-                stepUpdate(campaignDoc, emailStepOne,waitStepOneAmount,currentStep,currentSendDate,1);
+                stepUpdate(campaignDoc,contactsQuery,emailStepZero,emailStepOne,waitStepOneAmount,currentStep,currentSendDate,1);
         }
 
         emailDoc = documentManager.getDocument(emailDocId);
@@ -165,17 +165,25 @@ public class EmailingProcess {
     }
 
 
-    private void stepUpdate(DocumentModel campaignDoc, String emailNextStep, int waitNextStepAmount, int currentStep, GregorianCalendar currentSendDate, int nextStep) throws InterruptedException, ParseException {
-        if ( emailNextStep != null ) {
+    private void stepUpdate(DocumentModel campaignDoc, String contactsQuery, String emailPreviousStep, String emailNextStep, int waitNextStepAmount, int previousStep, GregorianCalendar currentSendDate, int nextStep) throws InterruptedException, ParseException {
+        if ( emailNextStep != null && contactsQuery != null ) {
+            Date nextSendDate = addDaysCalendar(currentSendDate, waitNextStepAmount);
+            campaignDoc.setPropertyValue("campaign:sendDate", nextSendDate);
             campaignDoc.setPropertyValue("custom:integerField10",nextStep);
-            campaignDoc.setPropertyValue("campaign:status", "Ready");
+            campaignDoc.setPropertyValue("custom:documentField9",emailNextStep);
+            if ( nextStep == 0 ) {
+                campaignDoc.setPropertyValue("campaign:status", "Sent");
+
+            } else {
+                campaignDoc.setPropertyValue("campaign:status", "Ready");
+            }
 
         } else {
-            campaignDoc.setPropertyValue("campaign:status", "Sent");
+                campaignDoc.setPropertyValue("custom:integerField10",previousStep);
+                campaignDoc.setPropertyValue("custom:documentField9",emailPreviousStep);
+                campaignDoc.setPropertyValue("campaign:status", "Sent");
+
         }
-        Date nextSendDate = addDaysCalendar(currentSendDate, waitNextStepAmount);
-        campaignDoc.setPropertyValue("campaign:sendDate", nextSendDate);
-        campaignDoc.setPropertyValue("custom:documentField9",emailNextStep);
         documentManager.saveDocument(campaignDoc);
     }
 

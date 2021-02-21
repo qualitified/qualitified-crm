@@ -56,7 +56,7 @@
         <nuxeo-document auto doc-id="[[document.properties.campaign:automationId]]" response="{{automation}}"></nuxeo-document>
 
         <div role="widget" hidden$="[[!document.properties.custom:documentField9]]" style="width:60%;">
-            <label>Next email</label>
+            <label>[[_getStepStatus(document.properties.campaign:status)]]</label>
             <qualitified-document-suggestion role="widget"
                                              value="[[document.properties.custom:documentField9]]"
                                              min-chars="0"
@@ -293,7 +293,11 @@
                 }
                 return hidden;
             },
-
+            _getStepStatus: function(campaignStatus){
+                if (campaignStatus.id === "Sent" ){
+                 return "Finished in step";
+                } return "Next step";
+            },
             _setWhereTerm: function (campaignId) {
               if (campaignId) {
                 var where1 = {};
