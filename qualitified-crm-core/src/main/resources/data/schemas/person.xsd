@@ -52,4 +52,9 @@
   <xs:element name="firstName" type="xs:string"/>
   <xs:element name="lastName" type="xs:string"/>
   <xs:element name="phoneNumber" type="xs:string"/>
+  <xs:element name="language">
+    <xs:simpleType>
+      <xs:restriction base="xs:string" ref:resolver="directoryResolver" ref:directory="contactLanguage"/>
+    </xs:simpleType>
+  </xs:element>
 </xs:schema>

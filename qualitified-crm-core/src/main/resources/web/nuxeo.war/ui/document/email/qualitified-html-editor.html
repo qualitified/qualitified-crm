@@ -1,8 +1,11 @@
-<dom-module id="qualitified-html-editor" assetpath="bower_components/nuxeo-ui-elements/widgets/">
+<dom-module id="qualitified-html-editor" assetpath="bower_components/nuxeo-ui-elements/widgets/alloy-editor">
+
+
     <template>
-        <style include="alloy-ocean">
+        <style >
             #editor {
                 outline: none;
+                width: 100%
                 height: 100%;
                 min-height: 30em;
             }
@@ -17,9 +20,14 @@
             }
         </style>
 
-        <div id="editor" data-placeholder$="[[placeholder]]"></div>
+        <!--div id="editor" contenteditable="true" data-placeholder$="[[placeholder]]"></div-->
+        <iframe width="100%" height="100%"  class="editor" id="editor" src="/nuxeo/ui/alloy.html?id=[[document.id]]" ></iframe>
     </template>
+
     <script>
+        // var CKEDITOR_BASEPATH = '/alloy-editor/';
+
+
         {
             /**
              * `qualitified-html-editor`
@@ -53,15 +61,17 @@
                     };
                 }
 
-                connectedCallback() {
-                    super.connectedCallback();
-                    setTimeout(() => {
-                        this._init();
-                    }, 100);
-                }
+                /* connectedCallback() {
+                     super.connectedCallback();
+                     setTimeout(() => {
+                         this._init();
+                     }, 100);
+                 }*/
 
                 _init() {
+
                     // init editor
+
                     const toolbars = this.hideToolbars ? {} : {
                         add: {
                             buttons: ['image', 'camera', 'hline', 'table','link'],
@@ -122,11 +132,11 @@
                         this.element.setData(this.value);
                     }
                 }
-
             }
 
             customElements.define(HTMLEditor.is, HTMLEditor);
             Nuxeo.HTMLEditor = HTMLEditor;
         }
     </script>
+
 </dom-module>

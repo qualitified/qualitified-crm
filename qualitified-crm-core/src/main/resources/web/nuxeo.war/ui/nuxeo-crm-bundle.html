@@ -344,9 +344,9 @@
     </template>
 </nuxeo-slot-content>
 <!-- Contribution of element 'nuxeo-add-to-collection-button' for slot 'RESULTS_SELECTION_ACTIONS' -->
-<nuxeo-slot-content name="addToCollectionSelectionAction" slot="RESULTS_SELECTION_ACTIONS" order="10" disabled>
+<nuxeo-slot-content name="addToCollectionSelectionAction" slot="RESULTS_SELECTION_ACTIONS" order="10" >
     <template>
-        <nuxeo-add-to-collection-documents-button documents="[[selectedItems]]">
+        <nuxeo-add-to-collection-documents-button documents="[[selectedItems]]" >
         </nuxeo-add-to-collection-documents-button>
     </template>
 </nuxeo-slot-content>
@@ -359,5 +359,9 @@
 </nuxeo-slot-content>
 
 
-
+<nuxeo-slot-content name="clipboardToggleDocumentAction" slot="DOCUMENT_ACTIONS" order="50" >
+    <template>
+        <nuxeo-clipboard-toggle-button document="[[document]]" clipboard="[[clipboard]]"></nuxeo-clipboard-toggle-button>
+    </template>
+</nuxeo-slot-content>
 
