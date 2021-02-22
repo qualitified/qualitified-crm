@@ -96,9 +96,9 @@
             <iron-pages selected="{{selected}}">
 
                 <div class="dataTable">
-                    <nuxeo-page-provider enrichers="thumbnail, permissions" id="provider"
+                    <nuxeo-page-provider enrichers="thumbnail, permissions" id="provider" auto
                                          page-size="40" provider="default_content_collection"
-                                         schemas="dublincore,silhouette,person,common,interaction">
+                                         schemas="dublincore,silhouette,person,common,interaction,custom">
                     </nuxeo-page-provider>
 
                     <nuxeo-results empty-label="[[i18n('collections.noDocument')]]" empty-label-when-filtered="[[i18n('collections.noDocumentWhenFiltered')]]" id="results" items="{{items}}"
@@ -136,7 +136,7 @@
                                 </template>
                             </nuxeo-data-table-column>
 
-                            <nuxeo-data-table-column hidden="[[_isNull(item.properties.custom:integerField1)]]" field="custom:integerField1" flex="100" name="Subscription" sort-by="custom:integerField1">
+                            <nuxeo-data-table-column field="custom:integerField1" flex="60" name="Subscribed" sort-by="custom:integerField1">
                                 <template>
                                     <iron-icon icon="[[_getSubIcon(item.properties.custom:integerField1)]]" style="[[_getSubIconStyle(item.properties.custom:integerField1)]]"></iron-icon>
                                 </template>
@@ -260,7 +260,6 @@
                 },
                 _getDocId: function(doc) {
                     if (doc && doc.length>0) {
-                    console.log(doc);
                        return doc[0];
                     } return doc;
                 },
@@ -275,11 +274,11 @@
                    return valueToCheck ? valueToCheck != null : false;
                 },
                 _getSubIcon: function(unSubscriptionState) {
-                     var icon ="";
                        if (unSubscriptionState ===1 ) {
-                          icon ="thumb-down";
-                       }  else icon ="thumb-up";
-                       return icon;
+                          return "thumb-down";
+                       } else if (unSubscriptionState ===0 ) {
+                          return "thumb-up"
+                       } else return "";
                 },
                 _getSubIconStyle: function(unSubscriptionState) {
                      var style ="";

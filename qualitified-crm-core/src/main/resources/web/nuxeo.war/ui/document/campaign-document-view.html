@@ -266,7 +266,7 @@
                                 [[item.contextParameters.personDocEnricher.personPhone]]
                             </template>
                         </nuxeo-data-table-column>
-                        <nuxeo-data-table-column hidden="[[_isNull(item.contextParameters.personDocEnricher.personSubscription)]]" flex="60" name="Subscribed">
+                        <nuxeo-data-table-column flex="60" name="Subscribed">
                             <template>
                                 <iron-icon icon="[[_getSubIcon(item.contextParameters.personDocEnricher.personSubscription)]]" style="[[_getSubIconStyle(item.contextParameters.personDocEnricher.personSubscription)]]"></iron-icon>
                             </template>
@@ -390,11 +390,11 @@
                     this.$.interactionProvider.page = 1;
                 },
                 _getSubIcon: function(unSubscriptionState) {
-                     var icon ="";
                        if (unSubscriptionState ===1 ) {
-                          icon ="thumb-down";
-                       }  else icon ="thumb-up";
-                       return icon;
+                          return "thumb-down";
+                       } else if (unSubscriptionState ===0 ) {
+                          return "thumb-up"
+                       } else return "";
                 },
                 _getSubIconStyle: function(unSubscriptionState) {
                      var style ="";
@@ -433,7 +433,6 @@
                 },
                 _getDocId: function(doc) {
                     if (doc && doc.length>0) {
-                    console.log(doc);
                        return doc[0];
                     } return doc;
                 },
