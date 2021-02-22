@@ -97,6 +97,18 @@
       <facet name="HiddenInNavigation"/>
     </doctype>
 
+    <doctype extends="Document" name="Picture">
+      <schema name="common"/>
+      <schema name="uid"/>
+      <schema name="custom"/>
+      <schema name="dublincore"/>
+      <facet name="Picture"/>
+      <facet name="Versionable"/>
+      <facet name="Publishable"/>
+      <facet name="Commentable"/>
+      <facet name="HasRelatedText"/>
+      <facet name="NXTag"/>
+    </doctype>
     <doctype name="Account" extends="Document">
       <schema name="account"/>
       <schema name="dublincore"/>
