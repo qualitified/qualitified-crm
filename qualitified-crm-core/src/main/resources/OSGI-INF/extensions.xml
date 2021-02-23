@@ -50,6 +50,7 @@
     <schema name="email" prefix="email" override="true" src="data/schemas/email.xsd"/>
     <schema name="email_list_pp" prefix="email_list_pp" override="true" src="data/schemas/email_list_pp.xsd"/>
     <schema name="targeting" prefix="targeting" override="true" src="data/schemas/targeting.xsd"/>
+    <schema name="public" prefix="public" override="true" src="data/schemas/public.xsd"/>
 
 
 
@@ -100,7 +101,7 @@
     <doctype extends="Document" name="Picture">
       <schema name="common"/>
       <schema name="uid"/>
-      <schema name="custom"/>
+      <schema name="public"/>
       <schema name="dublincore"/>
       <facet name="Picture"/>
       <facet name="Versionable"/>

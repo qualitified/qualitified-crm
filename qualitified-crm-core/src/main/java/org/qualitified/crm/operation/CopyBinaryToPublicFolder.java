@@ -1,5 +1,7 @@
 package org.qualitified.crm.operation;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.json.JSONException;
 import org.nuxeo.ecm.automation.OperationException;
 import org.nuxeo.ecm.automation.core.Constants;
@@ -11,6 +13,7 @@ import org.nuxeo.ecm.core.api.CoreSession;
 import org.nuxeo.ecm.core.api.DocumentModel;
 import org.nuxeo.ecm.core.api.DocumentModelList;
 import org.nuxeo.runtime.api.Framework;
+import org.qualitified.crm.listener.PreCopy;
 
 import java.io.*;
 
@@ -20,35 +23,32 @@ public class CopyBinaryToPublicFolder {
     public final static String ID = "Qualitified.CopyBinaryToPublicFolder";
     String folderPath= Framework.getProperty("public.folder.path");
     String serverPath=Framework.getProperty("nuxeo.url");
+    private Log logger = LogFactory.getLog(PreCopy.class);
+
     @Context
     protected CoreSession session;
     @Context
     protected CoreSession documentManager;
     @OperationMethod()
-    public void run() throws IOException, OperationException, JSONException {
-        DocumentModel image = null;
+    public void run(DocumentModel image) throws IOException, OperationException, JSONException {
 
-        DocumentModelList imageList = session.query("SELECT * FROM Picture WHERE  ecm:path STARTSWITH  '/Marketing/Resources/' AND ecm:mixinType != 'HiddenInNavigation' AND ecm:isProxy = 0 AND ecm:isVersion = 0 AND ecm:isTrashed = 0");
+           File source = new File(image.getPathAsString());
+           Blob blob = (Blob)image.getPropertyValue("file:content");
+           logger.warn("source is" +source);
 
-        if (imageList.size() > 0) {
-           for (DocumentModel imagedoc:imageList){
-               File source = new File(imagedoc.getPathAsString());
-               Blob blob = (Blob)imagedoc.getPropertyValue("file:content");
-               System.out.println("the source is = " + source);
-               File dest = new File(folderPath+blob.getFilename());
-               blob.transferTo(dest);
-               String[] path= serverPath.split("nuxeo");
-               imagedoc.setPropertyValue("custom:stringField1",path[0]+"resources/"+blob.getFilename());
-               documentManager.saveDocument(imagedoc);
-               long start = System.nanoTime();
-               System.out.println("Time taken by Stream Copy = " + (System.nanoTime() - start));
+           if (blob!=null){
+                File dest = new File(folderPath+blob.getFilename());
+                blob.transferTo(dest);
+                String[] path= serverPath.split("nuxeo");
+                image.setPropertyValue("public:url",path[0]+"resources/"+blob.getFilename());
            }
-        }
     }
-
-
-
-
 }
+
+
+
+
+
+
 
 

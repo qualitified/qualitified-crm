@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<component name="org.qualitified.crm.listener.listener.precopy">
+
+  <extension target="org.nuxeo.ecm.core.event.EventServiceComponent" point="listener">
+    <listener name="precopy"
+      class="org.qualitified.crm.listener.PreCopy">
+        <event>aboutToCreate</event>
+        <event>beforeDocumentModification</event>
+        <filters>
+          <doctype>Picture</doctype>
+          <attribute>Regular Document</attribute>
+        </filters>
+    </listener>
+  </extension>
+
+</component>

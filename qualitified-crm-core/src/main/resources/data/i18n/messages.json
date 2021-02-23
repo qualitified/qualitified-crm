@@ -159,5 +159,6 @@
   "label.search.image": "Search an Image",
   "label.documents": "Documents",
   "addToCampaignButton.dialog.add": "Add to a campaign",
-  "label.metadata.campaign.create": "Create a new campaign"
+  "label.metadata.campaign.create": "Create a new campaign",
+  "label.path.picture": "Path to the picture's resource"
 }

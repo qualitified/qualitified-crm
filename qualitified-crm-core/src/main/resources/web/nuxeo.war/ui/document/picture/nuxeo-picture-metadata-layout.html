@@ -20,6 +20,7 @@ limitations under the License.
 @group Nuxeo UI
 @element nuxeo-picture-metadata-layout
 -->
+<link rel="import" href="../qualitified-custom-fields.html">
 
 <dom-module id="nuxeo-picture-metadata-layout">
 
@@ -74,10 +75,17 @@ limitations under the License.
                                 dbl10n="true"
                                 readonly>
     </nuxeo-directory-suggestion>
-    <div role="widget" >
-      <label>Picture Path Resource</label>
+    <div role="widget" hidden$="[[!document.properties.public:url]]">
+      <label>[[i18n('label.path.picture')]]</label>
       <div name="path">
-        <a href="[[document.properties.custom:stringField1]]" target="_blank">[[document.properties.custom:stringField1]]</a>
+        <a href="[[document.properties.public:url]]" target="_blank">[[document.properties.public:url]]</a>
+
+          <copy-to-clipboard
+                  id="copyToClipboard"
+                  clipboard-value-to-copy="[[pathResource]]"
+                  clipboard-value-copied="{{copiedValue}}"
+          ></copy-to-clipboard>
+
 
         <div>
 
@@ -101,8 +109,20 @@ limitations under the License.
         /**
          * @doctype Picture
          */
-        document: Object,
-        }
+        document: {
+         type:Object,
+         observer: '_documentReady'
+         },
+         pathResource:{
+         type: String,
+         value:""
+         }
+        },
+         _documentReady: function(doc){
+           if(this.document){
+                 this.pathResource =this.document.properties["public:url"];
+            }
+           }
     });
   </script>
 
