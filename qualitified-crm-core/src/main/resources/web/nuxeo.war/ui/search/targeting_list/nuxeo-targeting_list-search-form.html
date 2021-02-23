@@ -54,13 +54,7 @@
                      autofocus
                      on-keydown="_checkForEnter">
         </nuxeo-input>
-        <div class="layout vertical row">
-            <label>[[i18n('label.metadata.language')]]</label>
-            <nuxeo-checkbox-aggregation
-                    data="[[aggregations.language_agg]]"
-                    value="{{params.language_agg}}">
-            </nuxeo-checkbox-aggregation>
-        </div>
+
         <div class="layout vertical row">
             <label>Type</label>
             <nuxeo-checkbox-aggregation
@@ -94,7 +88,13 @@
             <nuxeo-date-picker value="{{params.datefield1_min}}" label="[[i18n('label.silhouette.last.visit')]](Min)" role="widget"></nuxeo-date-picker>
             <nuxeo-date-picker value="{{params.datefield1_max}}" label="[[i18n('label.silhouette.last.visit')]](Max)" role="widget"></nuxeo-date-picker>
         </div>
-
+        <div class="layout vertical row">
+            <label>[[i18n('label.metadata.language')]]</label>
+            <nuxeo-checkbox-aggregation
+                    data="[[aggregations.language_agg]]"
+                    value="{{params.language_agg}}">
+            </nuxeo-checkbox-aggregation>
+        </div>
         ​<div class="layout vertical row">
         <label>[[i18n('label.links.follow')]]</label>
         <nuxeo-dropdown-aggregation data="[[aggregations.followed_links_agg]]" value="{{params.followed_links_agg}}" multiple=""></nuxeo-dropdown-aggregation>

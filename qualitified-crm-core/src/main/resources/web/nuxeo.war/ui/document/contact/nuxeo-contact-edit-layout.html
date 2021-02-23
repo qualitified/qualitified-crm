@@ -9,10 +9,7 @@
 
         </style>
         <!--nuxeo-input value="{{document.properties.dc:title}}" label="Title" role="widget"></nuxeo-input-->
-        <nuxeo-directory-suggestion role="widget" value="{{document.properties.person:language}}"
-                                    label="Language" directory-name="contactLanguage"
-                                    min-chars="0"  required="true" ></nuxeo-directory-suggestion>
-        <nuxeo-operation id="getImages" op="Qualitified.GetImages"></nuxeo-operation>
+         <nuxeo-operation id="getImages" op="Qualitified.GetImages"></nuxeo-operation>
         <nuxeo-operation id="getOption" op="Qualitified.GetOptionValue"></nuxeo-operation>
 
         <nuxeo-directory-suggestion value="{{document.properties.person:civility}}"
@@ -63,6 +60,9 @@
         <nuxeo-user-suggestion  value="{{document.properties.contact:responsible}}" label="[[i18n('label.metadata.responsible')]]" search-type="USER_TYPE" role="widget" min-chars="0">
         </nuxeo-user-suggestion>
         <qualitified-custom-fields document="{{document}}" mode="edit"></qualitified-custom-fields>
+        <nuxeo-directory-suggestion role="widget" value="{{document.properties.person:language}}"
+                                    label="[[i18n('label.metadata.language')]]" directory-name="contactLanguage"
+                                    min-chars="0"  required="true" ></nuxeo-directory-suggestion>
 
         <div role="widget">
             <label>[[i18n('label.metadata.contact.picture')]]</label>

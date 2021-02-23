@@ -7,10 +7,7 @@
         padding: 5px;
       }
         </style>
-        <nuxeo-directory-suggestion role="widget" value="{{document.properties.silhouette:language}}"
-                                    label="Language" directory-name="contactLanguage"
-                                    min-chars="0"  required="true"></nuxeo-directory-suggestion>
-        <nuxeo-directory-suggestion value="{{civility}}" label="[[i18n('label.metadata.civility')]]"
+          <nuxeo-directory-suggestion value="{{civility}}" label="[[i18n('label.metadata.civility')]]"
                                     directory-name="Civility" role="widget" min-chars="0"></nuxeo-directory-suggestion>
         <nuxeo-input value="{{firstName}}" label="[[i18n('label.metadata.firstname')]]" role="widget"></nuxeo-input>
         <nuxeo-input value="{{lastName}}" label="[[i18n('label.metadata.lastname')]]" role="widget"></nuxeo-input>
@@ -46,6 +43,10 @@
                                 role="widget"
                                 min-chars="0">
         </nuxeo-user-suggestion>
+        <nuxeo-directory-suggestion role="widget" value="{{document.properties.silhouette:language}}"
+                                    label="[[i18n('label.metadata.language')]]" directory-name="contactLanguage"
+                                    min-chars="0"  required="true"></nuxeo-directory-suggestion>
+
         <qualitified-custom-fields document="{{document}}" mode="edit"></qualitified-custom-fields>
         <div role="widget">
             <label>[[i18n('label.metadata.contact.picture')]]</label>

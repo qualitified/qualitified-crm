@@ -9,9 +9,6 @@
 
         </style>
 
-        <nuxeo-directory-suggestion role="widget" value="{{document.properties.person:language}}"
-                                    label="Language" directory-name="contactLanguage"
-                                    min-chars="0"  required="true" ></nuxeo-directory-suggestion>
 
 
         <nuxeo-directory-suggestion value="{{civility}}" label="[[i18n('label.metadata.civility')]]"
@@ -62,6 +59,10 @@
                 role="widget"
                 min-chars="0">
         </nuxeo-user-suggestion>
+        <nuxeo-directory-suggestion role="widget" value="{{document.properties.person:language}}"
+                                    label="[[i18n('label.metadata.language')]]" directory-name="contactLanguage"
+                                    min-chars="0"  required="true" ></nuxeo-directory-suggestion>
+
         <qualitified-custom-fields document="{{document}}" mode="edit"></qualitified-custom-fields>
         <nuxeo-dropzone role="widget" label="[[i18n('label.metadata.contact.picture')]]"
                         document="[[document]]"></nuxeo-dropzone>

@@ -56,6 +56,15 @@
                 <nuxeo-user-tag user="[[document.properties.contact:responsible]]"></nuxeo-user-tag>
             </div>
         </div>
+        <div role="widget" hidden$="[[!document.properties.person:language]]" style="width:60%;">
+            <label>[[i18n('label.metadata.language')]]</label>
+            <nuxeo-directory-suggestion role="widget"
+                                        value="[[document.properties.person:language]]"
+                                        directory-name="contactLanguage"
+                                        min-chars="0"
+                                        readOnly>
+            </nuxeo-directory-suggestion>
+        </div>
         <div role="widget">
             <label>[[i18n('label.metadata.description')]]</label>
             <div><pre>[[document.properties.dc:description]]</pre></div>
