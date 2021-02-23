@@ -6,6 +6,8 @@
   "Limbo": "Infructueux",
   "label.metadata.link" : "Lien",
   "campaign" : "campagne",
+  "label.metadata.language":"Langue",
+  "visualize": "visualiser",
 
   "label.metadata.followed_link" : "Lien suivis",
   "label.document.type.interaction":"Interaction",
