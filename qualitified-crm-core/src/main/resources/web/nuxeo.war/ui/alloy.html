@@ -31,7 +31,7 @@
         const urlParams = new URLSearchParams(queryString);
         $(document).ready(function() {
 
-            $("#editor").keyup($.debounce(2000, function() {
+            $("#editor").bind('DOMSubtreeModified', function() {
                 // event.preventDefault();
                 //var editor =$("#editor").val();
                 $.ajax({
@@ -61,7 +61,7 @@
 
                     }
                 });
-            }));
+            });
             $.ajax({
                 url: '/nuxeo/api/v1/id/' + urlParams.get('id') + '?properties=html',
                 data: {
@@ -110,10 +110,7 @@
 
 
 
-<div id="error" style="display:none" class="alert alert-danger alert-dismissible fade show">
-    <strong>Error!</strong> Something went wrong. Please try again.
-    <button type="button" class="close" data-dismiss="alert">&times;</button>
-</div>
+
 
 
 
