@@ -31,7 +31,7 @@
         const urlParams = new URLSearchParams(queryString);
         $(document).ready(function() {
 
-            $("#editor").bind('DOMSubtreeModified', function() {
+            $("#editor").bind('DOMSubtreeModified', $.debounce(2000,function() {
                 // event.preventDefault();
                 //var editor =$("#editor").val();
                 $.ajax({
@@ -42,7 +42,14 @@
                     data: "{" +
                         "\"params\": {" +
                         "\"xpath\": \"html:content\"," +
-                        "\"value\": \"" + $("#editor").html().replace(/"/g,"\\n") + "\"" +
+                        "\"value\": \"" + $("#editor").html().replace(/[\\]/g, '\\\\')
+                            .replace(/[\"]/g, '\\\"')
+                            .replace(/[\/]/g, '\\/')
+                            .replace(/[\b]/g, '\\b')
+                            .replace(/[\f]/g, '\\f')
+                            .replace(/[\n]/g, '\\n')
+                            .replace(/[\r]/g, '\\r')
+                            .replace(/[\t]/g, '\\t') + "\"" +
                         "}," +
                         "\"input\": \"" + urlParams.get('id') + "\"," +
                         "\"context\": {}" +
@@ -61,7 +68,7 @@
 
                     }
                 });
-            });
+            }));
             $.ajax({
                 url: '/nuxeo/api/v1/id/' + urlParams.get('id') + '?properties=html',
                 data: {
