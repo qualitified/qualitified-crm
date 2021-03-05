@@ -3,9 +3,21 @@
 
 <dom-module id="nuxeo-campaign-view-layout">
     <template>
-        <style include="nuxeo-styles shared-css">
+        <style include="nuxeo-styles shared-css" is="custom-style">
             *[role=widget] {
                 padding: 5px;
+            }
+            :root {
+             /* Set custom property (variables) */
+             --paper-tabs-selection-bar-color: #ff8e5b;
+
+           }
+           paper-tabs paper-tab.iron-selected {
+              color: #ff8e5b;
+            };
+
+            .icon{
+            color:#ebebec;
             }
 
             nuxeo-data-table {
@@ -45,53 +57,72 @@
 
 
         <nuxeo-document auto doc-id="[[document.properties.campaign:automationId]]" response="{{automation}}"></nuxeo-document>
-
-        <paper-tabs selected="{{selected}}" noink fit-container scrollable>
-            <paper-tab>
-                <qualitified-document-suggestion role="widget"
-                                                 value="[[document.uid]]"
-                                                 min-chars="0"
-                                                 readOnly>
-                </qualitified-document-suggestion>
-            </paper-tab>
-            <template is="dom-if" if="[[_isNull(automation.properties.custom:documentField1)]]">
-                <paper-tab>
-                    <qualitified-document-suggestion role="widget"
-                                                     value="[[automation.properties.custom:documentField1]]"
-                                                     min-chars="0"
-                                                     readOnly>
-                    </qualitified-document-suggestion>
-                </paper-tab>
-            </template>
-            <template is="dom-if" if="[[_isNull(automation.properties.custom:documentField2)]]">
-                <paper-tab>
-                    <qualitified-document-suggestion role="widget"
-                                                     value="[[automation.properties.custom:documentField2]]"
-                                                     min-chars="0"
-                                                     readOnly>
-                    </qualitified-document-suggestion>
-                </paper-tab>
-            </template>
-            <template is="dom-if" if="[[_isNull(automation.properties.custom:documentField3)]]">
-                <paper-tab>
-                    <qualitified-document-suggestion role="widget"
-                                                     value="[[automation.properties.custom:documentField3]]"
-                                                     min-chars="0"
-                                                     readOnly>
-                    </qualitified-document-suggestion>
-                </paper-tab>
-            </template>
-            <template is="dom-if" if="[[_isNull(automation.properties.custom:documentField4)]]">
-                <paper-tab>
-                    <qualitified-document-suggestion role="widget"
-                                                     value="[[automation.properties.custom:documentField4]]"
-                                                     min-chars="0"
-                                                     readOnly>
-                    </qualitified-document-suggestion>
-                </paper-tab>
-            </template>
-        </paper-tabs>
         <paper-card>
+
+            <paper-tabs selected="{{selected}}">
+
+                <paper-tab>
+                    Target
+                </paper-tab>
+                <iron-icon class="icon" icon="icons:chevron-right"></iron-icon>
+                <template is="dom-if" if="[[_isNull(automation.properties.custom:documentField1)]]">
+                    <nuxeo-document auto doc-id="[[automation.properties.custom:documentField1]]" response="{{email0}}"></nuxeo-document>
+
+                    <paper-tab>
+                        <div style="[[_getStepColor(document.properties.custom:integerField10,0)]]">[[email0.title]]</div>
+                        <!--<qualitified-document-suggestion role="widget"
+                                                         value="[[automation.properties.custom:documentField1]]"
+                                                         min-chars="0"
+                                                         readOnly>
+                        </qualitified-document-suggestion>-->
+                    </paper-tab>
+                    <iron-icon class="icon" icon="icons:chevron-right"></iron-icon>
+                </template>
+                <template is="dom-if" if="[[_isNull(automation.properties.custom:documentField2)]]">
+                    <nuxeo-document auto doc-id="[[automation.properties.custom:documentField2]]" response="{{email1}}"></nuxeo-document>
+
+                    <paper-tab>
+                        <div style="[[_getStepColor(document.properties.custom:integerField10,1)]]">[[email1.title]]</div>
+
+                        <!--<qualitified-document-suggestion role="widget"
+                                                         value="[[automation.properties.custom:documentField2]]"
+                                                         min-chars="0"
+                                                         readOnly>
+                        </qualitified-document-suggestion>-->
+                    </paper-tab>
+                </template>
+
+                <iron-icon class="icon" icon="icons:chevron-right"></iron-icon>
+
+                <template is="dom-if" if="[[_isNull(automation.properties.custom:documentField3)]]">
+                    <nuxeo-document auto doc-id="[[automation.properties.custom:documentField3]]" response="{{email2}}"></nuxeo-document>
+
+                    <paper-tab>
+                        <div style="[[_getStepColor(document.properties.custom:integerField10,2)]]">[[email2.title]]</div>
+
+                        <!--<qualitified-document-suggestion role="widget"
+                                                         value="[[automation.properties.custom:documentField3]]"
+                                                         min-chars="0"
+                                                         readOnly>
+                        </qualitified-document-suggestion>-->
+                    </paper-tab>
+                </template>
+                <iron-icon class="icon" icon="icons:chevron-right"></iron-icon>
+
+                <template is="dom-if" if="[[_isNull(automation.properties.custom:documentField4)]]">
+                    <nuxeo-document auto doc-id="[[automation.properties.custom:documentField4]]" response="{{email3}}"></nuxeo-document>
+
+                    <paper-tab>
+                        <div style="[[_getStepColor(document.properties.custom:integerField10,3)]]">[[email3.title]]</div>
+
+                        <!--<qualitified-document-suggestion role="widget"
+                                                         value="[[automation.properties.custom:documentField4]]"
+                                                         min-chars="0"
+                                                         readOnly>
+                        </qualitified-document-suggestion>-->
+                    </paper-tab>
+                </template>
+            </paper-tabs>
 
             <iron-pages selected="{{selected}}">
 
@@ -136,9 +167,9 @@
                                 </template>
                             </nuxeo-data-table-column>
 
-                            <nuxeo-data-table-column field="custom:integerField1" flex="60" name="Subscribed" sort-by="custom:integerField1">
+                            <nuxeo-data-table-column field="person:targetStatus" flex="60" name="Subscribed" sort-by="person:targetStatus">
                                 <template>
-                                    <iron-icon icon="[[_getSubIcon(item.properties.custom:integerField1)]]" style="[[_getSubIconStyle(item.properties.custom:integerField1)]]"></iron-icon>
+                                    <iron-icon icon="[[_getStatusIcon(item.properties.person:targetStatus)]]" style="[[_getStatusIconStyle(item.properties.person:targetStatus)]]"></iron-icon>
                                 </template>
                             </nuxeo-data-table-column>
 
@@ -214,7 +245,7 @@
                     '_observeDocument(document)'
                 ],
                 ready: function () {
-                    this.selected = 0;
+                   this.selected = 0;
 
                     var btnSelectAll = this.$.campaignTable.querySelectorAll("nuxeo-data-table-row[header='']")[0].querySelector("nuxeo-data-table-checkbox");
                     btnSelectAll.shadowRoot.styleSheets[0].rules[3].style.visibility = "visible";
@@ -260,9 +291,14 @@
                 },
                 _getDocId: function(doc) {
                     if (doc && doc.length>0) {
+                    console.log(doc);
                        return doc[0];
                     } return doc;
                 },
+                _getStepColor: function(currentStep,item) {
+                     return currentStep > item ? "color:#ff8e5b" : "";
+                },
+
                 _isHidden: function(resultsCount) {
                      var hidden = false;
                        if (resultsCount>0) {
@@ -273,19 +309,21 @@
                 _isNull: function(valueToCheck) {
                    return valueToCheck ? valueToCheck != null : false;
                 },
-                _getSubIcon: function(unSubscriptionState) {
-                       if (unSubscriptionState ===1 ) {
-                          return "thumb-down";
-                       } else if (unSubscriptionState ===0 ) {
-                          return "thumb-up"
-                       } else return "";
+                _getStatusIcon: function(targetStatus) {
+                   if (targetStatus) {
+                      if (targetStatus ==="subscribed") {
+                         return "thumb-up"
+                      } else if ( targetStatus ==="unsubscribed" ) {
+                           return "thumb-down";
+                      } else return "remove-circle-outline";
+                   } else return "";
                 },
-                _getSubIconStyle: function(unSubscriptionState) {
-                     var style ="";
-                       if (unSubscriptionState ===1 ) {
-                          style="color:#f50808"
-                       }  else style="color:#2bd670";
-                       return style;
+                _getStatusIconStyle: function(targetStatus) {
+                   if (targetStatus) {
+                      if (targetStatus ==="subscribed") {
+                         return "color:#2bd670"
+                      } else return "color:#f50808";
+                   } else return "";
                 },
                  /**
                    * Returns the label for the given directory entry.

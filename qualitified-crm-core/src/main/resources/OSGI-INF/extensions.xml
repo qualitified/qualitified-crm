@@ -1415,7 +1415,6 @@
           <field schema="targeting" name="targeting_datefield1_min"/>
           <field schema="targeting" name="targeting_datefield1_max"/>
         </predicate>
-
         <predicate parameter="person:firstName" operator="=">
           <field schema="targeting" name="person_firstName"/>
         </predicate>
@@ -1436,6 +1435,13 @@
         </aggregate>
         <aggregate id="person_role_agg" type="terms" parameter="person:Role">
           <field schema="targeting" name="person_role_agg"/>
+          <properties>
+            <property name="order">count desc</property>
+            <property name="size">0</property>
+          </properties>
+        </aggregate>
+        <aggregate id="person_targetStatus_agg" type="terms" parameter="person:targetStatus">
+          <field schema="targeting" name="person_targetStatus_agg"/>
           <properties>
             <property name="order">count desc</property>
             <property name="size">0</property>
@@ -2134,7 +2140,7 @@
     <directory name="groupDirectory">
       <dataFile>data/groups.csv</dataFile>
       <createTablePolicy>never</createTablePolicy>
-      <references>
+      <referencs>
         <inverseReference field="parentGroups" directory="groupDirectory" dualReferenceField="subGroups"/>
         <tableReference field="members" directory="userDirectory" table="user2group" sourceColumn="groupId" targetColumn="userId" schema="user2group" dataFile="data/user2group.csv"/>
         <tableReference field="subGroups" directory="groupDirectory" table="group2group" sourceColumn="parentGroupId" targetColumn="childGroupId" schema="group2group"/>
@@ -2217,7 +2223,17 @@
       <table>studio_vocabulary_Zone</table>
       <dataFile>data/vocabularies/Zone.csv</dataFile>
     </directory>
-
+    <directory name="targetEmailStatus">
+      <schema>vocabulary</schema>
+      <dataSource>java:/nxsqldirectory</dataSource>
+      <cacheTimeout>3600</cacheTimeout>
+      <cacheMaxSize>1000</cacheMaxSize>
+      <idField>id</idField>
+      <autoincrementIdField>false</autoincrementIdField>
+      <createTablePolicy>on_missing_columns</createTablePolicy>
+      <table>studio_vocabulary_targetEmailStatus</table>
+      <dataFile>data/vocabularies/targetEmailStatus.csv</dataFile>
+    </directory>
     <directory name="Role">
       <schema>vocabulary</schema>
       <dataSource>java:/nxsqldirectory</dataSource>
@@ -2446,6 +2462,9 @@
     </openUrl>
     <openUrl name="Register">
       <grantPattern>${org.nuxeo.ecm.contextPath}/site/api/v1/register/.*</grantPattern>
+    </openUrl>
+    <openUrl name="Unsub">
+      <grantPattern>${org.nuxeo.ecm.contextPath}/site/api/v1/unsub/.*</grantPattern>
     </openUrl>
   </extension>
   <extension point="permissions" target="org.nuxeo.ecm.core.security.SecurityService">
