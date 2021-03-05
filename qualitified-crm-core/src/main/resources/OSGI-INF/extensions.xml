@@ -108,6 +108,7 @@
       <facet name="Publishable"/>
       <facet name="Commentable"/>
       <facet name="HasRelatedText"/>
+      <facet name="ContentViewDisplay"/>
       <facet name="NXTag"/>
     </doctype>
     <doctype name="Account" extends="Document">
