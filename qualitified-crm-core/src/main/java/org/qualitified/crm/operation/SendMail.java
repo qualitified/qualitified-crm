@@ -44,6 +44,7 @@ public class SendMail {
     private Log logger = LogFactory.getLog(SendMail.class);
     private String fromEmail=Framework.getProperty("mailjetService.fromEmail");
     private String fromName=Framework.getProperty("mailjetService.fromName");
+    private String nuxeoUrl = Framework.getProperty("nuxeo.url");
 
     private String MessageID;
     private Map<String, Object> mailDetails = new HashMap<String, Object>();
@@ -56,6 +57,7 @@ public class SendMail {
         ctx.getLoginStack().push(lc);
 
         EmailingService emailingService = Framework.getService(EmailingService.class);
+        String unsubLink = nuxeoUrl+"/site/api/v1/unsub/"+contactDoc.getId();
 
         mailDetails.put("fromEmail",fromEmail);
         mailDetails.put("fromName",fromName);
@@ -69,11 +71,13 @@ public class SendMail {
                 : "";
         String toName = lastName + firstName;
         mailDetails.put("toName",toName);
-        String subject = mailSubject;
+        String subject = mailSubject.replace("$$unsubLink",unsubLink);
         mailDetails.put("subject",subject);
         String textPart ="";
         mailDetails.put("textPart",textPart);
-        String htmlPart = mailHtmlPart;
+        String htmlPart = mailHtmlPart.contains("$$unsubLink")
+                ? mailHtmlPart.replace("$$unsubLink",unsubLink)
+                : mailHtmlPart;
         mailDetails.put("htmlPart",htmlPart);
 
         try {
