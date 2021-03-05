@@ -55,16 +55,14 @@ public class PersonDocEnricher extends AbstractJsonEnricher<DocumentModel> {
             DocumentModel personDoc = session.getDocument(new IdRef(persons[0]));
             personObject.put("personTitle", personDoc.getTitle());
             personObject.put("personEmail", (String) personDoc.getPropertyValue("person:email"));
-            personObject.put("personSubscription", (Long) personDoc.getPropertyValue("custom:integerField1"));
+            personObject.put("targetStatus", (String) personDoc.getPropertyValue("person:targetStatus"));
             personObject.put("personPhone", (String) personDoc.getPropertyValue("person:phoneNumber"));
 
         } else {
             personObject.put("personTitle", "");
             personObject.put("personEmail", "");
-            personObject.put("personSubscription", "");
+            personObject.put("targetStatus", "");
             personObject.put("personPhone", "");
-            personObject.put("personPhone", "");
-
         }
         return personObject;
     }

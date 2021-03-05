@@ -62,7 +62,13 @@
                     value="{{params.contact_silhouette_agg}}">
             </nuxeo-checkbox-aggregation>
         </div>
-
+        <div class="layout vertical row">
+            <label>Targeted email Status</label>
+            <nuxeo-checkbox-aggregation
+                    data="[[aggregations.person_targetStatus_agg]]"
+                    value="{{params.person_targetStatus_agg}}">
+            </nuxeo-checkbox-aggregation>
+        </div>
 
         <nuxeo-input role="widget" value="{{params.person_firstName}}" label="[[i18n('label.metadata.firstname')]]"
                      type="text"></nuxeo-input>
@@ -137,6 +143,11 @@
                         delete this.params.system_fulltext;
                     }
                 }
+             },
+             _getSubState: function(value) {
+                if (value === 0) {
+                    return true;
+                } return false;
             },
             _checkForEnter: function(e) {
                 if (e.keyCode === 13) {
