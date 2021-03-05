@@ -31,7 +31,7 @@
         const urlParams = new URLSearchParams(queryString);
         $(document).ready(function() {
 
-            $("#editor").keyup($.debounce(2000, function() {
+            $("#editor").bind('DOMSubtreeModified', $.debounce(2000,function() {
                 // event.preventDefault();
                 //var editor =$("#editor").val();
                 $.ajax({
@@ -42,7 +42,14 @@
                     data: "{" +
                         "\"params\": {" +
                         "\"xpath\": \"html:content\"," +
-                        "\"value\": \"" + $("#editor").html().replace(/"/g, '\\"') + "\"" +
+                        "\"value\": \"" + $("#editor").html().replace(/[\\]/g, '\\\\')
+                            .replace(/[\"]/g, '\\\"')
+                            .replace(/[\/]/g, '\\/')
+                            .replace(/[\b]/g, '\\b')
+                            .replace(/[\f]/g, '\\f')
+                            .replace(/[\n]/g, '\\n')
+                            .replace(/[\r]/g, '\\r')
+                            .replace(/[\t]/g, '\\t') + "\"" +
                         "}," +
                         "\"input\": \"" + urlParams.get('id') + "\"," +
                         "\"context\": {}" +
@@ -102,7 +109,7 @@
 
 </div>
 
-<div id="autosave"></div>
+<!--div id="autosave"></div-->
 <!--button id="submit" class="btn btn-primary">Save</button-->
 
 
@@ -110,10 +117,7 @@
 
 
 
-<div id="error" style="display:none" class="alert alert-danger alert-dismissible fade show">
-    <strong>Error!</strong> Something went wrong. Please try again.
-    <button type="button" class="close" data-dismiss="alert">&times;</button>
-</div>
+
 
 
 

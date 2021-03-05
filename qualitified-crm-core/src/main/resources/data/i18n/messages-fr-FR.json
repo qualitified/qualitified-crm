@@ -6,6 +6,8 @@
   "Limbo": "Infructueux",
   "label.metadata.link" : "Lien",
   "campaign" : "campagne",
+  "label.metadata.language":"Langue",
+  "visualize": "visualiser",
 
   "label.metadata.followed_link" : "Lien suivis",
   "label.document.type.interaction":"Interaction",
@@ -160,7 +162,7 @@
   "label.search.image": "Rechercher une image",
   "label.documents": "Documents",
   "addToCampaignButton.dialog.add": "Ajouter à une campagne",
-  "label.metadata.campaign.create": "Créer une nouvelle campagne"
-
+  "label.metadata.campaign.create": "Créer une nouvelle campagne",
+  "label.path.picture": "Chemin vers la ressource de l'image"
 
 }

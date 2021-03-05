@@ -50,6 +50,7 @@
     <schema name="email" prefix="email" override="true" src="data/schemas/email.xsd"/>
     <schema name="email_list_pp" prefix="email_list_pp" override="true" src="data/schemas/email_list_pp.xsd"/>
     <schema name="targeting" prefix="targeting" override="true" src="data/schemas/targeting.xsd"/>
+    <schema name="public" prefix="public" override="true" src="data/schemas/public.xsd"/>
 
 
 
@@ -97,6 +98,18 @@
       <facet name="HiddenInNavigation"/>
     </doctype>
 
+    <doctype extends="Document" name="Picture">
+      <schema name="common"/>
+      <schema name="uid"/>
+      <schema name="public"/>
+      <schema name="dublincore"/>
+      <facet name="Picture"/>
+      <facet name="Versionable"/>
+      <facet name="Publishable"/>
+      <facet name="Commentable"/>
+      <facet name="HasRelatedText"/>
+      <facet name="NXTag"/>
+    </doctype>
     <doctype name="Account" extends="Document">
       <schema name="account"/>
       <schema name="dublincore"/>
@@ -1440,7 +1453,13 @@
             <property name="size">0</property>
           </properties>
         </aggregate>
-
+        <aggregate id="language_agg" type="terms" parameter="person:language">
+          <field schema="targeting" name="language_agg"/>
+          <properties>
+            <property name="order">count desc</property>
+            <property name="size">0</property>
+          </properties>
+        </aggregate>
         <aggregate id="responsible_agg" type="terms" parameter="contact:responsible">
           <field schema="targeting" name="responsible_agg"/>
           <properties>

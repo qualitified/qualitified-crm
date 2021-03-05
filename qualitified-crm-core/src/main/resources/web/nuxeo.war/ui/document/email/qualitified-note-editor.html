@@ -94,7 +94,7 @@
         <div class="main">
             <div class="action" on-tap="_toggleDialog">
                 <paper-icon-button id="bt" icon="nuxeo:preview"  ></paper-icon-button>
-                <paper-tooltip for="bt" position="right">visualize</paper-tooltip>
+                <paper-tooltip for="bt" position="right">[[i18n('visualize')]]</paper-tooltip>
 
                 <span class="label"></span>
             </div>
@@ -125,7 +125,7 @@
 
             <nuxeo-dialog style="min-height: 700px; min-width: 1000px;" id="dialog" on-iron-overlay-closed="_dialogClosed" with-backdrop>
                 <div class="content">
-                    <iframe style="min-height: 600px; min-width: 900px;" class="editor" id="editor" src="/nuxeo/ui/alloy.html?id=[[document.uid]]" read-only="[[!_canEdit(document)]]" frameBorder="0"></iframe>
+                    <iframe style="min-height: 600px; min-width: 900px;" class="editor" id="editorr" src="/nuxeo/ui/alloy.html?id=[[document.uid]]" read-only="[[!_canEdit(document)]]" frameBorder="0"></iframe>
                 </div>
                 <div class="buttons">
                     <paper-button noink dialog-dismiss on-tap="_close">close</paper-button>
