@@ -1,4 +1,6 @@
 <link rel="import" href="qualitified-html-editor.html">
+<link href="../../elements/copy-to-clipboard.html" rel="import">
+
 <dom-module id="qualitified-note-editor" assetpath="qualitified-note-editor/">
     <template>
 
@@ -90,54 +92,93 @@
             }
         </style>
         <nuxeo-document id="note" doc-id="[[document.uid]]"></nuxeo-document>
-
         <div class="main">
+            <div class="action" on-tap="_toggleDialog2">
+                <paper-icon-button id="bt2" icon="nuxeo:add"  ></paper-icon-button>
+                <paper-tooltip for="bt2" position="right">browse to pictures</paper-tooltip>
+                <span class="label"></span>
+            </div>
             <div class="action" on-tap="_toggleDialog">
                 <paper-icon-button id="bt" icon="nuxeo:preview"  ></paper-icon-button>
                 <paper-tooltip for="bt" position="right">[[i18n('visualize')]]</paper-tooltip>
-
                 <span class="label"></span>
             </div>
+            <paper-tooltip for="bt2"></paper-tooltip>
             <paper-tooltip for="bt"></paper-tooltip>
-            <template is="dom-if" if="[[_isHTML(document)]]">
-                <div class="html-editor-container">
-                    <paper-icon-button id="editHtml" class="edit" icon="[[_computeHtmlEditIcon(_viewMode)]]" on-tap="_toggleHtmlSource" hidden$="[[!_canEdit(document)]]"></paper-icon-button>
-                    <paper-tooltip for="editHtml" position="right">[[_computeHtmlEditLabel(_viewMode, i18n)]]</paper-tooltip>
-                    <template is="dom-if" if="[[_viewMode]]">
-                        <iframe width="100%" height="300px" class="editor" id="editor" src="/nuxeo/ui/alloy.html?id=[[document.uid]]" frameBorder="0" read-only="[[!_canEdit(document)]]"></iframe>
-
-                        <!--qualitified-html-editor value="{{_value}}" read-only="[[!_canEdit(document)]]"></qualitified-html-editor-->
-                    </template>
-                    <template is="dom-if" if="[[!_viewMode]]">
-                        <paper-textarea value="{{_value}}" no-label-float="" placeholder="[[i18n('noteViewLayout.placeholder')]]"></paper-textarea>
-                    </template>
-                    <div class="layout horizontal end-justified">
-                        <paper-button name="editorSave" noink="" class="primary" on-tap="_editorSave" hidden$="[[!_canEdit(document)]]">[[i18n('command.save')]]</paper-button>
+            <div class="html-editor-container">
+                <paper-icon-button id="editHtml" class="edit" icon="[[_computeHtmlEditIcon(_viewMode)]]" on-tap="_toggleHtmlSource" hidden$="[[!_canEdit(document)]]"></paper-icon-button>
+                <paper-tooltip for="editHtml" position="right">[[_computeHtmlEditLabel(_viewMode, i18n)]]</paper-tooltip>
+                <template is="dom-if" if="[[_viewMode]]">
+                    <iframe width="100%" height="300px" class="editor" id="editor" src="/nuxeo/ui/alloy.html?id=[[document.uid]]" frameBorder="0" read-only="[[!_canEdit(document)]]"></iframe>
+                    <!--qualitified-html-editor value="{{_value}}" read-only="[[!_canEdit(document)]]"></qualitified-html-editor-->
+                </template>
+                <template is="dom-if" if="[[!_viewMode]]">
+                    <paper-textarea value="{{_value}}" no-label-float="" placeholder="[[i18n('noteViewLayout.placeholder')]]"></paper-textarea>
+                </template>
+                <div class="layout horizontal end-justified">
+                    <paper-button name="editorSave" noink="" class="primary" on-tap="_editorSave" hidden$="[[!_canEdit(document)]]">[[i18n('command.save')]]</paper-button>
+                </div>
+                <nuxeo-dialog style="min-height: 700px; min-width: 1000px;" id="dialog2" on-iron-overlay-closed="_dialogClosed" with-backdrop>
+                    <div class="content">
+                        <nuxeo-page-provider id="pictureProvider"
+                                             query="SELECT * FROM Picture where ecm:currentLifeCycleState != 'deleted' and ecm:isTrashed= 0  "
+                                             page-size="40"
+                                             enrichers="thumbnail, permissions"
+                                             page="[[pageNumber]]" params="[[params]]"
+                                             schemas="dublincore,common,uid,picture,public"
+                                             headers='{"X-NXfetch.document": "properties", "X-NXtranslate.directoryEntry": "label"}'
+                        >
+                        </nuxeo-page-provider>
+                        <nuxeo-results name="[[document.uid]]" nx-provider="[[pictureProvider]]"
+                                       selected-items="{{selectedItems}}">
+                            <nuxeo-data-grid name="grid" icon="icons:apps" class="results" empty-label="[[i18n('searchResults.noResults')]]"
+                                             selection-enabled display-quick-filters>
+                                <template>
+                                    <nuxeo-document-grid-thumbnail tabindex$="{{tabIndex}}" selected$="{{selected}}" doc="[[item]]"
+                                                                   on-navigate="_navigate">
+                                    </nuxeo-document-grid-thumbnail>
+                                </template>
+                            </nuxeo-data-grid>
+                            <nuxeo-data-table name="table" icon="icons:list" class="results"
+                                              settings-enabled
+                                              empty-label="[[i18n('searchResults.noResults')]]"
+                                              selection-enabled
+                                              display-quick-filters
+                                              >
+                                <nuxeo-data-table-column name="[[i18n('label.metadata.title')]]" field="dc:title" sort-by="dc:title" flex="100">
+                                    <template>
+                                        <nuxeo-document-thumbnail document="[[item]]"></nuxeo-document-thumbnail>
+                                        <a class="ellipsis" href$="[[urlFor('browse', item.path)]]" on-click="_navigate">[[item.title]]</a>
+                                    </template>
+                                </nuxeo-data-table-column>
+                                <nuxeo-data-table-column name="[[i18n('label.path.picture')]]"
+                                                         field="public:url" sort-by="public:url" flex="50" hidden>
+                                    <template>[[item.properties.public:url]]
+                                        <copy-to-clipboard
+                                                id="copyToClipboard"
+                                                clipboard-value-to-copy="[[item.properties.public:url]]"
+                                                clipboard-value-copied="{{copiedValue}}">
+                                        </copy-to-clipboard>
+                                    </template>
+                                </nuxeo-data-table-column>
+                            </nuxeo-data-table>
+                        </nuxeo-results>
                     </div>
-
-
-
-
-
-            </template>
-
-
-
-            <nuxeo-dialog style="min-height: 700px; min-width: 1000px;" id="dialog" on-iron-overlay-closed="_dialogClosed" with-backdrop>
-                <div class="content">
-                    <iframe style="min-height: 600px; min-width: 900px;" class="editor" id="editorr" src="/nuxeo/ui/alloy.html?id=[[document.uid]]" read-only="[[!_canEdit(document)]]" frameBorder="0"></iframe>
-                </div>
-                <div class="buttons">
-                    <paper-button noink dialog-dismiss on-tap="_close">close</paper-button>
-
-                </div>
-            </nuxeo-dialog>
+                    <div class="buttons">
+                        <paper-button  dialog-dismiss noink="">close</paper-button>
+                    </div>
+                </nuxeo-dialog>
+                <nuxeo-dialog style="min-height: 700px; min-width: 1000px;" id="dialog" on-iron-overlay-closed="_dialogClosed" with-backdrop>
+                    <div class="content">
+                        <iframe style="min-height: 600px; min-width: 900px;" class="editor" id="editorr" src="/nuxeo/ui/alloy.html?id=[[document.uid]]" read-only="[[!_canEdit(document)]]" frameBorder="0"></iframe>
+                    </div>
+                    <div class="buttons">
+                        <paper-button noink dialog-dismiss >close</paper-button>
+                    </div>
+                </nuxeo-dialog>
+            </div>
         </div>
-
-        </div>
-
     </template>
-
     <script>
         (function() {
             Polymer({
@@ -147,7 +188,6 @@
                     document: {
                         type: Object,
                         observer: '_documentChanged'
-
                     },
                     _viewMode: {
                         type: Boolean,
@@ -157,6 +197,7 @@
                         type: String,
                         value: ''
                     },
+
                     title: {
                         type: String
                     },
@@ -176,11 +217,18 @@
                 _toggleDialog: function() {
                     this.$.dialog.toggle();
                 },
+                _toggleDialog2: function() {
+                    this.$.dialog2.toggle();
+                },
                 _computeLabel() {
                     return this.i18n('label.move.hotel.to.network');
                 },
-                _close: function() {},
+                ready: function () {
+                  this.pictureProvider = this.$.pictureProvider;
+                 },
                 _dialogClosed: function() {},
+
+                },
                 _documentChanged: function() {
                     if (this._isHTML) {
                         this._value = (this.document.properties['html:content'] !== null) ? this.document.properties['html:content'] : "Tapez votre message ici...";
@@ -188,15 +236,12 @@
                         this._value = this.document.properties['note:note'];
                     }
                 },
-
                 _isHTML: function() {
                     return this.document && this.document.properties['note:mime_type'] === 'text/html';
                 },
-
                 _computeHtmlEditIcon: function() {
                     return this._viewMode ? 'icons:code' : 'nuxeo:edit';
                 },
-
                 _computeHtmlEditLabel: function() {
                     return this._viewMode ? this.i18n('noteEditor.editSource') : this.i18n('noteEditor.editRich');
                 },
@@ -226,30 +271,24 @@
                         this.fire('document-updated');
                     }.bind(this));
                 },
-
                 _isMutable: function(document) {
                     return !this.hasFacet(document, 'Immutable') && document.type !== 'Root' && !this.isTrashed(document);
                 },
-
                 _canEdit: function(document) {
                     return document.type !== 'Root' && this.hasPermission(document, 'Write') && this._isMutable(document);
                 },
-
                 _edit: function() {
                     this._value = this.document.properties['note:note'];
                     this._viewMode = false;
                 },
-
                 _cancel: function() {
                     this._value = '';
                     this._viewMode = true;
                 },
-
                 _toggleHtmlSource: function() {
                     this._viewMode = !this._viewMode;
                 }
             });
         })();
     </script>
-
 </dom-module>

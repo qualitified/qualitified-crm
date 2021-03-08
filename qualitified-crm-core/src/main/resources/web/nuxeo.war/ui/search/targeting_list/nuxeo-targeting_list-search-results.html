@@ -97,8 +97,10 @@
                 sortOptions: {
                     type: Array,
                     value: []
-                }
+                },
+
             },
+
              ready: function () {
                 var btnSelectAll = this.$.targetingTable.querySelectorAll("nuxeo-data-table-row[header='']")[0].querySelector("nuxeo-data-table-checkbox");
                 btnSelectAll.shadowRoot.styleSheets[0].rules[3].style.visibility = "visible";

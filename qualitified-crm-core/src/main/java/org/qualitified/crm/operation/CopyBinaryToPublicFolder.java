@@ -36,7 +36,6 @@ public class CopyBinaryToPublicFolder {
 
         PictureView picture= multiviewPicture.getView("Medium");
            Blob blob=picture.getBlob();
-           logger.warn("source is" +blob);
 
            if (blob!=null){
                 File dest = new File(folderPath+image.getPropertyValue("dc:title"));
