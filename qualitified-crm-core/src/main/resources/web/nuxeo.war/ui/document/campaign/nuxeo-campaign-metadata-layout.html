@@ -184,10 +184,11 @@
                 return hidden;
             },
             _getStepStatus: function(campaignStatus){
-            console.log(campaignStatus.id);
+            if(campaignStatus!=null){
                 if (campaignStatus.id === "Sent" ){
                  return "Finished in step";
                 } return "Next step";
+            }
             },
 
             _setWhereTerm: function (campaignId,automation,selectedStep) {
