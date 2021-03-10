@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<component name="org.qualitified.crm.listener.listener.copy">
+  <extension target="org.nuxeo.ecm.core.event.EventServiceComponent" point="listener">
+    <listener name="copy"
+      class="org.qualitified.crm.listener.Copy">
+        <event>documentCreated</event>
+        <event>documentModified</event>
+        <filters>
+          <doctype>Picture</doctype>
+          <attribute>Regular Document</attribute>
+        </filters>
+    </listener>
+  </extension>
+</component>

@@ -23,16 +23,6 @@
                        display-quick-filters="" display-sort="" sort-label="[[i18n('searchResults.sort.label')]]"
                        sort-options="[[sortOptions]]">
 
-            <nuxeo-data-grid class="results" empty-label="[[i18n('searchResults.noResults')]]" selection-enabled=""
-                             icon="nuxeo:view-thumbnails" name="grid">
-                <template>
-                    <nuxeo-document-grid-thumbnail tabindex$="{{tabIndex}}" selected$="{{selected}}" doc="[[item]]"
-                                                   index="[[index]]" on-navigate="_navigate"
-                                                   selected-items="[[selectedItems]]">
-                    </nuxeo-document-grid-thumbnail>
-                </template>
-            </nuxeo-data-grid>
-
             <nuxeo-data-table  id="targetingTable" class="results" settings-enabled="" empty-label="[[i18n('searchResults.noResults')]]"
                                selection-enabled="" on-row-clicked="_navigate" icon="nuxeo:view-list" name="table">
 
@@ -82,9 +72,16 @@
                         [[item.properties.person:phoneNumber]]
                     </template>
                 </nuxeo-data-table-column>
-
-
             </nuxeo-data-table>
+            <nuxeo-data-grid class="results" empty-label="[[i18n('searchResults.noResults')]]" selection-enabled=""
+                             icon="nuxeo:view-thumbnails" name="grid">
+                <template>
+                    <nuxeo-document-grid-thumbnail tabindex$="{{tabIndex}}" selected$="{{selected}}" doc="[[item]]"
+                                                   index="[[index]]" on-navigate="_navigate"
+                                                   selected-items="[[selectedItems]]">
+                    </nuxeo-document-grid-thumbnail>
+                </template>
+            </nuxeo-data-grid>
 
         </nuxeo-results>
     </template>

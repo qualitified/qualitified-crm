@@ -1556,14 +1556,10 @@
         <fixedPart>ecm:mixinType != 'HiddenInNavigation' AND ecm:isCheckedInVersion = 0 AND ecm:isTrashed = 0 AND ecm:currentLifeCycleState != 'deleted' AND ecm:primaryType = 'Link'</fixedPart>
       </whereClause>
       <searchDocumentType>link_list_pp</searchDocumentType>
-
-      <aggregates>
-
-      </aggregates>
       <sort column="dc:title" ascending="true"/>
       <pageSize>10</pageSize>
     </genericPageProvider>
-    <!--cpmaign page provoder -->
+    <!--campaign page provider -->
     <genericPageProvider class="org.nuxeo.elasticsearch.provider.ElasticSearchNxqlPageProvider" name="campaign_list">
       <trackUsage>true</trackUsage>
       <property name="coreSession">#{documentManager}</property>
@@ -1571,14 +1567,10 @@
         <predicate id="system_fulltext" parameter="ecm:fulltext" operator="FULLTEXT ALL">
           <field schema="campaign_list_pp" name="system_fulltext"/>
         </predicate>
-
         <predicate parameter="dc:created" operator="BETWEEN">
           <field schema="campaign_list_pp" name="campaign_closeDate_min" />
           <field schema="campaign_list_pp" name="campaign_closeDate_max" />
         </predicate>
-        <!--predicate id="dublincore_title" parameter="dc:title" operator="ILIKE">
-          <field schema="campaign_list_pp" name="dublincore_title"/>
-        </predicate-->
         <fixedPart>ecm:mixinType != 'HiddenInNavigation' AND ecm:isCheckedInVersion = 0 AND ecm:isTrashed = 0 AND ecm:currentLifeCycleState != 'deleted' AND ecm:primaryType = 'Campaign'</fixedPart>
       </whereClause>
       <searchDocumentType>campaign_list_pp</searchDocumentType>
@@ -1601,7 +1593,7 @@
           </properties>
         </aggregate>
       </aggregates>
-      <sort column="dc:title" ascending="true"/>
+      <sort column="dc:created" ascending="true"/>
       <pageSize>10</pageSize>
     </genericPageProvider>
     <genericPageProvider class="org.nuxeo.elasticsearch.provider.ElasticSearchNxqlPageProvider" name="automation_list">
@@ -2121,7 +2113,7 @@
       </acl>
       <template>
         <templateItem typeName="Sales" id="Sales" title="Sales" description=""/>
-        <templateItem typeName="Marketing" id="Marketing" title="Marketing" description=""/>
+        <!--templateItem typeName="Marketing" id="Marketing" title="Marketing" description=""/-->
         <templateItem typeName="Services" id="Services" title="Services" description=""/>
         <templateItem typeName="Admin" id="Admin" title="Admin" description=""/>
       </template>

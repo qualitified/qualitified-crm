@@ -17,16 +17,7 @@
 
     <nuxeo-results name="email_list" nx-provider="[[nxProvider]]">
 
-        <nuxeo-data-grid name="grid" icon="icons:apps" class="results" empty-label="[[i18n('searchResults.noResults')]]"
-                         selection-enabled display-quick-filters>
-          <template>
-            <nuxeo-document-grid-thumbnail tabindex$="{{tabIndex}}" selected$="{{selected}}" doc="[[item]]"
-                                           on-navigate="_navigate">
-            </nuxeo-document-grid-thumbnail>
-          </template>
-        </nuxeo-data-grid>
-
-        <nuxeo-data-table name="table" icon="icons:list" class="results"
+        <nuxeo-data-table name="table" icon="nuxeo:view-list" class="results"
                           settings-enabled
                           empty-label="[[i18n('searchResults.noResults')]]"
                           selection-enabled
@@ -58,6 +49,15 @@
           </nuxeo-data-table-column>
 
         </nuxeo-data-table>
+      <nuxeo-data-grid class="results" empty-label="[[i18n('searchResults.noResults')]]" selection-enabled=""
+                       icon="nuxeo:view-thumbnails" name="grid">
+        <template>
+          <nuxeo-document-grid-thumbnail tabindex$="{{tabIndex}}" selected$="{{selected}}" doc="[[item]]"
+                                         index="[[index]]" on-navigate="_navigate"
+                                         selected-items="[[selectedItems]]">
+          </nuxeo-document-grid-thumbnail>
+        </template>
+      </nuxeo-data-grid>
       </nuxeo-results>
   </template>
   <script>
@@ -95,8 +95,6 @@
         type: String
       }
     },
-
-
 
     _navigate: function(e) {
       this.fire('navigate', {doc: (e.model || e.detail).item});
