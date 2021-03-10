@@ -85,11 +85,6 @@ public class SendMail {
             MessageID = Long.toString(response.getJSONObject(0).getJSONArray("To")
                     .getJSONObject(0).getLong("MessageID"));
 
-        } catch (MailjetException m) {
-            logger.error("Error while running mailjet service", m);
-        } catch (JSONException j) {
-            logger.error("Mailjet service authorization error,expired or unvalidated apikey", j);
-        } finally {
             DocumentModel interactionDoc = documentManager.createDocumentModel("/Marketing", "interaction", "Interaction");
             interactionDoc.setPropertyValue("dc:title", "Mail to "+ contactDoc.getTitle());
             interactionDoc.setPropertyValue("interaction:status", "DONE");
@@ -98,12 +93,18 @@ public class SendMail {
             interactionDoc.setPropertyValue("interaction:campaignId",campaignId);
             interactionDoc.setPropertyValue("interaction:messageID",MessageID);
             interactionDoc.setPropertyValue("custom:documentField10",emailId);
+            interactionDoc.setPropertyValue("interaction:isSent", 1);
 
             contacts.add(contactDoc.getId());
             interactionDoc.setPropertyValue("interaction:contact",contacts);
             documentManager.createDocument(interactionDoc);
 
-            logger.info("Message with subject " +mailSubject+ "sent to " +toEmail+ "from" +fromEmail);
+            logger.trace("Message with subject " +mailSubject+ "sent to " +toEmail+ "from" +fromEmail);
+
+        } catch (MailjetException m) {
+            logger.error("Error while running mailjet service", m);
+        } catch (JSONException j) {
+            logger.error("Mailjet service authorization error, expired or unvalidated apikey", j);
         }
 
     }
