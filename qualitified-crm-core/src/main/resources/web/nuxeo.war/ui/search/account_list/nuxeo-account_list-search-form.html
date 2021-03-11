@@ -3,8 +3,8 @@
 @group Nuxeo UI
 @element nuxeo-account_list-search-form
 -->
-<link rel="import" href="../../qualitified-icons.html">
-<link rel="import" href="../../elements/nuxeo-document-create-popup-modified.html">
+<link href="../../qualitified-icons.html" rel="import">
+<link href="../../elements/nuxeo-document-create-popup-modified.html" rel="import">
 <dom-module id="nuxeo-account_list-search-form">
   <template>
     <style include="iron-flex">
@@ -12,8 +12,6 @@
       :host {
         display: block;
       }
-
-
       .row {
         box-sizing: border-box;
         margin-bottom: 1rem;
@@ -41,7 +39,6 @@
         padding: .5rem;
         width: 100%;
       }
-
       .new{
       position:absolute;
       }
@@ -53,14 +50,14 @@
     <nuxeo-connection id="nxcon" user="{{currentUser}}"></nuxeo-connection>
     <!-- Full Text -->
     <div id="scroll">
-    <nuxeo-input role="widget"
+    <nuxeo-input autofocus
                  id="searchInput"
-                 type="search"
                  label="[[i18n('defaultSearch.fullText')]]"
-                 value="{{searchTerm}}"
+                 on-keydown="_checkForEnter"
                  placeholder="[[i18n('defaultSearch.fullText.placeholder')]]"
-                 autofocus
-                 on-keydown="_checkForEnter">
+                 role="widget"
+                 type="search"
+                 value="{{searchTerm}}">
     </nuxeo-input>
 
     <div class="layout vertical row">
@@ -71,19 +68,19 @@
 
     <div class="layout vertical row">
       <label>[[i18n('label.metadata.nbemployees')]]</label>
-      <nuxeo-checkbox-aggregation data="[[aggregations.nbEmployees_agg]]" value="{{params.nbEmployees_agg}}" multiple="">
+      <nuxeo-checkbox-aggregation data="[[aggregations.nbEmployees_agg]]" multiple="" value="{{params.nbEmployees_agg}}">
       </nuxeo-checkbox-aggregation>
     </div>
 
     <div class="layout vertical row">
       <label>[[i18n('label.metadata.turnover')]]</label>
-      <nuxeo-checkbox-aggregation data="[[aggregations.turnover_agg]]" value="{{params.turnover_agg}}" multiple="">
+      <nuxeo-checkbox-aggregation data="[[aggregations.turnover_agg]]" multiple="" value="{{params.turnover_agg}}">
       </nuxeo-checkbox-aggregation>
     </div>
 
     <div class="layout vertical row">
       <label>[[i18n('label.metadata.responsible')]]</label>
-      <nuxeo-dropdown-aggregation data="[[aggregations.responsible_agg]]" value="{{params.responsible_agg}}" multiple="">
+      <nuxeo-dropdown-aggregation data="[[aggregations.responsible_agg]]" multiple="" value="{{params.responsible_agg}}">
       </nuxeo-dropdown-aggregation>
     </div>
     <div class="layout vertical row">
@@ -107,25 +104,23 @@
     <!-- Create a new Account -->
     </div>
     <div class="actions layout vertical style-scope nuxeo-search-form">
-      <paper-button noink="" id="new" class="primary horizontal layout center" on-tap="_openDialog" elevation="0">
+      <paper-button class="primary horizontal layout center" elevation="0" id="new" noink="" on-tap="_openDialog">
         <iron-icon icon="qualitified:account"></iron-icon> [[i18n('command.new.account')]]
       </paper-button>
     </div>
 
-    <nuxeo-document id="defaultDoc"
-                    auto
+    <nuxeo-document auto
                     doc-path="/Sales"
                     enrichers="permissions, subtypes"
+                    id="defaultDoc"
                     response="{{parent}}">
     </nuxeo-document>
 
-    <nuxeo-document-create-popup-modified id="importPopup"
-                                          parent="[[parent]]"
-                                          default-path="/Sales">
+    <nuxeo-document-create-popup-modified default-path="/Sales"
+                                          id="importPopup"
+                                          parent="[[parent]]">
     </nuxeo-document-create-popup-modified>
     <!-- /Create a new Account -->
-
-
 
   </template>
 
@@ -154,16 +149,6 @@
           observer: '_addFullTextSearch'
         }
       },
-
-      /*attached: function () {
-        const app = document.querySelector('nuxeo-app');
-        const searchForm = document.querySelector('nuxeo-app').$.drawer.querySelector('nuxeo-search-form[name="account-list"]');
-        const style = document.createElement('style');
-        style.innerHTML += 'nuxeo-search-form-layout { display: block; height: calc(100% - 100px); margin-bottom: 10px; overflow-y: auto; }';
-
-        searchForm.root.appendChild(style);
-      },*/
-
       _addFullTextSearch: function() {
         if (this.searchTerm) {
           console.log(this.searchTerm);
