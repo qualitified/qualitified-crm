@@ -9,10 +9,11 @@
 
     <title>Html editor</title>
 
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script>
         var CKEDITOR_BASEPATH = '/nuxeo/ui/alloy-editor/';
     </script>
-    <link href="alloy-editor/assets/alloy-editor-ocean-min.css" rel="stylesheet">
+    <link href="alloy-editor/assets/alloy-editor-ocean-min.css" rel="stylesheet"></link>
     <link href="alloy-editor/assets/alloy-editor-ocean.css" rel="stylesheet">
 
     <script src="alloy-editor/alloy-editor-all.js"></script>
@@ -30,6 +31,7 @@
         $(document).ready(function() {
 
             $("#editor").bind('DOMSubtreeModified', $.debounce(2000,function() {
+
                 $.ajax({
                     type: "post",
                     url: "/nuxeo/site/api/v1/automation/Document.SetProperty",
@@ -84,6 +86,8 @@
                     setTimeout(() => {
                         $("#editor").html(data.properties["html:content"]);
                     }, 2000);
+
+
 
                 },
                 type: 'GET'
