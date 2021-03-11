@@ -8,9 +8,11 @@
 <dom-module id="nuxeo-account_list-search-form">
   <template>
     <style include="iron-flex">
+
       :host {
         display: block;
       }
+
 
       .row {
         box-sizing: border-box;
@@ -40,9 +42,17 @@
         width: 100%;
       }
 
+      .new{
+      position:absolute;
+      }
+      #scroll{
+      height:70vh;
+      overflow:auto;}
+
     </style>
     <nuxeo-connection id="nxcon" user="{{currentUser}}"></nuxeo-connection>
     <!-- Full Text -->
+    <div id="scroll">
     <nuxeo-input role="widget"
                  id="searchInput"
                  type="search"
@@ -95,6 +105,7 @@
     </div>
 
     <!-- Create a new Account -->
+    </div>
     <div class="actions layout vertical style-scope nuxeo-search-form">
       <paper-button noink="" id="new" class="primary horizontal layout center" on-tap="_openDialog" elevation="0">
         <iron-icon icon="qualitified:account"></iron-icon> [[i18n('command.new.account')]]
@@ -143,6 +154,15 @@
           observer: '_addFullTextSearch'
         }
       },
+
+      /*attached: function () {
+        const app = document.querySelector('nuxeo-app');
+        const searchForm = document.querySelector('nuxeo-app').$.drawer.querySelector('nuxeo-search-form[name="account-list"]');
+        const style = document.createElement('style');
+        style.innerHTML += 'nuxeo-search-form-layout { display: block; height: calc(100% - 100px); margin-bottom: 10px; overflow-y: auto; }';
+
+        searchForm.root.appendChild(style);
+      },*/
 
       _addFullTextSearch: function() {
         if (this.searchTerm) {
