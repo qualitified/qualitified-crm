@@ -76,9 +76,27 @@
       <version>0.1.55</version>
     </dependency>
     <dependency>
+      <groupId>org.nuxeo.ecm.platform</groupId>
+      <artifactId>nuxeo-platform-imaging-api</artifactId>
+      <version>10.10</version>
+    </dependency>
+    <dependency>
       <groupId>com.mailjet</groupId>
       <artifactId>mailjet-client</artifactId>
       <version>4.2.0</version>
+    </dependency>
+    <dependency>
+      <groupId>org.nuxeo.ecm.platform</groupId>
+      <artifactId>nuxeo-platform-imaging-api</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.nuxeo.ecm.platform</groupId>
+      <artifactId>nuxeo-platform-imaging-api</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.nuxeo.ecm.platform</groupId>
+      <artifactId>nuxeo-platform-imaging-api</artifactId>
+      <version>10.10</version>
     </dependency>
   </dependencies>
 

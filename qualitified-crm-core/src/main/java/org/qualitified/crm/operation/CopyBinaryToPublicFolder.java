@@ -1,5 +1,4 @@
 package org.qualitified.crm.operation;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.json.JSONException;
@@ -11,10 +10,9 @@ import org.nuxeo.ecm.automation.core.annotations.OperationMethod;
 import org.nuxeo.ecm.core.api.Blob;
 import org.nuxeo.ecm.core.api.CoreSession;
 import org.nuxeo.ecm.core.api.DocumentModel;
-import org.nuxeo.ecm.core.api.DocumentModelList;
+import org.nuxeo.ecm.platform.picture.api.PictureView;
+import org.nuxeo.ecm.platform.picture.api.adapters.MultiviewPicture;
 import org.nuxeo.runtime.api.Framework;
-import org.qualitified.crm.listener.PreCopy;
-
 import java.io.*;
 
 @Operation(id = CopyBinaryToPublicFolder.ID, category = Constants.CAT_EXECUTION, label = "Copy Binary To Public Folder", description = "...")
@@ -23,7 +21,7 @@ public class CopyBinaryToPublicFolder {
     public final static String ID = "Qualitified.CopyBinaryToPublicFolder";
     String folderPath= Framework.getProperty("public.folder.path");
     String serverPath=Framework.getProperty("nuxeo.url");
-    private Log logger = LogFactory.getLog(PreCopy.class);
+    private Log logger = LogFactory.getLog(CopyBinaryToPublicFolder.class);
 
     @Context
     protected CoreSession session;
@@ -32,15 +30,18 @@ public class CopyBinaryToPublicFolder {
     @OperationMethod()
     public void run(DocumentModel image) throws IOException, OperationException, JSONException {
 
-           File source = new File(image.getPathAsString());
-           Blob blob = (Blob)image.getPropertyValue("file:content");
-           logger.warn("source is" +source);
+
+          // File source = new File(image.getPathAsString());
+        MultiviewPicture multiviewPicture = image.getAdapter(MultiviewPicture.class);
+
+        PictureView picture= multiviewPicture.getView("Medium");
+           Blob blob=picture.getBlob();
 
            if (blob!=null){
-                File dest = new File(folderPath+blob.getFilename());
+                File dest = new File(folderPath+image.getPropertyValue("dc:title"));
                 blob.transferTo(dest);
                 String[] path= serverPath.split("nuxeo");
-                image.setPropertyValue("public:url",path[0]+"resources/"+blob.getFilename());
+                image.setPropertyValue("public:url",path[0]+"resources/"+image.getPropertyValue("dc:title"));
            }
     }
 }

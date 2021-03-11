@@ -50,14 +50,14 @@ public class FetchMailHistory {
     int isSent = 0;
     int isOpened = 0;
     int isClicked = 0;
-    int isUnsubscribed = 0;
+    String targetStatus = "subscribed";
     int isSpam = 0;
     int isBlocked = 0;
-    String statusMail = null;
+    String statusMail = "Not opened";
     JSONObject response = null;
 
     @OperationMethod
-    public void run(DocumentModel interactionDoc) throws OperationException, LoginException, MailjetSocketTimeoutException, JSONException {
+    public void run(DocumentModel interactionDoc) throws OperationException, LoginException, JSONException {
         EmailingService emailingService = Framework.getService(EmailingService.class);
         LoginContext lc = Framework.loginAsUser("Administrator");
         ctx.getLoginStack().push(lc);
@@ -66,11 +66,9 @@ public class FetchMailHistory {
 
         try {
             response = emailingService.fetchHistory(Long.parseLong(MessageID));
-        } catch (MailjetException m) {
-            logger.error("Error while running mailjet service", m);
-        } finally {
-            Calendar cal = Calendar.getInstance();
-            List<Map<String, Object>> mailHistory = new ArrayList<Map<String, Object>>();
+            // if no error appears during running mailjet service, the email considered as sent but
+            // not necessarily delivered.
+            List<Map<String, Object>> mailHistory = new ArrayList<>();
 
             for (int i = 0; i < response.getLong("count"); i++) {
                 Map<String, Object> Details = new HashMap<String, Object>();
@@ -86,12 +84,12 @@ public class FetchMailHistory {
                 mailHistory.add(Details);
             }
 
-
-            for (int i = 0; i < mailHistory.size(); i++) {
+            // sometimes mailjet response can be empty array, should check the mailHistory if not empty
+            if (mailHistory.size() > 0) {
+                for (int i = 0; i < mailHistory.size(); i++) {
                     switch (mailHistory.get(i).get("eventTypes").toString()) {
                         case "sent":
-                            isSent = 1;
-                            statusMail = "Not opened";
+                            isDelivered = 1;
                             break;
                         case "opened":
                             isOpened = 1;
@@ -101,7 +99,7 @@ public class FetchMailHistory {
                             isClicked = 1;
                             break;
                         case "unsub":
-                            isUnsubscribed = 1;
+                            targetStatus = "unsubscribed";
                             break;
                         case "spam":
                             isSpam = 1;
@@ -109,21 +107,31 @@ public class FetchMailHistory {
                         case "blocked":
                             isBlocked = 1;
                             break;
+                        case "hardbounced":
+                            targetStatus = "hardbounced";
+                            isDelivered = 0;
+                            break;
                         default :
                             isDelivered = 0;
                     }
-            }
-            String[] person = (String[]) interactionDoc.getPropertyValue("interaction:contact");
-            IdRef personId = new IdRef(person[0]);
-            DocumentModel personDoc = documentManager.getDocument(personId);
-            interactionDoc.setPropertyValue("interaction:data", (Serializable) mailHistory);
-            interactionDoc.setPropertyValue("interaction:isSent", isSent);
-            interactionDoc.setPropertyValue("interaction:isDelivered", isDelivered);
-            interactionDoc.setPropertyValue("interaction:isOpened", isOpened);
-            interactionDoc.setPropertyValue("interaction:isClicked", isClicked);
-            interactionDoc.setPropertyValue("interaction:statusMail", statusMail);
-            personDoc.setPropertyValue("custom:integerField1",isUnsubscribed);
-            documentManager.saveDocuments(new DocumentModel[]{interactionDoc,personDoc});
+                }
+                String[] person = (String[]) interactionDoc.getPropertyValue("interaction:contact");
+                IdRef personId = new IdRef(person[0]);
+                DocumentModel personDoc = documentManager.getDocument(personId);
+                interactionDoc.setPropertyValue("interaction:data", (Serializable) mailHistory);
+                interactionDoc.setPropertyValue("interaction:isDelivered", isDelivered);
+                interactionDoc.setPropertyValue("interaction:isOpened", isOpened);
+                interactionDoc.setPropertyValue("interaction:isClicked", isClicked);
+                interactionDoc.setPropertyValue("interaction:statusMail", statusMail);
+                personDoc.setPropertyValue("person:targetStatus",targetStatus);
+                documentManager.saveDocuments(new DocumentModel[]{interactionDoc,personDoc});
+
+            } else logger.warn("Something happened while email history fetching, MessageID: "+ MessageID);
+
+        } catch (MailjetException m) {
+            logger.error("Error while running mailjet service", m);
+        } catch (MailjetSocketTimeoutException mst) {
+            logger.error("Error while getting response, Mailjet SocketTimeout ", mst);
         }
     }
 

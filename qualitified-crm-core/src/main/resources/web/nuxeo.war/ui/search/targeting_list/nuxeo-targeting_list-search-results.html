@@ -23,18 +23,8 @@
                        display-quick-filters="" display-sort="" sort-label="[[i18n('searchResults.sort.label')]]"
                        sort-options="[[sortOptions]]">
 
-            <nuxeo-data-grid class="results" empty-label="[[i18n('searchResults.noResults')]]" selection-enabled=""
-                             icon="nuxeo:view-thumbnails" name="grid">
-                <template>
-                    <nuxeo-document-grid-thumbnail tabindex$="{{tabIndex}}" selected$="{{selected}}" doc="[[item]]"
-                                                   index="[[index]]" on-navigate="_navigate"
-                                                   selected-items="[[selectedItems]]">
-                    </nuxeo-document-grid-thumbnail>
-                </template>
-            </nuxeo-data-grid>
-
             <nuxeo-data-table  id="targetingTable" class="results" settings-enabled="" empty-label="[[i18n('searchResults.noResults')]]"
-                              selection-enabled="" on-row-clicked="_navigate" icon="nuxeo:view-list" name="table">
+                               selection-enabled="" on-row-clicked="_navigate" icon="nuxeo:view-list" name="table">
 
                 <nuxeo-data-table-column name="Title" field="dc:title" sort-by="dc:title" flex="90">
                     <template>
@@ -64,9 +54,15 @@
                     </template>
                 </nuxeo-data-table-column>
 
-                <nuxeo-data-table-column name="E-mail" field="person:email" sort-by="person:email" flex="100">
+                <nuxeo-data-table-column name="E-mail" field="person:email" sort-by="person:email" flex="60">
                     <template>
                         [[item.properties.person:email]]
+                    </template>
+                </nuxeo-data-table-column>
+                <nuxeo-data-table-column name="Status" field="person:targetStatus" sort-by="person:targetStatus" flex="60">
+                    <template align-right>
+                        <iron-icon icon="[[_getStatusIcon(item.properties.person:targetStatus)]]" style="[[_getStatusIconStyle(item.properties.person:targetStatus)]]"></iron-icon>
+
                     </template>
                 </nuxeo-data-table-column>
 
@@ -76,9 +72,16 @@
                         [[item.properties.person:phoneNumber]]
                     </template>
                 </nuxeo-data-table-column>
-
-
             </nuxeo-data-table>
+            <nuxeo-data-grid class="results" empty-label="[[i18n('searchResults.noResults')]]" selection-enabled=""
+                             icon="nuxeo:view-thumbnails" name="grid">
+                <template>
+                    <nuxeo-document-grid-thumbnail tabindex$="{{tabIndex}}" selected$="{{selected}}" doc="[[item]]"
+                                                   index="[[index]]" on-navigate="_navigate"
+                                                   selected-items="[[selectedItems]]">
+                    </nuxeo-document-grid-thumbnail>
+                </template>
+            </nuxeo-data-grid>
 
         </nuxeo-results>
     </template>
@@ -91,8 +94,10 @@
                 sortOptions: {
                     type: Array,
                     value: []
-                }
+                },
+
             },
+
              ready: function () {
                 var btnSelectAll = this.$.targetingTable.querySelectorAll("nuxeo-data-table-row[header='']")[0].querySelector("nuxeo-data-table-checkbox");
                 btnSelectAll.shadowRoot.styleSheets[0].rules[3].style.visibility = "visible";
@@ -121,6 +126,22 @@
                     {field: 'dc:nature', label: this.i18n('searchResults.sort.field.nature'), order: 'asc'},
                     {field: 'dc:coverage', label: this.i18n('searchResults.sort.field.coverage'), order: 'asc'}
                 ];
+            },
+            _getStatusIcon: function(targetStatus) {
+               if (targetStatus) {
+                  if (targetStatus.id ==="subscribed") {
+                     return "thumb-up"
+                  } else if ( targetStatus.id ==="unsubscribed" ) {
+                       return "thumb-down";
+                  } else return "remove-circle-outline";
+               } else return "";
+            },
+            _getStatusIconStyle: function(targetStatus) {
+               if (targetStatus) {
+                  if (targetStatus.id ==="subscribed") {
+                     return "color:#2bd670"
+                  } else return "color:#f50808";
+               } else return "";
             },
 
             _navigate: function(e) {

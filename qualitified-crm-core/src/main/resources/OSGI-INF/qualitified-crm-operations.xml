@@ -31,7 +31,5 @@
         <operation class="org.qualitified.crm.operation.SuggestCampaignEntry"/>
         <operation class="org.qualitified.crm.operation.CopyBinaryToPublicFolder"/>
 
-
-
     </extension>
  </component>

@@ -217,12 +217,13 @@ public class EmailingProcess {
                 }
                 activeContacts = personList.toString().replace("[","(").replace("]",")");
                 contactsQuery = "SELECT * FROM Document " +
-                        "WHERE ecm:primaryType IN ('Contact','Silhouette')" +
+                        "WHERE ecm:primaryType IN ('Contact','Silhouette') " +
                         "AND ecm:uuid IN " + activeContacts + " " +
-                        "AND custom:integerField1 = 0 " +
+                        "AND person:targetStatus = 'subscribed' " +
+                        "AND person:email IS NOT NULL " +
                         "AND ecm:mixinType != 'HiddenInNavigation'" +
                         "AND ecm:isCheckedInVersion = 0 " +
-                        "AND ecm:currentLifeCycleState !='deleted'" +
+                        "AND ecm:currentLifeCycleState !='deleted' " +
                         "AND ecm:isTrashed = 0 " +
                         "AND collectionMember:collectionIds/* = '" + campaignId + "' ";
             } else {
@@ -232,9 +233,10 @@ public class EmailingProcess {
 
         } else {
             contactsQuery = "SELECT * FROM Document " +
-                    "WHERE ecm:primaryType IN ('Contact','Silhouette')" +
-                    "AND (custom:integerField1 IS NULL OR custom:integerField1 = 0) " +
-                    "AND ecm:mixinType != 'HiddenInNavigation'" +
+                    "WHERE ecm:primaryType IN ('Contact','Silhouette') " +
+                    "AND (person:targetStatus IS NULL OR person:targetStatus = 'subscribed') " +
+                    "AND person:email IS NOT NULL " +
+                    "AND ecm:mixinType != 'HiddenInNavigation' " +
                     "AND ecm:isCheckedInVersion = 0 " +
                     "AND ecm:currentLifeCycleState !='deleted'" +
                     "AND ecm:isTrashed = 0 " +

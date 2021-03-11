@@ -108,6 +108,7 @@
       <facet name="Publishable"/>
       <facet name="Commentable"/>
       <facet name="HasRelatedText"/>
+      <facet name="ContentViewDisplay"/>
       <facet name="NXTag"/>
     </doctype>
     <doctype name="Account" extends="Document">
@@ -1414,7 +1415,6 @@
           <field schema="targeting" name="targeting_datefield1_min"/>
           <field schema="targeting" name="targeting_datefield1_max"/>
         </predicate>
-
         <predicate parameter="person:firstName" operator="=">
           <field schema="targeting" name="person_firstName"/>
         </predicate>
@@ -1435,6 +1435,13 @@
         </aggregate>
         <aggregate id="person_role_agg" type="terms" parameter="person:Role">
           <field schema="targeting" name="person_role_agg"/>
+          <properties>
+            <property name="order">count desc</property>
+            <property name="size">0</property>
+          </properties>
+        </aggregate>
+        <aggregate id="person_targetStatus_agg" type="terms" parameter="person:targetStatus">
+          <field schema="targeting" name="person_targetStatus_agg"/>
           <properties>
             <property name="order">count desc</property>
             <property name="size">0</property>
@@ -1549,14 +1556,10 @@
         <fixedPart>ecm:mixinType != 'HiddenInNavigation' AND ecm:isCheckedInVersion = 0 AND ecm:isTrashed = 0 AND ecm:currentLifeCycleState != 'deleted' AND ecm:primaryType = 'Link'</fixedPart>
       </whereClause>
       <searchDocumentType>link_list_pp</searchDocumentType>
-
-      <aggregates>
-
-      </aggregates>
       <sort column="dc:title" ascending="true"/>
       <pageSize>10</pageSize>
     </genericPageProvider>
-    <!--cpmaign page provoder -->
+    <!--campaign page provider -->
     <genericPageProvider class="org.nuxeo.elasticsearch.provider.ElasticSearchNxqlPageProvider" name="campaign_list">
       <trackUsage>true</trackUsage>
       <property name="coreSession">#{documentManager}</property>
@@ -1564,14 +1567,10 @@
         <predicate id="system_fulltext" parameter="ecm:fulltext" operator="FULLTEXT ALL">
           <field schema="campaign_list_pp" name="system_fulltext"/>
         </predicate>
-
         <predicate parameter="dc:created" operator="BETWEEN">
           <field schema="campaign_list_pp" name="campaign_closeDate_min" />
           <field schema="campaign_list_pp" name="campaign_closeDate_max" />
         </predicate>
-        <!--predicate id="dublincore_title" parameter="dc:title" operator="ILIKE">
-          <field schema="campaign_list_pp" name="dublincore_title"/>
-        </predicate-->
         <fixedPart>ecm:mixinType != 'HiddenInNavigation' AND ecm:isCheckedInVersion = 0 AND ecm:isTrashed = 0 AND ecm:currentLifeCycleState != 'deleted' AND ecm:primaryType = 'Campaign'</fixedPart>
       </whereClause>
       <searchDocumentType>campaign_list_pp</searchDocumentType>
@@ -1594,7 +1593,7 @@
           </properties>
         </aggregate>
       </aggregates>
-      <sort column="dc:title" ascending="true"/>
+      <sort column="dc:created" ascending="true"/>
       <pageSize>10</pageSize>
     </genericPageProvider>
     <genericPageProvider class="org.nuxeo.elasticsearch.provider.ElasticSearchNxqlPageProvider" name="automation_list">
@@ -2114,7 +2113,7 @@
       </acl>
       <template>
         <templateItem typeName="Sales" id="Sales" title="Sales" description=""/>
-        <templateItem typeName="Marketing" id="Marketing" title="Marketing" description=""/>
+        <!--templateItem typeName="Marketing" id="Marketing" title="Marketing" description=""/-->
         <templateItem typeName="Services" id="Services" title="Services" description=""/>
         <templateItem typeName="Admin" id="Admin" title="Admin" description=""/>
       </template>
@@ -2133,7 +2132,7 @@
     <directory name="groupDirectory">
       <dataFile>data/groups.csv</dataFile>
       <createTablePolicy>never</createTablePolicy>
-      <references>
+      <referencs>
         <inverseReference field="parentGroups" directory="groupDirectory" dualReferenceField="subGroups"/>
         <tableReference field="members" directory="userDirectory" table="user2group" sourceColumn="groupId" targetColumn="userId" schema="user2group" dataFile="data/user2group.csv"/>
         <tableReference field="subGroups" directory="groupDirectory" table="group2group" sourceColumn="parentGroupId" targetColumn="childGroupId" schema="group2group"/>
@@ -2216,7 +2215,17 @@
       <table>studio_vocabulary_Zone</table>
       <dataFile>data/vocabularies/Zone.csv</dataFile>
     </directory>
-
+    <directory name="targetEmailStatus">
+      <schema>vocabulary</schema>
+      <dataSource>java:/nxsqldirectory</dataSource>
+      <cacheTimeout>3600</cacheTimeout>
+      <cacheMaxSize>1000</cacheMaxSize>
+      <idField>id</idField>
+      <autoincrementIdField>false</autoincrementIdField>
+      <createTablePolicy>on_missing_columns</createTablePolicy>
+      <table>studio_vocabulary_targetEmailStatus</table>
+      <dataFile>data/vocabularies/targetEmailStatus.csv</dataFile>
+    </directory>
     <directory name="Role">
       <schema>vocabulary</schema>
       <dataSource>java:/nxsqldirectory</dataSource>
@@ -2445,6 +2454,9 @@
     </openUrl>
     <openUrl name="Register">
       <grantPattern>${org.nuxeo.ecm.contextPath}/site/api/v1/register/.*</grantPattern>
+    </openUrl>
+    <openUrl name="Unsub">
+      <grantPattern>${org.nuxeo.ecm.contextPath}/site/api/v1/unsub/.*</grantPattern>
     </openUrl>
   </extension>
   <extension point="permissions" target="org.nuxeo.ecm.core.security.SecurityService">

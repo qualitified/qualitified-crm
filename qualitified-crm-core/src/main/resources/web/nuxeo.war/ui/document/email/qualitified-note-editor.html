@@ -57,22 +57,16 @@
 
         </style>
         <nuxeo-document id="note" doc-id="[[document.uid]]"></nuxeo-document>
-
         <div class="main">
             <div class="action" on-tap="_toggleDialog2">
                 <paper-icon-button id="bt2" icon="nuxeo:add"  ></paper-icon-button>
                 <paper-tooltip for="bt2" position="right">browse to pictures</paper-tooltip>
-
-                <span class="label"></span>
             </div>
             <div class="action" on-tap="_toggleDialog">
                 <paper-icon-button id="bt" icon="nuxeo:preview"  ></paper-icon-button>
                 <paper-tooltip for="bt" position="right">[[i18n('visualize')]]</paper-tooltip>
-
                 <span class="label"></span>
             </div>
-            <paper-tooltip for="bt2"></paper-tooltip>
-
             <paper-tooltip for="bt"></paper-tooltip>
             <template is="dom-if" if="[[_isHTML(document)]]">
 
@@ -91,10 +85,6 @@
                     </div>
 
             </template>
-
-
-
-
 
 
             <nuxeo-dialog style="min-height: 500px; min-width: 900px;" id="dialog2" on-iron-overlay-closed="_dialogClosed" with-backdrop>
@@ -134,7 +124,6 @@
 
                                                 copy-value-is-not-focused ></copy-to-clipboard>
 
-
                                         <div>
 
                                         </div>
@@ -155,18 +144,15 @@
             <nuxeo-dialog style="min-height: 700px; min-width: 1000px;" id="dialog" on-iron-overlay-closed="_dialogClosed" with-backdrop>
                 <div class="content">
                     <iframe style="min-height: 600px; min-width: 900px;" class="editor" id="editorr" src="/nuxeo/ui/alloy.html?id=[[document.uid]]" read-only="[[!_canEdit(document)]]" frameBorder="0"></iframe>
-                </div>
-                <div class="buttons">
-                    <paper-button noink dialog-dismiss on-tap="_close">close</paper-button>
 
-                </div>
-            </nuxeo-dialog>
+                </div>                    
+                    <div class="buttons">
+                        <paper-button noink dialog-dismiss >close</paper-button>
+                    </div>
+                </nuxeo-dialog>
+            </div>
         </div>
-
-        </div>
-
     </template>
-
     <script>
         (function() {
             Polymer({
@@ -176,7 +162,6 @@
                     document: {
                         type: Object,
                         observer: '_documentChanged'
-
                     },
                     _viewMode: {
                         type: Boolean,
@@ -186,6 +171,7 @@
                         type: String,
                         value: ''
                     },
+
                     title: {
                         type: String
                     },
@@ -217,24 +203,27 @@
                     this.pictureProvider = this.$.pictureProvider;
                 },
 
+                _computeLabel() {
+                    return this.i18n('label.move.hotel.to.network');
+                },
+                ready: function () {
+                  this.pictureProvider = this.$.pictureProvider;
+                 },
+                _dialogClosed: function() {},
 
-                _documentChanged: function(doc) {
-
+                _documentChanged: function() {
                     if (this._isHTML) {
                         this._value = (this.document.properties['html:content'] !== null) ? this.document.properties['html:content'] : "Tapez votre message ici...";
                     } else {
                         this._value = this.document.properties['note:note'];
                     }
                 },
-
                 _isHTML: function() {
                     return this.document && this.document.properties['note:mime_type'] === 'text/html';
                 },
-
                 _computeHtmlEditIcon: function() {
                     return this._viewMode ? 'icons:code' : 'nuxeo:edit';
                 },
-
                 _computeHtmlEditLabel: function() {
                     return this._viewMode ? this.i18n('noteEditor.editSource') : this.i18n('noteEditor.editRich');
                 },
@@ -264,20 +253,16 @@
                         this.fire('document-updated');
                     }.bind(this));
                 },
-
                 _isMutable: function(document) {
                     return !this.hasFacet(document, 'Immutable') && document.type !== 'Root' && !this.isTrashed(document);
                 },
-
                 _canEdit: function(document) {
                     return document.type !== 'Root' && this.hasPermission(document, 'Write') && this._isMutable(document);
                 },
-
                 _edit: function() {
                     this._value = this.document.properties['note:note'];
                     this._viewMode = false;
                 },
-
                 _cancel: function() {
                     this._value = '';
                     this._viewMode = true;
@@ -294,12 +279,10 @@
                 },_navigate: function(e) {
                     this.fire('navigate', { doc: (e.model || e.detail).item, index: (e.model || e.detail).index });
                 },
-
                 _toggleHtmlSource: function() {
                     this._viewMode = !this._viewMode;
                 }
             });
         })();
     </script>
-
 </dom-module>

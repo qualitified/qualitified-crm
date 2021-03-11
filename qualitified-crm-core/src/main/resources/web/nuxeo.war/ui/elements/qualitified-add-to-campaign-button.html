@@ -25,10 +25,10 @@
         <nuxeo-operation  async="true" id="addToCollectionOp" input="[[input]]" op="Qualitified.AddToCampaign" params="[[params]]"></nuxeo-operation>
         <nuxeo-operation async="true" id="addToCampaign"  op="Qualitified.AddToCampaignBulk" params="[[params]]" >
         </nuxeo-operation>
-
-        <paper-icon-button  icon="qualitified:add-to-campaign" id="button" on-tap="_toggleDialog"></paper-icon-button>
+        <div hidden$="[[!isHidden]]">
+       <paper-icon-button  icon="qualitified:add-to-campaign" id="button" on-tap="_toggleDialog"></paper-icon-button>
         <paper-tooltip for="button">[[i18n('addToCampaignButton.dialog.add')]]</paper-tooltip>
-
+        </div>
             <nuxeo-dialog id="dialog" with-backdrop="" on-iron-overlay-closed="_resetPopup" no-auto-focus="">
 
             <h2>[[i18n('addToCampaignButton.dialog.add')]]</h2>
@@ -67,27 +67,28 @@
           notify: true,
           value: []
         },
+        isHidden: {
+        type:Boolean},
         collection: {
           type: String,
           value: ''
         },
        selectedItems: {
           type: Object
-        },
-        nxProvider: {
+       },
+       nxProvider: {
           type: Object
-        },
+       },
         params1: {
             type: Object
-          },
-         params: {
+        },
+        params: {
           type: Object
-         },
+        },
         tooltipPosition: {
           type: String,
           value: 'bottom'
         },
-
         resultsFilter: {
           type: Function,
           value: function() {
@@ -119,15 +120,16 @@
         },
         _documentReady: function(doc){
         console.log(this.document);
+
         },
 
         _routerChanged: function () {
             var searchName = document.querySelector("body > nuxeo-app").searchName;
-                if (searchName && searchName.localeCompare("targeting_list") == 0 && location.hash.localeCompare("#!/search/targeting_list") == 0) {
-                    this.$.button.style.display = "block";
-                } else {
-                 this.$.button.style.display = "none";
-                 }
+            if(searchName==this.searchName){
+              this.isHidden=true;
+            } else {
+             this.isHidden=false;
+            }
         },
 
         _computeLabel:function() {
