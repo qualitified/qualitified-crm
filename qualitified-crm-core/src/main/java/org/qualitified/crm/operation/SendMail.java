@@ -1,7 +1,9 @@
 package org.qualitified.crm.operation;
 
+import com.mailjet.client.MailjetResponse;
 import com.mailjet.client.errors.MailjetException;
 import com.mailjet.client.errors.MailjetSocketTimeoutException;
+import com.turbomanage.httpclient.json.JsonResponse;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.json.JSONArray;
@@ -57,12 +59,7 @@ public class SendMail {
         ctx.getLoginStack().push(lc);
 
         EmailingService emailingService = Framework.getService(EmailingService.class);
-        String unsubLink = nuxeoUrl+"/site/api/v1/unsub/"+contactDoc.getId();
 
-        mailDetails.put("fromEmail",fromEmail);
-        mailDetails.put("fromName",fromName);
-        String toEmail = (String) contactDoc.getPropertyValue("person:email");
-        mailDetails.put("toEmail",toEmail);
         String firstName = (contactDoc.getPropertyValue("person:firstName")!= null)
                 ? (String) contactDoc.getPropertyValue("person:firstName")
                 : "";
@@ -70,42 +67,58 @@ public class SendMail {
                 ? contactDoc.getPropertyValue("person:lastName") + " "
                 : "";
         String toName = lastName + firstName;
-        mailDetails.put("toName",toName);
-        String subject = mailSubject.replace("$$unsubLink",unsubLink);
-        mailDetails.put("subject",subject);
-        String textPart ="";
-        mailDetails.put("textPart",textPart);
+        String toEmail = (String) contactDoc.getPropertyValue("person:email");
+        String unsubLink = nuxeoUrl+"/site/api/v1/unsub/"+contactDoc.getId();
         String htmlPart = mailHtmlPart.contains("$$unsubLink")
                 ? mailHtmlPart.replace("$$unsubLink",unsubLink)
                 : mailHtmlPart;
+
+        mailDetails.put("fromEmail",fromEmail);
+        mailDetails.put("fromName",fromName);
+        mailDetails.put("toEmail",toEmail);
+        mailDetails.put("toName",toName);
+        mailDetails.put("subject",mailSubject);
+        mailDetails.put("textPart","");
         mailDetails.put("htmlPart",htmlPart);
 
         try {
-            JSONArray response = emailingService.send(mailDetails);
-            MessageID = Long.toString(response.getJSONObject(0).getJSONArray("To")
-                    .getJSONObject(0).getLong("MessageID"));
+            MailjetResponse response = emailingService.send(mailDetails);
 
-            DocumentModel interactionDoc = documentManager.createDocumentModel("/Marketing", "interaction", "Interaction");
-            interactionDoc.setPropertyValue("dc:title", "Mail to "+ contactDoc.getTitle());
-            interactionDoc.setPropertyValue("interaction:status", "DONE");
-            interactionDoc.setPropertyValue("interaction:activity", "Emailing");
-            interactionDoc.setPropertyValue("interaction:date", Calendar.getInstance());
-            interactionDoc.setPropertyValue("interaction:campaignId",campaignId);
-            interactionDoc.setPropertyValue("interaction:messageID",MessageID);
-            interactionDoc.setPropertyValue("custom:documentField10",emailId);
-            interactionDoc.setPropertyValue("interaction:isSent", 1);
+             if (response.getStatus() != 401) {
 
-            contacts.add(contactDoc.getId());
-            interactionDoc.setPropertyValue("interaction:contact",contacts);
-            documentManager.createDocument(interactionDoc);
+                 if (response.getJSONArray("Messages").getJSONObject(0).getString("Status").equals("success")) {
 
-            logger.trace("Message with subject " +mailSubject+ "sent to " +toEmail+ "from" +fromEmail);
+                     MessageID = Long.toString(response.getJSONArray("Messages").getJSONObject(0).getJSONArray("To")
+                             .getJSONObject(0).getLong("MessageID"));
+
+                     DocumentModel interactionDoc = documentManager.createDocumentModel("/Marketing", "interaction", "Interaction");
+                     interactionDoc.setPropertyValue("dc:title", "Mail to "+ contactDoc.getTitle());
+                     interactionDoc.setPropertyValue("interaction:status", "DONE");
+                     interactionDoc.setPropertyValue("interaction:activity", "Emailing");
+                     interactionDoc.setPropertyValue("interaction:date", Calendar.getInstance());
+                     interactionDoc.setPropertyValue("interaction:campaignId",campaignId);
+                     interactionDoc.setPropertyValue("interaction:messageID",MessageID);
+                     interactionDoc.setPropertyValue("custom:documentField10",emailId);
+                     interactionDoc.setPropertyValue("interaction:isSent", 1);
+
+                     contacts.add(contactDoc.getId());
+                     interactionDoc.setPropertyValue("interaction:contact",contacts);
+                     documentManager.createDocument(interactionDoc);
+
+                     logger.trace("Message with subject " +mailSubject+ "sent to " +toEmail+ "from" +fromEmail);
+
+                 } else {
+                     logger.error(response.getJSONArray("Messages").getJSONObject(0).getJSONArray("Errors")
+                         .getJSONObject(0).getString("ErrorMessage"));
+                 }
+
+             } else {
+                 logger.error(response.getString("ErrorMessage"));
+             }
+
 
         } catch (MailjetException m) {
             logger.error("Error while running mailjet service", m);
-        } catch (JSONException j) {
-            logger.error("Mailjet service authorization error, expired or unvalidated apikey", j);
         }
-
     }
 }

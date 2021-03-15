@@ -57,6 +57,7 @@ public class EmailingProcess {
                 .query("SELECT * FROM Campaign " +
                         "WHERE campaign:sendDate <= DATE '"+ LocalDateTime.now().format(formatter) +"' " +
                         "AND campaign:status = 'Ready' " +
+                        "AND collection:documentIds/* IS NOT NULL " +
                         "AND ecm:isProxy = 0 AND ecm:isCheckedInVersion = 0  " +
                         "AND ecm:currentLifeCycleState != 'deleted' " +
                         "AND ecm:isTrashed = 0");
@@ -66,7 +67,7 @@ public class EmailingProcess {
                 triggerSendMailBulk(campaignDoc);
             }
 
-        } else logger.error("No campaign found, please check the send date or the status");
+        } else logger.error("No campaign found, please make sure to have a validate send date, a ready status and at least one contact is attached.");
 
     }
 
@@ -75,9 +76,11 @@ public class EmailingProcess {
     public void run(DocumentModel campaignDoc) throws OperationException, LoginException, JSONException, InterruptedException, ParseException {
         LoginContext lc = Framework.loginAsUser("Administrator");
         ctx.getLoginStack().push(lc);
-        if (campaignDoc.getPropertyValue("campaign:status").equals("Ready")) {
+        String campaignStatus = (String) campaignDoc.getPropertyValue("campaign:status");
+        ArrayList contactCollection = (ArrayList) campaignDoc.getPropertyValue("collection:documentIds");
+        if (campaignStatus.equals("Ready") && !contactCollection.isEmpty()) {
             triggerSendMailBulk(campaignDoc);
-        } else logger.error("This campaign is not ready yet to be sent, please check its status");
+        } else logger.error("The campaign cannot be sent, please make sure to have a validate send date, a ready status and at least one contact is attached.");
 
     }
     private BulkStatus sendMailBulk(Map<String, Serializable> sendMailBulkParams, String contactsQuery) throws InterruptedException {
@@ -128,40 +131,48 @@ public class EmailingProcess {
                 ? Math.toIntExact((long) campaignDoc.getPropertyValue("custom:integerField10"))
                 : 0 ;
         GregorianCalendar currentSendDate = (GregorianCalendar) campaignDoc.getPropertyValue("campaign:sendDate");
-        switch (currentStep) {
-            case 3:
-                emailDocId = new IdRef(emailStepThree);
-                setContactsQuery(campaignDoc.getId(), emailStepTwo, true);
-                stepUpdate(campaignDoc,contactsQuery,emailStepTwo,emailStepThree,0,2,currentSendDate,0);
-                break;
+        if (emailStepZero != null) {
+            switch (currentStep) {
+                case 3:
+                    emailDocId = new IdRef(emailStepThree);
+                    setContactsQuery(campaignDoc.getId(), emailStepTwo, true);
+                    stepUpdate(campaignDoc,contactsQuery,emailStepTwo,emailStepThree,0,2,currentSendDate,0);
+                    break;
 
-            case 2:
-                emailDocId = new IdRef(emailStepTwo);
-                setContactsQuery(campaignDoc.getId(), emailStepOne, true);
-                stepUpdate(campaignDoc,contactsQuery,emailStepOne,emailStepThree,waitStepThreeAmount,1,currentSendDate,3);
-                break;
+                case 2:
+                    emailDocId = new IdRef(emailStepTwo);
+                    setContactsQuery(campaignDoc.getId(), emailStepOne, true);
+                    stepUpdate(campaignDoc,contactsQuery,emailStepOne,emailStepThree,waitStepThreeAmount,1,currentSendDate,3);
+                    break;
 
-            case 1:
-                emailDocId = new IdRef(emailStepOne);
-                setContactsQuery(campaignDoc.getId(), emailStepZero, false);
-                stepUpdate(campaignDoc,contactsQuery,emailStepZero,emailStepTwo,waitStepTwoAmount,0,currentSendDate,2);
-                break;
+                case 1:
+                    emailDocId = new IdRef(emailStepOne);
+                    setContactsQuery(campaignDoc.getId(), emailStepZero, false);
+                    stepUpdate(campaignDoc,contactsQuery,emailStepZero,emailStepTwo,waitStepTwoAmount,0,currentSendDate,2);
+                    break;
 
-            default :
-                emailDocId = new IdRef(emailStepZero);
-                setContactsQuery(campaignDoc.getId(), null, false);
-                stepUpdate(campaignDoc,contactsQuery,emailStepZero,emailStepOne,waitStepOneAmount,currentStep,currentSendDate,1);
+                default :
+                    emailDocId = new IdRef(emailStepZero);
+                    setContactsQuery(campaignDoc.getId(), null, false);
+                    stepUpdate(campaignDoc,contactsQuery,emailStepZero,emailStepOne,waitStepOneAmount,currentStep,currentSendDate,1);
+            }
+
+            emailDoc = documentManager.getDocument(emailDocId);
+
+            sendMailBulkParams.put("campaignId", campaignDoc.getId());
+            sendMailBulkParams.put("emailId", emailDoc.getId());
+            sendMailBulkParams.put("subject", emailDoc.getTitle());
+            String emailHtmlContent = (String) emailDoc.getPropertyValue("html:content");
+            sendMailBulkParams.put("htmlPart", (emailHtmlContent != null && !emailHtmlContent.equals("<p><br></p>"))
+                    ? emailHtmlContent
+                    : "");
+
+            // run operation that will trigger the send MailBulk
+            sendMailBulk(sendMailBulkParams, contactsQuery);
+        } else {
+            logger.error("The start up mail cannot be null, please check the automation: "+automationDoc.getTitle());
         }
 
-        emailDoc = documentManager.getDocument(emailDocId);
-
-        sendMailBulkParams.put("campaignId", campaignDoc.getId());
-        sendMailBulkParams.put("emailId", emailDoc.getId());
-        sendMailBulkParams.put("subject", emailDoc.getTitle());
-        sendMailBulkParams.put("htmlPart", emailDoc.getPropertyValue("html:content"));
-
-        // run operation that will trigger the send MailBulk
-        sendMailBulk(sendMailBulkParams, contactsQuery);
     }
 
 
