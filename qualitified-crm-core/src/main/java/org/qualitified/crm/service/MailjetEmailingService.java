@@ -27,7 +27,7 @@ public class MailjetEmailingService extends DefaultComponent implements Emailing
 
 
     @Override
-    public JSONArray send(Map<String, Object> mailDetails) throws JSONException, MailjetSocketTimeoutException, MailjetException {
+    public MailjetResponse send(Map<String, Object> mailDetails) throws JSONException, MailjetSocketTimeoutException, MailjetException {
 
         client = new MailjetClient(apiKey, secretKey, new ClientOptions("v3.1"));
         request = new MailjetRequest(Emailv31.resource)
@@ -47,7 +47,7 @@ public class MailjetEmailingService extends DefaultComponent implements Emailing
                                 .put(Emailv31.Message.CUSTOMID, "AppGettingStartedTest")));
         response = client.post(request);
 
-        return response.getJSONArray("Messages");
+        return response;
     }
 
     @Override
