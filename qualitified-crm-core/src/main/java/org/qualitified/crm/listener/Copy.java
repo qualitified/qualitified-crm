@@ -23,7 +23,7 @@ public class Copy implements EventListener {
 
         DocumentEventContext docCtx = (DocumentEventContext) ctx;
         DocumentModel doc = docCtx.getSourceDocument();
-        if (doc.getPath().toString().startsWith("/Marketing/Resources")) {
+        if (doc.getPath().toString().startsWith("/Marketing/Resources/") && doc.getType().equals("Picture")) {
             OperationContext operationContext = new OperationContext(docCtx.getCoreSession());
             operationContext.setInput(doc);
             AutomationService automationService = Framework.getService(AutomationService.class);

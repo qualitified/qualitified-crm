@@ -2,7 +2,6 @@
 <dom-module id="copy-to-clipboard">
     <template>
         <style>
-
         </style>
         <paper-toast id="linkToast"></paper-toast>
         <paper-icon-button icon="icons:content-copy" id="copyButtonId"
@@ -34,6 +33,7 @@
               this.$.copyButtonId.style.width = '30px';
               this.$.copyButtonId.style.height = '30px';
           }
+
       },
       attached: function () {
           if (this.$.copyButtonId) this.clipboardSetup(this.$.copyButtonId)
