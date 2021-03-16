@@ -28,7 +28,7 @@
                               selection-enabled
                               display-quick-filters
                               on-row-clicked="_navigate">
-                <nuxeo-data-table-column name="Title" field="dc:title" sort-by="dc:title" flex="100">
+                <nuxeo-data-table-column name="[[i18n('label.metadata.opportunity.title')]]" field="dc:title" sort-by="dc:title" flex="100">
                     <template>
                         <nuxeo-document-thumbnail document="[[item]]"></nuxeo-document-thumbnail>
                         <a class="ellipsis" href$="[[urlFor('browse', item.path)]]"
@@ -36,14 +36,14 @@
                     </template>
                 </nuxeo-data-table-column>
 
-                <nuxeo-data-table-column name="Amount" field="opportunity:amount" sort-by="opportunity:amount"
+                <nuxeo-data-table-column name="[[i18n('label.metadata.amount')]]" field="opportunity:amount" sort-by="opportunity:amount"
                                          flex="50">
                     <template>
                         [[_formatCurrency(item.properties.opportunity:amount,currencyFormat)]]
                     </template>
                 </nuxeo-data-table-column>
 
-                <nuxeo-data-table-column name="Close Date" field="opportunity:closeDate" sort-by="opportunity:closeDate"
+                <nuxeo-data-table-column name="[[i18n('label.metadata.closedate')]]" field="opportunity:closeDate" sort-by="opportunity:closeDate"
                                          flex="50">
                     <template>
                         [[formatDate(item.properties.opportunity:closeDate)]]
