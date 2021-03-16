@@ -2,11 +2,6 @@
 <dom-module id="copy-to-clipboard">
     <template>
         <style>
-      paper-icon-button {
-       color: #c8c8c8a8;
-       width: 30px !important;
-       height: 30px !important;
-      }
         </style>
         <paper-toast id="linkToast"></paper-toast>
         <paper-icon-button icon="icons:content-copy" id="copyButtonId"
@@ -21,19 +16,36 @@
       behaviors: [
         Polymer.CopyToClipboardBehavior,Nuxeo.I18nBehavior
       ],
-      properties: {
-        clipboardValueToCopy: String
+       properties: {
+        clipboardValueToCopy: String,
+        copyValueIsNotFocused : {
+              type: Boolean,
+              value: false
+        },
+        noStyle : {
+              type: Boolean,
+              value: false
+        },
+      },
+      ready: function () {
+          if (!this.noStyle) {
+              this.$.copyButtonId.style.color = '#c8c8c8a8';
+              this.$.copyButtonId.style.width = '30px';
+              this.$.copyButtonId.style.height = '30px';
+          }
+
       },
       attached: function () {
           if (this.$.copyButtonId) this.clipboardSetup(this.$.copyButtonId)
       },
-      _copied: function(){
+      _copied: function () {
+          if (this.copyValueIsNotFocused == true) {
             var textField = document.createElement('textarea');
             textField.innerText = this.clipboardValueToCopy;
             document.body.appendChild(textField);
             textField.select();
             textField.focus(); //SET FOCUS on the TEXTFIELD
-            console.log('should have copied ' + textField);
+          }
             this.$.linkToast.text = this.i18n('label.metadata.custom.copy.toast');
             this.$.linkToast.open();
          }

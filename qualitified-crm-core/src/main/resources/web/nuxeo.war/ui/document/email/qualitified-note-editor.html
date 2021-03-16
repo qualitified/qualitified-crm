@@ -1,5 +1,5 @@
 <link href="qualitified-html-editor.html" rel="import">
-<link href="../../elements/copy-to-clipboard.html" rel="import">
+<link href="../../elements/qualitified-document-grid-thumbnail.html" rel="import">
 <dom-module assetpath="qualitified-note-editor/" id="qualitified-note-editor">
     <template>
         <style include="nuxeo-styles iron-flex iron-flex-alignment nuxeo-action-button-styles">
@@ -123,6 +123,16 @@
                     </nuxeo-page-provider>
                     <nuxeo-results name="[[document.uid]]" nx-provider="[[pictureProvider]]"
                                    selected-items="{{selectedItems}}">
+                        <nuxeo-data-grid class="results" empty-label="[[i18n('searchResults.noResults')]]" selection-enabled=""
+                                         icon="nuxeo:view-thumbnails" name="grid">
+                            <template>
+                                <qualitified-document-grid-thumbnail tabindex$="{{tabIndex}}" selected$="{{selected}}" doc="[[item]]"
+                                                                     index="[[index]]" on-navigate="_navigate"
+                                                                     selected-items="[[selectedItems]]">
+                                </qualitified-document-grid-thumbnail>
+                            </template>
+                        </nuxeo-data-grid>
+
                         <nuxeo-data-table class="results" display-quick-filters empty-label="[[i18n('searchResults.noResults')]]"
                                           icon="icons:list"
                                           name="table"
@@ -143,7 +153,7 @@
                                                 clipboard-value-copied="{{copiedValue}}"
                                                 clipboard-value-to-copy="[[item.properties.public:url]]"
                                                 copy-value-is-not-focused
-                                        id="copyToClipboard" ></copy-to-clipboard>
+                                                id="copyToClipboard" ></copy-to-clipboard>
                                         <div>
                                         </div>
                                     </div>
