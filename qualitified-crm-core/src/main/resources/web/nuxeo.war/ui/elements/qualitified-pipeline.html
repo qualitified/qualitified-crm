@@ -116,7 +116,7 @@
 
     <div id="board">
       <div class="column">
-        <div class="header"><h4>New <br/>[[_formatCurrency(newTotalAmount,currencyFormat,currency)]] </h4><iron-icon class="icon"icon="icons:chevron-right"></iron-icon></div>
+        <div class="header"><h4>[[i18n('label.qualitified.pipeline.new')]]<br/>[[_formatCurrency(newTotalAmount,currencyFormat,currency)]] </h4><iron-icon class="icon"icon="icons:chevron-right"></iron-icon></div>
         <div id="new" class="drop" on-drop="drop" on-dragover="allowDrop" on-dragleave="dragLeave">
           <template  is="dom-repeat" items="[[itemsNew]]">
             <nuxeo-card id="id[[item.uid]]" draggable="true" on-dragstart="drag" class="card" draggable="true">
@@ -130,7 +130,7 @@
       </div>
 
       <div class="column">
-        <div class="header"><h4>First Contact/Demo<br/>[[_formatCurrency(firstContactTotalAmount,currencyFormat,currency)]]</h4><iron-icon class="icon"icon="icons:chevron-right"></iron-icon></div>
+        <div class="header"><h4>[[i18n('label.qualitified.pipeline.first')]]<br/>[[_formatCurrency(firstContactTotalAmount,currencyFormat,currency)]]</h4><iron-icon class="icon"icon="icons:chevron-right"></iron-icon></div>
         <div class="drop" on-drop="drop" on-dragover="allowDrop" on-dragleave="dragLeave">
           <template is="dom-repeat" items="[[itemsFirstContact]]">
             <nuxeo-card id="id[[item.uid]]" draggable="true" on-dragstart="drag" class="card" draggable="true">
@@ -143,7 +143,7 @@
       </div>
 
       <div class="column">
-        <div class="header"><h4>Proposal Sent<br/>[[_formatCurrency(proposalSentTotalAmount,currencyFormat,currency)]]</h4><iron-icon class="icon" icon="icons:chevron-right"></iron-icon></div>
+        <div class="header"><h4>[[i18n('label.qualitified.pipeline.proposal')]]<br/>[[_formatCurrency(proposalSentTotalAmount,currencyFormat,currency)]]</h4><iron-icon class="icon" icon="icons:chevron-right"></iron-icon></div>
         <div class="drop" on-drop="drop" on-dragover="allowDrop" on-dragleave="dragLeave">
           <template is="dom-repeat" items="[[itemsProposal]]">
             <nuxeo-card id="id[[item.uid]]" draggable="true" on-dragstart="drag" class="card" draggable="true">
@@ -156,7 +156,7 @@
       </div>
 
       <div class="column">
-        <div class="header"><h4>Negociation<br/>[[_formatCurrency(negociationTotalAmount,currencyFormat,currency)]]</h4><iron-icon class="icon" icon="icons:chevron-right"></iron-icon></div>
+        <div class="header"><h4>[[i18n('label.qualitified.pipeline.negotiation')]]<br/>[[_formatCurrency(negociationTotalAmount,currencyFormat,currency)]]</h4><iron-icon class="icon" icon="icons:chevron-right"></iron-icon></div>
         <div class="drop" on-drop="drop" on-dragover="allowDrop" on-dragleave="dragLeave">
           <template is="dom-repeat" items="[[itemsNegociation]]">
             <nuxeo-card id="id[[item.uid]]" draggable="true" on-dragstart="drag" class="card" draggable="true">

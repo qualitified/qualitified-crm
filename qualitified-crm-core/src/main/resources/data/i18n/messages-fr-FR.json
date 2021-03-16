@@ -163,6 +163,18 @@
   "label.documents": "Documents",
   "addToCampaignButton.dialog.add": "Ajouter à une campagne",
   "label.metadata.campaign.create": "Créer une nouvelle campagne",
-  "label.path.picture": "Chemin vers la ressource de l'image"
-
+  "label.path.picture": "Chemin vers la ressource de l'image",
+  "label.qualitified.pipeline.new": "Nouveau",
+  "label.qualitified.pipeline.first": "Première Contact/Démo",
+  "label.qualitified.pipeline.proposal": "Proposition envoyée",
+  "label.qualitified.pipeline.negotiation": "Négociation",
+  "label.menu.account": "Compte",
+  "label.menu.opportunity": "Opportunité",
+  "label.menu.interaction": "Interaction",
+  "label.menu.contact": "Contact",
+  "label.menu.targeting": "Ciblage",
+  "label.menu.campaign": "Campagne",
+  "label.menu.link": "Lien",
+  "label.menu.automation": "Automatisation",
+  "label.menu.email": "Email"
 }

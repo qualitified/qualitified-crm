@@ -164,5 +164,17 @@
   "label.documents": "Documents",
   "addToCampaignButton.dialog.add": "Add to a campaign",
   "label.metadata.campaign.create": "Create a new campaign",
-  "label.path.picture": "Path to the picture's resource"
+  "label.qualitified.pipeline.new": "New",
+  "label.qualitified.pipeline.first": "First Contact/Demo",
+  "label.qualitified.pipeline.proposal": "Proposal Sent",
+  "label.qualitified.pipeline.negotiation": "Negotiation",
+  "label.menu.account": "Account",
+  "label.menu.opportunity": "Opportunity",
+  "label.menu.interaction": "Interaction",
+  "label.menu.contact": "Contact",
+  "label.menu.targeting": "Targeting",
+  "label.menu.campaign": "Campaign",
+  "label.menu.link": "Link",
+  "label.menu.automation": "Automation",
+  "label.menu.email": "Email"
 }
