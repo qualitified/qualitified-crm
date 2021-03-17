@@ -34,7 +34,7 @@
                     </template>
                 </nuxeo-data-table-column>
 
-                <nuxeo-data-table-column name="Role" field="[[i18n('label.metadata.role')]]" sort-by="person:Role" flex="60">
+                <nuxeo-data-table-column name="[[i18n('label.metadata.role')]]" field="[[i18n('label.metadata.role')]]" sort-by="person:Role" flex="60">
                     <template>
                         [[formatDirectory(item.properties.person:Role)]]
                     </template>
