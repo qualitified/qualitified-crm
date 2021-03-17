@@ -108,7 +108,7 @@
                         <tr>
                             <td align="center" style="background:white;font-size:0px;padding:10px 25px;word-break:break-word">
                                 <div style="font-family:Roboto,Helvetica,Arial;font-size:16px;font-weight:bold;line-height:24px;text-align:center;color:#555555">
-                                    SENT
+                                    [[i18n('Sent')]]
                                 </div>
                             </td>
                         </tr>
@@ -144,7 +144,7 @@
                         <tr>
                             <td align="center" style="background:white;font-size:0px;padding:10px 25px;word-break:break-word">
                                 <div style="font-family:Roboto,Helvetica,Arial;font-size:16px;font-weight:bold;line-height:24px;text-align:center;color:#555555">
-                                    DELIVERED
+                                    [[i18n('Delivered')]]
                                 </div>
                             </td>
                         </tr>
@@ -182,7 +182,7 @@
                         <tr>
                             <td align="center" style="background:white;font-size:0px;padding:10px 25px;word-break:break-word">
                                 <div style="font-family:Roboto,Helvetica,Arial;font-size:16px;font-weight:bold;line-height:24px;text-align:center;color:#555555">
-                                    OPENED
+                                    [[i18n('Opened')]]
                                 </div>
                             </td>
                         </tr>
@@ -220,7 +220,7 @@
                         <tr>
                             <td align="center" style="background:white;font-size:0px;padding:10px 25px;word-break:break-word">
                                 <div style="font-family:Roboto,Helvetica,Arial;font-size:16px;font-weight:bold;line-height:24px;text-align:center;color:#555555">
-                                    CLICKED
+                                    [[i18n('Clicked')]]
                                 </div>
                             </td>
                         </tr>
@@ -267,7 +267,7 @@
                             </template>
                         </nuxeo-data-table-column>
 
-                        <nuxeo-data-table-column flex="60" name="Email address">
+                        <nuxeo-data-table-column flex="60" name="E-mail">
                             <template>
                                 [[item.contextParameters.personDocEnricher.personEmail]]
                             </template>
@@ -277,46 +277,46 @@
                                 [[item.contextParameters.personDocEnricher.personPhone]]
                             </template>
                         </nuxeo-data-table-column>
-                        <nuxeo-data-table-column flex="60" name="Subscribed">
+                        <nuxeo-data-table-column flex="60" name="[[i18n('label.view.campaign.subscribed')]]">
                             <template>
                                 <iron-icon icon="[[_getStatusIcon(item.contextParameters.personDocEnricher.targetStatus)]]" style="[[_getStatusIconStyle(item.contextParameters.personDocEnricher.targetStatus)]]"></iron-icon>
                             </template>
                         </nuxeo-data-table-column>
 
                         <nuxeo-data-table-column field="interaction:isSent" flex="60"
-                                                 name="Sent" sort-by="interaction:isSent">
+                                                 name="[[i18n('label.view.campaign.sent')]]" sort-by="interaction:isSent">
                             <template>
                                 <iron-icon icon="[[_getIcon(item.properties.interaction:isSent)]]" style="[[_getIconStyle(item.properties.interaction:isSent)]]"></iron-icon>
                             </template>
                         </nuxeo-data-table-column>
                         <nuxeo-data-table-column field="interaction:isDelivered" flex="60"
-                                                 name="Delivered" sort-by="interaction:isDelivered">
+                                                 name="[[i18n('label.view.campaign.delivered')]]" sort-by="interaction:isDelivered">
                             <template>
                                 <iron-icon icon="[[_getIcon(item.properties.interaction:isDelivered)]]" style="[[_getIconStyle(item.properties.interaction:isDelivered)]]"></iron-icon>
                             </template>
                         </nuxeo-data-table-column>
                         <nuxeo-data-table-column field="interaction:isOpened" flex="60"
-                                                 name="Opened" sort-by="interaction:isOpened">
+                                                 name="[[i18n('label.view.campaign.opened')]]" sort-by="interaction:isOpened">
                             <template>
                                 <iron-icon icon="[[_getIcon(item.properties.interaction:isOpened)]]" style="[[_getIconStyle(item.properties.interaction:isOpened)]]"></iron-icon>
                             </template>
                         </nuxeo-data-table-column>
                         <nuxeo-data-table-column field="interaction:isCLicked" flex="60"
-                                                 name="Clicked" sort-by="interaction:isCLicked">
+                                                 name="[[i18n('label.view.campaign.clicked')]]" sort-by="interaction:isCLicked">
                             <template>
                                 <iron-icon icon="[[_getIcon(item.properties.interaction:isCLicked)]]" style="[[_getIconStyle(item.properties.interaction:isCLicked)]]"></iron-icon>
                             </template>
                         </nuxeo-data-table-column>
 
                         <nuxeo-data-table-column field="interaction:status" flex="60"
-                                                 name="Status" sort-by="interaction:status">
+                                                 name="[[i18n('label.metadata.status')]]" sort-by="interaction:status">
                             <template>
                                 [[formatDirectory(item.properties.interaction:status)]]
                             </template>
                         </nuxeo-data-table-column>
 
                         <nuxeo-data-table-column field="interaction:date" flex="60"
-                                                 name="Date" sort-by="interaction:date">
+                                                 name="[[i18n('label.metadata.date')]]" sort-by="interaction:date">
                             <template>
                                 [[formatDate(item.properties.interaction:date)]]
                             </template>

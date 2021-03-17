@@ -1579,10 +1579,10 @@
           <field schema="campaign_list_pp" name="campaign_createdDate_agg"/>
           <properties/>
           <dateRanges>
-            <dateRange key="Last 24 hours" fromDate="now" toDate="now+24h"/>
-            <dateRange key="Last 7 days" fromDate="now" toDate="now+7d"/>
-            <dateRange key="Last 30 days" fromDate="now-1M" toDate="now"/>
-            <dateRange key="More than 30 days" fromDate="now-1y" toDate="now-1M"/>
+            <dateRange key="from_now-24h_to_now" fromDate="now-24h" toDate="now"/>
+            <dateRange key="from_now-7d_to_now-24h" fromDate="now-7d" toDate="now-24h"/>
+            <dateRange key="from_now-1M_to_now-7d" fromDate="now-1M" toDate="now-7d"/>
+            <dateRange key="from_now-1y_to_now-1M" fromDate="now-1y" toDate="now-1M"/>
           </dateRanges>
         </aggregate>
         <aggregate id="campaign_status_agg" type="terms" parameter="campaign:status">

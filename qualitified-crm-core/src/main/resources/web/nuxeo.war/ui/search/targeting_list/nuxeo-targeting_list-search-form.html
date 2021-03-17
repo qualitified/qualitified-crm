@@ -56,14 +56,14 @@
         </nuxeo-input>
 
         <div class="layout vertical row">
-            <label>Type</label>
+            <label>[[i18n('label.metadata.type')]]</label>
             <nuxeo-checkbox-aggregation
                     data="[[aggregations.contact_silhouette_agg]]"
                     value="{{params.contact_silhouette_agg}}">
             </nuxeo-checkbox-aggregation>
         </div>
         <div class="layout vertical row">
-            <label>Targeted email Status</label>
+            <label>[[i18n('label.metadata.person.targetStatus')]]</label>
             <nuxeo-checkbox-aggregation
                     data="[[aggregations.person_targetStatus_agg]]"
                     value="{{params.person_targetStatus_agg}}">

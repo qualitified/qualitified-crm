@@ -57,7 +57,7 @@
                 <paper-dropdown-menu class="custom" label="">
 
                     <paper-tabs slot="dropdown-content" class="dropdown-content" selected="{{selectedStep}}">
-                        <paper-tab>ALL</paper-tab>
+                        <paper-tab>[[i18n('All')]]"</paper-tab>
 
                         <nuxeo-document auto doc-id="[[automation.properties.custom:documentField1]]" response="{{email0}}"></nuxeo-document>
                         <paper-tab>[[email0.title]]</paper-tab>
@@ -150,7 +150,7 @@
             _documentReady: function(doc){
             },
             ready: function () {
-                this.selectedStep=0;
+                this.selectedStep = 0;
             },
 
            _getPartialPercent: function(partialCount,totalCount){
@@ -185,9 +185,9 @@
             },
             _getStepStatus: function(campaignStatus){
             if(campaignStatus!=null){
-                if (campaignStatus.id === "Sent" ){
-                 return "Finished in step";
-                } return "Next step";
+                if (campaignStatus.id === "Sent" ) {
+                     return this.i18n('finished');
+                } return this.i18n('next');
             }
             },
 

@@ -62,7 +62,7 @@
             <paper-tabs selected="{{selected}}" scrollable fit-container>
 
                 <paper-tab>
-                    Target
+                    [[i18n('target')]]
                 </paper-tab>
                 <iron-icon class="icon" icon="icons:chevron-right"></iron-icon>
                 <template is="dom-if" if="[[_isNull(automation.properties.custom:documentField1)]]">
@@ -167,13 +167,13 @@
                                 </template>
                             </nuxeo-data-table-column>
 
-                            <nuxeo-data-table-column field="person:targetStatus" flex="60" name="Subscribed" sort-by="person:targetStatus">
+                            <nuxeo-data-table-column field="person:targetStatus" flex="60" name="[[i18n('label.view.campaign.subscribed')]]" sort-by="person:targetStatus">
                                 <template>
                                     <iron-icon icon="[[_getStatusIcon(item.properties.person:targetStatus)]]" style="[[_getStatusIconStyle(item.properties.person:targetStatus)]]"></iron-icon>
                                 </template>
                             </nuxeo-data-table-column>
 
-                            <nuxeo-data-table-column field="dc:modified" flex="60" name="Modified" sort-by="dc:modified">
+                            <nuxeo-data-table-column field="dc:modified" flex="60" name="[[i18n('label.metadata.modified')]]" sort-by="dc:modified">
                                 <template>
                                     [[formatDate(item.properties.dc:modified)]]
                                 </template>
