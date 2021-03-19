@@ -2489,14 +2489,6 @@
       <include>Remove</include>
     </permission>
   </extension>
-  <extension point="openUrl" target="org.nuxeo.ecm.platform.ui.web.auth.service.PluggableAuthenticationService">
-    <openUrl name="Link">
-      <grantPattern>${org.nuxeo.ecm.contextPath}/site/api/v1/link/.*</grantPattern>
-    </openUrl>
-    <openUrl name="Register">
-      <grantPattern>${org.nuxeo.ecm.contextPath}/site/api/v1/register/.*</grantPattern>
-    </openUrl>
-  </extension>
   <!-- Trash Migration: https://doc.nuxeo.com/nxdoc/upgrade-from-lts-2017-to-lts-2019/ -->
   <!-- <require>org.nuxeo.ecm.core.trash.service.migrator</require>
   <extension target="org.nuxeo.runtime.migration.MigrationService" point="configuration">
