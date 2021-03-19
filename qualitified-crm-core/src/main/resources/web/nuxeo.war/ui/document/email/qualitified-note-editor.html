@@ -115,9 +115,9 @@
             <paper-dialog id="dialog2" style="min-height: 500px; min-width: 900px;">
                 <paper-dialog-scrollable>
                     <nuxeo-results name="[[document.uid]]" nx-provider="[[pictureProvider]]" selected-items="{{selectedItems}}">
-                        <nuxeo-data-grid class="results" empty-label="[[i18n('searchResults.noResults')]]" selection-enabled icon="nuxeo:view-thumbnails" name="grid">
+                        <nuxeo-data-grid class="results" empty-label="[[i18n('searchResults.noResults')]]" icon="nuxeo:view-thumbnails" name="grid" selection-enabled>
                             <template>
-                                <qualitified-document-grid-thumbnail tabindex$="{{tabIndex}}" selected$="{{selected}}" doc="[[item]]" index="[[index]]" on-navigate="_navigate" selected-items="[[selectedItems]]">
+                                <qualitified-document-grid-thumbnail doc="[[item]]" index="[[index]]" on-navigate="_navigate" selected$="{{selected}}" selected-items="[[selectedItems]]" tabindex$="{{tabIndex}}">
                                 </qualitified-document-grid-thumbnail>
                             </template>
                         </nuxeo-data-grid>
@@ -190,9 +190,12 @@
                     }
                 },
                 attached: function() {
-                document.querySelector("nuxeo-app").shadowRoot.querySelector("#browser").shadowRoot.querySelector("qualitified-document-page").shadowRoot.querySelector("nuxeo-document-view").shadowRoot.querySelector("nuxeo-document-layout").shadowRoot.querySelector("#layout").shadowRoot.querySelector("nuxeo-email-view-layout").shadowRoot.querySelector("qualitified-note-editor").shadowRoot.querySelector("nuxeo-results").shadowRoot.querySelector("nuxeo-csv-export-button").shadowRoot.querySelector("#btn").shadowRoot.querySelector("#bt").hidden=true;
+                   var csvBtn=document.querySelector("nuxeo-app").shadowRoot.querySelector("#browser").shadowRoot.querySelector("qualitified-document-page").shadowRoot.querySelector("nuxeo-document-view").shadowRoot.querySelector("nuxeo-document-layout").shadowRoot.querySelector("#layout").shadowRoot.querySelector("nuxeo-email-view-layout").shadowRoot.querySelector("qualitified-note-editor").shadowRoot.querySelector("nuxeo-results").shadowRoot.querySelector("nuxeo-csv-export-button");
+                       if (csvBtn!=null)
+                        {
+                            csvBtn.hidden=true;
+                        }
                 },
-
                 _isHTML: function() {
                     return this.document && this.document.properties['note:mime_type'] === 'text/html';
                 },
