@@ -131,7 +131,7 @@
             </paper-dialog>
             <nuxeo-dialog id="dialog" on-iron-overlay-closed="_dialogClosed" style="min-height: 700px; min-width: 1000px;" with-backdrop>
                 <div class="content">
-                    <iframe class="editor" frameBorder="0" id="editorr" read-only="[[!_canEdit(document)]]" src="/nuxeo/ui/alloy.html?id=[[document.uid]]" style="min-height: 600px; min-width: 900px;"></iframe>
+                    <iframe class="editor" frameBorder="0" id="editt" read-only="[[!_canEdit(document)]]" src="/nuxeo/ui/alloy.html?id=[[document.uid]]" style="min-height: 600px; min-width: 900px;"></iframe>
                 </div>
                 <div class="buttons">
                     <paper-button dialog-dismiss noink on-tap="_close">close</paper-button>
@@ -175,6 +175,8 @@
                 },
                 _toggleDialog: function() {
                     this.$.dialog.toggle();
+                    this.$.editt.contentWindow.location.reload(true);
+
                 },
                 _toggleDialog2: function() {
                     this.$.dialog2.open();
