@@ -29,11 +29,24 @@
         //var child= $("#editor")[0].firstChild;
         const queryString = window.location.search;
         const urlParams = new URLSearchParams(queryString);
+
+
+
         $(document).ready(function() {
 
             $("#editor").bind('DOMSubtreeModified', $.debounce(2000,function() {
                 // event.preventDefault();
                 //var editor =$("#editor").val();
+                 var htmlContentModified;
+                 var matches = $("#editor").html().match(/<a[\s]+([^>]+)>((?:.(?!\<\/a\>))*.)<\/a>/g);
+                    if (matches) {
+                        for (var i=0;i< matches.length;i++) {
+                              var imgSrc = (/\bhttps?:\/\/\S*?\/[^\/.]+\.(jpg|jpeg|gif|png)\b/g).exec(matches[i]);
+                              htmlContentModified = imgSrc ? $("#editor").html().replace(matches[i],"<img src='"+imgSrc[0]+"' data-cke-saved-src='"+imgSrc[0]+"'>") : $("#editor").html();
+                              location.reload(true);
+                            }
+                    } else htmlContentModified = $("#editor").html();
+
                 $.ajax({
                     type: "post",
                     url: "/nuxeo/site/api/v1/automation/Document.SetProperty",
@@ -42,7 +55,7 @@
                     data: "{" +
                         "\"params\": {" +
                         "\"xpath\": \"html:content\"," +
-                        "\"value\": \"" + $("#editor").html().replace(/[\\]/g, '\\\\')
+                        "\"value\": \"" + htmlContentModified.replace(/[\\]/g, '\\\\')
                             .replace(/[\"]/g, '\\\"')
                             .replace(/[\/]/g, '\\/')
                             .replace(/[\b]/g, '\\b')
