@@ -5,6 +5,7 @@
       class="org.qualitified.crm.listener.Copy">
         <event>documentCreated</event>
         <event>documentModified</event>
+        <event>documentCreatedByCopy</event>
         <filters>
           <doctype>Picture</doctype>
           <attribute>Regular Document</attribute>

@@ -84,12 +84,12 @@
         <nuxeo-document doc-id="[[document.uid]]" id="note"></nuxeo-document>
         <div class="main">
             <div class="action" on-tap="_toggleDialog2">
-                <paper-icon-button icon="nuxeo:add" id="bt2"  ></paper-icon-button>
+                <paper-icon-button icon="nuxeo:add" id="bt2"></paper-icon-button>
                 <paper-tooltip for="bt2" position="right">browse to pictures</paper-tooltip>
                 <span class="label"></span>
             </div>
             <div class="action" on-tap="_toggleDialog">
-                <paper-icon-button icon="nuxeo:preview" id="bt"  ></paper-icon-button>
+                <paper-icon-button icon="nuxeo:preview" id="bt"></paper-icon-button>
                 <paper-tooltip for="bt" position="right">[[i18n('visualize')]]</paper-tooltip>
                 <span class="label"></span>
             </div>
@@ -110,25 +110,14 @@
                     </div>
                 </div>
             </template>
-            <nuxeo-page-provider enrichers="thumbnail, permissions"
-                                 headers='{"X-NXfetch.document": "properties", "X-NXtranslate.directoryEntry": "label"}'
-                                 id="pictureProvider"
-                                 page="[[pageNumber]]"
-                                 page-size="40" params="[[params]]"
-                                 query="SELECT * FROM Picture where ecm:currentLifeCycleState != 'deleted' and ecm:isTrashed= 0 and ecm:path STARTSWITH  '/Marketing/Resources/' "
-                                 schemas="dublincore,common,uid,picture,public"
-            >
+            <nuxeo-page-provider enrichers="thumbnail, permissions" headers='{"X-NXfetch.document": "properties", "X-NXtranslate.directoryEntry": "label"}' id="pictureProvider" page="[[pageNumber]]" page-size="40" params="[[params]]" query="SELECT * FROM Picture where ecm:currentLifeCycleState != 'deleted' and ecm:isTrashed= 0 and ecm:path STARTSWITH  '/Marketing/Resources/' " schemas="dublincore,common,uid,picture,public">
             </nuxeo-page-provider>
             <paper-dialog id="dialog2" style="min-height: 500px; min-width: 900px;">
                 <paper-dialog-scrollable>
-                    <nuxeo-results name="[[document.uid]]" nx-provider="[[pictureProvider]]"
-                                   selected-items="{{selectedItems}}">
-                        <nuxeo-data-grid class="results" empty-label="[[i18n('searchResults.noResults')]]" selection-enabled
-                                         icon="nuxeo:view-thumbnails" name="grid" >
+                    <nuxeo-results name="[[document.uid]]" nx-provider="[[pictureProvider]]" selected-items="{{selectedItems}}">
+                        <nuxeo-data-grid class="results" empty-label="[[i18n('searchResults.noResults')]]" selection-enabled icon="nuxeo:view-thumbnails" name="grid">
                             <template>
-                                <qualitified-document-grid-thumbnail tabindex$="{{tabIndex}}" selected$="{{selected}}" doc="[[item]]"
-                                                                     index="[[index]]" on-navigate="_navigate"
-                                                                     selected-items="[[selectedItems]]">
+                                <qualitified-document-grid-thumbnail tabindex$="{{tabIndex}}" selected$="{{selected}}" doc="[[item]]" index="[[index]]" on-navigate="_navigate" selected-items="[[selectedItems]]">
                                 </qualitified-document-grid-thumbnail>
                             </template>
                         </nuxeo-data-grid>
@@ -148,7 +137,6 @@
                     <paper-button dialog-dismiss noink on-tap="_close">close</paper-button>
                 </div>
             </nuxeo-dialog>
-        </div>
         </div>
     </template>
     <script>
@@ -191,18 +179,18 @@
                 _toggleDialog2: function() {
                     this.$.dialog2.open();
                 },
-                ready: function () {
+                ready: function() {
                     this.pictureProvider = this.$.pictureProvider;
                 },
-                __documentChanged: function(doc) {
+                _documentChanged: function() {
                     if (this._isHTML) {
                         this._value = (this.document.properties['html:content'] !== null) ? this.document.properties['html:content'] : "Tapez votre message ici...";
                     } else {
                         this._value = this.document.properties['note:note'];
                     }
                 },
-                attached: function () {
-                  document.querySelector("nuxeo-app").shadowRoot.querySelector("#browser").shadowRoot.querySelector("qualitified-document-page").shadowRoot.querySelector("nuxeo-document-view").shadowRoot.querySelector("nuxeo-document-layout").shadowRoot.querySelector("#layout").shadowRoot.querySelector("nuxeo-email-view-layout").shadowRoot.querySelector("qualitified-note-editor").shadowRoot.querySelector("nuxeo-results").shadowRoot.querySelector("nuxeo-csv-export-button").shadowRoot.querySelector("#btn").shadowRoot.querySelector("#bt").hidden=true;
+                attached: function() {
+                document.querySelector("nuxeo-app").shadowRoot.querySelector("#browser").shadowRoot.querySelector("qualitified-document-page").shadowRoot.querySelector("nuxeo-document-view").shadowRoot.querySelector("nuxeo-document-layout").shadowRoot.querySelector("#layout").shadowRoot.querySelector("nuxeo-email-view-layout").shadowRoot.querySelector("qualitified-note-editor").shadowRoot.querySelector("nuxeo-results").shadowRoot.querySelector("nuxeo-csv-export-button").shadowRoot.querySelector("#btn").shadowRoot.querySelector("#bt").hidden=true;
                 },
 
                 _isHTML: function() {
@@ -263,10 +251,14 @@
                             return baseUrl + '/nxthumb/default/' + doc.uid + '/blobholder:0/';
                         }
                     }
-                },_navigate: function(e) {
-                    this.fire('navigate', { doc: (e.model || e.detail).item, index: (e.model || e.detail).index });
                 },
-           _toggleHtmlSource: function() {
+                _navigate: function(e) {
+                    this.fire('navigate', {
+                        doc: (e.model || e.detail).item,
+                        index: (e.model || e.detail).index
+                    });
+                },
+                _toggleHtmlSource: function() {
                     this._viewMode = !this._viewMode;
                 }
             });
