@@ -49,6 +49,8 @@
     <schema name="html" prefix="html" override="true" src="data/schemas/html.xsd"/>
     <schema name="email" prefix="email" override="true" src="data/schemas/email.xsd"/>
     <schema name="email_list_pp" prefix="email_list_pp" override="true" src="data/schemas/email_list_pp.xsd"/>
+    <schema name="picture_list_pp" prefix="picture_list_pp" override="true" src="data/schemas/picture_list_pp.xsd"/>
+
     <schema name="targeting" prefix="targeting" override="true" src="data/schemas/targeting.xsd"/>
     <schema name="public" prefix="public" override="true" src="data/schemas/public.xsd"/>
 
@@ -262,6 +264,12 @@
       <facet name="SavedSearch"/>
       <facet name="HiddenInNavigation"/>
       <schema name="link_list_pp"/>
+    </doctype>
+    <doctype name="picture_list_pp" extends="Document">
+      <facet name="ContentViewDisplay"/>
+      <facet name="SavedSearch"/>
+      <facet name="HiddenInNavigation"/>
+      <schema name="picture_list_pp"/>
     </doctype>
     <doctype name="Interaction" extends="Document">
       <schema name="interaction"/>
@@ -1543,6 +1551,20 @@
           </ranges>
         </aggregate>
       </aggregates>
+      <sort column="dc:title" ascending="true"/>
+      <pageSize>10</pageSize>
+    </genericPageProvider>
+    <genericPageProvider class="org.nuxeo.elasticsearch.provider.ElasticSearchNxqlPageProvider" name="picture_list">
+      <trackUsage>true</trackUsage>
+      <property name="coreSession">#{documentManager}</property>
+      <whereClause>
+        <predicate id="system_fulltext" parameter="ecm:fulltext" operator="FULLTEXT ALL">
+          <field schema="picture_list_pp" name="system_fulltext"/>
+        </predicate>
+        <fixedPart>ecm:mixinType != 'HiddenInNavigation' AND ecm:isCheckedInVersion = 0 AND ecm:isTrashed = 0 AND ecm:currentLifeCycleState != 'deleted' AND ecm:primaryType = 'Picture'</fixedPart>
+      </whereClause>
+      <searchDocumentType>picture_list_pp</searchDocumentType>
+
       <sort column="dc:title" ascending="true"/>
       <pageSize>10</pageSize>
     </genericPageProvider>
