@@ -89,15 +89,12 @@
       <schema name="targeting"/>
     </doctype>
     <doctype name="Link" extends="Document">
-      <schema name="link"/>
       <schema name="dublincore"/>
       <schema name="common"/>
       <schema name="uid"/>
+      <schema name="link"/>
       <schema name="custom"/>
       <facet name="NXTag"/>
-      <facet name="ContentViewDisplay"/>
-      <facet name="SavedSearch"/>
-      <facet name="HiddenInNavigation"/>
     </doctype>
 
     <doctype extends="Document" name="Picture">
@@ -256,6 +253,12 @@
       <facet name="SavedSearch"/>
       <facet name="HiddenInNavigation"/>
       <schema name="campaign_list_pp"/>
+    </doctype>
+    <doctype name="link" extends="Document">
+      <facet name="ContentViewDisplay"/>
+      <facet name="SavedSearch"/>
+      <facet name="HiddenInNavigation"/>
+      <schema name="link"/>
     </doctype>
     <doctype name="link_list_pp" extends="Document">
       <facet name="ContentViewDisplay"/>
@@ -2448,13 +2451,13 @@
   </extension>
   <extension point="openUrl" target="org.nuxeo.ecm.platform.ui.web.auth.service.PluggableAuthenticationService">
     <openUrl name="Link">
-      <grantPattern>${org.nuxeo.ecm.contextPath}/site/api/v1/Link/.*</grantPattern>
-    </openUrl>
-    <openUrl name="Register">
-      <grantPattern>${org.nuxeo.ecm.contextPath}/site/api/v1/register/.*</grantPattern>
+      <grantPattern>${org.nuxeo.ecm.contextPath}/site/api/v1/link/.*</grantPattern>
     </openUrl>
     <openUrl name="Unsub">
       <grantPattern>${org.nuxeo.ecm.contextPath}/site/api/v1/unsub/.*</grantPattern>
+    </openUrl>
+    <openUrl name="Register">
+      <grantPattern>${org.nuxeo.ecm.contextPath}/site/api/v1/register.*</grantPattern>
     </openUrl>
   </extension>
   <extension point="permissions" target="org.nuxeo.ecm.core.security.SecurityService">
