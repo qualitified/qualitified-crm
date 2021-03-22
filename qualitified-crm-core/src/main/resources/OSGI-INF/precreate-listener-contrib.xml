@@ -15,6 +15,8 @@
           <doctype>Opportunity</doctype>
           <doctype>Interaction</doctype>
           <doctype>Solicitation</doctype>
+          <doctype>Email</doctype>
+          <doctype>Campaign</doctype>
           <doctype>MailMessage</doctype>
           <attribute>Regular Document</attribute>
         </filters>
