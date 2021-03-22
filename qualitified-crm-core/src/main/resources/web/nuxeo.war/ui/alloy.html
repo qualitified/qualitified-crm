@@ -6,14 +6,14 @@
 
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
     <title>Html editor</title>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script>
         var CKEDITOR_BASEPATH = '/nuxeo/ui/alloy-editor/';
     </script>
-    <link href="alloy-editor/assets/alloy-editor-ocean-min.css" rel="stylesheet">
-    </link>
+    <link href="alloy-editor/assets/alloy-editor-ocean-min.css" rel="stylesheet"></link>
     <link href="alloy-editor/assets/alloy-editor-ocean.css" rel="stylesheet">
 
     <script src="alloy-editor/alloy-editor-all.js"></script>
@@ -34,7 +34,7 @@
 
         $(document).ready(function() {
 
-            $("#editor").bind('DOMSubtreeModified', $.debounce(2000, function() {
+            $("#editor").bind('DOMSubtreeModified', $.debounce(2000,function() {
                 // event.preventDefault();
                 //var editor =$("#editor").val();
                  var htmlContentModified;
@@ -42,8 +42,10 @@
                     if (matches) {
                         for (var i=0;i< matches.length;i++) {
                               var imgSrc = (/\bhttps?:\/\/\S*?\/[^\/.]+\.(jpg|jpeg|gif|png)\b/g).exec(matches[i]);
-                              htmlContentModified = imgSrc ? $("#editor").html().replace(matches[i],"<img src='"+imgSrc[0]+"' data-cke-saved-src='"+imgSrc[0]+"'>") : $("#editor").html();
-                              location.reload(true);
+                                  if (imgSrc) {
+                                     htmlContentModified = $("#editor").html().replace(matches[i],"<img src='"+imgSrc[0]+"' data-cke-saved-src='"+imgSrc[0]+"'>");
+                                     location.reload(true);
+                                  } else htmlContentModified = $("#editor").html();
                             }
                     } else htmlContentModified = $("#editor").html();
 
@@ -99,21 +101,43 @@
                         mode: 'full'
                     });
                     setTimeout(() => {
-                        $("#editor").html(data.properties["html:content"]);
+                        $("#editor").html( data.properties["html:content"] ? data.properties["html:content"] : '<p>Write some content here...</p>');
                     }, 2000);
+
+
+                    //document.getElementById("editor").contentWindow.document.setData(JSON.stringify(data.properties["html:content"]));
+                    /* var $content = $('<p>').text(JSON.stringify(data.properties["html:content"]));
+                     $('#editor')
+                     .append($content);*/
                 },
                 type: 'GET'
             });
         });
+
+
     </script>
 </head>
 
 <body>
 
-<div id="editor"  name="editor"  contenteditable="true" placeholder="Write some content here too">
-
+<div id="editor" name="editor" contenteditable="true" placeholder="Write some content here too">
 </div>
 
+<!--div id="autosave"></div-->
+<!--button id="submit" class="btn btn-primary">Save</button-->
+
+
+
+
+
+
+
+
+
+
+
+<!--script src="//unpkg.com/svg4everybody@2.1.9/dist/svg4everybody.js"></script>
+    <script>svg4everybody();</script-->
 </body>
 
 </html>
