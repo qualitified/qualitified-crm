@@ -96,7 +96,12 @@
       <schema name="custom"/>
       <facet name="NXTag"/>
     </doctype>
-
+    <doctype name="link" extends="Document">
+      <facet name="ContentViewDisplay"/>
+      <facet name="SavedSearch"/>
+      <facet name="HiddenInNavigation"/>
+      <schema name="link"/>
+    </doctype>
     <doctype extends="Document" name="Picture">
       <schema name="common"/>
       <schema name="uid"/>
@@ -253,12 +258,6 @@
       <facet name="SavedSearch"/>
       <facet name="HiddenInNavigation"/>
       <schema name="campaign_list_pp"/>
-    </doctype>
-    <doctype name="link" extends="Document">
-      <facet name="ContentViewDisplay"/>
-      <facet name="SavedSearch"/>
-      <facet name="HiddenInNavigation"/>
-      <schema name="link"/>
     </doctype>
     <doctype name="link_list_pp" extends="Document">
       <facet name="ContentViewDisplay"/>
