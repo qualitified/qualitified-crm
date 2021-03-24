@@ -908,7 +908,7 @@
   <extension target="org.nuxeo.ecm.platform.ui.web.auth.service.PluggableAuthenticationService" point="loginScreen">
     <loginScreenConfig>
       <backgroundImage>no_poster_image</backgroundImage>
-      <bodyBackgroundStyle>url("${org.nuxeo.ecm.contextPath}/img/1672144-poster-1280-orange-graphic_1.jpg") 0px 0px no-repeat #000</bodyBackgroundStyle>
+      <bodyBackgroundStyle>url("${org.nuxeo.ecm.contextPath}/img/background.png") 0px 0px no-repeat #000</bodyBackgroundStyle>
       <disableBackgroundSizeCover>false</disableBackgroundSizeCover>
       <removeNews>true</removeNews>
       <footerStyle>display: none;</footerStyle>
