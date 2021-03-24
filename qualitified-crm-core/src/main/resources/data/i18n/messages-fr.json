@@ -89,6 +89,7 @@
   "previous" : "Précédent",
   "from" : "de",
   "to" : "à",
+  "stats.info" : "Aucune statistique disponible pour le moment.",
   "label.metadata.link.title":"Code",
   "label.metadata.link.href":"Lien",
   "label.metadata.link.follow":"Lien suivi",
