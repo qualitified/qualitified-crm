@@ -116,7 +116,7 @@
 
     <div id="board">
       <div class="column">
-        <div class="header"><h4>[[i18n('label.qualitified.pipeline.new')]]<br/>[[_formatCurrency(newTotalAmount,currencyFormat,currency)]] </h4><iron-icon class="icon"icon="icons:chevron-right"></iron-icon></div>
+        <div class="header" label="NEW"><h4>[[i18n('label.qualitified.pipeline.new')]]<br/>[[_formatCurrency(newTotalAmount,currencyFormat,currency)]] </h4><iron-icon class="icon"icon="icons:chevron-right"></iron-icon></div>
         <div id="new" class="drop" on-drop="drop" on-dragover="allowDrop" on-dragleave="dragLeave">
           <template  is="dom-repeat" items="[[itemsNew]]">
             <nuxeo-card id="id[[item.uid]]" draggable="true" on-dragstart="drag" class="card" draggable="true">
@@ -130,7 +130,7 @@
       </div>
 
       <div class="column">
-        <div class="header"><h4>[[i18n('label.qualitified.pipeline.first')]]<br/>[[_formatCurrency(firstContactTotalAmount,currencyFormat,currency)]]</h4><iron-icon class="icon"icon="icons:chevron-right"></iron-icon></div>
+        <div class="header" label="FIRST CONTACT/DEMO"><h4>[[i18n('label.qualitified.pipeline.first')]]<br/>[[_formatCurrency(firstContactTotalAmount,currencyFormat,currency)]]</h4><iron-icon class="icon"icon="icons:chevron-right"></iron-icon></div>
         <div class="drop" on-drop="drop" on-dragover="allowDrop" on-dragleave="dragLeave">
           <template is="dom-repeat" items="[[itemsFirstContact]]">
             <nuxeo-card id="id[[item.uid]]" draggable="true" on-dragstart="drag" class="card" draggable="true">
@@ -143,7 +143,7 @@
       </div>
 
       <div class="column">
-        <div class="header"><h4>[[i18n('label.qualitified.pipeline.proposal')]]<br/>[[_formatCurrency(proposalSentTotalAmount,currencyFormat,currency)]]</h4><iron-icon class="icon" icon="icons:chevron-right"></iron-icon></div>
+        <div class="header" label="PROPOSAL SENT"><h4>[[i18n('label.qualitified.pipeline.proposal')]]<br/>[[_formatCurrency(proposalSentTotalAmount,currencyFormat,currency)]]</h4><iron-icon class="icon" icon="icons:chevron-right"></iron-icon></div>
         <div class="drop" on-drop="drop" on-dragover="allowDrop" on-dragleave="dragLeave">
           <template is="dom-repeat" items="[[itemsProposal]]">
             <nuxeo-card id="id[[item.uid]]" draggable="true" on-dragstart="drag" class="card" draggable="true">
@@ -156,7 +156,7 @@
       </div>
 
       <div class="column">
-        <div class="header"><h4>[[i18n('label.qualitified.pipeline.negotiation')]]<br/>[[_formatCurrency(negociationTotalAmount,currencyFormat,currency)]]</h4><iron-icon class="icon" icon="icons:chevron-right"></iron-icon></div>
+        <div class="header" label="NEGOCIATION"><h4>[[i18n('label.qualitified.pipeline.negotiation')]]<br/>[[_formatCurrency(negociationTotalAmount,currencyFormat,currency)]]</h4><iron-icon class="icon" icon="icons:chevron-right"></iron-icon></div>
         <div class="drop" on-drop="drop" on-dragover="allowDrop" on-dragleave="dragLeave">
           <template is="dom-repeat" items="[[itemsNegociation]]">
             <nuxeo-card id="id[[item.uid]]" draggable="true" on-dragstart="drag" class="card" draggable="true">
@@ -333,7 +333,6 @@
             }
          }
 
-
          },
 
          _goToOpportunity:function(e){
@@ -348,29 +347,36 @@
             ev.currentTarget.classList.add('footerDrop');
         },
         drag: function(ev){
-            ev.dataTransfer.setData("text",ev.target.id);
-            ev.currentTarget.classList.add('dragging');
-            if(ev.target.offsetParent.firstElementChild.firstElementChild.innerText.includes("NEW")){
+          ev.dataTransfer.setData("text",ev.target.id);
+          ev.currentTarget.classList.add('dragging');
+          if(ev.target.offsetParent.firstElementChild.getAttribute("label")== "NEW"){
             for (var i=0; i < this.items.length; i++) {
                 if('id'+this.items[i].uid ==ev.target.id){
-                this.newTotalAmount-=this.items[i].properties['opportunity:amount'];
-                }}}
-             if(ev.target.offsetParent.firstElementChild.firstElementChild.innerText.includes("FIRST CONTACT/DEMO")){
+                  this.newTotalAmount-=this.items[i].properties['opportunity:amount'];
+                }
+            }
+          }
+          if(ev.target.offsetParent.firstElementChild.getAttribute("label")== "FIRST CONTACT/DEMO"){
              for (var i=0; i < this.items.length; i++) {
                 if('id'+this.items[i].uid ==ev.target.id){
-                this.firstContactTotalAmount-=this.items[i].properties['opportunity:amount'];
-                }}}
-             if(ev.target.offsetParent.firstElementChild.firstElementChild.innerText.includes("PROPOSAL SENT")){
+                  this.firstContactTotalAmount-=this.items[i].properties['opportunity:amount'];
+                }
+             }
+          }
+          if(ev.target.offsetParent.firstElementChild.getAttribute("label")== "PROPOSAL SENT"){
              for (var i=0; i < this.items.length; i++) {
                 if('id'+this.items[i].uid ==ev.target.id){
-                this.proposalSentTotalAmount-=this.items[i].properties['opportunity:amount'];
-                }}}
-            if(ev.target.offsetParent.firstElementChild.firstElementChild.innerText.includes("NEGOCIATION")){
+                  this.proposalSentTotalAmount-=this.items[i].properties['opportunity:amount'];
+                }
+             }
+          }
+          if(ev.target.offsetParent.firstElementChild.getAttribute("label")== "NEGOCIATION"){
              for (var i=0; i < this.items.length; i++) {
                 if('id'+this.items[i].uid ==ev.target.id){
-                this.negociationTotalAmount-=this.items[i].properties['opportunity:amount'];
-                }}}
-
+                  this.negociationTotalAmount-=this.items[i].properties['opportunity:amount'];
+                }
+             }
+          }
         },
         drop:function(ev){
             ev.preventDefault();
@@ -379,56 +385,56 @@
             if(ev.target.localName === 'div'){
               ev.target.appendChild(this.shadowRoot.querySelector('#'+data));
               ev.target.classList.remove('over');
-            if(ev.target.offsetParent.firstElementChild.firstElementChild.innerText.includes("NEW")){
-              for (var i=0; i < this.items.length; i++) {
-                if('id'+this.items[i].uid ==data){
-                this.newTotalAmount+=this.items[i].properties['opportunity:amount'];
-                this.document=this.items[i];
-                this._setStep('New',this.items[i].uid);
-
-            } } }
-              if(ev.target.offsetParent.firstElementChild.firstElementChild.innerText.includes("FIRST CONTACT/DEMO")){
-            for (var i = 0; i < this.items.length; i++) {
-                if('id'+this.items[i].uid ==data){
-                 this.document=this.items[i];
-                 this.firstContactTotalAmount+=this.items[i].properties['opportunity:amount'];
-                this._setStep('First Contact',this.items[i].uid);
-
-            } }
-            }
-              if(ev.target.offsetParent.firstElementChild.firstElementChild.innerText.includes("PROPOSAL SENT")){
-             for (var i = 0; i < this.items.length; i++) {
-                if('id'+this.items[i].uid ==data){
-                this.proposalSentTotalAmount+=this.items[i].properties['opportunity:amount'];
-                 this.document=this.items[i];
-                this._setStep('Proposal Sent',this.items[i].uid);
-
-            } }
-            }
-              if(ev.target.offsetParent.firstElementChild.firstElementChild.innerText.includes("NEGOCIATION")){
-
-            for (var i = 0; i < this.items.length; i++) {
-                if('id'+this.items[i].uid ==data){
-                this.negociationTotalAmount+=this.items[i].properties['opportunity:amount'];
-                 this.document=this.items[i];
-                this._setStep('Negociation',this.items[i].uid);
-
-            } }
-            }
+              if(ev.target.offsetParent.firstElementChild.getAttribute("label")== "NEW"){
+                for (var i=0; i < this.items.length; i++) {
+                  if('id'+this.items[i].uid ==data){
+                    this.newTotalAmount+=this.items[i].properties['opportunity:amount'];
+                    this.document=this.items[i];
+                    this._setStep('New',this.items[i].uid);
+                  }
+                }
+              }
+              if(ev.target.offsetParent.firstElementChild.getAttribute("label")== "FIRST CONTACT/DEMO"){
+                for (var i = 0; i < this.items.length; i++) {
+                  if('id'+this.items[i].uid ==data){
+                    this.firstContactTotalAmount+=this.items[i].properties['opportunity:amount'];
+                    this.document=this.items[i];
+                    this._setStep('First Contact',this.items[i].uid);
+                  }
+                }
+              }
+              if(ev.target.offsetParent.firstElementChild.getAttribute("label")== "PROPOSAL SENT"){
+                for (var i = 0; i < this.items.length; i++) {
+                  if('id'+this.items[i].uid ==data){
+                     this.proposalSentTotalAmount+=this.items[i].properties['opportunity:amount'];
+                     this.document=this.items[i];
+                     this._setStep('Proposal Sent',this.items[i].uid);
+                  }
+                }
+              }
+              if(ev.target.offsetParent.firstElementChild.getAttribute("label")== "NEGOCIATION"){
+                for (var i = 0; i < this.items.length; i++) {
+                  if('id'+this.items[i].uid ==data){
+                      this.negociationTotalAmount+=this.items[i].properties['opportunity:amount'];
+                      this.document=this.items[i];
+                      this._setStep('Negociation',this.items[i].uid);
+                  }
+                }
+              }
             }
             if(ev.target.localName === 'nuxeo-card'){
               ev.target.parentNode.appendChild(this.shadowRoot.querySelector('#'+data));
               ev.target.parentNode.classList.remove('over');
             }
-
             this.shadowRoot.querySelector('#'+data).classList.remove('dragging');
             this.shadowRoot.querySelectorAll('over').forEach(function(drop){
               drop.classList.remove('over');
             });
-                setTimeout(function(){  let nuxeoApp = document.querySelector('nuxeo-app');
-        var searchForm = nuxeoApp.$.drawer.querySelector('nuxeo-search-form[name="opportunity-list"');
-        if(searchForm){
-        searchForm._search();} }, 1000);
+            setTimeout(function(){
+              let nuxeoApp = document.querySelector('nuxeo-app');
+              var searchForm = nuxeoApp.$.drawer.querySelector('nuxeo-search-form[name="opportunity-list"');
+              if(searchForm){
+                  searchForm._search();} }, 1000);
         },
         dropFooter: function(ev){
             ev.preventDefault();
@@ -557,9 +563,6 @@
                }.bind(this));
                return result;
         },
-
-
-
 
       });
     </script>
