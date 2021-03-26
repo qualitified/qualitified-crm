@@ -16,6 +16,8 @@
 <link rel="import" href="elements/qualitified-group-menu.html">
 <link rel="import" href="elements/qualitified-group-menu2.html">
 <link rel="import" href="elements/qualitified-add-to-campaign-button.html">
+<link rel="import" href="elements/qualitified-docusign-button.html">
+
 
 
 <!-- Contribution of element 'custom-document-page' for slot 'DOCUMENT_VIEWS_PAGES' -->
@@ -317,6 +319,15 @@
         <nuxeo-filter document="[[document]]" type="Admin,Objects,Custom,Scripts,ScriptNote,TemplateRoot,Options,Option">
             <template>
                 <qualitified-dialog-button document="[[document]]" operation="Qualitified.Deploy" icon="icons:check" label="Deploy"></qualitified-dialog-button>
+            </template>
+        </nuxeo-filter>
+    </template>
+</nuxeo-slot-content>
+<nuxeo-slot-content name="DocusignAction" slot="DOCUMENT_ACTIONS">
+    <template>
+        <nuxeo-filter document="[[document]]" type="File">
+            <template>
+                <qualitified-docusign-button document="[[document]]"></qualitified-docusign-button>
             </template>
         </nuxeo-filter>
     </template>
