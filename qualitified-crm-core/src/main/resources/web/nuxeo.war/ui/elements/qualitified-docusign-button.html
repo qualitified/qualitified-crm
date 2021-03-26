@@ -21,6 +21,8 @@
     </nuxeo-operation>
 
     <paper-icon-button  icon="icons:gavel" id="button" on-tap="_sendToDocusign"></paper-icon-button>
+    <paper-tooltip for="button">Send to DocuSign</paper-tooltip>
+
     <nuxeo-dialog id="dialog" with-backdrop="" on-iron-overlay-closed="" no-auto-focus="">
       <h2>DocuSign authentication failed!</h2>
 
@@ -56,12 +58,12 @@
       },
       _sendToDocusign: function(e){
          var op = this.$.sendToDocusign;
-         var signerEmails = "signerEmails";
+         var signerEmails = "michael@qualitified.com";
          op.params = {
            "contextVariable": "envelopeId",
            "signerEmails": signerEmails,
-           "subject": "Please Sign This Contract"
-           //"callbackUrl": document.location.origin+"/nuxeo/site/docusign/"
+           "subject": "Please Sign This Contract",
+           "callbackUrl": document.location.origin+"/nuxeo/site/docusign/"
          };
 
         this.$.operationToast.text = "In progress...";
@@ -81,7 +83,7 @@
       },
       _toggleWindow : function () {
             var redirect_uri = document.location.origin+"/nuxeo/site/oauth2/docusign/callback";
-            var client_id = "827f9258-27ad-4f1a-ac77-8eabde400760";
+            var client_id = "7e6cec99-9bb3-469b-94ac-2e9f854a7312";
             var docusignAuthWindow = window.open('https://account-d.docusign.com/oauth/auth?client_id='+client_id+'&redirect_uri='+redirect_uri+'&response_type=code#/username',
             "docusign oauth2", "resizable,scrollbars,status,width=800,height=800");
         }
