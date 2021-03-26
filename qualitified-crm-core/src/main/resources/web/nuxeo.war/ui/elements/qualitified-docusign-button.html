@@ -1,0 +1,92 @@
+<!--
+`qualitified-docusign-button`
+@group Nuxeo UI
+@element qualitified-docusign-button
+-->
+
+<dom-module id="qualitified-docusign-button">
+  <template>
+    <style include="nuxeo-action-button-styles">
+      :host {
+        display: inline-flex;
+      }
+       paper-dialog-scrollable {
+        --paper-dialog-scrollable: {
+          -webkit-overflow-scrolling: auto;
+        };
+      }
+    </style>
+    <paper-toast id="operationToast"></paper-toast>
+    <nuxeo-operation id="sendToDocusign"  op="Qualitified.SendToDocusign"  input="[[document]]" params="[[params]]" >
+    </nuxeo-operation>
+
+    <paper-icon-button  icon="icons:gavel" id="button" on-tap="_sendToDocusign"></paper-icon-button>
+    <nuxeo-dialog id="dialog" with-backdrop="" on-iron-overlay-closed="" no-auto-focus="">
+      <h2>DocuSign authentication failed!</h2>
+
+      <paper-dialog-scrollable>
+        <h>One or both of Username and Password are invalid. Invalid access token</h><br/>
+        <h>Please reconnect to DocuSign and try again.</h>
+
+      </paper-dialog-scrollable>
+      <div class="buttons">
+        <paper-button dialog-dismiss="" noink="">Cancel</paper-button>
+        <paper-button dialog-confirm="" class="primary" name="add" on-click="_toggleWindow">
+          Connect to docusign
+        </paper-button>
+      </div>
+    </nuxeo-dialog>
+  </template>
+  <script>
+    Polymer({
+      is: 'qualitified-docusign-button',
+      behaviors: [Nuxeo.I18nBehavior,Polymer.IronResizableBehavior,Nuxeo.LayoutBehavior,Nuxeo.RoutingBehavior, Nuxeo.FormatBehavior,Nuxeo.FiltersBehavior],
+      properties: {
+        document: {
+          type: Object,
+          observer:'_documentReady'
+        },
+        params:{
+          type: Object,
+          value: {}
+        }
+      },
+      _documentReady: function(){
+
+      },
+      _sendToDocusign: function(e){
+         var op = this.$.sendToDocusign;
+         var signerEmails = "signerEmails";
+         op.params = {
+           "contextVariable": "envelopeId",
+           "signerEmails": signerEmails,
+           "subject": "Please Sign This Contract"
+           //"callbackUrl": document.location.origin+"/nuxeo/site/docusign/"
+         };
+
+        this.$.operationToast.text = "In progress...";
+        this.$.operationToast.open();
+        op.execute().then(function(result) {
+        console.log(result);
+          if (result.status===204) {
+              this.$.operationToast.text = "Done!";
+              this.$.operationToast.open();
+              this.navigateTo('browse', this.document.path);
+          } else {
+              this.$.operationToast.text = "DocuSign authentication failed!";
+              this.$.operationToast.open();
+              this.$.dialog.toggle();
+          }
+        }.bind(this));
+      },
+      _toggleWindow : function () {
+            var redirect_uri = document.location.origin+"/nuxeo/site/oauth2/docusign/callback";
+            var client_id = "827f9258-27ad-4f1a-ac77-8eabde400760";
+            var docusignAuthWindow = window.open('https://account-d.docusign.com/oauth/auth?client_id='+client_id+'&redirect_uri='+redirect_uri+'&response_type=code#/username',
+            "docusign oauth2", "resizable,scrollbars,status,width=800,height=800");
+        }
+
+    });
+  </script>
+
+</dom-module>
