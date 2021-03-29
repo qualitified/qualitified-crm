@@ -3,7 +3,6 @@
 @group Nuxeo UI
 @element qualitified-docusign-button
 -->
-
 <dom-module id="qualitified-docusign-button">
   <template>
     <style include="nuxeo-action-button-styles">
@@ -19,17 +18,12 @@
     <paper-toast id="operationToast"></paper-toast>
     <nuxeo-operation id="sendToDocusign"  op="Qualitified.SendToDocusign"  input="[[document]]" params="[[params]]" >
     </nuxeo-operation>
-
     <paper-icon-button  icon="icons:gavel" id="button" on-tap="_sendToDocusign"></paper-icon-button>
-    <paper-tooltip for="button">Send to DocuSign</paper-tooltip>
-
     <nuxeo-dialog id="dialog" with-backdrop="" on-iron-overlay-closed="" no-auto-focus="">
       <h2>DocuSign authentication failed!</h2>
-
       <paper-dialog-scrollable>
         <h>One or both of Username and Password are invalid. Invalid access token</h><br/>
         <h>Please reconnect to DocuSign and try again.</h>
-
       </paper-dialog-scrollable>
       <div class="buttons">
         <paper-button dialog-dismiss="" noink="">Cancel</paper-button>
@@ -54,18 +48,15 @@
         }
       },
       _documentReady: function(){
-
       },
       _sendToDocusign: function(e){
          var op = this.$.sendToDocusign;
-         var signerEmails = "michael@qualitified.com";
          op.params = {
            "contextVariable": "envelopeId",
-           "signerEmails": signerEmails,
-           "subject": "Please Sign This Contract",
-           "callbackUrl": document.location.origin+"/nuxeo/site/docusign/"
+           "signerEmails": "fs.bilel@gmail.com",
+           "subject": "Please Sign This Contract"
+           //"callbackUrl": "http://localhost:8080/nuxeo/site/docusign/"
          };
-
         this.$.operationToast.text = "In progress...";
         this.$.operationToast.open();
         op.execute().then(function(result) {
@@ -79,6 +70,11 @@
               this.$.operationToast.open();
               this.$.dialog.toggle();
           }
+        }.bind(this))
+        .catch(function (error){
+            this.$.operationToast.text = "DocuSign authentication failed!";
+              this.$.operationToast.open();
+              this.$.dialog.toggle();
         }.bind(this));
       },
       _toggleWindow : function () {
@@ -87,8 +83,6 @@
             var docusignAuthWindow = window.open('https://account-d.docusign.com/oauth/auth?client_id='+client_id+'&redirect_uri='+redirect_uri+'&response_type=code#/username',
             "docusign oauth2", "resizable,scrollbars,status,width=800,height=800");
         }
-
     });
   </script>
-
 </dom-module>
