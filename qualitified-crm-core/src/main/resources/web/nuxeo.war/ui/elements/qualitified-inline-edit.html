@@ -192,6 +192,7 @@
                     this.$.inlineToast.text = "Update done!";
                     this.$.inlineToast.open();
                     this.edit = false;
+                    window.location.reload(true);
                 }.bind(this))
                     .catch(function (error){
                         console.log(error);
