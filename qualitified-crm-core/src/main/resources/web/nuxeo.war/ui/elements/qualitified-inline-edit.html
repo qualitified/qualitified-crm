@@ -1,21 +1,21 @@
 <dom-module id="qualitified-inline-edit">
     <template>
         <style include="nuxeo-styles">
-      *[role=widget] {
-        padding: 5px;
-      }
+            *[role=widget] {
+                padding: 5px;
+            }
 
-      #editButton {
-        width: 19px;
-        padding: 0px;
-        height: 19px;
-        margin: -2px 6px;
-      }
+            #editButton {
+                width: 19px;
+                padding: 0px;
+                height: 19px;
+                margin: -2px 6px;
+            }
 
-      .labelAction {
-        display: inline-flex;
-      }
-    </style>
+            .labelAction {
+                display: inline-flex;
+            }
+        </style>
         <nuxeo-operation id="setProperty" op="Document.SetProperty" input="[[document]]" params="[[params]]"></nuxeo-operation>
         <paper-toast id="inlineToast"></paper-toast>
         <!-- View -->
@@ -29,23 +29,17 @@
                 </paper-icon-button>
             </div>
             <template is="dom-if" if="[[_isInput(metadata)]]">
-                <div>[[value]]</div>
             </template>
             <template is="dom-if" if="[[_isText(metadata)]]">
-                <div>
-                    <pre class="wrap">[[value]]</pre>
-                </div>
+
             </template>
             <template is="dom-if" if="[[_isDirectory(metadata)]]">
-                <div>[[formatDirectory(value)]]</div>
             </template>
             <template is="dom-if" if="[[_isDate(metadata)]]">
-                <div>[[formatDate(value)]]</div>
             </template>
             <template is="dom-if" if="[[_isDocument(metadata)]]">
                 <qualitified-document-suggestion role="widget"
                                                  value="{{value}}"
-                                                 label="[[i18n(label)]]"
                                                  page-provider="documents"
                                                  min-chars="0"
                                                  readonly
@@ -95,10 +89,9 @@
             <template is="dom-if" if="[[_isDocument(metadata)]]">
                 <qualitified-document-suggestion role="widget"
                                                  value="{{value}}"
-                                                 label="[[i18n(label)]]"
                                                  page-provider="documents"
                                                  min-chars="0"
-                                                 params='{ "namedParameters": "system_primaryType=Email"}'>
+                                                 params='{ "namedParameters": "system_primaryType=Contact"}'>
                 </qualitified-document-suggestion>
 
             </template>
@@ -112,125 +105,126 @@
     </template>
     ​
     <script>
-  Polymer({
-    is: 'qualitified-inline-edit',
-    behaviors: [Nuxeo.LayoutBehavior],
-    properties: {
-      document: {
-        type: Object,
-        observer: '_documentChanged'
-      },
-      edit: {
-        type: Boolean,
-        value: false
-      },
-      label:{
-        type: String,
-        value: 'label.dublincore.title'
-      },
-      property:{
-        type: String,
-        value:'dc:title'
-      },
-      value:{
-        type: String,
-        value: '',
-        observer: '_valueChanged'
-      },
-      params:{
-        type: Object,
-        value: {}
-      },
-      show: {
-        type: Boolean,
-        value: false
-      },
-      metadata:{
-        type: String,
-        value: 'input'
-      },
-      directory:{
-        type: String,
-        value: ''
-      },
-      namedParameters:{
-        type: String,
-        value: ''
-      }
-    },
+        Polymer({
+            is: 'qualitified-inline-edit',
+            behaviors: [Nuxeo.LayoutBehavior],
+            properties: {
+                document: {
+                    type: Object,
+                    observer: '_documentChanged'
+                },
+                edit: {
+                    type: Boolean,
+                    value: false
+                },
+                label:{
+                    type: String,
+                    value: 'label.dublincore.title'
+                },
+                property:{
+                    type: String,
+                    value:'dc:title'
+                },
+                value:{
+                    type: String,
+                    value: '',
+                    observer: '_valueChanged'
+                },
+                params:{
+                    type: Object,
+                    value: {}
+                },
+                show: {
+                    type: Boolean,
+                    value: false
+                },
+                metadata:{
+                    type: String,
+                    value: 'input'
+                },
+                directory:{
+                    type: String,
+                    value: ''
+                },
+                namedParameters:{
+                    type: String,
+                    value: ''
+                }
+            },
 
-    _valueChanged: function(value) {
-        if(this.value && this.document && this.document.properties){
-            this.document.properties[this.property] = this.value;
-        }
-    },
+            _valueChanged: function(value) {
+                if(this.value && this.document && this.document.properties){
+                    this.document.properties[this.property] = this.value;
+                }
+            },
 
-    _documentChanged: function() {
-      if (this.document) {
-        this.value = this.document.properties[this.property];
-        this.edit = false;
-      }
-    },
+            _documentChanged: function() {
+                if (this.document) {
+                    this.value = this.document.properties[this.property];
+                    this.edit = false;
+                }
+            },
 
-    _editMode: function() {
-      this.edit = true
-    },
+            _editMode: function() {
+                this.edit = true
+            },
 
-    _isMutable: function(doc) {
-      var mutable = !this.hasFacet(doc, 'Immutable') && doc.type !== 'Root' && doc.state !== 'deleted';
-      return mutable;
-    },
+            _isMutable: function(doc) {
+                var mutable = !this.hasFacet(doc, 'Immutable') && doc.type !== 'Root' && doc.state !== 'deleted';
+                return mutable;
+            },
 
-    _canEdit: function(doc, edit) {
-      return true;
-      //var canEdit = !edit && doc && doc.type !== 'Root' && this.hasPermission(doc, 'Write') && this._isMutable(doc);
-      //return canEdit;
-    },
-    _ok: function(){
-      this.params = {
-          xpath:this.property,
-          value:this.value,
-          save:true,
-          context: {},
-          input: this.document.uid
-        };
+            _canEdit: function(doc, edit) {
+                return true;
+                //var canEdit = !edit && doc && doc.type !== 'Root' && this.hasPermission(doc, 'Write') && this._isMutable(doc);
+                //return canEdit;
+            },
+            _ok: function(){
+                this.params = {
+                    xpath:this.property,
+                    value:this.value,
+                    save:true,
+                    context: {},
+                    input: this.document.uid
+                };
 
-      this.$.setProperty.execute().then(function(response){
-          this.$.inlineToast.text = "Update done!";
-          this.$.inlineToast.open();
-          this.edit = false;
-      }.bind(this))
-      .catch(function (error){
-          console.log(error);
-          this.$.inlineToast.text = "Error when updating...";
-          this.$.inlineToast.open();
+                this.$.setProperty.execute().then(function(response){
+                    this.$.inlineToast.text = "Update done!";
+                    this.$.inlineToast.open();
+                    this.edit = false;
+                    window.location.reload(true);
+                }.bind(this))
+                    .catch(function (error){
+                        console.log(error);
+                        this.$.inlineToast.text = "Error when updating...";
+                        this.$.inlineToast.open();
 
-      }.bind(this));
-    },
-    _cancel: function(){
-      this.edit = false;
-    },
-    _show: function(){
-      this.show = true;
-    },
-    _hide: function(){
-      this.show = false;
-    },
-    _isInput: function(value){
-      return value && value == 'input';
-    },
-    _isText: function(value){
-      return value && value == 'textarea';
-    },
-    _isDirectory: function(value){
-      return value && value == 'directory';
-    },
-    _isDate: function(value){
-      return value && value == 'date';
-    },
-    _isDocument: function(value){
-        return value && value == 'document';
-    }
-  });
-  </script>
+                    }.bind(this));
+            },
+            _cancel: function(){
+                this.edit = false;
+            },
+            _show: function(){
+                this.show = true;
+            },
+            _hide: function(){
+                this.show = false;
+            },
+            _isInput: function(value){
+                return value && value == 'input';
+            },
+            _isText: function(value){
+                return value && value == 'textarea';
+            },
+            _isDirectory: function(value){
+                return value && value == 'directory';
+            },
+            _isDate: function(value){
+                return value && value == 'date';
+            },
+            _isDocument: function(value){
+                return value && value == 'document';
+            }
+        });
+    </script>
 </dom-module>

@@ -4050,7 +4050,7 @@
                             gt: ">",
                             amp: "&",
                             quot: '"',
-                            nbsp: " ",
+                            nbsp: " ",
                             shy: "­"
                         },
                         c = function(e, t) {
@@ -9352,7 +9352,7 @@
             function() {
                 function e(e, t) {
                     function s(e) {
-                        return e || CKEDITOR.env.needsNbspFiller ? new CKEDITOR.htmlParser.text(" ") : new CKEDITOR.htmlParser.element("br", {
+                        return e || CKEDITOR.env.needsNbspFiller ? new CKEDITOR.htmlParser.text(" ") : new CKEDITOR.htmlParser.element("br", {
                             "data-cke-bogus": 1
                         })
                     }
@@ -10634,7 +10634,7 @@
                                 }
                                 for (x = m.range, A = m.bogusNeededBlocks, L = x.createBookmark(); N = m.zombies.pop();) N.getParent() && (P = x.clone(), P.moveToElementEditStart(N), P.removeEmptyBlocksAtEnd());
                                 if (A)
-                                    for (; N = A.pop();) CKEDITOR.env.needsBrFiller ? N.appendBogus() : N.append(x.document.createText(" "));
+                                    for (; N = A.pop();) CKEDITOR.env.needsBrFiller ? N.appendBogus() : N.append(x.document.createText(" "));
                                 for (; N = m.mergeCandidates.pop();) N.mergeSiblings();
                                 if (x.moveToBookmark(L), !m.dontMoveCaret) {
                                     for (N = o(x); N && e(N) && !N.is(d.$empty);) {
@@ -11043,7 +11043,7 @@
 
                 function f(e, t) {
                     return t ? e.replace(C, (function(e, t) {
-                        return t ? " " : ""
+                        return t ? " " : ""
                     })) : e.replace(b, "")
                 }
 
@@ -16203,7 +16203,7 @@
                                         }
                                     else g.is("li") && (d = r.clone(), d.selectNodeContents(g), d = new CKEDITOR.dom.walker(d), d.evaluator = function(e) {
                                         return !(l(e) || s(e) || e.type == CKEDITOR.NODE_ELEMENT && e.getName() in CKEDITOR.dtd.$inline && !(e.getName() in CKEDITOR.dtd.$empty))
-                                    }, (v = d.next()) && v.type == CKEDITOR.NODE_ELEMENT && v.is("ul", "ol") && (CKEDITOR.env.needsBrFiller ? f.createElement("br") : f.createText(" ")).insertBefore(v)), g && r.moveToElementEditStart(g);
+                                    }, (v = d.next()) && v.type == CKEDITOR.NODE_ELEMENT && v.is("ul", "ol") && (CKEDITOR.env.needsBrFiller ? f.createElement("br") : f.createText(" ")).insertBefore(v)), g && r.moveToElementEditStart(g);
                                     r.select(), r.scrollIntoView()
                                 }
                             }
@@ -16944,7 +16944,7 @@
                             if (i && i.listNode.replace(t), g && g.length)
                                 for (l = 0; l < g.length; l++) {
                                     for (m = t = g[l];
-                                         (m = m.getNext()) && m.is && m.getName() in s;) CKEDITOR.env.needsNbspFiller && !t.getFirst(n) && t.append(o.document.createText(" ")), t.append(m);
+                                         (m = m.getNext()) && m.is && m.getName() in s;) CKEDITOR.env.needsNbspFiller && !t.getFirst(n) && t.append(o.document.createText(" ")), t.append(m);
                                     t.insertAfter(p)
                                 }
                             return i && e.fire("contentDomInvalidated"), !0
@@ -17265,7 +17265,7 @@
                                 if (r = v.grandparent, a = v.element.getDirection(1), v.indent == m) {
                                     for (h && e[p].parent.getName() == h.getName() || (h = e[p].parent.clone(!1, 1), o && h.setAttribute("dir", o), c.append(h)), g = h.append(v.element.clone(0, 1)), a != h.getDirection(1) && g.setAttribute("dir", a), r = 0; r < v.contents.length; r++) g.append(v.contents[r].clone(1, 1));
                                     p++
-                                } else if (v.indent == Math.max(m, 0) + 1) v = e[p - 1].element.getDirection(1), p = CKEDITOR.plugins.list.arrayToList(e, null, p, i, v != a ? a : null), !g.getChildCount() && CKEDITOR.env.needsNbspFiller && 7 >= l.$.documentMode && g.append(l.createText(" ")), g.append(p.listNode), p = p.nextIndex;
+                                } else if (v.indent == Math.max(m, 0) + 1) v = e[p - 1].element.getDirection(1), p = CKEDITOR.plugins.list.arrayToList(e, null, p, i, v != a ? a : null), !g.getChildCount() && CKEDITOR.env.needsNbspFiller && 7 >= l.$.documentMode && g.append(l.createText(" ")), g.append(p.listNode), p = p.nextIndex;
                                 else {
                                     if (-1 != v.indent || n || !r) return null;
                                     u[r.getName()] ? (g = v.element.clone(!1, !0), a != r.getDirection(1) && g.setAttribute("dir", a)) : g = new CKEDITOR.dom.documentFragment(l);
@@ -17669,7 +17669,7 @@
                         };
                     CKEDITOR.plugins.add("tab", {
                         init: function(o) {
-                            for (var r = !1 !== o.config.enableTabKeyTools, a = o.config.tabSpaces || 0, s = ""; a--;) s += " ";
+                            for (var r = !1 !== o.config.enableTabKeyTools, a = o.config.tabSpaces || 0, s = ""; a--;) s += " ";
                             s && o.on("key", (function(e) {
                                 9 == e.data.keyCode && (o.insertText(s), e.cancel())
                             })), r && o.on("key", (function(e) {
@@ -28755,7 +28755,7 @@
                     tabIndex: a
                 }, s.default.createElement("span", null, s.default.createElement(d.default, {
                     symbol: "separator"
-                }), " ", t)), r && s.default.createElement(h.default, u))
+                }), " ", t)), r && s.default.createElement(h.default, u))
             }
         }, {
             key: "_applyStyle",
@@ -31285,7 +31285,7 @@
                 validator: "_validateToolbars",
                 value: {
                     add: {
-                        buttons: [ "hline", "table"],
+                        buttons: ["imageFromFile", "embed", "camera", "hline", "table"],
                         tabIndex: 2
                     },
                     styles: {
