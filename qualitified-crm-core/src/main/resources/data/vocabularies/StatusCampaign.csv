@@ -1,5 +1,5 @@
-id,label,obsolete,ordering
-Draft,Draft,0,0
-Ready,Ready,0,10
-In Progress,In Progress,0,20
-Sent,Sent,0,30
+"id","label","obsolete","ordering"
+"Draft","lable.vocabulary.draft","0","0"
+"Ready","lable.vocabulary.ready","0","10"
+"In Progress","lable.vocabulary.inProgress","0","20"
+"Sent","lable.vocabulary.sent","0","30"

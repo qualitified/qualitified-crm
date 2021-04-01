@@ -11,6 +11,8 @@
     <delete path="${bundle.fileName}.tmp"/>
     <unzip from="${bundle.fileName}" to="${bundle.fileName}.tmp"/>
     <copy from="${bundle.fileName}.tmp/web/nuxeo.war" to="/"/>
+    <append from="${bundle.fileName}.tmp/data/i18n/messages_fr.properties" to="nuxeo.war/WEB-INF/classes/messages_fr.properties" addNewLine="true"/>
+    <append from="${bundle.fileName}.tmp/data/i18n/messages.properties" to="nuxeo.war/WEB-INF/classes/messages.properties" addNewLine="true"/>
     <append from="${bundle.fileName}.tmp/data/i18n/messages.json" to="nuxeo.war/ui/i18n/messages.json" addNewLine="true"/>
     <append from="${bundle.fileName}.tmp/data/i18n/messages-fr.json" to="nuxeo.war/ui/i18n/messages-fr.json" addNewLine="true"/>
     <append from="${bundle.fileName}.tmp/data/i18n/messages-fr-FR.json" to="nuxeo.war/ui/i18n/messages-fr-FR.json" addNewLine="true"/>
