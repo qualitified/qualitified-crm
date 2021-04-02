@@ -1,5 +1,5 @@
-id,label,obsolete,ordering
-Bank,Bank,0,0
-Insurance,Insurance,0,10
-Media,Media,0,20
-Retail,Retail,0,30
+"id","label","obsolete","ordering"
+"Bank"","lable.vocabulary.Bank","0","0"
+"Insurance","lable.vocabulary.Insurance","0","10"
+"Media","lable.vocabulary.Media","0","20"
+"Retail","lable.vocabulary.Retail","0","30"

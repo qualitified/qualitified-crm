@@ -1,5 +1,5 @@
-id,label,obsolete,ordering
-active,active,0,0
-inactive,inactive,0,10
-InProgress,InProgress,0,20
-Sent,Sent,0,30
+"id","label","obsolete","ordering"
+"active","lable.vocabulary.active","0","0"
+"inactive","lable.vocabulary.inactive","0","10"
+"InProgress","lable.vocabulary.InProgress","0","20"
+"Sent","lable.vocabulary.Sent","0","30"
