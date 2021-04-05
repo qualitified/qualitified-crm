@@ -1,23 +1,23 @@
-id,label,obsolete,ordering
-Assurance,Assurance,0,0
-Adhésion,Adhésion,0,10
-Annulation,Annulation,0,20
-Bon de commande,Bon de commande,0,30
-Client VIP,Client VIP,0,40
-Contentieux,Contentieux,0,50
-Affiliation,Affiliation,0,60
-Formation,Formation,0,70
-Facture,Facture,0,80
-Quittances,Quittances,0,90
-Contrats,Contrats,0,100
-Divers,Divers,0,110
-Cotisations,Cotisations,0,120
-Recours,Recours,0,130
-Mouvement,Mouvement,0,140
-Radiation,Radiation,0,150
-Administratif,Administratif,0,160
-Prise en charge,Prise en charge,0,170
-RIB,RIB,0,180
-Prospect,Prospect,0,190
-SEPA,SEPA,0,200
-TRACFIN,TRACFIN,0,210
+"id","label","obsolete","ordering"
+"Assurance","lable.vocabulary.Assurance","0","0"
+"Adhésion","lable.vocabulary.Adhesion","0","10"
+"Annulation","lable.vocabulary.Annulation","0","20"
+"BonDeCommande","lable.vocabulary.BonDeCommande","0","30"
+"ClientVIP","lable.vocabulary.ClientVIP","0","40"
+"Contentieux","lable.vocabulary.Contentieux","0","50"
+"Affiliation","lable.vocabulary.Affiliation","0","60"
+"Formation","lable.vocabulary.Formation","0","70"
+"Facture","lable.vocabulary.Facture","0","80"
+"Quittances","lable.vocabulary.Quittances","0","90"
+"Contrats","lable.vocabulary.Contrats","0","100"
+"Divers","lable.vocabulary.Divers","0","110"
+"Cotisations","lable.vocabulary.Cotisations","0","120"
+"Recours","lable.vocabulary.Recours","0","130"
+"Mouvement","lable.vocabulary.Mouvement","0","140"
+"Radiation","lable.vocabulary.Radiation","0","150"
+"Administratif","lable.vocabulary.Administratif","0","160"
+"PriseEnCharge","lable.vocabulary.PriseEnCharge","0","170"
+"RIB","lable.vocabulary.RIB","0","180"
+"Prospect","lable.vocabulary.Prospect","0","190"
+"SEPA","lable.vocabulary.SEPA","0","200"
+"TRACFIN","lable.vocabulary.TRACFIN","0","210"

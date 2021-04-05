@@ -1,5 +1,5 @@
-id,label,obsolete,ordering
-subscribed,Subscribed,0,0
-unsubscribed,Unsubscribed,0,10
-hardbounced,Non-existent,0,20
+"id","label","obsolete","ordering"
+"subscribed","lable.vocabulary.Subscribed","0","0"
+"unsubscribed","lable.vocabulary.Unsubscribed","0","10"
+"hardbounced","lable.vocabulary.Non-existent","0","20"
 

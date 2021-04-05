@@ -3,6 +3,8 @@
   "Proposal Sent": "Offre remise",
   "Won": "Gagné",
   "Lost": "Perdu",
+  "Ready": "Prêt",
+
   "Limbo": "Infructueux",
   "label.document.type.interaction":"Interaction",
   "label.document.type.account":"Client",
@@ -89,6 +91,7 @@
   "previous" : "Précédent",
   "from" : "de",
   "to" : "à",
+  "stats.info" : "Aucune statistique disponible pour le moment.",
   "label.metadata.link.title":"Code",
   "label.metadata.link.href":"Lien",
   "label.metadata.link.follow":"Lien suivi",

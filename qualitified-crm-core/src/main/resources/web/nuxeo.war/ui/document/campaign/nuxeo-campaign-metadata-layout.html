@@ -15,27 +15,26 @@
             }
             :root {
              /* Set custom property (variables) */
-             --paper-tabs-selection-bar-color: #ff8e5b;
-
+             --paper-tabs-selection-bar-color: var(--nuxeo-secondary-color);
            }
-           paper-tabs paper-tab.iron-selected {
-              color: #ff8e5b;
-            };
+
+             paper-tabs paper-tab.iron-selected {
+                color: var(--nuxeo-secondary-color);
+             };
              paper-dropdown-menu.custom {
 
                   /* Only show the underline when focused. */
                   --paper-input-container-underline: {
                     display: none;
-                    color: #ff8e5b;
+                    color: var(--nuxeo-secondary-color);
 
                   };
                   --paper-input-container-input: {
-                    color: #ff8e5b;
+                    color: var(--nuxeo-secondary-color);
                   };
                   margin-left:30px;
-
-                }
-            .title{
+             }
+            .title {
                 color:var(--nuxeo-secondary-color);
             }
             paper-card {
@@ -79,13 +78,13 @@
                                        data="{{data}}"
                 >
                 </nuxeo-repository-data>
-                <div style="margin-left:80px;margin-top:80px;" hidden$="[[_isStatsAvailable(data,selectedStep)]]">No stats available yet.</div>
+                <div style="margin-left:80px;margin-top:80px;" hidden$="[[_isStatsAvailable(data,selectedStep)]]">[[i18n('stats.info')]]</div>
                 <div class="card-content" style="margin-right:130px;margin-top:15px;">
                     <chart-pie values="[[_values(data)]]"
                                series="[[_series(data)]]"
                                labels="[[_labels(data)]]"
                                colors="[[colors]]"
-                               options='{"responsive": true, "animation": false}'>
+                               options='{"responsive": true, "animation": true}'>
                     </chart-pie>
                 </div>
             </div>
@@ -138,19 +137,22 @@
                 /**
                  * @doctype campaign
                  */
-                document: {
+                 document: {
                     type: Object,
-                    observer: '_documentReady'
+                    observer: '_documentReady',
                 },
                 colors: {
                     type: Array,
-                    value: ['#E67E22', '#F6DDCC', '#ffffb3', '#bebada', '#80b1d3', '#fdb462', '#b3de69', '#fccde5', '#d9d9d9', '#bc80bd']
+                    value: []
                 }
             },
             _documentReady: function(doc){
             },
             ready: function () {
                 this.selectedStep = 0;
+                var canvas1Color = getComputedStyle(document.documentElement).getPropertyValue('--chart-pie-canvas-1-color');
+                var canvas2Color = getComputedStyle(document.documentElement).getPropertyValue('--chart-pie-canvas-2-color');
+                this.colors =[canvas1Color,canvas2Color];
             },
 
            _getPartialPercent: function(partialCount,totalCount){

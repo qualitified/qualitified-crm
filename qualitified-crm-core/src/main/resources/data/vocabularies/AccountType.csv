@@ -1,4 +1,4 @@
-id,label,obsolete,ordering
-Customer,Customer,0,0
-Partner,Partner,0,10
-Prospect,Prospect,0,20
+"id","label","obsolete","ordering"
+"Customer","lable.vocabulary.Customer","0","0"
+"Partner","lable.vocabulary.Partner","0","10"
+"Prospect","lable.vocabulary.Prospect","0","20"

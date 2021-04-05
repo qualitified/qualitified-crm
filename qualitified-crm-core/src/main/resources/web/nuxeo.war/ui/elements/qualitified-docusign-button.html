@@ -3,7 +3,6 @@
 @group Nuxeo UI
 @element qualitified-docusign-button
 -->
-
 <dom-module id="qualitified-docusign-button">
   <template>
     <style include="nuxeo-action-button-styles">
@@ -22,7 +21,6 @@
     <paper-toast id="operationToast"></paper-toast>
     <nuxeo-operation id="sendToDocusign"  op="Qualitified.SendToDocusign"  input="[[document]]" params="[[params]]" >
     </nuxeo-operation>
-
     <paper-icon-button  icon="icons:gavel" id="button" on-tap="_toggleDialog"></paper-icon-button>
     <paper-tooltip for="button">Send to DocuSign</paper-tooltip>
 
@@ -90,7 +88,6 @@
         }
       },
       _documentReady: function(){
-
       },
       _sendToDocusign: function(e){
          var op = this.$.sendToDocusign;
@@ -100,7 +97,6 @@
            "subject": this.subject,
            //"callbackUrl": document.location.origin+"/nuxeo/site/docusign/"
          };
-
         this.$.operationToast.text = "In progress...";
         this.$.operationToast.open();
         op.execute().then(function(result) {
@@ -125,6 +121,11 @@
               this.isValid = true;
               this.isHidden = true;
           }
+        }.bind(this))
+        .catch(function (error){
+            this.$.operationToast.text = "DocuSign authentication failed!";
+              this.$.operationToast.open();
+              this.$.dialog.toggle();
         }.bind(this));
       },
       _toggleDialog : function () {
@@ -142,5 +143,4 @@
 
     });
   </script>
-
 </dom-module>

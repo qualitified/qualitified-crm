@@ -1,4 +1,4 @@
-id,label,obsolete,ordering
-English,English,0,0
-French,French,0,10
+"id","label","obsolete","ordering"
+"English","lable.vocabulary.English","0","0"
+"French","lable.vocabulary.French","0","10"
 

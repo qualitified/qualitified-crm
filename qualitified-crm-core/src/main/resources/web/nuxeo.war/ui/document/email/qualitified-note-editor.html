@@ -97,17 +97,17 @@
             <paper-tooltip for="bt"></paper-tooltip>
             <template if="[[_isHTML(document)]]" is="dom-if">
                 <div class="html-editor-container">
-                    <paper-icon-button class="edit" hidden$="[[!_canEdit(document)]]" icon="[[_computeHtmlEditIcon(_viewMode)]]" id="editHtml" on-tap="_toggleHtmlSource"></paper-icon-button>
-                    <paper-tooltip for="editHtml" position="right">[[_computeHtmlEditLabel(_viewMode, i18n)]]</paper-tooltip>
+                    <!--paper-icon-button class="edit" hidden$="[[!_canEdit(document)]]" icon="[[_computeHtmlEditIcon(_viewMode)]]" id="editHtml" on-tap="_toggleHtmlSource"></paper-icon-button>
+                    <paper-tooltip for="editHtml" position="right">[[_computeHtmlEditLabel(_viewMode, i18n)]]</paper-tooltip-->
                     <template if="[[_viewMode]]" is="dom-if">
                         <iframe class="editor" frameBorder="0" height="300px" id="editor" read-only="[[!_canEdit(document)]]" src="/nuxeo/ui/alloy.html?id=[[document.uid]]" width="100%"></iframe>
                     </template>
                     <template if="[[!_viewMode]]" is="dom-if">
                         <paper-textarea no-label-float="" placeholder="[[i18n('noteViewLayout.placeholder')]]" value="{{_value}}"></paper-textarea>
                     </template>
-                    <div class="layout horizontal end-justified">
+                    <!--div class="layout horizontal end-justified">
                         <paper-button class="primary" hidden$="[[!_canEdit(document)]]" name="editorSave" noink="" on-tap="_editorSave">[[i18n('command.save')]]</paper-button>
-                    </div>
+                    </div-->
                 </div>
             </template>
             <nuxeo-page-provider enrichers="thumbnail, permissions" headers='{"X-NXfetch.document": "properties", "X-NXtranslate.directoryEntry": "label"}' id="pictureProvider" page="[[pageNumber]]" page-size="40" params="[[params]]" query="SELECT * FROM Picture where ecm:currentLifeCycleState != 'deleted' and ecm:isTrashed= 0 and ecm:path STARTSWITH  '/Marketing/Resources/' " schemas="dublincore,common,uid,picture,public">
