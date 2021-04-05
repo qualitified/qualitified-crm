@@ -9,6 +9,9 @@
       :host {
         display: inline-flex;
       }
+      *[role=widget] {
+        padding: 5px;
+      }
        paper-dialog-scrollable {
         --paper-dialog-scrollable: {
           -webkit-overflow-scrolling: auto;
@@ -18,17 +21,30 @@
     <paper-toast id="operationToast"></paper-toast>
     <nuxeo-operation id="sendToDocusign"  op="Qualitified.SendToDocusign"  input="[[document]]" params="[[params]]" >
     </nuxeo-operation>
-    <paper-icon-button  icon="icons:gavel" id="button" on-tap="_sendToDocusign"></paper-icon-button>
+    <paper-icon-button  icon="icons:gavel" id="button" on-tap="_toggleDialog"></paper-icon-button>
+    <paper-tooltip for="button">Send to DocuSign</paper-tooltip>
+
     <nuxeo-dialog id="dialog" with-backdrop="" on-iron-overlay-closed="" no-auto-focus="">
-      <h2>DocuSign authentication failed!</h2>
-      <paper-dialog-scrollable>
-        <h>One or both of Username and Password are invalid. Invalid access token</h><br/>
-        <h>Please reconnect to DocuSign and try again.</h>
-      </paper-dialog-scrollable>
+      <h2>Send to docuSign</h2>
+
+      <div class="content">
+        <nuxeo-input value="{{subject}}" required="" label="Subject" type="text" role="widget"></nuxeo-input>
+        <qualitified-document-suggestion role="widget" value="{{contactDocs}}" multiple="true" label="Signer" page-provider="documents" min-chars="0" params='{ "namedParameters": "system_primaryType=Contact"}'></qualitified-document-suggestion>
+
+        <div hidden$="[[!isHidden]]">
+          <h style="color:red;">Docusign authentication failed! please connect and try again.</h><br/>
+        </div>
+        <div hidden$="[[isValid]]">
+          <h style="color:red;">Please check signers emails.</h><br/>
+        </div>
+      </div>
       <div class="buttons">
-        <paper-button dialog-dismiss="" noink="">Cancel</paper-button>
-        <paper-button dialog-confirm="" class="primary" name="add" on-click="_toggleWindow">
+        <paper-button dialog-dismiss="" on-click="_resetDialog" noink="">Cancel</paper-button>
+        <paper-button class="primary" name="add" hidden$="[[!isHidden]]" on-click="_toggleWindow">
           Connect to docusign
+        </paper-button>
+        <paper-button class="primary" name="add" hidden$="[[isHidden]]" on-click="_sendToDocusign">
+          Send
         </paper-button>
       </div>
     </nuxeo-dialog>
@@ -45,6 +61,30 @@
         params:{
           type: Object,
           value: {}
+        },
+        clientId:{
+          type: String,
+          value: ''
+        },
+        signerEmail:{
+          type: String,
+          value: ''
+        },
+        subject:{
+          type: String,
+          value: 'Please Sign This Contract'
+        },
+        confirm:{
+          type: Boolean,
+          value: false
+        },
+        isHidden:{
+          type: Boolean,
+          value: false
+        },
+        isValid:{
+          type: Boolean,
+          value: true
         }
       },
       _documentReady: function(){
@@ -53,22 +93,33 @@
          var op = this.$.sendToDocusign;
          op.params = {
            "contextVariable": "envelopeId",
-           "signerEmails": "fs.bilel@gmail.com",
-           "subject": "Please Sign This Contract"
-           //"callbackUrl": "http://localhost:8080/nuxeo/site/docusign/"
+           "contactIds": this.contactDocs,
+           "subject": this.subject,
+           //"callbackUrl": document.location.origin+"/nuxeo/site/docusign/"
          };
         this.$.operationToast.text = "In progress...";
         this.$.operationToast.open();
         op.execute().then(function(result) {
         console.log(result);
-          if (result.status===204) {
+          if (result.value==='Document sent') {
+              this.isValid = true;
+              this.isHidden = false;
               this.$.operationToast.text = "Done!";
               this.$.operationToast.open();
+              this._resetDialog() ;
               this.navigateTo('browse', this.document.path);
+              this.$.dialog.close();
+          } else if (result.value==='Null emails') {
+              this.$.operationToast.text = "Signer's email can't be null!";
+              this.$.operationToast.open();
+              this.isValid = false;
+              this.isHidden = false;
           } else {
+              this.clientId= result.value;
               this.$.operationToast.text = "DocuSign authentication failed!";
               this.$.operationToast.open();
-              this.$.dialog.toggle();
+              this.isValid = true;
+              this.isHidden = true;
           }
         }.bind(this))
         .catch(function (error){
@@ -77,12 +128,19 @@
               this.$.dialog.toggle();
         }.bind(this));
       },
+      _toggleDialog : function () {
+            this.$.dialog.toggle();
+      },
+      _resetDialog : function () {
+            this.contactDocs = null;
+      },
       _toggleWindow : function () {
             var redirect_uri = document.location.origin+"/nuxeo/site/oauth2/docusign/callback";
-            var client_id = "7e6cec99-9bb3-469b-94ac-2e9f854a7312";
-            var docusignAuthWindow = window.open('https://account-d.docusign.com/oauth/auth?client_id='+client_id+'&redirect_uri='+redirect_uri+'&response_type=code#/username',
+            var docusignAuthWindow = window.open('https://account-d.docusign.com/oauth/auth?client_id='+this.clientId+'&redirect_uri='+redirect_uri+'&response_type=code#/username',
             "docusign oauth2", "resizable,scrollbars,status,width=800,height=800");
-        }
+            this.isHidden = false;
+      }
+
     });
   </script>
 </dom-module>
