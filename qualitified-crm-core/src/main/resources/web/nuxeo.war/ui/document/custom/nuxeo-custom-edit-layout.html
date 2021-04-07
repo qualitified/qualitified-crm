@@ -1,9 +1,8 @@
 <!--
-`nuxeo-custom-edit-layout`
+`nuxeo-account-edit-layout`
 @group Nuxeo UI
-@element nuxeo-custom-edit-layout
+@element nuxeo-account-edit-layout
 -->
-<link href="custom-dialog-edit.html" rel="import">
 <dom-module id="nuxeo-custom-edit-layout">
   <template>
     <style>
@@ -23,7 +22,16 @@
       }
     </style>
     <h1>[[document.properties.dc:title]]</h1>
-    <nuxeo-data-table id ="tab" class="results" role="widget" items="{{document.properties.custom:field}}" orderable="true" editable="true" multi-selection="true">
+
+    <nuxeo-document id="custom" doc-id="[[document.uid]]" data="[[document]]" sync-indexing="" enrichers="permissions, subtypes" response="{{createResponse}}"></nuxeo-document>
+    <div class="layout horizontal center end-justified" style="float: right;">
+      <paper-button id="addEntry" class="primary" on-tap="_addEntry">
+        <span>+[[i18n('cloudProviders.add')]]</span>
+      </paper-button>
+    </div>
+
+    <nuxeo-data-table class="results" role="widget" items="{{_getCustomFields(document.properties.custom:field,customFields)}}" id="tableId">
+
       <nuxeo-data-table-column name="[[i18n('label.metadata.custom.label')]]">
         <template>
           <div>{{item.label}}</div>
@@ -99,12 +107,61 @@
           <div>[[item.link]]</div>
         </template>
       </nuxeo-data-table-column>
-      <nuxeo-data-table-form >
+      <nuxeo-data-table-column name="[[i18n('label.metadata.custom.copy')]]">
         <template>
-          <custom-dialog-edit item="[[item]]" document="[[document]]" >
-          </custom-dialog-edit>
+          <div>[[item.copy]]</div>
         </template>
-      </nuxeo-data-table-form>
+      </nuxeo-data-table-column>
+      <nuxeo-data-table-column name="[[i18n(col.name)]]" key="[[col.key]]">
+        <template>
+          <paper-icon-button name="edit" icon="nuxeo:edit" on-tap="_editEntry" title="[[i18n('cloudProviders.edit')]]"></paper-icon-button>
+          <paper-icon-button name="delete" icon="nuxeo:delete" on-tap="_deleteEntry" title="[[i18n('cloudProviders.delete')]]"></paper-icon-button>
+        </template>
+      </nuxeo-data-table-column>
+
+    <nuxeo-dialog id="dialog" with-backdrop="" no-auto-focus="">
+      <h2>[[i18n('cloudProviders.popup.editEntry')]]</h2>
+      <paper-dialog-scrollable>
+        <iron-form id="form">
+          <form>
+            <nuxeo-input role="widget" value="{{_selectedEntry.label}}" label="Label"></nuxeo-input>
+            <nuxeo-directory-suggestion role="widget" label="Type"
+                                        directory-name="Type"
+                                        name="Type"
+                                        value="{{_selectedEntry.type}}"
+                                        min-chars="0"  on-value-changed="_getVocabulary">
+            </nuxeo-directory-suggestion>
+            <nuxeo-select id="field" label="filedName"
+                          selected="{{_selectedEntry.fieldName}}"
+                          attr-for-selected="key"
+                          on-click="_getAvailableField">
+              <dom-repeat items="[[newList]]" as="field">
+                <template>
+                  <paper-item key="[[field.id]]">[[field.label]]</paper-item>
+                </template>
+              </dom-repeat>
+            </nuxeo-select>
+            <paper-checkbox checked="{{_selectedEntry.required}}"></paper-checkbox> Required
+            <nuxeo-input role="widget" value="{{_selectedEntry.vocabularyName}}" label="Vocabulary Name"></nuxeo-input>
+            <nuxeo-input role="widget" value="{{_selectedEntry.format}}" label="Format"></nuxeo-input>
+            <nuxeo-input role="widget" value="{{_selectedEntry.readGroup}}" label="Read Group"></nuxeo-input>
+            <nuxeo-input role="widget" value="{{_selectedEntry.editGroup}}" label="Edit Group"></nuxeo-input>
+            <nuxeo-input role="widget" value="{{_selectedEntry.hiddenGroup}}" label="Hidden Group"></nuxeo-input>
+            <paper-checkbox checked="{{_selectedEntry.multivalue}}"></paper-checkbox> Multivalue
+            <nuxeo-input role="widget" value="{{_selectedEntry.primaryType}}" label="Primary Type"></nuxeo-input>
+            <nuxeo-input role="widget" value="{{_selectedEntry.path}}" label="Path"></nuxeo-input>
+            <nuxeo-input role="widget" value="{{_selectedEntry.parentId}}" label="Parent Id"></nuxeo-input>
+            <paper-checkbox checked="{{_selectedEntry.multiline}}"></paper-checkbox> Multiline <br/>
+            <paper-checkbox checked="{{_selectedEntry.link}}"></paper-checkbox> Link <br/>
+            <paper-checkbox checked="{{_selectedEntry.copy}}"></paper-checkbox> Copyable
+          </form>
+        </iron-form>
+      </paper-dialog-scrollable>
+      <div class="buttons">
+        <paper-button id="cancel" name="cancel" noink="" dialog-dismiss="">[[i18n('command.cancel')]]</paper-button>
+        <paper-button id="save" name="save" noink="" class="primary" on-tap="_save">[[i18n('command.save')]]</paper-button>
+      </div>
+    </nuxeo-dialog>
     </nuxeo-data-table>
   </template>
   <script>
@@ -112,19 +169,159 @@
       'use strict';
       Polymer({
         is: 'nuxeo-custom-edit-layout',
-        behaviors: [Nuxeo.LayoutBehavior,Polymer.IronResizableBehavior,Polymer.IronValidatableBehavior],
+        behaviors: [Nuxeo.LayoutBehavior],
         properties: {
           /**
            * @doctype Custom
            */
           document: {
             type: Object
-          }
+          },
 
+          customFields: {
+          type: Array,
+          value: []
+        },
+         vocabEntries:{
+          type: Array,
+          value: []
+        },
+
+        newList: {
+        type: Array,
+          value: []
+      },
+      index:{},
+          _selectedEntry: {
+          type: Object
+        },
+        _isNew: {
+          type: Boolean
+        }
+      },
+     _getCustomFields: function(oldFields,newFields) {
+        if (newFields.length>0){
+          return newFields;
+        }else return oldFields;
+      },
+     _getAvailableField:function(){
+      var newList=[];
+      var vocabs=this.vocabEntries;
+      console.log("doc "+this.document);
+      var customField= this.document.properties["custom:field"];
+      var fieldNameList=[];
+      for(var j=0;j<customField.length;j++){
+        fieldNameList.push(customField[j].fieldName);
+      }
+      for(var i=0;i<vocabs.length;i++){
+        if (fieldNameList.indexOf(vocabs[i].id) === -1) {
+          newList.push({id:vocabs[i].id,label:vocabs[i].id});
+        }
+        else if (customField.indexOf(vocabs[i].id) > -1) {
+          console.log(vocabs[i] + ' already exists in the customField collection.');
+        }
+      }
+      this.newList=newList;
+    },
+    _getVocabulary: function(e) {
+      var selection= e.detail.value;
+      this.$.field.setAttribute("directory-Name", selection);
+      fetch(window.location.origin + '/nuxeo/api/v1/directory/'+selection)
+      .then((resp) => resp.json())
+      .then(function(data) {
+      this.vocabEntries = data.entries;
+      }.bind(this));
+
+    },
+    refresh: function() {
+      this.$.custom.get().then(function(response) {
+       console.log(response);
+        this.customFields = response.properties['custom:field'];
+        //this.async(this.$.table.$.list.notifyResize.bind(this.$.table.$.list), 1000);
+      }.bind(this));
+    },
+    _editEntry: function(e) {
+
+      this._isNew = false;
+      this._selectedEntry = JSON.parse(JSON.stringify(e.target.parentNode.item));
+      this.$.dialog.toggle();
+    },
+    _addEntry: function() {
+      this._isNew = true;
+      this._selectedEntry = {
+        "fieldName": null,
+        "read": null,
+        "hidden": null,
+        "edit": null,
+        "readGroup": null,
+        "editGroup": null,
+        "format": null,
+        "link": null,
+        "vocabularyName": null,
+        "label": null,
+        "type": null,
+        "required": null,
+        "parentId": null,
+        "multivalue": null,
+        "path": null,
+        "hiddenGroup": null,
+        "primaryType": null,
+        "multiline": null,
+        "copy": null
+      };
+      this.$.dialog.toggle();
+    },
+    _save: function() {
+      var valid = this.$.form.validate();
+        if (this._isNew) {
+          this._create(this._selectedEntry);
+        } else {
+          this._update(this._selectedEntry);
+        }
+    },
+    _create: function(entry) {
+      this.$.custom.data.properties['custom:field'].push(entry);
+      this.$.custom.put().then(function() {
+        this.$.dialog.toggle();
+        this.fire('notify', {message: this.i18n('cloudProviders.successfullyCreated')});
+        this.refresh();
+      }.bind(this), function(err) {
+        this.fire('notify', {
+          message: this.i18n('label.error').toUpperCase() + ': ' +
+          (err.message && err.message.length > 0 ? err.message :
+            this.i18n('cloudProviders.errorCreating'))
+        });
+      }.bind(this));
+    },
+    _update: function(entry) {
+      this.$.custom.data.properties['custom:field'].push(entry);
+      this.$.custom.put().then(function() {
+        this.$.dialog.toggle();
+        this.fire('notify', {message: this.i18n('cloudProviders.successfullyEdited')});
+        this.refresh();
+      }.bind(this), function(err) {
+        this.fire('notify', {
+          message: this.i18n('label.error').toUpperCase() + ': ' +
+          (err.message && err.message.length > 0 ? err.message :
+            this.i18n('cloudProviders.errorEditing'))
+        });
+      }.bind(this));
+    },
+    _deleteEntry: function(e) {
+      if (confirm(this.i18n('cloudProviders.confirmDelete'))) {
+        var item =  e.target.parentNode.item;
+        this.$.custom.remove().then(function() {
+          this.refresh();
+          this.fire('notify', {message: this.i18n('cloudProviders.successfullyDeleted')});
+        }.bind(this), function() {
+          this.fire('notify', {
+            message: this.i18n('label.error').toUpperCase() + ': ' +
+            this.i18n('cloudProviders.errorDeleting')
+          });
+        }.bind(this));
+      }
     }
-
-
-       });
+      });
     })();
   </script>
 </dom-module>
