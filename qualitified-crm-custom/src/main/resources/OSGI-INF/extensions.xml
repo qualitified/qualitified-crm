@@ -59,8 +59,8 @@
         <video src=""/>
       </videos>
       <logoUrl>${org.nuxeo.ecm.contextPath}/img/logo.png</logoUrl>
-      <logoWidth>185</logoWidth>
-      <logoHeight>50</logoHeight>
+      <logoWidth>233</logoWidth>
+      <logoHeight>80</logoHeight>
     </loginScreenConfig>
   </extension>
 

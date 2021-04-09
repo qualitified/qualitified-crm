@@ -1,8 +1,0 @@
-<?xml version="1.0"?>
-<component name="org.qualitified.crm.service.mailjet-emailing-service">
-    <service>
-        <provide interface="org.qualitified.crm.service.EmailingService"/>
-    </service>
-    <implementation class="org.qualitified.crm.service.MailjetEmailingService"/>
-
-</component>

@@ -1,6 +1,0 @@
-<component name="CustomUserSchemaConfiguration">
-	<require>org.nuxeo.ecm.directory.types</require>
-	<extension target="org.nuxeo.ecm.core.schema.TypeService" point="schema">
-    	<schema name="user" src="data/schemas/extended-user-profile.xsd" override="true" />
- 	</extension>
-</component>
