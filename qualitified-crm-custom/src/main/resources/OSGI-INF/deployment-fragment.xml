@@ -14,7 +14,7 @@
     <copy from="${bundle.fileName}.tmp/skin" to="root.war/modules/nuxeo-easyshare-core/skin"/>
     <append from="${bundle.fileName}.tmp/data/i18n/messages.json" to="nuxeo.war/ui/i18n/messages.json" addNewLine="true"/>
     <append from="${bundle.fileName}.tmp/data/i18n/messages-fr.json" to="nuxeo.war/ui/i18n/messages-fr.json" addNewLine="true"/>
-    <append from="${bundle.fileName}.tmp/data/i18n/messages-sv-SE.json" to="nuxeo.war/ui/i18n/messages-sv-SE.json" addNewLine="true"/>
+    <append from="${bundle.fileName}.tmp/data/i18n/messages-sv.json" to="nuxeo.war/ui/i18n/messages-sv.json" addNewLine="true"/>
     <delete path="${bundle.fileName}.tmp"/>
   </install>
 </fragment>
