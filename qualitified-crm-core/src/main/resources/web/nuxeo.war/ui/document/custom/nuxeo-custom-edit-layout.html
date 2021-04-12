@@ -22,16 +22,12 @@
       }
     </style>
     <h1>[[document.properties.dc:title]]</h1>
-
-    <nuxeo-document id="custom" doc-id="[[document.uid]]" data="[[document]]" sync-indexing="" enrichers="permissions, subtypes" response="{{createResponse}}"></nuxeo-document>
     <div class="layout horizontal center end-justified" style="float: right;">
       <paper-button id="addEntry" class="primary" on-tap="_addEntry">
-        <span>+[[i18n('cloudProviders.add')]]</span>
+        <span>Add</span>
       </paper-button>
     </div>
-
-    <nuxeo-data-table class="results" role="widget" items="{{_getCustomFields(document.properties.custom:field,customFields)}}" id="tableId">
-
+    <nuxeo-data-table class="results" id="customTable" items="{{document.properties.custom:field}}" role="widget">
       <nuxeo-data-table-column name="[[i18n('label.metadata.custom.label')]]">
         <template>
           <div>{{item.label}}</div>
@@ -114,13 +110,12 @@
       </nuxeo-data-table-column>
       <nuxeo-data-table-column name="[[i18n(col.name)]]" key="[[col.key]]">
         <template>
-          <paper-icon-button name="edit" icon="nuxeo:edit" on-tap="_editEntry" title="[[i18n('cloudProviders.edit')]]"></paper-icon-button>
-          <paper-icon-button name="delete" icon="nuxeo:delete" on-tap="_deleteEntry" title="[[i18n('cloudProviders.delete')]]"></paper-icon-button>
+          <paper-icon-button name="edit" icon="nuxeo:edit" on-tap="_editEntry" title="Edit"></paper-icon-button>
+          <paper-icon-button name="delete" icon="nuxeo:delete" on-tap="_deleteEntry" title="Delete"></paper-icon-button>
         </template>
       </nuxeo-data-table-column>
-
     <nuxeo-dialog id="dialog" with-backdrop="" no-auto-focus="">
-      <h2>[[i18n('cloudProviders.popup.editEntry')]]</h2>
+      <h2>Edit</h2>
       <paper-dialog-scrollable>
         <iron-form id="form">
           <form>
@@ -144,9 +139,25 @@
             <paper-checkbox checked="{{_selectedEntry.required}}"></paper-checkbox> Required
             <nuxeo-input role="widget" value="{{_selectedEntry.vocabularyName}}" label="Vocabulary Name"></nuxeo-input>
             <nuxeo-input role="widget" value="{{_selectedEntry.format}}" label="Format"></nuxeo-input>
-            <nuxeo-input role="widget" value="{{_selectedEntry.readGroup}}" label="Read Group"></nuxeo-input>
-            <nuxeo-input role="widget" value="{{_selectedEntry.editGroup}}" label="Edit Group"></nuxeo-input>
-            <nuxeo-input role="widget" value="{{_selectedEntry.hiddenGroup}}" label="Hidden Group"></nuxeo-input>
+            <nuxeo-user-suggestion search-type="GROUP_TYPE" label="Read Group"
+                                   placeholder="Search for Groups"
+                                   value="{{_selectedEntry.readGroup}}"
+                                   min-chars="0"
+                                   multiple></nuxeo-user-suggestion>
+            <nuxeo-user-suggestion search-type="GROUP_TYPE" label="Edit Group"
+                                   placeholder="Search for Groups"
+                                   value="{{_selectedEntry.editGroup}}"
+                                   min-chars="0"
+                                   multiple></nuxeo-user-suggestion>
+            <nuxeo-user-suggestion search-type="GROUP_TYPE" label="Hidden Group"
+                                   placeholder="Search for Groups"
+                                   value="{{_selectedEntry.hiddenGroup}}"
+                                   min-chars="0"
+                                   multiple></nuxeo-user-suggestion>
+
+            <!--nuxeo-input role="widget" value="{{_selectedEntry.readGroup}}" label="Read Group"></nuxeo-input-->
+            <!--nuxeo-input role="widget" value="{{_selectedEntry.editGroup}}" label="Edit Group"></nuxeo-input-->
+            <!--nuxeo-input role="widget" value="{{_selectedEntry.hiddenGroup}}" label="Hidden Group"></nuxeo-input-->
             <paper-checkbox checked="{{_selectedEntry.multivalue}}"></paper-checkbox> Multivalue
             <nuxeo-input role="widget" value="{{_selectedEntry.primaryType}}" label="Primary Type"></nuxeo-input>
             <nuxeo-input role="widget" value="{{_selectedEntry.path}}" label="Path"></nuxeo-input>
@@ -163,6 +174,7 @@
       </div>
     </nuxeo-dialog>
     </nuxeo-data-table>
+
   </template>
   <script>
     (function() {
@@ -177,34 +189,29 @@
           document: {
             type: Object
           },
-
+          vocabEntries:{
+          type: Array,
+          value: []
+        },
+        newList: {
+        type: Array,
+          value: []
+        },
           customFields: {
           type: Array,
           value: []
         },
-         vocabEntries:{
-          type: Array,
-          value: []
-        },
-
-        newList: {
-        type: Array,
-          value: []
-      },
-      index:{},
           _selectedEntry: {
           type: Object
+        },
+        selectedIndex: {
+          type: Number
         },
         _isNew: {
           type: Boolean
         }
       },
-     _getCustomFields: function(oldFields,newFields) {
-        if (newFields.length>0){
-          return newFields;
-        }else return oldFields;
-      },
-     _getAvailableField:function(){
+      _getAvailableField:function(){
       var newList=[];
       var vocabs=this.vocabEntries;
       console.log("doc "+this.document);
@@ -231,96 +238,60 @@
       .then(function(data) {
       this.vocabEntries = data.entries;
       }.bind(this));
-
     },
-    refresh: function() {
-      this.$.custom.get().then(function(response) {
-       console.log(response);
-        this.customFields = response.properties['custom:field'];
-        //this.async(this.$.table.$.list.notifyResize.bind(this.$.table.$.list), 1000);
-      }.bind(this));
-    },
-    _editEntry: function(e) {
-
-      this._isNew = false;
-      this._selectedEntry = JSON.parse(JSON.stringify(e.target.parentNode.item));
-      this.$.dialog.toggle();
-    },
-    _addEntry: function() {
-      this._isNew = true;
-      this._selectedEntry = {
-        "fieldName": null,
-        "read": null,
-        "hidden": null,
-        "edit": null,
-        "readGroup": null,
-        "editGroup": null,
-        "format": null,
-        "link": null,
-        "vocabularyName": null,
-        "label": null,
-        "type": null,
-        "required": null,
-        "parentId": null,
-        "multivalue": null,
-        "path": null,
-        "hiddenGroup": null,
-        "primaryType": null,
-        "multiline": null,
-        "copy": null
-      };
-      this.$.dialog.toggle();
-    },
-    _save: function() {
-      var valid = this.$.form.validate();
-        if (this._isNew) {
-          this._create(this._selectedEntry);
-        } else {
-          this._update(this._selectedEntry);
+        _editEntry: function(e) {
+            var item =  e.target.parentNode.item;
+            this.selectedIndex = this.document.properties['custom:field'].indexOf(item);
+            this._isNew = false;
+            this._selectedEntry = JSON.parse(JSON.stringify(item));
+            this.$.dialog.toggle();
+        },
+        _addEntry: function() {
+          this._isNew = true;
+          this._selectedEntry = {
+            "fieldName": null,
+            "read": null,
+            "hidden": null,
+            "edit": null,
+            "readGroup": null,
+            "editGroup": null,
+            "format": null,
+            "link": null,
+            "vocabularyName": null,
+            "label": null,
+            "type": null,
+            "required": null,
+            "parentId": null,
+            "multivalue": null,
+            "path": null,
+            "hiddenGroup": null,
+            "primaryType": null,
+            "multiline": null,
+            "copy": null
+          };
+          this.$.dialog.toggle();
+        },
+        _save: function() {
+          var valid = this.$.form.validate();
+            if (this._isNew) {
+              this._create(this._selectedEntry);
+            } else {
+              this._update(this._selectedEntry);
+            }
+        },
+        _create: function(entry) {
+         this.push('document.properties.custom:field',entry);
+         this.$.dialog.toggle();
+        },
+        _update: function(entry) {
+          this.splice('document.properties.custom:field',this.selectedIndex, 1, entry);
+          this.$.dialog.toggle();
+        },
+        _deleteEntry: function(e) {
+           var item =  e.target.parentNode.item;
+           var selectedIndex = this.document.properties['custom:field'].indexOf(item);
+           this.splice('document.properties.custom:field',selectedIndex, 1)
         }
-    },
-    _create: function(entry) {
-      this.$.custom.data.properties['custom:field'].push(entry);
-      this.$.custom.put().then(function() {
-        this.$.dialog.toggle();
-        this.fire('notify', {message: this.i18n('cloudProviders.successfullyCreated')});
-        this.refresh();
-      }.bind(this), function(err) {
-        this.fire('notify', {
-          message: this.i18n('label.error').toUpperCase() + ': ' +
-          (err.message && err.message.length > 0 ? err.message :
-            this.i18n('cloudProviders.errorCreating'))
-        });
-      }.bind(this));
-    },
-    _update: function(entry) {
-      this.$.custom.data.properties['custom:field'].push(entry);
-      this.$.custom.put().then(function() {
-        this.$.dialog.toggle();
-        this.fire('notify', {message: this.i18n('cloudProviders.successfullyEdited')});
-        this.refresh();
-      }.bind(this), function(err) {
-        this.fire('notify', {
-          message: this.i18n('label.error').toUpperCase() + ': ' +
-          (err.message && err.message.length > 0 ? err.message :
-            this.i18n('cloudProviders.errorEditing'))
-        });
-      }.bind(this));
-    },
-    _deleteEntry: function(e) {
-      if (confirm(this.i18n('cloudProviders.confirmDelete'))) {
-        var item =  e.target.parentNode.item;
-        this.$.custom.remove().then(function() {
-          this.refresh();
-          this.fire('notify', {message: this.i18n('cloudProviders.successfullyDeleted')});
-        }.bind(this), function() {
-          this.fire('notify', {
-            message: this.i18n('label.error').toUpperCase() + ': ' +
-            this.i18n('cloudProviders.errorDeleting')
-          });
-        }.bind(this));
-      }
-    }
       });
     })();
   </script>

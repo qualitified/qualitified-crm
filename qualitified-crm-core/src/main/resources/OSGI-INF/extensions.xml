@@ -2120,6 +2120,90 @@
     </factoryBinding>
   </extension>
   <!--require>org.nuxeo.ecm.directory.sql.storage</require-->
+
+
+  <extension target="org.nuxeo.ecm.directory.GenericDirectory" point="directories">
+    <directory name="String" extends="template-xvocabulary">
+      <autoincrementIdField>false</autoincrementIdField>
+      <createTablePolicy>always</createTablePolicy>
+      <table>studio_vocabulary_String</table>
+      <dataFile>data/vocabularies/String.csv</dataFile>
+      <parentDirectory>Type</parentDirectory>
+      <cacheEntryName>vocab-String-cache</cacheEntryName>
+      <cacheEntryWithoutReferencesName>vocab-String-cache-without-references</cacheEntryWithoutReferencesName>
+    </directory>
+    <directory name="Boolean" extends="template-xvocabulary">
+      <autoincrementIdField>false</autoincrementIdField>
+      <createTablePolicy>always</createTablePolicy>
+      <table>studio_vocabulary_Boolean</table>
+      <dataFile>data/vocabularies/Boolean.csv</dataFile>
+      <parentDirectory>Type</parentDirectory>
+      <cacheEntryName>vocab-Boolean-cache</cacheEntryName>
+      <cacheEntryWithoutReferencesName>vocab-Boolean-cache-without-references</cacheEntryWithoutReferencesName>
+    </directory>
+    <directory name="File" extends="template-xvocabulary">
+      <autoincrementIdField>false</autoincrementIdField>
+      <createTablePolicy>always</createTablePolicy>
+      <table>studio_vocabulary_File</table>
+      <dataFile>data/vocabularies/File.csv</dataFile>
+      <parentDirectory>Type</parentDirectory>
+      <cacheEntryName>vocab-File-cache</cacheEntryName>
+      <cacheEntryWithoutReferencesName>vocab-File-cache-without-references</cacheEntryWithoutReferencesName>
+    </directory>
+    <directory name="Double" extends="template-xvocabulary">
+      <autoincrementIdField>false</autoincrementIdField>
+      <createTablePolicy>always</createTablePolicy>
+      <table>studio_vocabulary_Double</table>
+      <dataFile>data/vocabularies/Double.csv</dataFile>
+      <parentDirectory>Type</parentDirectory>
+      <cacheEntryName>vocab-Double-cache</cacheEntryName>
+      <cacheEntryWithoutReferencesName>vocab-Double-cache-without-references</cacheEntryWithoutReferencesName>
+    </directory>
+    <directory name="Document" extends="template-xvocabulary">
+      <autoincrementIdField>false</autoincrementIdField>
+      <createTablePolicy>always</createTablePolicy>
+      <table>studio_vocabulary_Document</table>
+      <dataFile>data/vocabularies/Document.csv</dataFile>
+      <parentDirectory>Type</parentDirectory>
+      <cacheEntryName>vocab-Document-cache</cacheEntryName>
+      <cacheEntryWithoutReferencesName>vocab-Document-cache-without-references</cacheEntryWithoutReferencesName>
+    </directory>
+    <directory name="User" extends="template-xvocabulary">
+      <autoincrementIdField>false</autoincrementIdField>
+      <createTablePolicy>always</createTablePolicy>
+      <table>studio_vocabulary_User</table>
+      <dataFile>data/vocabularies/User.csv</dataFile>
+      <parentDirectory>Type</parentDirectory>
+      <cacheEntryName>vocab-User-cache</cacheEntryName>
+      <cacheEntryWithoutReferencesName>vocab-User-cache-without-references</cacheEntryWithoutReferencesName>
+    </directory>
+    <directory name="Vocabulary" extends="template-xvocabulary">
+      <autoincrementIdField>false</autoincrementIdField>
+      <createTablePolicy>always</createTablePolicy>
+      <table>studio_vocabulary_Vocabulary</table>
+      <dataFile>data/vocabularies/Vocabulary.csv</dataFile>
+      <parentDirectory>Type</parentDirectory>
+      <cacheEntryName>vocab-Vocabulary-cache</cacheEntryName>
+      <cacheEntryWithoutReferencesName>vocab-Vocabulary-cache-without-references</cacheEntryWithoutReferencesName>
+    </directory>
+    <directory name="Integer" extends="template-xvocabulary">
+      <autoincrementIdField>false</autoincrementIdField>
+      <createTablePolicy>always</createTablePolicy>
+      <table>studio_vocabulary_Integer</table>
+      <dataFile>data/vocabularies/Integer.csv</dataFile>
+      <parentDirectory>Type</parentDirectory>
+      <cacheEntryName>vocab-Integer-cache</cacheEntryName>
+      <cacheEntryWithoutReferencesName>vocab-Integer-cache-without-references</cacheEntryWithoutReferencesName>
+    </directory>
+    <directory name="Type" extends="template-vocabulary">
+      <autoincrementIdField>false</autoincrementIdField>
+      <createTablePolicy>always</createTablePolicy>
+      <table>studio_vocabulary_Type</table>
+      <dataFile>data/vocabularies/Type.csv</dataFile>
+      <cacheEntryName>vocab-Type-cache</cacheEntryName>
+      <cacheEntryWithoutReferencesName>vocab-Type-cache-without-references</cacheEntryWithoutReferencesName>
+    </directory>
+  </extension>
   <extension target="org.nuxeo.ecm.directory.sql.SQLDirectoryFactory" point="directories">
     <!--directory name="userDirectory">
       <passwordField>password</passwordField>
