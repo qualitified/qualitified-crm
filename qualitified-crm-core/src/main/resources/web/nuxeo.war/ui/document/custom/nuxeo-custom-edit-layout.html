@@ -143,21 +143,18 @@
                                    placeholder="Search for Groups"
                                    value="{{_selectedEntry.readGroup}}"
                                    min-chars="0"
-                                   multiple></nuxeo-user-suggestion>
+                                   role="widget"></nuxeo-user-suggestion>
             <nuxeo-user-suggestion search-type="GROUP_TYPE" label="Edit Group"
                                    placeholder="Search for Groups"
                                    value="{{_selectedEntry.editGroup}}"
                                    min-chars="0"
-                                   multiple></nuxeo-user-suggestion>
+                                   role="widget"></nuxeo-user-suggestion>
             <nuxeo-user-suggestion search-type="GROUP_TYPE" label="Hidden Group"
                                    placeholder="Search for Groups"
                                    value="{{_selectedEntry.hiddenGroup}}"
                                    min-chars="0"
-                                   multiple></nuxeo-user-suggestion>
+                                   role="widget"></nuxeo-user-suggestion>
 
-            <!--nuxeo-input role="widget" value="{{_selectedEntry.readGroup}}" label="Read Group"></nuxeo-input-->
-            <!--nuxeo-input role="widget" value="{{_selectedEntry.editGroup}}" label="Edit Group"></nuxeo-input-->
-            <!--nuxeo-input role="widget" value="{{_selectedEntry.hiddenGroup}}" label="Hidden Group"></nuxeo-input-->
             <paper-checkbox checked="{{_selectedEntry.multivalue}}"></paper-checkbox> Multivalue
             <nuxeo-input role="widget" value="{{_selectedEntry.primaryType}}" label="Primary Type"></nuxeo-input>
             <nuxeo-input role="widget" value="{{_selectedEntry.path}}" label="Path"></nuxeo-input>
@@ -244,6 +241,8 @@
             this.selectedIndex = this.document.properties['custom:field'].indexOf(item);
             this._isNew = false;
             this._selectedEntry = JSON.parse(JSON.stringify(item));
+                        console.log("item  "+item);
+
             this.$.dialog.toggle();
         },
         _addEntry: function() {
@@ -285,6 +284,8 @@
         },
         _update: function(entry) {
           this.splice('document.properties.custom:field',this.selectedIndex, 1, entry);
+                                  console.log("entry  "+entry);
+
           this.$.dialog.toggle();
         },
         _deleteEntry: function(e) {
