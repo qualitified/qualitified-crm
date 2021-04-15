@@ -5,7 +5,7 @@
 -->
 <dom-module id="qualitified-docusign-button">
   <template>
-    <style include="nuxeo-action-button-styles">
+    <style include="nuxeo-styles  nuxeo-action-button-styles">
       :host {
         display: inline-flex;
       }
@@ -29,7 +29,7 @@
 
       <div class="content">
         <nuxeo-input value="{{subject}}" required="" label="Subject" type="text" role="widget"></nuxeo-input>
-        <qualitified-document-suggestion role="widget" value="{{contactDocs}}" multiple="true" label="Signer" page-provider="documents" min-chars="0" params='{ "namedParameters": "system_primaryType=Contact"}'></qualitified-document-suggestion>
+        <qualitified-document-suggestion role="widget" required  value="{{contactDocs}}" multiple="true" label="Signer" page-provider="documents" min-chars="0" params='{ "namedParameters": "system_primaryType=Contact"}'></qualitified-document-suggestion>
 
         <div hidden$="[[!isHidden]]">
           <h style="color:red;">Docusign authentication failed! please connect and try again.</h><br/>
@@ -43,7 +43,7 @@
         <paper-button class="primary" name="add" hidden$="[[!isHidden]]" on-click="_toggleWindow">
           Connect to docusign
         </paper-button>
-        <paper-button class="primary" name="add" hidden$="[[isHidden]]" on-click="_sendToDocusign">
+        <paper-button class="primary" name="add" disabled$="[[_validToSend(subject,contactDocs)]]" hidden$="[[isHidden]]" on-click="_sendToDocusign">
           Send
         </paper-button>
       </div>
@@ -95,9 +95,9 @@
            "contextVariable": "envelopeId",
            "contactIds": this.contactDocs,
            "subject": this.subject,
-           //"callbackUrl": document.location.origin+"/nuxeo/site/docusign/"
+           "callbackUrl": document.location.origin+"/nuxeo/site/docusign/"
          };
-        this.$.operationToast.text = "In progress...";
+        this.$.operationToast.text = "Sending ...";
         this.$.operationToast.open();
         op.execute().then(function(result) {
         console.log(result);
@@ -110,36 +110,40 @@
               this.navigateTo('browse', this.document.path);
               this.$.dialog.close();
           } else if (result.value==='Null emails') {
-              this.$.operationToast.text = "Signer's email can't be null!";
+              this.$.operationToast.text = "Signer's email can't be null !";
               this.$.operationToast.open();
               this.isValid = false;
               this.isHidden = false;
           } else {
               this.clientId= result.value;
-              this.$.operationToast.text = "DocuSign authentication failed!";
+              this.$.operationToast.text = "DocuSign authentication failed !";
               this.$.operationToast.open();
               this.isValid = true;
               this.isHidden = true;
           }
         }.bind(this))
         .catch(function (error){
-            this.$.operationToast.text = "DocuSign authentication failed!";
-              this.$.operationToast.open();
-              this.$.dialog.toggle();
+            this.$.operationToast.text = "Cannot send to DocuSign !";
+            this.$.operationToast.open();
         }.bind(this));
       },
       _toggleDialog : function () {
             this.$.dialog.toggle();
       },
       _resetDialog : function () {
+            this.subject = "Please Sign This Contract";
             this.contactDocs = null;
+            this._validToSend(this.subject,this.contactDocs);
       },
       _toggleWindow : function () {
             var redirect_uri = document.location.origin+"/nuxeo/site/oauth2/docusign/callback";
             var docusignAuthWindow = window.open('https://account-d.docusign.com/oauth/auth?client_id='+this.clientId+'&redirect_uri='+redirect_uri+'&response_type=code#/username',
             "docusign oauth2", "resizable,scrollbars,status,width=800,height=800");
             this.isHidden = false;
-      }
+      },
+      _validToSend: function (subject,contactDocs) {
+          return subject && Array.isArray(contactDocs) && contactDocs.length ? false : true;
+        }
 
     });
   </script>
