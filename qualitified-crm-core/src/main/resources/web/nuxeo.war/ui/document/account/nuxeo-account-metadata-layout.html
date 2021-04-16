@@ -17,80 +17,105 @@
         box-sizing: border-box;
         margin-right: 8px;
       }
+      nuxeo-card {
+      min-width: 20em;
+      width: 30%;
+      }
       .title{
         color:var(--nuxeo-secondary-color);
       }
+      .section  {
+        display: block;
+      }
+      .dashboard {
+         display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: space-between;
+      }
     </style>
     <div role="widget" class="title">
-      <h1><template is="dom-if" if="[[_hasProfileImg(document.properties.file:content)]]">
-        <img style="vertical-align: text-bottom;" class="account-view-layout" src="/nuxeo/nxfile/default/[[document.uid]]/file:content/">
-      </template>[[document.properties.dc:title]]</h1>
+      <h1>
+        <template is="dom-if" if="[[_hasProfileImg(document.properties.file:content)]]">
+          <img style="vertical-align: text-bottom;" class="account-view-layout" src="/nuxeo/nxfile/default/[[document.uid]]/file:content/">
+        </template>[[document.properties.dc:title]]</h1>
     </div>
-    <div role="widget">
-      <label>[[i18n('label.metadata.type')]]</label>
-      <div>[[formatDirectory(document.properties.account:accountType)]]</div>
-    </div>
-    <div role="widget">
-      <label>[[i18n('label.metadata.typeOfIndustry')]]</label>
-      <div>[[formatDirectory(document.properties.account:typeOfIndustry)]]</div>
-    </div>
-    <div role="widget">
-      <label>[[i18n('label.metadata.zone')]]</label>
-      <div>[[formatDirectory(document.properties.account:zone)]]</div>
-    </div>
-    <div role="widget">
-      <label>[[i18n('label.metadata.turnover')]]</label>
-      <div><qualitified-amount value="[[document.properties.account:turnover]]"></qualitified-amount></div>
-    </div>
-    <div role="widget">
-      <label>[[i18n('label.metadata.website')]]</label>
-      <div><a href="[[document.properties.account:website]]">[[document.properties.account:website]]</a></div>
-    </div>
-    <div role="widget">
-      <label>[[i18n('label.metadata.nbemployees')]]</label>
-      <div>[[document.properties.account:nbEmployees]]</div>
-    </div>
-    <div role="widget">
-      <label>[[i18n('label.metadata.phone')]]</label>
-      <div>[[document.properties.account:phoneNumber]]</div>
-    </div>
+    <section class="dashboard">
+        <nuxeo-card>
+          <div role="widget">
+            <label>[[i18n('label.metadata.type')]]</label>
+            <div>[[formatDirectory(document.properties.account:accountType)]]</div>
+          </div>
+          <div role="widget">
+            <label>[[i18n('label.metadata.typeOfIndustry')]]</label>
+            <div>[[formatDirectory(document.properties.account:typeOfIndustry)]]</div>
+          </div>
+          <div role="widget">
+            <label>[[i18n('label.metadata.zone')]]</label>
+            <div>[[formatDirectory(document.properties.account:zone)]]</div>
+          </div>
+          <div role="widget">
+            <label>[[i18n('label.metadata.turnover')]]</label>
+            <div><qualitified-amount value="[[document.properties.account:turnover]]"></qualitified-amount></div>
+          </div>
+          <div role="widget">
+            <label>[[i18n('label.metadata.website')]]</label>
+            <div><a href="[[document.properties.account:website]]">[[document.properties.account:website]]</a></div>
+          </div>
+        </nuxeo-card>
 
-    <div role="widget">
-      <label>[[i18n('label.metadata.email')]]</label>
-      <div>[[document.properties.account:email]]</div>
-    </div>
-    <div role="widget">
-      <label>[[i18n('label.metadata.address')]]</label>
-      <div>[[document.properties.address:address1]]</div>
-      <div>[[document.properties.address:address2]]</div>
-      <div>[[document.properties.address:address3]]</div>
-      <div>[[document.properties.address:zipCode]] [[document.properties.address:city]]</div>
-      <div>[[document.properties.address:country]]</div>
-    </div>
-    <div role="widget">
-      <label>status</label>
-      <div directory-name="StatusAccount">[[formatDirectory(document.properties.account:status)]]</div>
-    </div>
-    <div role="widget" hidden$="[[!document.properties.account:mainContact]">
-      <label>[[i18n('label.metadata.mainContact')]]</label>
-      <qualitified-document-suggestion role="widget"
-                                       value="[[document.properties.account:mainContact]]"
-                                       min-chars="0"
-                                       clickable="true"
-                                       readOnly>
-      </qualitified-document-suggestion>
-    </div>
-    <div role="widget">
-      <label>[[i18n('label.metadata.responsible')]]</label>
-      <div>
-        <nuxeo-user-tag user="[[document.properties.account:responsible]]"></nuxeo-user-tag>
-      </div>
-    </div>
-    <qualitified-custom-fields document="[[document]]" mode="view"></qualitified-custom-fields>
-    <div role="widget">
-      <label>[[i18n('label.metadata.description')]]</label>
-      <div><pre>[[document.properties.dc:description]]</pre></div>
-    </div>
+        <nuxeo-card>
+          <div role="widget">
+            <label>[[i18n('label.metadata.nbemployees')]]</label>
+            <div>[[document.properties.account:nbEmployees]]</div>
+          </div>
+          <div role="widget">
+            <label>[[i18n('label.metadata.phone')]]</label>
+            <div>[[document.properties.account:phoneNumber]]</div>
+          </div>
+          <div role="widget">
+            <label>[[i18n('label.metadata.email')]]</label>
+            <div>[[document.properties.account:email]]</div>
+          </div>
+          <div role="widget">
+            <label>[[i18n('label.metadata.address')]]</label>
+            <div>[[document.properties.address:address1]]</div>
+            <div>[[document.properties.address:address2]]</div>
+            <div>[[document.properties.address:address3]]</div>
+            <div>[[document.properties.address:zipCode]] [[document.properties.address:city]]</div>
+            <div>[[document.properties.address:country]]</div>
+          </div>
+        </nuxeo-card>
+
+        <nuxeo-card>
+
+          <div role="widget">
+            <label>status</label>
+            <div directory-name="StatusAccount">[[formatDirectory(document.properties.account:status)]]</div>
+          </div>
+          <div role="widget" hidden$="[[!document.properties.account:mainContact]">
+            <label>[[i18n('label.metadata.mainContact')]]</label>
+            <qualitified-document-suggestion role="widget"
+                                             value="[[document.properties.account:mainContact]]"
+                                             min-chars="0"
+                                             clickable="true"
+                                             readOnly>
+            </qualitified-document-suggestion>
+          </div>
+          <div role="widget">
+            <label>[[i18n('label.metadata.responsible')]]</label>
+            <div>
+              <nuxeo-user-tag user="[[document.properties.account:responsible]]"></nuxeo-user-tag>
+            </div>
+          </div>
+          <qualitified-custom-fields document="[[document]]" mode="view"></qualitified-custom-fields>
+          <div role="widget">
+            <label>[[i18n('label.metadata.description')]]</label>
+            <div><pre>[[document.properties.dc:description]]</pre></div>
+            </div>
+        </nuxeo-card>
+
+      </section>
   </template>
 
   <script>
