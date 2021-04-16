@@ -147,7 +147,7 @@
 
               [[item.properties.opportunity:responsible.properties.firstName]] [[item.properties.opportunity:responsible.properties.lastName]]
 
-              <br/>
+
               <qualitified-inline-edit document="[[item]]" property="opportunity:closeDate" label="label.metadata.date" metadata="date"></qualitified-inline-edit>
 
               <b>[[formatDate(item.properties.opportunity:closeDate)]]</b>
@@ -163,7 +163,8 @@
       <div class="column">
         <div class="header" label="FIRST CONTACT/DEMO">
           <h4>[[i18n('label.qualitified.pipeline.first')]]<br />[[_formatCurrency(firstContactTotalAmount,currencyFormat,currency)]]</h4>
-          <iron-icon class="icon" icon="icons:chevron-right"></iron-icon>
+
+              <iron-icon class="icon" icon="icons:chevron-right"></iron-icon>
         </div>
         <div class="drop" on-drop="drop" on-dragover="allowDrop" on-dragleave="dragLeave">
           <template is="dom-repeat" items="[[itemsFirstContact]]">
@@ -172,6 +173,7 @@
 
               <a on-tap="_goToOpportunity">[[item.title]]</a>
               <br/>
+
               <qualitified-inline-edit document="[[item]]" property="opportunity:amount" label="[[i18n('label.metadata.amount')]]"></qualitified-inline-edit>
 
               <b>[[_formatCurrency(item.properties.opportunity:amount,currencyFormat,currency)]]</b>
@@ -236,14 +238,9 @@
 
               <b>[[_formatCurrency(item.properties.opportunity:amount,currencyFormat,currency)]]</b>
 
-              <br />
               <qualitified-inline-edit document="[[item]]" property="opportunity:responsible" label="label.metadata.responsible" metadata="document"></qualitified-inline-edit>
-
               [[item.properties.opportunity:responsible.properties.firstName]] [[item.properties.opportunity:responsible.properties.lastName]]
-
-              <br/>
               <qualitified-inline-edit document="[[item]]" property="opportunity:closeDate" label="label.metadata.date" metadata="date"></qualitified-inline-edit>
-
               <b>[[formatDate(item.properties.opportunity:closeDate)]]</b>
             </nuxeo-card>
           </template>
@@ -469,28 +466,28 @@
       drag: function(ev){
         ev.dataTransfer.setData("text",ev.target.id);
         ev.currentTarget.classList.add('dragging');
-        if(ev.target.offsetParent.firstElementChild.getAttribute("label")== "NEW"){
+        if(ev.target.offsetParent.firstElementChild.getAttribute("label")=="NEW"){
           for (var i=0; i < this.items.length; i++) {
             if('id'+this.items[i].uid ==ev.target.id){
               this.newTotalAmount-=this.items[i].properties['opportunity:amount'];
             }
           }
         }
-        if(ev.target.offsetParent.firstElementChild.getAttribute("label")== "FIRST CONTACT/DEMO"){
+        if(ev.target.offsetParent.firstElementChild.getAttribute("label")=="FIRST CONTACT/DEMO"){
           for (var i=0; i < this.items.length; i++) {
             if('id'+this.items[i].uid ==ev.target.id){
               this.firstContactTotalAmount-=this.items[i].properties['opportunity:amount'];
             }
           }
         }
-        if(ev.target.offsetParent.firstElementChild.getAttribute("label")== "PROPOSAL SENT"){
+        if(ev.target.offsetParent.firstElementChild.getAttribute("label")=="PROPOSAL SENT"){
           for (var i=0; i < this.items.length; i++) {
             if('id'+this.items[i].uid ==ev.target.id){
               this.proposalSentTotalAmount-=this.items[i].properties['opportunity:amount'];
             }
           }
         }
-        if(ev.target.offsetParent.firstElementChild.getAttribute("label")== "NEGOCIATION"){
+        if(ev.target.offsetParent.firstElementChild.getAttribute("label")=="NEGOCIATION"){
           for (var i=0; i < this.items.length; i++) {
             if('id'+this.items[i].uid ==ev.target.id){
               this.negociationTotalAmount-=this.items[i].properties['opportunity:amount'];
@@ -505,7 +502,7 @@
         if(ev.target.localName === 'div'){
           ev.target.appendChild(this.shadowRoot.querySelector('#'+data));
           ev.target.classList.remove('over');
-          if(ev.target.offsetParent.firstElementChild.getAttribute("label")== "NEW"){
+          if(ev.target.offsetParent.firstElementChild.getAttribute("label")=="NEW"){
             for (var i=0; i < this.items.length; i++) {
               if('id'+this.items[i].uid ==data){
                 this.newTotalAmount+=this.items[i].properties['opportunity:amount'];
@@ -514,7 +511,7 @@
               }
             }
           }
-          if(ev.target.offsetParent.firstElementChild.getAttribute("label")== "FIRST CONTACT/DEMO"){
+          if(ev.target.offsetParent.firstElementChild.getAttribute("label")=="FIRST CONTACT/DEMO"){
             for (var i = 0; i < this.items.length; i++) {
               if('id'+this.items[i].uid ==data){
                 this.firstContactTotalAmount+=this.items[i].properties['opportunity:amount'];
@@ -523,7 +520,7 @@
               }
             }
           }
-          if(ev.target.offsetParent.firstElementChild.getAttribute("label")== "PROPOSAL SENT"){
+          if(ev.target.offsetParent.firstElementChild.getAttribute("label")=="PROPOSAL SENT"){
             for (var i = 0; i < this.items.length; i++) {
               if('id'+this.items[i].uid ==data){
                 this.proposalSentTotalAmount+=this.items[i].properties['opportunity:amount'];
@@ -532,7 +529,7 @@
               }
             }
           }
-          if(ev.target.offsetParent.firstElementChild.getAttribute("label")== "NEGOCIATION"){
+          if(ev.target.offsetParent.firstElementChild.getAttribute("label")=="NEGOCIATION"){
             for (var i = 0; i < this.items.length; i++) {
               if('id'+this.items[i].uid ==data){
                 this.negociationTotalAmount+=this.items[i].properties['opportunity:amount'];
@@ -552,7 +549,7 @@
         });
         setTimeout(function(){
           let nuxeoApp = document.querySelector('nuxeo-app');
-          var searchForm = nuxeoApp.$.drawer.querySelector('nuxeo-search-form[name="opportunity-list"');
+          var searchForm = nuxeoApp.$.drawer.querySelector('nuxeo-search-form[name="opportunity-list"]');
           if(searchForm){
             searchForm._search();} }, 1000);
       },

@@ -2238,7 +2238,7 @@
       <cacheMaxSize>1000</cacheMaxSize>
       <idField>id</idField>
       <autoincrementIdField>false</autoincrementIdField>
-      <createTablePolicy>on_missing_columns</createTablePolicy>
+      <createTablePolicy>always</createTablePolicy>
       <table>studio_vocabulary_Civility</table>
       <dataFile>data/vocabularies/Civility.csv</dataFile>
     </directory>
@@ -2249,7 +2249,7 @@
       <cacheMaxSize>1000</cacheMaxSize>
       <idField>id</idField>
       <autoincrementIdField>false</autoincrementIdField>
-      <createTablePolicy>on_missing_columns</createTablePolicy>
+      <createTablePolicy>always</createTablePolicy>
       <table>studio_vocabulary_IntActivity</table>
       <dataFile>data/vocabularies/IntActivity.csv</dataFile>
     </directory>
@@ -2282,7 +2282,7 @@
       <cacheMaxSize>1000</cacheMaxSize>
       <idField>id</idField>
       <autoincrementIdField>false</autoincrementIdField>
-      <createTablePolicy>on_missing_columns</createTablePolicy>
+      <createTablePolicy>always</createTablePolicy>
       <table>studio_vocabulary_IntStatus</table>
       <dataFile>data/vocabularies/IntStatus.csv</dataFile>
     </directory>
@@ -2293,7 +2293,7 @@
       <cacheMaxSize>1000</cacheMaxSize>
       <idField>id</idField>
       <autoincrementIdField>false</autoincrementIdField>
-      <createTablePolicy>on_missing_columns</createTablePolicy>
+      <createTablePolicy>always</createTablePolicy>
       <table>studio_vocabulary_OppStep</table>
       <dataFile>data/vocabularies/OppStep.csv</dataFile>
     </directory>
@@ -2315,7 +2315,7 @@
       <cacheMaxSize>1000</cacheMaxSize>
       <idField>id</idField>
       <autoincrementIdField>false</autoincrementIdField>
-      <createTablePolicy>on_missing_columns</createTablePolicy>
+      <createTablePolicy>always</createTablePolicy>
       <table>studio_vocabulary_targetEmailStatus</table>
       <dataFile>data/vocabularies/targetEmailStatus.csv</dataFile>
     </directory>
@@ -2326,7 +2326,7 @@
       <cacheMaxSize>1000</cacheMaxSize>
       <idField>id</idField>
       <autoincrementIdField>false</autoincrementIdField>
-      <createTablePolicy>on_missing_columns</createTablePolicy>
+      <createTablePolicy>always</createTablePolicy>
       <table>studio_vocabulary_Role</table>
       <dataFile>data/vocabularies/Role.csv</dataFile>
     </directory>
@@ -2337,7 +2337,7 @@
       <cacheMaxSize>1000</cacheMaxSize>
       <idField>id</idField>
       <autoincrementIdField>false</autoincrementIdField>
-      <createTablePolicy>on_missing_columns</createTablePolicy>
+      <createTablePolicy>always</createTablePolicy>
       <table>studio_vocabulary_AccountType</table>
       <dataFile>data/vocabularies/AccountType.csv</dataFile>
     </directory>
@@ -2359,7 +2359,7 @@
       <cacheMaxSize>1000</cacheMaxSize>
       <idField>id</idField>
       <autoincrementIdField>false</autoincrementIdField>
-      <createTablePolicy>on_missing_columns</createTablePolicy>
+      <createTablePolicy>always</createTablePolicy>
       <table>studio_vocabulary_Industry</table>
       <dataFile>data/vocabularies/Industry.csv</dataFile>
     </directory>
@@ -2370,7 +2370,7 @@
       <cacheMaxSize>1000</cacheMaxSize>
       <idField>id</idField>
       <autoincrementIdField>false</autoincrementIdField>
-      <createTablePolicy>on_missing_columns</createTablePolicy>
+      <createTablePolicy>always</createTablePolicy>
       <table>studio_vocabulary_SolicitationCategory</table>
       <dataFile>data/vocabularies/SolicitationCategory.csv</dataFile>
     </directory>
@@ -2381,7 +2381,7 @@
       <cacheMaxSize>1000</cacheMaxSize>
       <idField>id</idField>
       <autoincrementIdField>false</autoincrementIdField>
-      <createTablePolicy>on_missing_columns</createTablePolicy>
+      <createTablePolicy>always</createTablePolicy>
       <table>studio_vocabulary_SolicitationStatus</table>
       <dataFile>data/vocabularies/SolicitationStatus.csv</dataFile>
     </directory>

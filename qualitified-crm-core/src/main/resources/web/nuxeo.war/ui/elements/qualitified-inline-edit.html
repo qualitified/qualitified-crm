@@ -38,13 +38,8 @@
             <template is="dom-if" if="[[_isDate(metadata)]]">
             </template>
             <template is="dom-if" if="[[_isDocument(metadata)]]">
-                <qualitified-document-suggestion role="widget"
-                                                 value="{{value}}"
-                                                 page-provider="documents"
-                                                 min-chars="0"
-                                                 readonly
-                                                 params='{ "namedParameters": "system_primaryType=Email"}'>
-                </qualitified-document-suggestion>
+                <br>
+                {{document.properties.opportunity:responsible}}
             </template>
         </div>
 
@@ -87,12 +82,11 @@
                 </nuxeo-date-picker>
             </template>
             <template is="dom-if" if="[[_isDocument(metadata)]]">
-                <qualitified-document-suggestion role="widget"
-                                                 value="{{value}}"
-                                                 page-provider="documents"
-                                                 min-chars="0"
-                                                 params='{ "namedParameters": "system_primaryType=Contact"}'>
-                </qualitified-document-suggestion>
+                <nuxeo-user-suggestion value="{{value}}"
+                                       search-type="USER_TYPE" role="widget"
+                                       min-chars="0">
+                </nuxeo-user-suggestion>
+
 
             </template>
 
