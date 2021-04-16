@@ -30,18 +30,15 @@ public class CopyBinaryToPublicFolder {
     @OperationMethod()
     public void run(DocumentModel image) throws IOException, OperationException, JSONException {
 
-
-          // File source = new File(image.getPathAsString());
+        Blob blob1 = (Blob)image.getPropertyValue("file:content");
         MultiviewPicture multiviewPicture = image.getAdapter(MultiviewPicture.class);
-
         PictureView picture= multiviewPicture.getView("Medium");
            Blob blob=picture.getBlob();
-
            if (blob!=null){
-                File dest = new File(folderPath+image.getPropertyValue("dc:title"));
+                File dest = new File(folderPath+blob1.getFilename());
                 blob.transferTo(dest);
                 String[] path= serverPath.split("nuxeo");
-                image.setPropertyValue("public:url",path[0]+"resources/"+image.getPropertyValue("dc:title"));
+                image.setPropertyValue("public:url",path[0]+"resources/"+blob1.getFilename());
            }
     }
 }
