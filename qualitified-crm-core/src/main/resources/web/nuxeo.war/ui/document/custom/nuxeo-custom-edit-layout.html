@@ -20,6 +20,11 @@
         flex: 1 1 auto;
         height: 400px;
       }
+      .paper-item{
+      background: var(--nuxeo-primary-color);}
+
+      .paper-listbox{
+      padding: 20px;}
     </style>
     <h1>[[document.properties.dc:title]]</h1>
     <div class="layout horizontal center end-justified" style="float: right;">
@@ -114,6 +119,7 @@
           <paper-icon-button name="delete" icon="nuxeo:delete" on-tap="_deleteEntry" title="Delete"></paper-icon-button>
         </template>
       </nuxeo-data-table-column>
+    </nuxeo-data-table>
     <nuxeo-dialog id="dialog" with-backdrop="" no-auto-focus="">
       <h2>Edit</h2>
       <paper-dialog-scrollable>
@@ -124,18 +130,20 @@
                                         directory-name="Type"
                                         name="Type"
                                         value="{{_selectedEntry.type}}"
-                                        min-chars="0"  on-value-changed="_getVocabulary">
+                                        min-chars="0"  on-value-changed="_getVocabOnCreate">
             </nuxeo-directory-suggestion>
-            <nuxeo-select id="field" label="filedName"
-                          selected="{{_selectedEntry.fieldName}}"
-                          attr-for-selected="key"
-                          on-click="_getAvailableField">
-              <dom-repeat items="[[newList]]" as="field">
-                <template>
-                  <paper-item key="[[field.id]]">[[field.label]]</paper-item>
-                </template>
-              </dom-repeat>
-            </nuxeo-select>
+
+            <paper-dropdown-menu id="field" label="filedName" style="width:100%;"
+                                 selectedItem="{{_selectedEntry.fieldName}}"
+                                 value="{{_selectedEntry.fieldName}}">
+              <paper-listbox slot="dropdown-content" class = "dropdown-content" style=" background-color: white; left: 509px; top: 146px; width: 422px;" >
+                <dom-repeat items="[[newList]]" as="field">
+                  <template>
+                    <paper-item  key="[[field.id]]">[[field.label]]</paper-item>
+                  </template>
+                </dom-repeat>
+              </paper-listbox>
+            </paper-dropdown-menu><br>
             <paper-checkbox checked="{{_selectedEntry.required}}"></paper-checkbox> Required
             <nuxeo-input role="widget" value="{{_selectedEntry.vocabularyName}}" label="Vocabulary Name"></nuxeo-input>
             <nuxeo-input role="widget" value="{{_selectedEntry.format}}" label="Format"></nuxeo-input>
@@ -154,7 +162,6 @@
                                    value="{{_selectedEntry.hiddenGroup}}"
                                    min-chars="0"
                                    role="widget"></nuxeo-user-suggestion>
-
             <paper-checkbox checked="{{_selectedEntry.multivalue}}"></paper-checkbox> Multivalue
             <nuxeo-input role="widget" value="{{_selectedEntry.primaryType}}" label="Primary Type"></nuxeo-input>
             <nuxeo-input role="widget" value="{{_selectedEntry.path}}" label="Path"></nuxeo-input>
@@ -170,8 +177,6 @@
         <paper-button id="save" name="save" noink="" class="primary" on-tap="_save">[[i18n('command.save')]]</paper-button>
       </div>
     </nuxeo-dialog>
-    </nuxeo-data-table>
-
   </template>
   <script>
     (function() {
@@ -208,32 +213,47 @@
           type: Boolean
         }
       },
-      _getAvailableField:function(){
+      _getAvailableFields:function(onEdit){
       var newList=[];
       var vocabs=this.vocabEntries;
-      console.log("doc "+this.document);
       var customField= this.document.properties["custom:field"];
       var fieldNameList=[];
-      for(var j=0;j<customField.length;j++){
-        fieldNameList.push(customField[j].fieldName);
-      }
-      for(var i=0;i<vocabs.length;i++){
-        if (fieldNameList.indexOf(vocabs[i].id) === -1) {
-          newList.push({id:vocabs[i].id,label:vocabs[i].id});
+      var field = this._selectedEntry.fieldName;
+      console.log(field);
+        if (onEdit == true) {
+            newList.push({id:field,label:field});
+          }
+        for(var j=0;j<customField.length;j++){
+          fieldNameList.push(customField[j].fieldName);
         }
-        else if (customField.indexOf(vocabs[i].id) > -1) {
-          console.log(vocabs[i] + ' already exists in the customField collection.');
+        for(var i=0;i<vocabs.length;i++){
+          if (fieldNameList.indexOf(vocabs[i].id) === -1) {
+            newList.push({id:vocabs[i].id,label:vocabs[i].id});
+          }
+          else if (customField.indexOf(vocabs[i].id) > -1) {
+            console.log(vocabs[i] + ' already exists in the customField collection.');
+          }
         }
-      }
       this.newList=newList;
     },
-    _getVocabulary: function(e) {
+    _getVocabOnCreate: function(e) {
+      var onEdit= false;
       var selection= e.detail.value;
       this.$.field.setAttribute("directory-Name", selection);
       fetch(window.location.origin + '/nuxeo/api/v1/directory/'+selection)
       .then((resp) => resp.json())
       .then(function(data) {
       this.vocabEntries = data.entries;
+      this._getAvailableFields(onEdit);
+      }.bind(this));
+    },
+    _getVocabOnEdit: function(selectedType) {
+      var onEdit= true;
+      fetch(window.location.origin + '/nuxeo/api/v1/directory/'+selectedType)
+      .then((resp) => resp.json())
+      .then(function(data) {
+      this.vocabEntries = data.entries;
+      this._getAvailableFields(onEdit);
       }.bind(this));
     },
         _editEntry: function(e) {
@@ -241,8 +261,9 @@
             this.selectedIndex = this.document.properties['custom:field'].indexOf(item);
             this._isNew = false;
             this._selectedEntry = JSON.parse(JSON.stringify(item));
-                        console.log("item  "+item);
-
+            this._getVocabOnEdit(this._selectedEntry.type);
+            console.log(this._selectedEntry);
+            console.log(this.vocabEntries);
             this.$.dialog.toggle();
         },
         _addEntry: function() {
@@ -285,7 +306,6 @@
         _update: function(entry) {
           this.splice('document.properties.custom:field',this.selectedIndex, 1, entry);
                                   console.log("entry  "+entry);
-
           this.$.dialog.toggle();
         },
         _deleteEntry: function(e) {

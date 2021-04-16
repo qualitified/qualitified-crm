@@ -2195,6 +2195,15 @@
       <cacheEntryName>vocab-Integer-cache</cacheEntryName>
       <cacheEntryWithoutReferencesName>vocab-Integer-cache-without-references</cacheEntryWithoutReferencesName>
     </directory>
+    <directory name="Date" extends="template-xvocabulary">
+      <autoincrementIdField>false</autoincrementIdField>
+      <createTablePolicy>always</createTablePolicy>
+      <table>studio_vocabulary_Date</table>
+      <dataFile>data/vocabularies/Date.csv</dataFile>
+      <parentDirectory>Type</parentDirectory>
+      <cacheEntryName>vocab-Date-cache</cacheEntryName>
+      <cacheEntryWithoutReferencesName>vocab-Date-cache-without-references</cacheEntryWithoutReferencesName>
+    </directory>
     <directory name="Type" extends="template-vocabulary">
       <autoincrementIdField>false</autoincrementIdField>
       <createTablePolicy>always</createTablePolicy>
