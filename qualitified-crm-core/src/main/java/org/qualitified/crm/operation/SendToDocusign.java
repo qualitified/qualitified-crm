@@ -86,13 +86,13 @@ public class SendToDocusign {
    public String run(DocumentModel doc) throws LoginException, OperationException,RollbackException {
        LoginContext lc = Framework.loginAsUser("Administrator");
        ctx.getLoginStack().push(lc);
+       String currentUser = session.getPrincipal().getActingUser();
 
        AutomationService automationService = Framework.getService(AutomationService.class);
        OAuth2ServiceProviderRegistry registry =
                Framework.getService(OAuth2ServiceProviderRegistry.class);
        OAuth2ServiceProvider provider = registry.getProvider("docusign");
-       Credential credential = provider.loadCredential("Administrator");
-
+       Credential credential = provider.loadCredential(currentUser);
        //List<String> contactEmails = new ArrayList<>();
        for (String id : contactIds) {
            DocumentModel personDoc = session.getDocument(new IdRef(id));
