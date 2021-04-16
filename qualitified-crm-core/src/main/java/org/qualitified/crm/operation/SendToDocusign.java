@@ -84,9 +84,10 @@ public class SendToDocusign {
 
    @OperationMethod()
    public String run(DocumentModel doc) throws LoginException, OperationException,RollbackException {
-       LoginContext lc = Framework.loginAsUser("Administrator");
-       ctx.getLoginStack().push(lc);
        String currentUser = session.getPrincipal().getActingUser();
+
+       LoginContext lc = Framework.loginAsUser(currentUser);
+       ctx.getLoginStack().push(lc);
 
        AutomationService automationService = Framework.getService(AutomationService.class);
        OAuth2ServiceProviderRegistry registry =
