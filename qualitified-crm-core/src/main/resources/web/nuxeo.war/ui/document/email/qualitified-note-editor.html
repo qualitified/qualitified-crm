@@ -1,96 +1,108 @@
-<link href="qualitified-html-editor.html" rel="import">
-<link href="../../elements/qualitified-document-grid-thumbnail.html" rel="import">
+<link href="qualitified-html-editor.html" rel="import" />
+<link
+        href="../../elements/qualitified-document-grid-thumbnail.html"
+        rel="import"
+/>
 <dom-module assetpath="qualitified-note-editor/" id="qualitified-note-editor">
     <template>
-        <style include="nuxeo-styles iron-flex iron-flex-alignment nuxeo-action-button-styles">
-            :host {
-                display: block;
-            }
-            .main {
-                position: relative;
-            }
-            .edit {
-                position: absolute;
-            }
-            #editNote.edit {
-                right: 10px;
-                top: 10px;
-            }
-            #editHtml.edit {
-                left: 0;
-                bottom: 0;
-                padding: 0;
-                width: 24px;
-                height: 24px;
-                z-index: 1;
-            }
-            .html-editor-container paper-textarea {
-                padding: 0;
-            }
-            .content {
-                @apply --layout-vertical;
-            }
-            .heading iron-icon {
-                width: 1.5rem;
-                height: 1.5rem;
-                margin-right: 8px;
-            }
-            .heading {
-                margin: 10px 20px 25px 20px;
-            }
-            paper-textarea,
-            nuxeo-document-preview,
-            qualitified-html-editor {
-                display: block;
-                min-height: calc(80vh - 132px);
-            }
-            paper-textarea {
-                --paper-input-container-underline: {
-                    border-bottom: none 0;
-                };
-                --paper-input-container-underline-focus: {
-                    border-bottom: none 0;
-                };
-            }
-            #popup-wrapper
-            {
-                background-color:rgba(125,125,125,0.5);
-                position:absolute;
-                top:0px;
-                left:0px;
-                width:100%;
-                height:100%;
-                display:none;
-            }
-            #popup-inner
-            {
-                width:600px;
-                padding:20px;
-                left:50%;
-                top:50%;
-                margin-top:-100px;
-                margin-left:-300px;
-                background-color:#ffffff;
-                position:absolute;
-            }
-            .icon
-            {
-                cursor:pointer;
-            }
-            .right{
-                float:right;
-            }
-        </style>
+        <style
+                include="nuxeo-styles iron-flex iron-flex-alignment nuxeo-action-button-styles"
+        >
+      :host {
+        display: block;
+      }
+      .main {
+        position: relative;
+      }
+      .edit {
+        position: absolute;
+      }
+      #editNote.edit {
+        right: 10px;
+        top: 10px;
+      }
+      #editHtml.edit {
+        left: 0;
+        bottom: 0;
+        padding: 0;
+        width: 24px;
+        height: 24px;
+        z-index: 1;
+      }
+      .html-editor-container paper-textarea {
+        padding: 0;
+      }
+      .content {
+        @apply --layout-vertical;
+      }
+      .heading iron-icon {
+        width: 1.5rem;
+        height: 1.5rem;
+        margin-right: 8px;
+      }
+      .heading {
+        margin: 10px 20px 25px 20px;
+      }
+      paper-textarea,
+      nuxeo-document-preview,
+      qualitified-html-editor {
+        display: block;
+        min-height: calc(80vh - 132px);
+      }
+      paper-textarea {
+        --paper-input-container-underline: {
+          border-bottom: none 0;
+        }
+        --paper-input-container-underline-focus: {
+          border-bottom: none 0;
+        }
+      }
+      #popup-wrapper {
+        background-color: rgba(125, 125, 125, 0.5);
+        position: absolute;
+        top: 0px;
+        left: 0px;
+        width: 100%;
+        height: 100%;
+        display: none;
+      }
+      #popup-inner {
+        width: 600px;
+        padding: 20px;
+        left: 50%;
+        top: 50%;
+        margin-top: -100px;
+        margin-left: -300px;
+        background-color: #ffffff;
+        position: absolute;
+      }
+      .icon {
+        cursor: pointer;
+      }
+      .right {
+        float: right;
+      }
+    </style>
         <nuxeo-document doc-id="[[document.uid]]" id="note"></nuxeo-document>
+        <nuxeo-operation
+                id="createPicture"
+                input="/Marketing/Resources"
+                op="Document.Create"
+        ></nuxeo-operation>
+
         <div class="main">
             <div class="action" on-tap="_toggleDialog2">
                 <paper-icon-button icon="nuxeo:add" id="bt2"></paper-icon-button>
-                <paper-tooltip for="bt2" position="right">browse to pictures</paper-tooltip>
+                <paper-tooltip for="bt2" position="right"
+                >browse to pictures</paper-tooltip
+                >
                 <span class="label"></span>
             </div>
             <div class="action" on-tap="_toggleDialog">
                 <paper-icon-button icon="nuxeo:preview" id="bt"></paper-icon-button>
-                <paper-tooltip for="bt" position="right">[[i18n('visualize')]]</paper-tooltip>
+                <paper-tooltip for="bt" position="right"
+                >[[i18n('visualize')]]</paper-tooltip
+                >
                 <span class="label"></span>
             </div>
             <paper-tooltip for="bt2"></paper-tooltip>
@@ -98,175 +110,369 @@
             <template if="[[_isHTML(document)]]" is="dom-if">
                 <div class="html-editor-container">
                     <!--paper-icon-button class="edit" hidden$="[[!_canEdit(document)]]" icon="[[_computeHtmlEditIcon(_viewMode)]]" id="editHtml" on-tap="_toggleHtmlSource"></paper-icon-button>
-                    <paper-tooltip for="editHtml" position="right">[[_computeHtmlEditLabel(_viewMode, i18n)]]</paper-tooltip-->
+                              <paper-tooltip for="editHtml" position="right">[[_computeHtmlEditLabel(_viewMode, i18n)]]</paper-tooltip-->
                     <template if="[[_viewMode]]" is="dom-if">
-                        <iframe class="editor" frameBorder="0" height="300px" id="editor" read-only="[[!_canEdit(document)]]" src="/nuxeo/ui/alloy.html?id=[[document.uid]]" width="100%"></iframe>
+                        <iframe
+                                class="editor"
+                                frameborder="0"
+                                height="300px"
+                                id="editor"
+                                read-only="[[!_canEdit(document)]]"
+                                src="/nuxeo/ui/alloy.html?id=[[document.uid]]"
+                                width="100%"
+                        ></iframe>
                     </template>
                     <template if="[[!_viewMode]]" is="dom-if">
-                        <paper-textarea no-label-float="" placeholder="[[i18n('noteViewLayout.placeholder')]]" value="{{_value}}"></paper-textarea>
+                        <paper-textarea
+                                no-label-float=""
+                                placeholder="[[i18n('noteViewLayout.placeholder')]]"
+                                value="{{_value}}"
+                        ></paper-textarea>
                     </template>
                     <!--div class="layout horizontal end-justified">
-                        <paper-button class="primary" hidden$="[[!_canEdit(document)]]" name="editorSave" noink="" on-tap="_editorSave">[[i18n('command.save')]]</paper-button>
-                    </div-->
+                                  <paper-button class="primary" hidden$="[[!_canEdit(document)]]" name="editorSave" noink="" on-tap="_editorSave">[[i18n('command.save')]]</paper-button>
+                              </div-->
                 </div>
             </template>
-            <nuxeo-page-provider enrichers="thumbnail, permissions" headers='{"X-NXfetch.document": "properties", "X-NXtranslate.directoryEntry": "label"}' id="pictureProvider" page="[[pageNumber]]" page-size="40" params="[[params]]" query="SELECT * FROM Picture where ecm:currentLifeCycleState != 'deleted' and ecm:isTrashed= 0 and ecm:path STARTSWITH  '/Marketing/Resources/' " schemas="dublincore,common,uid,picture,public">
+            <nuxeo-page-provider
+                    auto
+                    enrichers="thumbnail, permissions"
+                    headers='{"X-NXfetch.document": "properties", "X-NXtranslate.directoryEntry": "label"}'
+                    id="pictureProvider"
+                    page="[[pageNumber]]"
+                    page-size="40"
+                    params="[[params]]"
+                    query="SELECT * FROM Picture where ecm:currentLifeCycleState != 'deleted' and ecm:isTrashed= 0 and ecm:path STARTSWITH  '/Marketing/Resources/' "
+                    schemas="dublincore,common,uid,picture,public"
+            >
             </nuxeo-page-provider>
-            <paper-dialog id="dialog2" style="min-height: 500px; min-width: 900px;">
+            <paper-dialog id="dialog2" style="min-height: 500px; min-width: 900px">
                 <paper-dialog-scrollable>
-                    <nuxeo-results name="[[document.uid]]" nx-provider="[[pictureProvider]]" selected-items="{{selectedItems}}">
-                        <nuxeo-data-grid class="results" empty-label="[[i18n('searchResults.noResults')]]" icon="nuxeo:view-thumbnails" name="grid" selection-enabled>
+                    <nuxeo-results
+                            name="[[document.uid]]"
+                            id="pictureResult"
+                            nx-provider="[[pictureProvider]]"
+                            selected-items="{{selectedItems}}"
+                    >
+                        <nuxeo-data-grid
+                                class="results"
+                                empty-label="[[i18n('searchResults.noResults')]]"
+                                icon="nuxeo:view-thumbnails"
+                                name="grid"
+                                selection-enabled
+                        >
                             <template>
-                                <qualitified-document-grid-thumbnail doc="[[item]]" index="[[index]]" on-navigate="_navigate" selected$="{{selected}}" selected-items="[[selectedItems]]" tabindex$="{{tabIndex}}">
+                                <qualitified-document-grid-thumbnail
+                                        doc="[[item]]"
+                                        index="[[index]]"
+                                        on-navigate="_navigate"
+                                        selected$="{{selected}}"
+                                        selected-items="[[selectedItems]]"
+                                        tabindex$="{{tabIndex}}"
+                                >
                                 </qualitified-document-grid-thumbnail>
                             </template>
                         </nuxeo-data-grid>
-
-
                     </nuxeo-results>
                 </paper-dialog-scrollable>
                 <div class="buttons">
-                    <paper-button dialog-dismiss noink on-tap="_close">close</paper-button>
+                    <paper-button dialog-dismiss noink on-tap="_close"
+                    >close</paper-button
+                    >
+                    <paper-button class="primary" name="add" on-click="_toggleAddDialog">
+                        Add image
+                    </paper-button>
                 </div>
             </paper-dialog>
-            <nuxeo-dialog id="dialog" on-iron-overlay-closed="_dialogClosed" style="min-height: 700px; min-width: 1000px;" with-backdrop>
+            <nuxeo-dialog
+                    id="dialog"
+                    on-iron-overlay-closed="_dialogClosed"
+                    style="min-height: 700px; min-width: 1000px"
+                    with-backdrop
+            >
                 <div class="content">
-                    <iframe class="editor" frameBorder="0" id="editt" read-only="[[!_canEdit(document)]]" src="/nuxeo/ui/alloy.html?id=[[document.uid]]" style="min-height: 600px; min-width: 900px;"></iframe>
+                    <iframe
+                            class="editor"
+                            frameborder="0"
+                            id="editt"
+                            read-only="[[!_canEdit(document)]]"
+                            src="/nuxeo/ui/alloy.html?id=[[document.uid]]"
+                            style="min-height: 600px; min-width: 900px"
+                    ></iframe>
                 </div>
                 <div class="buttons">
-                    <paper-button dialog-dismiss noink on-tap="_close">close</paper-button>
+                    <paper-button dialog-dismiss noink on-tap="_close"
+                    >close</paper-button
+                    >
+                </div>
+            </nuxeo-dialog>
+            <nuxeo-dialog
+                    id="addDialog"
+                    with-backdrop=""
+                    on-iron-overlay-closed=""
+                    no-auto-focus=""
+            >
+                <h1>Add a picture</h1>
+
+                <div class="content">
+                    <nuxeo-input
+                            role="widget"
+                            label="[[i18n('title')]]"
+                            name="title"
+                            value="{{pictureTitle}}"
+                            autofocus
+                            required
+                    >
+                    </nuxeo-input>
+
+                    <nuxeo-textarea
+                            role="widget"
+                            label="[[i18n('label.description')]]"
+                            name="description"
+                            value="{{pictureDescription}}"
+                    >
+                    </nuxeo-textarea>
+                    <nuxeo-file id="fileId" required value="{{pictureContent}}" on-value-changed="_getFileTitle"></nuxeo-file>
+                    <!--
+                              <nuxeo-dropzone role="widget"
+                                              label="[[i18n('file.content')]]"
+                                              name="content"
+                                              id="fileId"
+                                              >
+                              </nuxeo-dropzone> -->
+                </div>
+                <div class="buttons">
+                    <paper-button dialog-dismiss="" on-click="_resetDialog" noink="">
+                        Cancel
+                    </paper-button>
+                    <paper-button class="primary" name="add" disabled$="[[_canCreate(pictureTitle,pictureContent)]]" on-click="_createPicture">
+                        Add
+                    </paper-button>
                 </div>
             </nuxeo-dialog>
         </div>
     </template>
     <script>
-        (function() {
-            Polymer({
-                is: 'qualitified-note-editor',
-                behaviors: [Nuxeo.I18nBehavior, Polymer.IronResizableBehavior, Nuxeo.LayoutBehavior, Nuxeo.RoutingBehavior, Nuxeo.FormatBehavior, Nuxeo.DocumentCreationBehavior],
-                properties: {
-                    document: {
-                        type: Object,
-                        observer: '_documentChanged'
-                    },
-                    _viewMode: {
-                        type: Boolean,
-                        value: true
-                    },
-                    _value: {
-                        type: String,
-                        value: ''
-                    },
-                    title: {
-                        type: String
-                    },
-                    _label: {
-                        type: String,
-                        computed: '_computeLabel(i18n)',
-                    },
-                    showLabel: {
-                        type: Boolean,
-                        value: false,
-                    },
-                    icon: {
-                        type: String,
-                        value: 'iconset_name:icon_name'
-                    }
-                },
-                _toggleDialog: function() {
-                    this.$.dialog.toggle();
-                    this.$.editt.contentWindow.location.reload(true);
-
-                },
-                _toggleDialog2: function() {
-                    this.$.dialog2.open();
-                },
-                ready: function() {
-                    this.pictureProvider = this.$.pictureProvider;
-                },
-                _documentChanged: function() {
-                    if (this._isHTML) {
-                        this._value = (this.document.properties['html:content'] !== null) ? this.document.properties['html:content'] : "Tapez votre message ici...";
-                    } else {
-                        this._value = this.document.properties['note:note'];
-                    }
-                },
-                attached: function() {
-                   var csvBtn=document.querySelector("nuxeo-app").shadowRoot.querySelector("#browser").shadowRoot.querySelector("qualitified-document-page").shadowRoot.querySelector("nuxeo-document-view").shadowRoot.querySelector("nuxeo-document-layout").shadowRoot.querySelector("#layout").shadowRoot.querySelector("nuxeo-email-view-layout").shadowRoot.querySelector("qualitified-note-editor").shadowRoot.querySelector("nuxeo-results").shadowRoot.querySelector("nuxeo-csv-export-button");
-                       if (csvBtn!=null)
-                        {
-                            csvBtn.hidden=true;
-                        }
-                },
-                _isHTML: function() {
-                    return this.document && this.document.properties['note:mime_type'] === 'text/html';
-                },
-                _computeHtmlEditIcon: function() {
-                    return this._viewMode ? 'icons:code' : 'nuxeo:edit';
-                },
-                _computeHtmlEditLabel: function() {
-                    return this._viewMode ? this.i18n('noteEditor.editSource') : this.i18n('noteEditor.editRich');
-                },
-                _editorSave: function() {
-                    if (this._isHTML) {
-                        this.$.note.data = {
-                            'entity-type': 'document',
-                            uid: this.document.uid,
-                            properties: {
-                                'html:content': this._value
-                            }
-                        };
-                    } else {
-                        this.$.note.data = {
-                            'entity-type': 'document',
-                            uid: this.document.uid,
-                            properties: {
-                                'note:note': this._value
-                            }
-                        };
-                    }
-                    this.$.note.put().then(function() {
-                        this.fire('notify', {
-                            message: this.i18n('noteViewLayout.note.saved')
-                        });
-                        this._viewMode = true;
-                        this.fire('document-updated');
-                    }.bind(this));
-                },
-                _isMutable: function(document) {
-                    return !this.hasFacet(document, 'Immutable') && document.type !== 'Root' && !this.isTrashed(document);
-                },
-                _canEdit: function(document) {
-                    return document.type !== 'Root' && this.hasPermission(document, 'Write') && this._isMutable(document);
-                },
-                _edit: function() {
-                    this._value = this.document.properties['note:note'];
-                    this._viewMode = false;
-                },
-                _cancel: function() {
-                    this._value = '';
-                    this._viewMode = true;
-                },
-                _thumbnail: function(doc) {
-                    if (doc && doc.uid) {
-                        if (doc.contextParameters && doc.contextParameters.thumbnail.url) {
-                            return doc.contextParameters.thumbnail.url;
-                        } else {
-                            var baseUrl = document.querySelector('nuxeo-connection').url;
-                            return baseUrl + '/nxthumb/default/' + doc.uid + '/blobholder:0/';
-                        }
-                    }
-                },
-                _navigate: function(e) {
-                    this.fire('navigate', {
-                        doc: (e.model || e.detail).item,
-                        index: (e.model || e.detail).index
-                    });
-                },
-                _toggleHtmlSource: function() {
-                    this._viewMode = !this._viewMode;
-                }
-            });
-        })();
-    </script>
+    (function () {
+      Polymer({
+        is: "qualitified-note-editor",
+        behaviors: [
+          Nuxeo.I18nBehavior,
+          Polymer.IronResizableBehavior,
+          Nuxeo.LayoutBehavior,
+          Nuxeo.RoutingBehavior,
+          Nuxeo.FormatBehavior,
+          Nuxeo.DocumentCreationBehavior,
+        ],
+        properties: {
+          document: {
+            type: Object,
+            observer: "_documentChanged",
+          },
+          _viewMode: {
+            type: Boolean,
+            value: true,
+          },
+          _value: {
+            type: String,
+            value: "",
+          },
+          title: {
+            type: String,
+          },
+          isChanged: {
+            type: String,
+            value: "value",
+          },
+          _label: {
+            type: String,
+            computed: "_computeLabel(i18n)",
+          },
+          showLabel: {
+            type: Boolean,
+            value: false,
+          },
+          icon: {
+            type: String,
+            value: "iconset_name:icon_name",
+          },
+        },
+        _toggleDialog: function () {
+          this.$.dialog.toggle();
+          this.$.editt.contentWindow.location.reload(true);
+        },
+        _toggleDialog2: function () {
+          this.$.dialog2.open();
+        },
+        ready: function () {
+          this.pictureProvider = this.$.pictureProvider;
+        },
+        _documentChanged: function () {
+          if (this._isHTML) {
+            this._value =
+              this.document.properties["html:content"] !== null
+                ? this.document.properties["html:content"]
+                : "Tapez votre message ici...";
+          } else {
+            this._value = this.document.properties["note:note"];
+          }
+        },
+        attached: function () {
+          var csvBtn = document
+            .querySelector("nuxeo-app")
+            .shadowRoot.querySelector("#browser")
+            .shadowRoot.querySelector("qualitified-document-page")
+            .shadowRoot.querySelector("nuxeo-document-view")
+            .shadowRoot.querySelector("nuxeo-document-layout")
+            .shadowRoot.querySelector("#layout")
+            .shadowRoot.querySelector("nuxeo-email-view-layout")
+            .shadowRoot.querySelector("qualitified-note-editor")
+            .shadowRoot.querySelector("nuxeo-results")
+            .shadowRoot.querySelector("nuxeo-csv-export-button");
+          if (csvBtn != null) {
+            csvBtn.hidden = true;
+          }
+        },
+        _isHTML: function () {
+          return (
+            this.document &&
+            this.document.properties["note:mime_type"] === "text/html"
+          );
+        },
+        _computeHtmlEditIcon: function () {
+          return this._viewMode ? "icons:code" : "nuxeo:edit";
+        },
+        _computeHtmlEditLabel: function () {
+          return this._viewMode
+            ? this.i18n("noteEditor.editSource")
+            : this.i18n("noteEditor.editRich");
+        },
+        _editorSave: function () {
+          if (this._isHTML) {
+            this.$.note.data = {
+              "entity-type": "document",
+              uid: this.document.uid,
+              properties: {
+                "html:content": this._value,
+              },
+            };
+          } else {
+            this.$.note.data = {
+              "entity-type": "document",
+              uid: this.document.uid,
+              properties: {
+                "note:note": this._value,
+              },
+            };
+          }
+          this.$.note.put().then(
+            function () {
+              this.fire("notify", {
+                message: this.i18n("noteViewLayout.note.saved"),
+              });
+              this._viewMode = true;
+              this.fire("document-updated");
+            }.bind(this)
+          );
+        },
+        _isMutable: function (document) {
+          return (
+            !this.hasFacet(document, "Immutable") &&
+            document.type !== "Root" &&
+            !this.isTrashed(document)
+          );
+        },
+        _canEdit: function (document) {
+          return (
+            document.type !== "Root" &&
+            this.hasPermission(document, "Write") &&
+            this._isMutable(document)
+          );
+        },
+        _edit: function () {
+          this._value = this.document.properties["note:note"];
+          this._viewMode = false;
+        },
+        _cancel: function () {
+          this._value = "";
+          this._viewMode = true;
+        },
+        _thumbnail: function (doc) {
+          if (doc && doc.uid) {
+            if (doc.contextParameters && doc.contextParameters.thumbnail.url) {
+              return doc.contextParameters.thumbnail.url;
+            } else {
+              var baseUrl = document.querySelector("nuxeo-connection").url;
+              return baseUrl + "/nxthumb/default/" + doc.uid + "/blobholder:0/";
+            }
+          }
+        },
+        _navigate: function (e) {
+          this.fire("navigate", {
+            doc: (e.model || e.detail).item,
+            index: (e.model || e.detail).index,
+          });
+        },
+        _toggleHtmlSource: function () {
+          this._viewMode = !this._viewMode;
+        },
+        _createPicture: function () {
+          var op = this.$.createPicture;
+          op.params = {
+            type: "Picture",
+            name: this.pictureTitle,
+            properties: {
+              "dc:title": this.pictureTitle,
+              "dc:description": this.pictureDescription,
+              "file:content": this.pictureContent,
+            },
+          };
+          this.fire("notify", {
+            message: "Adding " + this.pictureTitle + " ...",
+          });
+          op.execute()
+            .then(
+              function (response) {
+                console.log(response);
+                let self = this;
+                timeout = setTimeout(function () {
+                  self.fire("notify", {
+                    message: self.pictureTitle + " Added!",
+                  });
+                  self._toggleAddDialog();
+                  self._resetDialog();
+                  self._refreshPictureList();
+                }, 1500);
+              }.bind(this)
+            )
+            .catch(
+              function (error) {
+                this.fire("notify", {
+                  message: "Cannot adding " + this.pictureTitle + " !",
+                });
+              }.bind(this)
+            );
+        },
+        _refreshPictureList: function () {
+          this.$.pictureResult.reset();
+          this.$.pictureResult.fetch();
+        },
+        _toggleAddDialog: function () {
+          this.$.addDialog.toggle();
+        },
+        _resetDialog: function () {
+          this.pictureTitle = "";
+          this.pictureDescription = "";
+          this.pictureContent = null;
+        },
+        _getFileTitle: function (e) {
+          this.pictureTitle = this.$.fileId.files[0].name;
+          return this.pictureTitle;
+        },
+        _canCreate: function (pictureTitle,content) {
+          return pictureTitle && content ? false : true;
+        }
+      });
+    })();
+  </script>
 </dom-module>
