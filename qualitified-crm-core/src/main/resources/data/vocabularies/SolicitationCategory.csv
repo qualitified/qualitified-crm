@@ -1,6 +1,5 @@
 "id","label","obsolete","ordering"
-"Assurance","lable.vocabulary.Assurance","0","0"
-"Adhésion","lable.vocabulary.Adhesion","0","10"
+"Adhesion","lable.vocabulary.Adhesion","0","10"
 "Annulation","lable.vocabulary.Annulation","0","20"
 "BonDeCommande","lable.vocabulary.BonDeCommande","0","30"
 "ClientVIP","lable.vocabulary.ClientVIP","0","40"
@@ -21,3 +20,4 @@
 "Prospect","lable.vocabulary.Prospect","0","190"
 "SEPA","lable.vocabulary.SEPA","0","200"
 "TRACFIN","lable.vocabulary.TRACFIN","0","210"
+"Assurance","labele.vocabulary.Assurance","0","220"

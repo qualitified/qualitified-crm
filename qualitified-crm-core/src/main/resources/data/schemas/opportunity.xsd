@@ -41,7 +41,7 @@
       <xs:restriction base="xs:string" ref:resolver="directoryResolver" ref:directory="OppStep"/>
     </xs:simpleType>
   </xs:element>
-  <xs:element name="typeOfIndustry" nillable="false" nxsv:nillable="false">
+  <xs:element name="typeOfIndustry">
     <xs:simpleType>
       <xs:restriction base="xs:string" ref:resolver="directoryResolver" ref:directory="Industry"/>
     </xs:simpleType>
@@ -53,7 +53,7 @@
   </xs:element>
   <xs:element name="responsible">
     <xs:simpleType>
-      <xs:restriction base="xs:string" ref:resolver="userManagerResolver" ref:type="user"/>
+      <xs:restriction base="xs:string" ref:resolver="directoryResolver" ref:directory="User"/>
     </xs:simpleType>
   </xs:element>
 </xs:schema>
