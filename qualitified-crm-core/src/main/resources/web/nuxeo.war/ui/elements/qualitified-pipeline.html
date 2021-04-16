@@ -161,7 +161,7 @@
       </div>
 
       <div class="column">
-        <div class="header" label="FIRST_CONTACT/DEMO">
+        <div class="header" label="FIRST CONTACT/DEMO">
           <h4>[[i18n('label.qualitified.pipeline.first')]]<br />[[_formatCurrency(firstContactTotalAmount,currencyFormat,currency)]]</h4>
 
               <iron-icon class="icon" icon="icons:chevron-right"></iron-icon>
@@ -193,7 +193,7 @@
       </div>
 
       <div class="column">
-        <div class="header" label="PROPOSAL_SENT">
+        <div class="header" label="PROPOSAL SENT">
           <h4>[[i18n('label.qualitified.pipeline.proposal')]]<br />[[_formatCurrency(proposalSentTotalAmount,currencyFormat,currency)]]</h4>
           <iron-icon class="icon" icon="icons:chevron-right"></iron-icon>
         </div>
@@ -473,14 +473,14 @@
             }
           }
         }
-        if(ev.target.offsetParent.firstElementChild.getAttribute("label")=="FIRST_CONTACT/DEMO"){
+        if(ev.target.offsetParent.firstElementChild.getAttribute("label")=="FIRST CONTACT/DEMO"){
           for (var i=0; i < this.items.length; i++) {
             if('id'+this.items[i].uid ==ev.target.id){
               this.firstContactTotalAmount-=this.items[i].properties['opportunity:amount'];
             }
           }
         }
-        if(ev.target.offsetParent.firstElementChild.getAttribute("label")=="PROPOSAL_SENT"){
+        if(ev.target.offsetParent.firstElementChild.getAttribute("label")=="PROPOSAL SENT"){
           for (var i=0; i < this.items.length; i++) {
             if('id'+this.items[i].uid ==ev.target.id){
               this.proposalSentTotalAmount-=this.items[i].properties['opportunity:amount'];
@@ -511,7 +511,7 @@
               }
             }
           }
-          if(ev.target.offsetParent.firstElementChild.getAttribute("label")=="FIRST_CONTACT/DEMO"){
+          if(ev.target.offsetParent.firstElementChild.getAttribute("label")=="FIRST CONTACT/DEMO"){
             for (var i = 0; i < this.items.length; i++) {
               if('id'+this.items[i].uid ==data){
                 this.firstContactTotalAmount+=this.items[i].properties['opportunity:amount'];
@@ -520,7 +520,7 @@
               }
             }
           }
-          if(ev.target.offsetParent.firstElementChild.getAttribute("label")=="PROPOSAL_SENT"){
+          if(ev.target.offsetParent.firstElementChild.getAttribute("label")=="PROPOSAL SENT"){
             for (var i = 0; i < this.items.length; i++) {
               if('id'+this.items[i].uid ==data){
                 this.proposalSentTotalAmount+=this.items[i].properties['opportunity:amount'];
@@ -549,7 +549,7 @@
         });
         setTimeout(function(){
           let nuxeoApp = document.querySelector('nuxeo-app');
-          let searchForm = nuxeoApp.$.drawer.querySelector('nuxeo-search-form[name="opportunity-list"]');
+          var searchForm = nuxeoApp.$.drawer.querySelector('nuxeo-search-form[name="opportunity-list"]');
           if(searchForm){
             searchForm._search();} }, 1000);
       },
