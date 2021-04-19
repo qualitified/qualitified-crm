@@ -29,13 +29,20 @@
                 </paper-icon-button>
             </div>
             <template is="dom-if" if="[[_isInput(metadata)]]">
+                <div>
+                    [[value]]
+                </div>
             </template>
             <template is="dom-if" if="[[_isText(metadata)]]">
-
+                <div>
+                    <pre class="wrap">[[value]]</pre>
+                </div>
             </template>
             <template is="dom-if" if="[[_isDirectory(metadata)]]">
+                <div>[[formatDirectory(value)]]</div>
             </template>
             <template is="dom-if" if="[[_isDate(metadata)]]">
+                <div>[[formatDate(value)]]</div>
             </template>
             <template is="dom-if" if="[[_isDocument(metadata)]]">
                 <br>
@@ -186,7 +193,7 @@
                     this.$.inlineToast.text = "Update done!";
                     this.$.inlineToast.open();
                     this.edit = false;
-                    window.location.reload(true);
+                    //  window.location.reload(true);
                 }.bind(this))
                     .catch(function (error){
                         console.log(error);
