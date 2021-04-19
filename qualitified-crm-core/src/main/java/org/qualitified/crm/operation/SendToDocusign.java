@@ -119,6 +119,7 @@ public class SendToDocusign {
                if (credential.getExpiresInSeconds() > 0) {
                    logger.warn("Sending to DocuSign...");
                    automationService.run(ctx, "SendToDocuSign", params);
+                   session.saveDocument(doc);
                    logger.warn("Document successfully sent.");
                    return "Document sent";
                } else {
