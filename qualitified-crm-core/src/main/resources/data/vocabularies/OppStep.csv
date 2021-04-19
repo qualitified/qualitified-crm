@@ -1,6 +1,6 @@
 "id","label","obsolete","ordering"
 "New","label.vocabulary.New","0","10"
-"ProposalSent","label.vocabulary.ProposalSent","0","20"
+"Proposal Sent","label.vocabulary.ProposalSent","0","20"
 "Negociation","label.vocabulary.Negociation","0","30"
 "Won","label.vocabulary.Won","0","40"
 "Lost","label.vocabulary.Lost","0","50"
