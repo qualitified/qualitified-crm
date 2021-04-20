@@ -2304,7 +2304,7 @@
       <cacheMaxSize>1000</cacheMaxSize>
       <idField>id</idField>
       <autoincrementIdField>false</autoincrementIdField>
-      <createTablePolicy>on_missing_columns</createTablePolicy>
+      <createTablePolicy>always</createTablePolicy>
       <table>studio_vocabulary_Zone</table>
       <dataFile>data/vocabularies/Zone.csv</dataFile>
     </directory>

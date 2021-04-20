@@ -1,5 +1,4 @@
 <link rel="import" href="../elements/qualitified-inline-edit.html">
-
 <dom-module id="qualitified-pipeline">
   <template>
     <style include="nuxeo-styles grid-styles">
@@ -154,6 +153,7 @@
                                        metadata="date"></qualitified-inline-edit>
 
 
+              <paper-icon-button id="r" icon="icons:info" on-tap="_goToOpportunity">details</paper-icon-button>
 
             </nuxeo-card>
           </template>
@@ -183,6 +183,8 @@
               <qualitified-inline-edit document="[[item]]" property="opportunity:closeDate"
                                        label="label.metadata.date"
                                        metadata="date"></qualitified-inline-edit>
+              <paper-icon-button id="r" icon="icons:info" on-tap="_goToOpportunity">details</paper-icon-button>
+
             </nuxeo-card>
           </template>
         </div>
@@ -213,6 +215,8 @@
               <qualitified-inline-edit document="[[item]]" property="opportunity:closeDate"
                                        label="label.metadata.date"
                                        metadata="date"></qualitified-inline-edit>
+              <paper-icon-button id="r" icon="icons:info" on-tap="_goToOpportunity">details</paper-icon-button>
+
             </nuxeo-card>
           </template>
         </div>
@@ -240,12 +244,15 @@
                 <qualitified-inline-edit document="[[item]]" property="opportunity:closeDate"
                                          label="label.metadata.date"
                                          metadata="date"></qualitified-inline-edit>
+                <paper-icon-button id="r" icon="icons:info" on-tap="_goToOpportunity">details</paper-icon-button>
+
 
               </nuxeo-card>
             </template>
           </div>
 
         </div>
+
       </div>
 
       <div class="footerContainer">
@@ -262,9 +269,8 @@
           [[i18n('label.qualitified.pipeline.lost')]] <span id="lostAmount">[[_formatCurrency(lostAmount,currencyFormat,currency)]]</span><div id="newlostAmount" class="lostText slider">+ [[_formatCurrency(newlostAmount,currencyFormat,currency)]]</div>
         </div>
       </div>
-
+    </div>
   </template>
-
   <script>
     Polymer({
       is: 'qualitified-pipeline',
