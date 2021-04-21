@@ -8,14 +8,25 @@
         }
 
         .title{
-          color:var(--nuxeo-secondary-color);
+            color:var(--nuxeo-secondary-color);
+        }
+        nuxeo-card {
+            min-width: 20em;
+            width: 30%;
+        }
+        .dashboard {
+            display: flex;
+            flex-direction: row;
+            flex-wrap: wrap;
+            justify-content: space-between;
         }
         </style>
         <nuxeo-operation id="getOption" op="Qualitified.GetOptionValue"></nuxeo-operation>
         <div role="widget" class="title">
             <h1>[[document.properties.dc:title]]</h1>
         </div>
-
+        <section class="dashboard">
+            <nuxeo-card>
         <div role="widget">
             <label>[[i18n('label.metadata.step')]]</label>
             <div directory-name="OppStep">[[formatDirectory(document.properties.opportunity:step)]]</div>
@@ -28,22 +39,24 @@
             <label>[[i18n('label.metadata.zone')]]</label>
             <div directory-name="Zone">[[formatDirectory(document.properties.opportunity:zone)]]</div>
         </div>
+            </nuxeo-card>
+            <nuxeo-card>
+                <div role="widget">
+                    <label>[[i18n('label.metadata.amount')]]</label>
+                    <div>[[_formatCurrency(document.properties.opportunity:amount,currencyFormat,currency)]]</div>
+                </div>
 
-        <div role="widget">
-            <label>[[i18n('label.metadata.amount')]]</label>
-            <div>[[_formatCurrency(document.properties.opportunity:amount,currencyFormat,currency)]]</div>
-        </div>
-
-        <div role="widget">
-            <label>[[i18n('label.metadata.closedate')]]</label>
-            <div>[[_formatDate(document.properties.opportunity:closeDate)]]</div>
-        </div>
+                <div role="widget">
+                    <label>[[i18n('label.metadata.closedate')]]</label>
+                    <div>[[_formatDate(document.properties.opportunity:closeDate)]]</div>
+                </div>
         <div role="widget">
             <label>[[i18n('label.metadata.responsible')]]</label>
             <div>
                 <nuxeo-user-tag user="[[document.properties.opportunity:responsible]]"></nuxeo-user-tag>
             </div>
-        </div>
+        </div></nuxeo-card>
+                <nuxeo-card>
         <div role="widget" hidden$="[[!document.properties.opportunity:mainContact]">
             <label>[[i18n('label.metadata.mainContact')]]</label>
             <qualitified-document-suggestion role="widget"
@@ -58,6 +71,7 @@
             <label>[[i18n('label.metadata.description')]]</label>
             <div><pre>[[document.properties.dc:description]]</pre></div>
         </div>
+            </nuxeo-card></section>
     </template>
     <script>
   (function() {
