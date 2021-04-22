@@ -27,7 +27,10 @@
       padding: 20px;}
     </style>
     <h1>[[document.properties.dc:title]]</h1>
-    <div class="layout horizontal center end-justified" style="float: right;">
+    <div class="vertical layout">
+      <nuxeo-resource path="config/types/" on-response="_handleDocTypes" auto></nuxeo-resource>
+
+      <div class="layout horizontal center end-justified" style="float: right;">
       <paper-button id="addEntry" class="primary" on-tap="_addEntry">
         <span>Add</span>
       </paper-button>
@@ -146,7 +149,9 @@
             </paper-dropdown-menu><br>
             <paper-checkbox checked="{{_selectedEntry.required}}"></paper-checkbox> Required
             <nuxeo-input role="widget" value="{{_selectedEntry.vocabularyName}}" label="Vocabulary Name"></nuxeo-input>
+            <div hidden$="[[!isHidden]]">
             <nuxeo-input role="widget" value="{{_selectedEntry.format}}" label="Format"></nuxeo-input>
+            </div>
             <nuxeo-user-suggestion search-type="GROUP_TYPE" label="Read Group"
                                    placeholder="Search for Groups"
                                    value="{{_selectedEntry.readGroup}}"
@@ -162,8 +167,14 @@
                                    value="{{_selectedEntry.hiddenGroup}}"
                                    min-chars="0"
                                    role="widget"></nuxeo-user-suggestion>
-            <paper-checkbox checked="{{_selectedEntry.multivalue}}"></paper-checkbox> Multivalue
-            <nuxeo-input role="widget" value="{{_selectedEntry.primaryType}}" label="Primary Type"></nuxeo-input>
+            <paper-checkbox checked="{{_selectedEntry.multivalue}}"></paper-checkbox> Multivalue <br><br>
+             <label>Primary Type</label>
+            <nuxeo-selectivity data="[[docTypes]]"
+                               placeholder="[[i18n('templateRenderingPage.validDocTypes.placeholder')]]"
+                               value="{{_selectedEntry.primaryType}}"
+                               min-chars=0 ></nuxeo-selectivity>
+
+            <!--nuxeo-input role="widget" value="{{_selectedEntry.primaryType}}" label="Primary Type"></nuxeo-input-->
             <nuxeo-input role="widget" value="{{_selectedEntry.path}}" label="Path"></nuxeo-input>
             <nuxeo-input role="widget" value="{{_selectedEntry.parentId}}" label="Parent Id"></nuxeo-input>
             <paper-checkbox checked="{{_selectedEntry.multiline}}"></paper-checkbox> Multiline <br/>
@@ -194,25 +205,53 @@
           vocabEntries:{
           type: Array,
           value: []
-        },
-        newList: {
-        type: Array,
-          value: []
-        },
-          customFields: {
+          },
+          newList: {
           type: Array,
           value: []
-        },
+          },
+          isHidden: {
+            type:Boolean
+          },
+          customFields: {
+           type: Array,
+           value: []
+          },
           _selectedEntry: {
           type: Object
+          },
+          docTypes: Array,
+          selectedIndex: {
+            type: Number
+          },
+          _isNew: {
+            type: Boolean
+          }
         },
-        selectedIndex: {
-          type: Number
-        },
-        _isNew: {
-          type: Boolean
-        }
+
+      _handleDocTypes: function(e) {
+        var docTypes = [{
+          id: 'all',
+          text: this.i18n('templateRenderingPage.label.document.type.all'),
+          displayLabel: this.i18n('templateRenderingPage.label.document.type.all')
+        }];
+        Object.keys(e.detail.response.doctypes).sort().forEach(function(docType) {
+          docTypes.push({
+            id: docType,
+            text: docType,
+            displayLabel: docType
+          });
+        });
+        this.set('docTypes', docTypes);
       },
+      /*attached: function () {
+       if(this.$.field.detail.value=="Date"){
+              this.isHidden=true;
+            } else {
+             this.isHidden=false;
+            }
+        },*/
+
       _getAvailableFields:function(onEdit){
       var newList=[];
       var vocabs=this.vocabEntries;
@@ -240,6 +279,12 @@
       var onEdit= false;
       var selection= e.detail.value;
       this.$.field.setAttribute("directory-Name", selection);
+      if(selection=="Date"){
+        this.isHidden=true;
+        }
+      else {
+         this.isHidden=false;
+      }
       fetch(window.location.origin + '/nuxeo/api/v1/directory/'+selection)
       .then((resp) => resp.json())
       .then(function(data) {
