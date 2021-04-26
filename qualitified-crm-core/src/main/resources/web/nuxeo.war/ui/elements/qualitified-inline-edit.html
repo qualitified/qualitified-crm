@@ -1,114 +1,144 @@
+
+Bilel  5:00 PM
 <dom-module id="qualitified-inline-edit">
     <template>
         <style include="nuxeo-styles">
             *[role=widget] {
                 padding: 5px;
             }
-
-            #editButton {
-                width: 19px;
+             paper-icon-button {
                 padding: 0px;
-                height: 19px;
                 margin: -2px 6px;
-            }
-
+                    flex: 0 1 auto;
+                width: 22px;
+                height: 22px;
+                color: #c8c8c8a8;
+            } 
             .labelAction {
                 display: inline-flex;
             }
+            .iconsAction {
+                display: inline-flex;
+                float:right;
+            }
+            .expired-date {
+                color:#fd2727a8;
+            }
+            .notify {
+                font-size: 50%;
+                color: red;
+                margin-left: 3px;
+            }
+
+
         </style>
         <nuxeo-operation id="setProperty" op="Document.SetProperty" input="[[document]]" params="[[params]]"></nuxeo-operation>
         <paper-toast id="inlineToast"></paper-toast>
+
         <!-- View -->
-        <div id="view" hidden$="[[edit]]" on-tap="_editMode" on-mouseover="_show" on-mouseout="_hide">
+        <div id="view" hidden$="[[edit]]" on-mouseover="_show" on-mouseout="_hide">
+
             <div class="labelAction">
                 <label>[[i18n(label)]]</label>
-                <paper-icon-button id="editButton"
-                                   icon="nuxeo:edit"
-                                   hidden$="[[!show]]"
-                                   on-tap="_editMode">
+                <!--                  <div class="notify">[[_isExpiredDate(value)]]</div>
+                 -->        </div>
+            <div class="iconsAction">
+                <paper-icon-button style="left:8px;" id="editButton" icon="icons:create" hidden$="[[!show]]" on-tap="_editMode">
                 </paper-icon-button>
+                <paper-icon-button hidden$="[[!isLink]]" icon="icons:open-in-new" on-tap="_navigate"></paper-icon-button>
             </div>
+            <br/>
             <template is="dom-if" if="[[_isInput(metadata)]]">
-                <div>
-                    [[value]]
-                </div>
+                [[_getFormattedValue(value)]]
             </template>
             <template is="dom-if" if="[[_isText(metadata)]]">
-                <div>
-                    <pre class="wrap">[[value]]</pre>
-                </div>
+                [[value]]
             </template>
             <template is="dom-if" if="[[_isDirectory(metadata)]]">
-                <div>[[formatDirectory(value)]]</div>
+                [[value]]
             </template>
-            <template is="dom-if" if="[[_isDate(metadata)]]">
-                <div>[[formatDate(value)]]</div>
+            <template id="dateField" is="dom-if" if="[[_isDate(metadata)]]">
+                <div style="[[_getStyle(value)]]">[[formatDate(value)]]</div>
+            </template>
+            <template is="dom-if" if="[[_isUser(metadata)]]">
+                <nuxeo-user-tag user="{{value}}">
+                </nuxeo-user-tag>
             </template>
             <template is="dom-if" if="[[_isDocument(metadata)]]">
-                <br>
-                {{document.properties.opportunity:responsible}}
+                <qualitified-document-suggestion role="widget"
+                                                 value="{{value}}"
+                                                 page-provider="documents"
+                                                 min-chars="0"
+                                                 readonly>
+                </qualitified-document-suggestion>
             </template>
         </div>
-
         <!-- Edit -->
         <div id="edit" hidden$="[[!edit]]">
+            <div class="labelAction">
+                <label>[[i18n(label)]]</label>
+            </div>
+            <div hidden$="[[displayButtons]]" class="iconsAction">
+                <paper-icon-button style="left:8px;" icon="icons:save" on-tap="_ok"></paper-icon-button>
+                <paper-icon-button icon="icons:close" on-tap="_cancel"></paper-icon-button>
+            </div>
             <template is="dom-if" if="[[_isInput(metadata)]]">
                 <nuxeo-input role="widget"
-                             value="{{value}}"
-                             label="[[i18n(label)]]"
+                             value="{{newValue}}"
                              type="text"
-                             required>
+                >
                 </nuxeo-input>
             </template>
             <template is="dom-if" if="[[_isText(metadata)]]">
                 <nuxeo-textarea role="widget"
-                                value="{{value}}"
-                                label="[[i18n(label)]]"
+                                value="{{newValue}}"
                                 type="text"
-                                required>
+                >
                 </nuxeo-textarea>
             </template>
             <template is="dom-if" if="[[_isDirectory(metadata)]]">
                 <nuxeo-directory-suggestion role="widget"
-                                            value="{{value}}"
-                                            label="[[i18n(label)]]"
+                                            value="{{newValue}}"
                                             type="text"
-                                            required
                                             directory-name="[[directory]]"
                                             min-chars="0">
                 </nuxeo-directory-suggestion>
             </template>
             <template is="dom-if" if="[[_isDate(metadata)]]">
                 <nuxeo-date-picker role="widget"
-                                   value="{{value}}"
-                                   label="[[i18n(label)]]"
+                                   value="{{newValue}}"
                                    type="text"
-                                   required
                                    directory-name="[[directory]]"
                                    min-chars="0">
                 </nuxeo-date-picker>
             </template>
-            <template is="dom-if" if="[[_isDocument(metadata)]]">
-                <nuxeo-user-suggestion value="{{value}}"
-                                       search-type="USER_TYPE" role="widget"
+            <template is="dom-if" if="[[_isUser(metadata)]]">
+                <nuxeo-user-suggestion id="userId"
+                                       role="widget"
+                                       value="{{newValue}}"
+                                       on-selected-item-changed="_setUserObject"
+                                       search-type="USER_TYPE"
                                        min-chars="0">
                 </nuxeo-user-suggestion>
-
-
             </template>
-
-            <div class="buttons">
+            <template is="dom-if" if="[[_isDocument(metadata)]]">
+                <qualitified-document-suggestion role="widget"
+                                                 value="{{newValue}}"
+                                                 page-provider="documents"
+                                                 min-chars="0"
+                                                 params="{{params}}">
+                </qualitified-document-suggestion>
+            </template>
+            <div hidden$="[[!displayButtons]]" class="buttons">
                 <paper-button noink dialog-dismiss on-tap="_cancel">Cancel</paper-button>
                 <paper-button noink dialog-confirm class="primary" on-tap="_ok">Save</paper-button>
             </div>
         </div>
-
     </template>
-    ​
     <script>
         Polymer({
             is: 'qualitified-inline-edit',
-            behaviors: [Nuxeo.LayoutBehavior],
+            behaviors: [Nuxeo.LayoutBehavior,Nuxeo.RoutingBehavior,Nuxeo.FormatBehavior],
             properties: {
                 document: {
                     type: Object,
@@ -122,6 +152,14 @@
                     type: String,
                     value: 'label.dublincore.title'
                 },
+                required:{
+                    type: Boolean,
+                    value: false
+                },
+                displayButtons:{
+                    type: Boolean,
+                    value: false
+                },
                 property:{
                     type: String,
                     value:'dc:title'
@@ -131,9 +169,53 @@
                     value: '',
                     observer: '_valueChanged'
                 },
+                newValue:{
+                    type: String,
+                    value: ''
+                },
+                toBeFormatted:{
+                    type: Boolean,
+                    value: false
+                },
+                formatResolver:{
+                    type: String,
+                    value: ''
+                },
+                valueFormatter:{
+                    type: Function,
+                    value: ''
+                },
+                option1:{
+                    type: String,
+                    value: ''
+                },
+                option2:{
+                    type: String,
+                    value: ''
+                },
+                option3:{
+                    type: String,
+                    value: ''
+                },
+                option4:{
+                    type: String,
+                    value: ''
+                },
+                userObject:{
+                    type: Object,
+                    value: {}
+                },
                 params:{
                     type: Object,
                     value: {}
+                },
+                isLink: {
+                    type: Boolean,
+                    value: false
+                },
+                notifyValue: {
+                    type: Boolean,
+                    value: false
                 },
                 show: {
                     type: Boolean,
@@ -150,59 +232,106 @@
                 namedParameters:{
                     type: String,
                     value: ''
+                },
+                dateStyle:{
+                    type: String,
+                    value: ''
                 }
             },
-
+            attached: function() {
+                /* this.$.dateField.render();
+                var currentDate = new Date();
+                    if (this.value && this.notifyValue &&  (currentDate.toISOString() < this.value) ) {
+                        this.$$("#dateId").className="expired-date";
+                    } else this.$$("#dateId").className = "";
+                 */
+            },
+            ready(){
+                if (this.formatResolver) {
+                    //new function to formate the displayed value, must have value as input and options props as variables.
+                    //formatResolver is a string as value formatter.
+                    this.valueFormatter = new Function("value","return" + " " +this.formatResolver);
+                }
+            },
             _valueChanged: function(value) {
                 if(this.value && this.document && this.document.properties){
-                    this.document.properties[this.property] = this.value;
+                   this.document.properties[this.property] = this.value;
                 }
             },
-
             _documentChanged: function() {
                 if (this.document) {
                     this.value = this.document.properties[this.property];
                     this.edit = false;
                 }
             },
-
             _editMode: function() {
+                this.newValue = this.value;
                 this.edit = true
             },
-
             _isMutable: function(doc) {
                 var mutable = !this.hasFacet(doc, 'Immutable') && doc.type !== 'Root' && doc.state !== 'deleted';
                 return mutable;
             },
-
             _canEdit: function(doc, edit) {
                 return true;
                 //var canEdit = !edit && doc && doc.type !== 'Root' && this.hasPermission(doc, 'Write') && this._isMutable(doc);
                 //return canEdit;
             },
-            _ok: function(){
-                this.params = {
+            _setUserObject: function(e) {
+                this.userObject = e.detail.value;
+            },
+
+            _ok: function() {
+                this.value = this.newValue;
+                this.$.setProperty.params = {
                     xpath:this.property,
                     value:this.value,
                     save:true,
                     context: {},
                     input: this.document.uid
                 };
+                // displaying firstName and lastName of the user in user-suggestion in view mode.
+                 if (this.metadata == 'user') {
+                    var userNameValue = this.userObject.username;
+                    this.value = this.userObject.firstName+' '+this.userObject.lastName;
+                    this.params.value = userNameValue;
+                }
 
                 this.$.setProperty.execute().then(function(response){
                     this.$.inlineToast.text = "Update done!";
                     this.$.inlineToast.open();
                     this.edit = false;
-                    //  window.location.reload(true);
                 }.bind(this))
                     .catch(function (error){
                         console.log(error);
                         this.$.inlineToast.text = "Error when updating...";
                         this.$.inlineToast.open();
-
                     }.bind(this));
             },
+
+            _isExpiredDate :function(value) {
+                var currentDate = new Date();
+                    if (value && this.notifyValue &&  (currentDate.toISOString() < value) ) {
+                        return "closed";
+                    } else return "";
+            },
+            _getStyle :function(value) {
+                var currentDate = new Date();
+                    if (value && this.notifyValue &&  (currentDate.toISOString() > value) ) {
+                        return  "color:#fd2727a8;";
+                    } return "";
+            },
+            //formats the displayed value by excuting the received function from the parent
+            _getFormattedValue: function(value) {
+                if (value && this.toBeFormatted) {
+                   return this.valueFormatter(value);
+               } else return value;
+            },
+            _navigate: function() {
+                window.open("#!/browse"+this.document.path);
+            },
             _cancel: function(){
+                this.newValue = this.value;
                 this.edit = false;
             },
             _show: function(){
@@ -223,9 +352,13 @@
             _isDate: function(value){
                 return value && value == 'date';
             },
+            _isUser: function(value){
+                return value && value == 'user';
+            },
             _isDocument: function(value){
                 return value && value == 'document';
             }
+            
         });
     </script>
 </dom-module>
