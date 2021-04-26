@@ -352,7 +352,7 @@
         <type>Account</type>
         <type>Contact</type>
         <type>Interaction</type>
-        <type>Opportunity</type>
+        <!--type>Opportunity</type-->
       </subtypes>
     </doctype>
     <doctype name="Root" append="true">

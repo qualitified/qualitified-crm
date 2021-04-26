@@ -1,0 +1,69 @@
+<!--
+`qualitified-time-picker`
+@group Nuxeo UI
+@element qualitified-time-picker
+-->
+<dom-module id="qualitified-time-picker">
+    <template>
+        <style>
+      *[role=widget] {
+        padding: 5px;
+      }
+      #datetime {
+        background-color: var(--nuxeo-page-background) !important;
+        border: 1px solid var(--nuxeo-border) !important;
+        color: var(--nuxeo-text-default) !important;
+        border-radius: var(--lumo-border-radius);
+        padding: 0 calc(0.375em + var(--lumo-border-radius) / 4 - 1px);
+        font-family: var(--lumo-font-family);
+        font-weight: 500;
+        height: var(--lumo-size-m);
+      }
+      #labelDate {
+        display: var(--nuxeo-label_-_display);
+        opacity: var(--nuxeo-label_-_opacity);
+        white-space: var(--nuxeo-label_-_white-space);
+        overflow: var(--nuxeo-label_-_overflow);
+        text-overflow: var(--nuxeo-label_-_text-overflow);
+        font-weight: var(--nuxeo-label_-_font-weight) !important;
+        letter-spacing: var(--nuxeo-label_-_letter-spacing) !important;
+      }
+      div {
+        margin-bottom: 14px;
+      }
+    </style>
+        <div>
+            <label id="labelDate">{{label}}</label>
+            <input type="datetime-local" id="datetime" name="datetime" value="{{_inputValue::input}}">
+        </div>
+    </template>
+    <script>
+    Polymer({
+      is: 'qualitified-time-picker',
+      behaviors: [Nuxeo.LayoutBehavior],
+      properties: {
+        value: {
+          type: String,
+          observer: '_valueObserver',
+          notify: true
+        },
+        _inputValue: {
+          type: String,
+          observer: '_inputValueObserver',
+          notify: true
+        },
+        label: {
+          type: String
+        }
+      },
+      _valueObserver: function () {
+        if (this.value !== null) {
+          this._inputValue = moment(this.value).format('YYYY-MM-DDTHH:mm');
+        }
+      },
+      _inputValueObserver: function () {
+        this.value = moment(this._inputValue).toISOString();
+      },
+    });
+  </script>
+</dom-module>
