@@ -111,6 +111,11 @@
           <div>[[item.link]]</div>
         </template>
       </nuxeo-data-table-column>
+      <nuxeo-data-table-column name="[[i18n('label.metadata.custom.editable')]]">
+        <template>
+          <div>[[item.editable]]</div>
+        </template>
+      </nuxeo-data-table-column>
       <nuxeo-data-table-column name="[[i18n('label.metadata.custom.copy')]]">
         <template>
           <div>[[item.copy]]</div>
@@ -179,7 +184,8 @@
             <nuxeo-input role="widget" value="{{_selectedEntry.parentId}}" label="Parent Id"></nuxeo-input>
             <paper-checkbox checked="{{_selectedEntry.multiline}}"></paper-checkbox> Multiline <br/>
             <paper-checkbox checked="{{_selectedEntry.link}}"></paper-checkbox> Link <br/>
-            <paper-checkbox checked="{{_selectedEntry.copy}}"></paper-checkbox> Copyable
+            <paper-checkbox checked="{{_selectedEntry.copy}}"></paper-checkbox> Copyable <br/>
+            <paper-checkbox checked="{{_selectedEntry.editable}}"></paper-checkbox> Editable
           </form>
         </iron-form>
       </paper-dialog-scrollable>
@@ -332,7 +338,8 @@
             "hiddenGroup": null,
             "primaryType": null,
             "multiline": null,
-            "copy": null
+            "copy": null,
+            "editable":null
           };
           this.$.dialog.toggle();
         },

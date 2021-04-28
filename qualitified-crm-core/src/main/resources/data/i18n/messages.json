@@ -199,5 +199,6 @@
   "label.menu.campaign": "Campaign",
   "label.menu.link": "Link",
   "label.menu.automation": "Automation",
-  "label.menu.email": "Email"
+  "label.menu.email": "Email",
+  "label.metadata.custom.editable": "Editable"
 }
