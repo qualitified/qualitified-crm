@@ -24,16 +24,22 @@
         </div>
 
         <div role="widget" hidden$="[[!document.properties.dc:description]]">
-            <label>[[i18n('label.description')]]</label>
-            <div>
-                <pre class="wrap">[[document.properties.dc:description]]</pre>
-            </div>
+            <qualitified-inline-edit document="[[document]]"
+                                     property="dc:description"
+                                     value="[[document.properties.dc:description]]"
+                                     label="[[i18n('label.metadata.description')]]"
+            >
+            </qualitified-inline-edit>
         </div>
         <div role="widget">
-            <label>[[i18n('label.metadata.link.href')]]</label>
-            <div>
-                <a href="[[document.properties.link:href]]" target="_blank">[[document.properties.link:href]]</a>
-            </div>
+            <qualitified-inline-edit document="[[document]]"
+                                     property="link:href"
+                                     value="[[document.properties.link:href]]"
+                                     label="[[i18n('label.metadata.link.href')]]"
+                                     metadata="linkk"
+            >
+            </qualitified-inline-edit>
+
         </div>
 
         <div role="widget">
