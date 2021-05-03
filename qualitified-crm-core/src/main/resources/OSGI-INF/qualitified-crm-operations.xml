@@ -31,6 +31,8 @@
         <operation class="org.qualitified.crm.operation.SuggestCampaignEntry"/>
         <operation class="org.qualitified.crm.operation.CopyBinaryToPublicFolder"/>
         <operation class="org.qualitified.crm.operation.SendToDocusign"/>
+        <operation class="org.qualitified.crm.operation.EventPublisher"/>
+
 
 
     </extension>

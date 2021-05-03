@@ -37,7 +37,7 @@
         <paper-toast id="linkToast"></paper-toast>
         <div role="widget" class="title">
             <h1>
-               [[document.properties.dc:title]]
+                [[document.properties.dc:title]]
             </h1>
         </div>
 
@@ -54,14 +54,14 @@
                 <!--Start-->
                 <a href="/nuxeo/ui/#!/doc/[[document.properties.custom:documentField1]]" target="_blank"><paper-icon-button id="documentField1" class="icon-color" icon="icons:home"></paper-icon-button></a>
                 <paper-tooltip for="documentField1">[[i18n('label.metadata.automation.send.tooltip')]]</paper-tooltip>
-                <qualitified-inline-edit document="[[document]]" property="custom:documentField1" label="" named-parameters="system_primaryType=Email" metadata="document"></qualitified-inline-edit>
+                <qualitified-inline-edit document="[[document]]" value="document.properties.custom:documentField1" property="custom:documentField1" label="" params='{ "namedParameters": "system_primaryType=Email"}' display-buttons metadata="document"></qualitified-inline-edit>
                 <div>
                     <paper-icon-button icon="icons:arrow-downward"></paper-icon-button>
                 </div>
                 <!--Wait-->
                 <paper-icon-button id="integerField1" icon="icons:query-builder"></paper-icon-button>
                 <paper-tooltip for="integerField1">[[i18n('label.metadata.automation.wait.tooltip')]] [[document.properties.custom:integerField1]] [[i18n('label.metadata.automation.days.tooltip')]]</paper-tooltip>
-                <qualitified-inline-edit document="[[document]]" property="custom:integerField1" label=""></qualitified-inline-edit>
+                <qualitified-inline-edit document="[[document]]" property="custom:integerField1" display-buttons label=""></qualitified-inline-edit>
                 <div>
                     <paper-icon-button icon="icons:arrow-downward"></paper-icon-button>
                 </div>
@@ -69,7 +69,7 @@
                     <!--Send-->
                     <a href="/nuxeo/ui/#!/doc/[[document.properties.custom:documentField2]]" target="_blank"><paper-icon-button id="send1" class="icon-color" icon="icons:send"></paper-icon-button></a>
                     <paper-tooltip for="send1">[[i18n('label.metadata.automation.send1.tooltip')]]</paper-tooltip>
-                    <qualitified-inline-edit document="[[document]]" property="custom:documentField2" label="" named-parameters="system_primaryType=Email" metadata="document"></qualitified-inline-edit>
+                    <qualitified-inline-edit document="[[document]]" value="document.properties.custom:documentField2" property="custom:documentField2" label="" params='{ "namedParameters": "system_primaryType=Email"}' display-buttons metadata="document"></qualitified-inline-edit>
                 </div>
             </div>
             <div style="width:58.5%;text-align:right" >
@@ -98,7 +98,7 @@
                         <paper-tooltip for="integerField2">[[i18n('label.metadata.automation.wait.tooltip')]] [[document.properties.custom:integerField2]] [[i18n('label.metadata.automation.days.tooltip')]]</paper-tooltip>
                     </div>
                     <div style="padding-right:16px">
-                        <qualitified-inline-edit document="[[document]]" property="custom:integerField2" label=""></qualitified-inline-edit>
+                        <qualitified-inline-edit document="[[document]]" property="custom:integerField2" display-buttons label=""></qualitified-inline-edit>
                     </div>
                     <div>
                         <paper-icon-button icon="icons:arrow-downward"></paper-icon-button>
@@ -107,7 +107,7 @@
                         <!--Send-->
                         <a href="/nuxeo/ui/#!/doc/[[document.properties.custom:documentField3]]" target="_blank"><paper-icon-button id="send2" class="icon-color" icon="icons:send"></paper-icon-button></a>
                         <paper-tooltip for="send2">[[i18n('label.metadata.automation.send2.tooltip')]]</paper-tooltip>
-                        <qualitified-inline-edit document="[[document]]" property="custom:documentField3" label="" named-parameters="system_primaryType=Email" metadata="document"></qualitified-inline-edit>
+                        <qualitified-inline-edit document="[[document]]" value="document.properties.custom:documentField3" property="custom:documentField3" label="" params='{ "namedParameters": "system_primaryType=Email"}' display-buttons metadata="document"></qualitified-inline-edit>
                     </div>
 
                 </div>
@@ -140,7 +140,7 @@
                         <paper-tooltip for="integerField3">[[i18n('label.metadata.automation.wait.tooltip')]] [[document.properties.custom:integerField3]] [[i18n('label.metadata.automation.days.tooltip')]]</paper-tooltip>
                     </div>
                     <div style="padding-right:16px">
-                        <qualitified-inline-edit document="[[document]]" property="custom:integerField3" label=""></qualitified-inline-edit>
+                        <qualitified-inline-edit document="[[document]]" property="custom:integerField3" display-buttons label=""></qualitified-inline-edit>
                     </div>
                     <div>
                         <paper-icon-button icon="icons:arrow-downward"></paper-icon-button>
@@ -149,7 +149,7 @@
                         <!--Send-->
                         <a href="/nuxeo/ui/#!/doc/[[document.properties.custom:documentField4]]" target="_blank"><paper-icon-button id="send3" class="icon-color" icon="icons:send"></paper-icon-button></a>
                         <paper-tooltip for="send3">[[i18n('label.metadata.automation.send3.tooltip')]]</paper-tooltip>
-                        <qualitified-inline-edit document="[[document]]" property="custom:documentField4" label="" named-parameters="system_primaryType=Email" metadata="document"></qualitified-inline-edit>
+                        <qualitified-inline-edit document="[[document]]" value="document.properties.custom:documentField4" property="custom:documentField4" label="" params='{ "namedParameters": "system_primaryType=Email"}' display-buttons metadata="document"></qualitified-inline-edit>
 
                     </div>
                     <div>

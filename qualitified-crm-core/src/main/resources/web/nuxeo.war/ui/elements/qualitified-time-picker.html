@@ -4,8 +4,8 @@
 @element qualitified-time-picker
 -->
 <dom-module id="qualitified-time-picker">
-    <template>
-        <style>
+  <template>
+    <style>
       *[role=widget] {
         padding: 5px;
       }
@@ -32,12 +32,12 @@
         margin-bottom: 14px;
       }
     </style>
-        <div>
-            <label id="labelDate">{{label}}</label>
-            <input type="datetime-local" id="datetime" name="datetime" value="{{_inputValue::input}}">
-        </div>
-    </template>
-    <script>
+    <div>
+      <label id="labelDate">{{label}}</label>
+      <input type="datetime-local" id="datetime" name="datetime" value="{{_inputValue::input}}">
+    </div>
+  </template>
+  <script>
     Polymer({
       is: 'qualitified-time-picker',
       behaviors: [Nuxeo.LayoutBehavior],
