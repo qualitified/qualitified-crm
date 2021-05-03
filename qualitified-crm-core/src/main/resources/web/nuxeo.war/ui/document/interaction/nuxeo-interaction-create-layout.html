@@ -25,9 +25,12 @@
     <nuxeo-directory-suggestion role="widget" value="{{document.properties.interaction:activity}}" label="[[i18n('label.metadata.activity')]]" on-value-changed="_isEvent" required="true" directory-name="IntActivity" min-chars="0"></nuxeo-directory-suggestion>
 
     <template is="dom-if" if="[[isEvent]]">
-      <qualitified-time-picker value="{{document.properties.interaction:date}}" required label="Start date" required="true" role="widget"></qualitified-time-picker>
+      <qualitified-time-picker value="{{document.properties.interaction:date}}" required label="Start date" required="true" role="widget">
 
-      <qualitified-time-picker value="{{document.properties.custom:dateField1}}" required label="End date" required="true" role="widget"></qualitified-time-picker>
+      </qualitified-time-picker>
+
+      <qualitified-time-picker value="{{document.properties.custom:dateField1}}" required label="End date" required="true" role="widget">
+
       <nuxeo-user-suggestion  value="{{document.properties.interaction:responsible}}"  readonly label="[[i18n('label.metadata.responsible')]]" search-type="USER_TYPE" role="widget" min-chars="0" multiple="true">
       </nuxeo-user-suggestion>
 
