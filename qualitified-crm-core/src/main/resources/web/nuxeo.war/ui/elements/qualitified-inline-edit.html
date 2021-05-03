@@ -6,14 +6,14 @@ Bilel  5:00 PM
             *[role=widget] {
                 padding: 5px;
             }
-             paper-icon-button {
+            paper-icon-button {
                 padding: 0px;
                 margin: -2px 6px;
-                    flex: 0 1 auto;
+                flex: 0 1 auto;
                 width: 22px;
                 height: 22px;
                 color: #c8c8c8a8;
-            } 
+            }
             .labelAction {
                 display: inline-flex;
             }
@@ -54,6 +54,9 @@ Bilel  5:00 PM
             <template is="dom-if" if="[[_isText(metadata)]]">
                 [[value]]
             </template>
+            <template is="dom-if" if="[[_isLinkk(metadata)]]">
+                <u><a href="[[value]]"style="color:blue;">[[value]]</a></u>
+            </template>
             <template is="dom-if" if="[[_isDirectory(metadata)]]">
                 [[value]]
             </template>
@@ -93,6 +96,13 @@ Bilel  5:00 PM
                 <nuxeo-textarea role="widget"
                                 value="{{newValue}}"
                                 type="text"
+                >
+                </nuxeo-textarea>
+            </template>
+            <template is="dom-if" if="[[_isLinkk(metadata)]]">
+                <nuxeo-textarea role="widget"
+                                value="{{newValue}}"
+                                type="url"
                 >
                 </nuxeo-textarea>
             </template>
@@ -255,7 +265,7 @@ Bilel  5:00 PM
             },
             _valueChanged: function(value) {
                 if(this.value && this.document && this.document.properties){
-                   this.document.properties[this.property] = this.value;
+                    this.document.properties[this.property] = this.value;
                 }
             },
             _documentChanged: function() {
@@ -291,7 +301,7 @@ Bilel  5:00 PM
                     input: this.document.uid
                 };
                 // displaying firstName and lastName of the user in user-suggestion in view mode.
-                 if (this.metadata == 'user') {
+                if (this.metadata == 'user') {
                     var userNameValue = this.userObject.username;
                     this.value = this.userObject.firstName+' '+this.userObject.lastName;
                     this.params.value = userNameValue;
@@ -311,21 +321,21 @@ Bilel  5:00 PM
 
             _isExpiredDate :function(value) {
                 var currentDate = new Date();
-                    if (value && this.notifyValue &&  (currentDate.toISOString() < value) ) {
-                        return "closed";
-                    } else return "";
+                if (value && this.notifyValue &&  (currentDate.toISOString() < value) ) {
+                    return "closed";
+                } else return "";
             },
             _getStyle :function(value) {
                 var currentDate = new Date();
-                    if (value && this.notifyValue &&  (currentDate.toISOString() > value) ) {
-                        return  "color:#fd2727a8;";
-                    } return "";
+                if (value && this.notifyValue &&  (currentDate.toISOString() > value) ) {
+                    return  "color:#fd2727a8;";
+                } return "";
             },
             //formats the displayed value by excuting the received function from the parent
             _getFormattedValue: function(value) {
                 if (value && this.toBeFormatted) {
-                   return this.valueFormatter(value);
-               } else return value;
+                    return this.valueFormatter(value);
+                } else return value;
             },
             _navigate: function() {
                 window.open("#!/browse"+this.document.path);
@@ -357,8 +367,11 @@ Bilel  5:00 PM
             },
             _isDocument: function(value){
                 return value && value == 'document';
+            },
+            _isLinkk: function(value){
+                return value && value == 'linkk';
             }
-            
+
         });
     </script>
 </dom-module>

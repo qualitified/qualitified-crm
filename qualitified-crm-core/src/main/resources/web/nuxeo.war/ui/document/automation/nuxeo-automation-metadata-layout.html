@@ -36,16 +36,25 @@
         </style>
         <paper-toast id="linkToast"></paper-toast>
         <div role="widget" class="title">
+            <qualitified-inline-edit document="[[document]]"
+                                     property="dc:title"
+                                     value="[[document.properties.dc:title]]"
+                                     label="[[i18n('label.metadata.title')]]"
+            >
+            </qualitified-inline-edit>
             <h1>
                [[document.properties.dc:title]]
             </h1>
         </div>
 
         <div role="widget" hidden$="[[!document.properties.dc:description]]">
-            <label>[[i18n('label.description')]]</label>
-            <div>
-                <pre class="wrap">[[document.properties.dc:description]]</pre>
-            </div>
+            <qualitified-inline-edit document="[[document]]"
+                                     property="dc:description"
+                                     value="[[document.properties.dc:description]]"
+                                     label="[[i18n('label.metadata.description')]]"
+            >
+            </qualitified-inline-edit>
+
         </div>
         <qualitified-custom-fields document="{{document}}" mode="view"></qualitified-custom-fields>
 

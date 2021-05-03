@@ -18,8 +18,8 @@
         margin-right: 8px;
       }
       nuxeo-card {
-      min-width: 20em;
-      width: 30%;
+        min-width: 20em;
+        width: 30%;
       }
       .title{
         color:var(--nuxeo-secondary-color);
@@ -28,7 +28,7 @@
         display: block;
       }
       .dashboard {
-         display: flex;
+        display: flex;
         flex-direction: row;
         flex-wrap: wrap;
         justify-content: space-between;
@@ -41,81 +41,185 @@
         </template>[[document.properties.dc:title]]</h1>
     </div>
     <section class="dashboard">
-        <nuxeo-card>
-          <div role="widget">
-            <label>[[i18n('label.metadata.type')]]</label>
-            <div>[[formatDirectory(document.properties.account:accountType)]]</div>
-          </div>
-          <div role="widget">
-            <label>[[i18n('label.metadata.typeOfIndustry')]]</label>
-            <div>[[formatDirectory(document.properties.account:typeOfIndustry)]]</div>
-          </div>
-          <div role="widget">
-            <label>[[i18n('label.metadata.zone')]]</label>
-            <div>[[formatDirectory(document.properties.account:zone)]]</div>
-          </div>
-          <div role="widget">
-            <label>[[i18n('label.metadata.turnover')]]</label>
-            <div><qualitified-amount value="[[document.properties.account:turnover]]"></qualitified-amount></div>
-          </div>
-          <div role="widget">
-            <label>[[i18n('label.metadata.website')]]</label>
-            <div><a href="[[document.properties.account:website]]">[[document.properties.account:website]]</a></div>
-          </div>
-        </nuxeo-card>
+      <nuxeo-card>
+        <qualitified-inline-edit document="[[document]]"
+                                 property="account:accountType"
+                                 label="[[i18n('label.metadata.type')]]"
+                                 metadata="directory"
+                                 directory="AccountType"
+                                 value="[[formatDirectory(document.properties.account:accountType)]]"
+        >
 
-        <nuxeo-card>
-          <div role="widget">
-            <label>[[i18n('label.metadata.nbemployees')]]</label>
-            <div>[[document.properties.account:nbEmployees]]</div>
-          </div>
-          <div role="widget">
-            <label>[[i18n('label.metadata.phone')]]</label>
-            <div>[[document.properties.account:phoneNumber]]</div>
-          </div>
-          <div role="widget">
-            <label>[[i18n('label.metadata.email')]]</label>
-            <div>[[document.properties.account:email]]</div>
-          </div>
-          <div role="widget">
-            <label>[[i18n('label.metadata.address')]]</label>
-            <div>[[document.properties.address:address1]]</div>
-            <div>[[document.properties.address:address2]]</div>
-            <div>[[document.properties.address:address3]]</div>
-            <div>[[document.properties.address:zipCode]] [[document.properties.address:city]]</div>
-            <div>[[document.properties.address:country]]</div>
-          </div>
-        </nuxeo-card>
+        </qualitified-inline-edit>
 
-        <nuxeo-card>
+        <qualitified-inline-edit document="[[document]]"
+                                 property="account:typeOfIndustry"
+                                 label="[[i18n('label.metadata.typeOfIndustry')]]"
+                                 metadata="directory"
+                                 directory="Industry"
+                                 value="[[formatDirectory(document.properties.account:typeOfIndustry)]]"
+        >
 
-          <div role="widget">
-            <label>status</label>
-            <div directory-name="StatusAccount">[[formatDirectory(document.properties.account:status)]]</div>
-          </div>
-          <div role="widget" hidden$="[[!document.properties.account:mainContact]">
-            <label>[[i18n('label.metadata.mainContact')]]</label>
-            <qualitified-document-suggestion role="widget"
-                                             value="[[document.properties.account:mainContact]]"
-                                             min-chars="0"
-                                             clickable="true"
-                                             readOnly>
-            </qualitified-document-suggestion>
-          </div>
-          <div role="widget">
-            <label>[[i18n('label.metadata.responsible')]]</label>
-            <div>
-              <nuxeo-user-tag user="[[document.properties.account:responsible]]"></nuxeo-user-tag>
-            </div>
-          </div>
-          <qualitified-custom-fields document="[[document]]" mode="view"></qualitified-custom-fields>
-          <div role="widget">
-            <label>[[i18n('label.metadata.description')]]</label>
-            <div><pre>[[document.properties.dc:description]]</pre></div>
-            </div>
-        </nuxeo-card>
+        </qualitified-inline-edit>
 
-      </section>
+
+        <qualitified-inline-edit document="[[document]]"
+                                 property="account:zone"
+                                 label="[[i18n('label.metadata.zone')]]"
+                                 metadata="directory"
+                                 directory="Zone"
+                                 value="[[formatDirectory(document.properties.account:zone)]]"
+        >
+
+        </qualitified-inline-edit>
+
+
+        <qualitified-inline-edit document="[[document]]"
+                                 value="[[document.properties.account:turnover]]"
+                                 to-be-formatted format-resolver="value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, this.option2)+' '+this.option1+''"
+                                 option1="[[currency]]"
+                                 option2="[[currencyFormat]]"
+                                 property="account:turnover"
+                                 label="[[i18n('label.metadata.turnover')]]"></qualitified-inline-edit>
+
+
+
+
+
+
+        <qualitified-inline-edit document="[[document]]"
+                                 property="account:website"
+                                 value="[[document.properties.account:website]]"
+                                 label="[[i18n('label.metadata.website')]]"
+        >
+        </qualitified-inline-edit>
+
+      </nuxeo-card>
+
+      <nuxeo-card>
+        <div role="widget">
+          <qualitified-inline-edit document="[[document]]"
+                                   property="account:nbEmployees"
+                                   value="[[document.properties.account:nbEmployees]]"
+                                   label="[[i18n('label.metadata.nbemployees')]]"
+          >
+          </qualitified-inline-edit>
+
+        </div>
+        <div role="widget">
+          <qualitified-inline-edit document="[[document]]"
+                                   property="account:phoneNumber"
+                                   value="[[document.properties.account:phoneNumber]]"
+                                   label="[[i18n('label.metadata.phone')]]"
+          >
+          </qualitified-inline-edit>
+
+        </div>
+        <div role="widget">
+          <qualitified-inline-edit document="[[document]]"
+                                   property="account:email"
+                                   value="[[document.properties.account:email]]"
+                                   label="[[i18n('label.metadata.email')]]"
+          >
+          </qualitified-inline-edit>
+
+        </div>
+        <div role="widget">
+          <qualitified-inline-edit document="[[document]]"
+                                   property="account:website"
+                                   value="[[document.properties.account:website]]"
+                                   label="[[i18n('label.metadata.address')]]"
+                                   metadata="linkk"
+          >
+          </qualitified-inline-edit>
+
+          <qualitified-inline-edit document="[[document]]"
+                                   property="address:address1"
+                                   value="[[document.properties.address:address1]]"
+                                   label="[[i18n('label.metadata.address')]] 1"
+          >
+          </qualitified-inline-edit>
+          <qualitified-inline-edit document="[[document]]"
+                                   property="address:address2"
+                                   value="[[document.properties.address:address2]]"
+                                   label="[[i18n('label.metadata.address')]] 2"
+
+          >
+          </qualitified-inline-edit>
+          <qualitified-inline-edit document="[[document]]"
+                                   property="address:address3"
+                                   value="[[document.properties.address:address3]]"
+                                   label="[[i18n('label.metadata.address')]] 3"
+          >
+          </qualitified-inline-edit>
+          <qualitified-inline-edit document="[[document]]"
+                                   property="address:zipCode"
+                                   value="[[document.properties.address:zipCode]]"
+                                   label="[[i18n('label.metadata.zipCode')]]"
+          >
+          </qualitified-inline-edit>
+          <qualitified-inline-edit document="[[document]]"
+                                   property="address:city"
+                                   value="[[document.properties.address:city]]"
+                                   label="[[i18n('label.metadata.city')]]"
+          >
+          </qualitified-inline-edit>
+          <qualitified-inline-edit document="[[document]]"
+                                   property="address:country"
+                                   value="[[document.properties.address:country]]"
+                                   label="[[i18n('label.metadata.country')]]"
+          >
+          </qualitified-inline-edit>
+
+
+        </div>
+      </nuxeo-card>
+
+      <nuxeo-card>
+
+        <div role="widget">
+          <qualitified-inline-edit document="[[document]]"
+                                   property="account:status"
+                                   label="[[i18n('label.metadata.status')]]"
+                                   metadata="directory"
+                                   directory="StatusAccount"
+                                   value="[[formatDirectory(document.properties.account:status)]]"
+          >
+
+          </qualitified-inline-edit>
+
+        </div>
+        <div role="widget" hidden$="[[!document.properties.account:mainContact]">
+          <qualitified-inline-edit document="[[document]]"
+                                   value="document.properties.account:mainContact"
+                                   property="account:mainContact"
+                                   label="[[i18n('label.metadata.mainContact')]]"
+                                   params='{ "namedParameters": "system_primaryType=Contact"}'
+                                   metadata="document"></qualitified-inline-edit>
+
+
+        </div>
+        <div role="widget">
+          <qualitified-inline-edit document="[[document]]"
+                                   value="[[item.properties.account:responsible]]"
+                                   property="account:responsible"
+                                   label="label.metadata.responsible"
+                                   metadata="user"></qualitified-inline-edit>
+
+
+        </div>
+        <qualitified-custom-fields document="[[document]]" mode="view"></qualitified-custom-fields>
+        <div role="widget">
+          <qualitified-inline-edit document="[[document]]"
+                                   property="dc:description"
+                                   value="[[document.properties.dc:description]]"
+                                   label="[[i18n('label.metadata.description')]]"
+          >
+          </qualitified-inline-edit>
+        </div>
+      </nuxeo-card>
+
+    </section>
   </template>
 
   <script>
@@ -123,7 +227,7 @@
       'use strict';
       Polymer({
         is: 'nuxeo-account-metadata-layout',
-        behaviors: [Nuxeo.LayoutBehavior],
+        behaviors: [Nuxeo.LayoutBehavior ,Nuxeo.FormatBehavior,],
         properties: {
 
           /**
@@ -131,6 +235,16 @@
            */
           document: {
             type: Object
+          },
+          currencyFormat:{
+            type: String
+          },
+          currency:{
+            type: String
+          },
+          params:{
+            type: Object,
+            value: {}
           },
 
         },
@@ -149,11 +263,43 @@
             return value;
           }
         },
-        _formatCurrency: function(val) {
+        _formatCurrency: function(val,format,currency) {
           if(val == null){
             return "";
           }
-          return val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ");
+          return val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, format)+' '+currency+'';
+        },
+        ready: async function () {
+          const format = await this._getCurrencyFormat();
+          this.currencyFormat = format;
+          const curr = await this._getCurrency();
+          this.currency = curr;
+        },
+        _getCurrencyFormat: async function(){
+          let params = {};
+          params.name = "CurrencyFormat";
+          this.$.getOption.params = params;
+          let result = await this.$.getOption.execute().then(function(response){
+            if(response === null){
+              return ",";
+            }else{
+              return response.value;
+            }
+          }.bind(this));
+          return result;
+        },
+        _getCurrency: async function(){
+          let params = {};
+          params.name = "Currency";
+          this.$.getOption.params = params;
+          let result = await this.$.getOption.execute().then(function(response){
+            if(response === null){
+              return "$";
+            }else{
+              return response.value;
+            }
+          }.bind(this));
+          return result;
         },
         _hasProfileImg: function(value){
           if(value != null){
