@@ -1,0 +1,123 @@
+<dom-module id="qualitified-document-create" assetpath="nuxeo-document-actions/">
+    <template>
+        <style include="nuxeo-action-button-styles">
+      .container {
+        margin: 0;
+        padding: 24px 0 0 0;
+      }
+      @media (min-width: 1024px) {
+        nuxeo-dialog {
+          min-width: 915px;
+        }
+      }
+          paper-icon-button {
+                padding: 0px;
+                margin: -2px 6px;
+                    flex: 0 1 auto;
+                width: 22px;
+                height: 22px;
+                color: #c8c8c8a8;
+            }
+    </style>
+        <nuxeo-operation id="create" input="/Marketing" op="Document.Create"></nuxeo-operation>
+
+        <paper-icon-button icon="nuxeo:add" on-click="_create" ></paper-icon-button>
+
+        <nuxeo-dialog id="dialog" no-auto-focus="" with-backdrop="" modal="">
+            <div class="container">
+                <nuxeo-document-form-layout id="layout" document="[[document]]" layout="edit" on-document-updated="_closeDialog"></nuxeo-document-form-layout>
+            </div>
+        </nuxeo-dialog>
+
+    </template>
+    <script>
+    Polymer({
+      is: 'qualitified-document-create',
+      behaviors: [Nuxeo.I18nBehavior, Nuxeo.FiltersBehavior],
+      properties: {
+        /**
+         * Input document.
+         */
+        document: {
+          type: Object
+        },
+        type:{
+            type:String
+        },
+        /**
+         * Document form layout to load (default is `edit`)
+         */
+        layout: {
+          type: String,
+          value: 'edit'
+        },
+        /**
+         * `true` if the action should display the label, `false` otherwise.
+         */
+        showLabel: {
+          type: Boolean,
+          value: false,
+        },
+        label: {
+          type: String
+        },
+        icon: {
+          type: String,
+          value: 'nuxeo:edit'
+        },
+      },
+      get dialog() {
+        return this.root.getElementById(this.layout + '-dialog');
+      },
+      get button() {
+        return this.root.getElementById(this.layout + '-button');
+      },
+      _isAvailable: function(doc) {
+        return doc && doc.type !== 'Root' && this.hasPermission(doc, 'Write') && this._isMutable(doc);
+      },
+      _isMutable: function(doc) {
+        return doc && !this.hasFacet(doc, 'Immutable') && doc.type !== 'Root' && !this.isTrashed(doc);
+      },
+      _openDialog: function() {
+        this.dialog.open();
+      },
+      _closeDialog: function() {
+        this.$.dialog.close();
+      },
+      _create: function() {
+         var op = this.$.create;
+         op.params = {
+           'type':this.type
+
+         };
+            return  op.execute().then(function(response) {
+                this.document = response;
+                let self = this;
+                   timeout = setTimeout(function () {
+                        self._toggleAddDialog();
+                       }, 1000);
+            }.bind(this));
+
+       },
+       _toggleAddDialog: function () {
+                this.$.dialog.toggle();
+                }
+    });
+  </script>
+</dom-module>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

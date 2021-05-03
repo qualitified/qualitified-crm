@@ -4,18 +4,14 @@
 @element qualitified-document-suggestion
 -->
 <dom-module id="qualitified-document-suggestion">
-
   <template>
-
     <style>
       :host {
         display: block;
       }
-
       :host([hidden]) {
         display: none;
       }
-
       /* links */
       a, a:active, a:visited, a:focus {
         @apply --nuxeo-link;
@@ -23,15 +19,30 @@
       a:hover {
         @apply --nuxeo-link-hover;
       }
+      paper-icon-button {
+                padding: 0px;
+                margin: -2px 6px;
+                flex: 0 1 auto;
+                width: 22px;
+                height: 22px;
+                color: #c8c8c8a8;
+            }
+            .labelAction {
+                display: inline-flex;
+            }
     </style>
-
     <nuxeo-operation id="op" op="Document.FetchByProperty"></nuxeo-operation>
+    <div class="labelAction" style="opacity:var(--nuxeo-label_-_opacity);">
+      <label>[[label]]</label>
 
-    <nuxeo-selectivity id="s2" operation="[[operation]]"  label="[[label]]" min-chars="[[minChars]]" frequency="[[frequency]]" multiple="[[multiple]]" params="[[_computeParams(params.*, pageProvider, schemas, repository)]]" placeholder="[[placeholder]]" error-message="[[errorMessage]]" readonly="[[readonly]]" value="{{value}}" selected-items="{{selectedItems}}" selected-item="{{selectedItem}}" selection-formatter="[[selectionFormatter]]" result-formatter="[[resultFormatter]]" required="[[required]]" invalid="[[invalid]]" init-selection="[[initSelection]]" id-function="[[_idFunction]]" stay-open-on-select="[[stayOpenOnSelect]]" enrichers="[[enrichers]]">
+    </div>
+    <template if="[[!isBtnHidden]]" is="dom-if">
+
+    <qualitified-document-create  type="[[suggestionType]]" id="layout"  layout='edit'></qualitified-document-create>
+    </template>
+    <nuxeo-selectivity id="s2" on-input="_isNew" operation="[[operation]]" min-chars="[[minChars]]" frequency="[[frequency]]" multiple="[[multiple]]" params="[[_computeParams(params.*, pageProvider, schemas, repository)]]" placeholder="[[placeholder]]" error-message="[[errorMessage]]" readonly="[[readonly]]" value="{{value}}" selected-items="{{selectedItems}}" selected-item="{{selectedItem}}" selection-formatter="[[selectionFormatter]]" result-formatter="[[resultFormatter]]" required="[[required]]" invalid="[[invalid]]" init-selection="[[initSelection]]" id-function="[[_idFunction]]" stay-open-on-select="[[stayOpenOnSelect]]" enrichers="[[enrichers]]">
     </nuxeo-selectivity>
-
   </template>
-
   <script>
     {
       /**
@@ -48,11 +59,9 @@
       class DocumentSuggestion extends
         Polymer.mixinBehaviors([Polymer.IronFormElementBehavior, Polymer.IronValidatableBehavior,
           Nuxeo.RoutingBehavior], Nuxeo.Element) {
-
         static get is() {
           return 'qualitified-document-suggestion';
         }
-
         static get properties() {
           return {
             /**
@@ -62,7 +71,6 @@
               type: String,
               value: 'default_document_suggestion',
             },
-
             /**
              * Document schemas.
              */
@@ -70,7 +78,6 @@
               type: Array,
               value: ['*'],
             },
-
             /**
              * Repository.
              */
@@ -78,12 +85,10 @@
               type: String,
               value: 'default',
             },
-
             /**
              * Label.
              */
             label: String,
-
             /**
              * Operation to call for suggestions.
              */
@@ -91,12 +96,10 @@
               type: String,
               value: 'Repository.PageProvider',
             },
-
             /**
              * Parameters for the operation.
              */
             params: Object,
-
             /**
              * Selected value(s).
              */
@@ -104,7 +107,6 @@
               type: String,
               notify: true,
             },
-
             /**
              * Set to `true` to allow multiple selection.
              */
@@ -114,9 +116,7 @@
             },
              clickable: {
               type: String,
-
             },
-
             /**
              * If true, the dropdown stays open after a selection is made.
              */
@@ -124,7 +124,6 @@
               type: Boolean,
               value: false,
             },
-
             /**
              * Set to `true` for read only mode.
              */
@@ -132,7 +131,6 @@
               type: Boolean,
               value: false,
             },
-
             /**
              * Minimum number of chars to trigger the suggestions.
              */
@@ -140,22 +138,18 @@
               type: Number,
               value: 3,
             },
-
             /**
              * Time in ms used to debounce requests.
              */
             frequency: Number,
-
             /**
              * Placeholder.
              */
             placeholder: String,
-
             /**
              * Error message to show when `invalid` is true.
              */
             errorMessage: String,
-
             /**
              * Selected items.
              */
@@ -163,7 +157,6 @@
               type: Array,
               notify: true,
             },
-
             /**
              * Selected item.
              */
@@ -171,7 +164,6 @@
               type: Object,
               notify: true,
             },
-
             /**
              * Formatter for a selected entry.
              */
@@ -181,7 +173,6 @@
                 return this._selectionFormatter.bind(this);
               },
             },
-
             /**
              * Formatter for suggested entries.
              */
@@ -191,7 +182,12 @@
                 return this._resultFormatter.bind(this);
               },
             },
-
+            /**
+             * Formatter for suggested entries.
+             */
+             suggestionType: {
+              type: String
+            },
             /**
              * Name of the Document property that should be used
              * to define the ID of entry.
@@ -200,7 +196,10 @@
               type: String,
               value: 'ecm:uuid',
             },
-
+            isBtnHidden: {
+              type: Boolean,
+              value: true,
+            },
             /**
              * Function used to get the id from the choice document.
              */
@@ -219,8 +218,6 @@
                 return this._getDocIds.bind(this);
               },
             },
-
-
             /**
              * Formatter for initial selection.
              */
@@ -230,7 +227,6 @@
                 return this._initSelection.bind(this);
               },
             },
-
             /**
              * The `content enricher` of the operation.
              */
@@ -240,12 +236,17 @@
             },
           };
         }
-
+        attached(){
+          this.$.s2.addEventListener('input',this._isNew);
+        }
+        _isNew(e) {
+            var errorClass = e.target.shadowRoot.querySelector("#input > div.selectivity-dropdown > div > div").className;
+            this.isBtnHidden = !(errorClass==="selectivity-error");
+          }
         /* Override method from Polymer.IronValidatableBehavior. */
         _getValidity() {
           return this.$.s2._getValidity();
         }
-
         _computeParams() {
           return Object.assign({}, {
             documentSchemas: this.schemas,
@@ -256,11 +257,9 @@
             pageSize: 1000,
           }, this.params);
         }
-
         _selectionFormatter(doc) {
           //return `<a >${doc.title}</a>`;
           //TODO Make the link optional
-
           let defaultIcon = (doc && doc.properties && doc.properties["common:icon"])? doc.properties["common:icon"] : "";
           let img = ((doc.type === "Contact" || doc.type === "Account") && doc.properties["file:content"])? `<img style="vertical-align: middle;height: 25px;width: 25px;border-radius: 20px;box-sizing: border-box;margin-right: 8px;" src="/nuxeo/nxfile/default/${doc.uid}/file:content/" onError="this.onerror=null;this.src='/nuxeo/${defaultIcon}';">` : `<img style="vertical-align: middle;height: 25px;width: 25px;border-radius: 20px;box-sizing: border-box;margin-right: 8px;" src="/nuxeo/${defaultIcon}">`;
           if(this.clickable === "true"){
@@ -268,15 +267,12 @@
           }
           else {
               return `${img}${doc.title}`;
-
           }
         }
-
         _resultFormatter(doc) {
+          this.suggestionType = doc.type;
           return `${doc.title}`;
         }
-
-
         _initSelection(element, callback) {
           if (element) {
             if (this.multiple) {
@@ -309,7 +305,6 @@
             console.log('Unable to resolve such entry. Write your own resolver');
           }
         }
-
         _resolveDocs(docs, callback) {
           this.$.op.params = {
             values: this._getDocIds(this.value),
@@ -334,13 +329,11 @@
                     }
                     return docList;
                  }
-
              } else {
                 if (typeof docs === 'string') {
                    return docs;
                 } else return docs.uid
              }
-
         }
         _docIdFunction(doc) {
             if (this.idProperty === 'ecm:uuid') {
@@ -348,11 +341,8 @@
             } else {
               return doc.properties[this.idProperty];
             }
-
         }
-
       }
-
       customElements.define(DocumentSuggestion.is, DocumentSuggestion);
       Nuxeo.DocumentSuggestion = DocumentSuggestion;
     }
