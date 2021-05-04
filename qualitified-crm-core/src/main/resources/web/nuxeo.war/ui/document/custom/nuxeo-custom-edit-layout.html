@@ -31,163 +31,169 @@
       <nuxeo-resource path="config/types/" on-response="_handleDocTypes" auto></nuxeo-resource>
 
       <div class="layout horizontal center end-justified" style="float: right;">
-      <paper-button id="addEntry" class="primary" on-tap="_addEntry">
-        <span>Add</span>
-      </paper-button>
-    </div>
-    <nuxeo-data-table class="results" id="customTable" items="{{document.properties.custom:field}}" role="widget">
-      <nuxeo-data-table-column name="[[i18n('label.metadata.custom.label')]]">
-        <template>
-          <div>{{item.label}}</div>
-        </template>
-      </nuxeo-data-table-column>
-      <nuxeo-data-table-column name="[[i18n('label.metadata.custom.type')]]">
-        <template>
-          <div>{{item.type}}</div>
-        </template>
-      </nuxeo-data-table-column>
-      <nuxeo-data-table-column name="[[i18n('label.metadata.custom.fieldname')]]">
-        <template>
-          <div>{{item.fieldName}}</div>
-        </template>
-      </nuxeo-data-table-column>
-      <nuxeo-data-table-column name="[[i18n('label.metadata.custom.required')]]">
-        <template>
-          <div>[[item.required]]</div>
-        </template>
-      </nuxeo-data-table-column>
-      <nuxeo-data-table-column name="[[i18n('label.metadata.custom.vocabularyname')]]">
-        <template>
-          <div>[[item.vocabularyName]]</div>
-        </template>
-      </nuxeo-data-table-column>
-      <nuxeo-data-table-column name="[[i18n('label.metadata.custom.format')]]">
-        <template>
-          <div>[[item.format]]</div>
-        </template>
-      </nuxeo-data-table-column>
-      <nuxeo-data-table-column name="[[i18n('label.metadata.custom.readgroup')]]">
-        <template>
-          <div>[[item.readGroup]]</div>
-        </template>
-      </nuxeo-data-table-column>
-      <nuxeo-data-table-column name="[[i18n('label.metadata.custom.editgroup')]]">
-        <template>
-          <div>[[item.editGroup]]</div>
-        </template>
-      </nuxeo-data-table-column>
-      <nuxeo-data-table-column name="[[i18n('label.metadata.custom.hiddengroup')]]">
-        <template>
-          <div>[[item.hiddenGroup]]</div>
-        </template>
-      </nuxeo-data-table-column>
-      <nuxeo-data-table-column name="[[i18n('label.metadata.custom.multivalue')]]">
-        <template>
-          <div>[[item.multivalue]]</div>
-        </template>
-      </nuxeo-data-table-column>
-      <nuxeo-data-table-column name="[[i18n('label.metadata.custom.primarytype')]]">
-        <template>
-          <div>[[item.primaryType]]</div>
-        </template>
-      </nuxeo-data-table-column>
-      <nuxeo-data-table-column name="[[i18n('label.metadata.custom.path')]]">
-        <template>
-          <div>[[item.path]]</div>
-        </template>
-      </nuxeo-data-table-column>
-      <nuxeo-data-table-column name="[[i18n('label.metadata.custom.parentid')]]">
-        <template>
-          <div>[[item.parentId]]</div>
-        </template>
-      </nuxeo-data-table-column>
-      <nuxeo-data-table-column name="[[i18n('label.metadata.custom.multiline')]]">
-        <template>
-          <div>[[item.multiline]]</div>
-        </template>
-      </nuxeo-data-table-column>
-      <nuxeo-data-table-column name="[[i18n('label.metadata.custom.link')]]">
-        <template>
-          <div>[[item.link]]</div>
-        </template>
-      </nuxeo-data-table-column>
-      <nuxeo-data-table-column name="[[i18n('label.metadata.custom.copy')]]">
-        <template>
-          <div>[[item.copy]]</div>
-        </template>
-      </nuxeo-data-table-column>
-      <nuxeo-data-table-column name="[[i18n(col.name)]]" key="[[col.key]]">
-        <template>
-          <paper-icon-button name="edit" icon="nuxeo:edit" on-tap="_editEntry" title="Edit"></paper-icon-button>
-          <paper-icon-button name="delete" icon="nuxeo:delete" on-tap="_deleteEntry" title="Delete"></paper-icon-button>
-        </template>
-      </nuxeo-data-table-column>
-    </nuxeo-data-table>
-    <nuxeo-dialog id="dialog" with-backdrop="" no-auto-focus="">
-      <h2>Edit</h2>
-      <paper-dialog-scrollable>
-        <iron-form id="form">
-          <form>
-            <nuxeo-input role="widget" value="{{_selectedEntry.label}}" label="Label"></nuxeo-input>
-            <nuxeo-directory-suggestion role="widget" label="Type"
-                                        directory-name="Type"
-                                        name="Type"
-                                        value="{{_selectedEntry.type}}"
-                                        min-chars="0"  on-value-changed="_getVocabOnCreate">
-            </nuxeo-directory-suggestion>
-
-            <paper-dropdown-menu id="field" label="filedName" style="width:100%;"
-                                 selectedItem="{{_selectedEntry.fieldName}}"
-                                 value="{{_selectedEntry.fieldName}}">
-              <paper-listbox slot="dropdown-content" class = "dropdown-content" style=" background-color: white; left: 509px; top: 146px; width: 422px;" >
-                <dom-repeat items="[[newList]]" as="field">
-                  <template>
-                    <paper-item  key="[[field.id]]">[[field.label]]</paper-item>
-                  </template>
-                </dom-repeat>
-              </paper-listbox>
-            </paper-dropdown-menu><br>
-            <paper-checkbox checked="{{_selectedEntry.required}}"></paper-checkbox> Required
-            <nuxeo-input role="widget" value="{{_selectedEntry.vocabularyName}}" label="Vocabulary Name"></nuxeo-input>
-            <div hidden$="[[!isHidden]]">
-            <nuxeo-input role="widget" value="{{_selectedEntry.format}}" label="Format"></nuxeo-input>
-            </div>
-            <nuxeo-user-suggestion search-type="GROUP_TYPE" label="Read Group"
-                                   placeholder="Search for Groups"
-                                   value="{{_selectedEntry.readGroup}}"
-                                   min-chars="0"
-                                   role="widget"></nuxeo-user-suggestion>
-            <nuxeo-user-suggestion search-type="GROUP_TYPE" label="Edit Group"
-                                   placeholder="Search for Groups"
-                                   value="{{_selectedEntry.editGroup}}"
-                                   min-chars="0"
-                                   role="widget"></nuxeo-user-suggestion>
-            <nuxeo-user-suggestion search-type="GROUP_TYPE" label="Hidden Group"
-                                   placeholder="Search for Groups"
-                                   value="{{_selectedEntry.hiddenGroup}}"
-                                   min-chars="0"
-                                   role="widget"></nuxeo-user-suggestion>
-            <paper-checkbox checked="{{_selectedEntry.multivalue}}"></paper-checkbox> Multivalue <br><br>
-             <label>Primary Type</label>
-            <nuxeo-selectivity data="[[docTypes]]"
-                               placeholder="[[i18n('templateRenderingPage.validDocTypes.placeholder')]]"
-                               value="{{_selectedEntry.primaryType}}"
-                               min-chars=0 ></nuxeo-selectivity>
-
-            <!--nuxeo-input role="widget" value="{{_selectedEntry.primaryType}}" label="Primary Type"></nuxeo-input-->
-            <nuxeo-input role="widget" value="{{_selectedEntry.path}}" label="Path"></nuxeo-input>
-            <nuxeo-input role="widget" value="{{_selectedEntry.parentId}}" label="Parent Id"></nuxeo-input>
-            <paper-checkbox checked="{{_selectedEntry.multiline}}"></paper-checkbox> Multiline <br/>
-            <paper-checkbox checked="{{_selectedEntry.link}}"></paper-checkbox> Link <br/>
-            <paper-checkbox checked="{{_selectedEntry.copy}}"></paper-checkbox> Copyable
-          </form>
-        </iron-form>
-      </paper-dialog-scrollable>
-      <div class="buttons">
-        <paper-button id="cancel" name="cancel" noink="" dialog-dismiss="">[[i18n('command.cancel')]]</paper-button>
-        <paper-button id="save" name="save" noink="" class="primary" on-tap="_save">[[i18n('command.save')]]</paper-button>
+        <paper-button id="addEntry" class="primary" on-tap="_addEntry">
+          <span>Add</span>
+        </paper-button>
       </div>
-    </nuxeo-dialog>
+      <nuxeo-data-table class="results" id="customTable" items="{{document.properties.custom:field}}" role="widget">
+        <nuxeo-data-table-column name="[[i18n('label.metadata.custom.label')]]">
+          <template>
+            <div>{{item.label}}</div>
+          </template>
+        </nuxeo-data-table-column>
+        <nuxeo-data-table-column name="[[i18n('label.metadata.custom.type')]]">
+          <template>
+            <div>{{item.type}}</div>
+          </template>
+        </nuxeo-data-table-column>
+        <nuxeo-data-table-column name="[[i18n('label.metadata.custom.fieldname')]]">
+          <template>
+            <div>{{item.fieldName}}</div>
+          </template>
+        </nuxeo-data-table-column>
+        <nuxeo-data-table-column name="[[i18n('label.metadata.custom.required')]]">
+          <template>
+            <div>[[item.required]]</div>
+          </template>
+        </nuxeo-data-table-column>
+        <nuxeo-data-table-column name="[[i18n('label.metadata.custom.vocabularyname')]]">
+          <template>
+            <div>[[item.vocabularyName]]</div>
+          </template>
+        </nuxeo-data-table-column>
+        <nuxeo-data-table-column name="[[i18n('label.metadata.custom.format')]]">
+          <template>
+            <div>[[item.format]]</div>
+          </template>
+        </nuxeo-data-table-column>
+        <nuxeo-data-table-column name="[[i18n('label.metadata.custom.readgroup')]]">
+          <template>
+            <div>[[item.readGroup]]</div>
+          </template>
+        </nuxeo-data-table-column>
+        <nuxeo-data-table-column name="[[i18n('label.metadata.custom.editgroup')]]">
+          <template>
+            <div>[[item.editGroup]]</div>
+          </template>
+        </nuxeo-data-table-column>
+        <nuxeo-data-table-column name="[[i18n('label.metadata.custom.hiddengroup')]]">
+          <template>
+            <div>[[item.hiddenGroup]]</div>
+          </template>
+        </nuxeo-data-table-column>
+        <nuxeo-data-table-column name="[[i18n('label.metadata.custom.multivalue')]]">
+          <template>
+            <div>[[item.multivalue]]</div>
+          </template>
+        </nuxeo-data-table-column>
+        <nuxeo-data-table-column name="[[i18n('label.metadata.custom.primarytype')]]">
+          <template>
+            <div>[[item.primaryType]]</div>
+          </template>
+        </nuxeo-data-table-column>
+        <nuxeo-data-table-column name="[[i18n('label.metadata.custom.path')]]">
+          <template>
+            <div>[[item.path]]</div>
+          </template>
+        </nuxeo-data-table-column>
+        <nuxeo-data-table-column name="[[i18n('label.metadata.custom.parentid')]]">
+          <template>
+            <div>[[item.parentId]]</div>
+          </template>
+        </nuxeo-data-table-column>
+        <nuxeo-data-table-column name="[[i18n('label.metadata.custom.multiline')]]">
+          <template>
+            <div>[[item.multiline]]</div>
+          </template>
+        </nuxeo-data-table-column>
+        <nuxeo-data-table-column name="[[i18n('label.metadata.custom.link')]]">
+          <template>
+            <div>[[item.link]]</div>
+          </template>
+        </nuxeo-data-table-column>
+        <nuxeo-data-table-column name="[[i18n('label.metadata.custom.editable')]]">
+          <template>
+            <div>[[item.editable]]</div>
+          </template>
+        </nuxeo-data-table-column>
+        <nuxeo-data-table-column name="[[i18n('label.metadata.custom.copy')]]">
+          <template>
+            <div>[[item.copy]]</div>
+          </template>
+        </nuxeo-data-table-column>
+        <nuxeo-data-table-column name="[[i18n(col.name)]]" key="[[col.key]]">
+          <template>
+            <paper-icon-button name="edit" icon="nuxeo:edit" on-tap="_editEntry" title="Edit"></paper-icon-button>
+            <paper-icon-button name="delete" icon="nuxeo:delete" on-tap="_deleteEntry" title="Delete"></paper-icon-button>
+          </template>
+        </nuxeo-data-table-column>
+      </nuxeo-data-table>
+      <nuxeo-dialog id="dialog" with-backdrop="" no-auto-focus="">
+        <h2>Edit</h2>
+        <paper-dialog-scrollable>
+          <iron-form id="form">
+            <form>
+              <nuxeo-input role="widget" value="{{_selectedEntry.label}}" label="Label"></nuxeo-input>
+              <nuxeo-directory-suggestion role="widget" label="Type"
+                                          directory-name="Type"
+                                          name="Type"
+                                          value="{{_selectedEntry.type}}"
+                                          min-chars="0"  on-value-changed="_getVocabOnCreate">
+              </nuxeo-directory-suggestion>
+
+              <paper-dropdown-menu id="field" label="filedName" style="width:100%;"
+                                   selectedItem="{{_selectedEntry.fieldName}}"
+                                   value="{{_selectedEntry.fieldName}}">
+                <paper-listbox slot="dropdown-content" class = "dropdown-content" style=" background-color: white; left: 509px; top: 146px; width: 422px;" >
+                  <dom-repeat items="[[newList]]" as="field">
+                    <template>
+                      <paper-item  key="[[field.id]]">[[field.label]]</paper-item>
+                    </template>
+                  </dom-repeat>
+                </paper-listbox>
+              </paper-dropdown-menu><br>
+              <paper-checkbox checked="{{_selectedEntry.required}}"></paper-checkbox> Required
+              <nuxeo-input role="widget" value="{{_selectedEntry.vocabularyName}}" label="Vocabulary Name"></nuxeo-input>
+              <div hidden$="[[!isHidden]]">
+                <nuxeo-input role="widget" value="{{_selectedEntry.format}}" label="Format"></nuxeo-input>
+              </div>
+              <nuxeo-user-suggestion search-type="GROUP_TYPE" label="Read Group"
+                                     placeholder="Search for Groups"
+                                     value="{{_selectedEntry.readGroup}}"
+                                     min-chars="0"
+                                     role="widget"></nuxeo-user-suggestion>
+              <nuxeo-user-suggestion search-type="GROUP_TYPE" label="Edit Group"
+                                     placeholder="Search for Groups"
+                                     value="{{_selectedEntry.editGroup}}"
+                                     min-chars="0"
+                                     role="widget"></nuxeo-user-suggestion>
+              <nuxeo-user-suggestion search-type="GROUP_TYPE" label="Hidden Group"
+                                     placeholder="Search for Groups"
+                                     value="{{_selectedEntry.hiddenGroup}}"
+                                     min-chars="0"
+                                     role="widget"></nuxeo-user-suggestion>
+              <paper-checkbox checked="{{_selectedEntry.multivalue}}"></paper-checkbox> Multivalue <br><br>
+              <label>Primary Type</label>
+              <nuxeo-selectivity data="[[docTypes]]"
+                                 placeholder="[[i18n('templateRenderingPage.validDocTypes.placeholder')]]"
+                                 value="{{_selectedEntry.primaryType}}"
+                                 min-chars=0 ></nuxeo-selectivity>
+
+              <!--nuxeo-input role="widget" value="{{_selectedEntry.primaryType}}" label="Primary Type"></nuxeo-input-->
+              <nuxeo-input role="widget" value="{{_selectedEntry.path}}" label="Path"></nuxeo-input>
+              <nuxeo-input role="widget" value="{{_selectedEntry.parentId}}" label="Parent Id"></nuxeo-input>
+              <paper-checkbox checked="{{_selectedEntry.multiline}}"></paper-checkbox> Multiline <br/>
+              <paper-checkbox checked="{{_selectedEntry.link}}"></paper-checkbox> Link <br/>
+              <paper-checkbox checked="{{_selectedEntry.copy}}"></paper-checkbox> Copyable <br/>
+              <paper-checkbox checked="{{_selectedEntry.editable}}"></paper-checkbox> Editable
+            </form>
+          </iron-form>
+        </paper-dialog-scrollable>
+        <div class="buttons">
+          <paper-button id="cancel" name="cancel" noink="" dialog-dismiss="">[[i18n('command.cancel')]]</paper-button>
+          <paper-button id="save" name="save" noink="" class="primary" on-tap="_save">[[i18n('command.save')]]</paper-button>
+        </div>
+      </nuxeo-dialog>
   </template>
   <script>
     (function() {
@@ -332,7 +338,8 @@
             "hiddenGroup": null,
             "primaryType": null,
             "multiline": null,
-            "copy": null
+            "copy": null,
+            "editable":null
           };
           this.$.dialog.toggle();
         },
