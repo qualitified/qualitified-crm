@@ -1,37 +1,40 @@
 <link rel="import" href="../../elements/qualitified-inline-edit.html">
 <link rel="import" href="../../elements/qualitified-document-attachments.html">
+<link rel="import" href="../../qualitified-icons.html">
+<link rel="import" href="../../elements/nuxeo-document-create-popup-modified.html">
 <dom-module id="nuxeo-opportunity-view-layout">
     <template>
         <style include="nuxeo-styles">
-      *[role=widget] {
-          padding: 40px;
-          flex: 80%;
-      }
-      .wrap {
-        white-space: pre-wrap;
-      }
+            *[role=widget] {
+                padding: 40px;
+                flex: 80%;
+            }
 
-      .account-view-layout {
-        height: 25px;
-        width: 25px;
-        border-radius: 20px;
-        box-sizing: border-box;
-        margin-right: 8px;
-      }
+            .wrap {
+                white-space: pre-wrap;
+            }
 
-      .ellipsis {
-        text-overflow: ellipsis;
-        overflow: hidden;
-        white-space: nowrap;
-        display: block;
-        width: calc(100% - 38px);
-      }
+            .account-view-layout {
+                height: 25px;
+                width: 25px;
+                border-radius: 20px;
+                box-sizing: border-box;
+                margin-right: 8px;
+            }
 
-      .border-bottom {
-        border-top: 1px solid var(--nuxeo-border);
-        padding: 8px 0;
-      }
-      </style>
+            .ellipsis {
+                text-overflow: ellipsis;
+                overflow: hidden;
+                white-space: nowrap;
+                display: block;
+                width: calc(100% - 38px);
+            }
+
+            .border-bottom {
+                border-top: 1px solid var(--nuxeo-border);
+                padding: 8px 0;
+            }
+        </style>
         <nuxeo-connection id="nxcon"></nuxeo-connection>
 
         <nuxeo-page-provider
@@ -68,16 +71,24 @@
                         </template>
                     </a>
                     <template is="dom-repeat" items="[[item.properties.interaction:contact]]" as="contact">
-                        <img style="vertical-align: text-bottom;" class="account-view-layout"
+                        <img style="vertical-align: text-bottom;" className="account-view-layout"
                              src="[[_hasProfileImg(contact)]]" on-tap="_navigate"
                              onError="this.onerror=null;this.src='/nuxeo/ui/images/touch/profile.png';">
                     </template>
 
-                    <qualitified-inline-edit document="[[item]]" property="interaction:activity" label="label.metadata.activity" directory="IntActivity" metadata="directory"></qualitified-inline-edit>
-                    <qualitified-inline-edit document="[[item]]" property="dc:title" label="label.dublincore.title"></qualitified-inline-edit>
-                    <qualitified-inline-edit document="[[item]]" property="dc:description" label="label.metadata.interaction.description" metadata="textarea"></qualitified-inline-edit>
-                    <qualitified-inline-edit document="[[item]]" property="interaction:date" label="label.metadata.date" metadata="date"></qualitified-inline-edit>
-                    <qualitified-inline-edit document="[[item]]" property="interaction:status" label="label.metadata.status" directory="IntStatus" metadata="directory"></qualitified-inline-edit>
+                    <qualitified-inline-edit document="[[item]]" property="interaction:activity"
+                                             label="label.metadata.activity" directory="IntActivity"
+                                             metadata="directory"></qualitified-inline-edit>
+                    <qualitified-inline-edit document="[[item]]" property="dc:title"
+                                             label="label.dublincore.title"></qualitified-inline-edit>
+                    <qualitified-inline-edit document="[[item]]" property="dc:description"
+                                             label="label.metadata.interaction.description"
+                                             metadata="textarea"></qualitified-inline-edit>
+                    <qualitified-inline-edit document="[[item]]" property="interaction:date" label="label.metadata.date"
+                                             metadata="date"></qualitified-inline-edit>
+                    <qualitified-inline-edit document="[[item]]" property="interaction:status"
+                                             label="label.metadata.status" directory="IntStatus"
+                                             metadata="directory"></qualitified-inline-edit>
 
                 </div>
             </nuxeo-card>
@@ -87,8 +98,31 @@
             <h3>
                 [[i18n('label.activities')]]
             </h3>
+            <!-- Create a new link -->
+            <div className="actions layout vertical style-scope nuxeo-search-form">
+                <paper-button noink="" id="new" className="primary horizontal layout center" on-tap="_openDialog"
+                              elevation="0">
+                    <iron-icon icon="icons:thumb-up"></iron-icon>
+                    [[i18n('command.new')]]
+                </paper-button>
+            </div>
 
-            <div class="dataTable">
+            <nuxeo-document id="defaultDoc"
+                            auto
+                            doc-path="/Sales/"
+                            enrichers="permissions, subtypes"
+                            response="{{parent}}"
+            >
+                >
+            </nuxeo-document>
+
+            <nuxeo-document-create-popup-modified id="importPopup"
+                                                  parent="[[parent]]"
+                                                  default-path="/Sales/"
+            >
+            </nuxeo-document-create-popup-modified>
+            <!-- /Create a new Link -->
+            <div className="dataTable">
                 <nuxeo-page-provider
                         role="widget"
                         id="interactionProvider"
@@ -101,7 +135,7 @@
                 </nuxeo-page-provider>
 
                 <template is="dom-repeat" items="[[interactions]]">
-                    <div class="border-bottom">
+                    <div className="border-bottom">
                         <div>[[_formatDate(item.properties.interaction:date)]]</div>
                         <div>
                             <a href$="#!/browse[[item.path]]">
@@ -126,18 +160,18 @@
                                 - [[item.title]]</a></div>
                         <div>
                             <template is="dom-repeat" items="[[item.properties.interaction:contact]]" as="contact">
-                                <img style="vertical-align: text-bottom;" class="account-view-layout"
+                                <img style="vertical-align: text-bottom;" className="account-view-layout"
                                      src="[[_hasProfileImg(contact)]]" on-tap="_navigate"
                                      onError="this.onerror=null;this.src='/nuxeo/ui/images/touch/profile.png';">
 
                             </template>
                         </div>
                         <div>
-                            <pre class="wrap">[[item.properties.dc:description]]</pre>
+                            <pre className="wrap">[[item.properties.dc:description]]</pre>
                         </div>
                         <iron-collapse id="collapse-[[item.uid]]">
                             <div>
-                                <pre class="wrap">[[item.properties.note:note]]</pre>
+                                <pre className="wrap">[[item.properties.note:note]]</pre>
                             </div>
                         </iron-collapse>
                         <button hidden$=[[!_hasNote(item)]] id="button-[[item.uid]]" on-click="toggle"
@@ -152,7 +186,7 @@
         <h3>
             [[i18n('label.attachments')]]
         </h3>
-        <div class="dataTable">
+        <div className="dataTable">
             <nuxeo-page-provider
                     role="widget"
                     id="documentProvider"
@@ -168,7 +202,8 @@
                                          sort-by="dc:title">
                     <template>
                         <nuxeo-document-thumbnail document=[[item]]></nuxeo-document-thumbnail>
-                        <a class="title ellipsis" href$="#!/browse[[item.path]]" on-tap="_navigate">[[item.title]]</a>
+                        <a className="title ellipsis" href$="#!/browse[[item.path]]"
+                           on-tap="_navigate">[[item.title]]</a>
                     </template>
                 </nuxeo-data-table-column>
                 <nuxeo-data-table-column filter-by="dc_modified_agg" flex="50" sort-by="dc:modified">
@@ -201,105 +236,126 @@
     </template>
 
     <script>
-    (function() {
-      'use strict';
-      Polymer({
-        is: 'nuxeo-opportunity-view-layout',
-        behaviors: [Nuxeo.LayoutBehavior],
-        properties: {
+        (function () {
+            'use strict';
+            Polymer({
+                is: 'nuxeo-opportunity-view-layout',
+                behaviors: [Nuxeo.LayoutBehavior, Nuxeo.DocumentCreationBehavior],
+                properties: {
 
-          /**
-           * @doctype Opportunity
-           */
-          document: {
-            type: Object
-          },
+                    /**
+                     * @doctype Opportunity
+                     */
+                    document: {
+                        type: Object
+                    },
 
-          params: {
-            type: Object,
-            value: {},
-            notify: true
-          }
-        },
-        /**
-       * Returns the label for the given directory entry.
-       */
-        formatDirectory: function(value) {
-          if (value && value['entity-type'] && value['entity-type'] === 'directoryEntry') {
-            if (value.properties && value.properties.label) {
-              return value.properties.label;
-            } else {
-              var label = 'label_' + ((window.nuxeo.I18n.language) ? window.nuxeo.I18n.language.split('-')[0] : 'en');
-              return value.properties[label] || value.properties['label_en']
-            }
-          } else {
-            return value;
-          }
-        },
-        _isCall: function(value){
-          return value == 'Call';
-        },
-        _isMeeting: function(value){
-          return value == 'Meeting';
-        },
-        _isChat: function(value){
-          return value == 'Chat';
-        },
-        _isEmail: function(value){
-          return value == 'Email';
-        },
-         _isNote: function(value){
-          return value == 'Note';
-        },
-        _isSms: function(value){
-          return value == 'SMS';
-        },
-        _formatDate: function(date) {
-          return moment(date).format('MMMM D, YYYY');
-        },
-        _formatCurrency: function(val) {
-          if(val == null){
-            return "";
-          }
-          return val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-        },
-        _navigate: function(e) {
-          var detail = {
-            doc: e.detail.item,
-          };
-          page('/browse' + detail.doc.path);
-        },
-        _thumbnail: function(doc) {
-          if (doc && doc.uid) {
-            if (doc.contextParameters && doc.contextParameters.thumbnail.url) {
-              return doc.contextParameters.thumbnail.url;
-            } else {
-              var baseUrl = this.$.nxcon.url;
-              return baseUrl + '/api/v1/id/' + doc.uid + '/@rendition/thumbnail';
-            }
-          }
-        },
-        _href: function(item) {
-          return this.urlFor('user', item.id);
-        },
-        toggle: function(event) {
-          var id = event.target.dataset.id;
-          this.$$('#collapse-' + id).toggle();
-          this.$$('#button-' + id).setAttribute('aria-expanded', this.$$('#collapse-' + id).opened);
-        },
-        _hasNote: function(doc){
-          console.log(doc.properties["note:note"] != null);
-          return doc.properties["note:note"] != null;
-        },
-        _hasProfileImg: function(value){
-          var img = document.createElement('img');
-          img.src = "/nuxeo/nxfile/default/"+ value +"/file:content/";
-          return "/nuxeo/nxfile/default/"+ value +"/file:content/";
-        },
-        _navigate: function(oEvent) {
-          this.navigateTo('document', oEvent.model.get('contact'));
-        }
-      });
-    })();
+                    params: {
+                        type: Object,
+                        value: {},
+                        notify: true
+                    }
+                },
+                /**
+                 * Returns the label for the given directory entry.
+                 */
+                formatDirectory: function (value) {
+                    if (value && value['entity-type'] && value['entity-type'] === 'directoryEntry') {
+                        if (value.properties && value.properties.label) {
+                            return value.properties.label;
+                        } else {
+                            var label = 'label_' + ((window.nuxeo.I18n.language) ? window.nuxeo.I18n.language.split('-')[0] : 'en');
+                            return value.properties[label] || value.properties['label_en']
+                        }
+                    } else {
+                        return value;
+                    }
+                },
+                _isCall: function (value) {
+                    return value == 'Call';
+                },
+                _isMeeting: function (value) {
+                    return value == 'Meeting';
+                },
+                _isChat: function (value) {
+                    return value == 'Chat';
+                },
+                _isEmail: function (value) {
+                    return value == 'Email';
+                },
+                _isNote: function (value) {
+                    return value == 'Note';
+                },
+                _isSms: function (value) {
+                    return value == 'SMS';
+                },
+                _formatDate: function (date) {
+                    return moment(date).format('MMMM D, YYYY');
+                },
+                _formatCurrency: function (val) {
+                    if (val == null) {
+                        return "";
+                    }
+                    return val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+                },
+                _navigate: function (e) {
+                    var detail = {
+                        doc: e.detail.item,
+                    };
+                    page('/browse' + detail.doc.path);
+                },
+                _thumbnail: function (doc) {
+                    if (doc && doc.uid) {
+                        if (doc.contextParameters && doc.contextParameters.thumbnail.url) {
+                            return doc.contextParameters.thumbnail.url;
+                        } else {
+                            var baseUrl = this.$.nxcon.url;
+                            return baseUrl + '/api/v1/id/' + doc.uid + '/@rendition/thumbnail';
+                        }
+                    }
+                },
+                _href: function (item) {
+                    return this.urlFor('user', item.id);
+                },
+                toggle: function (event) {
+                    var id = event.target.dataset.id;
+                    this.$$('#collapse-' + id).toggle();
+                    this.$$('#button-' + id).setAttribute('aria-expanded', this.$$('#collapse-' + id).opened);
+                },
+                _hasNote: function (doc) {
+                    console.log(doc.properties["note:note"] != null);
+                    return doc.properties["note:note"] != null;
+                },
+                _hasProfileImg: function (value) {
+                    var img = document.createElement('img');
+                    img.src = "/nuxeo/nxfile/default/" + value + "/file:content/";
+                    return "/nuxeo/nxfile/default/" + value + "/file:content/";
+                },
+                _openDialog: function () {
+                    this.$.importPopup.toggleDialog();
+                    /* var op = this.$.importPopup;
+                    op.params = {
+                      type: "Interaction",
+                      properties: {
+                        "interaction:activity": "Call",
+                      },
+                    };
+                      op.toggleDialog();*/
+                    var linkBtn;
+                    var docTypes = this.$.importPopup.shadowRoot.querySelector('#simpleCreation').shadowRoot.querySelector('iron-pages > div.vertical.iron-selected > div.container > paper-dialog-scrollable > div').getElementsByClassName('docTypeButton');
+                    for (var i = 0; i < docTypes.length; i++) {
+                        if (docTypes[i].getAttribute('name') === "Interaction") {
+
+                            //this.document.properties["interaction:activity"] : "Call";
+
+                            linkBtn = docTypes[i];
+                            linkBtn.click();
+                            return;
+                        }
+                    }
+                }
+
+            });
+        })();
     </script>
 </dom-module>
