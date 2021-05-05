@@ -55,6 +55,7 @@
       <xs:element name="multivalue" type="xs:boolean"/>
       <xs:element name="multiline" type="xs:boolean"/>
       <xs:element name="link" type="xs:boolean"/>
+      <xs:element name="editable" type="xs:boolean"/>
       <xs:element name="copy" type="xs:boolean"/>
       <xs:element name="parentId" type="xs:string"/>
       <xs:element name="path" type="xs:string"/>

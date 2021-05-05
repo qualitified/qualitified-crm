@@ -141,6 +141,7 @@
   "label.metadata.automation.days.tooltip":"Day(s)",
   "label.metadata.custom.link":"Link",
   "label.metadata.custom.copy":"Copyable",
+  "label.metadata.custom.editable":"Editable",
   "label.metadata.custom.copy.tooltip":"Copy the metadata",
   "label.metadata.custom.copy.toast":"Copied !",
   "label.metadata.custom.multiline":"Multi-line",

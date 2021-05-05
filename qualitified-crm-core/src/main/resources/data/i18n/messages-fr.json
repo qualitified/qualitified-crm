@@ -198,6 +198,7 @@
   "label.menu.targeting": "Ciblage",
   "label.menu.campaign": "Campagne",
   "label.menu.link": "Lien",
+  "label.metadata.custom.editable":"Editable",
   "label.menu.automation": "Automatisation",
   "label.menu.email": "Email"
 }
