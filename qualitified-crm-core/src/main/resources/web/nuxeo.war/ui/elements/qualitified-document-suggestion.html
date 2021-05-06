@@ -38,7 +38,7 @@
     </div>
     <template if="[[!isBtnHidden]]" is="dom-if">
 
-    <qualitified-document-create  type="[[suggestionType]]" id="layout"  layout='edit'></qualitified-document-create>
+    <qualitified-document-create  type="[[suggestionType]]" ></qualitified-document-create>
     </template>
     <nuxeo-selectivity id="s2" on-input="_isNew" operation="[[operation]]" min-chars="[[minChars]]" frequency="[[frequency]]" multiple="[[multiple]]" params="[[_computeParams(params.*, pageProvider, schemas, repository)]]" placeholder="[[placeholder]]" error-message="[[errorMessage]]" readonly="[[readonly]]" value="{{value}}" selected-items="{{selectedItems}}" selected-item="{{selectedItem}}" selection-formatter="[[selectionFormatter]]" result-formatter="[[resultFormatter]]" required="[[required]]" invalid="[[invalid]]" init-selection="[[initSelection]]" id-function="[[_idFunction]]" stay-open-on-select="[[stayOpenOnSelect]]" enrichers="[[enrichers]]">
     </nuxeo-selectivity>

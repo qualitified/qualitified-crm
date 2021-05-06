@@ -53,8 +53,10 @@
         </nuxeo-user-suggestion>
 
         <qualitified-document-suggestion role="widget" value="{{document.properties.opportunity:mainContact}}" label="[[i18n('label.metadata.mainContact')]]" page-provider="documents" min-chars="0" params='{ "namedParameters": "system_primaryType=Contact"}'></qualitified-document-suggestion>
+        <qualitified-document-suggestion role="widget" value="{{document.properties.title}}" label="[[i18n('label.metadata.mainContact')]]" page-provider="documents" min-chars="0" params='{ "namedParameters": "system_primaryType=Account"}'></qualitified-document-suggestion>
 
-  </template>
+
+    </template>
         <qualitified-custom-fields document="{{document}}" mode="edit" ></qualitified-custom-fields>
 
         <nuxeo-textarea role="widget" value="{{document.properties.dc:description}}"
@@ -75,111 +77,12 @@
            */
         document: {
           type: Object
-        },
-        isHidden: {
-        type:Boolean
-        },
-         contact:{
-        type:String,
-        value:''
-        },
-        /*document1: {
-          type: Object,
-          value: {type:'Contact',title:'new doc'}
-        },*/
-
-        resultsFilter: {
-          type: Function,
-          value: function() {
-            return this._resultsFilter.bind(this);
-          }
-        },
-
-        resultAndSelectionFormatter: {
-          type: Function,
-          value: function() {
-            return this._resultAndSelectionFormatter.bind(this);
-          }
-        },
-
-        newEntryFormatter: {
-          type: Function,
-          value: function() {
-            return this._newEntryFormatter.bind(this);
-          }
         }
         },
-
-
-       _resultsFilter: function(entry) {
-            return entry.id.indexOf('-999999') === -1;
-        },
-
-      _resultAndSelectionFormatter: function(item) {
-        var label = item.displayLabel || item.title;
-        // if we are adding a new entry with the _newEntryFormatter
-        // we don't want to escape the HTML
-        return item.id === -1 ? label : this.$.nxSelect.escapeHTML(label);
-      },
-
-      _newEntryFormatter: function(term) {
-        return {id: -1, displayLabel: term};
-      },
-      _closeDialog: function() {
-        this.$.dialog.close();
-      },
-
-      _createContact: function() {
-         if (this._isNew()) {
-         var op = this.$.createContact;
-         op.params = {
-           'type':'Contact',
-           'name':this.$.nxSelect.selectedItem.displayLabel,
-            'properties': {
-             'person:firstName':this.$.nxSelect.selectedItem.displayLabel
-
-             }
-         };
-            return  op.execute().then(function(response) {
-                this.contact = response.uid;
-            }.bind(this));
-         }
-       },
-
-       _create: function() {
-         var op = this.$.createContact;
-         op.params = {
-           'type':'Contact',
-           'name':'my doc',
-           'properties': {
-             'person:firstName':this.$.nxSelect.selectedItem.displayLabel
-             }
-         };
-            return  op.execute().then(function(response) {
-                this.document1 = response;
-                let self = this;
-                   timeout = setTimeout(function () {
-                        self._toggleAddDialog();
-                       }, 1000);
-            }.bind(this));
-
-       },
-
-       _toggleAddDialog: function () {
-                this.$.dialog.toggle();
-                },
-
-
         _formatDate: function(date) {
           return moment(date).format('MMMM D, YYYY');
-        },
+        }
 
-      isNew:function() {
-        return this.contact === -1;
-      },
-      _isValid: function() {
-        return this.contact !== '';
-      },
 
       });
     })();

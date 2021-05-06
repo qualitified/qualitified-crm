@@ -18,15 +18,40 @@
                 height: 22px;
                 color: #c8c8c8a8;
             }
+            .actions {
+        @apply --buttons-bar;
+        @apply --layout-horizontal;
+        @apply --layout-flex;
+        @apply --layout-justified;
+      }
+
+      .scrollable {
+        padding: 0 24px;
+        max-height: 60vh;
+        @apply --layout-scroll;
+      }
     </style>
         <nuxeo-operation id="create" input="/Marketing" op="Document.Create"></nuxeo-operation>
 
+        <nuxeo-document id="doc" doc-id="[[document.uid]]" response="{{document}}" headers="[[headers]]" sync-indexing=""></nuxeo-document>
         <paper-icon-button icon="nuxeo:add" on-click="_create" ></paper-icon-button>
 
         <nuxeo-dialog id="dialog" no-auto-focus="" with-backdrop="" modal="">
             <div class="container">
-                <nuxeo-document-form-layout id="layout" document="[[document]]" layout="edit" on-document-updated="_closeDialog"></nuxeo-document-form-layout>
+                <iron-form id="form">
+                    <form>
+                        <div class="scrollable">
+                            <nuxeo-document-layout id="layout" document="{{document}}" layout="[[layout]]"></nuxeo-document-layout>
+                        </div>
+
+                    </form>
+                </iron-form>
+                <div class="actions">
+                    <paper-button on-tap="cancel" noink="">[[i18n('command.cancel')]]</paper-button>
+                    <paper-button id="save" on-tap="save" noink="" class="primary">[[i18n('command.save')]]</paper-button>
+                </div>
             </div>
+
         </nuxeo-dialog>
 
     </template>
@@ -39,8 +64,16 @@
          * Input document.
          */
         document: {
+          type: Object,
+          notify: true
+        },
+
+
+
+        headers: {
           type: Object
         },
+
         type:{
             type:String
         },
@@ -65,13 +98,17 @@
           type: String,
           value: 'nuxeo:edit'
         },
+
       },
-      get dialog() {
+       observers: [
+        '_documentChanged(document.*)'
+      ],
+      /*get dialog() {
         return this.root.getElementById(this.layout + '-dialog');
       },
       get button() {
         return this.root.getElementById(this.layout + '-button');
-      },
+      },*/
       _isAvailable: function(doc) {
         return doc && doc.type !== 'Root' && this.hasPermission(doc, 'Write') && this._isMutable(doc);
       },
@@ -82,8 +119,12 @@
         this.dialog.open();
       },
       _closeDialog: function() {
+        var suggFieldTarget = this.parentNode.host;
+        console.log(suggFieldTarget);
+        suggFieldTarget.value=this.document.uid;
         this.$.dialog.close();
       },
+
       _create: function() {
          var op = this.$.create;
          op.params = {
@@ -99,25 +140,86 @@
             }.bind(this));
 
        },
-       _toggleAddDialog: function () {
-                this.$.dialog.toggle();
-                }
+       _validate: function() {
+        // run our custom validation function first to allow setting custom native validity
+        var result = this.$.layout.validate() && this._doNativeValidation(this.$.form) && this.$.form.validate();
+        if (result) {
+          return result;
+        } else {
+          var layout = this.$.layout.$.layout;
+          var nodes = layout._getValidatableElements(layout.element.root);
+          var invalidField = nodes.find(function(node) {
+            return node.invalid;
+          });
+          invalidField.scrollIntoView();
+          invalidField.focus();
+        }
+      },
+
+      _doSave: function() {
+        if (!this.document.uid) { // create
+          this.$.doc.data = this.document;
+          return this.$.doc.post()
+        } else { // edit
+          this.$.doc.data = {
+            'entity-type': 'document',
+            uid: this.document.uid,
+            properties: this._dirtyProperties
+          };
+          return this.$.doc.put();
+        }
+      },
+
+      save: function() {
+        if (!this._validate()) {
+          return;
+        }
+        this._doSave().then(this._refresh.bind(this), function(err) {
+          this.fire('notify', {message: this.i18n('document.saveError')});
+          console.error(err);
+        }.bind(this));
+      },
+
+      cancel: function() {
+        this._refresh();
+        this.document = undefined;
+      },
+
+      _refresh: function() {
+      //  this.fire('document-updated');
+      this.fire('notify', {message: 'Document created!'});
+      this._closeDialog();
+
+      },
+
+      _documentChanged: function(e) {
+        if (e.path === 'document') {
+          this._dirtyProperties = {};
+        } else {
+          // copy dirty properties (cannot patch complex or list properties)
+          var match = e.path.match(/^document\.properties\.([^\.]*)/);
+          if (match) {
+            var prop = match[1];
+            this._dirtyProperties[prop] = this.document.properties[prop];
+          }
+        }
+      },
+      _toggleAddDialog: function () {
+               this.$.dialog.toggle();
+             },
+
+      // trigger native browser invalid-form UI
+      _doNativeValidation: function(/*form*/) {
+        /*var fakeSubmit = document.createElement('input');
+        fakeSubmit.setAttribute('type', 'submit');
+        fakeSubmit.style.display = 'none';
+        form._form.appendChild(fakeSubmit);
+        fakeSubmit.click();
+        form._form.removeChild(fakeSubmit);
+        return form._form.checkValidity();*/
+        return true;
+      },
+
     });
   </script>
 </dom-module>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
