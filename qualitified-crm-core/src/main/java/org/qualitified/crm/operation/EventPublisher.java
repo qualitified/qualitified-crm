@@ -152,6 +152,9 @@ public class EventPublisher {
 
             String calendarId = "primary";
             event = service.events().insert(calendarId, event).setSendUpdates("all").execute();
+            interactionDoc.setPropertyValue("custom:stringField1", event.getId());
+            session.saveDocument(interactionDoc);
+
             logger.warn("Event created: "+ event.getHtmlLink());
 
         } catch (GeneralSecurityException | IOException e) {
