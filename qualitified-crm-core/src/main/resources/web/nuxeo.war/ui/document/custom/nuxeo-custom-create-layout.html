@@ -5,7 +5,13 @@
         padding: 5px;
       }
     </style>
-    <nuxeo-input role="widget" value="{{document.properties.dc:title}}" label="[[i18n('label.metadata.custom.title')]]"></nuxeo-input>
+    <nuxeo-resource auto on-response="_handleDocTypes" path="config/types/"></nuxeo-resource>
+
+    <label>[[i18n('label.metadata.custom.title')]]</label>
+    <nuxeo-selectivity data="[[docTypes]]"
+                       min-chars=0
+                       placeholder="[[i18n('templateRenderingPage.validDocTypes.placeholder')]]"
+                       value="{{document.properties.dc:title}}" ></nuxeo-selectivity>
     <!--add here a dropdown list to select object-->
   </template>
 
@@ -20,11 +26,29 @@
         /**
            * @doctype Custom
            */
+        docTypes: Array,
+
         document: {
           type: Object
         },
 
+      },
+         _handleDocTypes: function(e) {
+        var docTypes = [{
+          id: 'all',
+          text: this.i18n('templateRenderingPage.label.document.type.all'),
+          displayLabel: this.i18n('templateRenderingPage.label.document.type.all')
+        }];
+        Object.keys(e.detail.response.doctypes).sort().forEach(function(docType) {
+          docTypes.push({
+            id: docType,
+            text: docType,
+            displayLabel: docType
+          });
+        });
+        this.set('docTypes', docTypes);
       }
+
     });
   })();
   </script>
