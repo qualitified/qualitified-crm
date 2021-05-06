@@ -91,7 +91,7 @@
         <nuxeo-operation id="query" op="Repository.Query" params="{{params}}"></nuxeo-operation>
         <div class="dropdown">
             <paper-icon-button class="appsBtn withoutDrawer" icon="qualitified:sales" id="btn"
-                               on-tap="_openReducedDrawer" style="color:var(--nuxeo-sidebar-menu)">
+                               on-tap="_closeDrawer" style="color:var(--nuxeo-sidebar-menu)">
             </paper-icon-button>
             <div class="appsMenuContent" id="content">
                 <table id="table">
@@ -134,7 +134,7 @@
                     <tr class="subMenuTitle onHover" data-item="search-for-interaction" on-tap="_open">
                         <a href$="[[_href(urlFor, route, link)]]"><td>
 
-                            <paper-icon-button icon="icons:thumb-up" id="button" name$="[[name]]"
+                        <paper-icon-button icon="icons:thumb-up" id="button" name$="[[name]]"
                                                noink=""></paper-icon-button>
                             <nuxeo-tooltip animation-delay="0" for="button" offset="0" position="right">
                                 [[i18n(label)]]
@@ -238,13 +238,12 @@
                 }.bind(this));
                 this.$.btn.addEventListener("tap", function (e) {
                     setTimeout(function () {
-                        this._openReducedDrawer();
-                    }.bind(this), 5);
+                        this._closeDrawer();
+                    }.bind(this), 30);
                 }.bind(this));
             },
-            _openReducedDrawer: function () {
-                document.querySelector('nuxeo-app')._openDrawer();
-                document.querySelector('nuxeo-app').drawerWidth="52px";
+            _closeDrawer: function () {
+                document.querySelector('nuxeo-app')._closeDrawer();
             },
 
             _open: function (e) {

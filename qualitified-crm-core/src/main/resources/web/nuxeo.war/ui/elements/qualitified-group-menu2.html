@@ -83,7 +83,7 @@
         </style>
         <div class="dropdown">
             <!--paper-icon-button id="btn" class="appsBtn withoutDrawer"  draggable="false" src="images/doctypes/marketing2.svg" style="width: 100%; height: 100%;" on-tap="_closeDrawer"-->
-            <paper-icon-button id="btn" class="appsBtn withoutDrawer"  icon="qualitified:marketing" style="color:var(--nuxeo-sidebar-menu)" on-tap="_openReducedDrawer">
+            <paper-icon-button id="btn" class="appsBtn withoutDrawer"  icon="qualitified:marketing" style="color:var(--nuxeo-sidebar-menu)" on-tap="_closeDrawer">
 
             </paper-icon-button>
 
@@ -183,13 +183,12 @@
                 }.bind(this));
                 this.$.btn.addEventListener("tap", function (e) {
                     setTimeout(function () {
-                        this._openReducedDrawer();
-                    }.bind(this), 5);
+                        this._closeDrawer();
+                    }.bind(this), 30);
                 }.bind(this));
             },
-            _openReducedDrawer: function () {
-                document.querySelector('nuxeo-app')._openDrawer();
-                document.querySelector('nuxeo-app').drawerWidth="52px";
+            _closeDrawer: function () {
+                document.querySelector('nuxeo-app')._closeDrawer();
             },
             _open: function (e) {
                 var chosenMenu = e.currentTarget.dataset.item;
