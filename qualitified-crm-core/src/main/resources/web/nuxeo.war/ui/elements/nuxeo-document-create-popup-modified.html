@@ -50,7 +50,7 @@ This element is identical to "nuxeo-document-create-popup", just "modal no-auto-
 
     <paper-dialog id="createDocDialog"
                   opened="{{opened}}"
-                  >
+    >
 
       <paper-tabs hidden$=[[!_showTabs]] selected="{{selectedTab}}" attr-for-selected="name" noink>
         <nuxeo-slot slot="CREATE_POPUP_ITEMS" model="[[importContext]]"></nuxeo-slot>
@@ -58,11 +58,11 @@ This element is identical to "nuxeo-document-create-popup", just "modal no-auto-
       <div id="holder" class="vertical layout flex">
         <iron-pages selected="[[selectedTab]]" attr-for-selected="name" selected-attribute="visible">
           <nuxeo-slot slot="CREATE_POPUP_PAGES" model="[[importContext]]"></nuxeo-slot>
-          <nuxeo-document-create id="simpleCreation"
+          <qualitified-document-create id="simpleCreation"
                                  name="create"
                                  parent="[[parent]]"
                                  target-path="{{parentPath}}"
-                                 suggester-children="{{suggesterChildren}}"></nuxeo-document-create>
+                                 suggester-children="{{suggesterChildren}}"></qualitified-document-create>
           <nuxeo-document-import id="bulkCreation"
                                  name="import"
                                  parent="[[parent]]"
@@ -157,6 +157,85 @@ This element is identical to "nuxeo-document-create-popup", just "modal no-auto-
             this.$.createDocDialog.toggle();
           }
         }.bind(this));
+
+      },
+      toggleDialogCall: function() {
+        this._fetchParent().then(function() {
+          if (this._noPermission) {
+            this.fire('notify', {message: this.i18n('documentCreationBehavior.error.noPermission')});
+          } else {
+            this.$$('#bulkCreation').init();
+            this.$.createDocDialog.toggle();
+            setTimeout(function(){document.querySelector("body > nuxeo-app").shadowRoot.querySelector("#browser").shadowRoot.querySelector("#nxContent > iron-pages > qualitified-document-page").shadowRoot.querySelector("div > div > nuxeo-document-view").shadowRoot.querySelector("nuxeo-document-layout").shadowRoot.querySelector("#layout").shadowRoot.querySelector("#container > nuxeo-opportunity-view-layout").shadowRoot.querySelector("#importPopup").shadowRoot.querySelector("#simpleCreation").shadowRoot.querySelector("#document-create").shadowRoot.querySelector("#layout").shadowRoot.querySelector("#container > nuxeo-interaction-create-layout").shadowRoot.querySelector("nuxeo-directory-suggestion:nth-child(9)").value="Call";},2000);
+
+          }
+        }.bind(this));
+
+      },
+      toggleDialogChat: function() {
+        this._fetchParent().then(function() {
+          if (this._noPermission) {
+            this.fire('notify', {message: this.i18n('documentCreationBehavior.error.noPermission')});
+          } else {
+            this.$$('#bulkCreation').init();
+            this.$.createDocDialog.toggle();
+            setTimeout(function(){document.querySelector("body > nuxeo-app").shadowRoot.querySelector("#browser").shadowRoot.querySelector("#nxContent > iron-pages > qualitified-document-page").shadowRoot.querySelector("div > div > nuxeo-document-view").shadowRoot.querySelector("nuxeo-document-layout").shadowRoot.querySelector("#layout").shadowRoot.querySelector("#container > nuxeo-opportunity-view-layout").shadowRoot.querySelector("#importPopup").shadowRoot.querySelector("#simpleCreation").shadowRoot.querySelector("#document-create").shadowRoot.querySelector("#layout").shadowRoot.querySelector("#container > nuxeo-interaction-create-layout").shadowRoot.querySelector("nuxeo-directory-suggestion:nth-child(9)").value="Chat";},2000);
+
+          }
+        }.bind(this));
+
+      },
+      toggleDialogEmailing: function() {
+        this._fetchParent().then(function() {
+          if (this._noPermission) {
+            this.fire('notify', {message: this.i18n('documentCreationBehavior.error.noPermission')});
+          } else {
+            this.$$('#bulkCreation').init();
+            this.$.createDocDialog.toggle();
+            setTimeout(function(){document.querySelector("body > nuxeo-app").shadowRoot.querySelector("#browser").shadowRoot.querySelector("#nxContent > iron-pages > qualitified-document-page").shadowRoot.querySelector("div > div > nuxeo-document-view").shadowRoot.querySelector("nuxeo-document-layout").shadowRoot.querySelector("#layout").shadowRoot.querySelector("#container > nuxeo-opportunity-view-layout").shadowRoot.querySelector("#importPopup").shadowRoot.querySelector("#simpleCreation").shadowRoot.querySelector("#document-create").shadowRoot.querySelector("#layout").shadowRoot.querySelector("#container > nuxeo-interaction-create-layout").shadowRoot.querySelector("nuxeo-directory-suggestion:nth-child(9)").value="Emailing";},2000);
+
+          }
+        }.bind(this));
+
+      },
+      toggleDialogMeeting: function() {
+        this._fetchParent().then(function() {
+          if (this._noPermission) {
+            this.fire('notify', {message: this.i18n('documentCreationBehavior.error.noPermission')});
+          } else {
+            this.$$('#bulkCreation').init();
+            this.$.createDocDialog.toggle();
+            setTimeout(function(){document.querySelector("body > nuxeo-app").shadowRoot.querySelector("#browser").shadowRoot.querySelector("#nxContent > iron-pages > qualitified-document-page").shadowRoot.querySelector("div > div > nuxeo-document-view").shadowRoot.querySelector("nuxeo-document-layout").shadowRoot.querySelector("#layout").shadowRoot.querySelector("#container > nuxeo-opportunity-view-layout").shadowRoot.querySelector("#importPopup").shadowRoot.querySelector("#simpleCreation").shadowRoot.querySelector("#document-create").shadowRoot.querySelector("#layout").shadowRoot.querySelector("#container > nuxeo-interaction-create-layout").shadowRoot.querySelector("nuxeo-directory-suggestion:nth-child(9)").value="Meeting";},2000);
+
+          }
+        }.bind(this));
+
+      },
+      toggleDialogNote: function() {
+        this._fetchParent().then(function() {
+          if (this._noPermission) {
+            this.fire('notify', {message: this.i18n('documentCreationBehavior.error.noPermission')});
+          } else {
+            this.$$('#bulkCreation').init();
+            this.$.createDocDialog.toggle();
+            setTimeout(function(){document.querySelector("body > nuxeo-app").shadowRoot.querySelector("#browser").shadowRoot.querySelector("#nxContent > iron-pages > qualitified-document-page").shadowRoot.querySelector("div > div > nuxeo-document-view").shadowRoot.querySelector("nuxeo-document-layout").shadowRoot.querySelector("#layout").shadowRoot.querySelector("#container > nuxeo-opportunity-view-layout").shadowRoot.querySelector("#importPopup").shadowRoot.querySelector("#simpleCreation").shadowRoot.querySelector("#document-create").shadowRoot.querySelector("#layout").shadowRoot.querySelector("#container > nuxeo-interaction-create-layout").shadowRoot.querySelector("nuxeo-directory-suggestion:nth-child(9)").value="Note";},2000);
+
+          }
+        }.bind(this));
+
+      },
+      toggleDialogSMS: function() {
+        this._fetchParent().then(function() {
+          if (this._noPermission) {
+            this.fire('notify', {message: this.i18n('documentCreationBehavior.error.noPermission')});
+          } else {
+            this.$$('#bulkCreation').init();
+            this.$.createDocDialog.toggle();
+            setTimeout(function(){document.querySelector("body > nuxeo-app").shadowRoot.querySelector("#browser").shadowRoot.querySelector("#nxContent > iron-pages > qualitified-document-page").shadowRoot.querySelector("div > div > nuxeo-document-view").shadowRoot.querySelector("nuxeo-document-layout").shadowRoot.querySelector("#layout").shadowRoot.querySelector("#container > nuxeo-opportunity-view-layout").shadowRoot.querySelector("#importPopup").shadowRoot.querySelector("#simpleCreation").shadowRoot.querySelector("#document-create").shadowRoot.querySelector("#layout").shadowRoot.querySelector("#container > nuxeo-interaction-create-layout").shadowRoot.querySelector("nuxeo-directory-suggestion:nth-child(9)").value="SMS";},2000);
+
+          }
+        }.bind(this));
+
       },
       _fetchParent: function() {
         this._noPermission = false;
@@ -174,10 +253,11 @@ This element is identical to "nuxeo-document-create-popup", just "modal no-auto-
         } else {
           return Promise.resolve();
         }
+
       },
       _parentPathChanged: function(e) {
         if (e.detail.isValidTargetPath &&
-          (!this.parent || (this.parentPath && this.parent.path !== this.parentPath.replace(/(.+)\/$/, "$1")))) {
+                (!this.parent || (this.parentPath && this.parent.path !== this.parentPath.replace(/(.+)\/$/, "$1")))) {
           this.$.defaultDoc.get();
         }
       },
@@ -185,6 +265,7 @@ This element is identical to "nuxeo-document-create-popup", just "modal no-auto-
         if (this.opened) {
           if (this.selectedTab === '') {
             this.selectedTab = 'create';
+
           }
         } else {
           this.selectedTab = '';

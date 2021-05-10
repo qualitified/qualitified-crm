@@ -2,6 +2,8 @@
 <link rel="import" href="../../elements/qualitified-document-attachments.html">
 <link rel="import" href="../../qualitified-icons.html">
 <link rel="import" href="../../elements/nuxeo-document-create-popup-modified.html">
+<link rel="import" href="../../elements/qualitified-create-interaction.html">
+
 <dom-module id="nuxeo-opportunity-view-layout">
     <template>
         <style include="nuxeo-styles">
@@ -100,28 +102,44 @@
             </h3>
             <!-- Create a new link -->
             <div className="actions layout vertical style-scope nuxeo-search-form">
-                <paper-button noink="" id="new" className="primary horizontal layout center" on-tap="_openDialog"
+                <paper-button style="border-radius: 25px;" noink="" id="new" className="primary horizontal layout center" on-tap="_openDialogCall"
                               elevation="0">
-                    <iron-icon icon="icons:thumb-up"></iron-icon>
-                    [[i18n('command.new')]]
+                    <iron-icon icon="qualitified:call"></iron-icon>
+                    [[i18n('label.call')]]
+                </paper-button>
+                <paper-button style="border-radius: 25px;" noink="" id="new" className="primary horizontal layout center" on-tap="_openDialogChat"
+                              elevation="0">
+                    <iron-icon icon="qualitified:chat"></iron-icon>
+                    [[i18n('label.chat')]]
+                </paper-button>
+                <paper-button style="border-radius: 25px;" noink="" id="new" className="primary horizontal layout center" on-tap="_openDialogEmailing"
+                              elevation="0">
+                    <iron-icon icon="qualitified:emailing"></iron-icon>
+                    [[i18n('label.emailing')]]
+                </paper-button>
+                <paper-button style="border-radius: 25px;" noink="" id="new" className="primary horizontal layout center" on-tap="_openDialogMeeting"
+                              elevation="0">
+                    <iron-icon icon="qualitified:meeting"></iron-icon>
+                    [[i18n('label.meeting')]]
+                </paper-button>
+                <paper-button style="border-radius: 25px;" noink="" id="new" className="primary horizontal layout center" on-tap="_openDialogNote"
+                              elevation="0">
+                    <iron-icon icon="qualitified:note"></iron-icon>
+                    [[i18n('label.note')]]
+                </paper-button>
+                <paper-button style="border-radius: 25px;" noink="" id="new" className="primary horizontal layout center" on-tap="_openDialogSMS"
+                              elevation="0">
+                    <iron-icon icon="qualitified:sms"></iron-icon>
+                    [[i18n('label.sms')]]
                 </paper-button>
             </div>
 
-            <nuxeo-document id="defaultDoc"
-                            auto
-                            doc-path="/Sales/"
-                            enrichers="permissions, subtypes"
-                            response="{{parent}}"
-            >
-                >
-            </nuxeo-document>
 
-            <nuxeo-document-create-popup-modified id="importPopup"
-                                                  parent="[[parent]]"
-                                                  default-path="/Sales/"
-            >
-            </nuxeo-document-create-popup-modified>
             <!-- /Create a new Link -->
+            <qualitified-create-interaction
+                    id="importPopup"
+                    type="Interaction">
+            </qualitified-create-interaction>
             <div className="dataTable">
                 <nuxeo-page-provider
                         role="widget"
@@ -331,30 +349,30 @@
                     img.src = "/nuxeo/nxfile/default/" + value + "/file:content/";
                     return "/nuxeo/nxfile/default/" + value + "/file:content/";
                 },
-                _openDialog: function () {
-                    this.$.importPopup.toggleDialog();
-                    /* var op = this.$.importPopup;
-                    op.params = {
-                      type: "Interaction",
-                      properties: {
-                        "interaction:activity": "Call",
-                      },
-                    };
-                      op.toggleDialog();*/
-                    var linkBtn;
-                    var docTypes = this.$.importPopup.shadowRoot.querySelector('#simpleCreation').shadowRoot.querySelector('iron-pages > div.vertical.iron-selected > div.container > paper-dialog-scrollable > div').getElementsByClassName('docTypeButton');
-                    for (var i = 0; i < docTypes.length; i++) {
-                        if (docTypes[i].getAttribute('name') === "Interaction") {
+                _openDialogCall: function () {
+                    this.$.importPopup._createCall();
 
-                            //this.document.properties["interaction:activity"] : "Call";
+                },
+                _openDialogChat: function () {
+                    this.$.importPopup._createChat();
 
-                            linkBtn = docTypes[i];
-                            linkBtn.click();
-                            return;
-                        }
-                    }
+                },
+                _openDialogEmailing: function () {
+                    this.$.importPopup._createEmailing();
+
+                },
+                _openDialogMeeting: function () {
+                    this.$.importPopup._createMeeting();
+
+                },
+                _openDialogNote: function () {
+                    this.$.importPopup._createNote();
+
+                },
+                _openDialogSMS: function () {
+                    this.$.importPopup._createSMS();
+
                 }
-
             });
         })();
     </script>
