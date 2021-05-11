@@ -201,5 +201,12 @@
   "label.menu.link": "Lien",
   "label.metadata.custom.editable":"Editable",
   "label.menu.automation": "Automatisation",
-  "label.menu.email": "Email"
+  "label.menu.email": "Email",
+  "label.menu.email": "Email",
+  "label.chat": "Conversation",
+  "label.call": "Appel",
+  "label.meeting": "Reunion",
+  "label.emailing": "Email",
+  "label.sms": "SMS",
+  "label.note": "Note"
 }
