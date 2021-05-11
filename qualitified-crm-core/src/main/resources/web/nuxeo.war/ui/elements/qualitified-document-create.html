@@ -31,6 +31,7 @@
                 @apply --layout-scroll;
             }
         </style>
+
         <nuxeo-operation id="create" input="/Marketing" op="Document.Create"></nuxeo-operation>
 
         <nuxeo-document id="doc" doc-id="[[document.uid]]" response="{{document}}" headers="[[headers]]" sync-indexing=""></nuxeo-document>
