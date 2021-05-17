@@ -1,4 +1,4 @@
-<dom-module id="qualitified-document-create" assetpath="nuxeo-document-actions/">
+<dom-module id="qualitified-create-interaction" assetpath="nuxeo-document-actions/">
     <template>
         <style include="nuxeo-action-button-styles">
             .container {
@@ -31,11 +31,10 @@
                 @apply --layout-scroll;
             }
         </style>
-
-        <nuxeo-operation id="create" input="/Marketing" op="Document.Create"></nuxeo-operation>
+        <nuxeo-operation id="create" input="/Sales/" op="Document.Create"></nuxeo-operation>
 
         <nuxeo-document id="doc" doc-id="[[document.uid]]" response="{{document}}" headers="[[headers]]" sync-indexing=""></nuxeo-document>
-        <paper-icon-button icon="nuxeo:add" on-click="_create" ></paper-icon-button>
+
 
         <nuxeo-dialog id="dialog" no-auto-focus="" with-backdrop="" modal="">
             <div class="container">
@@ -58,7 +57,7 @@
     </template>
     <script>
         Polymer({
-            is: 'qualitified-document-create',
+            is: 'qualitified-create-interaction',
             behaviors: [Nuxeo.I18nBehavior, Nuxeo.FiltersBehavior],
             properties: {
                 /**
@@ -118,15 +117,103 @@
             },
             _openDialog: function() {
                 this.dialog.open();
+
             },
             _closeDialog: function() {
-                var suggFieldTarget = this.parentNode.host;
-                console.log(suggFieldTarget);
-                suggFieldTarget.value=this.document.uid;
+                //    var suggFieldTarget = this.parentNode.host;
+                //  console.log(suggFieldTarget);
+                //  suggFieldTarget.value=this.document.uid;
                 this.$.dialog.close();
             },
 
-            _create: function() {
+            _createCall: function() {
+                setTimeout(function(){document.querySelector("body > nuxeo-app").shadowRoot.querySelector("#browser").shadowRoot.querySelector("#nxContent > iron-pages > qualitified-document-page").shadowRoot.querySelector("div > div > nuxeo-document-view").shadowRoot.querySelector("nuxeo-document-layout").shadowRoot.querySelector("#layout").shadowRoot.querySelector("#container > nuxeo-opportunity-view-layout").shadowRoot.querySelector("#importPopup").shadowRoot.querySelector("#layout").shadowRoot.querySelector("#layout").shadowRoot.querySelector("#container > nuxeo-interaction-edit-layout").shadowRoot.querySelector("nuxeo-directory-suggestion:nth-child(5)").value="Call";},2000);
+
+                var op = this.$.create;
+                op.params = {
+                    'type':this.type
+
+                };
+                return  op.execute().then(function(response) {
+                    this.document = response;
+                    let self = this;
+                    timeout = setTimeout(function () {
+                        self._toggleAddDialog();
+                    }, 1000);
+                }.bind(this));
+
+            },
+            _createChat: function() {
+                setTimeout(function(){document.querySelector("body > nuxeo-app").shadowRoot.querySelector("#browser").shadowRoot.querySelector("#nxContent > iron-pages > qualitified-document-page").shadowRoot.querySelector("div > div > nuxeo-document-view").shadowRoot.querySelector("nuxeo-document-layout").shadowRoot.querySelector("#layout").shadowRoot.querySelector("#container > nuxeo-opportunity-view-layout").shadowRoot.querySelector("#importPopup").shadowRoot.querySelector("#layout").shadowRoot.querySelector("#layout").shadowRoot.querySelector("#container > nuxeo-interaction-edit-layout").shadowRoot.querySelector("nuxeo-directory-suggestion:nth-child(5)").value="Chat";},2000);
+
+                var op = this.$.create;
+                op.params = {
+                    'type':this.type
+
+                };
+                return  op.execute().then(function(response) {
+                    this.document = response;
+                    let self = this;
+                    timeout = setTimeout(function () {
+                        self._toggleAddDialog();
+                    }, 1000);
+                }.bind(this));
+
+            },
+            _createMeeting: function() {
+                setTimeout(function(){document.querySelector("body > nuxeo-app").shadowRoot.querySelector("#browser").shadowRoot.querySelector("#nxContent > iron-pages > qualitified-document-page").shadowRoot.querySelector("div > div > nuxeo-document-view").shadowRoot.querySelector("nuxeo-document-layout").shadowRoot.querySelector("#layout").shadowRoot.querySelector("#container > nuxeo-opportunity-view-layout").shadowRoot.querySelector("#importPopup").shadowRoot.querySelector("#layout").shadowRoot.querySelector("#layout").shadowRoot.querySelector("#container > nuxeo-interaction-edit-layout").shadowRoot.querySelector("nuxeo-directory-suggestion:nth-child(5)").value="Meeting";},2000);
+
+                var op = this.$.create;
+                op.params = {
+                    'type':this.type
+
+                };
+                return  op.execute().then(function(response) {
+                    this.document = response;
+                    let self = this;
+                    timeout = setTimeout(function () {
+                        self._toggleAddDialog();
+                    }, 1000);
+                }.bind(this));
+
+            },
+            _createEmailing: function() {
+                setTimeout(function(){document.querySelector("body > nuxeo-app").shadowRoot.querySelector("#browser").shadowRoot.querySelector("#nxContent > iron-pages > qualitified-document-page").shadowRoot.querySelector("div > div > nuxeo-document-view").shadowRoot.querySelector("nuxeo-document-layout").shadowRoot.querySelector("#layout").shadowRoot.querySelector("#container > nuxeo-opportunity-view-layout").shadowRoot.querySelector("#importPopup").shadowRoot.querySelector("#layout").shadowRoot.querySelector("#layout").shadowRoot.querySelector("#container > nuxeo-interaction-edit-layout").shadowRoot.querySelector("nuxeo-directory-suggestion:nth-child(5)").value="Emailing";},2000);
+
+                var op = this.$.create;
+                op.params = {
+                    'type':this.type
+
+                };
+                return  op.execute().then(function(response) {
+                    this.document = response;
+                    let self = this;
+                    timeout = setTimeout(function () {
+                        self._toggleAddDialog();
+                    }, 1000);
+                }.bind(this));
+
+            },
+            _createNote: function() {
+                setTimeout(function(){document.querySelector("body > nuxeo-app").shadowRoot.querySelector("#browser").shadowRoot.querySelector("#nxContent > iron-pages > qualitified-document-page").shadowRoot.querySelector("div > div > nuxeo-document-view").shadowRoot.querySelector("nuxeo-document-layout").shadowRoot.querySelector("#layout").shadowRoot.querySelector("#container > nuxeo-opportunity-view-layout").shadowRoot.querySelector("#importPopup").shadowRoot.querySelector("#layout").shadowRoot.querySelector("#layout").shadowRoot.querySelector("#container > nuxeo-interaction-edit-layout").shadowRoot.querySelector("nuxeo-directory-suggestion:nth-child(5)").value="Note";},2000);
+
+                var op = this.$.create;
+                op.params = {
+                    'type':this.type
+
+                };
+                return  op.execute().then(function(response) {
+                    this.document = response;
+                    let self = this;
+                    timeout = setTimeout(function () {
+                        self._toggleAddDialog();
+                    }, 1000);
+                }.bind(this));
+
+            },
+            _createSMS: function() {
+                setTimeout(function(){document.querySelector("body > nuxeo-app").shadowRoot.querySelector("#browser").shadowRoot.querySelector("#nxContent > iron-pages > qualitified-document-page").shadowRoot.querySelector("div > div > nuxeo-document-view").shadowRoot.querySelector("nuxeo-document-layout").shadowRoot.querySelector("#layout").shadowRoot.querySelector("#container > nuxeo-opportunity-view-layout").shadowRoot.querySelector("#importPopup").shadowRoot.querySelector("#layout").shadowRoot.querySelector("#layout").shadowRoot.querySelector("#container > nuxeo-interaction-edit-layout").shadowRoot.querySelector("nuxeo-directory-suggestion:nth-child(5)").value="SMS";},2000);
+
                 var op = this.$.create;
                 op.params = {
                     'type':this.type

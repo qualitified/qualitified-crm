@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<extension point="policies" target="org.nuxeo.ecm.core.api.versioning.VersioningService">
+    <policy beforeUpdate="true" id="no-versioning-for-system-before-update" increment="NONE" order="1">
+        <filter-id>system-document</filter-id>
+    </policy>
+    <policy id="no-versioning-for-system-after-update" increment="NONE" order="1">
+        <filter-id>system-document</filter-id>
+    </policy>
+    <policy id="note-as-wiki" increment="MINOR" order="50">
+        <filter-id>note-filter</filter-id>
+    </policy>
+    <policy beforeUpdate="true" id="collaborative-save" increment="MINOR" order="100">
+        <filter-id>last-contributor-different-filter</filter-id>
+    </policy>
+    <policy beforeUpdate="true" id="no-versioning-for-collection-before-update" increment="NONE" order="2">
+        <filter-id>collection-actions</filter-id>
+    </policy>
+    <policy beforeUpdate="false" id="no-versioning-for-collection-after-update" increment="NONE" order="2">
+        <filter-id>collection-actions</filter-id>
+    </policy>
+    <policy beforeUpdate="true" id="no-versioning-for-faceted-tag-before" increment="NONE" order="3">
+        <filter-id>no-versioning-faceted-tag-filter</filter-id>
+    </policy>
+    <policy id="no-versioning-for-faceted-tag" increment="NONE" order="3">
+        <filter-id>no-versioning-faceted-tag-filter</filter-id>
+    </policy>
+</extension>
