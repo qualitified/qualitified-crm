@@ -4,7 +4,7 @@
 <script src="../../dist/fullcalendar/dist/locale/fr.js"></script>
 
 <dom-module id="nuxeo-calendar-view-layout">
-  <template>
+  <template include="nuxeo-styles">
     <style>
       *[role=widget] {
         padding: 5px;
@@ -58,7 +58,12 @@
         font-size: 22px;
         font-weight: 400;
       }
+      .calendar-actions{
+        display: flex;
+        justify-content: space-between;
+        margin-left: 120px;
 
+      }
       .popDate{
         font-size: 12px;
         font-weight: 400;
@@ -68,14 +73,26 @@
         margin-top: 5px;
       }
 
+      .gg-button{
+        bottom: 15px;
+        margin-left: 20px;
+        margin-right: 20px;
+        min-width: 65px;
+        min-height: 65px;
+      }
+      .target-date {
+        bottom: 4px;
+      }
       paper-card{
         flex-direction: row;
         display: flex;
       }
 
     </style>
+    <paper-toast id="operationToast"></paper-toast>
 
     <nuxeo-operation id="getSchema" op="Document.GetSchemaFromPrefix" params="[[params]]"></nuxeo-operation>
+    <nuxeo-operation id="fetchEvents" op="Qualitified.FetchFromCalendar"></nuxeo-operation>
 
     <nuxeo-page-provider  id="provider"
                           query="SELECT * FROM Document WHERE ecm:currentLifeCycleState != 'deleted' AND ecm:isTrashed = 0 AND ecm:primaryType = '[[document.properties.calendar:docType]]' AND [[document.properties.calendar:docMetadata]] >= DATE '{{yearM}}-12-15' AND [[document.properties.calendar:docMetadata]] <= DATE '{{yearP}}-01-15'"
@@ -83,6 +100,7 @@
     </nuxeo-page-provider>
 
     <paper-card>
+
       <scheduler-component  id="calendar"
                             default-view="month"
                             event-color="{{eventColor}}"
@@ -91,8 +109,20 @@
                             events='[]'
                             all-day-slot="true">
       </scheduler-component>
+      <div class="calendar-actions">
 
-      <nuxeo-date-picker id="datePicker" value="{{specDate}}" label="[[i18n('calendar.view.goToDate')]]"></nuxeo-date-picker>
+        <paper-icon-button id="synch" class="gg-button" icon="qualitified:google-calendar" on-tap="_fetchEvents"></paper-icon-button>
+        <paper-tooltip for="synch">Synchronize with google calendar</paper-tooltip>
+
+        <nuxeo-date-picker id="datePicker" class="target-date" value="{{specDate}}" label="[[i18n('calendar.view.goToDate')]]"></nuxeo-date-picker>
+      </div>
+
+      <!-- <div class="actions">
+      <paper-button raised >
+        <iron-icon icon="qualitified:google-calendar"></iron-icon>
+        <span>Synchronize with calendar</span>
+      </paper-button>
+    </div> -->
     </paper-card>
 
     <div id="popup" class="pop">
@@ -214,7 +244,30 @@
 
         }.bind(this));
       },
-
+      _fetchEvents: function(e){
+        var op = this.$.fetchEvents;
+        this.$.operationToast.text = "Synchronizing ...";
+        this.$.operationToast.open();
+        op.execute().then(function(result) {
+        var updatedEvents = JSON.parse(result.value);
+        console.log(updatedEvents);
+          if (updatedEvents.length > 0) {
+              this.$.operationToast.text = updatedEvents.length+" events has been changed.";
+              this.$.operationToast.open();
+              this._getEvents();
+            } else if (updatedEvents===[""]){
+              this.$.operationToast.text = "Calendar is already up to date!";
+              this.$.operationToast.open();
+            } else {
+              this.$.operationToast.text = "There's no published events!";
+              this.$.operationToast.open();
+            }
+        }.bind(this))
+        .catch(function (error){
+            this.$.operationToast.text = "Error while sycnchronizing!";
+            this.$.operationToast.open();
+        }.bind(this));
+      },
       /* Open the document in a new tab */
       _goToEvent: function(e) {
         window.open(location.origin + "/nuxeo/ui/#!/doc/" + e.target.dataset.item, '_blank');

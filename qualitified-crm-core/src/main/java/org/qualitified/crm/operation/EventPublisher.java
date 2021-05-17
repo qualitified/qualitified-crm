@@ -5,8 +5,12 @@ import java.text.MessageFormat;
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.GregorianCalendar;
+import java.util.HashMap;
+import java.util.Map;
 
-import com.google.api.services.calendar.model.EventReminder;
+import com.google.api.client.googleapis.json.GoogleJsonResponseException;
+import com.google.api.client.http.HttpResponse;
+import com.google.api.services.calendar.model.*;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.nuxeo.ecm.automation.OperationContext;
@@ -30,9 +34,6 @@ import com.google.api.client.json.JsonFactory;
 import com.google.api.client.json.jackson2.JacksonFactory;
 import com.google.api.client.util.DateTime;
 import com.google.api.services.calendar.Calendar;
-import com.google.api.services.calendar.model.Event;
-import com.google.api.services.calendar.model.EventAttendee;
-import com.google.api.services.calendar.model.EventDateTime;
 
 
 @Operation(id=EventPublisher.ID, category=Constants.CAT_NOTIFICATION, label="Publish event on Google Calendar", description=" ")
@@ -94,7 +95,7 @@ public class EventPublisher {
 
             StringBuilder bld = new StringBuilder();
 
-            String responsibleDescription = "- Responsible: <br>"+"  • "+userPrincipal.getFirstName()+" "+userPrincipal.getLastName()+", "+userPrincipal.getEmail()+".<br>";
+            String responsibleDescription = "- Responsible: <br>" + "  • " + userPrincipal.getFirstName() + " " + userPrincipal.getLastName() + ", " + userPrincipal.getEmail() + ".<br>";
             bld.append(responsibleDescription);
 
             String[] persons = (String[]) interactionDoc.getPropertyValue("interaction:contact");
@@ -106,19 +107,19 @@ public class EventPublisher {
                 for (String personId : persons) {
                     DocumentModel personDoc = session.getDocument(new IdRef(personId));
                     String personTitle = personDoc.getTitle();
-                    String personEmail = (personDoc.getPropertyValue("person:email")!= null)
-                            ? ", "+personDoc.getPropertyValue("person:email")
+                    String personEmail = (personDoc.getPropertyValue("person:email") != null)
+                            ? ", " + personDoc.getPropertyValue("person:email")
                             : "";
-                    String personNumber = (personDoc.getPropertyValue("person:phoneNumber")!= null)
-                            ? ", "+personDoc.getPropertyValue("person:phoneNumber")+". <br>"
+                    String personNumber = (personDoc.getPropertyValue("person:phoneNumber") != null)
+                            ? ", " + personDoc.getPropertyValue("person:phoneNumber") + ". <br>"
                             : ". <br>";
-                    String personsDetail = "  • "+personTitle+personEmail+personNumber;
+                    String personsDetail = "  • " + personTitle + personEmail + personNumber;
                     bld.append(personsDetail);
                 }
             }
             String desc = (String) interactionDoc.getPropertyValue("dc:description");
             if (desc != null) {
-                String report = "- Report: "+ desc+".<br>";
+                String report = "- Report: " + desc + ".<br>";
                 bld.append(report);
             }
 
@@ -141,7 +142,7 @@ public class EventPublisher {
                     .setDateTime(endDateTime);
             event.setEnd(end);
 
-            EventReminder[] reminderOverrides = new EventReminder[] {
+            EventReminder[] reminderOverrides = new EventReminder[]{
                     new EventReminder().setMethod("email").setMinutes(24 * 60),
                     new EventReminder().setMethod("popup").setMinutes(10),
             };
@@ -152,11 +153,26 @@ public class EventPublisher {
 
             String calendarId = "primary";
             event = service.events().insert(calendarId, event).setSendUpdates("all").execute();
+            logger.warn("Event created: " + event.getHtmlLink());
+
             interactionDoc.setPropertyValue("custom:stringField1", event.getId());
+            interactionDoc.setPropertyValue("custom:stringField2", event.getEtag());
             session.saveDocument(interactionDoc);
 
-            logger.warn("Event created: "+ event.getHtmlLink());
+            /*Map<String, String> params = new HashMap<String, String>();
+            Channel request = new Channel()
+                    .setId(interactionDoc.getId())
+                    .setType("web_hook")
+                    .setAddress(String.format("https://ccm-uat.qualitified.com/"))
+                    .setParams(params);
+            Channel response= service.events().watch("primary", request).execute();
+            logger.warn("Watchhas been set for: " + event.getHtmlLink());*/
 
+
+        } catch (GoogleJsonResponseException ge){
+            if (ge.getStatusCode() == 401) {
+               logger.error("Refresh token has been expired.");
+            }
         } catch (GeneralSecurityException | IOException e) {
             throw new NuxeoException(e);
         }
