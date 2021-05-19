@@ -98,7 +98,11 @@
                           query="SELECT * FROM Document WHERE ecm:currentLifeCycleState != 'deleted' AND ecm:isTrashed = 0 AND ecm:primaryType = '[[document.properties.calendar:docType]]' AND [[document.properties.calendar:docMetadata]] >= DATE '{{yearM}}-12-15' AND [[document.properties.calendar:docMetadata]] <= DATE '{{yearP}}-01-15'"
                           schemas="{{schema}}">
     </nuxeo-page-provider>
-
+    <nuxeo-page-provider  id="interactionProvider" auto
+                          query="SELECT * FROM Interaction WHERE custom:stringField1 IS NOT NULL AND custom:booleanField1 = 1 AND ecm:isProxy = 0 AND ecm:isTrashed = 0 AND ecm:isCheckedInVersion = 0 AND ecm:currentLifeCycleState != 'deleted'"
+                          results-count="{{publishedEvents}}"
+                          schemas="interaction,custom">
+    </nuxeo-page-provider>
     <paper-card>
 
       <scheduler-component  id="calendar"
@@ -111,7 +115,7 @@
       </scheduler-component>
       <div class="calendar-actions">
 
-        <paper-icon-button id="synch" class="gg-button" icon="qualitified:google-calendar" on-tap="_fetchEvents"></paper-icon-button>
+        <paper-icon-button id="synch" class="gg-button" icon="qualitified:google-calendar" hidden$="[[_isHidden(publishedEvents)]]" on-tap="_fetchEvents"></paper-icon-button>
         <paper-tooltip for="synch">Synchronize with google calendar</paper-tooltip>
 
         <nuxeo-date-picker id="datePicker" class="target-date" value="{{specDate}}" label="[[i18n('calendar.view.goToDate')]]"></nuxeo-date-picker>
@@ -181,6 +185,7 @@
 
       ready: function() {
         /* Click Event */
+        console.log(this.publishedEvents)
         this.$.calendar.addEventListener("event-click", function(e) {
           var caldView = this.parentNode.parentNode.host;
           caldView.eventTitle = e.detail.calEvent.title;
@@ -249,18 +254,14 @@
         this.$.operationToast.text = "Synchronizing ...";
         this.$.operationToast.open();
         op.execute().then(function(result) {
-        var updatedEvents = JSON.parse(result.value);
-        console.log(updatedEvents);
-          if (updatedEvents.length > 0) {
-              this.$.operationToast.text = updatedEvents.length+" events has been changed.";
-              this.$.operationToast.open();
-              this._getEvents();
-            } else if (updatedEvents===[""]){
+          console.log(result.value);
+          if (result.value === "Nothing updated") {
               this.$.operationToast.text = "Calendar is already up to date!";
               this.$.operationToast.open();
-            } else {
-              this.$.operationToast.text = "There's no published events!";
+           } else {
+              this.$.operationToast.text = result.value+" events has been changed!";
               this.$.operationToast.open();
+              this._getEvents();
             }
         }.bind(this))
         .catch(function (error){
@@ -284,7 +285,11 @@
         var popup = this.$.popup;
         popup.style.display = 'none';
       },
-
+      _isHidden: function(publishedEventsCount) {
+        if (publishedEventsCount>0) {
+           hidden = false;
+        } else return true;
+      },
       _resize:function () {
         console.log(this.$.calendar);alert();
         this.$.calendar.render();

@@ -104,7 +104,11 @@
         <artifactId>jsch</artifactId>
         <version>0.1.55</version>
       </dependency>
-
+      <dependency>
+        <groupId>com.google.apis</groupId>
+        <artifactId>google-api-services-calendar</artifactId>
+        <version>v3-rev20201028-1.30.10</version>
+      </dependency>
     </dependencies>
   </dependencyManagement>
 </project>
