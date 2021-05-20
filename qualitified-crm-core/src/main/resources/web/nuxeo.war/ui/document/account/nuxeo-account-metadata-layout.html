@@ -94,7 +94,9 @@
                                  metadata="linkk"
         >
         </qualitified-inline-edit>
-
+        <template is="dom-if" if="[[document.properties.custom:field.columns.Column1]]">
+          <qualitified-custom-fields document="[[document]]" mode="view"></qualitified-custom-fields>
+        </template>
       </nuxeo-card>
 
       <nuxeo-card>
@@ -126,12 +128,7 @@
 
         </div>
         <div role="widget">
-          <qualitified-inline-edit document="[[document]]"
-                                   property="account:website"
-                                   value="[[document.properties.account:website]]"
-                                   label="[[i18n('label.metadata.address')]]"
-                                   metadata="linkk"
-          >
+
           </qualitified-inline-edit>
 
 
@@ -175,6 +172,9 @@
 
 
         </div>
+        <template is="dom-if" if="[[document.properties.custom:field.columns.Column2]]">
+          <qualitified-custom-fields document="[[document]]" mode="view"></qualitified-custom-fields>
+        </template>
       </nuxeo-card>
 
       <nuxeo-card>
@@ -210,7 +210,9 @@
 
 
         </div>
+        <template is="dom-if" if="[[document.properties.custom:field.columns.Column3]]">
         <qualitified-custom-fields document="[[document]]" mode="view"></qualitified-custom-fields>
+        </template>
         <div role="widget">
           <qualitified-inline-edit document="[[document]]"
                                    property="dc:description"
