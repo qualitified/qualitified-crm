@@ -58,7 +58,7 @@ Bilel  5:00 PM
                 <u><a href="[[value]]"style="color:blue;">[[value]]</a></u>
             </template>
             <template is="dom-if" if="[[_isDirectory(metadata)]]">
-                [[value]]
+                [[formatDirectory(value)]]
             </template>
             <template id="dateField" is="dom-if" if="[[_isDate(metadata)]]">
                 <div style="[[_getStyle(value)]]">[[formatDate(value)]]</div>
