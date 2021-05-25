@@ -4,7 +4,7 @@
   "Won": "Gagné",
   "Lost": "Perdu",
   "Ready": "Prêt",
-
+  "label.metadata.custom.columns": "Colonne",
   "Limbo": "Infructueux",
   "label.document.type.interaction":"Interaction",
   "label.document.type.account":"Client",

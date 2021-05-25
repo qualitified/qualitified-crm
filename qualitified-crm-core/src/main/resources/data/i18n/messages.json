@@ -37,6 +37,7 @@
   "Interactions" : "Interactions",
   "Solicitations" : "Solicitations",
   "Attachments" : "Attachments",
+  "label.metadata.custom.columns" : "Column",
   "command.new.account": "Create new Account",
   "label.new": "New",
   "label.chat": "Chat",
