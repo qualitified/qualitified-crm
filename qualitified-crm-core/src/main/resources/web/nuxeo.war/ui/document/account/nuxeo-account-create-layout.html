@@ -12,6 +12,7 @@
         </style>
         <nuxeo-input role="widget" value="{{document.properties.dc:title}}"
                      label="[[i18n('label.metadata.account.title')]]"></nuxeo-input>
+
         <nuxeo-directory-suggestion
                 role="widget"
                 value="{{document.properties.account:accountType}}"
@@ -95,7 +96,16 @@
         document: {
           type: Object
         }
-      }
+       },
+       validate: function() {
+          if(this.document.properties['dc:title']){
+             var title =this.document.properties['dc:title'].trim();
+             this.set('document.properties.dc:title',title);
+            return true ;
+          }
+       }
+
+
     });
   })();
 
