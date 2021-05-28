@@ -3,6 +3,7 @@
 @group Nuxeo UI
 @element qualitified-document-suggestion
 -->
+<link rel="import" href="../qualitified-document-create">
 
 <dom-module id="qualitified-document-suggestion">
   <template>
@@ -33,6 +34,7 @@
             }
     </style>
     <nuxeo-operation id="op" op="Document.FetchByProperty"></nuxeo-operation>
+
     <div class="labelAction" style="opacity:var(--nuxeo-label_-_opacity);">
       <label>[[label]]</label>
 

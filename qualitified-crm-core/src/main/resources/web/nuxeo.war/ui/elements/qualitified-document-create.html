@@ -1,220 +1,313 @@
-<dom-module id="qualitified-document-create" assetpath="nuxeo-document-actions/">
+<link rel="import" href="qualitified-document-create-layout.html" />
+
+<dom-module
+        id="qualitified-document-create"
+        assetpath="nuxeo-document-actions/"
+>
     <template>
         <style include="nuxeo-action-button-styles">
-            .container {
-                margin: 0;
-                padding: 24px 0 0 0;
-            }
-            @media (min-width: 1024px) {
-                nuxeo-dialog {
-                    min-width: 915px;
-                }
-            }
-            paper-icon-button {
-                padding: 0px;
-                margin: -2px 6px;
-                flex: 0 1 auto;
-                width: 22px;
-                height: 22px;
-                color: #c8c8c8a8;
-            }
-            .actions {
-                @apply --buttons-bar;
-                @apply --layout-horizontal;
-                @apply --layout-flex;
-                @apply --layout-justified;
-            }
+      .container {
+        margin: 0;
+        padding: 24px 0 0 0;
+      }
+      :host {
+        --paper-tabs-selection-bar-color: var(--nuxeo-primary-color);
+        display: block;
+      }
 
-            .scrollable {
-                padding: 0 24px;
-                max-height: 60vh;
-                @apply --layout-scroll;
-            }
-        </style>
+      paper-tabs {
+        border-bottom: 1px solid var(--divider-color);
+      }
 
+      paper-tab {
+        text-transform: uppercase;
+      }
 
-        <nuxeo-operation id="create" input="/Marketing" op="Document.Create"></nuxeo-operation>
+      paper-tabs,
+      #holder {
+        margin: 0;
+        padding: 0;
+      }
 
-        <nuxeo-document id="doc" doc-id="[[document.uid]]" response="{{document}}" headers="[[headers]]" sync-indexing=""></nuxeo-document>
-        <paper-icon-button icon="nuxeo:add" on-click="_create" ></paper-icon-button>
+      iron-pages,
+      nuxeo-document-import {
+        /*Firefox fix (NXP-22349)*/
+        min-height: 100%;
+      }
 
-        <nuxeo-dialog id="dialog" no-auto-focus="" with-backdrop="" modal="">
-            <div class="container">
-                <iron-form id="form">
-                    <form>
-                        <div class="scrollable">
-                            <nuxeo-document-layout id="layout" document="{{document}}" layout="[[layout]]"></nuxeo-document-layout>
-                        </div>
+      #holder {
+        height: 80vh;
+        width: 65vw;
+      }
 
-                    </form>
-                </iron-form>
-                <div class="actions">
-                    <paper-button dialog-dismiss="" noink="">[[i18n('command.cancel')]]</paper-button>
-                    <paper-button id="save" on-tap="save" noink="" class="primary">[[i18n('command.save')]]</paper-button>
-                </div>
+      iron-pages {
+        @apply --layout-flex;
+        @apply --layout-horizontal;
+      }
+
+      /* IE11 fix (NXP-23550) */
+      *::-ms-backdrop,
+      iron-pages * {
+        height: 80vh;
+      }
+      @media (min-width: 1024px) {
+        nuxeo-dialog {
+          min-width: 915px;
+        }
+      }
+      paper-icon-button {
+        padding: 0px;
+        margin: -2px 6px;
+        flex: 0 1 auto;
+        width: 22px;
+        height: 22px;
+        color: #c8c8c8a8;
+      }
+      .actions {
+        @apply --buttons-bar;
+        @apply --layout-horizontal;
+        @apply --layout-flex;
+        @apply --layout-justified;
+      }
+      .scrollable {
+        padding: 0 24px;
+        max-height: 60vh;
+        @apply --layout-scroll;
+      }
+    </style>
+        <paper-icon-button
+                icon="nuxeo:add"
+                on-click="toggleDialogCreate"
+        ></paper-icon-button>
+        <nuxeo-document
+                id="defaultDoc"
+                doc-path="[[parentPath]]"
+                enrichers="permissions, subtypes"
+                response="{{parent}}"
+        >
+        </nuxeo-document>
+
+        <paper-dialog
+                id="createDocDialog"
+                opened="{{opened}}"
+                modal=""
+                no-auto-focus=""
+        >
+            <div id="holder" class="vertical layout flex">
+                <iron-pages
+                        selected="[[selectedTab]]"
+                        attr-for-selected="name"
+                        selected-attribute="visible"
+                >
+                    <nuxeo-slot
+                            slot="CREATE_POPUP_PAGES"
+                            model="[[importContext]]"
+                    ></nuxeo-slot>
+                    <qualitified-document-create-layout
+                            id="simpleCreation"
+                            name="create"
+                            created-document="{{creartedDoc}}"
+                            parent="[[parent]]"
+                            target-path="[[parentPath]]"
+                    ></qualitified-document-create-layout>
+                    <!-- <nuxeo-document-import id="bulkCreation" name="import" parent="[[parent]]" target-path="{{parentPath}}" suggester-children="{{suggesterChildren}}"></nuxeo-document-import>
+           -->
+                </iron-pages>
             </div>
-
-        </nuxeo-dialog>
-
+        </paper-dialog>
     </template>
     <script>
-        Polymer({
-            is: 'qualitified-document-create',
-            behaviors: [Nuxeo.I18nBehavior, Nuxeo.FiltersBehavior],
-            properties: {
-                /**
-                 * Input document.
-                 */
-                document: {
-                    type: Object,
-                    notify: true
-                },
+    Polymer({
+      is: "qualitified-document-create",
+      behaviors: [Nuxeo.I18nBehavior, Nuxeo.FiltersBehavior],
+      properties: {
+        /**
+         * Input document.
+         */
+        document: {
+          type: Object,
+          notify: true,
+        },
+        createdDoc: {
+          type: Object
+        },
+        docPath: {
+          type: String,
+          value: "/",
+        },
+        headers: {
+          type: Object,
+        },
+        type: {
+          type: String,
+        },
+        parent: {
+          type: Object,
+        },
+        _showTabs: {
+          type: Boolean,
+          value: true,
+        },
+        selectedTab: {
+          type: String,
+          value: "",
+        },
 
+        parentPath: {
+          type: String,
+        },
+        defaultPath: {
+          type: String,
+        },
+        opened: {
+          type: Boolean,
+          value: false,
+          observer: "_openedChanged",
+        },
+        importContext: {
+          type: Object,
+          computed: "_importContext(parent, i18n)",
+        },
+      },
 
+      listeners: {
+        "nx-creation-wizard-hide-tabs": "_hideTabs",
+        "nx-creation-wizard-show-tabs": "_displayTabs",
+        "nx-document-creation-finished": "_close",
+        "nx-document-creation-suggester-parent-changed": "_parentPathChanged",
+      },
 
-                headers: {
-                    type: Object
-                },
+      _hideTabs: function () {
+        this._showTabs = false;
+      },
 
-                type:{
-                    type:String
-                },
-                /**
-                 * Document form layout to load (default is `edit`)
-                 */
-                layout: {
-                    type: String,
-                    value: 'edit'
-                },
-                /**
-                 * `true` if the action should display the label, `false` otherwise.
-                 */
-                showLabel: {
-                    type: Boolean,
-                    value: false,
-                },
-                label: {
-                    type: String
-                },
-                icon: {
-                    type: String,
-                    value: 'nuxeo:edit'
-                },
+      _displayTabs: function () {
+        this._showTabs = true;
+      },
 
-            },
-            observers: [
-                '_documentChanged(document.*)'
-            ],
-            /*get dialog() {
-              return this.root.getElementById(this.layout + '-dialog');
-            },
-            get button() {
-              return this.root.getElementById(this.layout + '-button');
-            },*/
-            _isAvailable: function(doc) {
-                return doc && doc.type !== 'Root' && this.hasPermission(doc, 'Write') && this._isMutable(doc);
-            },
-            _isMutable: function(doc) {
-                return doc && !this.hasFacet(doc, 'Immutable') && doc.type !== 'Root' && !this.isTrashed(doc);
-            },
-            _openDialog: function() {
-                this.dialog.open();
-            },
-            _closeDialog: function() {
-                var suggFieldTarget = this.parentNode.host;
-                console.log(suggFieldTarget);
-                suggFieldTarget.value=this.document.uid;
-                this.$.dialog.close();
-            },
+      _close: function () {
+        if (this.$.createDocDialog.opened) {
+            var suggFieldDocTarget = this.parentNode.host;
+            var createdDoc = this.$$("#simpleCreation").createdDocument;
+            suggFieldDocTarget.value= createdDoc.uid;
+            this.$.createDocDialog.toggle();
+          //this._showTabs = true;
+        }
+      },
 
-            _create: function() {
-                var op = this.$.create;
-                op.params = {
-                    'type':this.type
+      toggleDialogCreate: function () {
+        var docTypeObj= {
+            "type": this.type,
+            "facets": ["Folderish", "NXTag", "Picture"],
+            "id": this.type.toLowerCase()
+           };
+           var pathDoc;
+           var docSuggestId=this.parentNode.host.id;
+           if(docSuggestId==="inlineSugst"){
+              pathDoc=this.parentNode.host.parentNode.__dataHost.document.path;
+           }else{
+              pathDoc=this.parentNode.host.parentNode.host.document.path;
+           }
+           console.log("path   " +pathDoc.replace(/\/[^\/]+$/, ''));
+           this.parentPath=pathDoc.replace(/\/[^\/]+$/, '');
+        this.selectedTab = "create";
+        this._showTabs = false;
+        console.log(docTypeObj);
+        this._fetchParent().then(
+          function () {
+            if (this._noPermission) {
+              this.fire("notify", {
+                message: this.i18n(
+                  "documentCreationBehavior.error.noPermission"
+                ),
+              });
+            } else {
+              this.$$("#simpleCreation").init(docTypeObj);
+              // this.$$('#bulkCreation').init();
+              this.$.createDocDialog.toggle();
+            }
+          }.bind(this)
+        );
+      },
 
-                };
-                return  op.execute().then(function(response) {
-                    this.document = response;
-                    let self = this;
-                    timeout = setTimeout(function () {
-                        self._toggleAddDialog();
-                    }, 1000);
-                }.bind(this));
+      toggleDialogImport: function (files) {
+        this.selectedTab = "import";
+        this._fetchParent().then(
+          function () {
+            if (this._noPermission) {
+              this.fire("notify", {
+                message: this.i18n(
+                  "documentCreationBehavior.error.noPermission"
+                ),
+              });
+            } else {
+              this.$$("#bulkCreation").init(files);
+              this.$.createDocDialog.toggle();
+            }
+          }.bind(this)
+        );
+      },
 
-            },
-            _validate: function() {
-                // run our custom validation function first to allow setting custom native validity
-                var result = this.$.layout.validate() && this._doNativeValidation(this.$.form) && this.$.form.validate();
-                if (result) {
-                    return result;
-                } else {
-                    var layout = this.$.layout.$.layout;
-                    var nodes = layout._getValidatableElements(layout.element.root);
-                    var invalidField = nodes.find(function(node) {
-                        return node.invalid;
-                    });
-                    invalidField.scrollIntoView();
-                    invalidField.focus();
-                }
-            },
+      toggleDialog: function () {
+        this._fetchParent().then(
+          function () {
+            if (this._noPermission) {
+              this.fire("notify", {
+                message: this.i18n(
+                  "documentCreationBehavior.error.noPermission"
+                ),
+              });
+            } else {
+              this.$$("#bulkCreation").init();
+              this.$.createDocDialog.toggle();
+            }
+          }.bind(this)
+        );
+      },
 
-            _doSave: function() {
-                if (!this.document.uid) { // create
-                    this.$.doc.data = this.document;
-                    return this.$.doc.post()
-                } else { // edit
-                    this.$.doc.data = {
-                        'entity-type': 'document',
-                        uid: this.document.uid,
-                        properties: this._dirtyProperties
-                    };
-                    return this.$.doc.put();
-                }
-            },
+      _fetchParent: function () {
+        this._noPermission = false;
+        if (!this.parentPath) {
+          this.set("parentPath", this.defaultPath);
+        }
+        if (!this.parent || !this.parent.contextParameters) {
+          return this.$.defaultDoc.get().catch(
+            function (err) {
+              if (err && err.status === 403) {
+                this._noPermission = true;
+              } else {
+                throw err;
+              }
+            }.bind(this)
+          );
+        } else {
+          return Promise.resolve();
+        }
+      },
 
-            save: function() {
-                if (!this._validate()) {
-                    return;
-                }
-                this._doSave().then(this._refresh.bind(this), function(err) {
-                    this.fire('notify', {message: this.i18n('document.saveError')});
-                    console.error(err);
-                }.bind(this));
-            },
-            _refresh: function() {
-                //  this.fire('document-updated');
-                this.fire('notify', {message: 'Document created!'});
-                this._closeDialog();
-            },
+      _parentPathChanged: function (e) {
+        if (
+          e.detail.isValidTargetPath &&
+          (!this.parent ||
+            (this.parentPath &&
+              this.parent.path !== this.parentPath.replace(/(.+)\/$/, "$1")))
+        ) {
+          this.$.defaultDoc.get();
+        }
+      },
+      _openedChanged: function () {
+        if (this.opened) {
+          if (this.selectedTab === "") {
+            this.selectedTab = "create";
+          }
+        } else {
+          this.selectedTab = "";
+        }
+      },
 
-            _documentChanged: function(e) {
-                if (e.path === 'document') {
-                    this._dirtyProperties = {};
-                } else {
-                    // copy dirty properties (cannot patch complex or list properties)
-                    var match = e.path.match(/^document\.properties\.([^\.]*)/);
-                    if (match) {
-                        var prop = match[1];
-                        this._dirtyProperties[prop] = this.document.properties[prop];
-                    }
-                }
-            },
-            _toggleAddDialog: function () {
-                this.$.dialog.toggle();
-            },
-
-            // trigger native browser invalid-form UI
-            _doNativeValidation: function(/*form*/) {
-                /*var fakeSubmit = document.createElement('input');
-                fakeSubmit.setAttribute('type', 'submit');
-                fakeSubmit.style.display = 'none';
-                form._form.appendChild(fakeSubmit);
-                fakeSubmit.click();
-                form._form.removeChild(fakeSubmit);
-                return form._form.checkValidity();*/
-                return true;
-            },
-
-        });
-    </script>
+      _importContext: function () {
+        return { parent: this.parent, i18n: this.i18n };
+      },
+    });
+  </script>
 </dom-module>
