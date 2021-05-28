@@ -955,6 +955,9 @@
     <handler chainId="EmailingHistoryProcessChain">
       <event>EmailingHistoryProcessEvent</event>
     </handler>
+    <handler chainId="SynchronizeInteractionCalendar">
+      <event>SynchronizeInteractionCalendarEvent</event>
+    </handler>
   </extension>
   <extension target="org.nuxeo.ecm.core.lifecycle.LifeCycleService" point="lifecycle">
     <lifecycle name="default" defaultInitial="project">
@@ -1283,6 +1286,12 @@
         <param type="string" name="name">Administrator</param>
       </operation>
       <operation id="Qualitified.EmailingHistoryProcess"/>
+    </chain>
+    <chain id="SynchronizeInteractionCalendar">
+      <operation id="Auth.LoginAs">
+        <param type="string" name="name">Administrator</param>
+      </operation>
+      <operation id="Qualitified.EventSyncProcess"/>
     </chain>
   </extension>
   <extension target="org.nuxeo.ecm.platform.query.api.PageProviderService" point="providers">
@@ -2534,6 +2543,12 @@
       <eventCategory>default</eventCategory>
       <username>Administrator</username>
       <cronExpression>0 0 0 * * ?</cronExpression>
+    </schedule>
+    <schedule id="SynchronizeInteractionCalendarScheduler">
+      <eventId>SynchronizeInteractionCalendarEvent</eventId>
+      <eventCategory>default</eventCategory>
+      <username>Administrator</username>
+      <cronExpression>${google.calendar.scheduler:=0 0 8,14 * * ?}</cronExpression>
     </schedule>
   </extension>
   <extension target="org.nuxeo.ecm.core.api.DocumentValidationService" point="activations">

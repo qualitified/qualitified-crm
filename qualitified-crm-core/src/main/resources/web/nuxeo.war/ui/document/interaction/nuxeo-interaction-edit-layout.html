@@ -1,64 +1,210 @@
-<link rel="import" href="../qualitified-custom-fields.html">
+
 <link rel="import" href="../../elements/qualitified-time-picker.html">
+<link rel="import" href="../qualitified-custom-fields.html">
 
 <dom-module id="nuxeo-interaction-edit-layout">
   <template>
-    <style>
+    <style include="nuxeo-styles">
       *[role=widget] {
         padding: 5px;
       }
+      .dateFields {
+        align-items: start;
+        display: flex;
+        flex-direction: column;
+        margin-bottom: 20px;
+      }
     </style>
+
+    <paper-toast id="operationToast"></paper-toast>
+    <nuxeo-resource id="tokens" path="oauth2/token/"></nuxeo-resource>
+    <nuxeo-resource id="oauth" path="oauth2/provider/"></nuxeo-resource>
+    <nuxeo-operation id="getCurrentUser" op="User.Get">
+    </nuxeo-operation>
+    <nuxeo-document id="doc" doc-id="[[document.uid]]" response="{{interactionDoc}}"></nuxeo-document>
+
     <nuxeo-input role="widget" value="{{document.properties.dc:title}}" label="[[i18n('label.metadata.interaction.title')]]"></nuxeo-input>
 
     <nuxeo-textarea role="widget" value="{{document.properties.dc:description}}" label="[[i18n('label.metadata.interaction.description')]]"></nuxeo-textarea>
 
     <nuxeo-directory-suggestion role="widget" value="{{document.properties.interaction:status}}" label="[[i18n('label.metadata.status')]]" required="true" directory-name="IntStatus" min-chars="0"></nuxeo-directory-suggestion>
 
-    <nuxeo-directory-suggestion role="widget" value="{{document.properties.interaction:activity}}" label="[[i18n('label.metadata.activity')]]" required="true" directory-name="IntActivity" min-chars="0"></nuxeo-directory-suggestion>
-
-    <nuxeo-date-picker value="{{document.properties.interaction:date}}" label="[[i18n('label.metadata.date')]]" required="true" role="widget"></nuxeo-date-picker>
-
-    <nuxeo-user-suggestion  value="{{document.properties.interaction:responsible}}" label="[[i18n('label.metadata.responsible')]]" search-type="USER_TYPE" role="widget" min-chars="0" multiple="true">
+    <nuxeo-directory-suggestion role="widget" value="{{document.properties.interaction:activity}}" on-value-changed="_isActivity" label="[[i18n('label.metadata.activity')]]" required="true" directory-name="IntActivity" min-chars="0"></nuxeo-directory-suggestion>
+    <nuxeo-user-suggestion  value="{{document.properties.interaction:responsible}}"  on-value-changed="_isCurrentUser" label="[[i18n('label.metadata.responsible')]]" search-type="USER_TYPE" role="widget" min-chars="0" multiple="true">
     </nuxeo-user-suggestion>
+    <qualitified-document-suggestion role="widget" value="{{document.properties.interaction:contact}}" multiple="true" label="[[i18n('label.metadata.contact')]]" page-provider="documents" min-chars="0" params='{ "namedParameters": "system_primaryType=Contact"}'></qualitified-document-suggestion>
 
-    <qualitified-document-suggestion
-            role="widget"
-            value="{{document.properties.interaction:contact}}"
-            multiple="true"
-            label="[[i18n('label.metadata.contact')]]" page-provider="documents" min-chars="0" params='{ "namedParameters": "system_primaryType=Contact"}'>
+    <div class="dateFields">
+      <qualitified-time-picker value="{{document.properties.interaction:date}}" display-duration="{{document.properties.custom:booleanField1}}" duration="{{document.properties.custom:stringField3}}" date-label="Date" duration-label="Duration" role="widget"></qualitified-time-picker>
+      <div hidden$="[[isHidden]]">
+        <h style="color:red;">Date is required to enable synchronization!</h><br/>
+      </div>
+    </div>
 
-    </qualitified-document-suggestion>
-
-
+    <paper-toggle-button id="synchBtn" on-tap="_checkDateFields" on-change="_handleAuth" disabled="{{isDisabled}}" checked="{{document.properties.custom:booleanField1}}">Synchronize with google calendar</paper-toggle-button>
 
     <qualitified-custom-fields document="{{document}}" mode="edit"></qualitified-custom-fields>
 
+    <nuxeo-dialog id="dialog" with-backdrop="" on-iron-overlay-closed="" no-auto-focus="">
+      <h2>Synchronize with google calendar</h2>
+
+      <div class="content">
+        <h style="color:red;">To enable synchronization! please connect to your google account and try again.</h><br/>
+      </div>
+      <div class="buttons">
+        <paper-button dialog-dismiss="" noink="">Cancel</paper-button>
+        <paper-button class="primary" name="add" on-click="_toggleWindow">
+          Connect to google
+        </paper-button>
+
+      </div>
+    </nuxeo-dialog>
   </template>
 
   <script>
-    (function() {
-      'use strict';
-      Polymer({
-        is: 'nuxeo-interaction-edit-layout',
-        behaviors: [Nuxeo.LayoutBehavior],
-        properties: {
+  (function() {
+    'use strict';
+    Polymer({
+      is: 'nuxeo-interaction-edit-layout',
+      behaviors: [Nuxeo.LayoutBehavior],
+      properties: {
 
-          /**
+        /**
            * @doctype Interaction
            */
-          document: {
-            type: Object
-          },
+        document: {
+          type: Object
+        },
+        interactionDoc: {
+          type: Object
+        },
+        isEvent: {
+          type: Boolean,
+          value:false
+        },
+        isChecked: {
+          type: Boolean,
+          value:false
+        },
+        isDisabled: {
+          type: Boolean,
+          value:false
+        },
+        authURL: {
+          type: String
+        },
+        options:{
+          type:Array
+        },
+        currentUser: {
+          type: Boolean,
+          value:false
+        },
+        isMeeting: {
+          type: Boolean,
+          value:false
+        },
+        isHidden: {
+          type: Boolean,
+          value:true
+        },
+
+      },
+      attached () {
+        this.$.getCurrentUser.execute().then(function(result) {
+          this.currentUser = result.title;
+          }.bind(this));
+      },
+
+      _isActivity: function(e) {
+        if (this.document) {
+          var responsible = this.document.properties['interaction:responsible'];
+          if ((e.detail.value === "Meeting" || e.detail.value === "Call") && JSON.stringify(responsible) === JSON.stringify([this.currentUser])) {
+            this.isEvent=true;
+            this.isDisabled=false;
+          } else {
+            this.isEvent=false;
+            this.$.synchBtn.checked = false;
+            this.isDisabled=true;
+          }
+
+        }
+      },
+      _isCurrentUser: function(e) {
+        if (this.document){
+          var activity = this.document.properties['interaction:activity'];
+          if (JSON.stringify(e.detail.value) === JSON.stringify([this.currentUser]) && (activity === "Meeting" || activity === "Call")) {
+            this.isEvent=true;
+            this.isDisabled=false;
+          } else {
+            this.isEvent=false;
+            this.document.properties['custom:booleanField1'] = false;
+            this.$.synchBtn.checked = false;
+            this.isDisabled=true;
+          }
+        }
+      },
+      _checkDateFields: function() {
+        if (this.document) {
+          var startDte = this.document.properties['interaction:date'];
+          this.isChecked = this.document.properties['custom:booleanField1'];
+          if(this.isChecked===true) {
+            if(startDte && startDte!=="Invalid date") {
+              this.isHidden=true;
+              return true;
+            } else {
+              this.isHidden=false;
+              this.set('document.properties.custom:booleanField1',false);
+              return false;
+            }
+          }
+        }
+      },
+      _handleAuth : function(e){
+        if (this._checkDateFields()) {
+          this.set('document.properties.custom:stringField3',"15");
+            this.$.oauth.get().then(function(response) {
+              if (response.entries && response.entries.length > 0)
+                  response.entries.forEach(serviceProvider => {
+                    if (serviceProvider.serviceName === "googleCalendar") {
+                      this.authURL = serviceProvider.authorizationURL;
+                        if (serviceProvider.isAuthorized === true) {
+                            this.$.operationToast.text = "Sync is on!";
+                            this.$.operationToast.open();
+                            //this.document.properties['custom:booleanField1'] = this.isChecked;
+                          } else {
+                            this.document.properties['custom:booleanField1'] = false;
+                            this.$.dialog.toggle();
+                           /*  this.$.operationToast.text = "You're not connected to google, please connect and try again!";
+                            this.$.operationToast.open();
+                            let self = this;
+                            timeout = setTimeout(function () {
+                              self._toggleWindow(serviceProvider.authorizationURL);
+                            }, 2500); */
+                          }
+                    }
+                });
+            }.bind(this));
+          }
+      },
+      _toggleWindow : function () {
+            //var redirect_uri = document.location.origin+"/nuxeo/site/oauth2/docusign/callback";
+            var googleAuthWindow = window.open(this.authURL,"google oauth2", "resizable,scrollbars,status,width=800,height=800");
+            this.$.dialog.toggle();
 
         },
-        validate: function() {
-          if(this.document.properties['dc:title']){
+        validate () {
+          var isSynced = this.document.properties['custom:booleanField1'];
+           if (isSynced === false) {
+             this.set('document.properties.custom:stringField3',null);
+           }
+           if(this.document.properties['dc:title']){
              var title =this.document.properties['dc:title'].trim();
              this.set('document.properties.dc:title',title);
-            return true ;
           }
-       }
-      });
-    })();
+           return true;
+        }
+    });
+  })();
   </script>
 </dom-module>
