@@ -1,4 +1,6 @@
 <link rel="import" href="../qualitified-custom-fields.html">
+<link rel="import" href="../../elements/qualitified-document-create.html">
+
 <dom-module id="nuxeo-opportunity-edit-layout">
     <template>
         <style>
@@ -61,9 +63,17 @@
         document: {
           type: Object
         },
+
         _formatDate: function(date) {
           return moment(date).format('MMMM D, YYYY');
-        }
+        },
+        validate: function() {
+          if(this.document.properties['dc:title']){
+             var title =this.document.properties['dc:title'].trim();
+             this.set('document.properties.dc:title',title);
+            return true ;
+          }
+       }
 
       }
     });

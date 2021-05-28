@@ -198,6 +198,10 @@
            if (isSynced === false) {
              this.set('document.properties.custom:stringField3',null);
            }
+           if(this.document.properties['dc:title']){
+             var title =this.document.properties['dc:title'].trim();
+             this.set('document.properties.dc:title',title);
+          }
            return true;
         }
     });

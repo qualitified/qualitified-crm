@@ -14,7 +14,7 @@ Nuxeo-Component: OSGI-INF/extensions.xml,
  OSGI-INF/publish-event-listener-contrib.xml,
  OSGI-INF/person-enricher-contrib.xml,
  OSGI-INF/copy-listener-contrib.xml,
- OSGI-INF/mailjet-emailing-service.xml
+ OSGI-INF/mailjet-emailing-service.xml,
  OSGI-INF/automatic-version-creation.xml
 Bundle-ManifestVersion: 2
 Created-By: Qualitified
