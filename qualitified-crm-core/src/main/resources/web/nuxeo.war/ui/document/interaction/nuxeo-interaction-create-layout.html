@@ -111,13 +111,6 @@
           this.currentUser = result.title;
           }.bind(this));
       },
-      validate: function() {
-          if(this.document.properties['dc:title']){
-             var title =this.document.properties['dc:title'].trim();
-             this.set('document.properties.dc:title',title);
-            return true ;
-          }
-       },
       _isActivity: function(e) {
         if (this.document) {
           var responsible = this.document.properties['interaction:responsible'];
@@ -190,6 +183,10 @@
            if (this.isChecked === false) {
              this.set('document.properties.custom:stringField3',null);
            }
+           if(this.document.properties['dc:title']){
+             var title =this.document.properties['dc:title'].trim();
+             this.set('document.properties.dc:title',title);
+          }
            return true;
         }
     });
