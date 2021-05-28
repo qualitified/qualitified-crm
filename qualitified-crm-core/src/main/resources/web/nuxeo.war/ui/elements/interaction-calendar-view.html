@@ -1,88 +1,122 @@
 <!-- `nuxeo-calendar-view-layout` @group Nuxeo UI @element nuxeo-calendar-view-layout -->
 
-<link rel="import" href="../../dist/scheduler-component/scheduler-component.html">
-<script src="../../dist/fullcalendar/dist/locale/fr.js"></script>
+<link rel="import" href="../dist/scheduler-component/scheduler-component.html">
+<script src="../dist/fullcalendar/dist/locale/fr.js"></script>
 
-<dom-module id="nuxeo-calendar-view-layout">
-  <template>
+<dom-module id="interaction-calendar-view">
+  <template include="nuxeo-styles">
     <style>
-      *[role=widget] {
-        padding: 5px;
-      }
+        *[role=widget] {
+          padding: 5px;
+        }
 
-      #calendar{
-        max-width: 900px;
-        margin: 0px auto;
-        display: block;
-      }
+        #calendar{
+          max-width: 900px;
+          margin: 0px auto;
+          display: block;
+        }
 
-      #popup{
-        position: absolute;
-        width: 300px;
-        z-index: 999;
-        display: none;
-        /* top:150px;
-        left: 100px; */
-        background-color: #fff;
-        border: 1px solid #ddd;
-        border-radius: 5px;
-        box-shadow: 0 24px 38px 3px rgba(0,0,0,0.14), 0 9px 46px 8px rgba(0,0,0,0.12), 0 11px 15px -7px rgba(0,0,0,0.2);
-        overflow: hidden;
-        padding: 10px;
-      }
+        #popup{
+          position: absolute;
+          width: 300px;
+          z-index: 999;
+          display: none;
+          /* top:150px;
+          left: 100px; */
+          background-color: #fff;
+          border: 1px solid #ddd;
+          border-radius: 5px;
+          box-shadow: 0 24px 38px 3px rgba(0,0,0,0.14), 0 9px 46px 8px rgba(0,0,0,0.12), 0 11px 15px -7px rgba(0,0,0,0.2);
+          overflow: hidden;
+          padding: 10px;
+        }
 
-      .pop{
-        display: flex;
-        -webkit-flex-direction: column;
-        flex-direction: column;
-        overflow: hidden;
-      }
+        .pop{
+          display: flex;
+          -webkit-flex-direction: column;
+          flex-direction: column;
+          overflow: hidden;
+        }
 
-      .actions{
-        height: 44px;
-        padding: 6px 6px 0 6px;
-        display: -webkit-box;
-        display: -moz-box;
-        display: -webkit-flex;
-        display: -ms-flexbox;
-        display: flex;
-        -webkit-flex-flow: row-reverse;
-        flex-flow: row-reverse;
-      }
-      .popupBody{
-        height: 100px;
-        margin: 0px 12px auto;
-      }
+        .actions{
+          height: 44px;
+          padding: 6px 6px 0 6px;
+          display: -webkit-box;
+          display: -moz-box;
+          display: -webkit-flex;
+          display: -ms-flexbox;
+          display: flex;
+          -webkit-flex-flow: row-reverse;
+          flex-flow: row-reverse;
+        }
+        .popupBody{
+          height: 100px;
+          margin: 0px 12px auto;
+        }
 
-      .popTitle{
-        font-size: 22px;
-        font-weight: 400;
-      }
+        .popTitle{
+          font-size: 22px;
+          font-weight: 400;
+        }
+        .calendar-actions{
+          display: flex;
+          margin-left: 60px;
+          margin-right: 10px;
+          flex-direction: column;
+          margin-top: 20px;
 
-      .popDate{
-        font-size: 12px;
-        font-weight: 400;
-        letter-spacing: .2px;
-        line-height: 18px;
-        color: #3c4043;
-        margin-top: 5px;
-      }
+        }
+        .popDate{
+          font-size: 12px;
+          font-weight: 400;
+          letter-spacing: .2px;
+          line-height: 18px;
+          color: #3c4043;
+          margin-top: 5px;
+        }
 
-      paper-card{
-        flex-direction: row;
-        display: flex;
-      }
+        .gg-button{
+          bottom: 15px;
+          margin-right: 20px;
+          width: 156px;
+          border-radius: 6px;
+        }
+        .target-date {
+          bottom: 4px;
+        }
+        .gg-title{
+          color: #5f6368;
+          opacity: 1;
+          inline-size: max-content;
+          margin-left: 4px;
+          margin-top: 2px;
+        }
+        .gg-content{
+          display: flex;
+          margin-left: -10px;
+        }
+        paper-card{
+          flex-direction: row;
+          display: flex;
+        }
 
-    </style>
+      </style>
+    <paper-toast id="operationToast"></paper-toast>
 
     <nuxeo-operation id="getSchema" op="Document.GetSchemaFromPrefix" params="[[params]]"></nuxeo-operation>
+    <nuxeo-operation id="fetchEvents" op="Qualitified.FetchFromCalendar"></nuxeo-operation>
 
     <nuxeo-page-provider  id="provider"
                           query="SELECT * FROM Document WHERE ecm:currentLifeCycleState != 'deleted' AND ecm:isTrashed = 0 AND ecm:primaryType = '[[document.properties.calendar:docType]]' AND [[document.properties.calendar:docMetadata]] >= DATE '{{yearM}}-12-15' AND [[document.properties.calendar:docMetadata]] <= DATE '{{yearP}}-01-15'"
                           schemas="{{schema}}">
     </nuxeo-page-provider>
-
+    <nuxeo-page-provider  id="interactionProvider" auto
+                          query="SELECT * FROM Interaction WHERE custom:stringField1 IS NOT NULL AND custom:booleanField1 = 1 AND ecm:isProxy = 0 AND ecm:isTrashed = 0 AND ecm:isCheckedInVersion = 0 AND ecm:currentLifeCycleState != 'deleted'"
+                          results-count="{{publishedEvents}}"
+                          schemas="interaction,custom">
+    </nuxeo-page-provider>
     <paper-card>
+
       <scheduler-component  id="calendar"
                             default-view="month"
                             event-color="{{eventColor}}"
@@ -91,8 +125,24 @@
                             events='[]'
                             all-day-slot="true">
       </scheduler-component>
+      <div class="calendar-actions">
+        <paper-button id="synch" class="gg-button" hidden$="{{_isSyncHidden(publishedEvents)}}" on-tap="_fetchEvents">
+          <div class="gg-content">
+            <iron-icon icon="qualitified:google-calendar"></iron-icon>
+            <span class="gg-title">Google calendar</span>
+          </div>
+        </paper-button>
+        <paper-tooltip for="synch">Synchronize with google calendar</paper-tooltip>
 
-      <nuxeo-date-picker id="datePicker" value="{{specDate}}" label="[[i18n('calendar.view.goToDate')]]"></nuxeo-date-picker>
+        <nuxeo-date-picker id="datePicker" class="target-date" value="{{specDate}}" label="[[i18n('calendar.view.goToDate')]]"></nuxeo-date-picker>
+      </div>
+
+      <!-- <div class="actions">
+      <paper-button raised >
+        <iron-icon icon="qualitified:google-calendar"></iron-icon>
+        <span>Synchronize with calendar</span>
+      </paper-button>
+    </div> -->
     </paper-card>
 
     <div id="popup" class="pop">
@@ -116,7 +166,7 @@
 
   <script>
     Polymer({
-      is: 'nuxeo-calendar-view-layout',
+      is: 'interaction-calendar-view',
       behaviors: [Nuxeo.LayoutBehavior],
       properties: {
         document: {
@@ -151,6 +201,7 @@
 
       ready: function() {
         /* Click Event */
+        console.log(this.publishedEvents)
         this.$.calendar.addEventListener("event-click", function(e) {
           var caldView = this.parentNode.parentNode.host;
           caldView.eventTitle = e.detail.calEvent.title;
@@ -194,27 +245,50 @@
           this.parentNode.parentNode.host.$.calendar.goToDate(moment(e.detail.value));
         });
       },
+      // check if there's any interaction has been published in google calendar
+      _isSyncHidden: function(syncedEventsCounts){
+        return syncedEventsCounts > 0 ? false : true;
+      },
 
       /* Get documents and fill the 'events' attribute */
       _getEvents: function() {
         this.$.provider.fetch().then(function(result) {
-          //console.log(result);
           var events = [];
           for (var i = 0; i < result.entries.length; i++) {
-            //console.log(result.entries[i]);
             var event = {};
             event.title = result.entries[i].title;
             event.start = moment(result.entries[i].properties[this.document.properties['calendar:docMetadata']]).format('YYYY-MM-DD');
             event.allDay = true;
             event.uid = result.entries[i].uid;
-            //console.log(event);
             events.push(event);
           }
           this.$.calendar.setAttribute("events", JSON.stringify(events));
 
         }.bind(this));
       },
-
+      //fetch events from google account calendar
+      _fetchEvents: function(e){
+        var op = this.$.fetchEvents;
+        op.params = {
+           "calendarId": this.document.uid
+         };
+        this.$.operationToast.text = "Synchronizing ...";
+        this.$.operationToast.open();
+        op.execute().then(function(result) {
+          if (result.value === "Nothing updated") {
+              this.$.operationToast.text = "Calendar is already up to date!";
+              this.$.operationToast.open();
+           } else {
+              this.$.operationToast.text = result.value+" events has been changed!";
+              this.$.operationToast.open();
+              this._getEvents();
+            }
+        }.bind(this))
+        .catch(function (error){
+            this.$.operationToast.text = "Error while sycnchronizing!";
+            this.$.operationToast.open();
+        }.bind(this));
+      },
       /* Open the document in a new tab */
       _goToEvent: function(e) {
         window.open(location.origin + "/nuxeo/ui/#!/doc/" + e.target.dataset.item, '_blank');
@@ -231,7 +305,11 @@
         var popup = this.$.popup;
         popup.style.display = 'none';
       },
-
+      _isHidden: function(publishedEventsCount) {
+        if (publishedEventsCount>0) {
+           hidden = false;
+        } else return true;
+      },
       _resize:function () {
         console.log(this.$.calendar);alert();
         this.$.calendar.render();

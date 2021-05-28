@@ -11,6 +11,7 @@ Nuxeo-Component: OSGI-INF/extensions.xml,
  OSGI-INF/postsave-async-listener-contrib.xml,
  OSGI-INF/templateprocessor-doc-contrib.xml,
  OSGI-INF/interaction-enricher-contrib.xml,
+ OSGI-INF/publish-event-listener-contrib.xml,
  OSGI-INF/person-enricher-contrib.xml,
  OSGI-INF/copy-listener-contrib.xml,
  OSGI-INF/mailjet-emailing-service.xml

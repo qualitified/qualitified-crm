@@ -17,7 +17,9 @@
                 box-sizing: border-box;
                 margin-right: 8px;
             }
-
+            paper-toggle-button {
+                pointer-events: none;
+            }
             .title{
                 color:var(--nuxeo-secondary-color);
             }
@@ -108,6 +110,10 @@
                                              readOnly>
             </qualitified-document-suggestion>
         </div>
+
+        <template is="dom-if" if="[[document.properties.custom:booleanField1]]" >
+            <paper-toggle-button id="synchBtn" checked="{{document.properties.custom:booleanField1}}">Synced with google calendar</paper-toggle-button>
+        </template>
         <qualitified-custom-fields document="{{document}}" mode="view"></qualitified-custom-fields>
         <nuxeo-document-attachments role="widget" document="[[document]]"></nuxeo-document-attachments>
     </template>

@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<component name="org.qualitified.crm.listener.listener.publishEvent">
+    <extension target="org.nuxeo.ecm.core.event.EventServiceComponent" point="listener">
+        <listener name="publishEvent"
+                  class="org.qualitified.crm.listener.PublishEventListener">
+            <event>documentCreated</event>
+            <event>documentModified</event>
+            <filters>
+                <doctype>Interaction</doctype>
+                <attribute>Regular Document</attribute>
+            </filters>
+        </listener>
+    </extension>
+</component>

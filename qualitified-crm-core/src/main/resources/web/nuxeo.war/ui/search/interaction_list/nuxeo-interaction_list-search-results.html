@@ -3,9 +3,7 @@
 @group Nuxeo UI
 @element nuxeo-interaction_list-search-results
 -->
-<link rel="import" href="../../document/calendar/nuxeo-calendar-view-layout.html">
-<link rel="import" href="../../dist/scheduler-component/scheduler-component.html">
-<script src="../../dist/fullcalendar/dist/locale/fr.js"></script>
+<link rel="import" href="../../elements/interaction-calendar-view.html">
 <dom-module id="nuxeo-interaction_list-search-results">
     <template>
         <style include="nuxeo-styles">
@@ -82,7 +80,7 @@
         </style>
         <div name="calendar">
             <nuxeo-document id="docCalendar" auto doc-path="/Admin/Calendar.conf" response="{{document}}"></nuxeo-document>
-            <nuxeo-calendar-view-layout id="calendarTab" document="{{document}}"></nuxeo-calendar-view-layout>
+            <interaction-calendar-view id="calendarTab" document="{{document}}"></interaction-calendar-view>
         </div>
         <nuxeo-results name="interaction_list" nx-provider="[[nxProvider]]" selected-items="{{selectedItems}}"
                        display-quick-filters="" display-sort="" sort-label="[[i18n('searchResults.sort.label')]]"

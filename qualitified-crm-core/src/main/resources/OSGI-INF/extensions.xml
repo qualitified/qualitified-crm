@@ -1288,7 +1288,10 @@
       <operation id="Qualitified.EmailingHistoryProcess"/>
     </chain>
     <chain id="SynchronizeInteractionCalendar">
-      <operation id="Qualitified.FetchFromCalendar"/>
+      <operation id="Auth.LoginAs">
+        <param type="string" name="name">Administrator</param>
+      </operation>
+      <operation id="Qualitified.EventSyncProcess"/>
     </chain>
   </extension>
   <extension target="org.nuxeo.ecm.platform.query.api.PageProviderService" point="providers">
@@ -2545,7 +2548,7 @@
       <eventId>SynchronizeInteractionCalendarEvent</eventId>
       <eventCategory>default</eventCategory>
       <username>Administrator</username>
-      <cronExpression>0 * * * * ?</cronExpression>
+      <cronExpression>${google.calendar.scheduler:=0 0 8,14 * * ?}</cronExpression>
     </schedule>
   </extension>
   <extension target="org.nuxeo.ecm.core.api.DocumentValidationService" point="activations">

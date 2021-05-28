@@ -1,5 +1,4 @@
 
-
 <link rel="import" href="../../elements/qualitified-time-picker.html">
 <link rel="import" href="../qualitified-custom-fields.html">
 
@@ -12,6 +11,8 @@
       .dateFields {
         align-items: start;
         display: flex;
+        flex-direction: column;
+        margin-bottom: 20px;
       }
     </style>
 
@@ -30,19 +31,19 @@
     <nuxeo-directory-suggestion role="widget" value="{{document.properties.interaction:activity}}" on-value-changed="_isActivity" label="[[i18n('label.metadata.activity')]]" required="true" directory-name="IntActivity" min-chars="0"></nuxeo-directory-suggestion>
     <nuxeo-user-suggestion  value="{{document.properties.interaction:responsible}}"  on-value-changed="_isCurrentUser" label="[[i18n('label.metadata.responsible')]]" search-type="USER_TYPE" role="widget" min-chars="0" multiple="true">
     </nuxeo-user-suggestion>
-    <div class="dateFields">
-      <qualitified-time-picker value="{{document.properties.interaction:date}}" label="Start date" role="widget"></qualitified-time-picker>
-      <qualitified-time-picker value="{{document.properties.custom:dateField1}}" label="End date" role="widget"></qualitified-time-picker>
+    <qualitified-document-suggestion role="widget" value="{{document.properties.interaction:contact}}" multiple="true" label="[[i18n('label.metadata.contact')]]" page-provider="documents" min-chars="0" params='{ "namedParameters": "system_primaryType=Contact"}'></qualitified-document-suggestion>
 
+    <div class="dateFields">
+      <qualitified-time-picker value="{{document.properties.interaction:date}}" display-duration="{{isChecked}}" duration="{{document.properties.custom:stringField3}}" date-label="Date" duration-label="Duration" role="widget"></qualitified-time-picker>
+      <div hidden$="[[isHidden]]">
+        <h style="color:red;">Date is required to enable synchronization!</h><br/>
+      </div>
     </div>
-    <div hidden$="[[isHidden]]">
-      <h style="color:red;">Date fields is required to enable synchronization!</h><br/>
-    </div>
+
     <template is="dom-if" if="[[isEvent]]">
       <paper-toggle-button id="synchBtn" on-tap="_checkDateFields" on-change="_handleAuth" checked="{{isChecked}}">Synchronize with google calendar</paper-toggle-button>
     </template>
 
-    <qualitified-document-suggestion role="widget" value="{{document.properties.interaction:contact}}" multiple="true" label="[[i18n('label.metadata.contact')]]" page-provider="documents" min-chars="0" params='{ "namedParameters": "system_primaryType=Contact"}'></qualitified-document-suggestion>
 
     <qualitified-custom-fields document="{{document}}" mode="edit"></qualitified-custom-fields>
 
@@ -75,6 +76,10 @@
            */
         document: {
           type: Object
+        },
+        displayDuration: {
+          type: Boolean,
+          value: false
         },
         isEvent: {
           type: Boolean,
@@ -126,9 +131,8 @@
       _checkDateFields: function() {
         if (this.document) {
           var startDte = this.document.properties['interaction:date'];
-          var endDte = this.document.properties['custom:dateField1'];
           if(this.isChecked===true) {
-            if(startDte && endDte) {
+            if(startDte) {
               this.isHidden=true;
               return true;
             } else {
@@ -139,9 +143,10 @@
           }
         }
       },
+
       _handleAuth : function(e){
-        if (this._checkDateFields()) {
-          console.log(this.document);
+        if(this._checkDateFields()) {
+          this.set('document.properties.custom:stringField3',"15");
             this.$.oauth.get().then(function(response) {
               if (response.entries && response.entries.length > 0)
                  console.log(response.entries);
@@ -171,8 +176,15 @@
             //var redirect_uri = document.location.origin+"/nuxeo/site/oauth2/docusign/callback";
             var googleAuthWindow = window.open(this.authURL,"google oauth2", "resizable,scrollbars,status,width=800,height=800");
             this.$.dialog.toggle();
+      },
 
-          },
+      validate () {
+          this.set('document.properties.custom:booleanField1',this.isChecked);
+           if (this.isChecked === false) {
+             this.set('document.properties.custom:stringField3',null);
+           }
+           return true;
+        }
     });
   })();
   </script>

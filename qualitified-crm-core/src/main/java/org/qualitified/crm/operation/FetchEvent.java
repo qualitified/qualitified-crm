@@ -23,8 +23,10 @@ import org.nuxeo.ecm.automation.core.annotations.Param;
 import org.nuxeo.ecm.automation.core.collectors.DocumentModelCollector;
 import org.nuxeo.ecm.core.api.*;
 import org.nuxeo.ecm.core.api.impl.UserPrincipal;
+import org.nuxeo.ecm.core.event.EventServiceAdmin;
 import org.nuxeo.ecm.platform.oauth2.providers.OAuth2ServiceProvider;
 import org.nuxeo.ecm.platform.oauth2.providers.OAuth2ServiceProviderRegistry;
+import org.nuxeo.ecm.platform.usermanager.UserManager;
 import org.nuxeo.runtime.api.Framework;
 
 import com.google.api.client.auth.oauth2.Credential;
@@ -44,7 +46,7 @@ import com.google.api.services.calendar.model.Events;
 public class FetchEvent {
 
     public static final String ID = "Qualitified.FetchFromCalendar";
-    private Log logger = LogFactory.getLog(Deploy.class);
+    private Log logger = LogFactory.getLog(FetchEvent.class);
 
     @Context
     protected CoreSession session;
@@ -52,21 +54,25 @@ public class FetchEvent {
     @Context
     protected OperationContext context;
 
+    @Param(name = "calendarId")
+    protected String calendarId;
+
     @OperationMethod()
-    public String run() {
-        //NuxeoPrincipal userPrincipal = session.getPrincipal();
-        String currentUser = context.getPrincipal().getActingUser();
-        //session = getReconnectedCoreSession(repositoryName, originatingUsername);
-        //String currentUser = userPrincipal.getActingUser();
-        ArrayList<String> updatedInteractionsList = new ArrayList<>();
-        String eventsState = null;
+    public void run(DocumentModel syncInteraction) throws GeneralSecurityException, IOException {
+
         JsonFactory JSON_FACTORY = JacksonFactory.getDefaultInstance();
         HttpTransport httpTransport;
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        EventServiceAdmin eventServiceAdmin = Framework.getService(EventServiceAdmin.class);
+
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+
+        String[] responsible = (String[]) syncInteraction.getPropertyValue("interaction:responsible");
+        String currentUser = responsible[0];
+        String eventId = (String) syncInteraction.getPropertyValue("custom:stringField1");
+        String eventTag = (String) syncInteraction.getPropertyValue("custom:stringField2");
+
         try {
             httpTransport = GoogleNetHttpTransport.newTrustedTransport();
-
-            //Credential credential = new GoogleCredential().setAccessToken(getAccessToken(userEmailAddress));
 
             OAuth2ServiceProvider serviceProvider = Framework.getService(OAuth2ServiceProviderRegistry.class).getProvider("googleCalendar");
             Credential storedCredential = serviceProvider.loadCredential(currentUser);
@@ -77,22 +83,80 @@ public class FetchEvent {
                     .setRefreshToken(storedCredential.getRefreshToken()).setAccessToken(storedCredential.getAccessToken());
 
             // Initialize Calendar service with valid OAuth credentials
-            Calendar service = new Calendar.Builder(httpTransport, JSON_FACTORY, credential).build();
+            Calendar service = new Calendar.Builder(httpTransport, JSON_FACTORY, credential).setApplicationName("Qualitified-CCM").build();
+            String calendarId = "primary";
+            // disable publish event listener
+            // syncInteraction.putContextData("custom:booleanField2", Boolean.TRUE);
+            eventServiceAdmin.setListenerEnabledFlag("publishEvent",false);
 
+            // Retrieve an event
+            Event event = service.events().get(calendarId, eventId).execute();
+            if (!eventTag.equals(event.getEtag())) {
+                long eventStart = event.getStart().getDateTime().getValue();
+                long eventEnd = event.getEnd().getDateTime().getValue();
+                long duration = (eventEnd - eventStart) / 60000;
+                GregorianCalendar startDate = new GregorianCalendar();
+                startDate.setTimeInMillis(eventStart);
+                /*GregorianCalendar endDate = new GregorianCalendar();
+                startDate.setTimeInMillis(eventEnd);*/
+                syncInteraction.setPropertyValue("dc:title", event.getSummary());
+                syncInteraction.setPropertyValue("interaction:date", startDate);
+                syncInteraction.setPropertyValue("custom:stringField3", Long.toString(duration));
+                syncInteraction.setPropertyValue("custom:stringField2", event.getEtag());
 
-            DocumentModelList interactionsCalendar = session.query("SELECT * FROM Calendar WHERE calendar:docType='Interaction' AND ecm:isProxy = 0 AND ecm:isTrashed = 0 AND ecm:isCheckedInVersion = 0 AND ecm:currentLifeCycleState != 'deleted'", "NXQL", null, 0, 0, false);
-            DocumentModel interactionCalendar = interactionsCalendar.get(0);
+                session.saveDocument(syncInteraction);
+                logger.warn("Event updated successfully!");
+
+            } else {
+                logger.warn("Event is already up to date!");
+            }
+
+        } catch (GoogleJsonResponseException ge) {
+            if (ge.getStatusCode() == 401) {
+                logger.error("Refresh token has been expired.");
+            }
+        } catch (GeneralSecurityException | IOException e) {
+            throw new NuxeoException(e);
+        } finally {
+            eventServiceAdmin.setListenerEnabledFlag("publishEvent",true);
+        }
+    }
+    @OperationMethod()
+    public String run() {
+        NuxeoPrincipal userPrincipal = session.getPrincipal();
+        String currentUser = userPrincipal.getActingUser();
+        ArrayList<String> updatedInteractionsList = new ArrayList<>();
+        String eventsState = null;
+        JsonFactory JSON_FACTORY = JacksonFactory.getDefaultInstance();
+        HttpTransport httpTransport;
+        EventServiceAdmin eventServiceAdmin = Framework.getService(EventServiceAdmin.class);
+
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+
+        try {
+            httpTransport = GoogleNetHttpTransport.newTrustedTransport();
+
+            OAuth2ServiceProvider serviceProvider = Framework.getService(OAuth2ServiceProviderRegistry.class).getProvider("googleCalendar");
+            Credential storedCredential = serviceProvider.loadCredential(currentUser);
+
+            Credential credential = new GoogleCredential.Builder()
+                    .setClientSecrets(serviceProvider.getClientId(), serviceProvider.getClientSecret())
+                    .setJsonFactory(JSON_FACTORY).setTransport(httpTransport).build()
+                    .setRefreshToken(storedCredential.getRefreshToken()).setAccessToken(storedCredential.getAccessToken());
+
+            // Initialize Calendar service with valid OAuth credentials
+            Calendar service = new Calendar.Builder(httpTransport, JSON_FACTORY, credential).setApplicationName("Qualitified-CCM").build();
+
+            // disable publish event listener
+            //interactionDoc.putContextData("custom:booleanField2", Boolean.TRUE);
+            eventServiceAdmin.setListenerEnabledFlag("publishEvent",false);
+            DocumentModel interactionCalendar = session.getDocument(new IdRef(calendarId));
             String syncToken = (String) interactionCalendar.getPropertyValue("custom:stringField1");
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-            //String next2weeks = LocalDateTime.now().plusWeeks(2).format(formatter);
             String oneDayAgo = LocalDateTime.now().minusDays(1).toString();
             Calendar.Events.List request = service.events().list("primary");
             if (syncToken == null) {
                 logger.warn("Performing full sync.");
-                // Set the filters you want to use during the full sync. Sync tokens aren't compatible with
-                // most filters, but you may want to limit your full sync to only a certain date range.
-                // In this example we are only syncing events up to a day old.
-                //Date oneYearAgo = Utils.getRelativeDate(java.util.Calendar.YEAR, -1);
+                // syncing events up to a day old.
                 request.setTimeMin(new DateTime(oneDayAgo));
             } else {
                 logger.warn("Performing incremental sync.");
@@ -108,7 +172,7 @@ public class FetchEvent {
                 } catch (GoogleJsonResponseException e) {
                     if (e.getStatusCode() == 410) {
                         // A 410 status code, "Gone", indicates that the sync token is invalid.
-                        logger.error("Invalid sync token, clearing event store and re-syncing.");
+                        logger.warn("Invalid sync token, clearing event store and re-syncing.");
                     } else {
                         throw e;
                     }
@@ -116,26 +180,29 @@ public class FetchEvent {
 
                 List<Event> items = events.getItems();
                 if (items.size() == 0) {
-                    logger.error("No new events to sync.");
+                    logger.warn("No new events to sync.");
                 } else {
                     for (Event event : items) {
                         DocumentModelList interactionsDoc = session.query("SELECT * FROM Interaction WHERE custom:stringField1 = '"+ event.getId() +"' AND custom:booleanField1 = 1 AND ecm:isProxy = 0 AND ecm:isTrashed = 0 AND ecm:isCheckedInVersion = 0 AND ecm:currentLifeCycleState != 'deleted'", "NXQL", null, 0, 0, false);
-                        if (!interactionsDoc.isEmpty()) {
+                        if (!interactionsDoc.isEmpty() && !("cancelled".equals(event.getStatus()))) {
                             DocumentModel interactionDoc = interactionsDoc.get(0);
                             String interactionTag = (String) interactionDoc.getPropertyValue("custom:stringField2");
                             if (!interactionTag.equals(event.getEtag())) {
-                                    GregorianCalendar startDate = new GregorianCalendar();
-                                    startDate.setTimeInMillis(event.getStart().getDateTime().getValue());
-                                    GregorianCalendar endDate = new GregorianCalendar();
-                                    startDate.setTimeInMillis(event.getEnd().getDateTime().getValue());
+                                long eventStart = event.getStart().getDateTime().getValue();
+                                long eventEnd = event.getEnd().getDateTime().getValue();
+                                long duration = (eventEnd - eventStart) / 60000;
+                                GregorianCalendar startDate = new GregorianCalendar();
+                                startDate.setTimeInMillis(eventStart);
+                                /*GregorianCalendar endDate = new GregorianCalendar();
+                                startDate.setTimeInMillis(eventEnd);*/
+                                interactionDoc.setPropertyValue("dc:title", event.getSummary());
+                                interactionDoc.setPropertyValue("interaction:date", startDate);
+                                interactionDoc.setPropertyValue("custom:stringField3", Long.toString(duration));
+                                interactionDoc.setPropertyValue("custom:stringField2", event.getEtag());
+                                session.saveDocument(interactionDoc);
 
-                                    interactionDoc.setPropertyValue("dc:title", event.getSummary());
-                                    interactionDoc.setPropertyValue("interaction:date", startDate);
-                                    interactionDoc.setPropertyValue("custom:dateField1", endDate);
-                                    interactionDoc.setPropertyValue("custom:stringField2", event.getEtag());
-                                    session.saveDocument(interactionDoc);
-                                    updatedInteractionsList.add(interactionDoc.getTitle());
-                                }
+                                updatedInteractionsList.add(interactionDoc.getTitle());
+                            }
                         }
                     }
                 }
@@ -143,16 +210,18 @@ public class FetchEvent {
 
             } while (pageToken != null);
 
-            // store synch token in calendar.config doc
+            // store sync token in calendar.config doc
             interactionCalendar.setPropertyValue("custom:stringField1",events.getNextSyncToken());
             session.saveDocument(interactionCalendar);
 
             if (!updatedInteractionsList.isEmpty()) {
+                // updated events count
                 eventsState = String.valueOf(updatedInteractionsList.size());
-                logger.error(eventsState+" events has been changed.");
+                logger.warn(eventsState+" events has been changed.");
             } else {
+                // else events never updated or may have been cancelled
                 eventsState = "Nothing updated";
-                logger.error(eventsState);
+                logger.warn(eventsState);
             }
 
         } catch (GoogleJsonResponseException ge) {
@@ -161,8 +230,11 @@ public class FetchEvent {
             }
         } catch (GeneralSecurityException | IOException e) {
             throw new NuxeoException(e);
+        } finally {
+            eventServiceAdmin.setListenerEnabledFlag("publishEvent",true);
         }
-            return eventsState;
+
+        return eventsState;
 
     }
 

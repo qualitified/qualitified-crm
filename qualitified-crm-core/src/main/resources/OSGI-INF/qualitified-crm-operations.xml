@@ -33,9 +33,7 @@
         <operation class="org.qualitified.crm.operation.SendToDocusign"/>
         <operation class="org.qualitified.crm.operation.EventPublisher"/>
         <operation class="org.qualitified.crm.operation.FetchEvent"/>
-
-
-
+        <operation class="org.qualitified.crm.operation.EventSyncProcess"/>
 
     </extension>
  </component>
