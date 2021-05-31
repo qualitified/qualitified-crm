@@ -17,10 +17,10 @@
         nuxeo-dialog {
           min-width: 915px;
         }
-
+      }
        .icon {
        display: inline-flex;
-
+       }
         </style>
         <nuxeo-operation id="createContact" input="/Marketing" op="Document.Create"></nuxeo-operation>
 
@@ -56,10 +56,10 @@
 
 
     </template>
-        <qualitified-custom-fields document="{{document}}" mode="edit" ></qualitified-custom-fields>
+    <qualitified-custom-fields document="{{document}}" mode="edit" ></qualitified-custom-fields>
 
-        <nuxeo-textarea role="widget" value="{{document.properties.dc:description}}"
-                        label="[[i18n('label.metadata.description')]]"></nuxeo-textarea>
+    <nuxeo-textarea role="widget" value="{{document.properties.dc:description}}"
+                    label="[[i18n('label.metadata.description')]]"></nuxeo-textarea>
 
     </template>
 
