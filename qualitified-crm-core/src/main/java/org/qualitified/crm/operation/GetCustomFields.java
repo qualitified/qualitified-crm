@@ -15,7 +15,7 @@ import org.nuxeo.ecm.core.api.DocumentModelList;
 import org.nuxeo.ecm.core.api.impl.blob.StringBlob;
 import org.nuxeo.runtime.api.Framework;
 import javax.security.auth.login.LoginContext;
-import java.util.List;
+import java.util.*;
 import java.util.Map;
 
 /**
@@ -33,6 +33,9 @@ public class GetCustomFields {
     @Param(name = "documentType")
     protected String documentType;
 
+    @Param(name = "column",required = false)
+    protected String column;
+
     @OperationMethod
     public Blob run() throws Exception {
         LoginContext lc = Framework.loginAsUser("Administrator");
@@ -45,12 +48,38 @@ public class GetCustomFields {
         if(customDocuments.size()>0){
             DocumentModel customDocument = customDocuments.get(0);
             List<Map<String,String>> customFieldList  = (List<Map<String,String>>)customDocument.getPropertyValue("custom:field");
+            List<Map<String, String>> customFieldList2 = new ArrayList<>();
+            //HashMap<String, String> map2 = new HashMap<String, String>();
+        for(Map<String, String> listItem : customFieldList){
+          for (Map.Entry<String, String> entry : listItem.entrySet()) {
+               if((entry.getKey().equals("column")) && (entry.getValue().equals(column))){
+                 customFieldList2.add(listItem);
+                   /*for (Map.Entry<String, String> entry2 : listItem.entrySet()) {
+                       map2.put(entry2.getKey(),entry2.getValue());
+                   }*/
+               }
 
+          }
+            //customFieldList2.add(map2);
+         // map2.clear();
+        }
+
+/*
+            for(Map<String, String> listItem : customFieldList){
+                Iterator it = listItem.entrySet().iterator();
+                while (it.hasNext()) {
+                    Map.Entry pair = (Map.Entry)it.next();
+                    if(pair.getKey().equals("column") && pair.getValue().equals(column)){
+                        customFieldList2.add(listItem);
+                    }
+                }
+            }*/
             //logger.warn("Custom Field List:");
             //logger.warn(customFieldList);
-
             ObjectMapper object = new ObjectMapper();
-            JSONArray = object.writeValueAsString(customFieldList);
+            JSONArray = object.writeValueAsString(customFieldList2);
+            System.out.println(customFieldList2+"okok");
+            System.out.println(customFieldList);
 
             //logger.warn(" JSONArray:");
             //logger.warn(JSONArray);

@@ -72,11 +72,24 @@
                             <iron-icon icon="icons:perm-phone-msg"></iron-icon>
                         </template>
                     </a>
-                    <template is="dom-repeat" items="[[item.properties.interaction:contact]]" as="contact">
-                        <img style="vertical-align: text-bottom;" className="account-view-layout"
-                             src="[[_hasProfileImg(contact)]]" on-tap="_navigate"
-                             onError="this.onerror=null;this.src='/nuxeo/ui/images/touch/profile.png';">
-                    </template>
+                    <div>
+                        <template is="dom-repeat" items="[[item.properties.interaction:contact]]" as="contact">
+                            <!--img style="vertical-align: text-bottom; width:3%;" className="account-view-layout"
+                                 src="[[_hasProfileImg(contact)]]" on-tap="_navigate"
+                                 onError="this.onerror=null;this.src='/nuxeo/ui/images/touch/profile.png';"-->
+                            <qualitified-document-suggestion role="widget"
+                                                             value="[[item.properties.interaction:contact]]"
+                                                             multiple
+                                                             clickable="false"
+                                                             readOnly
+                                                             style="padding-top: 0px;
+                                                                    padding-right: 0px;
+                                                                    padding-bottom: 0px;
+                                                                    padding-left: 0px;">
+                            </qualitified-document-suggestion>
+                        </template>
+                    </div>
+
 
                     <qualitified-inline-edit document="[[item]]" property="interaction:activity"
                                              label="label.metadata.activity" directory="IntActivity"
@@ -199,6 +212,7 @@
                         <br/>
                     </div>
                 </template>
+            </div>
         </paper-card>
 
         <h3>

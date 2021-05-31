@@ -5,6 +5,7 @@
   "Lost": "Perdu",
   "Ready": "Prêt",
   "Limbo": "Infructueux",
+  "label.metadata.custom.columns": "Colonne",
   "label.document.type.interaction":"Interaction",
   "label.document.type.account":"Client",
   "label.document.type.opportunity":"Opportunité",

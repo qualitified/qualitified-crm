@@ -51,12 +51,8 @@ limitations under the License.
     </div>
 
     <div role="widget" hidden$="[[!document.properties.dc:description]]">
-      <qualitified-inline-edit document="[[document]]"
-                               property="dc:description"
-                               value="[[document.properties.dc:description]]"
-                               label="[[i18n('label.metadata.description')]]"
-      >
-      </qualitified-inline-edit>
+      <label>[[i18n('label.dublincore.description')]]</label>
+      <div name="description" class="multiline">[[document.properties.dc:description]]</div>
     </div>
 
     <div role="widget" hidden$="[[document.properties.note:mime_type]]">

@@ -7,13 +7,15 @@
                 padding: 5px;
             }
 
-            .title{
-                color:var(--nuxeo-secondary-color);
+            .title {
+                color: var(--nuxeo-secondary-color);
             }
+
             nuxeo-card {
                 min-width: 20em;
                 width: 30%;
             }
+
             .dashboard {
                 display: flex;
                 flex-direction: row;
@@ -22,10 +24,10 @@
             }
         </style>
         <nuxeo-operation id="getOption" op="Qualitified.GetOptionValue"></nuxeo-operation>
-        <div role="widget" class="title">
+        <div role="widget" className="title">
             <h1>[[document.properties.dc:title]]</h1>
         </div>
-        <section class="dashboard">
+        <section className="dashboard">
             <nuxeo-card>
                 <div role="widget">
                     <qualitified-inline-edit document="[[document]]"
@@ -62,12 +64,26 @@
 
                     </qualitified-inline-edit>
                 </div>
+                <dom-repeat items="[[document.properties.custom:field]]" as="item">
+                    <template>
+                        <dom-if if="[[_IsC1(item)]]">
+
+                            <template>
+                                <qualitified-custom-fields document="[[document]]"
+                                                           mode="view"></qualitified-custom-fields>
+<h1>testetsstststs</h1>
+                                <qualitified-custom-fields document="[[item]]" mode="view"></qualitified-custom-fields>
+                            </template>
+                        </dom-if>
+                    </template>
+                </dom-repeat>
             </nuxeo-card>
             <nuxeo-card>
                 <div role="widget">
                     <qualitified-inline-edit document="[[document]]"
                                              value="[[document.properties.opportunity:amount]]"
-                                             to-be-formatted format-resolver="value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, this.option2)+' '+this.option1+'$'"
+                                             to-be-formatted
+                                             format-resolver="value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, this.option2)+' '+this.option1+'$'"
                                              option1="[[currency]]"
                                              option2="[[currencyFormat]]"
                                              property="opportunity:amount"
@@ -89,6 +105,19 @@
                                              metadata="user"></qualitified-inline-edit>
 
                 </div>
+                <dom-repeat items="[[document.properties.custom:field]]" as="item">
+                    <template>
+                        <dom-if if="[[_IsC2(item)]]">
+
+                            <template>
+                                <qualitified-custom-fields document="[[document]]"
+                                                           mode="view"></qualitified-custom-fields>
+
+                                <qualitified-custom-fields document="[[item]]" mode="view"></qualitified-custom-fields>
+                            </template>
+                        </dom-if>
+                    </template>
+                </dom-repeat>
             </nuxeo-card>
             <nuxeo-card>
                 <div role="widget" hidden$="[[!document.properties.opportunity:mainContact]">
@@ -100,7 +129,6 @@
                                              metadata="document"></qualitified-inline-edit>
 
                 </div>
-                <qualitified-custom-fields document="{{document}}" mode="view"></qualitified-custom-fields>
                 <div role="widget" hidden$="[[!document.properties.dc:description]]">
                     <qualitified-inline-edit document="[[document]]"
                                              property="dc:description"
@@ -109,10 +137,25 @@
                     >
                     </qualitified-inline-edit>
                 </div>
-            </nuxeo-card></section>
+                <qualitified-custom-fields document="[[item]]" column="Column3" mode="view"></qualitified-custom-fields>
+
+
+                <!--dom-repeat items="[[document.properties.custom:field]]" as="item">
+                    <template>
+                        <dom-if if="[[_IsC3(item)]]">
+
+                            <template>
+
+                                <qualitified-custom-fields document="[[item]]" mode="view"></qualitified-custom-fields>
+                            </template>
+                        </dom-if>
+                    </template>
+                </dom-repeat-->
+            </nuxeo-card>
+        </section>
     </template>
     <script>
-        (function() {
+        (function () {
             'use strict';
             Polymer({
                 is: 'nuxeo-opportunity-metadata-layout',
@@ -132,18 +175,17 @@
                     amount: {
                         type: Number
                     },
-                    currencyFormat:{
-                        type: String
-                    },
-                    currency:{
+                    currency: {
                         type: String
                     }
                 },
-                _formatCurrency: function(val,format,currency) {
-                    if(val == null){
+
+
+                _formatCurrency: function (val, format, currency) {
+                    if (val == null) {
                         return "";
                     }
-                    return val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, format)+' '+currency+'';
+                    return val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, format) + ' ' + currency + '';
                 },
                 ready: async function () {
                     const format = await this._getCurrencyFormat();
@@ -151,45 +193,54 @@
                     const curr = await this._getCurrency();
                     this.currency = curr;
                 },
-                _getCurrencyFormat: async function(){
+                _getCurrencyFormat: async function () {
                     let params = {};
                     params.name = "CurrencyFormat";
                     this.$.getOption.params = params;
-                    let result = await this.$.getOption.execute().then(function(response){
-                        if(response === null){
+                    let result = await this.$.getOption.execute().then(function (response) {
+                        if (response === null) {
                             return ",";
-                        }else{
+                        } else {
                             return response.value;
                         }
                     }.bind(this));
                     return result;
                 },
-                _getCurrency: async function(){
+                _IsC1: function (value) {
+                    return value.column == 'Column1';
+                },
+                _IsC2: function (value) {
+                    return value.column == "Column2";
+                },
+                _IsC3: function (value) {
+                    return value.column == "Column3";
+                },
+                _getCurrency: async function () {
                     let params = {};
                     params.name = "Currency";
                     this.$.getOption.params = params;
-                    let result = await this.$.getOption.execute().then(function(response){
-                        if(response === null){
+                    let result = await this.$.getOption.execute().then(function (response) {
+                        if (response === null) {
                             return "$";
-                        }else{
+                        } else {
                             return response.value;
                         }
                     }.bind(this));
                     return result;
                 },
 
-                _formatDate: function(date) {
+                _formatDate: function (date) {
                     return moment(date).format('MMMM D, YYYY');
                 },
-                _currencyFormatChanged: function(currencyFormat){
-                    if(currencyFormat !== null){
+                _currencyFormatChanged: function (currencyFormat) {
+                    if (currencyFormat !== null) {
                         this.amount = this.document.properties["opportunity:amount"].toString().replace(/\B(?=(\d{3})+(?!\d))/g, currencyFormat);
                     }
                 },
                 /**
                  * Returns the label for the given directory entry.
                  */
-                formatDirectory: function(value) {
+                formatDirectory: function (value) {
                     if (value && value['entity-type'] && value['entity-type'] === 'directoryEntry') {
                         if (value.properties && value.properties.label) {
                             return value.properties.label;

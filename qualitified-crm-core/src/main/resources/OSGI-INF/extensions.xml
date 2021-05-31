@@ -1211,6 +1211,8 @@
     <chain id="getCustomFieldsChain">
       <operation id="Qualitified.GetCustomFields">
         <param type="string" name="documentType">expr:@{Context["documentType"]}</param>
+        <!--param type="string" name="column">expr:@{Context["column"]}</param-->
+
       </operation>
     </chain>
     <chain id="postCreateChain">
@@ -2250,6 +2252,17 @@
       <createTablePolicy>always</createTablePolicy>
       <table>studio_vocabulary_Civility</table>
       <dataFile>data/vocabularies/Civility.csv</dataFile>
+    </directory>
+    <directory name="Columns">
+      <schema>vocabulary</schema>
+      <dataSource>java:/nxsqldirectory</dataSource>
+      <cacheTimeout>3600</cacheTimeout>
+      <cacheMaxSize>1000</cacheMaxSize>
+      <idField>id</idField>
+      <autoincrementIdField>false</autoincrementIdField>
+      <createTablePolicy>always</createTablePolicy>
+      <table>studio_vocabulary_Columns</table>
+      <dataFile>data/vocabularies/Columns.csv</dataFile>
     </directory>
     <directory name="IntActivity">
       <schema>vocabulary</schema>

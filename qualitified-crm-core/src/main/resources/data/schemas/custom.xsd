@@ -60,6 +60,8 @@
       <xs:element name="parentId" type="xs:string"/>
       <xs:element name="path" type="xs:string"/>
       <xs:element name="primaryType" type="xs:string"/>
+      <xs:element name="column" type="xs:string"/>
+
     </xs:sequence>
   </xs:complexType>
 
@@ -273,4 +275,5 @@
       <xs:restriction base="xs:string" ref:resolver="documentResolver" ref:store="path"/>
     </xs:simpleType>
   </xs:element>
+
 </xs:schema>
