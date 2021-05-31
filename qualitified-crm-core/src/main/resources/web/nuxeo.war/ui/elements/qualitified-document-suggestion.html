@@ -3,7 +3,7 @@
 @group Nuxeo UI
 @element qualitified-document-suggestion
 -->
-<link rel="import" href="../qualitified-document-create">
+<link rel="import" href="qualitified-document-create.html">
 
 <dom-module id="qualitified-document-suggestion">
   <template>
@@ -22,27 +22,26 @@
         @apply --nuxeo-link-hover;
       }
       paper-icon-button {
-                padding: 0px;
-                margin: -2px 6px;
-                flex: 0 1 auto;
-                width: 22px;
-                height: 22px;
-                color: #c8c8c8a8;
-            }
-            .labelAction {
-                display: inline-flex;
-            }
+        padding: 0px;
+        margin: -2px 6px;
+        flex: 0 1 auto;
+        width: 22px;
+        height: 22px;
+        color: #c8c8c8a8;
+      }
+      .labelAction {
+        display: inline-flex;
+      }
     </style>
     <nuxeo-operation id="op" op="Document.FetchByProperty"></nuxeo-operation>
 
-    <div class="labelAction" style="opacity:var(--nuxeo-label_-_opacity);">
-      <label>[[label]]</label>
-
+    <div class="labelAction">
+      <label style="opacity:var(--nuxeo-label_-_opacity);">[[label]]</label>
+      <template if="[[!isBtnHidden]]" is="dom-if">
+        <qualitified-document-create creation-element="layout-edit" type="[[suggestionType]]" ></qualitified-document-create>
+      </template>
     </div>
-    <template if="[[!isBtnHidden]]" is="dom-if">
 
-    <qualitified-document-create  type="[[suggestionType]]" ></qualitified-document-create>
-    </template>
     <nuxeo-selectivity id="s2" on-input="_isNew" operation="[[operation]]" min-chars="[[minChars]]" frequency="[[frequency]]" multiple="[[multiple]]" params="[[_computeParams(params.*, pageProvider, schemas, repository)]]" placeholder="[[placeholder]]" error-message="[[errorMessage]]" readonly="[[readonly]]" value="{{value}}" selected-items="{{selectedItems}}" selected-item="{{selectedItem}}" selection-formatter="[[selectionFormatter]]" result-formatter="[[resultFormatter]]" required="[[required]]" invalid="[[invalid]]" init-selection="[[initSelection]]" id-function="[[_idFunction]]" stay-open-on-select="[[stayOpenOnSelect]]" enrichers="[[enrichers]]">
     </nuxeo-selectivity>
   </template>
@@ -189,7 +188,8 @@
              * Formatter for suggested entries.
              */
              suggestionType: {
-              type: String
+              type: String,
+              value: ""
             },
             /**
              * Name of the Document property that should be used
@@ -199,9 +199,17 @@
               type: String,
               value: 'ecm:uuid',
             },
+            isDocFound: {
+              type: Boolean,
+              value: true,
+            },
             isBtnHidden: {
               type: Boolean,
               value: true,
+            },
+            creationElement: {
+              type: String,
+              value: "layout-edit",
             },
             /**
              * Function used to get the id from the choice document.
@@ -244,8 +252,15 @@
         }
         _isNew(e) {
             var errorClass = e.target.shadowRoot.querySelector("#input > div.selectivity-dropdown > div > div").className;
-            this.isBtnHidden = !(errorClass==="selectivity-error");
+            this.isDocFound = !(errorClass==="selectivity-error");
+            if (this.creationElement==="inline-edit" && this.parentNode.__dataHost) {
+              this.isBtnHidden = true;
+              this.parentNode.__dataHost.isDocFound = this.isDocFound;
+            } else {
+              this.isBtnHidden = this.isDocFound;
+            }
           }
+
         /* Override method from Polymer.IronValidatableBehavior. */
         _getValidity() {
           return this.$.s2._getValidity();
@@ -274,6 +289,9 @@
         }
         _resultFormatter(doc) {
           this.suggestionType = doc.type;
+          if (this.creationElement==="inline-edit") {
+             this.parentNode.__dataHost.suggestionType = this.suggestionType;
+          }
           return `${doc.title}`;
         }
         _initSelection(element, callback) {

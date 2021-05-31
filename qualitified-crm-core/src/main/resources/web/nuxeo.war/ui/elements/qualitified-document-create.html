@@ -140,6 +140,7 @@
         },
         type: {
           type: String,
+          string: ""
         },
         parent: {
           type: Object,
@@ -152,7 +153,9 @@
           type: String,
           value: "",
         },
-
+        creationElement: {
+          type: String
+        },
         parentPath: {
           type: String,
         },
@@ -187,9 +190,13 @@
 
       _close: function () {
         if (this.$.createDocDialog.opened) {
-            var suggFieldDocTarget = this.parentNode.host;
+            var suggFieldDocTarget = this.parentNode.__dataHost;
             var createdDoc = this.$$("#simpleCreation").createdDocument;
-            suggFieldDocTarget.value= createdDoc.uid;
+            if (this.creationElement === "inline-edit") {
+              this.parentNode.__dataHost.newValue = createdDoc.uid;
+            } else {
+              this.parentNode.parentNode.host.value = createdDoc.uid;
+            }
             this.$.createDocDialog.toggle();
           //this._showTabs = true;
         }
@@ -201,15 +208,13 @@
             "facets": ["Folderish", "NXTag", "Picture"],
             "id": this.type.toLowerCase()
            };
-           var pathDoc;
-           var docSuggestId=this.parentNode.host.id;
-           if(docSuggestId==="inlineSugst"){
-              pathDoc=this.parentNode.host.parentNode.__dataHost.document.path;
-           }else{
-              pathDoc=this.parentNode.host.parentNode.host.document.path;
-           }
-           console.log("path   " +pathDoc.replace(/\/[^\/]+$/, ''));
-           this.parentPath=pathDoc.replace(/\/[^\/]+$/, '');
+        var pathDoc;
+          if (this.creationElement === "inline-edit") {
+            pathDoc = this.parentNode.__dataHost.document.path;
+          } else {
+            pathDoc = this.parentNode.parentNode.host.parentNode.host.document.path;
+          }
+        this.parentPath=pathDoc.replace(/\/[^\/]+$/, '');
         this.selectedTab = "create";
         this._showTabs = false;
         console.log(docTypeObj);
@@ -304,7 +309,6 @@
           this.selectedTab = "";
         }
       },
-
       _importContext: function () {
         return { parent: this.parent, i18n: this.i18n };
       },

@@ -1,5 +1,7 @@
 
 Bilel  5:00 PM
+<link rel="import" href="qualitified-document-create.html">
+
 <dom-module id="qualitified-inline-edit">
     <template>
         <style include="nuxeo-styles">
@@ -40,8 +42,8 @@ Bilel  5:00 PM
 
             <div class="labelAction">
                 <label>[[i18n(label)]]</label>
-                <!--                  <div class="notify">[[_isExpiredDate(value)]]</div>
-                 -->        </div>
+            </div>
+
             <div class="iconsAction">
                 <paper-icon-button style="left:8px;" id="editButton" icon="icons:create" hidden$="[[!show]]" on-tap="_editMode">
                 </paper-icon-button>
@@ -54,7 +56,7 @@ Bilel  5:00 PM
             <template is="dom-if" if="[[_isText(metadata)]]">
                 [[value]]
             </template>
-            <template is="dom-if" if="[[_isLinkk(metadata)]]">
+            <template is="dom-if" if="[[_isLink(metadata)]]">
                 <u><a href="[[value]]"style="color:blue;">[[value]]</a></u>
             </template>
             <template is="dom-if" if="[[_isDirectory(metadata)]]">
@@ -73,7 +75,7 @@ Bilel  5:00 PM
                                                  page-provider="documents"
                                                  min-chars="0"
                                                  readonly
-                id="inlineSugst">
+                                                 id="inlineSugst">
                 </qualitified-document-suggestion>
             </template>
         </div>
@@ -83,6 +85,12 @@ Bilel  5:00 PM
                 <label>[[i18n(label)]]</label>
             </div>
             <div hidden$="[[displayButtons]]" class="iconsAction">
+                <template if="[[!isDocFound]]" is="dom-if">
+                    <qualitified-document-create style="margin-right:-14px;"
+                                                 creation-element="inline-edit"
+                                                 type="[[suggestionType]]">
+                    </qualitified-document-create>
+                </template>
                 <paper-icon-button style="left:8px;" icon="icons:save" on-tap="_ok"></paper-icon-button>
                 <paper-icon-button icon="icons:close" on-tap="_cancel"></paper-icon-button>
             </div>
@@ -100,7 +108,7 @@ Bilel  5:00 PM
                 >
                 </nuxeo-textarea>
             </template>
-            <template is="dom-if" if="[[_isLinkk(metadata)]]">
+            <template is="dom-if" if="[[_isLink(metadata)]]">
                 <nuxeo-textarea role="widget"
                                 value="{{newValue}}"
                                 type="text"
@@ -136,6 +144,7 @@ Bilel  5:00 PM
                 <qualitified-document-suggestion role="widget"
                                                  value="{{newValue}}"
                                                  page-provider="documents"
+                                                 creation-element="inline-edit"
                                                  min-chars="0"
                                                  params="{{params}}" id="inlineSugst">
                 </qualitified-document-suggestion>
@@ -174,6 +183,14 @@ Bilel  5:00 PM
                 property:{
                     type: String,
                     value:'dc:title'
+                },
+                suggestionType: {
+                    type: String,
+                    value: ''
+                },
+                isDocFound: {
+                    type: Boolean,
+                    value: true,
                 },
                 value:{
                     type: String,
@@ -263,6 +280,15 @@ Bilel  5:00 PM
                     //formatResolver is a string as value formatter.
                     this.valueFormatter = new Function("value","return" + " " +this.formatResolver);
                 }
+            },
+            _typeObserver:function() {
+                if (this.$.inlineSugst){
+                    console.log(this.$.inlineSugst);
+                this.searchingType = this.$.inlineSugst.suggestionType;
+             console.log("type"+ this.searchingType);
+                }
+
+             //return type;
             },
             _valueChanged: function(value) {
                 if(this.value && this.document && this.document.properties){
@@ -369,8 +395,8 @@ Bilel  5:00 PM
             _isDocument: function(value){
                 return value && value == 'document';
             },
-            _isLinkk: function(value){
-                return value && value == 'linkk';
+            _isLink: function(value){
+                return value && value == 'link';
             }
 
         });
