@@ -26,8 +26,18 @@
       }
 
       .drop {
-         min-height: 500px;
-         white-space: nowrap;
+        min-height: 500px;
+        white-space: nowrap;
+      }
+      .empty-column {
+        min-height: 500px;
+        white-space: nowrap;
+        background-color: rgb(0 0 0 / 3%);
+        border-radius: 12px;
+        width: 86%;
+        border-style: dashed;
+        border-width: 1.95px;
+        border-color: var(--nuxeo-secondary-color);
       }
 
       nuxeo-card {
@@ -37,17 +47,7 @@
         border-radius: 12px;
         cursor: pointer;
       }
-      .empty-card{
-        height: 199px;
-        align-items: center;
-        display: flex;
-        justify-content: center;
-        background-color: rgb(0 0 0 / 3%);
-        margin-bottom: 5px;
-        margin-left: 6px;
-        margin-right: 35px;
-        border-radius: 12px;
-      }
+
       .drag-icon{
         color: rgb(0 0 0 / 26%);
         width: 30px;
@@ -167,18 +167,17 @@
           <iron-icon class="icon" icon="icons:chevron-right"></iron-icon>
         </div>
         <div class="scroll-box">
-          <div id="new" class="drop" >
+          <div id="new" class="drop">
             <template is="dom-repeat" items="[[itemsNew]]" >
-              <nuxeo-card id="id[[item.uid]]" draggable="true"  on-dragstart="drag" on-dragend="dragend"  class="card" draggable="true">
+              <nuxeo-card id="id[[item.uid]]" draggable="true" on-dragleave="dragLeave" on-dragend="dragend" on-dragstart="drag" class="card" draggable="true">
                 <qualitified-inline-edit document="[[item]]" value="[[item.title]]" is-link label="[[i18n('label.dublincore.title')]]"></qualitified-inline-edit>
                 <qualitified-inline-edit document="[[item]]" value="[[item.properties.opportunity:amount]]" to-be-formatted format-resolver="value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, this.option2)+' '+this.option1+''" option1="[[currency]]" option2="[[currencyFormat]]" property="opportunity:amount" label="[[i18n('label.metadata.amount')]]"></qualitified-inline-edit>
                 <qualitified-inline-edit document="[[item]]" value="[[item.properties.opportunity:responsible]]" property="opportunity:responsible" label="label.metadata.responsible"  metadata="user"></qualitified-inline-edit>
                 <qualitified-inline-edit document="[[item]]" property="opportunity:closeDate" label="label.metadata.date" notify-value metadata="date"></qualitified-inline-edit>
               </nuxeo-card>
             </template>
-            <div hidden$="[[_isItemsNull(items)]]" class="empty-card" on-drop="drop"  on-dragleave="dragLeave" on-dragend="dragend" on-dragover="allowDrop" on-dragenter="dragenter">
-              <iron-icon class="drag-icon" icon="icons:flip-to-front"></iron-icon>
-            </div>
+          </div>
+          <div id="dropInNew" hidden class="empty-column" on-drop="drop" on-dragend="dragend" on-dragleave="dragLeave" on-dragover="allowDrop" on-dragenter="dragenter">
           </div>
         </div>
       </div>
@@ -189,18 +188,17 @@
           <iron-icon class="icon" icon="icons:chevron-right"></iron-icon>
         </div>
         <div class="scroll-box">
-          <div class="drop">
+          <div id="first" class="drop">
             <template is="dom-repeat" items="[[itemsFirstContact]]">
-              <nuxeo-card id="id[[item.uid]]" draggable="true"  on-dragstart="drag" on-dragend="dragend"  class="card" draggable="true">
+              <nuxeo-card id="id[[item.uid]]" draggable="true"  on-dragleave="dragLeave" on-dragend="dragend" on-dragstart="drag"  class="card" draggable="true">
                 <qualitified-inline-edit document="[[item]]" value="[[item.title]]" is-link label="[[i18n('label.dublincore.title')]]"></qualitified-inline-edit>
                 <qualitified-inline-edit document="[[item]]" value="[[item.properties.opportunity:amount]]" to-be-formatted format-resolver="value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, this.option2)+' '+this.option1+''" option1="[[currency]]" option2="[[currencyFormat]]" property="opportunity:amount" label="[[i18n('label.metadata.amount')]]"></qualitified-inline-edit>
                 <qualitified-inline-edit document="[[item]]" value="[[item.properties.opportunity:responsible]]" property="opportunity:responsible" label="label.metadata.responsible"  metadata="user"></qualitified-inline-edit>
                 <qualitified-inline-edit document="[[item]]" property="opportunity:closeDate" label="label.metadata.date" notify-value metadata="date"></qualitified-inline-edit>
               </nuxeo-card>
             </template>
-            <div hidden$="[[_isItemsNull(items)]]" class="empty-card" on-drop="drop"  on-dragleave="dragLeave" on-dragend="dragend" on-dragover="allowDrop" on-dragenter="dragenter">
-              <iron-icon class="drag-icon" icon="icons:flip-to-front"></iron-icon>
-            </div>
+          </div>
+          <div id="dropInFirst" hidden class="empty-column" on-drop="drop" on-dragend="dragend" on-dragleave="dragLeave" on-dragover="allowDrop" on-dragenter="dragenter">
           </div>
         </div>
       </div>
@@ -211,18 +209,17 @@
           <iron-icon class="icon" icon="icons:chevron-right"></iron-icon>
         </div>
         <div class="scroll-box">
-          <div class="drop">
+          <div id="proposal" class="drop">
             <template is="dom-repeat" items="[[itemsProposal]]">
-              <nuxeo-card id="id[[item.uid]]" draggable="true"  on-dragstart="drag" on-dragend="dragend"  class="card" draggable="true">
+              <nuxeo-card id="id[[item.uid]]" draggable="true"  on-dragleave="dragLeave" on-dragend="dragend" on-dragstart="drag" class="card" draggable="true">
                 <qualitified-inline-edit document="[[item]]" value="[[item.title]]" is-link label="[[i18n('label.dublincore.title')]]"></qualitified-inline-edit>
                 <qualitified-inline-edit document="[[item]]" value="[[item.properties.opportunity:amount]]" to-be-formatted format-resolver="value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, this.option2)+' '+this.option1+''" option1="[[currency]]" option2="[[currencyFormat]]" property="opportunity:amount" label="[[i18n('label.metadata.amount')]]"></qualitified-inline-edit>
                 <qualitified-inline-edit document="[[item]]" value="[[item.properties.opportunity:responsible]]" property="opportunity:responsible" label="label.metadata.responsible"  metadata="user"></qualitified-inline-edit>
                 <qualitified-inline-edit document="[[item]]" property="opportunity:closeDate" label="label.metadata.date" notify-value metadata="date"></qualitified-inline-edit>
               </nuxeo-card>
             </template>
-            <div  hidden$="[[_isItemsNull(items)]]" class="empty-card" on-drop="drop"  on-dragleave="dragLeave" on-dragend="dragend" on-dragover="allowDrop" on-dragenter="dragenter">
-              <iron-icon class="drag-icon" icon="icons:flip-to-front"></iron-icon>
-            </div>
+          </div>
+          <div id="dropInProposal" hidden class="empty-column" on-drop="drop" on-dragend="dragend" on-dragleave="dragLeave" on-dragover="allowDrop" on-dragenter="dragenter">
           </div>
         </div>
       </div>
@@ -233,18 +230,17 @@
           <iron-icon class="icon" icon="icons:chevron-right"></iron-icon>
         </div>
         <div class="scroll-box">
-          <div class="drop">
+          <div id="nego" class="drop">
             <template is="dom-repeat" items="[[itemsNegociation]]">
-              <nuxeo-card id="id[[item.uid]]" draggable="true"  on-dragstart="drag" on-dragend="dragend"  class="card" draggable="true">
+              <nuxeo-card id="id[[item.uid]]" draggable="true"  on-dragleave="dragLeave" on-dragend="dragend" on-dragstart="drag"  class="card" draggable="true">
                 <qualitified-inline-edit document="[[item]]" value="[[item.title]]" is-link label="[[i18n('label.dublincore.title')]]"></qualitified-inline-edit>
                 <qualitified-inline-edit document="[[item]]" value="[[item.properties.opportunity:amount]]" to-be-formatted format-resolver="value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, this.option2)+' '+this.option1+''" option1="[[currency]]" option2="[[currencyFormat]]" property="opportunity:amount" label="[[i18n('label.metadata.amount')]]"></qualitified-inline-edit>
                 <qualitified-inline-edit document="[[item]]" value="[[item.properties.opportunity:responsible]]" property="opportunity:responsible" label="label.metadata.responsible"  metadata="user"></qualitified-inline-edit>
                 <qualitified-inline-edit document="[[item]]" property="opportunity:closeDate" label="label.metadata.date" notify-value metadata="date"></qualitified-inline-edit>
               </nuxeo-card>
             </template>
-            <div hidden$="[[_isItemsNull(items)]]" class="empty-card" on-drop="drop"  on-dragleave="dragLeave" on-dragend="dragend" on-dragover="allowDrop" on-dragenter="dragenter">
-              <iron-icon class="drag-icon" icon="icons:flip-to-front"></iron-icon>
-            </div>
+          </div>
+          <div id="dropInNego" hidden class="empty-column" on-drop="drop" on-dragend="dragend" on-dragleave="dragLeave" on-dragover="allowDrop" on-dragenter="dragenter">
           </div>
         </div>
       </div>
@@ -286,6 +282,10 @@
       type: Array,
       observer: "_filterByState",
       notify: true,
+      },
+      isDragged:{
+      type: Boolean,
+      value: true
       },
       params:{
       type: Object,
@@ -438,15 +438,16 @@
           ev.currentTarget.classList.add('footerDrop');
       },
       dragend:function(ev){
-        ev.target.style.opacity = "";
-        if(ev.target.className==="card dragging"){
-          console.log("ooo");
-          ev.target.style.minWidth = "";
-        } else {
-          ev.target.style.minWidth = "100%";
-          ev.target.style.marginLeft = "34px";
-         }
-
+         console.log(ev.target);
+         ev.target.style.opacity = "";
+         this.$.new.hidden = false;
+         this.$.first.hidden = false;
+         this.$.proposal.hidden = false;
+         this.$.nego.hidden = false;
+         this.$.dropInNew.hidden = true;
+         this.$.dropInFirst.hidden = true;
+         this.$.dropInProposal.hidden = true;
+         this.$.dropInNego.hidden = true;
         /* if ( ev.target.className == "empty-card over" ) {
 
             if(ev.target.offsetParent.firstElementChild.getAttribute("label")== "NEW"){
@@ -480,34 +481,64 @@
         } */
       },
       dragenter:function(ev){
-        if ( ev.target.className == "empty-card" ) {
-          ev.target.style.backgroundColor = "gray";
-      }
-    },
-    dragLeave: function(ev){
-        ev.preventDefault();
-        if ( ev.target.className == "empty-card over" ) {
-          ev.target.style.backgroundColor = "rgb(0 0 0 / 3%)";
-      }
-        ev.target.classList.remove('footerDrop');
-        ev.target.classList.remove('over');
+        if ( ev.target.className == "empty-column" ) {
+          ev.target.style.backgroundColor = "rgb(0 0 0 / 20%)";
+        }
+      },
+      dragLeave: function(ev){
+          ev.preventDefault();
+          if ( ev.target.className == "empty-column over" ) {
+            ev.target.style.backgroundColor = "rgb(0 0 0 / 4%)";
+          }
+          ev.target.classList.remove('footerDrop');
+          ev.target.classList.remove('over');
       },
       drag: function(ev){
+        if (ev.target.parentNode.id === "new") {
+          this.$.first.hidden = true;
+          this.$.proposal.hidden = true;
+          this.$.nego.hidden = true;
+          this.$.dropInFirst.hidden = false;
+          this.$.dropInProposal.hidden = false;
+          this.$.dropInNego.hidden = false;
+        } else if (ev.target.parentNode.id === "first") {
+          this.$.new.hidden = true;
+          this.$.proposal.hidden = true;
+          this.$.nego.hidden = true;
+          this.$.dropInNew.hidden = false;
+          this.$.dropInProposal.hidden = false;
+          this.$.dropInNego.hidden = false;
+        } else if (ev.target.parentNode.id === "proposal") {
+          this.$.new.hidden = true;
+          this.$.first.hidden = true;
+          this.$.nego.hidden = true;
+          this.$.dropInNew.hidden = false;
+          this.$.dropInFirst.hidden = false;
+          this.$.dropInNego.hidden = false;
+        } else {
+          this.$.new.hidden = true;
+          this.$.first.hidden = true;
+          this.$.proposal.hidden = true;
+          this.$.dropInNew.hidden = false;
+          this.$.dropInFirst.hidden = false;
+          this.$.dropInProposal.hidden = false;
+        }
+
         ev.target.style.opacity = .5;
         ev.dataTransfer.setData("text",ev.target.id);
         ev.currentTarget.classList.add('dragging');
-
       },
+
       drop:function(ev){
           ev.preventDefault();
           var data=ev.dataTransfer.getData("text");
-          if(ev.target.className === 'empty-card over'){
-            ev.target.style.backgroundColor = "rgb(0 0 0 / 3%)";
+          if(ev.target.className === 'empty-column over'){
+            ev.target.style.backgroundColor = "rgb(0 0 0 / 4%)";
             ev.target.appendChild(this.shadowRoot.querySelector('#'+data));
            // document.getElementById("emty")=ev.target.lastChild;
-
+           console.log(ev.target);
             ev.target.classList.remove('over');
-            if(ev.target.offsetParent.firstElementChild.getAttribute("label")== "NEW"){
+            if(ev.target.parentNode.parentNode.firstElementChild.getAttribute("label")== "NEW"){
               for (var i=0; i < this.items.length; i++) {
                 if('id'+this.items[i].uid ==data){
                   this.newTotalAmount+=this.items[i].properties['opportunity:amount'];
@@ -516,7 +547,7 @@
                 }
               }
             }
-            if(ev.target.offsetParent.firstElementChild.getAttribute("label")== "FIRST CONTACT/DEMO"){
+            if(ev.target.parentNode.parentNode.firstElementChild.getAttribute("label")== "FIRST CONTACT/DEMO"){
               for (var i = 0; i < this.items.length; i++) {
                 if('id'+this.items[i].uid ==data){
                   this.firstContactTotalAmount+=this.items[i].properties['opportunity:amount'];
@@ -525,7 +556,7 @@
                 }
               }
             }
-            if(ev.target.offsetParent.firstElementChild.getAttribute("label")== "PROPOSAL SENT"){
+            if(ev.target.parentNode.parentNode.firstElementChild.getAttribute("label")== "PROPOSAL SENT"){
               for (var i = 0; i < this.items.length; i++) {
                 if('id'+this.items[i].uid ==data){
                    this.proposalSentTotalAmount+=this.items[i].properties['opportunity:amount'];
@@ -534,7 +565,7 @@
                 }
               }
             }
-            if(ev.target.offsetParent.firstElementChild.getAttribute("label")== "NEGOCIATION"){
+            if(ev.target.parentNode.parentNode.firstElementChild.getAttribute("label")== "NEGOCIATION"){
               for (var i = 0; i < this.items.length; i++) {
                 if('id'+this.items[i].uid ==data){
                     this.negociationTotalAmount+=this.items[i].properties['opportunity:amount'];
@@ -552,12 +583,13 @@
           this.shadowRoot.querySelectorAll('over').forEach(function(drop){
             drop.classList.remove('over');
           });
-             setTimeout(function(){
-            let nuxeoApp = document.querySelector('nuxeo-app');
-            var searchForm = nuxeoApp.$.drawer.querySelector('nuxeo-search-form[name="opportunity-list"');
-
-            if(searchForm){
-                searchForm._search();} }, 1000);
+            setTimeout(function(){
+              let nuxeoApp = document.querySelector('nuxeo-app');
+              var searchForm = nuxeoApp.$.drawer.querySelector('nuxeo-search-form[name="opportunity-list"');
+                if(searchForm){
+                  searchForm._search();
+                }
+            }, 500);
       },
       dropFooter: function(ev){
           ev.preventDefault();
@@ -565,7 +597,14 @@
           ev.target.classList.remove('footerDrop');
           var nuxeoApp = document.querySelector('nuxeo-app');
           var searchForm = nuxeoApp.$.drawer.querySelector('nuxeo-search-form[name="opportunity-list"');
-
+          this.$.new.hidden = false;
+          this.$.first.hidden = false;
+          this.$.proposal.hidden = false;
+          this.$.nego.hidden = false;
+          this.$.dropInNew.hidden = true;
+          this.$.dropInFirst.hidden = true;
+          this.$.dropInProposal.hidden = true;
+          this.$.dropInNego.hidden = true
           this.shadowRoot.querySelector('#new'+ev.target.id+'Amount').classList.add('slide');
           if(ev.target.id === 'limbo'){
           for (var i = 0; i < this.items.length; i++) {
