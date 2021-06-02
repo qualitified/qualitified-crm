@@ -64,19 +64,7 @@
 
                     </qualitified-inline-edit>
                 </div>
-                <dom-repeat items="[[document.properties.custom:field]]" as="item">
-                    <template>
-                        <dom-if if="[[_IsC1(item)]]">
 
-                            <template>
-                                <qualitified-custom-fields document="[[document]]"
-                                                           mode="view"></qualitified-custom-fields>
-<h1>testetsstststs</h1>
-                                <qualitified-custom-fields document="[[item]]" mode="view"></qualitified-custom-fields>
-                            </template>
-                        </dom-if>
-                    </template>
-                </dom-repeat>
             </nuxeo-card>
             <nuxeo-card>
                 <div role="widget">
@@ -105,19 +93,6 @@
                                              metadata="user"></qualitified-inline-edit>
 
                 </div>
-                <dom-repeat items="[[document.properties.custom:field]]" as="item">
-                    <template>
-                        <dom-if if="[[_IsC2(item)]]">
-
-                            <template>
-                                <qualitified-custom-fields document="[[document]]"
-                                                           mode="view"></qualitified-custom-fields>
-
-                                <qualitified-custom-fields document="[[item]]" mode="view"></qualitified-custom-fields>
-                            </template>
-                        </dom-if>
-                    </template>
-                </dom-repeat>
             </nuxeo-card>
             <nuxeo-card>
                 <div role="widget" hidden$="[[!document.properties.opportunity:mainContact]">
@@ -206,15 +181,7 @@
                     }.bind(this));
                     return result;
                 },
-                _IsC1: function (value) {
-                    return value.column == 'Column1';
-                },
-                _IsC2: function (value) {
-                    return value.column == "Column2";
-                },
-                _IsC3: function (value) {
-                    return value.column == "Column3";
-                },
+
                 _getCurrency: async function () {
                     let params = {};
                     params.name = "Currency";
