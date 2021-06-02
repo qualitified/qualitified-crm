@@ -1208,8 +1208,7 @@
     <chain id="getCustomFieldsChain">
       <operation id="Qualitified.GetCustomFields">
         <param type="string" name="documentType">expr:@{Context["documentType"]}</param>
-        <!--param type="string" name="column">expr:@{Context["column"]}</param-->
-
+        <param type="string" name="column">expr:@{Context["column"]}</param>
       </operation>
     </chain>
     <chain id="postCreateChain">
