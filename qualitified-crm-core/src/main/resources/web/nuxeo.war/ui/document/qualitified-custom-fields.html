@@ -56,8 +56,8 @@ History
         </style>
 
         <nuxeo-connection id="nxcon" user="{{user}}"></nuxeo-connection>
-        <nuxeo-operation id="getCustomFields" input="[[document.uid]]"  op="Qualitified.GetCustomFields"
-                         params="[[params]]"></nuxeo-operation>
+        <nuxeo-operation id="getCustomFields" input="[[document.uid]]"  op="getCustomFieldsChain"
+                         ></nuxeo-operation>
         <nuxeo-operation id="getVocabularyLabel" input="[[document.uid]]" op="javascript.getVocabularyLabel"
                          params="[[params2]]"></nuxeo-operation>
         <nuxeo-operation id="setProperty" op="Document.SetProperty" input="[[document]]"
@@ -2599,8 +2599,7 @@ History
                 },
                 column: {
                     type: String,
-                    value: "",
-                    observer:'_getCustomFields'
+
                 },
                 stringField9Order : {
                     type: Number
@@ -4808,15 +4807,13 @@ History
                 if(this.document){
                     this.$.getCustomFields.params = {
                         context: {
-                            documentType: this.document.type
-                        },
-                        column: this.column
+                            documentType:this.document.type,
+                            column: this.column
+                        }
                     };
                 }
-
                 this.$.getCustomFields.execute().then(function(entries) {
                     this.custom = entries;
-                    this.column = entries;
                 }.bind(this));
             },
             _isMode: function(value){

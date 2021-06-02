@@ -1,5 +1,4 @@
 package org.qualitified.crm.operation;
-
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -17,7 +16,6 @@ import org.nuxeo.runtime.api.Framework;
 import javax.security.auth.login.LoginContext;
 import java.util.*;
 import java.util.Map;
-
 /**
  * Created by mgena on 11/11/2017.
  * Modified by mmakni on 19/11/2018.
@@ -26,44 +24,52 @@ import java.util.Map;
 public class GetCustomFields {
     public static final String ID = "Qualitified.GetCustomFields";
     private Log logger = LogFactory.getLog(GetCustomFields.class);
-
     @Context
     protected OperationContext ctx;
-
     @Param(name = "documentType")
     protected String documentType;
-
     @Param(name = "column",required = false)
     protected String column;
-
     @OperationMethod
     public Blob run() throws Exception {
         LoginContext lc = Framework.loginAsUser("Administrator");
         ctx.getLoginStack().push(lc);
         String adminPath = Framework.getProperty("qualitified.config.path", "/Admin");
         DocumentModelList customDocuments = ctx.getCoreSession().query("SELECT * FROM Custom WHERE ecm:path STARTSWITH '"+adminPath+"' AND ecm:isProxy = 0 AND ecm:isTrashed = 0 AND ecm:isCheckedInVersion = 0 AND ecm:currentLifeCycleState != 'deleted' AND dc:title='"+documentType+"'", "NXQL", null, 0, 0, false);
-
         String JSONArray= "";
-
         if(customDocuments.size()>0){
             DocumentModel customDocument = customDocuments.get(0);
             List<Map<String,String>> customFieldList  = (List<Map<String,String>>)customDocument.getPropertyValue("custom:field");
             List<Map<String, String>> customFieldList2 = new ArrayList<>();
+            List<Map<String, String>> customFieldList1 = new ArrayList<>();
             //HashMap<String, String> map2 = new HashMap<String, String>();
-        for(Map<String, String> listItem : customFieldList){
+       /* for(Map<String, String> listItem : customFieldList){
           for (Map.Entry<String, String> entry : listItem.entrySet()) {
-               if((entry.getKey().equals("column")) && (entry.getValue().equals(column))){
-                 customFieldList2.add(listItem);
-                   /*for (Map.Entry<String, String> entry2 : listItem.entrySet()) {
-                       map2.put(entry2.getKey(),entry2.getValue());
-                   }*/
+               if (entry.getKey().equals("column") && entry.getValue().equals(column) ) {
+                   customFieldList2.add(listItem);
                }
-
           }
-            //customFieldList2.add(map2);
-         // map2.clear();
-        }
-
+        }*/
+            if (column.equals("")){
+                for (Map<String, String> listItem : customFieldList) {
+                    listItem.entrySet().forEach((entry) -> {
+                                if (entry.getValue() != null) {
+                                    customFieldList2.add(listItem);
+                                }
+                            }
+                    );
+                }
+            }
+            if (column != null) {
+                for (Map<String, String> listItem : customFieldList) {
+                    listItem.entrySet().forEach((entry) -> {
+                                if (entry.getKey().equals("column") && entry.getValue() != null && entry.getValue().equals(column)) {
+                                    customFieldList2.add(listItem);
+                                }
+                            }
+                    );
+                }
+            }
 /*
             for(Map<String, String> listItem : customFieldList){
                 Iterator it = listItem.entrySet().iterator();
@@ -79,15 +85,11 @@ public class GetCustomFields {
             ObjectMapper object = new ObjectMapper();
             JSONArray = object.writeValueAsString(customFieldList2);
             System.out.println(customFieldList2+"okok");
-            System.out.println(customFieldList);
-
+            // System.out.println(customFieldList);
             //logger.warn(" JSONArray:");
             //logger.warn(JSONArray);
-
         }
         ctx.getLoginStack().pop();
         return new StringBlob(JSONArray, "application/json");
-
     }
-
 }
