@@ -77,10 +77,19 @@
                 flex-direction: row;
                 display: flex;
             }
+            @media screen and (max-width: 1050px) {
+                .resize2 {
+                    display: none;
+
+                }
+            }
         </style>
+        <div class="resize2">
+
         <div name="calendar">
             <nuxeo-document id="docCalendar" auto doc-path="/Admin/Calendar.conf" response="{{document}}"></nuxeo-document>
             <interaction-calendar-view id="calendarTab" document="{{document}}"></interaction-calendar-view>
+        </div>
         </div>
         <nuxeo-results name="interaction_list" nx-provider="[[nxProvider]]" selected-items="{{selectedItems}}"
                        display-quick-filters="" display-sort="" sort-label="[[i18n('searchResults.sort.label')]]"

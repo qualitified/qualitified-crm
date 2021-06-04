@@ -38,7 +38,15 @@
         width: 100%;
       }
 
+        @media screen and (min-width: 650px) {
+            .resize {
+
+            }
+        }
+
         </style>
+        <div class="resize">
+
         <!-- Full Text -->
         <nuxeo-input role="widget"
                      id="searchInput"
@@ -86,6 +94,7 @@
             <label>[[i18n('label.metadata.responsible')]]</label>
             <nuxeo-dropdown-aggregation data="[[aggregations.responsible_agg]]" value="{{params.responsible_agg}}" multiple="">
             </nuxeo-dropdown-aggregation>
+        </div>
         </div>
     </template>
 
