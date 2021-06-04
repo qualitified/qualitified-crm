@@ -31,6 +31,10 @@ Bilel  5:00 PM
                 color: red;
                 margin-left: 3px;
             }
+            .input {
+                overflow: hidden;
+                text-overflow: ellipsis;
+            }
 
 
         </style>
@@ -51,7 +55,7 @@ Bilel  5:00 PM
             </div>
             <br/>
             <template is="dom-if" if="[[_isInput(metadata)]]">
-                [[_getFormattedValue(value)]]
+                <div class="input">[[_getFormattedValue(value)]]</div>
             </template>
             <template is="dom-if" if="[[_isText(metadata)]]">
                 [[value]]
