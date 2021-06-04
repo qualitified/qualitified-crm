@@ -40,8 +40,16 @@
         width: 100%;
       }
 
+      @media screen and (min-width: 650px) {
+        .resize {
+
+        }
+      }
+
     </style>
     <nuxeo-connection id="nxcon" user="{{user}}"></nuxeo-connection>
+    <div class="resize">
+
     <!-- Full Text -->
     <nuxeo-input role="widget"
                  id="searchInput"
@@ -73,7 +81,7 @@
     <!-- /Create a new Note -->
 
 
-
+</div>
   </template>
 
   <script>

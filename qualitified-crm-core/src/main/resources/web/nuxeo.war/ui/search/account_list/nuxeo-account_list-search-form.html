@@ -46,9 +46,17 @@
       height:70vh;
       overflow:auto;}
 
+      @media screen and (min-width: 650px) {
+        .resize {
+
+        }
+      }
+
     </style>
     <nuxeo-connection id="nxcon" user="{{currentUser}}"></nuxeo-connection>
     <!-- Full Text -->
+    <div class="resize">
+
     <div id="scroll">
     <nuxeo-input autofocus
                  id="searchInput"
@@ -121,7 +129,7 @@
                                           parent="[[parent]]">
     </nuxeo-document-create-popup-modified>
     <!-- /Create a new Account -->
-
+    </div>
   </template>
 
   <script>

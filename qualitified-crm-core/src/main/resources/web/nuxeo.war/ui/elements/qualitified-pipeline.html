@@ -120,12 +120,14 @@
         bottom: 0px;
       }
 
-      iron-icon.icon {
-        color: #fff;;
-        width: 100px;
-        height: 100px;
-        position: absolute;
-        right: -25px;
+      @media screen and (min-width: 650px) {
+        iron-icon.icon {
+          color: #fff;;
+          width: 100px;
+          height: 100px;
+          position: absolute;
+          right: -25px;
+        }
       }
 
       .slider {
@@ -152,10 +154,12 @@
       .labelAction {
         display: inline-flex;
       }
+
     </style>
     <nuxeo-operation id="setProperty" op="Document.SetProperty" input="[[document]]"
                      params="[[params]]"></nuxeo-operation>
     <nuxeo-operation id="getOption" op="Qualitified.GetOptionValue"></nuxeo-operation>
+
 
     <paper-toast id="inlineToast"></paper-toast>
 

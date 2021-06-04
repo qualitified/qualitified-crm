@@ -27,17 +27,24 @@ limitations under the License.
       label {
         @apply --nuxeo-label;
       }
+
+      @media screen and (min-width: 650px) {
+        .resize {
+
+        }
+      }
     </style>
 
     <nuxeo-input role="widget" id="searchInput" label="[[i18n('defaultSearch.fullText')]]" value="{{searchTerm}}" placeholder="[[i18n('defaultSearch.fullText.placeholder')]]" autofocus="" on-keydown="_checkForEnter">
     </nuxeo-input>
+    <div class="resize">
 
     <div role="widget">
       <label>[[i18n('defaultSearch.authors')]]</label>
       <nuxeo-dropdown-aggregation placeholder="[[i18n('defaultSearch.authors.placeholder')]]" data="[[aggregations.dc_creator_agg]]" value="{{params.dc_creator_agg}}" multiple="true">
       </nuxeo-dropdown-aggregation>
     </div>
-
+    </div>
   </template>
 
   <script>
