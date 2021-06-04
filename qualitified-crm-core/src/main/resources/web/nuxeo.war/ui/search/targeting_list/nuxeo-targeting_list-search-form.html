@@ -38,74 +38,81 @@
                 width: 100%;
             }
 
+            @media screen and (min-width: 650px) {
+                .resize {
 
+                }
+            }
         </style>
         <nuxeo-connection id="nxcon" user="{{currentUser}}"></nuxeo-connection>
         <nuxeo-connection id="nxcon" user="{{user}}"></nuxeo-connection>
-        ​
 
-        ​ <!-- Full Text -->
-        <nuxeo-input role="widget"
-                     id="searchInput"
-                     type="search"
-                     label="[[i18n('defaultSearch.fullText')]]"
-                     value="{{searchTerm}}"
-                     placeholder="[[i18n('defaultSearch.fullText.placeholder')]]"
-                     autofocus
-                     on-keydown="_checkForEnter">
-        </nuxeo-input>
+        <div class="resize">
 
-        <div class="layout vertical row">
-            <label>[[i18n('label.metadata.type')]]</label>
-            <nuxeo-checkbox-aggregation
-                    data="[[aggregations.contact_silhouette_agg]]"
-                    value="{{params.contact_silhouette_agg}}">
-            </nuxeo-checkbox-aggregation>
+
+
+             <!-- Full Text -->
+            <nuxeo-input role="widget"
+                         id="searchInput"
+                         type="search"
+                         label="[[i18n('defaultSearch.fullText')]]"
+                         value="{{searchTerm}}"
+                         placeholder="[[i18n('defaultSearch.fullText.placeholder')]]"
+                         autofocus
+                         on-keydown="_checkForEnter">
+            </nuxeo-input>
+
+            <div class="layout vertical row">
+                <label>[[i18n('label.metadata.type')]]</label>
+                <nuxeo-checkbox-aggregation
+                        data="[[aggregations.contact_silhouette_agg]]"
+                        value="{{params.contact_silhouette_agg}}">
+                </nuxeo-checkbox-aggregation>
+            </div>
+            <div class="layout vertical row">
+                <label>[[i18n('label.metadata.person.targetStatus')]]</label>
+                <nuxeo-checkbox-aggregation
+                        data="[[aggregations.person_targetStatus_agg]]"
+                        value="{{params.person_targetStatus_agg}}">
+                </nuxeo-checkbox-aggregation>
+            </div>
+
+            <nuxeo-input role="widget" value="{{params.person_firstName}}" label="[[i18n('label.metadata.firstname')]]"
+                         type="text"></nuxeo-input>
+            <nuxeo-input role="widget" value="{{params.person_lastName}}" label="[[i18n('label.metadata.lastname')]]"
+                         type="text"></nuxeo-input>
+            <div class="layout vertical row">
+                <label>[[i18n('label.metadata.role')]]</label>
+                <nuxeo-checkbox-aggregation
+                        data="[[aggregations.person_role_agg]]"
+                        value="{{params.person_role_agg}}">
+                </nuxeo-checkbox-aggregation>
+            </div>
+
+
+
+            <div class="layout vertical row">
+                <label>[[i18n('label.metadata.responsible')]]</label>
+                <nuxeo-dropdown-aggregation data="[[aggregations.responsible_agg]]" value="{{params.responsible_agg}}" multiple="">
+                </nuxeo-dropdown-aggregation>
+            </div>
+
+            <div class="layout vertical row">
+                <nuxeo-date-picker value="{{params.datefield1_min}}" label="[[i18n('label.silhouette.last.visit')]](Min)" role="widget"></nuxeo-date-picker>
+                <nuxeo-date-picker value="{{params.datefield1_max}}" label="[[i18n('label.silhouette.last.visit')]](Max)" role="widget"></nuxeo-date-picker>
+            </div>
+            <div class="layout vertical row">
+                <label>[[i18n('label.metadata.language')]]</label>
+                <nuxeo-checkbox-aggregation
+                        data="[[aggregations.language_agg]]"
+                        value="{{params.language_agg}}">
+                </nuxeo-checkbox-aggregation>
+            </div>
+            <div class="layout vertical row">
+            <label>[[i18n('label.links.follow')]]</label>
+            <nuxeo-dropdown-aggregation data="[[aggregations.followed_links_agg]]" value="{{params.followed_links_agg}}" multiple=""></nuxeo-dropdown-aggregation>
         </div>
-        <div class="layout vertical row">
-            <label>[[i18n('label.metadata.person.targetStatus')]]</label>
-            <nuxeo-checkbox-aggregation
-                    data="[[aggregations.person_targetStatus_agg]]"
-                    value="{{params.person_targetStatus_agg}}">
-            </nuxeo-checkbox-aggregation>
         </div>
-
-        <nuxeo-input role="widget" value="{{params.person_firstName}}" label="[[i18n('label.metadata.firstname')]]"
-                     type="text"></nuxeo-input>
-        <nuxeo-input role="widget" value="{{params.person_lastName}}" label="[[i18n('label.metadata.lastname')]]"
-                     type="text"></nuxeo-input>
-        <div class="layout vertical row">
-            <label>[[i18n('label.metadata.role')]]</label>
-            <nuxeo-checkbox-aggregation
-                    data="[[aggregations.person_role_agg]]"
-                    value="{{params.person_role_agg}}">
-            </nuxeo-checkbox-aggregation>
-        </div>
-
-
-
-        <div class="layout vertical row">
-            <label>[[i18n('label.metadata.responsible')]]</label>
-            <nuxeo-dropdown-aggregation data="[[aggregations.responsible_agg]]" value="{{params.responsible_agg}}" multiple="">
-            </nuxeo-dropdown-aggregation>
-        </div>
-
-        <div class="layout vertical row">
-            <nuxeo-date-picker value="{{params.datefield1_min}}" label="[[i18n('label.silhouette.last.visit')]](Min)" role="widget"></nuxeo-date-picker>
-            <nuxeo-date-picker value="{{params.datefield1_max}}" label="[[i18n('label.silhouette.last.visit')]](Max)" role="widget"></nuxeo-date-picker>
-        </div>
-        <div class="layout vertical row">
-            <label>[[i18n('label.metadata.language')]]</label>
-            <nuxeo-checkbox-aggregation
-                    data="[[aggregations.language_agg]]"
-                    value="{{params.language_agg}}">
-            </nuxeo-checkbox-aggregation>
-        </div>
-        ​<div class="layout vertical row">
-        <label>[[i18n('label.links.follow')]]</label>
-        <nuxeo-dropdown-aggregation data="[[aggregations.followed_links_agg]]" value="{{params.followed_links_agg}}" multiple=""></nuxeo-dropdown-aggregation>
-    </div>
-        ​
     </template>
 
     <script>
@@ -149,8 +156,8 @@
                         delete this.params.system_fulltext;
                     }
                 }
-             },
-             _getSubState: function(value) {
+            },
+            _getSubState: function(value) {
                 if (value === 0) {
                     return true;
                 } return false;

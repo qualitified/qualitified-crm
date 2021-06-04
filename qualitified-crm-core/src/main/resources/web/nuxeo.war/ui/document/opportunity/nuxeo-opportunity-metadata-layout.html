@@ -12,6 +12,9 @@
                 width: 30%;
             }
 
+            .section  {
+                display: block;
+            }
             .dashboard {
                 display: flex;
                 flex-direction: row;
@@ -23,7 +26,7 @@
         <div role="widget" className="title">
             <h1>[[document.properties.dc:title]]</h1>
         </div>
-        <section className="dashboard">
+        <section class="dashboard">
             <nuxeo-card>
                 <div role="widget">
                     <qualitified-inline-edit document="[[document]]"
@@ -60,19 +63,8 @@
 
                     </qualitified-inline-edit>
                 </div>
-                <dom-repeat items="[[document.properties.custom:field]]" as="item">
-                    <template>
-                        <dom-if if="[[_IsC1(item)]]">
+                <qualitified-custom-fields document="{{document}}" column="Column1" mode="view"></qualitified-custom-fields>
 
-                            <template>
-                                <qualitified-custom-fields document="[[document]]"
-                                                           mode="view"></qualitified-custom-fields>
-<h1>testetsstststs</h1>
-                                <qualitified-custom-fields document="[[item]]" mode="view"></qualitified-custom-fields>
-                            </template>
-                        </dom-if>
-                    </template>
-                </dom-repeat>
             </nuxeo-card>
             <nuxeo-card>
                 <div role="widget">
@@ -101,19 +93,8 @@
                                              metadata="user"></qualitified-inline-edit>
 
                 </div>
-                <dom-repeat items="[[document.properties.custom:field]]" as="item">
-                    <template>
-                        <dom-if if="[[_IsC2(item)]]">
+                <qualitified-custom-fields document="{{document}}" column="Column2" mode="view"></qualitified-custom-fields>
 
-                            <template>
-                                <qualitified-custom-fields document="[[document]]"
-                                                           mode="view"></qualitified-custom-fields>
-
-                                <qualitified-custom-fields document="[[item]]" mode="view"></qualitified-custom-fields>
-                            </template>
-                        </dom-if>
-                    </template>
-                </dom-repeat>
             </nuxeo-card>
             <nuxeo-card>
                 <div role="widget" hidden$="[[!document.properties.opportunity:mainContact]">
@@ -125,30 +106,19 @@
                                              metadata="document"></qualitified-inline-edit>
 
                 </div>
-                <div role="widget" hidden$="[[!document.properties.dc:description]]">
-                    <qualitified-inline-edit document="[[document]]"
-                                             property="dc:description"
-                                             value="[[document.properties.dc:description]]"
-                                             label="[[i18n('label.metadata.description')]]"
-                    >
-                    </qualitified-inline-edit>
-                </div>
-                <qualitified-custom-fields document="[[item]]" column="Column3" mode="view"></qualitified-custom-fields>
 
+                <qualitified-custom-fields document="{{document}}" column="Column3" mode="view"></qualitified-custom-fields>
 
-                <!--dom-repeat items="[[document.properties.custom:field]]" as="item">
-                    <template>
-                        <dom-if if="[[_IsC3(item)]]">
-
-                            <template>
-
-                                <qualitified-custom-fields document="[[item]]" mode="view"></qualitified-custom-fields>
-                            </template>
-                        </dom-if>
-                    </template>
-                </dom-repeat-->
             </nuxeo-card>
         </section>
+        <div role="widget" hidden$="[[!document.properties.dc:description]]">
+            <qualitified-inline-edit document="[[document]]"
+                                     property="dc:description"
+                                     value="[[document.properties.dc:description]]"
+                                     label="[[i18n('label.metadata.description')]]"
+            >
+            </qualitified-inline-edit>
+        </div>
     </template>
     <script>
         (function () {
@@ -202,15 +172,7 @@
                     }.bind(this));
                     return result;
                 },
-                _IsC1: function (value) {
-                    return value.column == 'Column1';
-                },
-                _IsC2: function (value) {
-                    return value.column == "Column2";
-                },
-                _IsC3: function (value) {
-                    return value.column == "Column3";
-                },
+
                 _getCurrency: async function () {
                     let params = {};
                     params.name = "Currency";

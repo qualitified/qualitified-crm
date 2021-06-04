@@ -40,10 +40,18 @@
                 width: 100%;
             }
             ​
+
+            @media screen and (min-width: 650px) {
+                .resize {
+
+                }
+            }
         </style>
         <nuxeo-connection id="nxcon" user="{{currentUser}}"></nuxeo-connection>
         <nuxeo-connection id="nxcon" user="{{user}}"></nuxeo-connection>
         ​
+        <div class="resize">
+
         <nuxeo-input role="widget"
                      id="searchInput"
                      type="search"
@@ -65,6 +73,7 @@
         <nuxeo-dropdown-aggregation data="[[aggregations.followed_links_agg]]" value="{{params.followed_links_agg}}" multiple=""></nuxeo-dropdown-aggregation>
         </div>
         ​
+        </div>
     </template>
     ​
     <script>

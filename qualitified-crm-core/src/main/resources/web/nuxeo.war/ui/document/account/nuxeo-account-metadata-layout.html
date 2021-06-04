@@ -92,9 +92,8 @@
                                  metadata="linkk"
         >
         </qualitified-inline-edit>
-        <template is="dom-if" if="[[document.properties.custom:field.columns.Column1]]">
-          <qualitified-custom-fields document="[[document]]" mode="view"></qualitified-custom-fields>
-        </template>
+        <qualitified-custom-fields document="{{document}}" column="Column1" mode="view"></qualitified-custom-fields>
+
       </nuxeo-card>
 
       <nuxeo-card>
@@ -170,9 +169,8 @@
 
 
         </div>
-        <template is="dom-if" if="[[document.properties.custom:field.columns.Column2]]">
-          <qualitified-custom-fields document="[[document]]" mode="view"></qualitified-custom-fields>
-        </template>
+        <qualitified-custom-fields document="{{document}}" column="Column2" mode="view"></qualitified-custom-fields>
+
       </nuxeo-card>
 
       <nuxeo-card>
@@ -208,20 +206,20 @@
 
 
         </div>
-        <template is="dom-if" if="[[document.properties.custom:field.columns.Column3]]">
-        <qualitified-custom-fields document="[[document]]" mode="view"></qualitified-custom-fields>
-        </template>
-        <div role="widget">
-          <qualitified-inline-edit document="[[document]]"
-                                   property="dc:description"
-                                   value="[[document.properties.dc:description]]"
-                                   label="[[i18n('label.metadata.description')]]"
-          >
-          </qualitified-inline-edit>
-        </div>
+        <qualitified-custom-fields document="{{document}}" column="Column3" mode="view"></qualitified-custom-fields>
+
+
       </nuxeo-card>
 
     </section>
+    <div role="widget">
+      <qualitified-inline-edit document="[[document]]"
+                               property="dc:description"
+                               value="[[document.properties.dc:description]]"
+                               label="[[i18n('label.metadata.description')]]"
+      >
+      </qualitified-inline-edit>
+    </div>
   </template>
 
   <script>

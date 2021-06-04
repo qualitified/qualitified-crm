@@ -16,9 +16,17 @@
           min-height: calc(100vh - 130px - var(--nuxeo-app-top));
         }
 
+        @media screen and (max-width: 1050px) {
+            .resize2 {
+                display: none;
+
+            }
+        }
         </style>
+        <div class="resize2">
 
         <qualitified-pipeline items="[[opportunityList]]"></qualitified-pipeline>
+        </div>
         <nuxeo-operation id="getOption" op="Qualitified.GetOptionValue"></nuxeo-operation>
         <br/>
         <nuxeo-results id="nxResultsOpportunity" nx-provider="[[nxProvider]]">
