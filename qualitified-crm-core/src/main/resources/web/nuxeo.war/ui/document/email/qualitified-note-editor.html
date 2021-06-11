@@ -82,6 +82,12 @@
       .right {
         float: right;
       }
+      @media screen and (max-width: 1050px) {
+          paper-icon-button {
+              display: none;
+
+          }
+      }
     </style>
         <nuxeo-document doc-id="[[document.uid]]" id="note"></nuxeo-document>
         <nuxeo-operation
