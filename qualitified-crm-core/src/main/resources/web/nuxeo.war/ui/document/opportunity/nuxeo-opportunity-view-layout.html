@@ -165,71 +165,60 @@
                 </nuxeo-page-provider>
 
                 <template is="dom-repeat" items="[[interactions]]">
-                    <nuxeo-card role="widget" icon="qualitified:idea" heading="[[i18n('label.next.best.action')]]">
-
-                        <div className="border-bottom">
-                            <div>
-                                <a href$="#!/browse[[item.path]]">
-                                    <template is="dom-if" if="[[_isCall(item.properties.interaction:activity)]]">
-                                        <iron-icon icon="icons:settings-phone"></iron-icon>
-                                    </template>
-                                    <template is="dom-if" if="[[_isMeeting(item.properties.interaction:activity)]]">
-                                        <iron-icon icon="icons:perm-contact-calendar"></iron-icon>
-                                    </template>
-                                    <template is="dom-if" if="[[_isChat(item.properties.interaction:activity)]]">
-                                        <iron-icon icon="icons:supervisor-account"></iron-icon>
-                                    </template>
-                                    <template is="dom-if" if="[[_isEmail(item.properties.interaction:activity)]]">
-                                        <iron-icon icon="icons:mail"></iron-icon>
-                                    </template>
-                                    <template is="dom-if" if="[[_isNote(item.properties.interaction:activity)]]">
-                                        <iron-icon icon="icons:speaker-notes"></iron-icon>
-                                    </template>
-                                    <template is="dom-if" if="[[_isSms(item.properties.interaction:activity)]]">
-                                        <iron-icon icon="icons:perm-phone-msg"></iron-icon>
-                                    </template>
-                                </a>
-                                <div>
-                                    <template is="dom-repeat" items="[[item.properties.interaction:contact]]" as="contact">
-                                        <!--img style="vertical-align: text-bottom; width:3%;" className="account-view-layout"
-                                             src="[[_hasProfileImg(contact)]]" on-tap="_navigate"
-                                             onError="this.onerror=null;this.src='/nuxeo/ui/images/touch/profile.png';"-->
-                                        <qualitified-document-suggestion role="widget"
-                                                                         value="[[item.properties.interaction:contact]]"
-                                                                         multiple
-                                                                         clickable="false"
-                                                                         readOnly
-                                                                         style="padding-top: 0px;
-                                                                    padding-right: 0px;
-                                                                    padding-bottom: 0px;
-                                                                    padding-left: 0px;">
-                                        </qualitified-document-suggestion>
-                                    </template>
-                                </div>
-
-
-                                <qualitified-inline-edit document="[[item]]" property="interaction:activity"
-                                                         label="label.metadata.activity" directory="IntActivity"
-                                                         metadata="directory"></qualitified-inline-edit>
-                                <qualitified-inline-edit document="[[item]]" property="dc:title"
-                                                         label="label.dublincore.title"></qualitified-inline-edit>
-                                <qualitified-inline-edit document="[[item]]" property="dc:description"
-                                                         label="label.metadata.interaction.description"
-                                                         metadata="textarea"></qualitified-inline-edit>
-                                <qualitified-inline-edit document="[[item]]" property="interaction:date" label="label.metadata.date"
-                                                         metadata="date"></qualitified-inline-edit>
-                                <qualitified-inline-edit document="[[item]]" property="interaction:status"
-                                                         label="label.metadata.status" directory="IntStatus"
-                                                         metadata="directory"></qualitified-inline-edit>
-
-                            </div>
-                            <button hidden$=[[!_hasNote(item)]] id="button-[[item.uid]]" on-click="toggle"
-                                    data-id$="[[item.uid]]">...
-                            </button>
-                            <qualitified-document-attachments document="[[item]]"></qualitified-document-attachments>
-                            <br/>
+                    <div class="border-bottom">
+                        <div>[[_formatDate(item.properties.interaction:date)]]</div>
+                        <div>
+                            <a href$="#!/browse[[item.path]]">
+                                <template is="dom-if" if="[[_isCall(item.properties.interaction:activity)]]">
+                                    <iron-icon icon="icons:settings-phone"></iron-icon>
+                                </template>
+                                <template is="dom-if" if="[[_isMeeting(item.properties.interaction:activity)]]">
+                                    <iron-icon icon="icons:perm-contact-calendar"></iron-icon>
+                                </template>
+                                <template is="dom-if" if="[[_isChat(item.properties.interaction:activity)]]">
+                                    <iron-icon icon="icons:supervisor-account"></iron-icon>
+                                </template>
+                                <template is="dom-if" if="[[_isEmail(item.properties.interaction:activity)]]">
+                                    <iron-icon icon="icons:mail"></iron-icon>
+                                </template>
+                                <template is="dom-if" if="[[_isNote(item.properties.interaction:activity)]]">
+                                    <iron-icon icon="icons:speaker-notes"></iron-icon>
+                                </template>
+                                <template is="dom-if" if="[[_isSms(item.properties.interaction:activity)]]">
+                                    <iron-icon icon="icons:perm-phone-msg"></iron-icon>
+                                </template>
+                                - [[item.title]]</a></div>
+                        <div>
+                            <template is="dom-repeat" items="[[item.properties.interaction:contact]]" as="contact">
+                                <!--img style="vertical-align: text-bottom;" class="account-view-layout"
+                                     src="[[_hasProfileImg(contact)]]" on-tap="_navigate"
+                                     onError="this.onerror=null;this.src='/nuxeo/ui/images/touch/profile.png';"-->
+                                <qualitified-document-suggestion role="widget"
+                                                                 value="[[item.properties.interaction:contact]]"
+                                                                 multiple
+                                                                 clickable="false"
+                                                                 readOnly
+                                                                 style="padding-top: 0px;
+                                                                              padding-right: 0px;
+                                                                              padding-bottom: 0px;
+                                                                              padding-left: 0px;">
+                                </qualitified-document-suggestion>
+                            </template>
                         </div>
-                    </nuxeo-card>
+                        <div>
+                            <pre class="wrap">[[item.properties.dc:description]]</pre>
+                        </div>
+                        <iron-collapse id="collapse-[[item.uid]]">
+                            <div>
+                                <pre class="wrap">[[item.properties.note:note]]</pre>
+                            </div>
+                        </iron-collapse>
+                        <button hidden$=[[!_hasNote(item)]] id="button-[[item.uid]]" on-click="toggle"
+                                data-id$="[[item.uid]]">...
+                        </button>
+                        <qualitified-document-attachments document="[[item]]"></qualitified-document-attachments>
+                        <br/>
+                    </div>
                 </template>
             </div>
         </paper-card>
