@@ -84,7 +84,7 @@
                 <template>
 
                   <nuxeo-document-thumbnail document="[[item]]"></nuxeo-document-thumbnail>
-                  <a class="title ellipsis" href$="#!/browse[[item.path]]" on-tap="_navigate">[[item.title]]</a>
+                  <a class="title ellipsis" href$="#!/doc/[[item.uid]]" on-tap="_navigate">[[item.title]]</a>
                 </template>
               </nuxeo-data-table-column>
 
@@ -175,7 +175,7 @@
                                        field="dc:title" sort-by="dc:title" filter-by="title"  flex="100">
                 <template>
                   <img class="queue-thumbnail" src="[[_thumbnail(item)]]">
-                  <a class="title ellipsis" href$="#!/browse[[item.path]]" on-tap="_navigate">[[item.title]]</a>
+                  <a class="title ellipsis" href$="#!/doc/[[item.uid]]" on-tap="_navigate">[[item.title]]</a>
                 </template>
               </nuxeo-data-table-column>
 
@@ -343,7 +343,7 @@
                                        field="dc:title" sort-by="dc:title" filter-by="title"  flex="100">
                 <template>
                   <img class="queue-thumbnail" src="[[_thumbnail(item)]]">
-                  <a class="title ellipsis" href$="#!/browse[[item.path]]" on-tap="_navigate">[[item.title]]</a>
+                  <a class="title ellipsis" href$="#!/doc/[[item.uid]]" on-tap="_navigate">[[item.title]]</a>
                 </template>
               </nuxeo-data-table-column>
 
@@ -433,7 +433,7 @@
                                        field="dc:title" sort-by="dc:title" filter-by="title"  flex="100">
                 <template>
                   <img class="queue-thumbnail" src="[[_thumbnail(item)]]">
-                  <a class="title ellipsis" href$="#!/browse[[item.path]]" on-tap="_navigate">[[item.title]]</a>
+                  <a class="title ellipsis" href$="#!/doc/[[item.uid]]" on-tap="_navigate">[[item.title]]</a>
                 </template>
               </nuxeo-data-table-column>
               <nuxeo-data-table-column name="[[i18n('documentContentView.datatable.header.modified')]]"
@@ -552,7 +552,7 @@
           doc: e.detail.item,
         };
         if(detail.doc){
-          page('/browse' + detail.doc.path);
+          page('/doc/' + detail.doc.uid);
         }
       },
       _formatDate: function(date) {
