@@ -369,7 +369,8 @@ Bilel  5:00 PM
                 } else return value;
             },
             _navigate: function() {
-                window.open("#!/browse"+this.document.path);
+                window.open("#!/doc/"+this.document.uid);
+
             },
             _cancel: function(){
                 this.newValue = this.value;
