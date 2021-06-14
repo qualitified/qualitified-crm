@@ -289,6 +289,8 @@
             this.fire('notify', {message: this.i18n('documentCreationForm.createError')});
             console.error(err);
           }.bind(this));
+          setTimeout(function(){window.location.reload();},2000);
+
         },
   
         _back: function() {
