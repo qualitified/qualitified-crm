@@ -71,21 +71,14 @@
                             <iron-icon icon="icons:perm-phone-msg"></iron-icon>
                         </template>
                     </a>
-                    <div>
-                        <template is="dom-repeat" items="[[item.properties.interaction:contact]]" as="contact">
-                            <!--img style="vertical-align: text-bottom; width:3%;" className="account-view-layout"
-                                 src="[[_hasProfileImg(contact)]]" on-tap="_navigate"
-                                 onError="this.onerror=null;this.src='/nuxeo/ui/images/touch/profile.png';"-->
-                            <qualitified-document-suggestion role="widget"
-                                                             value="[[item.properties.interaction:contact]]"
-                                                             multiple
-                                                             clickable="false"
-                                                             readOnly
-                                                             style="padding: 0px;">
-                            </qualitified-document-suggestion>
-                        </template>
-                    </div>
 
+                    <qualitified-document-suggestion role="widget"
+                                                     value="[[item.properties.interaction:contact]]"
+                                                     multiple
+                                                     clickable="false"
+                                                     readOnly
+                                                     style="padding: 0px;">
+                    </qualitified-document-suggestion>
 
                     <qualitified-inline-edit document="[[item]]" property="interaction:activity"
                                              label="label.metadata.activity" directory="IntActivity"
@@ -185,20 +178,15 @@
                                     <iron-icon icon="icons:perm-phone-msg"></iron-icon>
                                 </template>
                                 - [[item.title]]</a></div>
-                        <div>
-                            <template is="dom-repeat" items="[[item.properties.interaction:contact]]" as="contact">
-                                <!--img style="vertical-align: text-bottom;" class="account-view-layout"
-                                     src="[[_hasProfileImg(contact)]]" on-tap="_navigate"
-                                     onError="this.onerror=null;this.src='/nuxeo/ui/images/touch/profile.png';"-->
-                                <qualitified-document-suggestion role="widget"
-                                                                 value="[[item.properties.interaction:contact]]"
-                                                                 multiple
-                                                                 clickable="false"
-                                                                 readOnly
-                                                                 style="padding: 0px;">
-                                </qualitified-document-suggestion>
-                            </template>
-                        </div>
+
+                        <qualitified-document-suggestion role="widget"
+                                                         value="[[item.properties.interaction:contact]]"
+                                                         multiple
+                                                         clickable="false"
+                                                         readOnly
+                                                         style="padding: 0px;">
+                        </qualitified-document-suggestion>
+
                         <div>
                             <pre class="wrap">[[item.properties.dc:description]]</pre>
                         </div>
@@ -329,6 +317,7 @@
                         return value;
                     }
                 },
+
                 _isCall: function (value) {
                     return value == 'Call';
                 },
