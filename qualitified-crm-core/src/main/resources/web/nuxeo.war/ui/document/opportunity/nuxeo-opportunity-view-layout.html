@@ -71,21 +71,14 @@
                             <iron-icon icon="icons:perm-phone-msg"></iron-icon>
                         </template>
                     </a>
-                    <div>
-                        <template is="dom-repeat" items="[[item.properties.interaction:contact]]" as="contact">
-                            <!--img style="vertical-align: text-bottom; width:3%;" className="account-view-layout"
-                                 src="[[_hasProfileImg(contact)]]" on-tap="_navigate"
-                                 onError="this.onerror=null;this.src='/nuxeo/ui/images/touch/profile.png';"-->
-                            <qualitified-document-suggestion role="widget"
-                                                             value="[[item.properties.interaction:contact]]"
-                                                             multiple
-                                                             clickable="false"
-                                                             readOnly
-                                                             style="padding: 0px;">
-                            </qualitified-document-suggestion>
-                        </template>
-                    </div>
 
+                    <qualitified-document-suggestion role="widget"
+                                                     value="[[item.properties.interaction:contact]]"
+                                                     multiple
+                                                     clickable="false"
+                                                     readOnly
+                                                     style="padding: 0px;">
+                    </qualitified-document-suggestion>
 
                     <qualitified-inline-edit document="[[item]]" property="interaction:activity"
                                              label="label.metadata.activity" directory="IntActivity"
@@ -185,20 +178,15 @@
                                     <iron-icon icon="icons:perm-phone-msg"></iron-icon>
                                 </template>
                                 - [[item.title]]</a></div>
-                        <div>
-                            <template is="dom-repeat" items="[[item.properties.interaction:contact]]" as="contact">
-                                <!--img style="vertical-align: text-bottom;" class="account-view-layout"
-                                     src="[[_hasProfileImg(contact)]]" on-tap="_navigate"
-                                     onError="this.onerror=null;this.src='/nuxeo/ui/images/touch/profile.png';"-->
-                                <qualitified-document-suggestion role="widget"
-                                                                 value="[[item.properties.interaction:contact]]"
-                                                                 multiple
-                                                                 clickable="false"
-                                                                 readOnly
-                                                                 style="padding: 0px;">
-                                </qualitified-document-suggestion>
-                            </template>
-                        </div>
+
+                        <qualitified-document-suggestion role="widget"
+                                                         value="[[item.properties.interaction:contact]]"
+                                                         multiple
+                                                         clickable="false"
+                                                         readOnly
+                                                         style="padding: 0px;">
+                        </qualitified-document-suggestion>
+
                         <div>
                             <pre class="wrap">[[item.properties.dc:description]]</pre>
                         </div>
@@ -220,53 +208,66 @@
         <h3>
             [[i18n('label.attachments')]]
         </h3>
-        <div className="dataTable">
-            <nuxeo-page-provider
-                    role="widget"
-                    id="documentProvider"
-                    query="select * from Document where ecm:primaryType in ('File', 'Folder') and ecm:currentLifeCycleState != 'deleted' and ecm:isTrashed = 0 and ecm:parentId = '[[document.uid]]'"
-                    page-size="40"
-                    params="[[params]]"
-                    aggregations="{{documentAggregations}}"
-                    current-page="{{documents}}"
-                    enrichers="thumbnail, permissions">
+        <div class="dataTable">
+            <nuxeo-page-provider id="documentProvider"
+                                 auto
+                                 query="select * from Document where ecm:primaryType in ('File', 'Folder') and ecm:currentLifeCycleState != 'deleted' and ecm:isTrashed = 0 and ecm:parentId = '[[document.uid]]' "
+                                 page-size="40"
+                                 aggregations="{{documentAggregations}}"
+                                 enrichers="thumbnail, permissions"
+                                 page="[[pageNumber]]"
+                                 params="[[params]]"
+                                 schemas="dublincore,common,uid,file"
+                                 headers='{"X-NXfetch.document": "properties", "X-NXtranslate.directoryEntry": "label"}'
+                                 fetch-aggregates>
             </nuxeo-page-provider>
-            <nuxeo-data-table id="datatable" items="[[documents]]" on-row-clicked="_navigate">
-                <nuxeo-data-table-column name="Full text search" flex="100" filter-by="ecm_fulltext"
-                                         sort-by="dc:title">
-                    <template>
-                        <nuxeo-document-thumbnail document=[[item]]></nuxeo-document-thumbnail>
-                        <a className="title ellipsis" href$="#!/browse[[item.path]]"
-                           on-tap="_navigate">[[item.title]]</a>
-                    </template>
-                </nuxeo-data-table-column>
-                <nuxeo-data-table-column filter-by="dc_modified_agg" flex="50" sort-by="dc:modified">
-                    <template is="header">
-                        <nuxeo-dropdown-aggregation
-                                placeholder="Modified"
-                                data="[[documentAggregations.dc_modified_agg]]"
-                                value="{{column.filterValue}}" multiple>
-                        </nuxeo-dropdown-aggregation>
-                    </template>
-                    <template>
-                        [[_formatDate(item.properties.dc:modified)]]
-                    </template>
-                </nuxeo-data-table-column>
-                <nuxeo-data-table-column filter-by="dc_creator_agg" flex="50">
-                    <template is="header">
-                        <nuxeo-dropdown-aggregation
-                                placeholder="Author"
-                                data="[[documentAggregations.dc_creator_agg]]"
-                                value="{{column.filterValue}}" multiple>
-                        </nuxeo-dropdown-aggregation>
-                    </template>
-                    <template>
-                        <nuxeo-user-tag user="[[item.properties.dc:creator]]"></nuxeo-user-tag>
-                    </template>
-                </nuxeo-data-table-column>
-            </nuxeo-data-table>
 
+            <nuxeo-results name="[[document.uid]]" nx-provider="[[documentProvider]]" selected-items="{{selectedItems}}">
+
+                <!-- Table view -->
+                <nuxeo-data-table class="results" name="table" icon="nuxeo:view-list"
+                                  settings-enabled
+                                  empty-label="[[emptyLabel]]"
+                                  empty-label-when-filtered="[[emptyLabelWhenFiltered]]"
+                                  selection-enabled
+                                  display-quick-filters
+                                  on-row-clicked="_navigate">
+                    <nuxeo-data-table-column name="Full text search" flex="100" filter-by="ecm_fulltext"
+                                             sort-by="dc:title">
+                        <template>
+                            <nuxeo-document-thumbnail document=[[item]]></nuxeo-document-thumbnail>
+                            <a className="title ellipsis" href$="#!/browse[[item.path]]"
+                               on-tap="_navigate">[[item.title]]</a>
+                        </template>
+                    </nuxeo-data-table-column>
+                    <nuxeo-data-table-column filter-by="dc_modified_agg" flex="50" sort-by="dc:modified">
+                        <template is="header">
+                            <nuxeo-dropdown-aggregation
+                                    placeholder="Modified"
+                                    data="[[documentAggregations.dc_modified_agg]]"
+                                    value="{{column.filterValue}}" multiple>
+                            </nuxeo-dropdown-aggregation>
+                        </template>
+                        <template>
+                            [[_formatDate(item.properties.dc:modified)]]
+                        </template>
+                    </nuxeo-data-table-column>
+                    <nuxeo-data-table-column filter-by="dc_creator_agg" flex="50">
+                        <template is="header">
+                            <nuxeo-dropdown-aggregation
+                                    placeholder="Author"
+                                    data="[[documentAggregations.dc_creator_agg]]"
+                                    value="{{column.filterValue}}" multiple>
+                            </nuxeo-dropdown-aggregation>
+                        </template>
+                        <template>
+                            <nuxeo-user-tag user="[[item.properties.dc:creator]]"></nuxeo-user-tag>
+                        </template>
+                    </nuxeo-data-table-column>
+                </nuxeo-data-table>
+            </nuxeo-results>
         </div>
+
     </template>
 
     <script>
@@ -290,6 +291,17 @@
                         notify: true
                     }
                 },
+                observers: [
+                    '_refresh(params)',
+                    '_observeDocument(document)'
+                ],
+                ready: function() {
+                    if (this.document) {
+                    this.params = {'ecm_parentId': this.document.uid};
+                    }
+                    this.documentProvider = this.$.documentProvider;
+
+                },
                 /**
                  * Returns the label for the given directory entry.
                  */
@@ -305,6 +317,7 @@
                         return value;
                     }
                 },
+
                 _isCall: function (value) {
                     return value == 'Call';
                 },

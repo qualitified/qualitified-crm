@@ -184,9 +184,15 @@
 
       _close: function () {
         if (this.$.createDocDialog.opened) {
-            var suggFieldDocTarget = this.parentNode.host;
+
+            var suggFieldDocTarget = this.parentNode.parentNode.host;
             var createdDoc = this.$$("#simpleCreation").createdDocument;
             suggFieldDocTarget.value= createdDoc.uid;
+             var self = this;
+             setTimeout(function(){
+              self.parentNode.parentNode.getElementById('interactionTodoProvider').fetch();
+              self.parentNode.parentNode.getElementById('interactionProvider').fetch();
+            },1000);
             this.$.createDocDialog.toggle();
           //this._showTabs = true;
         }
@@ -202,7 +208,6 @@
 
         this.selectedTab = "create";
         this._showTabs = false;
-        console.log(docTypeObj);
         this._fetchParent().then(
           function () {
             if (this._noPermission) {
@@ -312,7 +317,6 @@
 
         this.selectedTab = "create";
         this._showTabs = false;
-        console.log(docTypeObj);
         this._fetchParent().then(
           function () {
             if (this._noPermission) {
@@ -338,11 +342,10 @@
             "facets": ["Folderish", "NXTag", "Picture"],
             "id": this.type.toLowerCase()
            };
-                       this.parentPath=this.parentNode.parentNode.host.__data.document.path;
+             this.parentPath=this.parentNode.parentNode.host.__data.document.path;
 
         this.selectedTab = "create";
         this._showTabs = false;
-        console.log(docTypeObj);
         this._fetchParent().then(
           function () {
             if (this._noPermission) {
@@ -373,7 +376,6 @@
 
         this.selectedTab = "create";
         this._showTabs = false;
-        console.log(docTypeObj);
         this._fetchParent().then(
           function () {
             if (this._noPermission) {
@@ -403,7 +405,6 @@
 
         this.selectedTab = "create";
         this._showTabs = false;
-        console.log(docTypeObj);
         this._fetchParent().then(
           function () {
             if (this._noPermission) {
@@ -432,7 +433,6 @@
              this.parentPath=this.parentNode.parentNode.host.__data.document.path;
         this.selectedTab = "create";
         this._showTabs = false;
-        console.log(docTypeObj);
         this._fetchParent().then(
           function () {
             if (this._noPermission) {
@@ -462,7 +462,6 @@
 
         this.selectedTab = "create";
         this._showTabs = false;
-        console.log(docTypeObj);
         this._fetchParent().then(
           function () {
             if (this._noPermission) {
