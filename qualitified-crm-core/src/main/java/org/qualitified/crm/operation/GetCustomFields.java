@@ -84,7 +84,6 @@ public class GetCustomFields {
             //logger.warn(customFieldList);
             ObjectMapper object = new ObjectMapper();
             JSONArray = object.writeValueAsString(customFieldList2);
-            System.out.println(customFieldList2+"okok");
             // System.out.println(customFieldList);
             //logger.warn(" JSONArray:");
             //logger.warn(JSONArray);
