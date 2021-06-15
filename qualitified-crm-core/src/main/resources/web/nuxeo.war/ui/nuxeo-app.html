@@ -51072,6 +51072,12 @@ styles. All other styles should exist as single lines."
         text-decoration: none;
       }
 
+      .breadcrumb-title {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        max-width: 70vw
+      }
+
       .current {
         font-weight: 400;
         display: initial;
@@ -51128,6 +51134,9 @@ styles. All other styles should exist as single lines."
         .current-icon {
           display: none;
         }
+        .breadcrumb-title {
+          max-width: 65vw
+        }
       }
 
     </style>
@@ -51140,7 +51149,9 @@ styles. All other styles should exist as single lines."
       </div>
       <div class="doc-path">
         <a href$="[[urlFor('browse', document.path)]]" class="current breadcrumb-item breadcrumb-item-current">
-          [[_title(document)]]
+          <div class="breadcrumb-title">
+            [[_title(document)]]
+          </div>
         </a>
         <div class="ancestors">
           <template is="dom-repeat" items="[[_breadcrumb(document)]]">

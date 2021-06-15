@@ -1,7 +1,5 @@
-
-Bilel  5:00 PM
 <link rel="import" href="qualitified-document-create.html">
-
+<link rel="import" href="qualitified-amount.html">
 <dom-module id="qualitified-inline-edit">
     <template>
         <style include="nuxeo-styles">
@@ -35,19 +33,14 @@ Bilel  5:00 PM
                 overflow: hidden;
                 text-overflow: ellipsis;
             }
-
-
         </style>
         <nuxeo-operation id="setProperty" op="Document.SetProperty" input="[[document]]" params="[[params]]"></nuxeo-operation>
         <paper-toast id="inlineToast"></paper-toast>
-
         <!-- View -->
         <div id="view" hidden$="[[edit]]" on-mouseover="_show" on-mouseout="_hide">
-
             <div class="labelAction">
                 <label>[[i18n(label)]]</label>
             </div>
-
             <div class="iconsAction">
                 <paper-icon-button style="left:8px;" id="editButton" icon="icons:create" hidden$="[[!show]]" on-tap="_editMode">
                 </paper-icon-button>
@@ -56,6 +49,10 @@ Bilel  5:00 PM
             <br/>
             <template is="dom-if" if="[[_isInput(metadata)]]">
                 <div class="input">[[_getFormattedValue(value)]]</div>
+            </template>
+            <template is="dom-if" if="[[_isAmount(metadata)]]">
+                <qualitified-amount value="{{value}}">
+                </qualitified-amount>
             </template>
             <template is="dom-if" if="[[_isText(metadata)]]">
                 [[value]]
@@ -103,6 +100,12 @@ Bilel  5:00 PM
                              value="{{newValue}}"
                              type="text"
                 >
+                </nuxeo-input>
+            </template>
+            <template is="dom-if" if="[[_isAmount(metadata)]]">
+                <nuxeo-input role="widget"
+                             value="{{newValue}}"
+                             type="text">
                 </nuxeo-input>
             </template>
             <template is="dom-if" if="[[_isText(metadata)]]">
@@ -291,7 +294,6 @@ Bilel  5:00 PM
                 this.searchingType = this.$.inlineSugst.suggestionType;
              console.log("type"+ this.searchingType);
                 }
-
              //return type;
             },
             _valueChanged: function(value) {
@@ -321,7 +323,6 @@ Bilel  5:00 PM
             _setUserObject: function(e) {
                 this.userObject = e.detail.value;
             },
-
             _ok: function() {
                 this.value = this.newValue;
                 this.$.setProperty.params = {
@@ -337,7 +338,6 @@ Bilel  5:00 PM
                     this.value = this.userObject.firstName+' '+this.userObject.lastName;
                     this.params.value = userNameValue;
                 }
-
                 this.$.setProperty.execute().then(function(response){
                     this.$.inlineToast.text = "Update done!";
                     this.$.inlineToast.open();
@@ -349,7 +349,6 @@ Bilel  5:00 PM
                         this.$.inlineToast.open();
                     }.bind(this));
             },
-
             _isExpiredDate :function(value) {
                 var currentDate = new Date();
                 if (value && this.notifyValue &&  (currentDate.toISOString() < value) ) {
@@ -370,7 +369,6 @@ Bilel  5:00 PM
             },
             _navigate: function() {
                 window.open("#!/doc/"+this.document.uid);
-
             },
             _cancel: function(){
                 this.newValue = this.value;
@@ -402,8 +400,10 @@ Bilel  5:00 PM
             },
             _isLink: function(value){
                 return value && value == 'link';
+            },
+            _isAmount:function(value){
+                return value && value == 'amount';
             }
-
         });
     </script>
 </dom-module>
