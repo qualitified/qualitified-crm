@@ -3,6 +3,8 @@
 @group Nuxeo UI
 @element nuxeo-sales-view-layout
 -->
+<link href="qualitified-document-content.html" rel="import" />
+
 <dom-module id="nuxeo-sales-view-layout">
   <template>
     <style>
@@ -49,7 +51,7 @@
       <span style="color:blue"><paper-icon-button icon="icons:work" title="On going" ></paper-icon-button><qualitified-amount value="[[proposedAmount]]"></qualitified-amount></span>
       <span style="color:green"><paper-icon-button icon="icons:work" title="Won" ></paper-icon-button><span><qualitified-amount value="[[wonAmount]]"></qualitified-amount> [{{_calculatePercentage(wonAmount)}}%] </span></span>
 
-      <nuxeo-document-content document="[[document]]"></nuxeo-document-content>
+      <qualitified-document-content document="[[document]]"></qualitified-document-content>
     </paper-card>
   </template>
 

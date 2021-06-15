@@ -1,7 +1,10 @@
 <link rel="import" href="../qualitified-custom-fields.html">
+<link rel="import" href="../../shared-css.html">
+
 <dom-module id="nuxeo-solicitation-metadata-layout">
-  <template>
-    <style>
+
+    <template>
+        <style include="shared-css">
       *[role=widget] {
         padding: 5px;
       }
@@ -15,27 +18,27 @@
 
     </style>
 
-<div role="widget">
-      <h1>
-      [[document.properties.dc:title]]</h1>
-</div>
-<div role="widget">
-<label>[[i18n('label.metadata.solicitation.category')]]</label>
-<div directory-name="Role">[[formatDirectory(document.properties.solicitation:category)]]</div>
-</div>
-<div role="widget">
-<label>[[i18n('label.metadata.solicitation.status')]]</label>
-<div directory-name="Role">[[formatDirectory(document.properties.solicitation:status)]]</div>
-</div>
-<qualitified-custom-fields document="{{document}}" mode="view"></qualitified-custom-fields>
-<div role="widget">
-<label>[[i18n('label.metadata.description')]]</label>
-    <div><pre>[[document.properties.dc:description]]</pre></div>
-</div>
-<nuxeo-document-attachments role="widget" document="[[document]]"></nuxeo-document-attachments>
-  </template>
+        <div role="widget">
+            <h1>
+                [[document.properties.dc:title]]</h1>
+        </div>
+        <div role="widget">
+            <label>[[i18n('label.metadata.solicitation.category')]]</label>
+            <div directory-name="Role">[[formatDirectory(document.properties.solicitation:category)]]</div>
+        </div>
+        <div role="widget">
+            <label>[[i18n('label.metadata.solicitation.status')]]</label>
+            <div directory-name="Role">[[formatDirectory(document.properties.solicitation:status)]]</div>
+        </div>
+        <qualitified-custom-fields document="{{document}}" mode="view"></qualitified-custom-fields>
+        <div role="widget">
+            <label>[[i18n('label.metadata.description')]]</label>
+            <div><pre>[[document.properties.dc:description]]</pre></div>
+        </div>
+        <nuxeo-document-attachments role="widget" document="[[document]]"></nuxeo-document-attachments>
+    </template>
 
-  <script>
+    <script>
     (function() {
       'use strict';
       Polymer({

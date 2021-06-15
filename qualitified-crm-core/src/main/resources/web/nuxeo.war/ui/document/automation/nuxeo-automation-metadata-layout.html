@@ -1,8 +1,10 @@
 <link rel="import" href="../../elements/qualitified-inline-edit.html">
 <link rel="import" href="../qualitified-custom-fields.html">
+<link rel="import" href="../../shared-css.html">
+
 <dom-module id="nuxeo-automation-metadata-layout">
     <template>
-        <style>
+        <style include="shared-css">
           *[role=widget] {
             padding: 5px;
           }
@@ -15,10 +17,6 @@
             border-radius: 20px;
             box-sizing: border-box;
             margin-right: 8px;
-          }
-
-          .title{
-            color:var(--nuxeo-secondary-color);
           }
           .border-bottom {
             border-top: 1px solid var(--nuxeo-border);

@@ -4,9 +4,11 @@
 @element nuxeo-account-metadata-layout
 -->
 <link rel="import" href="../qualitified-custom-fields.html">
+<link rel="import" href="../../shared-css.html">
+
 <dom-module id="nuxeo-account-metadata-layout">
   <template>
-    <style>
+    <style include="shared-css">
       *[role=widget] {
         padding: 5px;
       }
@@ -21,9 +23,7 @@
         min-width: 20em;
         width: 30%;
       }
-      .title{
-        color:var(--nuxeo-secondary-color);
-      }
+
       .section  {
         display: block;
       }
@@ -91,7 +91,7 @@
                                  property="account:website"
                                  value="[[document.properties.account:website]]"
                                  label="[[i18n('label.metadata.website')]]"
-                                 metadata="linkk"
+                                 metadata="link"
         >
         </qualitified-inline-edit>
         <qualitified-custom-fields document="{{document}}" column="Column1" mode="view"></qualitified-custom-fields>
