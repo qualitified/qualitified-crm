@@ -76,15 +76,10 @@
 
         <qualitified-inline-edit document="[[document]]"
                                  value="[[document.properties.account:turnover]]"
-                                 to-be-formatted format-resolver="value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, this.option2)+' '+this.option1+''"
-                                 option1="[[currency]]"
-                                 option2="[[currencyFormat]]"
+                                 metadata="amount"
                                  property="account:turnover"
-                                 label="[[i18n('label.metadata.turnover')]]"></qualitified-inline-edit>
-
-
-
-
+                                 label="[[i18n('label.metadata.turnover')]]">
+        </qualitified-inline-edit>
 
 
         <qualitified-inline-edit document="[[document]]"
@@ -238,12 +233,7 @@
           document: {
             type: Object
           },
-          currencyFormat:{
-            type: String
-          },
-          currency:{
-            type: String
-          },
+
           params:{
             type: Object,
             value: {}
@@ -265,43 +255,7 @@
             return value;
           }
         },
-        _formatCurrency: function(val,format,currency) {
-          if(val == null){
-            return "";
-          }
-          return val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, format)+' '+currency+'';
-        },
         ready: async function () {
-          const format = await this._getCurrencyFormat();
-          this.currencyFormat = format;
-          const curr = await this._getCurrency();
-          this.currency = curr;
-        },
-        _getCurrencyFormat: async function(){
-          let params = {};
-          params.name = "CurrencyFormat";
-          this.$.getOption.params = params;
-          let result = await this.$.getOption.execute().then(function(response){
-            if(response === null){
-              return ",";
-            }else{
-              return response.value;
-            }
-          }.bind(this));
-          return result;
-        },
-        _getCurrency: async function(){
-          let params = {};
-          params.name = "Currency";
-          this.$.getOption.params = params;
-          let result = await this.$.getOption.execute().then(function(response){
-            if(response === null){
-              return "$";
-            }else{
-              return response.value;
-            }
-          }.bind(this));
-          return result;
         },
         _hasProfileImg: function(value){
           if(value != null){

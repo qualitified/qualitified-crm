@@ -72,10 +72,7 @@
                 <div role="widget">
                     <qualitified-inline-edit document="[[document]]"
                                              value="[[document.properties.opportunity:amount]]"
-                                             to-be-formatted
-                                             format-resolver="value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, this.option2)+' '+this.option1+'$'"
-                                             option1="[[currency]]"
-                                             option2="[[currencyFormat]]"
+                                             metadata="amount"
                                              property="opportunity:amount"
                                              label="[[i18n('label.metadata.amount')]]"></qualitified-inline-edit>
 
@@ -136,67 +133,19 @@
                     document: {
                         type: Object
                     },
-                    currencyFormat: {
-                        type: String,
-                        observer: '_currencyFormatChanged'
-                    },
+
                     amount: {
                         type: Number
-                    },
-                    currency: {
-                        type: String
                     }
                 },
 
-
-                _formatCurrency: function (val, format, currency) {
-                    if (val == null) {
-                        return "";
-                    }
-                    return val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, format) + ' ' + currency + '';
-                },
                 ready: async function () {
-                    const format = await this._getCurrencyFormat();
-                    this.currencyFormat = format;
-                    const curr = await this._getCurrency();
-                    this.currency = curr;
-                },
-                _getCurrencyFormat: async function () {
-                    let params = {};
-                    params.name = "CurrencyFormat";
-                    this.$.getOption.params = params;
-                    let result = await this.$.getOption.execute().then(function (response) {
-                        if (response === null) {
-                            return ",";
-                        } else {
-                            return response.value;
-                        }
-                    }.bind(this));
-                    return result;
-                },
-
-                _getCurrency: async function () {
-                    let params = {};
-                    params.name = "Currency";
-                    this.$.getOption.params = params;
-                    let result = await this.$.getOption.execute().then(function (response) {
-                        if (response === null) {
-                            return "$";
-                        } else {
-                            return response.value;
-                        }
-                    }.bind(this));
-                    return result;
                 },
 
                 _formatDate: function (date) {
                     return moment(date).format('MMMM D, YYYY');
                 },
-                _currencyFormatChanged: function (currencyFormat) {
-                    if (currencyFormat !== null) {
-                        this.amount = this.document.properties["opportunity:amount"].toString().replace(/\B(?=(\d{3})+(?!\d))/g, currencyFormat);
-                    }
-                },
+
                 /**
                  * Returns the label for the given directory entry.
                  */

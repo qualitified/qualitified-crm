@@ -8,16 +8,23 @@
       is: 'qualitified-amount',
       properties: {
           value: {
-            type: Number
+            type: Number,
+            observer: '_valueChanged'
           },
           formattedValue: {
+            type: String
+          },
+          format: {
             type: String
           }
       },
 
       ready: async function(){
-        const format = await this._getValue();
-        this.formattedValue = this._formatCurrency(this.value, format);
+        this.format = await this._getValue();
+        this.formattedValue = this._formatCurrency(this.value, this.format);
+      },
+      _valueChanged: function(){
+        this.formattedValue = this._formatCurrency(this.value, this.format);
       },
       _getValue: async function(){
          let params = {};
