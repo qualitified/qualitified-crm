@@ -1,4 +1,5 @@
 <?xml version="1.0"?>
+<component name="org.qualitified.crm.automatic.version.creation">
 <extension point="policies" target="org.nuxeo.ecm.core.api.versioning.VersioningService">
     <policy beforeUpdate="true" id="no-versioning-for-system-before-update" increment="NONE" order="1">
         <filter-id>system-document</filter-id>
@@ -25,3 +26,4 @@
         <filter-id>no-versioning-faceted-tag-filter</filter-id>
     </policy>
 </extension>
+</component>

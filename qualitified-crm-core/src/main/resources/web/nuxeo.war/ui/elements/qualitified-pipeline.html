@@ -388,6 +388,12 @@
       },
       IdSelected: {
       type: String,
+      },
+      currencyFormat:{
+        type: String
+      },
+      currency:{
+        type: String
       }
       },
 
@@ -463,7 +469,10 @@
           ev.currentTarget.classList.add('footerDrop');
       },
       dragend:function(ev){
-        ev.target.style.opacity = "";
+         ev.target.style.opacity = "";
+         //this.$.top.scrollIntoView();
+
+        // document.documentElement.style.setProperty('--empty-column-height', '500px');
         this.shadowRoot.querySelectorAll('.empty-column').forEach(function(emptyColumn){
           emptyColumn.style.height="";
           });
@@ -476,6 +485,37 @@
          this.$.dropInProposal.hidden = true;
          this.$.dropInNego.hidden = true;
 
+        /* if ( ev.target.className == "empty-card over" ) {
+
+            if(ev.target.offsetParent.firstElementChild.getAttribute("label")== "NEW"){
+              for (var i=0; i < this.items.length; i++) {
+                  if('id'+this.items[i].uid ==ev.target.id){
+                    this.newTotalAmount-=this.items[i].properties['opportunity:amount'];
+                  }
+              }
+            }
+            if(ev.target.offsetParent.firstElementChild.getAttribute("label")== "FIRST CONTACT/DEMO"){
+              for (var i=0; i < this.items.length; i++) {
+                  if('id'+this.items[i].uid ==ev.target.id){
+                    this.firstContactTotalAmount-=this.items[i].properties['opportunity:amount'];
+                  }
+              }
+            }
+            if(ev.target.offsetParent.firstElementChild.getAttribute("label")== "PROPOSAL SENT"){
+              for (var i=0; i < this.items.length; i++) {
+                  if('id'+this.items[i].uid ==ev.target.id){
+                    this.proposalSentTotalAmount-=this.items[i].properties['opportunity:amount'];
+                  }
+              }
+            }
+            if(ev.target.offsetParent.firstElementChild.getAttribute("label")== "NEGOCIATION"){
+              for (var i=0; i < this.items.length; i++) {
+                  if('id'+this.items[i].uid ==ev.target.id){
+                    this.negociationTotalAmount-=this.items[i].properties['opportunity:amount'];
+                  }
+              }
+            }
+        } */
       },
       dragenter:function(ev){
         if ( ev.target.className == "empty-column" ) {
@@ -496,6 +536,12 @@
         this.shadowRoot.querySelectorAll('.empty-column').forEach(function(emptyColumn){
           emptyColumn.style.height=dropColumnHg;
           });
+
+        //empty.setProperty( "height", dropColumnHg );
+        //document.documentElement.style.setProperty('--empty-column-height', dropColumnHg);
+        /* this.customStyle['--empty-column-height'] = dropColumnHg;
+          this.updateStyles(); */
+
         if (ev.target.parentNode.id === "new") {
           this.$.first.hidden = true;
           this.$.proposal.hidden = true;
@@ -695,7 +741,47 @@
                  };
             this.$.setProperty.execute();
 
-       }
+       },
+
+    _formatCurrency: function(val,format,currency) {
+      if(val == null){
+        return "";
+      }
+      return val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, format)+' '+currency+'';
+    },
+    ready: async function () {
+      const format = await this._getCurrencyFormat();
+      this.currencyFormat = format;
+      const curr = await this._getCurrency();
+      this.currency = curr;
+    },
+     _getCurrencyFormat: async function(){
+             let params = {};
+             params.name = "CurrencyFormat";
+             this.$.getOption.params = params;
+             let result = await this.$.getOption.execute().then(function(response){
+                 if(response === null){
+                    return ",";
+                 }else{
+                    return response.value;
+                 }
+             }.bind(this));
+             return result;
+      },
+     _getCurrency: async function(){
+             let params = {};
+             params.name = "Currency";
+             this.$.getOption.params = params;
+             let result = await this.$.getOption.execute().then(function(response){
+                 if(response === null){
+                    return "$";
+                 }else{
+                    return response.value;
+                 }
+             }.bind(this));
+             return result;
+      },
+
     });
   </script>
 </dom-module>
