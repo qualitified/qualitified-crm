@@ -71,7 +71,6 @@ History
                                     required="[[stringField1Required]]" role="widget"
                                     value="{{document.properties.custom:stringField1}}"></nuxeo-textarea>
                 </template>
-
                 <template if="[[stringField2Multiline]]" is="dom-if">
                     <nuxeo-textarea class="sortableEdit" hidden$="[[!stringField2Visible]]"
                                     id="[[stringField2Order]]" label="[[stringField2Label]]"
@@ -820,6 +819,7 @@ History
 
             <div class="vertical layout flex" name="view">
                 <div class="sortable" hidden$="[[!stringField1Visible]]" id="[[stringField1Order]]" role="widget">
+                    <template if="[[!stringField1Clickable]]" is="dom-if">
                     <template if="[[!stringField1Editable]]" is="dom-if">
                         <label>[[stringField1Label]]</label>
                         <div>[[document.properties.custom:stringField1]]
@@ -831,17 +831,23 @@ History
                                 ></copy-to-clipboard>
                             </template>
                         </div>
+                    </template></template>
+                    <template if="[[stringField1Clickable]]" is="dom-if">
+                        <label>[[stringField1Label]]</label>
+                        <div>
+                        <a href="[[document.properties.custom:stringField1]]"style="color:blue;" target="_blank">[[document.properties.custom:stringField1]]</a>
+                        </div>
                     </template>
                     <template if="[[stringField1Editable]]" is="dom-if">
                         <qualitified-inline-edit document="[[document]]"
                                                  property="custom:stringField1"
                                                  value="[[document.properties.custom:stringField1]]"
-                                                 label="[[stringField1Label]]"
-                        >
+                                                 label="[[stringField1Label]]">
                         </qualitified-inline-edit>
                     </template>
                 </div>
                 <div class="sortable" hidden$="[[!stringField2Visible]]" id="[[stringField2Order]]" role="widget">
+                    <template if="[[!stringField2Clickable]]" is="dom-if">
                     <template if="[[!stringField2Editable]]" is="dom-if">
                         <label>[[stringField2Label]]</label>
                         <div>[[document.properties.custom:stringField2]]
@@ -853,6 +859,12 @@ History
                                 ></copy-to-clipboard>
                             </template>
                         </div>
+                    </template></template>
+                    <template if="[[stringField2Clickable]]" is="dom-if">
+                        <label>[[stringField2Label]]</label>
+                        <div>
+                            <a href="[[document.properties.custom:stringField2]]"style="color:blue;" target="_blank">[[document.properties.custom:stringField2]]</a>
+                        </div>
                     </template>
                     <template if="[[stringField2Editable]]" is="dom-if">
                         <qualitified-inline-edit document="[[document]]"
@@ -863,6 +875,7 @@ History
                     </template>
                 </div>
                 <div class="sortable" hidden$="[[!stringField3Visible]]" id="[[stringField3Order]]" role="widget">
+                    <template if="[[!stringField3Clickable]]" is="dom-if">
                     <template if="[[!stringField3Editable]]" is="dom-if">
                         <label>[[stringField3Label]]</label>
                         <div>[[document.properties.custom:stringField3]]
@@ -874,6 +887,12 @@ History
                                 ></copy-to-clipboard>
                             </template>
                         </div>
+                    </template></template>
+                    <template if="[[stringField3Clickable]]" is="dom-if">
+                        <label>[[stringField3Label]]</label>
+                        <div>
+                            <a href="[[document.properties.custom:stringField3]]"style="color:blue;" target="_blank">[[document.properties.custom:stringField3]]</a>
+                        </div>
                     </template>
                     <template if="[[stringField3Editable]]" is="dom-if">
                         <qualitified-inline-edit document="[[document]]"
@@ -884,6 +903,7 @@ History
                     </template>
                 </div>
                 <div class="sortable" hidden$="[[!stringField4Visible]]" id="[[stringField4Order]]" role="widget">
+                    <template if="[[!stringField4Clickable]]" is="dom-if">
                     <template if="[[!stringField4Editable]]" is="dom-if">
                         <label>[[stringField4Label]]</label>
                         <div>[[document.properties.custom:stringField4]]
@@ -895,6 +915,13 @@ History
                                 ></copy-to-clipboard>
                             </template>
                         </div>
+                    </template></template>
+
+                    <template if="[[stringField4Clickable]]" is="dom-if">
+                    <label>[[stringField4Label]]</label>
+                    <div>
+                        <a href="[[document.properties.custom:stringField4]]"style="color:blue;" target="_blank">[[document.properties.custom:stringField4]]</a>
+                    </div>
                     </template>
                     <template if="[[stringField4Editable]]" is="dom-if">
                         <qualitified-inline-edit document="[[document]]"
@@ -905,6 +932,7 @@ History
                     </template>
                 </div>
                 <div class="sortable" hidden$="[[!stringField5Visible]]" id="[[stringField5Order]]" role="widget">
+                    <template if="[[!stringField5Clickable]]" is="dom-if">
                     <template if="[[!stringField5Editable]]" is="dom-if">
                         <label>[[stringField5Label]]</label>
                         <div>[[document.properties.custom:stringField5]]
@@ -916,6 +944,12 @@ History
                                 ></copy-to-clipboard>
                             </template>
                         </div>
+                    </template></template>
+                    <template if="[[stringField5Clickable]]" is="dom-if">
+                        <label>[[stringField5Label]]</label>
+                        <div>
+                            <a href="[[document.properties.custom:stringField5]]"style="color:blue;" target="_blank">[[document.properties.custom:stringField5]]</a>
+                        </div>
                     </template>
                     <template if="[[stringField5Editable]]" is="dom-if">
                         <qualitified-inline-edit document="[[document]]"
@@ -926,6 +960,7 @@ History
                     </template>
                 </div>
                 <div class="sortable" hidden$="[[!stringField6Visible]]" id="[[stringField6Order]]" role="widget">
+                    <template if="[[!stringField6Clickable]]" is="dom-if">
                     <template if="[[!stringField6Editable]]" is="dom-if">
                         <label>[[stringField6Label]]</label>
                         <div>[[document.properties.custom:stringField6]]
@@ -937,6 +972,12 @@ History
                                 ></copy-to-clipboard>
                             </template>
                         </div>
+                    </template></template>
+                    <template if="[[stringField6Clickable]]" is="dom-if">
+                        <label>[[stringField6Label]]</label>
+                        <div>
+                            <a href="[[document.properties.custom:stringField6]]"style="color:blue;" target="_blank">[[document.properties.custom:stringField6]]</a>
+                        </div>
                     </template>
                     <template if="[[stringField6Editable]]" is="dom-if">
                         <qualitified-inline-edit document="[[document]]"
@@ -947,6 +988,8 @@ History
                     </template>
                 </div>
                 <div class="sortable" hidden$="[[!stringField7Visible]]" id="[[stringField7Order]]" role="widget">
+                    <template if="[[!stringField7Clickable]]" is="dom-if">
+
                     <template if="[[!stringField7Editable]]" is="dom-if">
                         <label>[[stringField7Label]]</label>
                         <div>[[document.properties.custom:stringField7]]
@@ -958,6 +1001,12 @@ History
                                 ></copy-to-clipboard>
                             </template>
                         </div>
+                    </template></template>
+                    <template if="[[stringField7Clickable]]" is="dom-if">
+                        <label>[[stringField7Label]]</label>
+                        <div>
+                            <a href="[[document.properties.custom:stringField7]]"style="color:blue;" target="_blank">[[document.properties.custom:stringField7]]</a>
+                        </div>
                     </template>
                     <template if="[[stringField7Editable]]" is="dom-if">
                         <qualitified-inline-edit document="[[document]]"
@@ -968,6 +1017,8 @@ History
                     </template>
                 </div>
                 <div class="sortable" hidden$="[[!stringField8Visible]]" id="[[stringField8Order]]" role="widget">
+                    <template if="[[!stringField8Clickable]]" is="dom-if">
+
                     <template if="[[!stringField8Editable]]" is="dom-if">
                         <label>[[stringField8Label]]</label>
                         <div>[[document.properties.custom:stringField8]]
@@ -979,6 +1030,12 @@ History
                                 ></copy-to-clipboard>
                             </template>
                         </div>
+                    </template></template>
+                    <template if="[[stringField8Clickable]]" is="dom-if">
+                        <label>[[stringField8Label]]</label>
+                        <div>
+                            <a href="[[document.properties.custom:stringField8]]"style="color:blue;" target="_blank">[[document.properties.custom:stringField8]]</a>
+                        </div>
                     </template>
                     <template if="[[stringField8Editable]]" is="dom-if">
                         <qualitified-inline-edit document="[[document]]"
@@ -989,6 +1046,7 @@ History
                     </template>
                 </div>
                 <div class="sortable" hidden$="[[!stringField9Visible]]" id="[[stringField9Order]]" role="widget">
+                    <template if="[[!stringField9Clickable]]" is="dom-if">
                     <template if="[[!stringField9Editable]]" is="dom-if">
                         <label>[[stringField9Label]]</label>
                         <div>[[document.properties.custom:stringField9]]
@@ -1000,6 +1058,12 @@ History
                                 ></copy-to-clipboard>
                             </template>
                         </div>
+                    </template></template>
+                    <template if="[[stringField9Clickable]]" is="dom-if">
+                        <label>[[stringField9Label]]</label>
+                        <div>
+                            <a href="[[document.properties.custom:stringField9]]"style="color:blue;" target="_blank">[[document.properties.custom:stringField9]]</a>
+                        </div>
                     </template>
                     <template if="[[stringField9Editable]]" is="dom-if">
                         <qualitified-inline-edit document="[[document]]"
@@ -1010,6 +1074,7 @@ History
                     </template>
                 </div>
                 <div class="sortable" hidden$="[[!stringField10Visible]]" id="[[stringField10Order]]" role="widget">
+                    <template if="[[!stringField10Clickable]]" is="dom-if">
                     <template if="[[!stringField10Editable]]" is="dom-if">
                         <label>[[stringField10Label]]</label>
                         <div>[[document.properties.custom:stringField10]]
@@ -1021,6 +1086,12 @@ History
                                 ></copy-to-clipboard>
                             </template>
                         </div>
+                    </template></template>
+                    <template if="[[stringField10Clickable]]" is="dom-if">
+                        <label>[[stringField10Label]]</label>
+                        <div>
+                            <a href="[[document.properties.custom:stringField10]]"style="color:blue;" target="_blank">[[document.properties.custom:stringField10]]</a>
+                        </div>
                     </template>
                     <template if="[[stringField10Editable]]" is="dom-if">
                         <qualitified-inline-edit document="[[document]]"
@@ -1031,6 +1102,7 @@ History
                     </template>
                 </div>
                 <div class="sortable" hidden$="[[!stringField11Visible]]" id="[[stringField11Order]]" role="widget">
+                    <template if="[[!stringField11Clickable]]" is="dom-if">
                     <template if="[[!stringField11Editable]]" is="dom-if">
                         <label>[[stringField11Label]]</label>
                         <div>[[document.properties.custom:stringField11]]
@@ -1042,6 +1114,12 @@ History
                                 ></copy-to-clipboard>
                             </template>
                         </div>
+                    </template></template>
+                    <template if="[[stringField11Clickable]]" is="dom-if">
+                        <label>[[stringField11Label]]</label>
+                        <div>
+                            <a href="[[document.properties.custom:stringField11]]"style="color:blue;" target="_blank">[[document.properties.custom:stringField11]]</a>
+                        </div>
                     </template>
                     <template if="[[stringField11Editable]]" is="dom-if">
                         <qualitified-inline-edit document="[[document]]"
@@ -1052,6 +1130,7 @@ History
                     </template>
                 </div>
                 <div class="sortable" hidden$="[[!stringField12Visible]]" id="[[stringField12Order]]" role="widget">
+                    <template if="[[!stringField12Clickable]]" is="dom-if">
                     <template if="[[!stringField12Editable]]" is="dom-if">
                         <label>[[stringField12Label]]</label>
                         <div>[[document.properties.custom:stringField12]]
@@ -1063,6 +1142,12 @@ History
                                 ></copy-to-clipboard>
                             </template>
                         </div>
+                    </template></template>
+                    <template if="[[stringField12Clickable]]" is="dom-if">
+                        <label>[[stringField12Label]]</label>
+                        <div>
+                            <a href="[[document.properties.custom:stringField12]]"style="color:blue;" target="_blank">[[document.properties.custom:stringField12]]</a>
+                        </div>
                     </template>
                     <template if="[[stringField12Editable]]" is="dom-if">
                         <qualitified-inline-edit document="[[document]]"
@@ -1073,6 +1158,8 @@ History
                     </template>
                 </div>
                 <div class="sortable" hidden$="[[!stringField13Visible]]" id="[[stringField13Order]]" role="widget">
+                    <template if="[!stringField13Clickable]]" is="dom-if">
+
                     <template if="[[!stringField13Editable]]" is="dom-if">
                         <label>[[stringField13Label]]</label>
                         <div>[[document.properties.custom:stringField13]]
@@ -1084,6 +1171,12 @@ History
                                 ></copy-to-clipboard>
                             </template>
                         </div>
+                    </template></template>
+                    <template if="[[stringField13Clickable]]" is="dom-if">
+                        <label>[[stringField13Label]]</label>
+                        <div>
+                            <a href="[[document.properties.custom:stringField13]]"style="color:blue;" target="_blank">[[document.properties.custom:stringField13]]</a>
+                        </div>
                     </template>
                     <template if="[[stringField13Editable]]" is="dom-if">
                         <qualitified-inline-edit document="[[document]]"
@@ -1094,6 +1187,8 @@ History
                     </template>
                 </div>
                 <div class="sortable" hidden$="[[!stringField14Visible]]" id="[[stringField14Order]]" role="widget">
+                    <template if="[[!stringField14Clickable]]" is="dom-if">
+
                     <template if="[[!stringField14Editable]]" is="dom-if">
                         <label>[[stringField14Label]]</label>
                         <div>[[document.properties.custom:stringField14]]
@@ -1105,6 +1200,12 @@ History
                                 ></copy-to-clipboard>
                             </template>
                         </div>
+                    </template></template>
+                    <template if="[[stringField14Clickable]]" is="dom-if">
+                        <label>[[stringField14Label]]</label>
+                        <div>
+                            <a href="[[document.properties.custom:stringField14]]"style="color:blue;" target="_blank">[[document.properties.custom:stringField14]]</a>
+                        </div>
                     </template>
                     <template if="[[stringField14Editable]]" is="dom-if">
                         <qualitified-inline-edit document="[[document]]"
@@ -1115,6 +1216,7 @@ History
                     </template>
                 </div>
                 <div class="sortable" hidden$="[[!stringField15Visible]]" id="[[stringField15Order]]" role="widget">
+                    <template if="[[!stringField15Clickable]]" is="dom-if">
                     <template if="[[!stringField15Editable]]" is="dom-if">
                         <label>[[stringField15Label]]</label>
                         <div>[[document.properties.custom:stringField15]]
@@ -1127,6 +1229,12 @@ History
                             </template>
                         </div>
                     </template>
+                    <template if="[[stringField15Clickable]]" is="dom-if">
+                        <label>[[stringField15Label]]</label>
+                        <div>
+                            <a href="[[document.properties.custom:stringField15]]"style="color:blue;" target="_blank">[[document.properties.custom:stringField15]]</a>
+                        </div>
+                    </template></template>
                     <template if="[[stringField15Editable]]" is="dom-if">
                         <qualitified-inline-edit document="[[document]]"
                                                  property="custom:stringField15"
@@ -1136,6 +1244,7 @@ History
                     </template>
                 </div>
                 <div class="sortable" hidden$="[[!stringField16Visible]]" id="[[stringField16Order]]" role="widget">
+                    <template if="[[!stringField16Clickable]]" is="dom-if">
                     <template if="[[!stringField16Editable]]" is="dom-if">
                         <label>[[stringField16Label]]</label>
                         <div>[[document.properties.custom:stringField16]]
@@ -1147,6 +1256,12 @@ History
                                 ></copy-to-clipboard>
                             </template>
                         </div>
+                    </template></template>
+                    <template if="[[stringField16Clickable]]" is="dom-if">
+                        <label>[[stringField16Label]]</label>
+                        <div>
+                            <a href="[[document.properties.custom:stringField16]]"style="color:blue;" target="_blank">[[document.properties.custom:stringField16]]</a>
+                        </div>
                     </template>
                     <template if="[[stringField16Editable]]" is="dom-if">
                         <qualitified-inline-edit document="[[document]]"
@@ -1157,6 +1272,7 @@ History
                     </template>
                 </div>
                 <div class="sortable" hidden$="[[!stringField17Visible]]" id="[[stringField17Order]]" role="widget">
+                    <template if="[[!stringField17Clickable]]" is="dom-if">
                     <template if="[[!stringField17Editable]]" is="dom-if">
                         <label>[[stringField17Label]]</label>
                         <div>[[document.properties.custom:stringField17]]
@@ -1168,6 +1284,12 @@ History
                                 ></copy-to-clipboard>
                             </template>
                         </div>
+                    </template></template>
+                    <template if="[[stringField17Clickable]]" is="dom-if">
+                        <label>[[stringField17Label]]</label>
+                        <div>
+                            <a href="[[document.properties.custom:stringField17]]"style="color:blue;" target="_blank">[[document.properties.custom:stringField17]]</a>
+                        </div>
                     </template>
                     <template if="[[stringField17Editable]]" is="dom-if">
                         <qualitified-inline-edit document="[[document]]"
@@ -1178,6 +1300,8 @@ History
                     </template>
                 </div>
                 <div class="sortable" hidden$="[[!stringField18Visible]]" id="[[stringField18Order]]" role="widget">
+                    <template if="[[!stringField18Clickable]]" is="dom-if">
+
                     <template if="[[!stringField18Editable]]" is="dom-if">
                         <label>[[stringField18Label]]</label>
                         <div>[[document.properties.custom:stringField18]]
@@ -1189,6 +1313,12 @@ History
                                 ></copy-to-clipboard>
                             </template>
                         </div>
+                    </template></template>
+                    <template if="[[stringField18Clickable]]" is="dom-if">
+                        <label>[[stringField18Label]]</label>
+                        <div>
+                            <a href="[[document.properties.custom:stringField18]]"style="color:blue;" target="_blank">[[document.properties.custom:stringField18]]</a>
+                        </div>
                     </template>
                     <template if="[[stringField18Editable]]" is="dom-if">
                         <qualitified-inline-edit document="[[document]]"
@@ -1199,6 +1329,7 @@ History
                     </template>
                 </div>
                 <div class="sortable" hidden$="[[!stringField19Visible]]" id="[[stringField19Order]]" role="widget">
+                    <template if="[[!stringField19Clickable]]" is="dom-if">
                     <template if="[[!stringField19Editable]]" is="dom-if">
                         <label>[[stringField19Label]]</label>
                         <div>[[document.properties.custom:stringField19]]
@@ -1210,6 +1341,12 @@ History
                                 ></copy-to-clipboard>
                             </template>
                         </div>
+                    </template></template>
+                    <template if="[[stringField19Clickable]]" is="dom-if">
+                        <label>[[stringField19Label]]</label>
+                        <div>
+                            <a href="[[document.properties.custom:stringField19]]"style="color:blue;" target="_blank">[[document.properties.custom:stringField19]]</a>
+                        </div>
                     </template>
                     <template if="[[stringField19Editable]]" is="dom-if">
                         <qualitified-inline-edit document="[[document]]"
@@ -1220,6 +1357,8 @@ History
                     </template>
                 </div>
                 <div class="sortable" hidden$="[[!stringField20Visible]]" id="[[stringField20Order]]" role="widget">
+                    <template if="[[!stringField20Clickable]]" is="dom-if">
+
                     <template if="[[!stringField20Editable]]" is="dom-if">
                         <label>[[stringField20Label]]</label>
                         <div>[[document.properties.custom:stringField20]]
@@ -1230,6 +1369,12 @@ History
                                         id="copyToClipboard20"
                                 ></copy-to-clipboard>
                             </template>
+                        </div>
+                    </template></template>
+                    <template if="[[stringField20Clickable]]" is="dom-if">
+                        <label>[[stringField20Label]]</label>
+                        <div>
+                            <a href="[[document.properties.custom:stringField20]]"style="color:blue;" target="_blank">[[document.properties.custom:stringField20]]</a>
                         </div>
                     </template>
                     <template if="[[stringField20Editable]]" is="dom-if">
@@ -2345,8 +2490,8 @@ History
                                                          role="widget"
                                                          value="{{document.properties.custom:documentField4}}"></qualitified-document-suggestion>
                     </template></template>
-                <template if="[[!documentField5Editable]]" is="dom-if">
 
+                <template if="[[!documentField5Editable]]" is="dom-if">
                     <template if="[[!documentField5Link]]" is="dom-if">
                         <qualitified-document-suggestion class="sortable" clickable="false"
                                                          hidden$="[[!documentField5Visible]]" id="[[documentField5Order]]" label="[[documentField5Label]]"
@@ -4638,7 +4783,87 @@ History
                     type: Boolean,
                     value: false
                 },
-                stringField1Editable : {
+                 stringField1Clickable : {
+                    type: Boolean,
+                    value: false
+                },
+                 stringField2Clickable : {
+                    type: Boolean,
+                    value: false
+                },
+                 stringField3Clickable : {
+                    type: Boolean,
+                    value: false
+                },
+                 stringField4Clickable : {
+                    type: Boolean,
+                    value: false
+                },
+                 stringField5Clickable : {
+                    type: Boolean,
+                    value: false
+                },
+                 stringField1Clickable : {
+                    type: Boolean,
+                    value: false
+                },
+                stringField6Editable : {
+                    type: Boolean,
+                    value: false
+                },
+                 stringField7Clickable : {
+                    type: Boolean,
+                    value: false
+                },
+                 stringField8Clickable : {
+                    type: Boolean,
+                    value: false
+                },
+                 stringField9Clickable : {
+                    type: Boolean,
+                    value: false
+                },
+                 stringField10Clickable : {
+                    type: Boolean,
+                    value: false
+                },
+                 stringField11Clickable : {
+                    type: Boolean,
+                    value: false
+                },
+                 stringField12Clickable : {
+                    type: Boolean,
+                    value: false
+                },
+                 stringField13Clickable : {
+                    type: Boolean,
+                    value: false
+                },
+                 stringField14Clickable : {
+                    type: Boolean,
+                    value: false
+                },
+                 stringField15Clickable : {
+                    type: Boolean,
+                    value: false
+                },
+                 stringField16Clickable : {
+                    type: Boolean,
+                    value: false
+                },
+                 stringField17Clickable : {
+                    type: Boolean,
+                    value: false
+                },
+                 stringField18Clickable : {
+                    type: Boolean,
+                    value: false
+                },
+                 stringField19Clickable : {
+                    type: Boolean,
+                    value: false
+                },
+                 stringField20Clickable : {
                     type: Boolean,
                     value: false
                 },
@@ -5219,6 +5444,7 @@ History
                             this.stringField1Required = this._isVisible(field.readGroup,field.editGroup,field.hiddenGroup)? field.required : false;
                             this.stringField1Order = i;
                             this.stringField1Multiline = field.multiline !== null  ? field.multiline : false;
+                            this.stringField1Clickable = field.link !== null  ? field.link : false;
                             this.stringField1Copy = field.copy !== null ? field.copy : false;
                             this.stringField1Editable = field.editable!== null  ? field.editable : false;
 
@@ -5229,6 +5455,7 @@ History
                             this.stringField2Required = this._isVisible(field.readGroup,field.editGroup,field.hiddenGroup)? field.required : false;
                             this.stringField2Order = i;
                             this.stringField2Multiline = field.multiline !== null  ? field.multiline : false;
+                            this.stringField2Clickable = field.link !== null  ? field.link : false;
                             this.stringField2Copy = field.copy !== null ? field.copy : false;
                             this.stringField2Editable = field.editable!== null  ? field.editable : false;
 
@@ -5239,6 +5466,7 @@ History
                             this.stringField3Required = this._isVisible(field.readGroup,field.editGroup,field.hiddenGroup)? field.required : false;
                             this.stringField3Order = i;
                             this.stringField3Multiline = field.multiline !== null  ? field.multiline : false;
+                            this.stringField3Clickable = field.link !== null  ? field.link : false;
                             this.stringField3Copy = field.copy !== null ? field.copy : false;
                             this.stringField3Editable = field.editable!== null  ? field.editable : false;
 
@@ -5249,6 +5477,7 @@ History
                             this.stringField4Required = this._isVisible(field.readGroup,field.editGroup,field.hiddenGroup)? field.required : false;
                             this.stringField4Order = i;
                             this.stringField4Multiline = field.multiline !== null  ? field.multiline : false;
+                            this.stringField4Clickable = field.link !== null  ? field.link : false;
                             this.stringField4Copy = field.copy !== null ? field.copy : false;
                             this.stringField4Editable = field.editable!== null  ? field.editable : false;
 
@@ -5259,6 +5488,7 @@ History
                             this.stringField5Required = this._isVisible(field.readGroup,field.editGroup,field.hiddenGroup)? field.required : false;
                             this.stringField5Order = i;
                             this.stringField5Multiline = field.multiline !== null  ? field.multiline : false;
+                            this.stringField5Clickable = field.link !== null  ? field.link : false;
                             this.stringField5Copy = field.copy !== null ? field.copy : false;
                             this.stringField5Editable = field.editable!== null  ? field.editable : false;
 
@@ -5269,6 +5499,7 @@ History
                             this.stringField6Required = this._isVisible(field.readGroup,field.editGroup,field.hiddenGroup)? field.required : false;
                             this.stringField6Order = i;
                             this.stringField6Multiline = field.multiline !== null  ? field.multiline : false;
+                            this.stringField6Clickable = field.link !== null  ? field.link : false;
                             this.stringField6Copy = field.copy !== null ? field.copy : false;
                             this.stringField6Editable = field.editable!== null  ? field.editable : false;
 
@@ -5279,6 +5510,7 @@ History
                             this.stringField7Required = this._isVisible(field.readGroup,field.editGroup,field.hiddenGroup)? field.required : false;
                             this.stringField7Order = i;
                             this.stringField7Multiline = field.multiline !== null  ? field.multiline : false;
+                            this.stringField7Clickable = field.link !== null  ? field.link : false;
                             this.stringField7Copy = field.copy !== null ? field.copy : false;
                             this.stringField7Editable = field.editable!== null  ? field.editable : false;
 
@@ -5289,6 +5521,7 @@ History
                             this.stringField8Required = this._isVisible(field.readGroup,field.editGroup,field.hiddenGroup)? field.required : false;
                             this.stringField8Order = i;
                             this.stringField8Multiline = field.multiline !== null  ? field.multiline : false;
+                            this.stringField8Clickable = field.link !== null  ? field.link : false;
                             this.stringField8Copy = field.copy !== null ? field.copy : false;
                             this.stringField8Editable = field.editable!== null  ? field.editable : false;
 
@@ -5299,6 +5532,7 @@ History
                             this.stringField9Required = this._isVisible(field.readGroup,field.editGroup,field.hiddenGroup)? field.required : false;
                             this.stringField9Order = i;
                             this.stringField9Multiline = field.multiline !== null  ? field.multiline : false;
+                            this.stringField9Clickable = field.link !== null  ? field.link : false;
                             this.stringField9Copy = field.copy !== null ? field.copy : false;
                             this.stringField9Editable = field.editable!== null  ? field.editable : false;
 
@@ -5309,6 +5543,7 @@ History
                             this.stringField10Required = this._isVisible(field.readGroup,field.editGroup,field.hiddenGroup)? field.required : false;
                             this.stringField10Order = i;
                             this.stringField10Multiline = field.multiline !== null  ? field.multiline : false;
+                            this.stringField10Clickable = field.link !== null  ? field.link : false;
                             this.stringField10Copy = field.copy !== null ? field.copy : false;
                             this.stringField10Editable = field.editable!== null  ? field.editable : false;
 
@@ -5319,6 +5554,7 @@ History
                             this.stringField11Required = this._isVisible(field.readGroup,field.editGroup,field.hiddenGroup)? field.required : false;
                             this.stringField11Order = i;
                             this.stringField11Multiline = field.multiline !== null  ? field.multiline : false;
+                            this.stringField11Clickable = field.link !== null  ? field.link : false;
                             this.stringField11Copy = field.copy !== null ? field.copy : false;
                             this.stringField11Editable = field.editable!== null  ? field.editable : false;
 
@@ -5330,6 +5566,7 @@ History
                             this.stringField12Required = this._isVisible(field.readGroup,field.editGroup,field.hiddenGroup)? field.required : false;
                             this.stringField12Order = i;
                             this.stringField12Multiline = field.multiline !== null  ? field.multiline : false;
+                            this.stringField12Clickable = field.link !== null  ? field.link : false;
                             this.stringField12Copy = field.copy !== null ? field.copy : false;
                             this.stringField12Editable = field.editable!== null  ? field.editable : false;
 
@@ -5340,6 +5577,7 @@ History
                             this.stringField13Required = this._isVisible(field.readGroup,field.editGroup,field.hiddenGroup)? field.required : false;
                             this.stringField13Order = i;
                             this.stringField13Multiline = field.multiline !== null  ? field.multiline : false;
+                            this.stringField13Clickable = field.link !== null  ? field.link : false;
                             this.stringField13Copy = field.copy !== null ? field.copy : false;
                             this.stringField13Editable = field.editable!== null  ? field.editable : false;
 
@@ -5350,6 +5588,7 @@ History
                             this.stringField14Required = this._isVisible(field.readGroup,field.editGroup,field.hiddenGroup)? field.required : false;
                             this.stringField14Order = i;
                             this.stringField14Multiline = field.multiline !== null  ? field.multiline : false;
+                            this.stringField14Clickable = field.link !== null  ? field.link : false;
                             this.stringField14Copy = field.copy !== null ? field.copy : false;
                             this.stringField14Editable = field.editable!== null  ? field.editable : false;
 
@@ -5360,8 +5599,9 @@ History
                             this.stringField15Required = this._isVisible(field.readGroup,field.editGroup,field.hiddenGroup)? field.required : false;
                             this.stringField15Order = i;
                             this.stringField15Multiline = field.multiline !== null  ? field.multiline : false;
+                            this.stringField15Clickable = field.link !== null  ? field.link : false;
                             this.stringField15Copy = field.copy !== null ? field.copy : false;
-
+                            this.stringField15Editable = field.editable!== null  ? field.editable : false;
                         }
                         if(field.fieldName === 'stringField16'){
                             this.stringField16Visible = this._isVisible(field.readGroup,field.editGroup,field.hiddenGroup);
@@ -5369,6 +5609,7 @@ History
                             this.stringField16Required = this._isVisible(field.readGroup,field.editGroup,field.hiddenGroup)? field.required : false;
                             this.stringField16Order = i;
                             this.stringField16Multiline = field.multiline !== null  ? field.multiline : false;
+                            this.stringField16Clickable = field.link !== null  ? field.link : false;
                             this.stringField16Copy = field.copy !== null ? field.copy : false;
                             this.stringField16Editable = field.editable!== null  ? field.editable : false;
 
@@ -5379,6 +5620,7 @@ History
                             this.stringField17Required = this._isVisible(field.readGroup,field.editGroup,field.hiddenGroup)? field.required : false;
                             this.stringField17Order = i;
                             this.stringField17Multiline = field.multiline !== null  ? field.multiline : false;
+                            this.stringField17Clickable = field.link !== null  ? field.link : false;
                             this.stringField17Copy = field.copy !== null ? field.copy : false;
                             this.stringField17Editable = field.editable!== null  ? field.editable : false;
 
@@ -5389,6 +5631,7 @@ History
                             this.stringField18Required = this._isVisible(field.readGroup,field.editGroup,field.hiddenGroup)? field.required : false;
                             this.stringField18Order = i;
                             this.stringField18Multiline = field.multiline !== null  ? field.multiline : false;
+                            this.stringField18Clickable = field.link !== null  ? field.link : false;
                             this.stringField18Copy = field.copy !== null ? field.copy : false;
                             this.stringField18Editable = field.editable!== null  ? field.editable : false;
 
@@ -5399,6 +5642,7 @@ History
                             this.stringField19Required = this._isVisible(field.readGroup,field.editGroup,field.hiddenGroup)? field.required : false;
                             this.stringField19Order = i;
                             this.stringField19Multiline = field.multiline !== null  ? field.multiline : false;
+                            this.stringField19Clickable = field.link !== null  ? field.link : false;
                             this.stringField19Copy = field.copy !== null ? field.copy : false;
                             this.stringField19Editable = field.editable!== null  ? field.editable : false;
 
@@ -5409,6 +5653,7 @@ History
                             this.stringField20Required = this._isVisible(field.readGroup,field.editGroup,field.hiddenGroup)? field.required : false;
                             this.stringField20Order = i;
                             this.stringField20Multiline = field.multiline !== null  ? field.multiline : false;
+                            this.stringField20Clickable = field.link !== null  ? field.link : false;
                             this.stringField20Copy = field.copy !== null ? field.copy : false;
                             this.stringField20Editable = field.editable!== null  ? field.editable : false;
 

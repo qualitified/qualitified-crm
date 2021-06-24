@@ -22,56 +22,56 @@
     <nuxeo-operation id="getCurrentUser" op="User.Get"></nuxeo-operation>
     <nuxeo-operation id="getContactDoc" op="Repository.GetDocument"></nuxeo-operation>
 
-    <nuxeo-input role="widget"
+    <nuxeo-input role="widget" 
                  value="{{document.properties.dc:title}}"
                  label="[[i18n('label.metadata.interaction.title')]]">
     </nuxeo-input>
 
     <template is="dom-if" if="[[!_isActivityEmail(document.properties.interaction:activity)]]">
-      <nuxeo-textarea role="widget"
+      <nuxeo-textarea role="widget" 
                       value="{{document.properties.dc:description}}"
                       label="[[i18n('label.metadata.interaction.description')]]">
       </nuxeo-textarea>
     </template>
 
     <template is="dom-if" if="[[_isActivityEmail(document.properties.interaction:activity)]]">
-      <nuxeo-textarea role="widget"
+      <nuxeo-textarea role="widget" 
                       value="{{document.properties.note:note}}"
                       label="[[i18n('label.metadata.interaction.description')]]">
       </nuxeo-textarea>
     </template>
 
-    <nuxeo-directory-suggestion role="widget"
+    <nuxeo-directory-suggestion role="widget" 
                                 value="{{document.properties.interaction:status}}"
-                                label="[[i18n('label.metadata.status')]]"
-                                required="true"
-                                directory-name="IntStatus"
+                                label="[[i18n('label.metadata.status')]]" 
+                                required="true" 
+                                directory-name="IntStatus" 
                                 min-chars="0">
     </nuxeo-directory-suggestion>
 
-    <nuxeo-directory-suggestion id="IntActivity"
+    <nuxeo-directory-suggestion id="IntActivity" 
                                 role="widget" value="{{document.properties.interaction:activity}}"
-                                on-value-changed="_isActivity"
-                                label="[[i18n('label.metadata.activity')]]"
+                                on-value-changed="_isActivity" 
+                                label="[[i18n('label.metadata.activity')]]" 
                                 required="true"
-                                directory-name="IntActivity"
+                                directory-name="IntActivity" 
                                 min-chars="0">
     </nuxeo-directory-suggestion>
 
     <nuxeo-user-suggestion role="widget"
-                           value="{{document.properties.interaction:responsible}}"
+                           value="{{document.properties.interaction:responsible}}" 
                            on-value-changed="_isCurrentUser"
-                           label="[[i18n('label.metadata.responsible')]]"
-                           search-type="USER_TYPE"
+                           label="[[i18n('label.metadata.responsible')]]" 
+                           search-type="USER_TYPE" 
                            min-chars="0"
                            multiple="true">
     </nuxeo-user-suggestion>
 
-    <qualitified-document-suggestion role="widget"
-                                     value="{{document.properties.interaction:contact}}"
+    <qualitified-document-suggestion role="widget" 
+                                     value="{{document.properties.interaction:contact}}" 
                                      multiple="true"
-                                     label="[[i18n('label.metadata.contact')]]"
-                                     page-provider="documents"
+                                     label="[[i18n('label.metadata.contact')]]" 
+                                     page-provider="documents" 
                                      min-chars="0"
                                      params='{ "namedParameters": "system_primaryType=Contact"}'>
     </qualitified-document-suggestion>
@@ -81,10 +81,10 @@
     </div>
 
     <div class="dateFields">
-      <qualitified-time-picker value="{{document.properties.interaction:date}}"
+      <qualitified-time-picker value="{{document.properties.interaction:date}}" 
                                display-duration="{{isSynchBtnChecked}}"
-                               duration="{{document.properties.custom:stringField3}}"
-                               date-label="Date"
+                               duration="{{document.properties.custom:stringField3}}" 
+                               date-label="Date" 
                                duration-label="Duration"
                                role="widget">
       </qualitified-time-picker>
