@@ -38,12 +38,12 @@
         </style>
         <nuxeo-connection id="nxcon"></nuxeo-connection>
 
-        <nuxeo-page-provider role="widget" 
-                             id="interactionTodoProvider" 
+        <nuxeo-page-provider role="widget"
+                             id="interactionTodoProvider"
                              auto
                              query="SELECT * FROM Interaction WHERE ecm:currentLifeCycleState != 'deleted' and ecm:isTrashed = 0 and ecm:parentId = '[[document.uid]]' AND ecm:currentLifeCycleState = 'todo' ORDER BY interaction:date DESC"
-                             page-size="1" 
-                             params="[[params]]" 
+                             page-size="1"
+                             params="[[params]]"
                              aggregations="{{interactionTodoAggregations}}"
                              current-page="{{interactionsTodo}}">
         </nuxeo-page-provider>
@@ -71,40 +71,48 @@
                         </template>
                     </a>
 
-                    <qualitified-document-suggestion role="widget" 
+                    <qualitified-document-suggestion role="widget"
                                                      value="[[item.properties.interaction:contact]]"
-                                                     multiple clickable="false" 
-                                                     readOnly 
+                                                     multiple clickable="false"
+                                                     readOnly
                                                      style="padding: 0px;">
                     </qualitified-document-suggestion>
 
-                    <qualitified-inline-edit document="[[item]]" 
+                    <qualitified-inline-edit document="[[item]]"
                                              property="interaction:activity"
-                                             label="label.metadata.activity" 
-                                             directory="IntActivity" 
+                                             label="label.metadata.activity"
+                                             directory="IntActivity"
                                              metadata="directory">
                     </qualitified-inline-edit>
 
-                    <qualitified-inline-edit document="[[item]]" 
-                                             property="dc:title" 
+                    <qualitified-inline-edit document="[[item]]"
+                                             property="dc:title"
                                              label="label.dublincore.title">
                     </qualitified-inline-edit>
+                    <template if="[[!item.properties.note:note]]" is="dom-if">
+                        <qualitified-inline-edit document="[[item]]"
+                                                 property="dc:description"
+                                                 label="label.metadata.interaction.description"
+                                                 metadata="textarea">
+                        </qualitified-inline-edit>
+                    </template>
+                    <template if="[[item.properties.note:note]]" is="dom-if">
+                        <qualitified-inline-edit document="[[item]]"
+                                                 property="note:note"
+                                                 label="label.metadata.interaction.description"
+                                                 metadata="textarea">
+                        </qualitified-inline-edit>
+                    </template>
 
-                    <qualitified-inline-edit document="[[item]]" 
-                                             property="dc:description"
-                                             label="label.metadata.interaction.description" 
-                                             metadata="textarea">
-                    </qualitified-inline-edit>
-
-                    <qualitified-inline-edit document="[[item]]" 
-                                             property="interaction:date" 
+                    <qualitified-inline-edit document="[[item]]"
+                                             property="interaction:date"
                                              label="label.metadata.date"
                                              metadata="date">
-                     </qualitified-inline-edit>
-                    <qualitified-inline-edit document="[[item]]" 
+                    </qualitified-inline-edit>
+                    <qualitified-inline-edit document="[[item]]"
                                              property="interaction:status"
-                                             label="label.metadata.status" 
-                                             directory="IntStatus" 
+                                             label="label.metadata.status"
+                                             directory="IntStatus"
                                              metadata="directory">
                     </qualitified-inline-edit>
 
@@ -155,12 +163,12 @@
             <qualitified-create-interaction id="importPopup" type="Interaction">
             </qualitified-create-interaction>
             <div className="dataTable">
-                <nuxeo-page-provider role="widget" 
-                                     id="interactionProvider" 
+                <nuxeo-page-provider role="widget"
+                                     id="interactionProvider"
                                      auto
                                      query="SELECT * FROM Interaction WHERE ecm:currentLifeCycleState != 'deleted' and ecm:isTrashed = 0 and ecm:parentId = '[[document.uid]]' AND ecm:currentLifeCycleState = 'done' ORDER BY interaction:date DESC"
-                                     page-size="40" 
-                                     params="[[params]]" 
+                                     page-size="40"
+                                     params="[[params]]"
                                      aggregations="{{interactionAggregations}}"
                                      current-page="{{interactions}}">
                 </nuxeo-page-provider>
@@ -191,20 +199,23 @@
                                 - [[item.title]]</a>
                         </div>
 
-                        <qualitified-document-suggestion role="widget" value="[[item.properties.interaction:contact]]"
-                                                         multiple clickable="false" readOnly style="padding: 0px;">
+                        <qualitified-document-suggestion role="widget"
+                                                         value="[[item.properties.interaction:contact]]"
+                                                         multiple clickable="false"
+                                                         readOnly
+                                                         style="padding: 0px;">
                         </qualitified-document-suggestion>
-
-                        <div>
+                        <div hidden$=[[_hasNote(item)]]>
                             <pre class="wrap">[[item.properties.dc:description]]</pre>
                         </div>
-                        <iron-collapse id="collapse-[[item.uid]]">
+                        <iron-collapse hidden$=[[!_hasNote(item)]] id="collapse-[[item.uid]]">
                             <div>
                                 <pre class="wrap">[[item.properties.note:note]]</pre>
                             </div>
                         </iron-collapse>
-                        <button hidden$=[[!_hasNote(item)]] id="button-[[item.uid]]" on-click="toggle"
-                                data-id$="[[item.uid]]">...
+
+                        <button hidden$=[[!_hasNote(item)]] id="button-[[item.uid]]" on-click="toggle" data-id$="[[item.uid]]">
+                            ...
                         </button>
                         <qualitified-document-attachments document="[[item]]"></qualitified-document-attachments>
                         <br />
@@ -219,31 +230,32 @@
         <div class="dataTable">
             <nuxeo-page-provider id="documentProvider" auto
                                  query="select * from Document where ecm:primaryType in ('File', 'Folder') and ecm:currentLifeCycleState != 'deleted' and ecm:isTrashed = 0 and ecm:parentId = '[[document.uid]]' "
-                                 page-size="40" 
-                                 aggregations="{{documentAggregations}}" 
+                                 page-size="40"
+                                 aggregations="{{documentAggregations}}"
                                  enrichers="thumbnail, permissions"
-                                 page="[[pageNumber]]" 
-                                 params="[[params]]" 
+                                 page="[[pageNumber]]"
+                                 params="[[params]]"
                                  schemas="dublincore,common,uid,file"
                                  headers='{"X-NXfetch.document": "properties", "X-NXtranslate.directoryEntry": "label"}'
                                  fetch-aggregates>
             </nuxeo-page-provider>
 
-            <nuxeo-results name="[[document.uid]]" nx-provider="[[documentProvider]]"
+            <nuxeo-results name="[[document.uid]]"
+                           nx-provider="[[documentProvider]]"
                            selected-items="{{selectedItems}}">
 
                 <!-- Table view -->
-                <nuxeo-data-table class="results" 
-                                  name="table" 
-                                  icon="nuxeo:view-list" 
+                <nuxeo-data-table class="results"
+                                  name="table"
+                                  icon="nuxeo:view-list"
                                   settings-enabled
-                                  empty-label="[[emptyLabel]]" 
+                                  empty-label="[[emptyLabel]]"
                                   empty-label-when-filtered="[[emptyLabelWhenFiltered]]"
-                                  selection-enabled 
-                                  display-quick-filters 
+                                  selection-enabled
+                                  display-quick-filters
                                   on-row-clicked="_navigate">
 
-                    <nuxeo-data-table-column name="Full text search" 
+                    <nuxeo-data-table-column name="Full text search"
                                              flex="100" filter-by="ecm_fulltext"
                                              sort-by="dc:title">
                         <template>
@@ -256,7 +268,7 @@
                     <nuxeo-data-table-column filter-by="dc_modified_agg" flex="50" sort-by="dc:modified">
                         <template is="header">
                             <nuxeo-dropdown-aggregation placeholder="Modified"
-                                                        data="[[documentAggregations.dc_modified_agg]]" 
+                                                        data="[[documentAggregations.dc_modified_agg]]"
                                                         value="{{column.filterValue}}" multiple>
                             </nuxeo-dropdown-aggregation>
                         </template>
@@ -267,7 +279,7 @@
                     <nuxeo-data-table-column filter-by="dc_creator_agg" flex="50">
                         <template is="header">
                             <nuxeo-dropdown-aggregation placeholder="Author"
-                                                        data="[[documentAggregations.dc_creator_agg]]" 
+                                                        data="[[documentAggregations.dc_creator_agg]]"
                                                         value="{{column.filterValue}}" multiple>
                             </nuxeo-dropdown-aggregation>
                         </template>

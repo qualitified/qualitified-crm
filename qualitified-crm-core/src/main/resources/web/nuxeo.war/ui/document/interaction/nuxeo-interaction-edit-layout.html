@@ -23,56 +23,56 @@
     </nuxeo-operation>
     <nuxeo-document id="doc" doc-id="[[document.uid]]" response="{{interactionDoc}}"></nuxeo-document>
 
-    <nuxeo-input role="widget" 
+    <nuxeo-input role="widget"
                  value="{{document.properties.dc:title}}"
                  label="[[i18n('label.metadata.interaction.title')]]">
     </nuxeo-input>
 
-    <template is="dom-if" if="[[!_isActivityEmail(document.properties.interaction:activity)]]">
-      <nuxeo-textarea role="widget" 
+    <template is="dom-if" if="[[!document.properties.note:note]]">
+      <nuxeo-textarea role="widget"
                       value="{{document.properties.dc:description}}"
                       label="[[i18n('label.metadata.interaction.description')]]">
       </nuxeo-textarea>
     </template>
 
-    <template is="dom-if" if="[[_isActivityEmail(document.properties.interaction:activity)]]">
-      <nuxeo-textarea role="widget" 
+    <template is="dom-if" if="[[document.properties.note:note]]">
+      <nuxeo-textarea role="widget"
                       value="{{document.properties.note:note}}"
                       label="[[i18n('label.metadata.interaction.description')]]">
       </nuxeo-textarea>
     </template>
 
-    <nuxeo-directory-suggestion role="widget" 
+    <nuxeo-directory-suggestion role="widget"
                                 value="{{document.properties.interaction:status}}"
-                                label="[[i18n('label.metadata.status')]]" 
-                                required="true" 
-                                directory-name="IntStatus" 
-                                min-chars="0">
-    </nuxeo-directory-suggestion>
-
-    <nuxeo-directory-suggestion role="widget" 
-                                value="{{document.properties.interaction:activity}}"
-                                on-value-changed="_isActivity" 
-                                label="[[i18n('label.metadata.activity')]]" 
+                                label="[[i18n('label.metadata.status')]]"
                                 required="true"
-                                directory-name="IntActivity" 
+                                directory-name="IntStatus"
                                 min-chars="0">
     </nuxeo-directory-suggestion>
 
-    <nuxeo-user-suggestion value="{{document.properties.interaction:responsible}}" 
+    <nuxeo-directory-suggestion role="widget"
+                                value="{{document.properties.interaction:activity}}"
+                                on-value-changed="_isActivity"
+                                label="[[i18n('label.metadata.activity')]]"
+                                required="true"
+                                directory-name="IntActivity"
+                                min-chars="0">
+    </nuxeo-directory-suggestion>
+
+    <nuxeo-user-suggestion value="{{document.properties.interaction:responsible}}"
                            on-value-changed="_isCurrentUser"
-                           label="[[i18n('label.metadata.responsible')]]" 
-                           search-type="USER_TYPE" 
-                           role="widget" 
+                           label="[[i18n('label.metadata.responsible')]]"
+                           search-type="USER_TYPE"
+                           role="widget"
                            min-chars="0"
                            multiple="true">
     </nuxeo-user-suggestion>
 
-    <qualitified-document-suggestion role="widget" 
-                                     value="{{document.properties.interaction:contact}}" 
+    <qualitified-document-suggestion role="widget"
+                                     value="{{document.properties.interaction:contact}}"
                                      multiple="true"
-                                     label="[[i18n('label.metadata.contact')]]" 
-                                     page-provider="documents" 
+                                     label="[[i18n('label.metadata.contact')]]"
+                                     page-provider="documents"
                                      min-chars="0"
                                      params='{ "namedParameters": "system_primaryType=Contact"}'>
     </qualitified-document-suggestion>
@@ -81,8 +81,8 @@
       <qualitified-time-picker role="widget"
                                value="{{document.properties.interaction:date}}"
                                display-duration="{{document.properties.custom:booleanField1}}"
-                               duration="{{document.properties.custom:stringField3}}" 
-                               date-label="Date" 
+                               duration="{{document.properties.custom:stringField3}}"
+                               date-label="Date"
                                duration-label="Duration"
                                role="widget">
       </qualitified-time-picker>
@@ -171,6 +171,7 @@
 
         _isActivity: function (e) {
           if (this.document) {
+            // if activity is meeting or call
             var responsible = this.document.properties['interaction:responsible'];
             if ((e.detail.value === "Meeting" || e.detail.value === "Call") && JSON.stringify(responsible) === JSON.stringify([this.currentUser])) {
               this.isEvent = true;
@@ -180,11 +181,7 @@
               this.$.synchBtn.checked = false;
               this.isDisabled = true;
             }
-
           }
-        },
-        _isActivityEmail: function (activity) {
-          return activity === 'Email' ? true : false;
         },
         _isCurrentUser: function (e) {
           if (this.document) {
@@ -249,8 +246,19 @@
           this.$.dialog.toggle();
 
         },
-        validate() {
+        validate () {
           var isSynced = this.document.properties['custom:booleanField1'];
+          var activity = this.document.properties['interaction:activity'];
+          var note = this.document.properties['note:note'];
+          var desc = this.document.properties['dc:description'];
+          var report = note ? note : desc;
+          if (activity === 'Email') {
+              this.set('document.properties.note:note', report);
+              this.set('document.properties.dc:description', null);
+          } else {
+              this.set('document.properties.note:note', null);
+              this.set('document.properties.dc:description', report);
+          }
           if (isSynced === false) {
             this.set('document.properties.custom:stringField3', null);
           }
