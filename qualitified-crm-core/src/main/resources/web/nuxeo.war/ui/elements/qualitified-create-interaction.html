@@ -7,6 +7,7 @@
         margin: 0;
         padding: 24px 0 0 0;
       }
+
       :host {
         --paper-tabs-selection-bar-color: var(--nuxeo-primary-color);
         display: block;
@@ -47,11 +48,13 @@
       iron-pages * {
         height: 80vh;
       }
+
       @media (min-width: 1024px) {
         nuxeo-dialog {
           min-width: 915px;
         }
       }
+
       paper-icon-button {
         padding: 0px;
         margin: -2px 6px;
@@ -60,53 +63,32 @@
         height: 22px;
         color: #c8c8c8a8;
       }
+
       .actions {
         @apply --buttons-bar;
         @apply --layout-horizontal;
         @apply --layout-flex;
         @apply --layout-justified;
       }
+
       .scrollable {
         padding: 0 24px;
         max-height: 60vh;
         @apply --layout-scroll;
       }
-        </style>
+    </style>
 
-        <paper-icon-button
-                on-click="toggleDialogCreate"
-        ></paper-icon-button>
-        <nuxeo-document
-                doc-path="[[parentPath]]"
-                enrichers="permissions, subtypes"
-                id="defaultDoc"
-                response="{{parent}}"
-        >
+        <!--     <paper-icon-button on-click="toggleDialogCreate"></paper-icon-button>
+         -->
+        <nuxeo-document doc-path="[[parentPath]]" enrichers="permissions, subtypes" id="defaultDoc" response="{{parent}}">
         </nuxeo-document>
 
-        <paper-dialog
-                id="createDocDialog"
-                modal=""
-                no-auto-focus=""
-                opened="{{opened}}"
-        >
+        <paper-dialog id="createDocDialog" modal="" no-auto-focus="" opened="{{opened}}">
             <div class="vertical layout flex" id="holder">
-                <iron-pages
-                        attr-for-selected="name"
-                        selected="[[selectedTab]]"
-                        selected-attribute="visible"
-                >
-                    <nuxeo-slot
-                            model="[[importContext]]"
-                            slot="CREATE_POPUP_PAGES"
-                    ></nuxeo-slot>
-                    <qualitified-document-create-layout
-                            created-document="{{creartedDoc}}"
-                            id="simpleCreation"
-                            name="create"
-                            parent="[[parent]]"
-                            target-path="[[parentPath]]"
-                    ></qualitified-document-create-layout>
+                <iron-pages attr-for-selected="name" selected="[[selectedTab]]" selected-attribute="visible">
+                    <nuxeo-slot model="[[importContext]]" slot="CREATE_POPUP_PAGES"></nuxeo-slot>
+                    <qualitified-document-create-layout created-document="{{creartedDoc}}" id="simpleCreation" name="create"
+                                                        parent="[[parent]]" target-path="[[parentPath]]"></qualitified-document-create-layout>
 
                 </iron-pages>
             </div>
@@ -114,8 +96,8 @@
 
     </template>
     <script>
-        Polymer({
-         is: "qualitified-create-interaction",
+    Polymer({
+      is: "qualitified-create-interaction",
       behaviors: [Nuxeo.I18nBehavior, Nuxeo.FiltersBehavior],
       properties: {
         /**
@@ -184,26 +166,27 @@
 
       _close: function () {
         if (this.$.createDocDialog.opened) {
-            var suggFieldDocTarget = this.parentNode.parentNode.host;
-            var createdDoc = this.$$("#simpleCreation").createdDocument;
-            suggFieldDocTarget.value= createdDoc.uid;
-             var self = this;
-             setTimeout(function(){
-              self.parentNode.parentNode.getElementById('interactionTodoProvider').fetch();
-              self.parentNode.parentNode.getElementById('interactionProvider').fetch();
-            },1000);
-            this.$.createDocDialog.toggle();
+          var suggFieldDocTarget = this.parentNode.parentNode.host;
+          var createdDoc = this.$$("#simpleCreation").createdDocument;
+          suggFieldDocTarget.value = createdDoc.uid;
+          var self = this;
+          setTimeout(function () {
+            self.parentNode.parentNode.getElementById('interactionTodoProvider').fetch();
+            self.parentNode.parentNode.getElementById('interactionProvider').fetch();
+          }, 1000);
+          this.$.createDocDialog.toggle();
           //this._showTabs = true;
         }
       },
 
-      toggleDialogCreate: function () {
-        var docTypeObj= {
-            "type": this.type,
-            "facets": ["Folderish", "NXTag", "Picture"],
-            "id": this.type.toLowerCase()
-           };
-           this.parentPath=this.parentNode.parentNode.host.__data.document.path;
+      _createActivity: function (activity) {
+
+        var docTypeObj = {
+          "type": this.type,
+          "facets": ["Folderish", "NXTag", "Picture"],
+          "id": this.type.toLowerCase()
+        };
+        this.parentPath = this.parentNode.parentNode.host.__data.document.path;
 
         this.selectedTab = "create";
         this._showTabs = false;
@@ -219,6 +202,10 @@
               this.$$("#simpleCreation").init(docTypeObj);
               // this.$$('#bulkCreation').init();
               this.$.createDocDialog.toggle();
+              let self = this;
+              setTimeout(function () {
+                self.$$("#simpleCreation").shadowRoot.querySelector("#document-create").shadowRoot.querySelector("#layout").shadowRoot.querySelector("#container > nuxeo-interaction-create-layout").shadowRoot.getElementById('IntActivity').value= activity;
+              }, 1500);
             }
           }.bind(this)
         );
@@ -301,182 +288,8 @@
 
       _importContext: function () {
         return { parent: this.parent, i18n: this.i18n };
-      },
-      _createChat: function() {
-                setTimeout(function(){
-                document.querySelector("nuxeo-app").shadowRoot.querySelector("#browser").shadowRoot.querySelector("#nxContent > iron-pages > qualitified-document-page").shadowRoot.querySelector("div > div > nuxeo-document-view").shadowRoot.querySelector("nuxeo-document-layout").shadowRoot.querySelector("#layout").shadowRoot.querySelector("#container > nuxeo-opportunity-view-layout").shadowRoot.querySelector("#importPopup").shadowRoot.querySelector("#simpleCreation").shadowRoot.querySelector("#document-create").shadowRoot.querySelector("#layout").shadowRoot.querySelector("#container > nuxeo-interaction-create-layout").shadowRoot.querySelector("nuxeo-directory-suggestion:nth-child(9)").shadowRoot.querySelector("#s2").value="Chat";
-                },2000);
-                var docTypeObj= {
-            "type": this.type,
-            "facets": ["Folderish", "NXTag", "Picture"],
-            "id": this.type.toLowerCase()
-           };
+      }
 
-            this.parentPath=this.parentNode.parentNode.host.__data.document.path;
-
-        this.selectedTab = "create";
-        this._showTabs = false;
-        this._fetchParent().then(
-          function () {
-            if (this._noPermission) {
-              this.fire("notify", {
-                message: this.i18n(
-                  "documentCreationBehavior.error.noPermission"
-                ),
-              });
-            } else {
-              this.$$("#simpleCreation").init(docTypeObj);
-              // this.$$('#bulkCreation').init();
-              this.$.createDocDialog.toggle();
-            }
-          }.bind(this)
-        );
-            },
-            _createCall: function() {
-                setTimeout(function(){
-                document.querySelector("nuxeo-app").shadowRoot.querySelector("#browser").shadowRoot.querySelector("#nxContent > iron-pages > qualitified-document-page").shadowRoot.querySelector("div > div > nuxeo-document-view").shadowRoot.querySelector("nuxeo-document-layout").shadowRoot.querySelector("#layout").shadowRoot.querySelector("#container > nuxeo-opportunity-view-layout").shadowRoot.querySelector("#importPopup").shadowRoot.querySelector("#simpleCreation").shadowRoot.querySelector("#document-create").shadowRoot.querySelector("#layout").shadowRoot.querySelector("#container > nuxeo-interaction-create-layout").shadowRoot.querySelector("nuxeo-directory-suggestion:nth-child(9)").shadowRoot.querySelector("#s2").value="Call";
-                },2000);
-                var docTypeObj= {
-            "type": this.type,
-            "facets": ["Folderish", "NXTag", "Picture"],
-            "id": this.type.toLowerCase()
-           };
-             this.parentPath=this.parentNode.parentNode.host.__data.document.path;
-
-        this.selectedTab = "create";
-        this._showTabs = false;
-        this._fetchParent().then(
-          function () {
-            if (this._noPermission) {
-              this.fire("notify", {
-                message: this.i18n(
-                  "documentCreationBehavior.error.noPermission"
-                ),
-              });
-            } else {
-              this.$$("#simpleCreation").init(docTypeObj);
-              // this.$$('#bulkCreation').init();
-              this.$.createDocDialog.toggle();
-            }
-          }.bind(this)
-        );
-
-            },
-            _createMeeting: function() {
-                setTimeout(function(){
-                document.querySelector("nuxeo-app").shadowRoot.querySelector("#browser").shadowRoot.querySelector("#nxContent > iron-pages > qualitified-document-page").shadowRoot.querySelector("div > div > nuxeo-document-view").shadowRoot.querySelector("nuxeo-document-layout").shadowRoot.querySelector("#layout").shadowRoot.querySelector("#container > nuxeo-opportunity-view-layout").shadowRoot.querySelector("#importPopup").shadowRoot.querySelector("#simpleCreation").shadowRoot.querySelector("#document-create").shadowRoot.querySelector("#layout").shadowRoot.querySelector("#container > nuxeo-interaction-create-layout").shadowRoot.querySelector("nuxeo-directory-suggestion:nth-child(9)").shadowRoot.querySelector("#s2").value="Meeting";
-                },2000);
-                var docTypeObj= {
-            "type": this.type,
-            "facets": ["Folderish", "NXTag", "Picture"],
-            "id": this.type.toLowerCase()
-           };
-          this.parentPath=this.parentNode.parentNode.host.__data.document.path;
-
-        this.selectedTab = "create";
-        this._showTabs = false;
-        this._fetchParent().then(
-          function () {
-            if (this._noPermission) {
-              this.fire("notify", {
-                message: this.i18n(
-                  "documentCreationBehavior.error.noPermission"
-                ),
-              });
-            } else {
-              this.$$("#simpleCreation").init(docTypeObj);
-              // this.$$('#bulkCreation').init();
-              this.$.createDocDialog.toggle();
-            }
-          }.bind(this)
-        );
-            },
-            _createNote: function() {
-             setTimeout(function(){
-                document.querySelector("nuxeo-app").shadowRoot.querySelector("#browser").shadowRoot.querySelector("#nxContent > iron-pages > qualitified-document-page").shadowRoot.querySelector("div > div > nuxeo-document-view").shadowRoot.querySelector("nuxeo-document-layout").shadowRoot.querySelector("#layout").shadowRoot.querySelector("#container > nuxeo-opportunity-view-layout").shadowRoot.querySelector("#importPopup").shadowRoot.querySelector("#simpleCreation").shadowRoot.querySelector("#document-create").shadowRoot.querySelector("#layout").shadowRoot.querySelector("#container > nuxeo-interaction-create-layout").shadowRoot.querySelector("nuxeo-directory-suggestion:nth-child(9)").shadowRoot.querySelector("#s2").value="Note";
-                },2000);
-                var docTypeObj= {
-            "type": this.type,
-            "facets": ["Folderish", "NXTag", "Picture"],
-            "id": this.type.toLowerCase()
-           };
-        this.parentPath=this.parentNode.parentNode.host.__data.document.path;
-
-        this.selectedTab = "create";
-        this._showTabs = false;
-        this._fetchParent().then(
-          function () {
-            if (this._noPermission) {
-              this.fire("notify", {
-                message: this.i18n(
-                  "documentCreationBehavior.error.noPermission"
-                ),
-              });
-            } else {
-              this.$$("#simpleCreation").init(docTypeObj);
-              // this.$$('#bulkCreation').init();
-              this.$.createDocDialog.toggle();
-            }
-          }.bind(this)
-        );
-            },
-            _createSMS: function() {
-           setTimeout(function(){
-                document.querySelector("nuxeo-app").shadowRoot.querySelector("#browser").shadowRoot.querySelector("#nxContent > iron-pages > qualitified-document-page").shadowRoot.querySelector("div > div > nuxeo-document-view").shadowRoot.querySelector("nuxeo-document-layout").shadowRoot.querySelector("#layout").shadowRoot.querySelector("#container > nuxeo-opportunity-view-layout").shadowRoot.querySelector("#importPopup").shadowRoot.querySelector("#simpleCreation").shadowRoot.querySelector("#document-create").shadowRoot.querySelector("#layout").shadowRoot.querySelector("#container > nuxeo-interaction-create-layout").shadowRoot.querySelector("nuxeo-directory-suggestion:nth-child(9)").shadowRoot.querySelector("#s2").value="SMS";
-                },2000);
-                var docTypeObj= {
-            "type": this.type,
-            "facets": ["Folderish", "NXTag", "Picture"],
-            "id": this.type.toLowerCase()
-           };
-             this.parentPath=this.parentNode.parentNode.host.__data.document.path;
-        this.selectedTab = "create";
-        this._showTabs = false;
-        this._fetchParent().then(
-          function () {
-            if (this._noPermission) {
-              this.fire("notify", {
-                message: this.i18n(
-                  "documentCreationBehavior.error.noPermission"
-                ),
-              });
-            } else {
-              this.$$("#simpleCreation").init(docTypeObj);
-              // this.$$('#bulkCreation').init();
-              this.$.createDocDialog.toggle();
-            }
-          }.bind(this)
-        );
-            },
-        _createEmailing: function() {
-           setTimeout(function(){
-                document.querySelector("nuxeo-app").shadowRoot.querySelector("#browser").shadowRoot.querySelector("#nxContent > iron-pages > qualitified-document-page").shadowRoot.querySelector("div > div > nuxeo-document-view").shadowRoot.querySelector("nuxeo-document-layout").shadowRoot.querySelector("#layout").shadowRoot.querySelector("#container > nuxeo-opportunity-view-layout").shadowRoot.querySelector("#importPopup").shadowRoot.querySelector("#simpleCreation").shadowRoot.querySelector("#document-create").shadowRoot.querySelector("#layout").shadowRoot.querySelector("#container > nuxeo-interaction-create-layout").shadowRoot.querySelector("nuxeo-directory-suggestion:nth-child(9)").shadowRoot.querySelector("#s2").value="Email";
-                },2000);
-                var docTypeObj= {
-            "type": this.type,
-            "facets": ["Folderish", "NXTag", "Picture"],
-            "id": this.type.toLowerCase()
-           };
-        this.parentPath=this.parentNode.parentNode.host.__data.document.path;
-        this.selectedTab = "create";
-        this._showTabs = false;
-        this._fetchParent().then(
-          function () {
-            if (this._noPermission) {
-              this.fire("notify", {
-                message: this.i18n(
-                  "documentCreationBehavior.error.noPermission"
-                ),
-              });
-            } else {
-              this.$$("#simpleCreation").init(docTypeObj);
-              // this.$$('#bulkCreation').init();
-              this.$.createDocDialog.toggle();
-            }
-          }.bind(this)
-        );
-            },
-
-        });
-    </script>
+    });
+  </script>
 </dom-module>
