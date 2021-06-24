@@ -1,8 +1,8 @@
 <?xml version="1.0"?>
-<component name="org.qualitified.crm.listener.listener.publishEvent">
+<component name="org.qualitified.crm.listener.listener.interactionPostSaveListener">
     <extension target="org.nuxeo.ecm.core.event.EventServiceComponent" point="listener">
-        <listener name="publishEvent"
-                  class="org.qualitified.crm.listener.PublishEventListener">
+        <listener name="interactionPostSaveListener"
+                  class="org.qualitified.crm.listener.InteractionPostSaveListener">
             <event>documentCreated</event>
             <event>documentModified</event>
             <filters>

@@ -5,7 +5,7 @@
 <link rel="import" href="../../elements/qualitified-create-interaction.html">
 <dom-module id="nuxeo-opportunity-view-layout">
     <template>
-        <style include="nuxeo-styles" assetpath="nuxeo-results/">
+        <style include="nuxeo-styles">
             *[role=widget] {
                 padding: 40px;
                 flex: 80%;
@@ -23,25 +23,6 @@
                 margin-right: 8px;
             }
 
-            .border-bottom {
-                border-top: 1px solid var(--nuxeo-border);
-                padding: 8px 0;
-            }
-            :host {
-                display: block;
-            }
-
-            .results {
-                @apply --layout-vertical;
-                @apply --layout-flex;
-                min-height: var(--nuxeo-document-content-min-height, calc(100vh - 216px - var(--nuxeo-app-top)));
-                margin-bottom: var(--nuxeo-document-content-margin-bottom, 0);
-            }
-
-            .results.dragging {
-                border: 2px dashed var(--nuxeo-primary-color);
-            }
-
             .ellipsis {
                 text-overflow: ellipsis;
                 overflow: hidden;
@@ -50,25 +31,21 @@
                 width: calc(100% - 38px);
             }
 
-            .capitalize {
-                text-transform: capitalize;
-            }
-
-            nuxeo-tag {
-                margin-right: 2px;
+            .border-bottom {
+                border-top: 1px solid var(--nuxeo-border);
+                padding: 8px 0;
             }
         </style>
         <nuxeo-connection id="nxcon"></nuxeo-connection>
 
-        <nuxeo-page-provider
-                role="widget"
-                id="interactionTodoProvider"
-                auto
-                query="SELECT * FROM Interaction WHERE ecm:currentLifeCycleState != 'deleted' and ecm:isTrashed = 0 and ecm:parentId = '[[document.uid]]' AND ecm:currentLifeCycleState = 'todo' ORDER BY interaction:date DESC"
-                page-size="1"
-                params="[[params]]"
-                aggregations="{{interactionTodoAggregations}}"
-                current-page="{{interactionsTodo}}">
+        <nuxeo-page-provider role="widget" 
+                             id="interactionTodoProvider" 
+                             auto
+                             query="SELECT * FROM Interaction WHERE ecm:currentLifeCycleState != 'deleted' and ecm:isTrashed = 0 and ecm:parentId = '[[document.uid]]' AND ecm:currentLifeCycleState = 'todo' ORDER BY interaction:date DESC"
+                             page-size="1" 
+                             params="[[params]]" 
+                             aggregations="{{interactionTodoAggregations}}"
+                             current-page="{{interactionsTodo}}">
         </nuxeo-page-provider>
         <template is="dom-repeat" items="[[interactionsTodo]]">
             <nuxeo-card role="widget" icon="qualitified:idea" heading="[[i18n('label.next.best.action')]]">
@@ -93,35 +70,43 @@
                             <iron-icon icon="icons:perm-phone-msg"></iron-icon>
                         </template>
                     </a>
-                    <div>
-                        <template is="dom-repeat" items="[[item.properties.interaction:contact]]" as="contact">
-                            <!--img style="vertical-align: text-bottom; width:3%;" className="account-view-layout"
-                                 src="[[_hasProfileImg(contact)]]" on-tap="_navigate"
-                                 onError="this.onerror=null;this.src='/nuxeo/ui/images/touch/profile.png';"-->
-                            <qualitified-document-suggestion role="widget"
-                                                             value="[[item.properties.interaction:contact]]"
-                                                             multiple
-                                                             clickable="false"
-                                                             readOnly
-                                                             style="padding: 0px;">
-                            </qualitified-document-suggestion>
-                        </template>
-                    </div>
 
+                    <qualitified-document-suggestion role="widget" 
+                                                     value="[[item.properties.interaction:contact]]"
+                                                     multiple clickable="false" 
+                                                     readOnly 
+                                                     style="padding: 0px;">
+                    </qualitified-document-suggestion>
 
-                    <qualitified-inline-edit document="[[item]]" property="interaction:activity"
-                                             label="label.metadata.activity" directory="IntActivity"
-                                             metadata="directory"></qualitified-inline-edit>
-                    <qualitified-inline-edit document="[[item]]" property="dc:title"
-                                             label="label.dublincore.title"></qualitified-inline-edit>
-                    <qualitified-inline-edit document="[[item]]" property="dc:description"
-                                             label="label.metadata.interaction.description"
-                                             metadata="textarea"></qualitified-inline-edit>
-                    <qualitified-inline-edit document="[[item]]" property="interaction:date" label="label.metadata.date"
-                                             metadata="date"></qualitified-inline-edit>
-                    <qualitified-inline-edit document="[[item]]" property="interaction:status"
-                                             label="label.metadata.status" directory="IntStatus"
-                                             metadata="directory"></qualitified-inline-edit>
+                    <qualitified-inline-edit document="[[item]]" 
+                                             property="interaction:activity"
+                                             label="label.metadata.activity" 
+                                             directory="IntActivity" 
+                                             metadata="directory">
+                    </qualitified-inline-edit>
+
+                    <qualitified-inline-edit document="[[item]]" 
+                                             property="dc:title" 
+                                             label="label.dublincore.title">
+                    </qualitified-inline-edit>
+
+                    <qualitified-inline-edit document="[[item]]" 
+                                             property="dc:description"
+                                             label="label.metadata.interaction.description" 
+                                             metadata="textarea">
+                    </qualitified-inline-edit>
+
+                    <qualitified-inline-edit document="[[item]]" 
+                                             property="interaction:date" 
+                                             label="label.metadata.date"
+                                             metadata="date">
+                     </qualitified-inline-edit>
+                    <qualitified-inline-edit document="[[item]]" 
+                                             property="interaction:status"
+                                             label="label.metadata.status" 
+                                             directory="IntStatus" 
+                                             metadata="directory">
+                    </qualitified-inline-edit>
 
                 </div>
             </nuxeo-card>
@@ -133,33 +118,33 @@
             </h3>
             <!-- Create a new link -->
             <div className="actions layout vertical style-scope nuxeo-search-form">
-                <paper-button style="border-radius: 25px;" noink="" id="new" className="primary horizontal layout center" on-tap="_openDialogCall"
-                              elevation="0">
+                <paper-button style="border-radius: 25px;" noink="" id="new"
+                              className="primary horizontal layout center" on-tap="_openDialogCall" elevation="0">
                     <iron-icon icon="qualitified:call"></iron-icon>
                     [[i18n('label.call')]]
                 </paper-button>
-                <paper-button style="border-radius: 25px;" noink="" id="new" className="primary horizontal layout center" on-tap="_openDialogChat"
-                              elevation="0">
+                <paper-button style="border-radius: 25px;" noink="" id="new"
+                              className="primary horizontal layout center" on-tap="_openDialogChat" elevation="0">
                     <iron-icon icon="qualitified:chat"></iron-icon>
                     [[i18n('label.chat')]]
                 </paper-button>
-                <paper-button style="border-radius: 25px;" noink="" id="new" className="primary horizontal layout center" on-tap="_openDialogEmailing"
-                              elevation="0">
+                <paper-button style="border-radius: 25px;" noink="" id="new"
+                              className="primary horizontal layout center" on-tap="_openDialogEmailing" elevation="0">
                     <iron-icon icon="qualitified:emailing"></iron-icon>
                     [[i18n('label.emailing')]]
                 </paper-button>
-                <paper-button style="border-radius: 25px;" noink="" id="new" className="primary horizontal layout center" on-tap="_openDialogMeeting"
-                              elevation="0">
+                <paper-button style="border-radius: 25px;" noink="" id="new"
+                              className="primary horizontal layout center" on-tap="_openDialogMeeting" elevation="0">
                     <iron-icon icon="qualitified:meeting"></iron-icon>
                     [[i18n('label.meeting')]]
                 </paper-button>
-                <paper-button style="border-radius: 25px;" noink="" id="new" className="primary horizontal layout center" on-tap="_openDialogNote"
-                              elevation="0">
+                <paper-button style="border-radius: 25px;" noink="" id="new"
+                              className="primary horizontal layout center" on-tap="_openDialogNote" elevation="0">
                     <iron-icon icon="qualitified:note"></iron-icon>
                     [[i18n('label.note')]]
                 </paper-button>
-                <paper-button style="border-radius: 25px;" noink="" id="new" className="primary horizontal layout center" on-tap="_openDialogSMS"
-                              elevation="0">
+                <paper-button style="border-radius: 25px;" noink="" id="new"
+                              className="primary horizontal layout center" on-tap="_openDialogSMS" elevation="0">
                     <iron-icon icon="qualitified:sms"></iron-icon>
                     [[i18n('label.sms')]]
                 </paper-button>
@@ -167,20 +152,17 @@
 
 
             <!-- /Create a new Link -->
-            <qualitified-create-interaction
-                    id="importPopup"
-                    type="Interaction">
+            <qualitified-create-interaction id="importPopup" type="Interaction">
             </qualitified-create-interaction>
             <div className="dataTable">
-                <nuxeo-page-provider
-                        role="widget"
-                        id="interactionProvider"
-                        auto
-                        query="SELECT * FROM Interaction WHERE ecm:currentLifeCycleState != 'deleted' and ecm:isTrashed = 0 and ecm:parentId = '[[document.uid]]' AND ecm:currentLifeCycleState = 'done' ORDER BY interaction:date DESC"
-                        page-size="40"
-                        params="[[params]]"
-                        aggregations="{{interactionAggregations}}"
-                        current-page="{{interactions}}">
+                <nuxeo-page-provider role="widget" 
+                                     id="interactionProvider" 
+                                     auto
+                                     query="SELECT * FROM Interaction WHERE ecm:currentLifeCycleState != 'deleted' and ecm:isTrashed = 0 and ecm:parentId = '[[document.uid]]' AND ecm:currentLifeCycleState = 'done' ORDER BY interaction:date DESC"
+                                     page-size="40" 
+                                     params="[[params]]" 
+                                     aggregations="{{interactionAggregations}}"
+                                     current-page="{{interactions}}">
                 </nuxeo-page-provider>
 
                 <template is="dom-repeat" items="[[interactions]]">
@@ -206,21 +188,13 @@
                                 <template is="dom-if" if="[[_isSms(item.properties.interaction:activity)]]">
                                     <iron-icon icon="icons:perm-phone-msg"></iron-icon>
                                 </template>
-                                - [[item.title]]</a></div>
-                        <div>
-                            <template is="dom-repeat" items="[[item.properties.interaction:contact]]" as="contact">
-                                <!--img style="vertical-align: text-bottom;" class="account-view-layout"
-                                     src="[[_hasProfileImg(contact)]]" on-tap="_navigate"
-                                     onError="this.onerror=null;this.src='/nuxeo/ui/images/touch/profile.png';"-->
-                                <qualitified-document-suggestion role="widget"
-                                                                 value="[[item.properties.interaction:contact]]"
-                                                                 multiple
-                                                                 clickable="false"
-                                                                 readOnly
-                                                                 style="padding: 0px;">
-                                </qualitified-document-suggestion>
-                            </template>
+                                - [[item.title]]</a>
                         </div>
+
+                        <qualitified-document-suggestion role="widget" value="[[item.properties.interaction:contact]]"
+                                                         multiple clickable="false" readOnly style="padding: 0px;">
+                        </qualitified-document-suggestion>
+
                         <div>
                             <pre class="wrap">[[item.properties.dc:description]]</pre>
                         </div>
@@ -233,7 +207,7 @@
                                 data-id$="[[item.uid]]">...
                         </button>
                         <qualitified-document-attachments document="[[item]]"></qualitified-document-attachments>
-                        <br/>
+                        <br />
                     </div>
                 </template>
             </div>
@@ -243,45 +217,47 @@
             [[i18n('label.attachments')]]
         </h3>
         <div class="dataTable">
-            <nuxeo-page-provider id="documentProvider"
-                                 auto
+            <nuxeo-page-provider id="documentProvider" auto
                                  query="select * from Document where ecm:primaryType in ('File', 'Folder') and ecm:currentLifeCycleState != 'deleted' and ecm:isTrashed = 0 and ecm:parentId = '[[document.uid]]' "
-                                 page-size="40"
-                                 aggregations="{{documentAggregations}}"
+                                 page-size="40" 
+                                 aggregations="{{documentAggregations}}" 
                                  enrichers="thumbnail, permissions"
-                                 page="[[pageNumber]]"
-                                 params="[[params]]"
+                                 page="[[pageNumber]]" 
+                                 params="[[params]]" 
                                  schemas="dublincore,common,uid,file"
                                  headers='{"X-NXfetch.document": "properties", "X-NXtranslate.directoryEntry": "label"}'
                                  fetch-aggregates>
             </nuxeo-page-provider>
 
-            <nuxeo-results name="[[document.uid]]" nx-provider="[[documentProvider]]" selected-items="{{selectedItems}}">
+            <nuxeo-results name="[[document.uid]]" nx-provider="[[documentProvider]]"
+                           selected-items="{{selectedItems}}">
 
                 <!-- Table view -->
-                <nuxeo-data-table class="results" name="table" icon="nuxeo:view-list"
+                <nuxeo-data-table class="results" 
+                                  name="table" 
+                                  icon="nuxeo:view-list" 
                                   settings-enabled
-                                  empty-label="[[emptyLabel]]"
+                                  empty-label="[[emptyLabel]]" 
                                   empty-label-when-filtered="[[emptyLabelWhenFiltered]]"
-                                  selection-enabled
-                                  draggable$="[[_hasWritePermission(document)]]"
-                                  drop-target-filter="[[_dropTargetFilter]]"
-                                  display-quick-filters
+                                  selection-enabled 
+                                  display-quick-filters 
                                   on-row-clicked="_navigate">
-                    <nuxeo-data-table-column name="Full text search" flex="100" filter-by="ecm_fulltext"
+
+                    <nuxeo-data-table-column name="Full text search" 
+                                             flex="100" filter-by="ecm_fulltext"
                                              sort-by="dc:title">
                         <template>
                             <nuxeo-document-thumbnail document=[[item]]></nuxeo-document-thumbnail>
                             <a className="title ellipsis" href$="#!/browse[[item.path]]"
-                               on-tap="_navigate">[[item.title]]</a>
+                               on-tap="_navigate">[[item.title]]
+                            </a>
                         </template>
                     </nuxeo-data-table-column>
                     <nuxeo-data-table-column filter-by="dc_modified_agg" flex="50" sort-by="dc:modified">
                         <template is="header">
-                            <nuxeo-dropdown-aggregation
-                                    placeholder="Modified"
-                                    data="[[documentAggregations.dc_modified_agg]]"
-                                    value="{{column.filterValue}}" multiple>
+                            <nuxeo-dropdown-aggregation placeholder="Modified"
+                                                        data="[[documentAggregations.dc_modified_agg]]" 
+                                                        value="{{column.filterValue}}" multiple>
                             </nuxeo-dropdown-aggregation>
                         </template>
                         <template>
@@ -290,10 +266,9 @@
                     </nuxeo-data-table-column>
                     <nuxeo-data-table-column filter-by="dc_creator_agg" flex="50">
                         <template is="header">
-                            <nuxeo-dropdown-aggregation
-                                    placeholder="Author"
-                                    data="[[documentAggregations.dc_creator_agg]]"
-                                    value="{{column.filterValue}}" multiple>
+                            <nuxeo-dropdown-aggregation placeholder="Author"
+                                                        data="[[documentAggregations.dc_creator_agg]]" 
+                                                        value="{{column.filterValue}}" multiple>
                             </nuxeo-dropdown-aggregation>
                         </template>
                         <template>
@@ -304,7 +279,6 @@
             </nuxeo-results>
         </div>
 
-
     </template>
 
     <script>
@@ -312,8 +286,7 @@
             'use strict';
             Polymer({
                 is: 'nuxeo-opportunity-view-layout',
-                behaviors: [Nuxeo.LayoutBehavior, Nuxeo.DocumentCreationBehavior,Nuxeo.DocumentContentBehavior],
-
+                behaviors: [Nuxeo.LayoutBehavior, Nuxeo.DocumentCreationBehavior],
                 properties: {
 
                     /**
@@ -327,21 +300,15 @@
                         type: Object,
                         value: {},
                         notify: true
-                    },
-
-                    /**
-                     * The name of the page provider to be used.
-                     */
-                    provider: {
-                        type: String,
-                        value: 'advanced_document_content'
-                    },
-
+                    }
                 },
-
-                ready: function() {
+                observers: [
+                    '_refresh(params)',
+                    '_observeDocument(document)'
+                ],
+                ready: function () {
                     if (this.document) {
-                        this.params = {'ecm_parentId': this.document.uid};
+                        this.params = { 'ecm_parentId': this.document.uid };
                     }
                     this.documentProvider = this.$.documentProvider;
 
@@ -414,7 +381,6 @@
                     this.$$('#button-' + id).setAttribute('aria-expanded', this.$$('#collapse-' + id).opened);
                 },
                 _hasNote: function (doc) {
-                    console.log(doc.properties["note:note"] != null);
                     return doc.properties["note:note"] != null;
                 },
                 _hasProfileImg: function (value) {
@@ -423,27 +389,27 @@
                     return "/nuxeo/nxfile/default/" + value + "/file:content/";
                 },
                 _openDialogCall: function () {
-                    this.$.importPopup._createCall();
+                    this.$.importPopup._createActivity('Call');
 
                 },
                 _openDialogChat: function () {
-                    this.$.importPopup._createChat();
+                    this.$.importPopup._createActivity('Chat');
 
                 },
                 _openDialogEmailing: function () {
-                    this.$.importPopup._createEmailing();
+                    this.$.importPopup._createActivity('Email');
 
                 },
                 _openDialogMeeting: function () {
-                    this.$.importPopup._createMeeting();
+                    this.$.importPopup._createActivity('Meeting');
 
                 },
                 _openDialogNote: function () {
-                    this.$.importPopup._createNote();
+                    this.$.importPopup._createActivity('Note');
 
                 },
                 _openDialogSMS: function () {
-                    this.$.importPopup._createSMS();
+                    this.$.importPopup._createActivity('SMS');
 
                 }
             });

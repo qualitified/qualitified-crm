@@ -8,9 +8,11 @@
             *[role=widget] {
                 padding: 5px;
             }
+
             .wrap {
                 white-space: pre-wrap;
             }
+
             .account-view-layout {
                 height: 25px;
                 width: 25px;
@@ -18,92 +20,62 @@
                 box-sizing: border-box;
                 margin-right: 8px;
             }
+
             paper-toggle-button {
                 pointer-events: none;
             }
-
         </style>
         <div role="widget" class="title">
             <h1 directory-name="IntActivity">
-                [[formatDirectory(document.properties.interaction:activity)]] - [[document.properties.dc:title]] - [[formatDirectory(document.properties.interaction:status)]]
+                [[formatDirectory(document.properties.interaction:activity)]] - [[document.properties.dc:title]] -
+                [[formatDirectory(document.properties.interaction:status)]]
             </h1>
         </div>
         <div role="widget">
-
-
-            <qualitified-inline-edit document="[[document]]"
+            <qualitified-inline-edit document="[[document]]" 
                                      property="interaction:activity"
-                                     label="[[i18n('label.metadata.activity')]]"
-                                     metadata="directory"
+                                     label="[[i18n('label.metadata.activity')]]" 
+                                     metadata="directory" 
                                      directory="IntActivity"
-                                     value="[[formatDirectory(document.properties.interaction:activity)]]"
-            >
-
+                                     value="[[formatDirectory(document.properties.interaction:activity)]]">
             </qualitified-inline-edit>
         </div>
         <div role="widget">
             <qualitified-inline-edit document="[[document]]"
                                      property="interaction:status"
-                                     label="[[i18n('label.metadata.status')]]"
-                                     metadata="directory"
-                                     directory="IntStatus"
-                                     value="[[formatDirectory(document.properties.interaction:status)]]"
-            >
-
+                                    label="[[i18n('label.metadata.status')]]" 
+                                    metadata="directory" 
+                                    directory="IntStatus"
+                                    value="[[formatDirectory(document.properties.interaction:status)]]">
             </qualitified-inline-edit>
         </div>
-        <div role="widget" >
-            <qualitified-inline-edit document="[[document]]"
-                                     property="interaction:date"
+        <div role="widget">
+            <qualitified-inline-edit document="[[document]]" 
+                                     property="interaction:date" 
                                      label="label.metadata.date"
-                                     metadata="date"></qualitified-inline-edit>
+                                     metadata="date">
+            </qualitified-inline-edit>
         </div>
-
 
         <template if="[[!document.properties.note:note]]" is="dom-if">
             <div role="widget">
-                <qualitified-inline-edit document="[[document]]"
-                                         property="dc:description"
-                                         value="[[document.properties.dc:description]]"
-                                         label="[[i18n('label.metadata.description')]]"
-                >
+                <qualitified-inline-edit document="[[document]]" 
+                                        property="dc:description"
+                                        value="[[document.properties.dc:description]]" 
+                                        label="[[i18n('label.metadata.description')]]">
                 </qualitified-inline-edit>
             </div>
         </template>
         <template if="[[document.properties.note:note]]" is="dom-if">
-
             <div role="widget">
-                <qualitified-inline-edit document="[[document]]"
-                                         property="note:note"
-                                         value="[[document.properties.note:note]]"
-                                         label="[[i18n('label.note')]]"
-                >
+                <qualitified-inline-edit document="[[document]]" 
+                                        property="note:note"
+                                        value="[[document.properties.note:note]]" 
+                                        label="[[i18n('label.metadata.description')]]">
                 </qualitified-inline-edit>
             </div>
         </template>
 
-
-        <!--div role="widget">
-            <qualitified-inline-edit document="[[item]]"
-                                      value="[[item.properties.interaction:responsible]]"
-                                      property="interaction:responsible"
-                                      label="label.metadata.responsible"
-                                      metadata="user">
-                                    </qualitified-inline-edit>
-
-
-
-        </div>
-        <div role="widget" hidden$="[[_isHidden(document.properties.interaction:contact)]]">
-          <qualitified-inline-edit document="[[document]]"
-                                    value="document.properties.interaction:contact"
-                                    property="interaction:contact"
-                                    label="[[i18n('label.metadata.contact')]]"
-                                    params='{ "namedParameters": "system_primaryType=Contact"}'
-                                    metadata="document"></qualitified-inline-edit>
-
-
-        </div-->
         <div role="widget">
             <label>[[i18n('label.metadata.responsible')]]</label>
             <div>
@@ -113,25 +85,26 @@
             </div>
         </div>
         <div role="widget" hidden$="[[_isHidden(document.properties.interaction:contact)]]">
-
             <label>[[i18n('label.metadata.contact')]]</label>
-            <qualitified-document-suggestion role="widget"
-                                             value="[[document.properties.interaction:contact]]"
+            <qualitified-document-suggestion role="widget" 
+                                             value="[[document.properties.interaction:contact]]" 
                                              multiple
-                                             clickable="true"
+                                             clickable="true" 
                                              readOnly>
             </qualitified-document-suggestion>
         </div>
 
-        <template is="dom-if" if="[[document.properties.custom:booleanField1]]" >
-            <paper-toggle-button id="synchBtn" checked="{{document.properties.custom:booleanField1}}">Synced with google calendar</paper-toggle-button>
+        <template is="dom-if" if="[[document.properties.custom:booleanField1]]">
+            <paper-toggle-button id="synchBtn" checked="{{document.properties.custom:booleanField1}}">
+                Synced with google calendar
+            </paper-toggle-button>
         </template>
         <qualitified-custom-fields document="{{document}}" mode="view"></qualitified-custom-fields>
         <nuxeo-document-attachments role="widget" document="[[document]]"></nuxeo-document-attachments>
     </template>
 
     <script>
-        (function() {
+        (function () {
             'use strict';
             Polymer({
                 is: 'nuxeo-interaction-metadata-layout',
@@ -146,7 +119,7 @@
                 /**
                  * Returns the label for the given directory entry.
                  */
-                formatDirectory: function(value) {
+                formatDirectory: function (value) {
                     if (value && value['entity-type'] && value['entity-type'] === 'directoryEntry') {
                         if (value.properties && value.properties.label) {
                             return value.properties.label;
@@ -158,29 +131,29 @@
                         return value;
                     }
                 },
-                formatDate: function(date) {
+                formatDate: function (date) {
                     return moment(date).format('MMMM D, YYYY');
                 },
-                _isHidden: function(valueList) {
+                _isHidden: function (valueList) {
                     var hidden = true;
-                    if (valueList.length>0) {
+                    if (valueList.length > 0) {
                         hidden = false;
                     }
                     return hidden;
                 },
-                _hasNote: function(doc){
+                _hasNote: function (doc) {
                     return doc && doc.properties['note:note'] !== null;
                 },
-                _hasProfileImg: function(value){
+                _hasProfileImg: function (value) {
                     var img = document.createElement('img');
-                    img.src = "/nuxeo/nxfile/default/"+ value +"/file:content/";
-                    return "/nuxeo/nxfile/default/"+ value +"/file:content/";
+                    img.src = "/nuxeo/nxfile/default/" + value + "/file:content/";
+                    return "/nuxeo/nxfile/default/" + value + "/file:content/";
                 },
-                _navigate: function(oEvent) {
+                _navigate: function (oEvent) {
                     this.navigateTo('document', oEvent.model.get('contact'));
                 },
-                _documentReady: function(doc){
-                    if(doc){
+                _documentReady: function (doc) {
+                    if (doc) {
                         document.querySelector("nuxeo-app").shadowRoot.querySelector("qualitified-group-menu")._getCount();
                     }
                 }
