@@ -25,6 +25,7 @@
     <nuxeo-input role="widget" value="{{document.properties.dc:title}}" label="[[i18n('label.metadata.interaction.title')]]"></nuxeo-input>
 
     <nuxeo-textarea role="widget" value="{{document.properties.dc:description}}" label="[[i18n('label.metadata.interaction.description')]]"></nuxeo-textarea>
+    <nuxeo-textarea role="widget" value="{{document.properties.note:note}}" label="[[i18n('label.note')]]"></nuxeo-textarea>
 
     <nuxeo-directory-suggestion role="widget" value="{{document.properties.interaction:status}}" label="[[i18n('label.metadata.status')]]" required="true" directory-name="IntStatus" min-chars="0"></nuxeo-directory-suggestion>
 
@@ -64,132 +65,132 @@
   </template>
 
   <script>
-  (function() {
-    'use strict';
-    Polymer({
-      is: 'nuxeo-interaction-create-layout',
-      behaviors: [Nuxeo.LayoutBehavior],
-      properties: {
+    (function() {
+      'use strict';
+      Polymer({
+        is: 'nuxeo-interaction-create-layout',
+        behaviors: [Nuxeo.LayoutBehavior],
+        properties: {
 
-        /**
+          /**
            * @doctype Interaction
            */
-        document: {
-          type: Object
-        },
-        displayDuration: {
-          type: Boolean,
-          value: false
-        },
-        isEvent: {
-          type: Boolean,
-          value:false
-        },
-        isChecked: {
-          type: Boolean,
-          value:false
-        },
-        authURL: {
-          type: String
-        },
-        currentUser: {
-          type: Boolean,
-          value:false
-        },
-        isMeeting: {
-          type: Boolean,
-          value:false
-        },
-        isHidden: {
-          type: Boolean,
-          value:true
-        },
+          document: {
+            type: Object
+          },
+          displayDuration: {
+            type: Boolean,
+            value: false
+          },
+          isEvent: {
+            type: Boolean,
+            value:false
+          },
+          isChecked: {
+            type: Boolean,
+            value:false
+          },
+          authURL: {
+            type: String
+          },
+          currentUser: {
+            type: Boolean,
+            value:false
+          },
+          isMeeting: {
+            type: Boolean,
+            value:false
+          },
+          isHidden: {
+            type: Boolean,
+            value:true
+          },
 
-      },
-      attached () {
-        this.$.getCurrentUser.execute().then(function(result) {
-          this.currentUser = result.title;
+        },
+        attached () {
+          this.$.getCurrentUser.execute().then(function(result) {
+            this.currentUser = result.title;
           }.bind(this));
-      },
-      _isActivity: function(e) {
-        if (this.document) {
-          var responsible = this.document.properties['interaction:responsible'];
-          if ((e.detail.value === "Meeting" || e.detail.value === "Call") && JSON.stringify(responsible) === JSON.stringify([this.currentUser])) {
-            this.isEvent=true;
-          } else this.isEvent=false;
-        }
-      },
-      _isCurrentUser: function(e) {
-        if (this.document){
-          var activity = this.document.properties['interaction:activity'];
-          if (JSON.stringify(e.detail.value) === JSON.stringify([this.currentUser]) &&  (activity === "Meeting" || activity === "Call")) {
-            this.isEvent=true;
-          } else this.isEvent=false;
-        }
-      },
+        },
+        _isActivity: function(e) {
+          if (this.document) {
+            var responsible = this.document.properties['interaction:responsible'];
+            if ((e.detail.value === "Meeting" || e.detail.value === "Call") && JSON.stringify(responsible) === JSON.stringify([this.currentUser])) {
+              this.isEvent=true;
+            } else this.isEvent=false;
+          }
+        },
+        _isCurrentUser: function(e) {
+          if (this.document){
+            var activity = this.document.properties['interaction:activity'];
+            if (JSON.stringify(e.detail.value) === JSON.stringify([this.currentUser]) &&  (activity === "Meeting" || activity === "Call")) {
+              this.isEvent=true;
+            } else this.isEvent=false;
+          }
+        },
 
-      _checkDateFields: function() {
-        if (this.document) {
-          var startDte = this.document.properties['interaction:date'];
-          if(this.isChecked===true) {
-            if(startDte) {
-              this.isHidden=true;
-              return true;
-            } else {
-              this.isHidden=false;
-              this.isChecked=false;
-              return false;
+        _checkDateFields: function() {
+          if (this.document) {
+            var startDte = this.document.properties['interaction:date'];
+            if(this.isChecked===true) {
+              if(startDte) {
+                this.isHidden=true;
+                return true;
+              } else {
+                this.isHidden=false;
+                this.isChecked=false;
+                return false;
+              }
             }
           }
-        }
-      },
+        },
 
-      _handleAuth : function(e){
-        if(this._checkDateFields()) {
-          this.set('document.properties.custom:stringField3',"15");
+        _handleAuth : function(e){
+          if(this._checkDateFields()) {
+            this.set('document.properties.custom:stringField3',"15");
             this.$.oauth.get().then(function(response) {
               if (response.entries && response.entries.length > 0)
-                 console.log(response.entries);
-                  response.entries.forEach(serviceProvider => {
-                    if (serviceProvider.serviceName === "googleCalendar") {
-                      this.authURL = serviceProvider.authorizationURL;
-                        if (serviceProvider.isAuthorized === true) {
-                            this.$.operationToast.text = "Synch is on!";
-                            this.$.operationToast.open();
-                            this.document.properties['custom:booleanField1']=this.isChecked;
-                          } else {
-                            this.isChecked=false;
-                            this.$.dialog.toggle();
-                           /*  this.$.operationToast.text = "You're not connected to google, please connect and try again!";
-                            this.$.operationToast.open();
-                            let self = this;
-                            timeout = setTimeout(function () {
-                              self._toggleWindow(serviceProvider.authorizationURL);
-                            }, 2500); */
-                          }
-                    }
-                });
+                console.log(response.entries);
+              response.entries.forEach(serviceProvider => {
+                if (serviceProvider.serviceName === "googleCalendar") {
+                  this.authURL = serviceProvider.authorizationURL;
+                  if (serviceProvider.isAuthorized === true) {
+                    this.$.operationToast.text = "Synch is on!";
+                    this.$.operationToast.open();
+                    this.document.properties['custom:booleanField1']=this.isChecked;
+                  } else {
+                    this.isChecked=false;
+                    this.$.dialog.toggle();
+                    /*  this.$.operationToast.text = "You're not connected to google, please connect and try again!";
+                     this.$.operationToast.open();
+                     let self = this;
+                     timeout = setTimeout(function () {
+                       self._toggleWindow(serviceProvider.authorizationURL);
+                     }, 2500); */
+                  }
+                }
+              });
             }.bind(this));
           }
-      },
-      _toggleWindow : function () {
-            //var redirect_uri = document.location.origin+"/nuxeo/site/oauth2/docusign/callback";
-            var googleAuthWindow = window.open(this.authURL,"google oauth2", "resizable,scrollbars,status,width=800,height=800");
-            this.$.dialog.toggle();
-      },
+        },
+        _toggleWindow : function () {
+          //var redirect_uri = document.location.origin+"/nuxeo/site/oauth2/docusign/callback";
+          var googleAuthWindow = window.open(this.authURL,"google oauth2", "resizable,scrollbars,status,width=800,height=800");
+          this.$.dialog.toggle();
+        },
 
-      validate () {
+        validate () {
           this.set('document.properties.custom:booleanField1',this.isChecked);
-           if (this.isChecked === false) {
-             this.set('document.properties.custom:stringField3',null);
-           }
-           if(this.document.properties['dc:title']){
-             var title =this.document.properties['dc:title'].trim();
-             this.set('document.properties.dc:title',title);
+          if (this.isChecked === false) {
+            this.set('document.properties.custom:stringField3',null);
           }
-           return true;
+          if(this.document.properties['dc:title']){
+            var title =this.document.properties['dc:title'].trim();
+            this.set('document.properties.dc:title',title);
+          }
+          return true;
         }
-    });
-  })();
+      });
+    })();
   </script>
 </dom-module>

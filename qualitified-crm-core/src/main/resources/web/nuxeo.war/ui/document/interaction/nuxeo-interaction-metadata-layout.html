@@ -60,15 +60,29 @@
         </div>
 
 
+        <template if="[[!document.properties.note:note]]" is="dom-if">
+            <div role="widget">
+                <qualitified-inline-edit document="[[document]]"
+                                         property="dc:description"
+                                         value="[[document.properties.dc:description]]"
+                                         label="[[i18n('label.metadata.description')]]"
+                >
+                </qualitified-inline-edit>
+            </div>
+        </template>
+        <template if="[[document.properties.note:note]]" is="dom-if">
 
-        <div role="widget">
-            <qualitified-inline-edit document="[[document]]"
-                                     property="dc:description"
-                                     value="[[document.properties.dc:description]]"
-                                     label="[[i18n('label.metadata.description')]]"
-            >
-            </qualitified-inline-edit>
-        </div>
+            <div role="widget">
+                <qualitified-inline-edit document="[[document]]"
+                                         property="note:note"
+                                         value="[[document.properties.note:note]]"
+                                         label="[[i18n('label.note')]]"
+                >
+                </qualitified-inline-edit>
+            </div>
+        </template>
+
+
         <!--div role="widget">
             <qualitified-inline-edit document="[[item]]"
                                       value="[[item.properties.interaction:responsible]]"
