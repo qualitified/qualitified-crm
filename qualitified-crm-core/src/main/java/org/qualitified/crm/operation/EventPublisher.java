@@ -41,7 +41,7 @@ import com.google.api.services.calendar.Calendar;
 public class EventPublisher {
 
     public static final String ID = "Qualitified.SynchronizeWithCalendar";
-    private Log logger = LogFactory.getLog(Deploy.class);
+    private Log logger = LogFactory.getLog(EventPublisher.class);
 
     @Context
     protected CoreSession session;
@@ -163,17 +163,15 @@ public class EventPublisher {
                 //interactionDoc.putContextData("custom:booleanField2", Boolean.TRUE);
                 logger.warn("Event updated: " + event.getHtmlLink());
             }
-            eventServiceAdmin.setListenerEnabledFlag("publishEvent",false);
+            eventServiceAdmin.setListenerEnabledFlag("interactionPostSaveListener",false);
             session.saveDocument(interactionDoc);
 
         } catch (GoogleJsonResponseException ge){
-            if (ge.getStatusCode() == 401) {
-               logger.error("Refresh token has been expired.");
-            }
+            logger.error(ge.getMessage());
         } catch (GeneralSecurityException | IOException e) {
             throw new NuxeoException(e);
         } finally {
-            eventServiceAdmin.setListenerEnabledFlag("publishEvent",true);
+            eventServiceAdmin.setListenerEnabledFlag("interactionPostSaveListener",true);
         }
         return interactionDoc;
     }
