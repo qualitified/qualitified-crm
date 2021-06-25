@@ -85,7 +85,7 @@ public class FetchEvent {
             String calendarId = "primary";
             // disable publish event listener
             // syncInteraction.putContextData("custom:booleanField2", Boolean.TRUE);
-            eventServiceAdmin.setListenerEnabledFlag("publishEvent",false);
+            eventServiceAdmin.setListenerEnabledFlag("interactionPostSaveListener",false);
 
             // Retrieve an event
             Event event = service.events().get(calendarId, eventId).execute();
@@ -110,13 +110,11 @@ public class FetchEvent {
             }
 
         } catch (GoogleJsonResponseException ge) {
-            if (ge.getStatusCode() == 401) {
-                logger.error("Refresh token has been expired.");
-            }
+            logger.error(ge.getMessage());
         } catch (GeneralSecurityException | IOException e) {
             throw new NuxeoException(e);
         } finally {
-            eventServiceAdmin.setListenerEnabledFlag("publishEvent",true);
+            eventServiceAdmin.setListenerEnabledFlag("interactionPostSaveListener",true);
         }
     }
     @OperationMethod()
@@ -147,7 +145,7 @@ public class FetchEvent {
 
             // disable publish event listener
             //interactionDoc.putContextData("custom:booleanField2", Boolean.TRUE);
-            eventServiceAdmin.setListenerEnabledFlag("publishEvent",false);
+            eventServiceAdmin.setListenerEnabledFlag("interactionPostSaveListener",false);
             DocumentModel interactionCalendar = session.getDocument(new IdRef(calendarId));
             String syncToken = (String) interactionCalendar.getPropertyValue("custom:stringField1");
             String oneDayAgo = LocalDateTime.now().minusDays(1).toString();
@@ -223,13 +221,11 @@ public class FetchEvent {
             }
 
         } catch (GoogleJsonResponseException ge) {
-            if (ge.getStatusCode() == 401) {
-                logger.error("Refresh token has been expired.");
-            }
+            logger.error(ge.getMessage());
         } catch (GeneralSecurityException | IOException e) {
             throw new NuxeoException(e);
         } finally {
-            eventServiceAdmin.setListenerEnabledFlag("publishEvent",true);
+            eventServiceAdmin.setListenerEnabledFlag("interactionPostSaveListener",true);
         }
 
         return eventsState;
