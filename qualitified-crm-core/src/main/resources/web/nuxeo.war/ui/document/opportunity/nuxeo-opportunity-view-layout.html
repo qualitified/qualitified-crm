@@ -228,7 +228,8 @@
             [[i18n('label.attachments')]]
         </h3>
         <div class="dataTable">
-            <nuxeo-page-provider id="documentProvider" auto
+            <nuxeo-page-provider id="documentProvider"
+                                 auto
                                  query="select * from Document where ecm:primaryType in ('File', 'Folder') and ecm:currentLifeCycleState != 'deleted' and ecm:isTrashed = 0 and ecm:parentId = '[[document.uid]]' "
                                  page-size="40"
                                  aggregations="{{documentAggregations}}"
@@ -240,36 +241,32 @@
                                  fetch-aggregates>
             </nuxeo-page-provider>
 
-            <nuxeo-results name="[[document.uid]]"
-                           nx-provider="[[documentProvider]]"
-                           selected-items="{{selectedItems}}">
+            <nuxeo-results name="[[document.uid]]" nx-provider="[[documentProvider]]" selected-items="{{selectedItems}}">
 
                 <!-- Table view -->
-                <nuxeo-data-table class="results"
-                                  name="table"
-                                  icon="nuxeo:view-list"
+                <nuxeo-data-table class="results" name="table" icon="nuxeo:view-list"
                                   settings-enabled
                                   empty-label="[[emptyLabel]]"
                                   empty-label-when-filtered="[[emptyLabelWhenFiltered]]"
                                   selection-enabled
+                                  draggable$="[[_hasWritePermission(document)]]"
+                                  drop-target-filter="[[_dropTargetFilter]]"
                                   display-quick-filters
                                   on-row-clicked="_navigate">
-
-                    <nuxeo-data-table-column name="Full text search"
-                                             flex="100" filter-by="ecm_fulltext"
+                    <nuxeo-data-table-column name="Full text search" flex="100" filter-by="ecm_fulltext"
                                              sort-by="dc:title">
                         <template>
                             <nuxeo-document-thumbnail document=[[item]]></nuxeo-document-thumbnail>
                             <a className="title ellipsis" href$="#!/browse[[item.path]]"
-                               on-tap="_navigate">[[item.title]]
-                            </a>
+                               on-tap="_navigate">[[item.title]]</a>
                         </template>
                     </nuxeo-data-table-column>
                     <nuxeo-data-table-column filter-by="dc_modified_agg" flex="50" sort-by="dc:modified">
                         <template is="header">
-                            <nuxeo-dropdown-aggregation placeholder="Modified"
-                                                        data="[[documentAggregations.dc_modified_agg]]"
-                                                        value="{{column.filterValue}}" multiple>
+                            <nuxeo-dropdown-aggregation
+                                    placeholder="Modified"
+                                    data="[[documentAggregations.dc_modified_agg]]"
+                                    value="{{column.filterValue}}" multiple>
                             </nuxeo-dropdown-aggregation>
                         </template>
                         <template>
@@ -278,9 +275,10 @@
                     </nuxeo-data-table-column>
                     <nuxeo-data-table-column filter-by="dc_creator_agg" flex="50">
                         <template is="header">
-                            <nuxeo-dropdown-aggregation placeholder="Author"
-                                                        data="[[documentAggregations.dc_creator_agg]]"
-                                                        value="{{column.filterValue}}" multiple>
+                            <nuxeo-dropdown-aggregation
+                                    placeholder="Author"
+                                    data="[[documentAggregations.dc_creator_agg]]"
+                                    value="{{column.filterValue}}" multiple>
                             </nuxeo-dropdown-aggregation>
                         </template>
                         <template>
@@ -291,6 +289,7 @@
             </nuxeo-results>
         </div>
 
+
     </template>
 
     <script>
@@ -298,7 +297,8 @@
             'use strict';
             Polymer({
                 is: 'nuxeo-opportunity-view-layout',
-                behaviors: [Nuxeo.LayoutBehavior, Nuxeo.DocumentCreationBehavior],
+                behaviors: [Nuxeo.LayoutBehavior, Nuxeo.DocumentCreationBehavior,Nuxeo.DocumentContentBehavior],
+
                 properties: {
 
                     /**
