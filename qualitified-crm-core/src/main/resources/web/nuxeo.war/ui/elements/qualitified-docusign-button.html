@@ -29,7 +29,7 @@
 
       <div class="content">
         <nuxeo-input value="{{subject}}" required="" label="Subject" type="text" role="widget"></nuxeo-input>
-        <qualitified-document-suggestion role="widget" required  value="{{contactDocs}}" multiple="true" label="Signer" page-provider="documents" min-chars="0" params='{ "namedParameters": "system_primaryType=Contact"}'></qualitified-document-suggestion>
+        <qualitified-document-suggestion role="widget" style="padding: 0px;" required  value="{{contactDocs}}" multiple="true" label="Signer" page-provider="documents" min-chars="0" params='{ "namedParameters": "system_primaryType=Contact"}'></qualitified-document-suggestion>
 
         <div hidden$="[[!isHidden]]">
           <h style="color:red;">Docusign authentication failed! please connect and try again.</h><br/>

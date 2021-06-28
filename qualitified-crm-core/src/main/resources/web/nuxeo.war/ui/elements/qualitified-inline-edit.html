@@ -61,13 +61,18 @@
                 <u><a href="[[value]]"style="color:blue;">[[value]]</a></u>
             </template>
             <template is="dom-if" if="[[_isDirectory(metadata)]]">
-                [[formatDirectory(value)]]
+                <div style="padding: 0px;">
+                    [[formatDirectory(value)]]
+
+                </div>
             </template>
             <template id="dateField" is="dom-if" if="[[_isDate(metadata)]]">
                 <div style="[[_getStyle(value)]]">[[formatDate(value)]]</div>
             </template>
             <template is="dom-if" if="[[_isUser(metadata)]]">
-                <nuxeo-user-tag user="{{value}}">
+                <nuxeo-user-tag user="{{value}}"
+                                style="padding: 0px;"
+                >
                 </nuxeo-user-tag>
             </template>
             <template is="dom-if" if="[[_isDocument(metadata)]]">
@@ -75,7 +80,13 @@
                                                  value="{{value}}"
                                                  page-provider="documents"
                                                  min-chars="0"
+                                                 style="    padding: 0px;
+                                                  top: -24px;
+                                                  position: relative;
+                                                  height: 30px;
+                                                  left: -5px;"
                                                  readonly
+
                                                  id="inlineSugst">
                 </qualitified-document-suggestion>
             </template>
@@ -126,6 +137,7 @@
                 <nuxeo-directory-suggestion role="widget"
                                             value="{{newValue}}"
                                             type="text"
+                                            style="padding: 0px;"
                                             directory-name="[[directory]]"
                                             min-chars="0">
                 </nuxeo-directory-suggestion>
@@ -141,6 +153,7 @@
             <template is="dom-if" if="[[_isUser(metadata)]]">
                 <nuxeo-user-suggestion id="userId"
                                        role="widget"
+                                       style="padding: 0px;"
                                        value="{{newValue}}"
                                        on-selected-item-changed="_setUserObject"
                                        search-type="USER_TYPE"
@@ -153,6 +166,7 @@
                                                  page-provider="documents"
                                                  creation-element="inline-edit"
                                                  min-chars="0"
+                                                 style="padding: 0px;"
                                                  params="{{params}}" id="inlineSugst">
                 </qualitified-document-suggestion>
             </template>
@@ -290,9 +304,9 @@
             },
             _typeObserver:function() {
                 if (this.$.inlineSugst){
-                this.searchingType = this.$.inlineSugst.suggestionType;
+                    this.searchingType = this.$.inlineSugst.suggestionType;
                 }
-             //return type;
+                //return type;
             },
             _valueChanged: function(value) {
                 if(this.value && this.document && this.document.properties){
