@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+    <title>Html editor</title>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script>
+        var CKEDITOR_BASEPATH = '/nuxeo/ui/alloy-editor/';
+    </script>
+    <link href="alloy-editor/assets/alloy-editor-ocean-min.css" rel="stylesheet"></link>
+    <link href="alloy-editor/assets/alloy-editor-ocean.css" rel="stylesheet">
+
+    <script src="alloy-editor/alloy-editor-all.js"></script>
+    <script type="text/javascript" src="debounce.js"></script>
+
+    <style>
+        body {
+            margin: 50px;
+        }
+    </style>
+    <script>
+
+        //var child= $("#editor")[0].firstChild;
+        const queryString = window.location.search;
+        const urlParams = new URLSearchParams(queryString);
+
+
+
+        $(document).ready(function() {
+
+            $("#editor").bind('DOMSubtreeModified', $.debounce(2000,function() {
+                // event.preventDefault();
+                //var editor =$("#editor").val();
+                var htmlContentModified;
+                var matches = $("#editor").html().match(/<a[\s]+([^>]+)>((?:.(?!\<\/a\>))*.)<\/a>/g);
+                if (matches) {
+                    for (var i=0;i< matches.length;i++) {
+                        var imgSrc = (/\bhttps?:\/\/\S*?\/[^\/.]+\.(jpg|jpeg|gif|png)\b/g).exec(matches[i]);
+                        if (imgSrc) {
+                            htmlContentModified = $("#editor").html().replace(matches[i],"<img src='"+imgSrc[0]+"' data-cke-saved-src='"+imgSrc[0]+"'>");
+                            location.reload(true);
+                        } else htmlContentModified = $("#editor").html();
+                    }
+                } else htmlContentModified = $("#editor").html();
+
+                $.ajax({
+                    type: "post",
+                    url: "/nuxeo/site/api/v1/automation/Document.SetProperty",
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    data: "{" +
+                        "\"params\": {" +
+                        "\"xpath\": \"note:note\"," +
+                        "\"value\": \"" + htmlContentModified.replace(/[\\]/g, '\\\\')
+                            .replace(/[\"]/g, '\\\"')
+                            .replace(/[\/]/g, '\\/')
+                            .replace(/[\b]/g, '\\b')
+                            .replace(/[\f]/g, '\\f')
+                            .replace(/[\n]/g, '\\n')
+                            .replace(/[\r]/g, '\\r')
+                            .replace(/[\t]/g, '\\t') + "\"" +
+                        "}," +
+                        "\"input\": \"" + urlParams.get('id') + "\"," +
+                        "\"context\": {}" +
+                        "}",
+                    beforeSend: function(xhr) {
+                        xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
+                    },
+                    error: function(returnval) {
+                        $("#error").show();
+                        $("#error").delay(2000).fadeOut(1000);
+                    },
+                    success: function(returnval) {
+                        $("#success").show();
+
+                        $("#editor").val("");
+
+                    }
+                });
+            }));
+            $.ajax({
+                url: '/nuxeo/api/v1/id/' + urlParams.get('id') + '?properties=note',
+                data: {
+                    format: 'json'
+                },
+
+                error: function() {
+                    $('#info').html('<p>An error has occurred</p>');
+                },
+                dataType: 'json',
+                success: function(data) {
+                    window.ALLOYEDITOR_BASEPATH = 'alloy-editor/';
+
+                    var editor4 = AlloyEditor.editable('editor', {
+                        mode: 'full'
+                    });
+                    setTimeout(() => {
+                        $("#editor").html( data.properties["note:note"] ? data.properties["note:note"] : '<p>Write some content here...</p>');
+                    }, 2000);
+
+
+                    //document.getElementById("editor").contentWindow.document.setData(JSON.stringify(data.properties["html:content"]));
+                    /* var $content = $('<p>').text(JSON.stringify(data.properties["html:content"]));
+                     $('#editor')
+                     .append($content);*/
+                },
+                type: 'GET'
+            });
+        });
+
+
+    </script>
+</head>
+
+<body>
+
+<div id="editor" name="editor" contenteditable="true" placeholder="Write some content here too">
+
+</div>
+
+</body>
+
+</html>

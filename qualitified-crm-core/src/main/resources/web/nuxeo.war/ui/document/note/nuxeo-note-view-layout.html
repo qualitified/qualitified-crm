@@ -1,0 +1,27 @@
+
+<link rel="import" href="qualitified-note-editor.html">
+<dom-module id="nuxeo-note-view-layout">
+
+  <template>
+    <style>
+      qualitified-note-editor {
+        @apply --paper-card;
+      }
+    </style>
+    <qualitified-note-editor role="widget" document="[[document]]"></qualitified-note-editor>
+  </template>
+
+  <script>
+    Polymer({
+      is: 'nuxeo-note-view-layout',
+      behaviors: [Nuxeo.LayoutBehavior],
+      properties: {
+        /**
+         * @doctype Note
+         */
+        document: Object
+      }
+    });
+  </script>
+
+</dom-module>
