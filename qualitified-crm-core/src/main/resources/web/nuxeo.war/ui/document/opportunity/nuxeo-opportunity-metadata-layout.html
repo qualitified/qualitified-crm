@@ -37,9 +37,7 @@
                                              label="[[i18n('label.metadata.step')]]"
                                              metadata="directory"
                                              directory="OppStep"
-                                             value="[[formatDirectory(document.properties.opportunity:step)]]"
-                    >
-
+                                             value="[[formatDirectory(document.properties.opportunity:step)]]">
                     </qualitified-inline-edit>
 
                 </div>
@@ -49,9 +47,7 @@
                                              label="[[i18n('label.metadata.typeOfIndustry')]]"
                                              metadata="directory"
                                              directory="Industry"
-                                             value="[[formatDirectory(document.properties.opportunity:typeOfIndustry)]]"
-                    >
-
+                                             value="[[formatDirectory(document.properties.opportunity:typeOfIndustry)]]">
                     </qualitified-inline-edit>
 
                 </div>
@@ -61,9 +57,7 @@
                                              label="[[i18n('label.metadata.zone')]]"
                                              metadata="directory"
                                              directory="Zone"
-                                             value="[[formatDirectory(document.properties.opportunity:zone)]]"
-                    >
-
+                                             value="[[formatDirectory(document.properties.opportunity:zone)]]">
                     </qualitified-inline-edit>
                 </div>
                 <qualitified-custom-fields document="{{document}}" column="Column1" mode="view"></qualitified-custom-fields>
@@ -75,38 +69,41 @@
                                              value="[[document.properties.opportunity:amount]]"
                                              metadata="amount"
                                              property="opportunity:amount"
-                                             label="[[i18n('label.metadata.amount')]]"></qualitified-inline-edit>
-
+                                             label="[[i18n('label.metadata.amount')]]">
+                    </qualitified-inline-edit>
                 </div>
 
                 <div role="widget">
                     <qualitified-inline-edit document="[[document]]"
                                              property="opportunity:closeDate"
                                              label="label.metadata.closedate"
-                                             metadata="date"></qualitified-inline-edit>
+                                             metadata="date">
+                    </qualitified-inline-edit>
                 </div>
                 <div role="widget">
                     <qualitified-inline-edit document="[[document]]"
                                              value="[[item.properties.opportunity:responsible]]"
                                              property="opportunity:responsible"
                                              label="label.metadata.responsible"
-                                             metadata="user"></qualitified-inline-edit>
-
+                                             metadata="user">
+                    </qualitified-inline-edit>
                 </div>
                 <qualitified-custom-fields document="{{document}}" column="Column2" mode="view"></qualitified-custom-fields>
 
             </nuxeo-card>
             <nuxeo-card>
-                <div role="widget" hidden$="[[!document.properties.opportunity:mainContact]">
+                <div role="widget" hidden$="[[!document.properties.opportunity:mainContact]]">
                     <qualitified-inline-edit document="[[document]]"
-                                             value="document.properties.opportunity:mainContact"
+                                             value="[[document.properties.opportunity:mainContact]]"
                                              property="opportunity:mainContact"
+                                             parent-to-select="Account"
+                                             addable
+                                             clickable
                                              label="[[i18n('label.metadata.mainContact')]]"
                                              params='{ "namedParameters": "system_primaryType=Contact"}'
-                                             metadata="document"></qualitified-inline-edit>
-
+                                             metadata="document">
+                    </qualitified-inline-edit>
                 </div>
-
                 <qualitified-custom-fields document="{{document}}" column="Column3" mode="view"></qualitified-custom-fields>
 
             </nuxeo-card>
@@ -115,8 +112,7 @@
             <qualitified-inline-edit document="[[document]]"
                                      property="dc:description"
                                      value="[[document.properties.dc:description]]"
-                                     label="[[i18n('label.metadata.description')]]"
-            >
+                                     label="[[i18n('label.metadata.description')]]">
             </qualitified-inline-edit>
         </div>
     </template>

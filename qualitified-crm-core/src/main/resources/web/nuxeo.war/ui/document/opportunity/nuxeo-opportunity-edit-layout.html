@@ -40,7 +40,16 @@
                                min-chars="0">
         </nuxeo-user-suggestion>
 
-        <qualitified-document-suggestion role="widget" value="{{document.properties.opportunity:mainContact}}" label="[[i18n('label.metadata.mainContact')]]" page-provider="documents" min-chars="0" params='{ "namedParameters": "system_primaryType=Contact"}'></qualitified-document-suggestion>
+        <qualitified-document-suggestion role="widget"
+                                         value="{{document.properties.opportunity:mainContact}}"
+                                         label="[[i18n('label.metadata.mainContact')]]"
+                                         addable
+                                         parent-to-select="Account"
+                                         document="[[document]]"
+                                         page-provider="documents"
+                                         min-chars="0"
+                                         params='{ "namedParameters": "system_primaryType=Contact"}'>
+        </qualitified-document-suggestion>
 
         <qualitified-custom-fields document="{{document}}" mode="edit"></qualitified-custom-fields>
 

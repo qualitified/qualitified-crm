@@ -10,6 +10,8 @@
     <style>
       :host {
         display: block;
+        /* margin-top: -30px;
+        margin-left: -12px; */
       }
       :host([hidden]) {
         display: none;
@@ -20,6 +22,14 @@
       }
       a:hover {
         @apply --nuxeo-link-hover;
+      }
+      .selectedView {
+        margin-top: -30px;
+        margin-left: -14px;
+      }
+      .selectedEdit {
+        margin-top: -24px;
+        margin-left: -14px;
       }
       paper-icon-button {
         padding: 0px;
@@ -37,12 +47,16 @@
 
     <div class="labelAction">
       <label style="opacity:var(--nuxeo-label_-_opacity);">[[label]]</label>
-      <template if="[[!isBtnHidden]]" is="dom-if">
-        <qualitified-document-create creation-element="layout-edit" type="[[suggestionType]]" ></qualitified-document-create>
+      <template if="[[addable]]" is="dom-if">
+        <qualitified-document-create create-from="layout-edit"
+                                     document="[[document]]"
+                                     parent-to-select="[[parentToSelect]]"
+                                     type="[[_getSuggType(params)]]">
+        </qualitified-document-create>
       </template>
     </div>
 
-    <nuxeo-selectivity id="s2" on-input="_isNew" operation="[[operation]]" min-chars="[[minChars]]" frequency="[[frequency]]" multiple="[[multiple]]" params="[[_computeParams(params.*, pageProvider, schemas, repository)]]" placeholder="[[placeholder]]" error-message="[[errorMessage]]" readonly="[[readonly]]" value="{{value}}" selected-items="{{selectedItems}}" selected-item="{{selectedItem}}" selection-formatter="[[selectionFormatter]]" result-formatter="[[resultFormatter]]" required="[[required]]" invalid="[[invalid]]" init-selection="[[initSelection]]" id-function="[[_idFunction]]" stay-open-on-select="[[stayOpenOnSelect]]" enrichers="[[enrichers]]">
+    <nuxeo-selectivity id="s2" operation="[[operation]]" min-chars="[[minChars]]" frequency="[[frequency]]" multiple="[[multiple]]" params="[[_computeParams(params.*, pageProvider, schemas, repository)]]" placeholder="[[placeholder]]" error-message="[[errorMessage]]" readonly="[[readonly]]" value="{{value}}" selected-items="{{selectedItems}}" selected-item="{{selectedItem}}" selection-formatter="[[selectionFormatter]]" result-formatter="[[resultFormatter]]" required="[[required]]" invalid="[[invalid]]" init-selection="[[initSelection]]" id-function="[[_idFunction]]" stay-open-on-select="[[stayOpenOnSelect]]" enrichers="[[enrichers]]">
     </nuxeo-selectivity>
   </template>
   <script>
@@ -66,6 +80,15 @@
         }
         static get properties() {
           return {
+
+            document: {
+              type:Object,
+              notify: true,
+            },
+            parentToSelect: {
+              type:String,
+              notify: true,
+            },
             /**
              * Page provider to use for looking up suggestions.
              */
@@ -117,7 +140,8 @@
               value: false,
             },
              clickable: {
-              type: String,
+              type: Boolean,
+              value: false,
             },
             /**
              * If true, the dropdown stays open after a selection is made.
@@ -203,13 +227,14 @@
               type: Boolean,
               value: true,
             },
-            isBtnHidden: {
+            addable: {
               type: Boolean,
-              value: true,
+              value: false,
             },
-            creationElement: {
+            createFrom: {
               type: String,
-              value: "layout-edit",
+              value: "edit-layout",
+              observer: '_elementChanged'
             },
             /**
              * Function used to get the id from the choice document.
@@ -250,7 +275,7 @@
         attached(){
           this.$.s2.addEventListener('input',this._isNew);
         }
-        _isNew(e) {
+       /*  _isNew(e) {
             var errorClass = e.target.shadowRoot.querySelector("#input > div.selectivity-dropdown > div > div").className;
             this.isDocFound = !(errorClass==="selectivity-error");
             if (this.creationElement==="inline-edit" && this.parentNode.__dataHost) {
@@ -260,7 +285,7 @@
               this.isBtnHidden = this.isDocFound;
             }
           }
-
+ */
         /* Override method from Polymer.IronValidatableBehavior. */
         _getValidity() {
           return this.$.s2._getValidity();
@@ -280,20 +305,34 @@
           //TODO Make the link optional
           let defaultIcon = (doc && doc.properties && doc.properties["common:icon"])? doc.properties["common:icon"] : "";
           let img = ((doc.type === "Contact" || doc.type === "Account") && doc.properties["file:content"])? `<img style="vertical-align: middle;height: 25px;width: 25px;border-radius: 20px;box-sizing: border-box;margin-right: 8px;" src="/nuxeo/nxfile/default/${doc.uid}/file:content/" onError="this.onerror=null;this.src='/nuxeo/${defaultIcon}';">` : `<img style="vertical-align: middle;height: 25px;width: 25px;border-radius: 20px;box-sizing: border-box;margin-right: 8px;" src="/nuxeo/${defaultIcon}">`;
-          if(this.clickable === "true"){
+          if(this.clickable === true){
              return `<a href="${this.urlFor('browse', doc.path)}" style="text-decoration: none;color:#000000">${img}${doc.title}</a>`;
-          }
-          else {
-              return `${img}${doc.title}`;
+          } else {
+            return `${img}${doc.title}`;
           }
         }
         _resultFormatter(doc) {
-          this.suggestionType = doc.type;
-          if (this.creationElement==="inline-edit") {
-             this.parentNode.__dataHost.suggestionType = this.suggestionType;
-          }
-          return `${doc.title}`;
+          let defaultIcon = (doc && doc.properties && doc.properties["common:icon"])? doc.properties["common:icon"] : "";
+          let img = ((doc.type === "Contact" || doc.type === "Account") && doc.properties["file:content"])? `<img style="vertical-align: middle;height: 25px;width: 25px;border-radius: 20px;box-sizing: border-box;margin-right: 8px;" src="/nuxeo/nxfile/default/${doc.uid}/file:content/" onError="this.onerror=null;this.src='/nuxeo/${defaultIcon}';">` : `<img style="vertical-align: middle;height: 25px;width: 25px;border-radius: 20px;box-sizing: border-box;margin-right: 8px;" src="/nuxeo/${defaultIcon}">`;
+          return `${img}${doc.title}`;
         }
+        _elementChanged() {
+          if (this.createFrom === "metadata-layout"){
+            if (this.readonly === true) {
+              this.$.s2.className = "selectedView";
+            } else {
+              this.$.s2.className = "selectedEdit";
+            }
+          } else if (this.readonly === true) {
+            this.$.s2.className = "selectedView";
+          } else {
+            this.$.s2.className = "";
+          }
+        }
+        _getSuggType(params){
+          return params.namedParameters.split("=").pop();
+        }
+
         _initSelection(element, callback) {
           if (element) {
             if (this.multiple) {
