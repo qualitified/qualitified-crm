@@ -35,6 +35,8 @@
             }
         </style>
         <nuxeo-operation id="setProperty" op="Document.SetProperty" input="[[document]]" params="[[params]]"></nuxeo-operation>
+        <nuxeo-operation id="updateDoc" op="Document.Update" input="[[document]]" params="[[params]]"></nuxeo-operation>
+
         <paper-toast id="inlineToast"></paper-toast>
         <!-- View -->
         <div id="view" hidden$="[[edit]]" on-mouseover="_show" on-mouseout="_hide">
@@ -67,14 +69,27 @@
                 <div style="[[_getStyle(value)]]">[[formatDate(value)]]</div>
             </template>
             <template is="dom-if" if="[[_isUser(metadata)]]">
-                <nuxeo-user-tag user="{{value}}">
-                </nuxeo-user-tag>
+                <div style="margin-top: 5px;">
+                    <nuxeo-user-tag user="{{value}}">
+                    </nuxeo-user-tag>
+                </div>
+            </template>
+            <template is="dom-if" if="[[_isUsers(metadata)]]">
+                <div style="margin-top: 5px;">
+                    <template is="dom-repeat" items="[[value]]">
+                        <nuxeo-user-tag user="[[item]]">
+                        </nuxeo-user-tag>
+                    </template>
+                </div>
             </template>
             <template is="dom-if" if="[[_isDocument(metadata)]]">
                 <qualitified-document-suggestion role="widget"
                                                  value="{{value}}"
                                                  page-provider="documents"
                                                  min-chars="0"
+                                                 create-from="metadata-layout"
+                                                 multiple="[[multiple]]"
+                                                 clickable="[[clickable]]"
                                                  readonly
                                                  id="inlineSugst">
                 </qualitified-document-suggestion>
@@ -86,20 +101,21 @@
                 <label>[[i18n(label)]]</label>
             </div>
             <div hidden$="[[displayButtons]]" class="iconsAction">
-                <template if="[[!isDocFound]]" is="dom-if">
+                <template is="dom-if" if="[[_isAddable(metadata,addable)]]">
                     <qualitified-document-create style="margin-right:-14px;"
-                                                 creation-element="inline-edit"
-                                                 type="[[suggestionType]]">
+                                                 create-from="metadata-layout"
+                                                 document="[[document]]"
+                                                 parent-to-select="[[parentToSelect]]"
+                                                 type="[[_getSuggType(params)]]">
                     </qualitified-document-create>
                 </template>
-                <paper-icon-button style="left:8px;" icon="icons:save" on-tap="_ok"></paper-icon-button>
+                <paper-icon-button style="left:8px;" icon="icons:save" on-tap="_update"></paper-icon-button>
                 <paper-icon-button icon="icons:close" on-tap="_cancel"></paper-icon-button>
             </div>
             <template is="dom-if" if="[[_isInput(metadata)]]">
                 <nuxeo-input role="widget"
                              value="{{newValue}}"
-                             type="text"
-                >
+                             type="text">
                 </nuxeo-input>
             </template>
             <template is="dom-if" if="[[_isAmount(metadata)]]">
@@ -111,15 +127,13 @@
             <template is="dom-if" if="[[_isText(metadata)]]">
                 <nuxeo-textarea role="widget"
                                 value="{{newValue}}"
-                                type="text"
-                >
+                                type="text">
                 </nuxeo-textarea>
             </template>
             <template is="dom-if" if="[[_isLink(metadata)]]">
                 <nuxeo-textarea role="widget"
                                 value="{{newValue}}"
-                                type="text"
-                >
+                                type="text">
                 </nuxeo-textarea>
             </template>
             <template is="dom-if" if="[[_isDirectory(metadata)]]">
@@ -142,23 +156,33 @@
                 <nuxeo-user-suggestion id="userId"
                                        role="widget"
                                        value="{{newValue}}"
-                                       on-selected-item-changed="_setUserObject"
                                        search-type="USER_TYPE"
+                                       min-chars="0">
+                </nuxeo-user-suggestion>
+            </template>
+            <template is="dom-if" if="[[_isUsers(metadata)]]">
+                <nuxeo-user-suggestion id="userId"
+                                       role="widget"
+                                       value="{{newValue}}"
+                                       search-type="USER_TYPE"
+                                       multiple="[[multiple]]"
                                        min-chars="0">
                 </nuxeo-user-suggestion>
             </template>
             <template is="dom-if" if="[[_isDocument(metadata)]]">
                 <qualitified-document-suggestion role="widget"
+                                                 id="inlineSugst"
                                                  value="{{newValue}}"
                                                  page-provider="documents"
-                                                 creation-element="inline-edit"
+                                                 multiple="[[multiple]]"
+                                                 create-from="metadata-layout"
                                                  min-chars="0"
-                                                 params="{{params}}" id="inlineSugst">
+                                                 params="{{params}}">
                 </qualitified-document-suggestion>
             </template>
             <div hidden$="[[!displayButtons]]" class="buttons">
                 <paper-button noink dialog-dismiss on-tap="_cancel">Cancel</paper-button>
-                <paper-button noink dialog-confirm class="primary" on-tap="_ok">Save</paper-button>
+                <paper-button noink dialog-confirm class="primary" on-tap="_update">Save</paper-button>
             </div>
         </div>
     </template>
@@ -183,6 +207,18 @@
                     type: Boolean,
                     value: false
                 },
+                multiple:{
+                    type: Boolean,
+                    value: false
+                },
+                addable:{
+                    type: Boolean,
+                    value: false
+                },
+                clickable:{
+                    type: Boolean,
+                    value: false
+                },
                 displayButtons:{
                     type: Boolean,
                     value: false
@@ -195,9 +231,12 @@
                     type: String,
                     value: ''
                 },
-                isDocFound: {
-                    type: Boolean,
-                    value: true,
+                parentToSelect: {
+                    type: String,
+                },
+                parentProviders: {
+                    type: Array,
+                    value: []
                 },
                 value:{
                     type: String,
@@ -236,10 +275,6 @@
                     type: String,
                     value: ''
                 },
-                userObject:{
-                    type: Object,
-                    value: {}
-                },
                 params:{
                     type: Object,
                     value: {}
@@ -273,14 +308,7 @@
                     value: ''
                 }
             },
-            attached: function() {
-                /* this.$.dateField.render();
-                var currentDate = new Date();
-                    if (this.value && this.notifyValue &&  (currentDate.toISOString() < this.value) ) {
-                        this.$$("#dateId").className="expired-date";
-                    } else this.$$("#dateId").className = "";
-                 */
-            },
+
             ready(){
                 if (this.formatResolver) {
                     //new function to formate the displayed value, must have value as input and options props as variables.
@@ -318,10 +346,15 @@
                 //var canEdit = !edit && doc && doc.type !== 'Root' && this.hasPermission(doc, 'Write') && this._isMutable(doc);
                 //return canEdit;
             },
-            _setUserObject: function(e) {
-                this.userObject = e.detail.value;
+            _update: function (){
+               if (this.multiple === true) {
+                 this._updateProperties();
+               } else {
+                 this._updateProperty();
+               }
+
             },
-            _ok: function() {
+            _updateProperty: function() {
                 this.value = this.newValue;
                 this.$.setProperty.params = {
                     xpath:this.property,
@@ -330,22 +363,60 @@
                     context: {},
                     input: this.document.uid
                 };
-                // displaying firstName and lastName of the user in user-suggestion in view mode.
-                if (this.metadata == 'user') {
-                    var userNameValue = this.userObject.username;
-                    this.value = this.userObject.firstName+' '+this.userObject.lastName;
-                    this.params.value = userNameValue;
-                }
+
                 this.$.setProperty.execute().then(function(response){
+                    this.fire('document-updated');
                     this.$.inlineToast.text = "Update done!";
                     this.$.inlineToast.open();
                     this.edit = false;
+                    var self = this;
+                    setTimeout(function () {
+                      self._fetchProviders();
+                    }, 1500);
                 }.bind(this))
                     .catch(function (error){
                         console.log(error);
                         this.$.inlineToast.text = "Error when updating...";
                         this.$.inlineToast.open();
                     }.bind(this));
+            },
+            _updateProperties: function() {
+                this.value = this.newValue;
+                const xpath = this.property;
+                var props = new Object;
+                props[xpath] = this.value;
+                this.$.updateDoc.params = {
+                    properties:props,
+                    save:true,
+                    context: {},
+                    input: this.document.uid
+                };
+
+                this.$.updateDoc.execute().then(function(response){
+                    //this.fire('document-updated');
+                    this.$.inlineToast.text = "Update done!";
+                    this.$.inlineToast.open();
+                    this.edit = false;
+                    var self = this;
+                    setTimeout(function () {
+                      self._fetchProviders();
+                    }, 1500);
+                }.bind(this))
+                    .catch(function (error){
+                        console.log(error);
+                        this.$.inlineToast.text = "Error when updating...";
+                        this.$.inlineToast.open();
+                    }.bind(this));
+            },
+            _getSuggType: function(params){
+                return params.namedParameters.split("=").pop();
+            },
+            _fetchProviders: function() {
+               if (this.parentProviders && this.parentProviders.length>0){
+                this.parentProviders.forEach( provider => {
+                    this.parentNode.parentNode.parentNode.host.shadowRoot.getElementById(provider).fetch();
+                })
+              }
             },
             _isExpiredDate :function(value) {
                 var currentDate = new Date();
@@ -364,6 +435,9 @@
                 if (value && this.toBeFormatted) {
                     return this.valueFormatter(value);
                 } else return value;
+            },
+            _isAddable: function(metadata,addable){
+               return metadata && metadata == 'document' && addable == true;
             },
             _navigate: function() {
                 window.open("#!/doc/"+this.document.uid);
@@ -391,7 +465,10 @@
                 return value && value == 'date';
             },
             _isUser: function(value){
-                return value && value == 'user';
+                return value && value == 'user' && this.multiple == false;
+            },
+            _isUsers: function(value){
+                return value && value == 'user' && this.multiple == true;
             },
             _isDocument: function(value){
                 return value && value == 'document';

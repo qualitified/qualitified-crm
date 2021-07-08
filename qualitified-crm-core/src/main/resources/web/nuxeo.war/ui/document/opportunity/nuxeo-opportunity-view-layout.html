@@ -31,6 +31,10 @@
                 width: calc(100% - 38px);
             }
 
+            .activity-bar{
+                margin-bottom: 10px;
+            }
+
             .border-bottom {
                 border-top: 1px solid var(--nuxeo-border);
                 padding: 8px 0;
@@ -69,15 +73,20 @@
                         <template is="dom-if" if="[[_isSms(item.properties.interaction:activity)]]">
                             <iron-icon icon="icons:perm-phone-msg"></iron-icon>
                         </template>
+                        - [[item.title]]
                     </a>
-
-                    <qualitified-document-suggestion role="widget"
-                                                     value="[[item.properties.interaction:contact]]"
-                                                     multiple clickable="true"
-                                                     readOnly
-                                                     style="padding: 0px;">
-                    </qualitified-document-suggestion>
-
+                    <div style="margin-bottom:-14px; margin-top:10px;">
+                        <qualitified-inline-edit document="[[item]]"
+                                                 value="[[item.properties.interaction:contact]]"
+                                                 property="interaction:contact"
+                                                 parent-to-select="Account"
+                                                 multiple
+                                                 clickable
+                                                 label="[[i18n('label.metadata.contact')]]"
+                                                 params='{ "namedParameters": "system_primaryType=Contact"}'
+                                                 metadata="document">
+                        </qualitified-inline-edit>
+                    </div>
                     <qualitified-inline-edit document="[[item]]"
                                              property="interaction:activity"
                                              label="label.metadata.activity"
@@ -85,10 +94,6 @@
                                              metadata="directory">
                     </qualitified-inline-edit>
 
-                    <qualitified-inline-edit document="[[item]]"
-                                             property="dc:title"
-                                             label="label.dublincore.title">
-                    </qualitified-inline-edit>
                     <template if="[[!item.properties.note:note]]" is="dom-if">
                         <qualitified-inline-edit document="[[item]]"
                                                  property="dc:description"
@@ -106,12 +111,14 @@
 
                     <qualitified-inline-edit document="[[item]]"
                                              property="interaction:date"
+                                             parent-providers="[[providers]]"
                                              label="label.metadata.date"
                                              metadata="date">
                     </qualitified-inline-edit>
                     <qualitified-inline-edit document="[[item]]"
                                              property="interaction:status"
                                              label="label.metadata.status"
+                                             parent-providers="[[providers]]"
                                              directory="IntStatus"
                                              metadata="directory">
                     </qualitified-inline-edit>
@@ -124,8 +131,8 @@
             <h3>
                 [[i18n('label.activities')]]
             </h3>
-            <!-- Create a new link -->
-            <div className="actions layout vertical style-scope nuxeo-search-form">
+            <!-- Create a new interaction -->
+            <div class="activity-bar">
                 <paper-button style="border-radius: 25px;" noink="" id="new"
                               className="primary horizontal layout center" on-tap="_openDialogCall" elevation="0">
                     <iron-icon icon="qualitified:call"></iron-icon>
@@ -175,7 +182,8 @@
 
                 <template is="dom-repeat" items="[[interactions]]">
                     <div class="border-bottom">
-                        <div>[[_formatDate(item.properties.interaction:date)]]</div>
+                        <!-- <div>[[_formatDate(item.properties.interaction:date)]]</div>
+                        </br> -->
                         <div>
                             <a href$="#!/browse[[item.path]]">
                                 <template is="dom-if" if="[[_isCall(item.properties.interaction:activity)]]">
@@ -196,14 +204,13 @@
                                 <template is="dom-if" if="[[_isSms(item.properties.interaction:activity)]]">
                                     <iron-icon icon="icons:perm-phone-msg"></iron-icon>
                                 </template>
-                                - [[item.title]]</a>
+                                - [[_formatDate(item.properties.interaction:date)]] - [[item.title]]</a>
                         </div>
-
-                        <qualitified-document-suggestion role="widget"
-                                                         value="[[item.properties.interaction:contact]]"
-                                                         multiple clickable="true"
-                                                         readOnly
-                                                         style="padding: 0px;">
+                        </br>
+                        <qualitified-document-suggestion value="[[item.properties.interaction:contact]]"
+                                                         multiple
+                                                         clickable
+                                                         readOnly>
                         </qualitified-document-suggestion>
                         <div hidden$=[[_hasNote(item)]]>
                             <pre class="wrap">[[item.properties.dc:description]]</pre>
@@ -228,8 +235,7 @@
             [[i18n('label.attachments')]]
         </h3>
         <div class="dataTable">
-            <nuxeo-page-provider id="documentProvider"
-                                 auto
+            <nuxeo-page-provider id="documentProvider" auto
                                  query="select * from Document where ecm:primaryType in ('File', 'Folder') and ecm:currentLifeCycleState != 'deleted' and ecm:isTrashed = 0 and ecm:parentId = '[[document.uid]]' "
                                  page-size="40"
                                  aggregations="{{documentAggregations}}"
@@ -241,10 +247,14 @@
                                  fetch-aggregates>
             </nuxeo-page-provider>
 
-            <nuxeo-results name="[[document.uid]]" nx-provider="[[documentProvider]]" selected-items="{{selectedItems}}">
+            <nuxeo-results name="[[document.uid]]"
+                           nx-provider="[[documentProvider]]"
+                           selected-items="{{selectedItems}}">
 
                 <!-- Table view -->
-                <nuxeo-data-table class="results" name="table" icon="nuxeo:view-list"
+                <nuxeo-data-table class="results"
+                                  name="table"
+                                  icon="nuxeo:view-list"
                                   settings-enabled
                                   empty-label="[[emptyLabel]]"
                                   empty-label-when-filtered="[[emptyLabelWhenFiltered]]"
@@ -253,20 +263,22 @@
                                   drop-target-filter="[[_dropTargetFilter]]"
                                   display-quick-filters
                                   on-row-clicked="_navigate">
-                    <nuxeo-data-table-column name="Full text search" flex="100" filter-by="ecm_fulltext"
+
+                    <nuxeo-data-table-column name="Full text search"
+                                             flex="100" filter-by="ecm_fulltext"
                                              sort-by="dc:title">
                         <template>
                             <nuxeo-document-thumbnail document=[[item]]></nuxeo-document-thumbnail>
                             <a className="title ellipsis" href$="#!/browse[[item.path]]"
-                               on-tap="_navigate">[[item.title]]</a>
+                               on-tap="_navigate">[[item.title]]
+                            </a>
                         </template>
                     </nuxeo-data-table-column>
                     <nuxeo-data-table-column filter-by="dc_modified_agg" flex="50" sort-by="dc:modified">
                         <template is="header">
-                            <nuxeo-dropdown-aggregation
-                                    placeholder="Modified"
-                                    data="[[documentAggregations.dc_modified_agg]]"
-                                    value="{{column.filterValue}}" multiple>
+                            <nuxeo-dropdown-aggregation placeholder="Modified"
+                                                        data="[[documentAggregations.dc_modified_agg]]"
+                                                        value="{{column.filterValue}}" multiple>
                             </nuxeo-dropdown-aggregation>
                         </template>
                         <template>
@@ -275,10 +287,9 @@
                     </nuxeo-data-table-column>
                     <nuxeo-data-table-column filter-by="dc_creator_agg" flex="50">
                         <template is="header">
-                            <nuxeo-dropdown-aggregation
-                                    placeholder="Author"
-                                    data="[[documentAggregations.dc_creator_agg]]"
-                                    value="{{column.filterValue}}" multiple>
+                            <nuxeo-dropdown-aggregation placeholder="Author"
+                                                        data="[[documentAggregations.dc_creator_agg]]"
+                                                        value="{{column.filterValue}}" multiple>
                             </nuxeo-dropdown-aggregation>
                         </template>
                         <template>
@@ -289,7 +300,6 @@
             </nuxeo-results>
         </div>
 
-
     </template>
 
     <script>
@@ -298,7 +308,6 @@
             Polymer({
                 is: 'nuxeo-opportunity-view-layout',
                 behaviors: [Nuxeo.LayoutBehavior, Nuxeo.DocumentCreationBehavior,Nuxeo.DocumentContentBehavior],
-
                 properties: {
 
                     /**
@@ -307,7 +316,10 @@
                     document: {
                         type: Object
                     },
-
+                    providers: {
+                        type: Array,
+                        value: ['interactionTodoProvider','interactionProvider']
+                    },
                     params: {
                         type: Object,
                         value: {},
@@ -323,7 +335,6 @@
                         this.params = { 'ecm_parentId': this.document.uid };
                     }
                     this.documentProvider = this.$.documentProvider;
-
                 },
                 /**
                  * Returns the label for the given directory entry.

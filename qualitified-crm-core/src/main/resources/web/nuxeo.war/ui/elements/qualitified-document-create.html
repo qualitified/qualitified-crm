@@ -1,15 +1,13 @@
 <link rel="import" href="qualitified-document-create-layout.html" />
 
-<dom-module
-        id="qualitified-document-create"
-        assetpath="nuxeo-document-actions/"
->
+<dom-module id="qualitified-document-create" assetpath="nuxeo-document-actions/">
     <template>
         <style include="nuxeo-action-button-styles">
       .container {
         margin: 0;
         padding: 24px 0 0 0;
       }
+
       :host {
         --paper-tabs-selection-bar-color: var(--nuxeo-primary-color);
         display: block;
@@ -50,11 +48,13 @@
       iron-pages * {
         height: 80vh;
       }
+
       @media (min-width: 1024px) {
         nuxeo-dialog {
           min-width: 915px;
         }
       }
+
       paper-icon-button {
         padding: 0px;
         margin: -2px 6px;
@@ -63,55 +63,36 @@
         height: 22px;
         color: #c8c8c8a8;
       }
+
       .actions {
         @apply --buttons-bar;
         @apply --layout-horizontal;
         @apply --layout-flex;
         @apply --layout-justified;
       }
+
       .scrollable {
         padding: 0 24px;
         max-height: 60vh;
         @apply --layout-scroll;
       }
     </style>
-        <paper-icon-button
-                icon="nuxeo:add"
-                on-click="toggleDialogCreate"
-        ></paper-icon-button>
-        <nuxeo-document
-                id="defaultDoc"
-                doc-path="[[parentPath]]"
-                enrichers="permissions, subtypes"
-                response="{{parent}}"
-        >
+        <paper-icon-button icon="nuxeo:add" on-click="toggleDialogCreate">
+        </paper-icon-button>
+        <nuxeo-operation id="getAncestorDoc" op="Document.GetParent" input="[[document]]"></nuxeo-operation>
+        <nuxeo-document id="defaultDoc" doc-path="[[parentPath]]" enrichers="permissions, subtypes" response="{{parent}}">
         </nuxeo-document>
 
-        <paper-dialog
-                id="createDocDialog"
-                opened="{{opened}}"
-                modal=""
-                no-auto-focus=""
-        >
+        <paper-dialog id="createDocDialog" opened="{{opened}}" modal="" no-auto-focus="">
             <div id="holder" class="vertical layout flex">
-                <iron-pages
-                        selected="[[selectedTab]]"
-                        attr-for-selected="name"
-                        selected-attribute="visible"
-                >
-                    <nuxeo-slot
-                            slot="CREATE_POPUP_PAGES"
-                            model="[[importContext]]"
-                    ></nuxeo-slot>
-                    <qualitified-document-create-layout
-                            id="simpleCreation"
-                            name="create"
-                            created-document="{{creartedDoc}}"
-                            parent="[[parent]]"
-                            target-path="[[parentPath]]"
-                    ></qualitified-document-create-layout>
+                <iron-pages selected="[[selectedTab]]" attr-for-selected="name" selected-attribute="visible">
+                    <nuxeo-slot slot="CREATE_POPUP_PAGES" model="[[importContext]]">
+                    </nuxeo-slot>
+                    <qualitified-document-create-layout id="simpleCreation" name="create" created-document="{{createdDoc}}"
+                                                        parent="[[parent]]" target-path="[[parentPath]]">
+                    </qualitified-document-create-layout>
                     <!-- <nuxeo-document-import id="bulkCreation" name="import" parent="[[parent]]" target-path="{{parentPath}}" suggester-children="{{suggesterChildren}}"></nuxeo-document-import>
-           -->
+                     -->
                 </iron-pages>
             </div>
         </paper-dialog>
@@ -153,11 +134,15 @@
           type: String,
           value: "",
         },
-        creationElement: {
+        createFrom: {
           type: String
         },
         parentPath: {
           type: String,
+        },
+        parentToSelect: {
+          type: String,
+          value: "/",
         },
         defaultPath: {
           type: String,
@@ -187,37 +172,51 @@
       _displayTabs: function () {
         this._showTabs = true;
       },
+      attached: function() {
+        this._setParentPath();
+      },
 
       _close: function () {
         if (this.$.createDocDialog.opened) {
-            var suggFieldDocTarget = this.parentNode.__dataHost;
-            var createdDoc = this.$$("#simpleCreation").createdDocument;
-            if (this.creationElement === "inline-edit") {
-              this.parentNode.__dataHost.newValue = createdDoc.uid;
-            } else {
-              this.parentNode.parentNode.host.value = createdDoc.uid;
-            }
-            this.$.createDocDialog.toggle();
+          var suggFieldDocTarget = this.parentNode.__dataHost;
+          var createdDoc = this.$$("#simpleCreation").createdDocument;
+          if (this.createFrom === "metadata-layout") {
+            this.parentNode.__dataHost.newValue = this._afterCreation(this.parentNode.__dataHost.newValue, createdDoc);
+          } else {
+            this.parentNode.parentNode.host.value = this._afterCreation(this.parentNode.parentNode.host.value, createdDoc);
+          }
+          this.$.createDocDialog.toggle();
           //this._showTabs = true;
         }
       },
 
-      toggleDialogCreate: function () {
-        var docTypeObj= {
-            "type": this.type,
-            "facets": ["Folderish", "NXTag", "Picture"],
-            "id": this.type.toLowerCase()
-           };
-        var pathDoc;
-          if (this.creationElement === "inline-edit") {
-            pathDoc = this.parentNode.__dataHost.document.path;
+      _afterCreation: function (inputValue, createdDoc) {
+        var resultValue=[];
+        if (Array.isArray(inputValue) === true) {
+          if (inputValue.length > 0 && inputValue[0] instanceof Object) {
+            var formattedInputValue=[];
+            inputValue.forEach(item => {
+                formattedInputValue.push(item.uid);
+            });
+            resultValue = [...formattedInputValue, ...[createdDoc.uid]];
           } else {
-            pathDoc = this.parentNode.parentNode.host.parentNode.host.document.path;
+            resultValue = [...inputValue, ...[createdDoc.uid]];
           }
-        this.parentPath=pathDoc.replace(/\/[^\/]+$/, '');
+        } else {
+          resultValue = createdDoc.uid;
+        }
+        return resultValue;
+      },
+
+      toggleDialogCreate: async function () {
+        var docTypeObj = {
+          "type": this.type,
+          "facets": ["Folderish", "NXTag", "Picture"],
+          "id": this.type.toLowerCase()
+        };
+
         this.selectedTab = "create";
         this._showTabs = false;
-        console.log(docTypeObj);
         this._fetchParent().then(
           function () {
             if (this._noPermission) {
@@ -233,6 +232,20 @@
             }
           }.bind(this)
         );
+      },
+
+      _setParentPath: async function(){
+          var op = this.$.getAncestorDoc;
+          op.params = {
+            type: this.parentToSelect
+          };
+          this.parentPath = await op.execute().then(function(response){
+            if (response && response.status && response.status == 204) {
+              return "/"
+            } else {
+              return response.path;
+            }
+          }.bind(this));
       },
 
       toggleDialogImport: function (files) {
@@ -270,7 +283,7 @@
         );
       },
 
-      _fetchParent: function () {
+       _fetchParent: function () {
         this._noPermission = false;
         if (!this.parentPath) {
           this.set("parentPath", this.defaultPath);
@@ -291,12 +304,8 @@
       },
 
       _parentPathChanged: function (e) {
-        if (
-          e.detail.isValidTargetPath &&
-          (!this.parent ||
-            (this.parentPath &&
-              this.parent.path !== this.parentPath.replace(/(.+)\/$/, "$1")))
-        ) {
+        if ( e.detail.isValidTargetPath &&
+        (!this.parent || (this.parentPath && this.parent.path !== this.parentPath.replace(/(.+)\/$/, "$1")))) {
           this.$.defaultDoc.get();
         }
       },
