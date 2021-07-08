@@ -401,27 +401,38 @@
                     return "/nuxeo/nxfile/default/" + value + "/file:content/";
                 },
                 _openDialogCall: function () {
-                    this.$.importPopup._createActivity('Call');
+                    var contacts= this.document.properties["opportunity:mainContact"];
+
+                    this.$.importPopup._createActivity('Call',contacts);
 
                 },
                 _openDialogChat: function () {
-                    this.$.importPopup._createActivity('Chat');
+                    var contacts= this.document.properties["opportunity:mainContact"];
+                    this.$.importPopup._createActivity('Chat',contacts);
 
                 },
                 _openDialogEmailing: function () {
-                    this.$.importPopup._createActivity('Email');
+                    var contacts= this.document.properties["opportunity:mainContact"];
+
+                    this.$.importPopup._createActivity('Email',contacts);
 
                 },
                 _openDialogMeeting: function () {
-                    this.$.importPopup._createActivity('Meeting');
+                    var contacts= this.document.properties["opportunity:mainContact"];
+
+                    this.$.importPopup._createActivity('Meeting',contacts);
 
                 },
                 _openDialogNote: function () {
-                    this.$.importPopup._createActivity('Note');
+                    var contacts= this.document.properties["opportunity:mainContact"];
+
+                    this.$.importPopup._createActivity('Note',contacts);
 
                 },
                 _openDialogSMS: function () {
-                    this.$.importPopup._createActivity('SMS');
+                    var contacts= this.document.properties["opportunity:mainContact"];
+
+                    this.$.importPopup._createActivity('SMS',contacts);
 
                 }
             });
