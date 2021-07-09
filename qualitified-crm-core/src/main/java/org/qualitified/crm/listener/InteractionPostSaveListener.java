@@ -1,7 +1,11 @@
 package org.qualitified.crm.listener;
 
+import com.mailjet.client.MailjetResponse;
+import com.mailjet.client.errors.MailjetException;
+import com.mailjet.client.errors.MailjetSocketTimeoutException;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.json.JSONException;
 import org.nuxeo.ecm.automation.AutomationService;
 import org.nuxeo.ecm.automation.OperationContext;
 import org.nuxeo.ecm.automation.OperationException;
@@ -15,6 +19,7 @@ import org.nuxeo.ecm.core.event.EventListener;
 import org.nuxeo.ecm.core.event.impl.DocumentEventContext;
 import org.nuxeo.ecm.platform.usermanager.UserManager;
 import org.nuxeo.runtime.api.Framework;
+import org.qualitified.crm.service.EmailingService;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -53,19 +58,38 @@ public class InteractionPostSaveListener implements EventListener {
                  automationService.run(operationContext, "Qualitified.SynchronizeWithCalendar");
             }
             if ( Boolean.TRUE.equals(toSend)) {
+                EmailingService emailingService = Framework.getService(EmailingService.class);
+
                 Map<String, Object> params = new HashMap<>();
 
                 String[] responsibleList = (String[]) interactionDoc.getPropertyValue("interaction:responsible");
                 NuxeoPrincipal principal= userManager.getPrincipal(responsibleList[0]);
                 String senderEmail = principal.getEmail();
+                String senderName = principal.getFirstName()+' '+principal.getLastName();
 
                 StringList contactsEmail = new StringList();
                 String[] contacts = (String[]) interactionDoc.getPropertyValue("interaction:contact");
+                Map<String, Object> mailDetails = new HashMap<String, Object>();
+
+                mailDetails.put("fromEmail",senderEmail);
+                mailDetails.put("fromName",senderName);
+                mailDetails.put("subject",interactionDoc.getTitle());
+                mailDetails.put("textPart",interactionDoc.getPropertyValue("note:note"));
+                mailDetails.put("htmlPart","");
                 for (String contact : contacts) {
                     DocumentModel contactDoc = docCtx.getCoreSession().getDocument(new IdRef(contact));
                     contactsEmail.add((String) contactDoc.getPropertyValue("person:email"));
+                    String contactEmail = (String) contactDoc.getPropertyValue("person:email");
+                    String contactName = (String) contactDoc.getPropertyValue("person:firstName")+' '+ contactDoc.getPropertyValue("person:lastName");
+                    mailDetails.put("toEmail", contactEmail);
+                    mailDetails.put("toName", contactName);
+                    MailjetResponse response = emailingService.send(mailDetails);
+                    logger.warn(response.getData());
                 }
-                params.put("from", senderEmail);
+
+
+
+                /*params.put("from", senderEmail);
                 params.put("message", interactionDoc.getPropertyValue("note:note"));
                 params.put("subject", interactionDoc.getTitle());
                 params.put("to", contactsEmail);
@@ -73,11 +97,18 @@ public class InteractionPostSaveListener implements EventListener {
                 params.put("rollbackOnError", false);
 
                 logger.warn("Running Sending Mail on interaction"+ interactionDoc.getTitle());
-                automationService.run(operationContext, "Document.Mail",params);
+                automationService.run(operationContext, "Document.Mail",params);*/
+
             }
          } catch (OperationException e) {
              logger.error("Error while running operations...", e);
-         }
+         } catch (MailjetSocketTimeoutException e) {
+            e.printStackTrace();
+        } catch (JSONException e) {
+            e.printStackTrace();
+        } catch (MailjetException e) {
+            e.printStackTrace();
+        }
 
     }
 }
