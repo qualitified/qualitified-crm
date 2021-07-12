@@ -179,7 +179,7 @@
         }
       },
 
-      _createActivity: function (activity) {
+      _createActivity: function (activity,contacts) {
 
         var docTypeObj = {
           "type": this.type,
@@ -205,6 +205,7 @@
               let self = this;
               setTimeout(function () {
                 self.$$("#simpleCreation").shadowRoot.querySelector("#document-create").shadowRoot.querySelector("#layout").shadowRoot.querySelector("#container > nuxeo-interaction-create-layout").shadowRoot.getElementById('IntActivity').value= activity;
+                self.$$("#simpleCreation").shadowRoot.querySelector("#document-create").shadowRoot.querySelector("#layout").shadowRoot.querySelector("#container > nuxeo-interaction-create-layout").shadowRoot.getElementById('IntContact').value= contacts;
               }, 1500);
             }
           }.bind(this)

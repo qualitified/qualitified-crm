@@ -23,13 +23,22 @@
       a:hover {
         @apply --nuxeo-link-hover;
       }
-      .selectedView {
+      .viewInlineStyle {
         margin-top: -30px;
         margin-left: -14px;
       }
-      .selectedEdit {
+      .editInlineStyle {
         margin-top: -24px;
         margin-left: -14px;
+      }
+      .readonlyCustomFieldStyle {
+        margin-top: -4.5px;
+        margin-left: -8px;
+      }
+      .readonlyFieldStyle {
+        margin-top: -4.5px;
+        margin-left: -8px;
+        margin-bottom: 8px;
       }
       paper-icon-button {
         padding: 0px;
@@ -48,7 +57,7 @@
     <div class="labelAction">
       <label style="opacity:var(--nuxeo-label_-_opacity);">[[label]]</label>
       <template if="[[addable]]" is="dom-if">
-        <qualitified-document-create create-from="layout-edit"
+        <qualitified-document-create create-from="edit-layout"
                                      document="[[document]]"
                                      parent-to-select="[[parentToSelect]]"
                                      type="[[_getSuggType(params)]]">
@@ -233,8 +242,13 @@
             },
             createFrom: {
               type: String,
-              value: "edit-layout",
-              observer: '_elementChanged'
+              value: "",
+              observer: '_createFromChanged'
+            },
+            displayStyle: {
+              type: String,
+              value: "",
+              observer: '_displayStyleChanged'
             },
             /**
              * Function used to get the id from the choice document.
@@ -316,18 +330,8 @@
           let img = ((doc.type === "Contact" || doc.type === "Account") && doc.properties["file:content"])? `<img style="vertical-align: middle;height: 25px;width: 25px;border-radius: 20px;box-sizing: border-box;margin-right: 8px;" src="/nuxeo/nxfile/default/${doc.uid}/file:content/" onError="this.onerror=null;this.src='/nuxeo/${defaultIcon}';">` : `<img style="vertical-align: middle;height: 25px;width: 25px;border-radius: 20px;box-sizing: border-box;margin-right: 8px;" src="/nuxeo/${defaultIcon}">`;
           return `${img}${doc.title}`;
         }
-        _elementChanged() {
-          if (this.createFrom === "metadata-layout"){
-            if (this.readonly === true) {
-              this.$.s2.className = "selectedView";
-            } else {
-              this.$.s2.className = "selectedEdit";
-            }
-          } else if (this.readonly === true) {
-            this.$.s2.className = "selectedView";
-          } else {
-            this.$.s2.className = "";
-          }
+        _displayStyleChanged() {
+          this.$.s2.className = this.displayStyle;
         }
         _getSuggType(params){
           return params.namedParameters.split("=").pop();
