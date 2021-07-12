@@ -17,6 +17,10 @@
             .labelAction {
                 display: inline-flex;
             }
+            .iconNavigate {
+                display: inline-flex;
+                float:right;
+            }
             .iconsAction {
                 display: inline-flex;
                 float:right;
@@ -42,10 +46,10 @@
         <div id="view" hidden$="[[edit]]" on-mouseover="_show" on-mouseout="_hide">
             <div class="labelAction">
                 <label>[[i18n(label)]]</label>
-            </div>
-            <div class="iconsAction">
-                <paper-icon-button style="left:8px;" id="editButton" icon="icons:create" hidden$="[[!show]]" on-tap="_editMode">
+                <paper-icon-button id="editButton" icon="icons:create" hidden$="[[!show]]" on-tap="_editMode">
                 </paper-icon-button>
+            </div>
+            <div class="iconNavigate">
                 <paper-icon-button hidden$="[[!isLink]]" icon="icons:open-in-new" on-tap="_navigate"></paper-icon-button>
             </div>
             <br/>
