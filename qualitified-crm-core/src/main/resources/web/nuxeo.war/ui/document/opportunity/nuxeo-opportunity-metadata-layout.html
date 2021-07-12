@@ -104,6 +104,16 @@
                                              metadata="document">
                     </qualitified-inline-edit>
                 </div>
+                <div role="widget">
+                    <qualitified-document-suggestion value="[[document.properties.opportunity:mainContact]]"
+                                                     label="[[i18n('label.metadata.mainContact')]]"
+
+                                                     display-style="readonlyFieldStyle"
+
+                                                     clickable
+                                                     readOnly>
+                    </qualitified-document-suggestion>
+                </div>
                 <qualitified-custom-fields document="{{document}}" column="Column3" mode="view"></qualitified-custom-fields>
 
             </nuxeo-card>

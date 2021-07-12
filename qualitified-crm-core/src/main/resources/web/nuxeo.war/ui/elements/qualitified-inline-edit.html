@@ -87,7 +87,7 @@
                                                  value="{{value}}"
                                                  page-provider="documents"
                                                  min-chars="0"
-                                                 create-from="metadata-layout"
+                                                 display-style="viewInlineStyle"
                                                  multiple="[[multiple]]"
                                                  clickable="[[clickable]]"
                                                  readonly
@@ -175,7 +175,7 @@
                                                  value="{{newValue}}"
                                                  page-provider="documents"
                                                  multiple="[[multiple]]"
-                                                 create-from="metadata-layout"
+                                                 display-style="editInlineStyle"
                                                  min-chars="0"
                                                  params="{{params}}">
                 </qualitified-document-suggestion>
@@ -225,7 +225,8 @@
                 },
                 property:{
                     type: String,
-                    value:'dc:title'
+                    value:'dc:title',
+                    observer: '_propertyChanged'
                 },
                 suggestionType: {
                     type: String,
@@ -429,6 +430,10 @@
                 if (value && this.notifyValue &&  (currentDate.toISOString() > value) ) {
                     return  "color:#fd2727a8;";
                 } return "";
+            },
+            _propertyChanged: function() {
+              this.$.view.style = (this.property && this.property.includes('custom:document')==true) ? "margin-left: 6px ": "";
+              this.$.edit.style = (this.property && this.property.includes('custom:document')==true) ? "margin-left: 6px ": "";
             },
             //formats the displayed value by excuting the received function from the parent
             _getFormattedValue: function(value) {

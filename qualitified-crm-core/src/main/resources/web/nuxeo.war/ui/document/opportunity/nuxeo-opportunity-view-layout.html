@@ -167,7 +167,7 @@
 
 
             <!-- /Create a new Link -->
-            <qualitified-create-interaction id="importPopup" type="Interaction">
+            <qualitified-create-interaction id="createPopup" type="Interaction">
             </qualitified-create-interaction>
             <div className="dataTable">
                 <nuxeo-page-provider role="widget"
@@ -208,6 +208,7 @@
                         </div>
                         </br>
                         <qualitified-document-suggestion value="[[item.properties.interaction:contact]]"
+                                                         display-style="viewInlineStyle"
                                                          multiple
                                                          clickable
                                                          readOnly>
@@ -215,7 +216,7 @@
                         <div hidden$=[[_hasNote(item)]]>
                             <pre class="wrap">[[item.properties.dc:description]]</pre>
                         </div>
-                        <iron-collapse hidden$=[[!_hasNote(item)]] id="collapse-[[item.uid]]">
+                        <iron-collapse hidden$=[[_hasNote(item)]] id="collapse-[[item.uid]]">
                             <div>
                                 <pre class="wrap">[[item.properties.note:note]]</pre>
                             </div>
@@ -411,28 +412,32 @@
                     img.src = "/nuxeo/nxfile/default/" + value + "/file:content/";
                     return "/nuxeo/nxfile/default/" + value + "/file:content/";
                 },
+                _getOppContact: function(){
+                   var oppContacts= [];
+                   oppContacts.push(this.document.properties["opportunity:mainContact"]);
+                   return oppContacts;
+                },
                 _openDialogCall: function () {
-                    this.$.importPopup._createActivity('Call');
-
+                    this.$.createPopup._createActivity('Call',this._getOppContact());
                 },
                 _openDialogChat: function () {
-                    this.$.importPopup._createActivity('Chat');
+                    this.$.createPopup._createActivity('Chat',this._getOppContact());
 
                 },
                 _openDialogEmailing: function () {
-                    this.$.importPopup._createActivity('Email');
+                    this.$.createPopup._createActivity('Email',this._getOppContact());
 
                 },
                 _openDialogMeeting: function () {
-                    this.$.importPopup._createActivity('Meeting');
+                    this.$.createPopup._createActivity('Meeting',this._getOppContact());
 
                 },
                 _openDialogNote: function () {
-                    this.$.importPopup._createActivity('Note');
+                    this.$.createPopup._createActivity('Note',this._getOppContact());
 
                 },
                 _openDialogSMS: function () {
-                    this.$.importPopup._createActivity('SMS');
+                    this.$.createPopup._createActivity('SMS',this._getOppContact());
 
                 }
             });
