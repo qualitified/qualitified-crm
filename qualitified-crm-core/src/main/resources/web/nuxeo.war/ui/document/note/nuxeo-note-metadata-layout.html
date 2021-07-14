@@ -14,12 +14,15 @@ limitations under the License.
 `nuxeo-note-metadata-layout`
 @group Nuxeo UI
 @element nuxeo-note-metadata-layout
---><dom-module id="nuxeo-note-metadata-layout">
+-->
+<link rel="import" href="../../shared-css.html">
+
+<dom-module id="nuxeo-note-metadata-layout">
 
   <template>
-    <style>
+    <style include="shared-css">
       *[role=widget] {
-        margin-bottom: 16px;
+        padding: 5px;
       }
 
       label {
@@ -42,9 +45,8 @@ limitations under the License.
       }
     </style>
 
-    <div role="widget">
-      <label>[[i18n('label.dublincore.title')]]</label>
-      <div name="title">[[document.properties.dc:title]]</div>
+    <div role="widget" class="title">
+      <h1>[[document.properties.dc:title]]</h1>
     </div>
 
     <div role="widget" hidden$="[[!document.properties.dc:description]]">
