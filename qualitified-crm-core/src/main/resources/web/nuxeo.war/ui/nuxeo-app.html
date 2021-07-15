@@ -51119,6 +51119,21 @@ styles. All other styles should exist as single lines."
         text-overflow: ellipsis;
         white-space: nowrap;
       }
+      .breadcrumb-item-title {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        display: inline-block;
+        margin-bottom: -6px;
+      }
+      .width-3items {
+        max-width: 45vw;
+      }
+      .width-4items {
+        max-width: 22.5vw;
+      }
+      .width-5items {
+        max-width: 11.25vw;
+      }
 
       .ancestors span.breadcrumb-item:last-of-type .breadcrumb-divider {
         display: none;
@@ -51137,6 +51152,7 @@ styles. All other styles should exist as single lines."
         .breadcrumb-title {
           max-width: 58vw
         }
+
       }
 
     </style>
@@ -51157,7 +51173,7 @@ styles. All other styles should exist as single lines."
           <template is="dom-repeat" items="[[_breadcrumb(document)]]">
             <span class$="breadcrumb-item [[_computeCssClass(index, document)]]">
               <a href$="[[urlFor('browse', item.path)]]">
-                <span class="breadcrumb-item-title">[[item.title]]</span>
+                <span class$="breadcrumb-item-title [[_computeTitleWidthCssClass(index, document)]]">[[item.title]]</span>
               </a>
               <span class="breadcrumb-divider">&gt;</span>
             </span>
@@ -51194,6 +51210,18 @@ styles. All other styles should exist as single lines."
             return 'breadcrumb-item-grand-parent';
           } else {
             return 'breadcrumb-item-ancestor';
+          }
+        }
+      },
+
+      _computeTitleWidthCssClass: function(index) {
+        if (this._enrichers) {
+          if (this._enrichers.breadcrumb.entries.length === 3) {
+            return 'width-3items';
+          } else if (this._enrichers.breadcrumb.entries.length === 4) {
+            return 'width-4items';
+          } else {
+            return 'width-5items';
           }
         }
       },
