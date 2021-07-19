@@ -14,7 +14,25 @@
             .wrap {
                 white-space: pre-wrap;
             }
+            .results {
+                @apply --layout-vertical;
+                @apply --layout-flex;
+                min-height: var(--nuxeo-document-content-min-height, calc(100vh - 216px - var(--nuxeo-app-top)));
+                margin-bottom: var(--nuxeo-document-content-margin-bottom, 0);
+            }
 
+            .results.dragging {
+                border: 2px dashed var(--nuxeo-primary-color);
+            }
+
+
+            .capitalize {
+                text-transform: capitalize;
+            }
+
+            nuxeo-tag {
+                margin-right: 2px;
+            }
             .account-view-layout {
                 height: 25px;
                 width: 25px;
