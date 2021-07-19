@@ -26,7 +26,7 @@
           <nuxeo-data-table-column name="[[i18n('label.metadata.title')]]" field="dc:title" sort-by="dc:title" flex="100">
             <template>
               <nuxeo-document-thumbnail document="[[item]]"></nuxeo-document-thumbnail>
-              <a class="ellipsis" href$="[[urlFor('browse', item.path)]]" on-click="_navigate">[[item.title]]</a>
+              [[item.title]]
             </template>
           </nuxeo-data-table-column>
           <nuxeo-data-table-column name="[[i18n('label.metadata.modified')]]" field="dc:modified" sort-by="dc:modified" flex="60">
@@ -88,8 +88,6 @@
         type: String
       }
     },
-
-
 
     _navigate: function(e) {
       this.fire('navigate', {doc: (e.model || e.detail).item});

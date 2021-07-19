@@ -27,7 +27,7 @@
           <nuxeo-data-table-column name="Titre" field="dc:title" sort-by="dc:title" flex="100">
             <template>
               <nuxeo-document-thumbnail document="[[item]]"></nuxeo-document-thumbnail>
-              <a class="ellipsis" href$="[[urlFor('browse', item.path)]]" on-click="_navigate">[[item.title]]</a>
+              [[item.title]]
             </template>
           </nuxeo-data-table-column>
           <nuxeo-data-table-column name="Description" field="dc:description" sort-by="dc:description" flex="100">
