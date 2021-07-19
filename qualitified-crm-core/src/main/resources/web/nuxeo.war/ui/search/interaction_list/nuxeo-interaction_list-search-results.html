@@ -99,8 +99,7 @@
                 <nuxeo-data-table-column name="[[i18n('label.metadata.title')]]" field="dc:title" sort-by="dc:title" flex="60">
                     <template>
                         <nuxeo-document-thumbnail document="[[item]]"></nuxeo-document-thumbnail>
-                        <a class="title ellipsis" href$="#!/doc/[[item.uid]]" on-tap="_navigate">[[item.title]]</a>
-
+                        [[item.title]]
                     </template>
                 </nuxeo-data-table-column>
                 <nuxeo-data-table-column name="[[i18n('label.document.type.account')]]" flex="60">
@@ -180,14 +179,9 @@
                     {field: 'dc:coverage', label: this.i18n('searchResults.sort.field.coverage'), order: 'asc'}
                 ];
             },
-             _navigate: function(e) {
-        var detail = {
-          doc: e.detail.item,
-        };
-        if(detail.doc){
-          page('/doc/' + detail.doc.uid);
-        }
-      },
+            _navigate: function(e) {
+              this.fire('navigate', {doc: (e.model || e.detail).item});
+            },
             _visibleChanged: function(visible) {
                 if (visible) {
                     this._refresh();

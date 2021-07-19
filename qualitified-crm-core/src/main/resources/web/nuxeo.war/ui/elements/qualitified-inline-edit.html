@@ -90,6 +90,7 @@
                 <qualitified-document-suggestion role="widget"
                                                  value="{{value}}"
                                                  page-provider="documents"
+                                                 document="[[document]]"
                                                  min-chars="0"
                                                  display-style="viewInlineStyle"
                                                  multiple="[[multiple]]"
@@ -448,8 +449,12 @@
             _isAddable: function(metadata,addable){
                return metadata && metadata == 'document' && addable == true;
             },
-            _navigate: function() {
-                window.open("#!/doc/"+this.document.uid);
+            _navigate: function(e) {
+                var oppListResults = document.querySelector("body > nuxeo-app").shadowRoot.querySelector("#searchResults").shadowRoot.querySelector("nuxeo-page > div.content > nuxeo-results-view").shadowRoot.querySelector("#results").shadowRoot.querySelector("#results").shadowRoot.querySelector("#container > nuxeo-opportunity_list-search-results").opportunityList;
+                var itemToNavigateIndex = oppListResults.map(function(e) {
+                     return e.uid;
+                }).indexOf(this.document.uid);
+                this.fire('navigate', { doc: this.document, index: itemToNavigateIndex});
             },
             _cancel: function(){
                 this.newValue = this.value;
