@@ -216,7 +216,7 @@
                         <div hidden$=[[_hasNote(item)]]>
                             <pre class="wrap">[[item.properties.dc:description]]</pre>
                         </div>
-                        <iron-collapse hidden$=[[_hasNote(item)]] id="collapse-[[item.uid]]">
+                        <iron-collapse hidden$=[[!_hasNote(item)]] id="collapse-[[item.uid]]">
                             <div>
                                 <pre class="wrap">[[item.properties.note:note]]</pre>
                             </div>
