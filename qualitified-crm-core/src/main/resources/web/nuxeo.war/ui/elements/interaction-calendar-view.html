@@ -1,21 +1,17 @@
 <!-- `nuxeo-calendar-view-layout` @group Nuxeo UI @element nuxeo-calendar-view-layout -->
-
 <link rel="import" href="../dist/scheduler-component/scheduler-component.html">
 <script src="../dist/fullcalendar/dist/locale/fr.js"></script>
-
 <dom-module id="interaction-calendar-view">
   <template include="nuxeo-styles">
     <style>
         *[role=widget] {
           padding: 5px;
         }
-
         #calendar{
           max-width: 900px;
           margin: 0px auto;
           display: block;
         }
-
         #popup{
           position: absolute;
           width: 300px;
@@ -30,14 +26,12 @@
           overflow: hidden;
           padding: 10px;
         }
-
         .pop{
           display: flex;
           -webkit-flex-direction: column;
           flex-direction: column;
           overflow: hidden;
         }
-
         .actions{
           height: 44px;
           padding: 6px 6px 0 6px;
@@ -53,7 +47,6 @@
           height: 100px;
           margin: 0px 12px auto;
         }
-
         .popTitle{
           font-size: 22px;
           font-weight: 400;
@@ -64,17 +57,15 @@
           margin-right: 10px;
           flex-direction: column;
           margin-top: 20px;
-
         }
         .popDate{
           font-size: 12px;
           font-weight: 400;
           letter-spacing: .2px;
           line-height: 18px;
-          color: #3c4043;
+          color: #3C4043;
           margin-top: 5px;
         }
-
         .gg-button{
           bottom: 15px;
           margin-right: 20px;
@@ -85,7 +76,7 @@
           bottom: 4px;
         }
         .gg-title{
-          color: #5f6368;
+          color: #5F6368;
           opacity: 1;
           inline-size: max-content;
           margin-left: 4px;
@@ -99,13 +90,10 @@
           flex-direction: row;
           display: flex;
         }
-
       </style>
     <paper-toast id="operationToast"></paper-toast>
-
     <nuxeo-operation id="getSchema" op="Document.GetSchemaFromPrefix" params="[[params]]"></nuxeo-operation>
     <nuxeo-operation id="fetchEvents" op="Qualitified.FetchFromCalendar"></nuxeo-operation>
-
     <nuxeo-page-provider  id="provider"
                           query="SELECT * FROM Document WHERE ecm:currentLifeCycleState != 'deleted' AND ecm:isTrashed = 0 AND ecm:primaryType = '[[document.properties.calendar:docType]]' AND [[document.properties.calendar:docMetadata]] >= DATE '{{yearM}}-12-15' AND [[document.properties.calendar:docMetadata]] <= DATE '{{yearP}}-01-15'"
                           schemas="{{schema}}">
@@ -116,7 +104,6 @@
                           schemas="interaction,custom">
     </nuxeo-page-provider>
     <paper-card>
-
       <scheduler-component  id="calendar"
                             default-view="month"
                             event-color="{{eventColor}}"
@@ -133,10 +120,8 @@
           </div>
         </paper-button>
         <paper-tooltip for="synch">Synchronize with google calendar</paper-tooltip>
-
         <nuxeo-date-picker id="datePicker" class="target-date" value="{{specDate}}" label="[[i18n('calendar.view.goToDate')]]"></nuxeo-date-picker>
       </div>
-
       <!-- <div class="actions">
       <paper-button raised >
         <iron-icon icon="qualitified:google-calendar"></iron-icon>
@@ -144,7 +129,6 @@
       </paper-button>
     </div> -->
     </paper-card>
-
     <div id="popup" class="pop">
       <div class="actions">
         <div>
@@ -161,9 +145,7 @@
         <div class="popDate">{{eventDate}}</div>
       </div>
     </div>
-
   </template>
-
   <script>
     Polymer({
       is: 'interaction-calendar-view',
@@ -173,21 +155,24 @@
           type: Object,
           observer: 'docObserver'
         },
+        calendarItems: {
+          type: Array,
+          observer: '_getEvents',
+          value: [],
+          notify: true
+        },
         year: String,
       },
-
       /* Document's observer*/
       docObserver: function() {
         var events = [];
         this.$.calendar.setAttribute("events", JSON.stringify(events));
-
         if (this.document) {
           this.eventColor = this.document.properties['calendar:eventColor'];
           this.textColor = this.document.properties['calendar:textColor'];
           this._getSchemaAndEvents(this.document.properties['calendar:docMetadata']);
         }
       },
-
       /* Retrieve documents with the required schema */
       _getSchemaAndEvents: function(docMetadata) {
         this.params = {
@@ -198,7 +183,6 @@
           this._getEvents();
         }.bind(this));
       },
-
       ready: function() {
         /* Click Event */
         console.log(this.publishedEvents)
@@ -212,17 +196,14 @@
           caldView.$.popup.style.top = e.detail.jsEvent.originalEvent.pageY - '140' + 'px';
           caldView._openPopup();
         });
-
         /* Mouse Over Event */
         this.$.calendar.addEventListener("event-mouse-over", function(e) {
           e.detail.jsEvent.target.style.cursor = 'pointer';
         });
-
         /* Get events by year to speed up the search */
         this.year = this.$.calendar.getDate()._i[0];
         this.yearP = this.$.calendar.getDate()._i[0]+1;
         this.yearM = this.$.calendar.getDate()._i[0]-1;
-
         this.$.calendar.addEventListener("view-render", function(e) {
           var caldView = this.parentNode.parentNode.host;
           var currentYear = this.getDate()._i[0];
@@ -238,7 +219,6 @@
             }
           }
         });
-
         this.specDate = this.$.calendar.getDate();
         /* Navigates to the given date */
         this.$.datePicker.addEventListener("value-changed", function(e) {
@@ -249,11 +229,11 @@
       _isSyncHidden: function(syncedEventsCounts){
         return syncedEventsCounts > 0 ? false : true;
       },
-
       /* Get documents and fill the 'events' attribute */
-      _getEvents: function() {
+      /* _getEvents: function() {
         this.$.provider.fetch().then(function(result) {
           var events = [];
+          console.log(result.entries);
           for (var i = 0; i < result.entries.length; i++) {
             var event = {};
             event.title = result.entries[i].title;
@@ -263,8 +243,20 @@
             events.push(event);
           }
           this.$.calendar.setAttribute("events", JSON.stringify(events));
-
         }.bind(this));
+      }, */
+      /* Get documents and fill the 'events' attribute */
+      _getEvents: function() {
+          var events = [];
+          for (var i = 0; i < this.calendarItems.length; i++) {
+            var event = {};
+            event.title = this.calendarItems[i].title;
+            event.start = moment(this.calendarItems[i].properties[this.document.properties['calendar:docMetadata']]).format('YYYY-MM-DD');
+            event.allDay = true;
+            event.uid = this.calendarItems[i].uid;
+            events.push(event);
+          }
+          this.$.calendar.setAttribute("events", JSON.stringify(events));
       },
       //fetch events from google account calendar
       _fetchEvents: function(e){
@@ -293,13 +285,11 @@
       _goToEvent: function(e) {
         window.open(location.origin + "/nuxeo/ui/#!/doc/" + e.target.dataset.item, '_blank');
       },
-
       /* Open popup */
       _openPopup: function() {
         var popup = this.$.popup;
         popup.style.display = 'block';
       },
-
       /* Close popup */
       _closePopup: function() {
         var popup = this.$.popup;
