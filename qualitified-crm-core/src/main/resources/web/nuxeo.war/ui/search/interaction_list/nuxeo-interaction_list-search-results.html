@@ -70,7 +70,7 @@
                 font-weight: 400;
                 letter-spacing: .2px;
                 line-height: 18px;
-                color: #3c4043;
+                color: #3C4043;
                 margin-top: 5px;
             }
             paper-card{
@@ -80,18 +80,16 @@
             @media screen and (max-width: 1050px) {
                 .resize2 {
                     display: none;
-
                 }
             }
         </style>
         <div class="resize2">
-
-        <div name="calendar">
-            <nuxeo-document id="docCalendar" auto doc-path="/Admin/Calendar.conf" response="{{document}}"></nuxeo-document>
-            <interaction-calendar-view id="calendarTab" document="{{document}}"></interaction-calendar-view>
+            <div name="calendar">
+                <nuxeo-document id="docCalendar" auto doc-path="/Admin/Calendar.conf" response="{{document}}"></nuxeo-document>
+                <interaction-calendar-view id="calendarTab" document="{{document}}" calendar-items="[[interactionList]]"></interaction-calendar-view>
+            </div>
         </div>
-        </div>
-        <nuxeo-results name="interaction_list" nx-provider="[[nxProvider]]" selected-items="{{selectedItems}}"
+        <nuxeo-results id="nxResultsInteraction"  nx-provider="[[nxProvider]]" selected-items="{{selectedItems}}"
                        display-quick-filters="" display-sort="" sort-label="[[i18n('searchResults.sort.label')]]"
                        sort-options="[[sortOptions]]">
             <nuxeo-data-table class="results" settings-enabled="" empty-label="[[i18n('searchResults.noResults')]]"
@@ -158,7 +156,10 @@
             is: 'nuxeo-interaction_list-search-results',
             behaviors: [Nuxeo.LayoutBehavior],
             properties: {
-                nxProvider: Object,
+                nxProvider: {
+                  type:Object,
+                  observer: "_nxProviderObserver"
+                },
                 sortOptions: {
                     type: Array,
                     value: []
@@ -166,8 +167,24 @@
                 visible: {
                     type: Boolean,
                     observer: '_visibleChanged'
+                },
+                interactionList: {
+                    type: Array,
+                    notify: true,
                 }
             },
+            _nxProviderObserver: function() {
+                this._getInteractionListFromResults();
+                 this.nxProvider.addEventListener('update', e => {
+                this._getInteractionListFromResults();
+                 });
+            },
+          _getInteractionListFromResults: function() {
+              this.interactionList = [];
+              setTimeout(function() {
+                this.interactionList = this.$.nxResultsInteraction.items;
+              }.bind(this), 600);
+           },
             attached: function() {
                 this.sortOptions = [
                     {field: 'dc:title', label: this.i18n('searchResults.sort.field.title'), order: 'asc'},
