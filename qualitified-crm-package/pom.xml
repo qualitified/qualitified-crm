@@ -6,11 +6,9 @@
     <version>5.1</version>
     <relativePath>../pom.xml</relativePath>
   </parent>
-
   <artifactId>qualitified-crm-package</artifactId>
   <packaging>zip</packaging>
   <name>Qualitified CRM Package</name>
-
   <dependencies>
     <!-- Base distribution(s) for the MP -->
     <dependency>
@@ -19,7 +17,6 @@
       <type>zip</type>
       <scope>provided</scope>
     </dependency>
-
     <!-- Additional bundles to be deployed by the MP -->
     <dependency>
       <groupId>org.qualitified.crm</groupId>
@@ -34,7 +31,6 @@
       <artifactId>qualitified-crm-restapi</artifactId>
     </dependency>
   </dependencies>
-
   <build>
     <plugins>
       <plugin>
@@ -48,6 +44,4 @@
       </plugin>
     </plugins>
   </build>
-
-
 </project>
