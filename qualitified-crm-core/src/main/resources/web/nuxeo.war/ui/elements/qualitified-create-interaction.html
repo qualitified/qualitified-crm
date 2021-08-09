@@ -80,6 +80,9 @@
 
         <!--     <paper-icon-button on-click="toggleDialogCreate"></paper-icon-button>
          -->
+        <nuxeo-connection id="nx" user="{{currentUser}}">
+
+        </nuxeo-connection>
         <nuxeo-document doc-path="[[parentPath]]" enrichers="permissions, subtypes" id="defaultDoc" response="{{parent}}">
         </nuxeo-document>
 
@@ -201,12 +204,12 @@
             } else {
               this.$$("#simpleCreation").init(docTypeObj);
               // this.$$('#bulkCreation').init();
+
               this.$.createDocDialog.toggle();
               let self = this;
               setTimeout(function () {
-                self.$$("#simpleCreation").shadowRoot.querySelector("#document-create").shadowRoot.querySelector("#layout").shadowRoot.querySelector("#container > nuxeo-interaction-create-layout").shadowRoot.getElementById('IntActivity').value= activity;
-                self.$$("#simpleCreation").shadowRoot.querySelector("#document-create").shadowRoot.querySelector("#layout").shadowRoot.querySelector("#container > nuxeo-interaction-create-layout").shadowRoot.getElementById('IntContact').value= contacts;
-              }, 1500);
+                self.$$("#simpleCreation").shadowRoot.querySelector("#document-create").shadowRoot.querySelector("#layout").shadowRoot.querySelector("#container > nuxeo-interaction-create-layout")._initOppActivityLayout(activity);
+              }, 500);
             }
           }.bind(this)
         );
