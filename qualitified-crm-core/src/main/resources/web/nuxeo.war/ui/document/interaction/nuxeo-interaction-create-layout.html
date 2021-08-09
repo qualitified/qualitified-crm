@@ -1,5 +1,8 @@
 <link rel="import" href="../../elements/qualitified-time-picker.html">
 <link rel="import" href="../qualitified-custom-fields.html">
+<link rel="import" href="email-interaction-create-layout.html">
+<link rel="import" href="meeting-call-interaction-create-layout.html">
+
 
 <dom-module id="nuxeo-interaction-create-layout">
   <template>
@@ -15,103 +18,49 @@
         margin-bottom: 20px;
       }
     </style>
-
-    <paper-toast id="operationToast"></paper-toast>
-    <nuxeo-resource id="tokens" path="oauth2/token/"></nuxeo-resource>
-    <nuxeo-resource id="oauth" path="oauth2/provider/"></nuxeo-resource>
-    <nuxeo-operation id="getCurrentUser" op="User.Get"></nuxeo-operation>
-    <nuxeo-operation id="getContactDoc" op="Repository.GetDocument"></nuxeo-operation>
-
-    <nuxeo-input role="widget"
-                 value="{{document.properties.dc:title}}"
-                 label="[[i18n('label.metadata.interaction.title')]]"
-                 required="true">
-    </nuxeo-input>
-
-    <nuxeo-textarea role="widget"
-                    value="{{document.properties.dc:description}}"
-                    label="[[i18n('label.metadata.interaction.description')]]">
-    </nuxeo-textarea>
-
-    <nuxeo-directory-suggestion role="widget"
-                                value="{{document.properties.interaction:status}}"
-                                label="[[i18n('label.metadata.status')]]"
-                                required="true"
-                                directory-name="IntStatus"
-                                min-chars="0">
+    <nuxeo-connection id="nx" user="{{currentUser}}">
+    </nuxeo-connection>
+    <nuxeo-document id="parentDoc" auto doc-id="[[document.parentRef]]" enrichers="permissions, subtypes" response="{{parentDoc}}">
+    </nuxeo-document>
+    <nuxeo-directory-suggestion id="IntActivity" hidden$="[[isOppActivity]]" role="widget"
+      value="{{document.properties.interaction:activity}}" on-value-changed="_wichActivityLayout"
+      label="[[i18n('label.metadata.activity')]]" required="true" directory-name="IntActivity" min-chars="0">
     </nuxeo-directory-suggestion>
+    <template is="dom-if" if="[[isDefaultLayout]]">
+      <nuxeo-input role="widget" value="{{document.properties.dc:title}}"
+        label="[[i18n('label.metadata.interaction.title')]]" required="true">
+      </nuxeo-input>
 
-    <nuxeo-directory-suggestion id="IntActivity"
-                                role="widget" value="{{document.properties.interaction:activity}}"
-                                on-value-changed="_isActivity"
-                                label="[[i18n('label.metadata.activity')]]"
-                                required="true"
-                                directory-name="IntActivity"
-                                min-chars="0">
-    </nuxeo-directory-suggestion>
+      <nuxeo-textarea role="widget" value="{{document.properties.dc:description}}"
+        label="[[i18n('label.metadata.interaction.description')]]">
+      </nuxeo-textarea>
 
-    <nuxeo-user-suggestion role="widget"
-                           value="{{document.properties.interaction:responsible}}"
-                           on-value-changed="_isCurrentUser"
-                           label="[[i18n('label.metadata.responsible')]]"
-                           search-type="USER_TYPE"
-                           min-chars="0"
-                           multiple="true">
-    </nuxeo-user-suggestion>
+      <nuxeo-directory-suggestion role="widget" value="{{document.properties.interaction:status}}"
+        label="[[i18n('label.metadata.status')]]" required="true" directory-name="IntStatus" min-chars="0">
+      </nuxeo-directory-suggestion>
 
-    <qualitified-document-suggestion id="IntContact"
-                                     role="widget"
-                                     value="{{document.properties.interaction:contact}}"
-                                     multiple="true"
-                                     label="[[i18n('label.metadata.contact')]]"
-                                     page-provider="documents"
-                                     min-chars="0"
-                                     params='{ "namedParameters": "system_primaryType=Contact"}'>
-    </qualitified-document-suggestion>
+      <nuxeo-user-suggestion role="widget" id="IntResponsible" value="{{document.properties.interaction:responsible}}"
+        label="[[i18n('label.metadata.responsible')]]" search-type="USER_TYPE" min-chars="0" multiple="true">
+      </nuxeo-user-suggestion>
 
-    <div hidden$="[[!isEmailNull]]">
-      <h style="color:red;">Please check contact's emails!</h><br />
-    </div>
+      <qualitified-document-suggestion id="IntContact" role="widget" value="{{document.properties.interaction:contact}}"
+        multiple="true" label="[[i18n('label.metadata.contact')]]" page-provider="documents" min-chars="0"
+        params='{ "namedParameters": "system_primaryType=Contact"}'>
+      </qualitified-document-suggestion>
 
-    <div class="dateFields">
-      <qualitified-time-picker value="{{document.properties.interaction:date}}"
-                               display-duration="{{isSynchBtnChecked}}"
-                               duration="{{document.properties.custom:stringField3}}"
-                               date-label="Date"
-                               duration-label="Duration"
-                               role="widget">
-      </qualitified-time-picker>
-      <div hidden$="[[isHidden]]">
-        <h style="color:red;">Date is required to enable synchronization!</h><br />
-      </div>
-    </div>
-
-    <template is="dom-if" if="[[isEvent]]">
-      <paper-toggle-button id="synchBtn" on-tap="_checkDateFields" on-change="_handleAuth" checked="{{isSynchBtnChecked}}">
-        Synchronize with google calendar
-      </paper-toggle-button>
+      <nuxeo-date-picker value="{{document.properties.interaction:date}}" label="[[i18n('label.metadata.date')]]"
+        role="widget" required>
+      </nuxeo-date-picker>
     </template>
 
-    <template is="dom-if"
-              if="[[_canSend(document.properties.interaction:activity,document.properties.interaction:responsible)]]">
-      <paper-toggle-button id="emailBtn" on-tap="_validateSend" checked="{{isEmailBtnChecked}}">Send email
-      </paper-toggle-button>
+    <template is="dom-if" if="[[isEmailLayout]]">
+      <email-interaction-create-layout document="[[document]]" responsible="{{responsible}}">
+      </email-interaction-create-layout>
     </template>
-
-    <qualitified-custom-fields document="{{document}}" mode="edit"></qualitified-custom-fields>
-
-    <nuxeo-dialog id="dialog" with-backdrop="" on-iron-overlay-closed="" no-auto-focus="">
-      <h2>Synchronize with google calendar</h2>
-      <div class="content">
-        <h style="color:red;">To enable synchronization! please connect to your google account and try again.</h><br />
-      </div>
-      <div class="buttons">
-        <paper-button dialog-dismiss="" noink="">Cancel</paper-button>
-        <paper-button class="primary" name="add" on-click="_toggleWindow">
-          Connect to google
-        </paper-button>
-      </div>
-    </nuxeo-dialog>
+    <template is="dom-if" if="[[isEventLayout]]">
+      <meeting-call-interaction-create-layout document="[[document]]">
+      </meeting-call-interaction-create-layout>
+    </template>
 
   </template>
 
@@ -127,172 +76,90 @@
              * @doctype Interaction
              */
           document: {
-            type: Object
-          },
-          displayDuration: {
-            type: Boolean,
-            value: false
-          },
-          isEvent: {
-            type: Boolean,
-            value: false
-          },
-          isSynchBtnChecked: {
-            type: Boolean,
-            value: false
-          },
-          authURL: {
-            type: String
+            type: Object,
+            observer: '_documentReady'
           },
           currentUser: {
-            type: Boolean,
-            value: false
+            type: Object,
+            observer: '_initResponsible'
           },
-          isMeeting: {
-            type: Boolean,
-            value: false
+          parentDoc: {
+            type: Object,
+            observer: '_initContact'
           },
-          isHidden: {
+          isDefaultLayout: {
             type: Boolean,
             value: true
           },
-          isEmailNull: {
+          isEmailLayout: {
             type: Boolean,
             value: false
           },
-          isEmailBtnChecked: {
+          isEventLayout: {
             type: Boolean,
             value: false
           },
-          contactsEmail: {
-            type: Array,
-            value: []
+          isOppActivity: {
+            type: Boolean,
+            value: false
           }
 
-        },
-        attached() {
-          this.$.getCurrentUser.execute().then(function (result) {
-            this.currentUser = result.title;
-          }.bind(this));
-        },
-        _isActivity: function (e) {
-          if (this.document) {
-            var responsible = this.document.properties['interaction:responsible'];
-            if ((e.detail.value === "Meeting" || e.detail.value === "Call") && JSON.stringify(responsible) === JSON.stringify([this.currentUser])) {
-              this.isEvent = true;
-            } else this.isEvent = false;
-          }
-        },
-        _isCurrentUser: function (e) {
-          if (this.document) {
-            var activity = this.document.properties['interaction:activity'];
-            if (JSON.stringify(e.detail.value) === JSON.stringify([this.currentUser]) && (activity === "Meeting" || activity === "Call")) {
-              this.isEvent = true;
-            } else this.isEvent = false;
-          }
-        },
-        _canSend: function (activity, currentUser) {
-          if (this.document) {
-            //var activity = this.document.properties['interaction:activity'];
-            if (activity === "Email" && currentUser.length === 1 && this.currentUser === currentUser[0]) {
-              return true
-            } else return false;
-          }
-        },
+        },  
 
-        _validateSend: async function () {
-          if (this.isEmailBtnChecked === true) {
-            var contacts = this.document.properties['interaction:contact'];
-            var op = this.$.getContactDoc;
-            var contactsEmails = [];
-            for (const contactId of contacts) {
-              op.params = {
-                'value': contactId
-              };
-              var contactEmail = await op.execute().then(function (result) {
-                return result.properties['person:email'];
-              });
-              contactsEmails.push(contactEmail);
-            };
-            this._validateContactsEmail(contactsEmails);
-          }
-        },
-
-        _validateContactsEmail: function (contactsEmails) {
-          if (contactsEmails.indexOf(null) !== -1) {
-            this.isEmailNull = true;
-            this.isEmailBtnChecked = false;
-          } else {
-            this.isEmailNull = false;
-            this.isEmailBtnChecked = true;
-          }
-        },
-
-        _checkDateFields: function () {
-          if (this.document) {
-            var startDte = this.document.properties['interaction:date'];
-            if (this.isSynchBtnChecked === true) {
-              if (startDte) {
-                this.isHidden = true;
-                return true;
-              } else {
-                this.isHidden = false;
-                this.isSynchBtnChecked = false;
-                return false;
-              }
+        _documentReady: function () {
+            if (this.document) {
+              var currentDate = new Date().toISOString();
+              this.set('document.properties.interaction:status', "TODO");
+              this.set('document.properties.interaction:date', currentDate);
             }
+        },
+
+        _initResponsible: function () {
+          this.set('document.properties.interaction:responsible', [this.currentUser.id]);
+        },
+        _initContact: function () {
+          if (this.parentDoc) {
+            var mainContact = null;
+            if (this.parentDoc.type == 'Opportunity' && this.parentDoc.properties["opportunity:mainContact"] !== null ){
+              mainContact = this.parentDoc.properties["opportunity:mainContact"];
+            } else if (this.parentDoc.type == 'Account' && this.parentDoc.properties["account:mainContact"] !== null){
+              mainContact = this.parentDoc.properties["account:mainContact"];
+            }
+            this.set('document.properties.interaction:contact', [mainContact]);
           }
         },
-
-        _handleAuth: function (e) {
-          if (this._checkDateFields()) {
-            this.set('document.properties.custom:stringField3', "15");
-            this.$.oauth.get().then(function (response) {
-              if (response.entries && response.entries.length > 0)
-                console.log(response.entries);
-              response.entries.forEach(serviceProvider => {
-                if (serviceProvider.serviceName === "googleCalendar") {
-                  this.authURL = serviceProvider.authorizationURL;
-                  if (serviceProvider.isAuthorized === true) {
-                    this.$.operationToast.text = "Synch is on!";
-                    this.$.operationToast.open();
-                    this.document.properties['custom:booleanField1'] = this.isSynchBtnChecked;
-                  } else {
-                    this.isSynchBtnChecked = false;
-                    this.$.dialog.toggle();
-                  }
-                }
-              });
-            }.bind(this));
-          }
-        },
-        _toggleWindow: function () {
-          //var redirect_uri = document.location.origin+"/nuxeo/site/oauth2/docusign/callback";
-          var googleAuthWindow = window.open(this.authURL, "google oauth2", "resizable,scrollbars,status,width=800,height=800");
-          this.$.dialog.toggle();
-        },
-
-        validate () {
-          var activity = this.document.properties['interaction:activity'];
-          var note = this.document.properties['note:note'];
-          var desc = this.document.properties['dc:description'];
-          var report = note ? note : desc;
-
-          if (activity === 'Email' ) {
-            this.set('document.properties.custom:booleanField2', this.isEmailBtnChecked);
-            this.set('document.properties.note:note', report);
-            this.set('document.properties.dc:description', null);
+        _wichActivityLayout: function () {
+          var activity = this.$.IntActivity.value;
+          if (activity === "Email") {
+            this.isDefaultLayout = false;
+            this.isEmailLayout = true;
+            this.isEventLayout = false;
+          } else if (activity === "Call" || activity === "Meeting") {
+            this.isDefaultLayout = false;
+            this.isEmailLayout = false;
+            this.isEventLayout = true;
           } else {
-            this.set('document.properties.note:note', null);
-            this.set('document.properties.dc:description', report);
+            this.isDefaultLayout = true;
+            this.isEmailLayout = false;
+            this.isEventLayout = false;
           }
+        },
 
-          if (activity === 'Meeting' && activity === 'Call') {
-            this.set('document.properties.custom:booleanField1', this.isSynchBtnChecked);
+        _initOppActivityLayout: function (activity) {
+          this.set('document.properties.interaction:activity', activity);
+          this.isOppActivity = true;
+          if (activity === 'Email') {
+            this.isEmailLayout = true;
+            this.isDefaultLayout = false;
+          } else if (activity === 'Call' || activity === 'Meeting') {
+            this.isEventLayout = true;
+            this.isDefaultLayout = false;
+          } else {
+            this.isDefaultLayout = true;
           }
-          if (this.isChecked === false) {
-            this.set('document.properties.custom:stringField3', null);
-          }
+        },
+
+        validate() {
           if (this.document.properties['dc:title']) {
             var title = this.document.properties['dc:title'].trim();
             this.set('document.properties.dc:title', title);
