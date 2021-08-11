@@ -127,6 +127,7 @@
   "label.metadata.custom.vocabularyname":"Nom du vocabulaire",
   "app.customization":"Configuration",
   "app.solicitations":"Sollicitations",
+  "label.metadata.custom.ShowInResultList": "Afficher dans la liste des résultats",
   "label.metadata.custom.format":"Format",
   "label.metadata.custom.readgroup":"Groupe(s) lecture",
   "label.metadata.custom.editgroup":"Groupe(s) édition",
