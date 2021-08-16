@@ -108,6 +108,8 @@
 
             </nuxeo-card>
         </section>
+        <qualitified-custom-fields document="{{document}}" column="showInTheResultList" mode="view"></qualitified-custom-fields>
+
         <div role="widget" hidden$="[[!document.properties.dc:description]]">
             <qualitified-inline-edit document="[[document]]"
                                      property="dc:description"

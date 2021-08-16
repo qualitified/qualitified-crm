@@ -1,6 +1,7 @@
 <component name="org.qualitified.crm.operations">
     <extension target="org.nuxeo.ecm.core.operation.OperationServiceComponent" point="operations" >
         <operation class="org.qualitified.crm.operation.GetCustomFields"/>
+        <operation class="org.qualitified.crm.operation.GetResultListCustomFields"/>
         <operation class="org.qualitified.crm.operation.GetSchemaFromPrefix"/>
         <operation class="org.qualitified.crm.operation.RenderForMultipleDocs"/>
         <operation class="org.qualitified.crm.operation.RunUnitTests"/>
