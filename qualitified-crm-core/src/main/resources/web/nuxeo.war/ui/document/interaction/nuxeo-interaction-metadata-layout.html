@@ -31,8 +31,8 @@
         <div role="widget" class="title">
             <h1 directory-name="IntActivity">
                 [[formatDirectory(document.properties.interaction:activity)]] - [[document.properties.dc:title]] -
-            <iron-icon class="statusIcon" icon="[[_getStatusIcon(document.properties.interaction:status)]]"></iron-icon>
-            </h1> 
+                <iron-icon class="statusIcon" icon="[[_getStatusIcon(document.properties.interaction:status)]]"></iron-icon>
+            </h1>
         </div>
         <div role="widget">
             <qualitified-inline-edit document="[[document]]"
@@ -101,8 +101,8 @@
                                      metadata="document">
             </qualitified-inline-edit>
         </div>
-        <template is="dom-if" if="[[document.properties.custom:booleanField1]]">
-            <paper-toggle-button id="synchBtn" checked="{{document.properties.custom:booleanField1}}">
+        <template is="dom-if" if="[[document.properties.interaction:toSync]]">
+            <paper-toggle-button id="synchBtn" checked="{{document.properties.interaction:toSync}}">
                 Synced with google calendar
             </paper-toggle-button>
         </template>

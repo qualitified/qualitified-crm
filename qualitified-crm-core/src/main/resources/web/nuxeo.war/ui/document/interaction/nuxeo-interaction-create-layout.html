@@ -23,33 +23,33 @@
     <nuxeo-document id="parentDoc" auto doc-id="[[document.parentRef]]" enrichers="permissions, subtypes" response="{{parentDoc}}">
     </nuxeo-document>
     <nuxeo-directory-suggestion id="IntActivity" hidden$="[[isOppActivity]]" role="widget"
-      value="{{document.properties.interaction:activity}}" on-value-changed="_wichActivityLayout"
-      label="[[i18n('label.metadata.activity')]]" required="true" directory-name="IntActivity" min-chars="0">
+                                value="{{document.properties.interaction:activity}}" on-value-changed="_wichActivityLayout"
+                                label="[[i18n('label.metadata.activity')]]" required="true" directory-name="IntActivity" min-chars="0">
     </nuxeo-directory-suggestion>
     <template is="dom-if" if="[[isDefaultLayout]]">
       <nuxeo-input role="widget" value="{{document.properties.dc:title}}"
-        label="[[i18n('label.metadata.interaction.title')]]" required="true">
+                   label="[[i18n('label.metadata.interaction.title')]]" required="true">
       </nuxeo-input>
 
       <nuxeo-textarea role="widget" value="{{document.properties.dc:description}}"
-        label="[[i18n('label.metadata.interaction.description')]]">
+                      label="[[i18n('label.metadata.interaction.description')]]">
       </nuxeo-textarea>
 
       <nuxeo-directory-suggestion role="widget" value="{{document.properties.interaction:status}}"
-        label="[[i18n('label.metadata.status')]]" required="true" directory-name="IntStatus" min-chars="0">
+                                  label="[[i18n('label.metadata.status')]]" required="true" directory-name="IntStatus" min-chars="0">
       </nuxeo-directory-suggestion>
 
       <nuxeo-user-suggestion role="widget" id="IntResponsible" value="{{document.properties.interaction:responsible}}"
-        label="[[i18n('label.metadata.responsible')]]" search-type="USER_TYPE" min-chars="0" multiple="true">
+                             label="[[i18n('label.metadata.responsible')]]" search-type="USER_TYPE" min-chars="0" multiple="true">
       </nuxeo-user-suggestion>
 
       <qualitified-document-suggestion id="IntContact" role="widget" value="{{document.properties.interaction:contact}}"
-        multiple="true" label="[[i18n('label.metadata.contact')]]" page-provider="documents" min-chars="0"
-        params='{ "namedParameters": "system_primaryType=Contact"}'>
+                                       multiple="true" label="[[i18n('label.metadata.contact')]]" page-provider="documents" min-chars="0"
+                                       params='{ "namedParameters": "system_primaryType=Contact"}'>
       </qualitified-document-suggestion>
 
       <nuxeo-date-picker value="{{document.properties.interaction:date}}" label="[[i18n('label.metadata.date')]]"
-        role="widget" required>
+                         role="widget" required>
       </nuxeo-date-picker>
     </template>
 
@@ -104,7 +104,7 @@
             value: false
           }
 
-        },  
+        },
 
         _documentReady: function () {
             if (this.document) {
