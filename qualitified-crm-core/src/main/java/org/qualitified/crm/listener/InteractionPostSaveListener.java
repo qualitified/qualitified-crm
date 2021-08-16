@@ -35,13 +35,9 @@ public class InteractionPostSaveListener implements EventListener {
         if (!(ctx instanceof DocumentEventContext)) {
             return;
         }
-        /*Boolean block = (Boolean) event.getContext().getProperty("custom:booleanField2");
-        if (Boolean.TRUE.equals(block)) {
-            return;
-        }*/
+
         DocumentEventContext docCtx = (DocumentEventContext) ctx;
         DocumentModel interactionDoc = docCtx.getSourceDocument();
-        UserManager userManager = Framework.getService(UserManager.class);
         AutomationService automationService = Framework.getService(AutomationService.class);
         OperationContext operationContext = new OperationContext(docCtx.getCoreSession());
         operationContext.setInput(interactionDoc);
@@ -50,65 +46,19 @@ public class InteractionPostSaveListener implements EventListener {
         }
 
         try {
-             boolean isSynced = interactionDoc.getPropertyValue("custom:booleanField1") != null && (boolean) interactionDoc.getPropertyValue("custom:booleanField1");
-             boolean toSend = interactionDoc.getPropertyValue("custom:booleanField2") != null && (boolean) interactionDoc.getPropertyValue("custom:booleanField2");
+            boolean isSynced = interactionDoc.getPropertyValue("interaction:toSync") != null && (boolean) interactionDoc.getPropertyValue("interaction:toSync");
+            boolean toSend = interactionDoc.getPropertyValue("interaction:toSend") != null && (boolean) interactionDoc.getPropertyValue("interaction:toSend");
 
             if ( Boolean.TRUE.equals(isSynced)) {
-                 logger.warn("Running SynchronizeWithCalendar on event "+ interactionDoc.getTitle());
-                 automationService.run(operationContext, "Qualitified.SynchronizeWithCalendar");
+                logger.warn("Running SynchronizeWithCalendar on event "+ interactionDoc.getTitle());
+                automationService.run(operationContext, "Qualitified.SynchronizeWithCalendar");
             }
             if ( Boolean.TRUE.equals(toSend)) {
-                EmailingService emailingService = Framework.getService(EmailingService.class);
-
-                Map<String, Object> params = new HashMap<>();
-
-                String[] responsibleList = (String[]) interactionDoc.getPropertyValue("interaction:responsible");
-                NuxeoPrincipal principal= userManager.getPrincipal(responsibleList[0]);
-                String senderEmail = principal.getEmail();
-                String senderName = principal.getFirstName()+' '+principal.getLastName();
-
-                StringList contactsEmail = new StringList();
-                String[] contacts = (String[]) interactionDoc.getPropertyValue("interaction:contact");
-                Map<String, Object> mailDetails = new HashMap<String, Object>();
-
-                mailDetails.put("fromEmail",senderEmail);
-                mailDetails.put("fromName",senderName);
-                mailDetails.put("subject",interactionDoc.getTitle());
-                mailDetails.put("textPart",interactionDoc.getPropertyValue("note:note"));
-                mailDetails.put("htmlPart","");
-                for (String contact : contacts) {
-                    DocumentModel contactDoc = docCtx.getCoreSession().getDocument(new IdRef(contact));
-                    contactsEmail.add((String) contactDoc.getPropertyValue("person:email"));
-                    String contactEmail = (String) contactDoc.getPropertyValue("person:email");
-                    String contactName = (String) contactDoc.getPropertyValue("person:firstName")+' '+ contactDoc.getPropertyValue("person:lastName");
-                    mailDetails.put("toEmail", contactEmail);
-                    mailDetails.put("toName", contactName);
-                    MailjetResponse response = emailingService.send(mailDetails);
-                    logger.warn(response.getData());
-                }
-
-
-
-                /*params.put("from", senderEmail);
-                params.put("message", interactionDoc.getPropertyValue("note:note"));
-                params.put("subject", interactionDoc.getTitle());
-                params.put("to", contactsEmail);
-                params.put("HTML", true);
-                params.put("rollbackOnError", false);
-
-                logger.warn("Running Sending Mail on interaction"+ interactionDoc.getTitle());
-                automationService.run(operationContext, "Document.Mail",params);*/
-
+                logger.warn("Running SendEmailFromInteraction on email "+ interactionDoc.getTitle());
+                automationService.run(operationContext, "Qualitified.SendEmailFromInteraction");
             }
-         } catch (OperationException e) {
-             logger.error("Error while running operations...", e);
-         } catch (MailjetSocketTimeoutException e) {
-            e.printStackTrace();
-        } catch (JSONException e) {
-            e.printStackTrace();
-        } catch (MailjetException e) {
-            e.printStackTrace();
+        } catch (OperationException e) {
+            logger.error("Error while running operations...", e);
         }
-
     }
 }
