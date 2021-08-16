@@ -14,91 +14,91 @@
           min-height: calc(100vh - 130px - var(--nuxeo-app-top));
         }
       </style>
-      <nuxeo-operation id="getCustomFields" op="getCustomFieldsChain" params="[[params]]"></nuxeo-operation>
-      <nuxeo-operation id="getOption" op="Qualitified.GetOptionValue"></nuxeo-operation>
+    <nuxeo-operation id="getCustomFields" op="getCustomFieldsChain" params="[[params]]"></nuxeo-operation>
+    <nuxeo-operation id="getOption" op="Qualitified.GetOptionValue"></nuxeo-operation>
 
     <nuxeo-results name="account_list" nx-provider="[[nxProvider]]">
 
-        <nuxeo-data-table name="table" icon="nuxeo:view-list" class="results"
-                          settings-enabled
-                          empty-label="[[i18n('searchResults.noResults')]]"
-                          selection-enabled
-                          display-quick-filters
-                          on-row-clicked="_navigate">
+      <nuxeo-data-table name="table" icon="nuxeo:view-list" class="results"
+                        settings-enabled
+                        empty-label="[[i18n('searchResults.noResults')]]"
+                        selection-enabled
+                        display-quick-filters
+                        on-row-clicked="_navigate">
 
-          <nuxeo-data-table-column name="[[i18n('label.metadata.account.title')]]" field="dc:title" sort-by="dc:title" flex="100">
-            <template>
-              <nuxeo-document-thumbnail document="[[item]]"></nuxeo-document-thumbnail>
-              <a class="title ellipsis" href$="#!/doc/[[item.uid]]" on-tap="_navigate">[[item.title]]</a>
-            </template>
-          </nuxeo-data-table-column>
+        <nuxeo-data-table-column name="[[i18n('label.metadata.account.title')]]" field="dc:title" sort-by="dc:title" flex="100">
+          <template>
+            <nuxeo-document-thumbnail document="[[item]]"></nuxeo-document-thumbnail>
+            [[item.title]]
+          </template>
+        </nuxeo-data-table-column>
 
-          <nuxeo-data-table-column name="[[i18n('label.metadata.type')]]" field="account:accountType" sort-by="account:accountType"
-                                   flex="50">
-            <template>
-              [[formatDirectory(item.properties.account:accountType)]]
-            </template>
-          </nuxeo-data-table-column>
+        <nuxeo-data-table-column name="[[i18n('label.metadata.type')]]" field="account:accountType" sort-by="account:accountType"
+                                 flex="50">
+          <template>
+            [[formatDirectory(item.properties.account:accountType)]]
+          </template>
+        </nuxeo-data-table-column>
 
-          <nuxeo-data-table-column name="[[i18n('label.metadata.typeOfIndustry')]]" field="account:typeOfIndustry" sort-by="account:typeOfIndustry"
-                                   flex="50">
-            <template>
-              [[formatDirectory(item.properties.account:typeOfIndustry)]]
-            </template>
-          </nuxeo-data-table-column>
-          <nuxeo-data-table-column name="[[i18n('label.metadata.zone')]]" field="account:zone" sort-by="account:zone"
-                                   flex="50">
-            <template>
-              [[formatDirectory(item.properties.account:zone)]]
-            </template>
-          </nuxeo-data-table-column>
+        <nuxeo-data-table-column name="[[i18n('label.metadata.typeOfIndustry')]]" field="account:typeOfIndustry" sort-by="account:typeOfIndustry"
+                                 flex="50">
+          <template>
+            [[formatDirectory(item.properties.account:typeOfIndustry)]]
+          </template>
+        </nuxeo-data-table-column>
+        <nuxeo-data-table-column name="[[i18n('label.metadata.zone')]]" field="account:zone" sort-by="account:zone"
+                                 flex="50">
+          <template>
+            [[formatDirectory(item.properties.account:zone)]]
+          </template>
+        </nuxeo-data-table-column>
 
-          <nuxeo-data-table-column name="[[i18n('label.metadata.email')]]" field="account:email" sort-by="account:email" flex="100">
-            <template>
-              [[item.properties.account:email]]
-            </template>
-          </nuxeo-data-table-column>
+        <nuxeo-data-table-column name="[[i18n('label.metadata.email')]]" field="account:email" sort-by="account:email" flex="100">
+          <template>
+            [[item.properties.account:email]]
+          </template>
+        </nuxeo-data-table-column>
 
-          <nuxeo-data-table-column name="Phone Number" field="account:phoneNumber" sort-by="account:phoneNumber"
-                                   flex="60">
-            <template>
-              [[item.properties.account:phoneNumber]]
-            </template>
-          </nuxeo-data-table-column>
+        <nuxeo-data-table-column name="Phone Number" field="account:phoneNumber" sort-by="account:phoneNumber"
+                                 flex="60">
+          <template>
+            [[item.properties.account:phoneNumber]]
+          </template>
+        </nuxeo-data-table-column>
 
-          <nuxeo-data-table-column name="[[i18n('label.metadata.country')]]" field="account:country" sort-by="account:country"
-                                   flex="60">
-            <template>
-              [[item.properties.account:country]]
-            </template>
-          </nuxeo-data-table-column>
-          <nuxeo-data-table-column name="status" field="account:status" sort-by="account:status"
-                                   flex="50">
-            <template>
-              [[formatDirectory(item.properties.account:status)]]
-            </template>
-          </nuxeo-data-table-column>
-          <nuxeo-data-table-column name="[[i18n('label.metadata.website')]]" field="account:website" sort-by="account:website"
-                                   flex="60">
-            <template>
-              [[item.properties.account:website]]
-            </template>
-          </nuxeo-data-table-column>
+        <nuxeo-data-table-column name="[[i18n('label.metadata.country')]]" field="account:country" sort-by="account:country"
+                                 flex="60">
+          <template>
+            [[item.properties.account:country]]
+          </template>
+        </nuxeo-data-table-column>
+        <nuxeo-data-table-column name="status" field="account:status" sort-by="account:status"
+                                 flex="50">
+          <template>
+            [[formatDirectory(item.properties.account:status)]]
+          </template>
+        </nuxeo-data-table-column>
+        <nuxeo-data-table-column name="[[i18n('label.metadata.website')]]" field="account:website" sort-by="account:website"
+                                 flex="60">
+          <template>
+            [[item.properties.account:website]]
+          </template>
+        </nuxeo-data-table-column>
 
-          <nuxeo-data-table-column name="[[i18n('label.metadata.turnover')]]" field="account:turnover" sort-by="account:turnover"
-                                   flex="60">
-            <template>
-              [[_formatCurrency(item.properties.account:turnover,currencyFormat)]]
-            </template>
-          </nuxeo-data-table-column>
+        <nuxeo-data-table-column name="[[i18n('label.metadata.turnover')]]" field="account:turnover" sort-by="account:turnover"
+                                 flex="60">
+          <template>
+            [[_formatCurrency(item.properties.account:turnover,currencyFormat)]]
+          </template>
+        </nuxeo-data-table-column>
 
-          <nuxeo-data-table-column name="[[i18n('label.metadata.nbemployees')]]" field="account:nbEmployees" sort-by="account:nbEmployees"
-                                   flex="60">
-            <template>
-              [[item.properties.account:nbEmployees]]
-            </template>
-          </nuxeo-data-table-column>
-        </nuxeo-data-table>
+        <nuxeo-data-table-column name="[[i18n('label.metadata.nbemployees')]]" field="account:nbEmployees" sort-by="account:nbEmployees"
+                                 flex="60">
+          <template>
+            [[item.properties.account:nbEmployees]]
+          </template>
+        </nuxeo-data-table-column>
+      </nuxeo-data-table>
       <nuxeo-data-grid class="results" empty-label="[[i18n('searchResults.noResults')]]" selection-enabled=""
                        icon="nuxeo:view-thumbnails" name="grid">
         <template>
@@ -108,12 +108,12 @@
           </nuxeo-document-grid-thumbnail>
         </template>
       </nuxeo-data-grid>
-      </nuxeo-results>
+    </nuxeo-results>
   </template>
   <script>
   Polymer({
     is: 'nuxeo-account_list-search-results',
-    behaviors: [Nuxeo.LayoutBehavior],
+    behaviors: [Nuxeo.LayoutBehavior, Nuxeo.RoutingBehavior],
     properties: {
       /**
          * @schema dublincore
@@ -184,14 +184,9 @@
       }
     },
 
-     _navigate: function(e) {
-        var detail = {
-          doc: e.detail.item,
-        };
-        if(detail.doc){
-          page('/doc/' + detail.doc.uid);
-        }
-      },
+    _navigate: function(e) {
+        this.fire('navigate', { doc: (e.model || e.detail).item, index: (e.model || e.detail).index });
+    },
     /**
      * Returns the label for the given directory entry.
      */

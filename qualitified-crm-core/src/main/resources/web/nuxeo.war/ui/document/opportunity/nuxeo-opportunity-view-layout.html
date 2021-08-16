@@ -14,7 +14,25 @@
             .wrap {
                 white-space: pre-wrap;
             }
+            .results {
+                @apply --layout-vertical;
+                @apply --layout-flex;
+                min-height: var(--nuxeo-document-content-min-height, calc(100vh - 216px - var(--nuxeo-app-top)));
+                margin-bottom: var(--nuxeo-document-content-margin-bottom, 0);
+            }
 
+            .results.dragging {
+                border: 2px dashed var(--nuxeo-primary-color);
+            }
+
+
+            .capitalize {
+                text-transform: capitalize;
+            }
+
+            nuxeo-tag {
+                margin-right: 2px;
+            }
             .account-view-layout {
                 height: 25px;
                 width: 25px;
@@ -204,7 +222,18 @@
                                 <template is="dom-if" if="[[_isSms(item.properties.interaction:activity)]]">
                                     <iron-icon icon="icons:perm-phone-msg"></iron-icon>
                                 </template>
-                                - [[_formatDate(item.properties.interaction:date)]] - [[item.title]]</a>
+                                - [[_formatDate(item.properties.interaction:date)]] - [[item.title]]
+                            </a>
+                            <template is="dom-if" if="[[_isSendingEmail(item.properties.interaction:activity,item.properties.custom:booleanField2)]]">
+                                <template is="dom-if" if="[[_isSent(item.properties.interaction:isSent)]]">
+                                    <iron-icon id="notSent-[[item.uid]]" style="float: right;color: #2bd670;" icon="icons:check-circle"></iron-icon>
+                                    <paper-tooltip for="notSent-[[item.uid]]">Mail is sent</paper-tooltip>
+                                </template>
+                                <template is="dom-if" if="[[!_isSent(item.properties.interaction:isSent)]]">
+                                    <iron-icon id="notSent-[[item.uid]]" style="float: right;color: #e83e34;" icon="icons:info-outline"></iron-icon>
+                                    <paper-tooltip for="notSent-[[item.uid]]">Mail is not sent</paper-tooltip>
+                                </template>
+                            </template>
                         </div>
                         </br>
                         <qualitified-document-suggestion value="[[item.properties.interaction:contact]]"
@@ -216,7 +245,7 @@
                         <div hidden$=[[_hasNote(item)]]>
                             <pre class="wrap">[[item.properties.dc:description]]</pre>
                         </div>
-                        <iron-collapse hidden$=[[_hasNote(item)]] id="collapse-[[item.uid]]">
+                        <iron-collapse hidden$=[[!_hasNote(item)]] id="collapse-[[item.uid]]">
                             <div>
                                 <pre class="wrap">[[item.properties.note:note]]</pre>
                             </div>
@@ -416,6 +445,12 @@
                    var oppContacts= [];
                    oppContacts.push(this.document.properties["opportunity:mainContact"]);
                    return oppContacts;
+                },
+                _isSendingEmail: function(activity,toSent) {
+                   return activity === 'Email' && toSent === true;
+                },
+                _isSent: function(isSent) {
+                    return isSent && isSent === 1;
                 },
                 _openDialogCall: function () {
                     this.$.createPopup._createActivity('Call',this._getOppContact());
