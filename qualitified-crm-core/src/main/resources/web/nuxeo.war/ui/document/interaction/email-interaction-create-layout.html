@@ -25,10 +25,8 @@
     <!-- custom interaction layout for activity email-->
     <div role="widget">
       <label style="margin-bottom: 8px;">From</label>
-
       <nuxeo-user-tag user="[[currentUser]]"
-                      id="IntResponsible"
-      >
+                      id="IntResponsible">
       </nuxeo-user-tag>
     </div>
     <qualitified-document-suggestion id="IntContact"
@@ -46,23 +44,27 @@
     <nuxeo-input role="widget"
                  value="{{document.properties.dc:title}}"
                  label="Subject"
-                 required="true">
+                 required>
     </nuxeo-input>
 
     <nuxeo-textarea role="widget"
                     value="{{document.properties.note:note}}"
-                    label="Content">
+                    label="Content"
+                    required>
     </nuxeo-textarea>
     <nuxeo-directory-suggestion role="widget"
                                 value="{{document.properties.interaction:status}}"
                                 label="[[i18n('label.metadata.status')]]"
-                                required="true"
+                                required
                                 directory-name="IntStatus"
                                 min-chars="0">
     </nuxeo-directory-suggestion>
+    <nuxeo-date-picker value="{{document.properties.interaction:date}}" style="display: table-cell;" label="[[i18n('label.metadata.date')]]"
+                       role="widget" required>
+    </nuxeo-date-picker>
 
     <template is="dom-if" if="[[canSend]]">
-      <paper-toggle-button id="emailBtn" on-tap="_validateSend" checked="{{document.properties.custom:booleanField2}}">Send email
+      <paper-toggle-button id="emailBtn" on-tap="_validateSend" checked="{{document.properties.interaction:toSend}}">Send email
       </paper-toggle-button>
     </template>
 
@@ -113,7 +115,7 @@
         },
 
         _validateSend: async function () {
-          if (this.document.properties['custom:booleanField2'] === true) {
+          if (this.document.properties['interaction:toSend'] === true) {
             var contacts = this.document.properties['interaction:contact'];
             var op = this.$.getContactDoc;
             var contactsEmails = [];
@@ -133,10 +135,10 @@
         _validateContactsEmail: function (contactsEmails) {
           if (contactsEmails.indexOf(null) !== -1) {
             this.isEmailNull = true;
-            this.set('document.properties.custom:booleanField2', false);
+            this.set('document.properties.interaction:toSend', false);
           } else {
             this.isEmailNull = false;
-            this.set('document.properties.custom:booleanField2', true);
+            this.set('document.properties.interaction:toSend', true);
           }
         }
 

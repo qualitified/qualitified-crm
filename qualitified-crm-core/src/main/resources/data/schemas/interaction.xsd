@@ -78,6 +78,11 @@
   <xs:element name="isDelivered" type="xs:integer"/>
   <xs:element name="isOpened" type="xs:integer"/>
   <xs:element name="isClicked" type="xs:integer"/>
+  <xs:element name="eventDuration" type="xs:string"/>
+  <xs:element name="toSync" type="xs:boolean"/>
+  <xs:element name="toSend" type="xs:boolean"/>
+  <xs:element name="eventId" type="xs:string"/>
+  <xs:element name="eventEtag" type="xs:string"/>
   <xs:element name="campaignId">
     <xs:simpleType>
       <xs:restriction base="xs:string" ref:resolver="documentResolver" ref:store="id"/>

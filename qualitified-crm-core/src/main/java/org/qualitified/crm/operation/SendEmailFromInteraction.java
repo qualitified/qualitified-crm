@@ -74,6 +74,9 @@ public class SendEmailFromInteraction {
                 MailjetResponse response = emailingService.send(mailDetails);
                 logger.warn(response.getData());
                 if (response.getJSONArray("Messages").getJSONObject(0).getString("Status").equals("success")) {
+                    String MessageID = Long.toString(response.getJSONArray("Messages").getJSONObject(0).getJSONArray("To")
+                            .getJSONObject(0).getLong("MessageID"));
+                    interactionDoc.setPropertyValue("interaction:messageID",MessageID);
                     interactionDoc.setPropertyValue("interaction:isSent", 1);
                 } else {
                     interactionDoc.setPropertyValue("interaction:isSent", 0);

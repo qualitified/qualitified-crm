@@ -46,18 +46,18 @@ public class InteractionPostSaveListener implements EventListener {
         }
 
         try {
-             boolean isSynced = interactionDoc.getPropertyValue("custom:booleanField1") != null && (boolean) interactionDoc.getPropertyValue("custom:booleanField1");
-             boolean toSend = interactionDoc.getPropertyValue("custom:booleanField2") != null && (boolean) interactionDoc.getPropertyValue("custom:booleanField2");
+            boolean isSynced = interactionDoc.getPropertyValue("interaction:toSync") != null && (boolean) interactionDoc.getPropertyValue("interaction:toSync");
+            boolean toSend = interactionDoc.getPropertyValue("interaction:toSend") != null && (boolean) interactionDoc.getPropertyValue("interaction:toSend");
 
             if ( Boolean.TRUE.equals(isSynced)) {
-                 logger.warn("Running SynchronizeWithCalendar on event "+ interactionDoc.getTitle());
-                 automationService.run(operationContext, "Qualitified.SynchronizeWithCalendar");
+                logger.warn("Running SynchronizeWithCalendar on event "+ interactionDoc.getTitle());
+                automationService.run(operationContext, "Qualitified.SynchronizeWithCalendar");
             }
             if ( Boolean.TRUE.equals(toSend)) {
                 logger.warn("Running SendEmailFromInteraction on email "+ interactionDoc.getTitle());
                 automationService.run(operationContext, "Qualitified.SendEmailFromInteraction");
             }
-         } catch (OperationException e) {
+        } catch (OperationException e) {
             logger.error("Error while running operations...", e);
         }
     }

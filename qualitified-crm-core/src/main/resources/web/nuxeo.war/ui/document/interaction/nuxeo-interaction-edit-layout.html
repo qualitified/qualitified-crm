@@ -93,8 +93,8 @@
     <div class="dateFields">
       <qualitified-time-picker role="widget"
                                value="{{document.properties.interaction:date}}"
-                               display-duration="{{document.properties.custom:booleanField1}}"
-                               duration="{{document.properties.custom:stringField3}}"
+                               display-duration="{{document.properties.interaction:toSync}}"
+                               duration="{{document.properties.interaction:eventDuration}}"
                                date-label="Date"
                                duration-label="Duration"
                                role="widget">
@@ -110,7 +110,7 @@
       </div>
     </div>
 
-    <paper-toggle-button id="synchBtn" class="synchBtn" noink on-tap="_checkDateFields" on-change="_handleAuth" checked="{{document.properties.custom:booleanField1}}">
+    <paper-toggle-button id="synchBtn" class="synchBtn" noink on-tap="_checkDateFields" on-change="_handleAuth" checked="{{document.properties.interaction:toSend}}">
       Synchronize with google calendar
     </paper-toggle-button>
 
@@ -209,7 +209,7 @@
               this.isDisabled = false;
             } else {
               this.isEvent = false;
-              this.document.properties['custom:booleanField1'] = false;
+              this.document.properties['interaction:toSync'] = false;
               this.$.synchBtn.checked = false;
               this.isDisabled = true;
             }
@@ -220,7 +220,7 @@
             var startDte = this.document.properties['interaction:date'];
             var activity = this.document.properties['interaction:activity'];
             var responsible = this.document.properties['interaction:responsible'];
-            this.isChecked = this.document.properties['custom:booleanField1'];
+            this.isChecked = this.document.properties['interaction:toSync'];
 
             if (this.isChecked === true) {
               if (startDte && startDte !== "Invalid date" && (activity==='Meeting' || activity==='Call') && JSON.stringify(responsible) === JSON.stringify([this.currentUser])) {
@@ -228,7 +228,7 @@
                 return true;
               } else {
                 this.$.checkSynchFields.hidden = false;
-                this.set('document.properties.custom:booleanField1', false);
+                this.set('document.properties.interaction:toSync', false);
                 return false;
               }
             }
@@ -237,7 +237,7 @@
 
         _handleAuth: function (e) {
           if (this._checkSynchFields()) {
-            this.set('document.properties.custom:stringField3', "15");
+            this.set('document.properties.interaction:eventDuration', "15");
             this.$.oauth.get().then(function (response) {
               if (response.entries && response.entries.length > 0)
                 response.entries.forEach(serviceProvider => {
@@ -248,7 +248,7 @@
                       this.$.operationToast.open();
                       //this.document.properties['custom:booleanField1'] = this.isChecked;
                     } else {
-                      this.document.properties['custom:booleanField1'] = false;
+                      this.document.properties['interaction:isActivityEvent'] = false;
                       this.$.dialog.toggle();
                       /*  this.$.operationToast.text = "You're not connected to google, please connect and try again!";
                        this.$.operationToast.open();
@@ -269,7 +269,7 @@
 
         },
         validate () {
-          var isSynced = this.document.properties['custom:booleanField1'];
+          var isSynced = this.document.properties['interaction:toSync'];
           var activity = this.document.properties['interaction:activity'];
           var note = this.document.properties['note:note'];
           var desc = this.document.properties['dc:description'];
@@ -282,7 +282,7 @@
               this.set('document.properties.dc:description', report);
           }
           if (isSynced === false) {
-            this.set('document.properties.custom:stringField3', null);
+            this.set('document.properties.interaction:eventDuration', null);
           }
           if (this.document.properties['dc:title']) {
             var title = this.document.properties['dc:title'].trim();

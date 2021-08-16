@@ -2,8 +2,8 @@
 <link rel="import" href="../qualitified-custom-fields.html">
 
 <dom-module id="meeting-call-interaction-create-layout">
-  <template>
-    <style include="nuxeo-styles">
+    <template>
+        <style include="nuxeo-styles">
       *[role=widget] {
         padding: 5px;
       }
@@ -16,17 +16,17 @@
       }
     </style>
 
-    <paper-toast id="operationToast"></paper-toast>
-    <nuxeo-resource id="tokens" path="oauth2/token/"></nuxeo-resource>
-    <nuxeo-resource id="oauth" path="oauth2/provider/"></nuxeo-resource>
-    <nuxeo-connection id="nxuser" user="{{currentUser}}">
-    </nuxeo-connection>
-    <nuxeo-operation id="getContactDoc" op="Repository.GetDocument"></nuxeo-operation>
+        <paper-toast id="operationToast"></paper-toast>
+        <nuxeo-resource id="tokens" path="oauth2/token/"></nuxeo-resource>
+        <nuxeo-resource id="oauth" path="oauth2/provider/"></nuxeo-resource>
+        <nuxeo-connection id="nxuser" user="{{currentUser}}">
+        </nuxeo-connection>
+        <nuxeo-operation id="getContactDoc" op="Repository.GetDocument"></nuxeo-operation>
 
         <nuxeo-input role="widget"
                      value="{{document.properties.dc:title}}"
                      label="[[i18n('label.metadata.interaction.title')]]"
-                     required="true">
+                     required>
         </nuxeo-input>
 
         <nuxeo-textarea role="widget"
@@ -53,55 +53,55 @@
         </nuxeo-user-suggestion>
 
         <qualitified-document-suggestion id="IntContact"
-                                        role="widget"
-                                        value="{{document.properties.interaction:contact}}"
-                                        multiple="true"
-                                        label="[[i18n('label.metadata.contact')]]"
-                                        page-provider="documents"
-                                        min-chars="0"
-                                        params='{ "namedParameters": "system_primaryType=Contact"}'>
+                                         role="widget"
+                                         value="{{document.properties.interaction:contact}}"
+                                         multiple="true"
+                                         label="[[i18n('label.metadata.contact')]]"
+                                         page-provider="documents"
+                                         min-chars="0"
+                                         params='{ "namedParameters": "system_primaryType=Contact"}'>
         </qualitified-document-suggestion>
 
         <div class="dateFields">
-          <qualitified-time-picker value="{{document.properties.interaction:date}}"
-                                  display-duration="{{document.properties.custom:booleanField1}}"
-                                  duration="{{document.properties.custom:stringField3}}"
-                                  date-label="Date"
-                                  duration-label="Duration"
-                                  role="widget">
-          </qualitified-time-picker>
-          <div hidden$="[[isHidden]]">
-            <h style="color:red;">Date is required to enable synchronization!</h><br />
-          </div>
+            <qualitified-time-picker value="{{document.properties.interaction:date}}"
+                                     display-duration="{{document.properties.interaction:toSync}}"
+                                     duration="{{document.properties.interaction:eventDuration}}"
+                                     date-label="Date"
+                                     duration-label="Duration"
+                                     role="widget">
+            </qualitified-time-picker>
+            <div hidden$="[[isHidden]]">
+                <h style="color:red;">Date is required to enable synchronization!</h><br />
+            </div>
         </div>
 
         <template is="dom-if" if="[[canSync]]">
-          <paper-toggle-button id="synchBtn" on-tap="_checkDateFields" on-change="_handleAuth" checked="{{document.properties.custom:booleanField1}}">
-            Synchronize with google calendar
-          </paper-toggle-button>
+            <paper-toggle-button id="synchBtn" on-tap="_checkDateFields" on-change="_handleAuth" checked="{{document.properties.interaction:toSync}}">
+                Synchronize with google calendar
+            </paper-toggle-button>
         </template>
 
         <qualitified-custom-fields document="{{document}}" mode="edit"></qualitified-custom-fields>
-    </template> 
+    </template>
 
 
     <!--dialog for google calendar synchronization -->
     <nuxeo-dialog id="dialog" with-backdrop="" on-iron-overlay-closed="" no-auto-focus="">
-      <h2>Synchronize with google calendar</h2>
-      <div class="content">
-        <h style="color:red;">To enable synchronization! please connect to your google account and try again.</h><br />
-      </div>
-      <div class="buttons">
-        <paper-button dialog-dismiss="" noink="">Cancel</paper-button>
-        <paper-button class="primary" name="add" on-click="_toggleWindow">
-          Connect to google
-        </paper-button>
-      </div>
+        <h2>Synchronize with google calendar</h2>
+        <div class="content">
+            <h style="color:red;">To enable synchronization! please connect to your google account and try again.</h><br />
+        </div>
+        <div class="buttons">
+            <paper-button dialog-dismiss="" noink="">Cancel</paper-button>
+            <paper-button class="primary" name="add" on-click="_toggleWindow">
+                Connect to google
+            </paper-button>
+        </div>
     </nuxeo-dialog>
 
-  </template>
+    </template>
 
-  <script>
+    <script>
     (function () {
       'use strict';
       Polymer({
@@ -158,13 +158,13 @@
         _checkDateFields: function () {
           if (this.document) {
             var startDte = this.document.properties['interaction:date'];
-            if (this.document.properties['custom:booleanField1']=== true) {
+            if (this.document.properties['interaction:toSync']=== true) {
               if (startDte && startDte !== "Invalid date") {
                 this.isHidden = true;
                 return true;
               } else {
                 this.isHidden = false;
-                this.set('document.properties.custom:booleanField1', false);
+                this.set('document.properties.interaction:toSync', false);
 
                 //this.$.synchBtn.checked = false;
                 return false;
@@ -175,7 +175,7 @@
 
         _handleAuth: function (e) {
           if (this._checkDateFields()) {
-            this.set('document.properties.custom:stringField3', "15");
+            this.set('document.properties.interaction:eventDuration', "15");
             this.$.oauth.get().then(function (response) {
               if (response.entries && response.entries.length > 0)
               response.entries.forEach(serviceProvider => {
