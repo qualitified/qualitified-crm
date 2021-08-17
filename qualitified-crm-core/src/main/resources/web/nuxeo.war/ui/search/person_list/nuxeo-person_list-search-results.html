@@ -3,6 +3,7 @@
 @group Nuxeo UI
 @element nuxeo-person_list-search-results
 -->
+<link rel="import" href="../../elements/qualitified-result-columns.html">
 <dom-module id="nuxeo-person_list-search-results">
     <template>
         <style include="nuxeo-styles">
@@ -78,6 +79,7 @@
             </nuxeo-data-table>
 
         </nuxeo-results>
+        <qualitified-result-columns document="Contact"></qualitified-result-columns>
     </template>
     <script>
     Polymer({

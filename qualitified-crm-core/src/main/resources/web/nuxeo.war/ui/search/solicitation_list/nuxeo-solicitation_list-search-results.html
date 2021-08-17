@@ -3,6 +3,7 @@
 @group Nuxeo UI
 @element nuxeo-solicitation_list-search-results
 -->
+<link rel="import" href="../../elements/qualitified-result-columns.html">
 <dom-module id="nuxeo-solicitation_list-search-results">
   <template>
     <style include="nuxeo-styles">
@@ -54,6 +55,7 @@
 
       </nuxeo-data-table>
     </nuxeo-results>
+    <qualitified-result-columns document="Solicitation"></qualitified-result-columns>
   </template>
   <script>
   Polymer({

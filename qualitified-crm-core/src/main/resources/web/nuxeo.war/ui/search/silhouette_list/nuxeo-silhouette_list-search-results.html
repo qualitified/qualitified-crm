@@ -3,6 +3,7 @@
 @group Nuxeo UI
 @element nuxeo-silhouette_list-search-results
 -->
+<link rel="import" href="../../elements/qualitified-result-columns.html">
 <dom-module id="nuxeo-silhouette_list-search-results">
     <template>
         <style include="nuxeo-styles">
@@ -72,6 +73,7 @@
             </nuxeo-data-table>
 
         </nuxeo-results>
+        <qualitified-result-columns document="Silhouette"></qualitified-result-columns>
     </template>
     <script>
         Polymer({
