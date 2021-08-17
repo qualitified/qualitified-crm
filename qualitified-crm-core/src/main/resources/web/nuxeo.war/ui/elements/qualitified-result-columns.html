@@ -649,16 +649,13 @@
       properties: {
         document: {
           type: String,
-          notify: true
-          //observer: "_getCustomFields",
+          notify: true,
+          observer: "_getCustomFields",
 
         },
         params: {
           type: Object,
           value: {},
-        },
-        custom: {
-          type: Array
         },
         nxDataTable: {
           type: Object
@@ -745,128 +742,6 @@
           type: String,
           value:""
         },
-
-        stringField1Visible: {
-          type: Boolean,
-          value: true
-        },
-        stringField2Visible: {
-          type: Boolean,
-          value: false
-        },
-        stringField3Visible: {
-          type: Boolean,
-          value: false
-        },
-        stringField4Visible: {
-          type: Boolean,
-          value: false
-        },
-        stringField5Visible: {
-          type: Boolean,
-          value: false
-        },
-        stringField6Visible: {
-          type: Boolean,
-          value: false
-        },
-
-        stringField7Visible: {
-          type: Boolean,
-          value: false
-        },
-        stringField8Visible: {
-          type: Boolean,
-          value: false
-        },
-        stringField9Visible: {
-          type: Boolean,
-          value: false
-        },
-        stringField10Visible: {
-          type: Boolean,
-          value: false
-        },
-        stringField11Visible: {
-          type: Boolean,
-          value: false
-        },
-        stringField12Visible: {
-          type: Boolean,
-          value: false
-        },
-        stringField13Visible: {
-          type: Boolean,
-          value: false
-        },
-        stringField14Visible: {
-          type: Boolean,
-          value: false
-        },
-        stringField15Visible: {
-          type: Boolean,
-          value: false
-        },
-        stringField16Visible: {
-          type: Boolean,
-          value: false
-        },
-        stringField17Visible: {
-          type: Boolean,
-          value: false
-        },
-        stringField18Visible: {
-          type: Boolean,
-          value: false
-        },
-        stringField19Visible: {
-          type: Boolean,
-          value: false
-        },
-        stringField20Visible: {
-          type: Boolean,
-          value: false
-        },
-        doubleField1Visible: {
-          type: Boolean,
-          value: false,
-        },
-        doubleField2Visible: {
-          type: Boolean,
-          value: false,
-        },
-        doubleField3Visible: {
-          type: Boolean,
-          value: false,
-        },
-        doubleField4Visible: {
-          type: Boolean,
-          value: false,
-        },
-        doubleField5Visible: {
-          type: Boolean,
-          value: false,
-        },
-        doubleField6Visible: {
-          type: Boolean,
-          value: false,
-        },
-        doubleField7Visible: {
-          type: Boolean,
-          value: false,
-        },
-        doubleField8Visible: {
-          type: Boolean,
-          value: false,
-        },
-        doubleField9Visible: {
-          type: Boolean,
-          value: false,
-        },
-        doubleField10Visible: {
-          type: Boolean,
-          value: false,
-        },
         doubleField1Label: {
           type: String,
         },
@@ -897,515 +772,299 @@
         doubleField10Label: {
           type: String,
         },
-        dateField1Visible: {
-          type: Boolean,
-          value: false,
-        },
+
         dateField1Label: {
           type: String,
         },
-        dateField2Visible: {
-          type: Boolean,
-          value: false,
-        },
+
         dateField2Label: {
           type: String,
         },
-        dateField3Visible: {
-          type: Boolean,
-          value: false,
-        },
+
         dateField3Label: {
           type: String,
         },
 
-        dateField4Visible: {
-          type: Boolean,
-          value: false,
-        },
+
         dateField4Label: {
           type: String,
         },
-        dateField5Visible: {
-          type: Boolean,
-          value: false,
-        },
+
         dateField5Label: {
           type: String,
         },
-        dateField6Visible: {
-          type: Boolean,
-          value: false,
-        },
+
         dateField6Label: {
           type: String,
         },
-        dateField7Visible: {
-          type: Boolean,
-          value: false,
-        },
+
         dateField7Label: {
           type: String,
         },
-        dateField8Visible: {
-          type: Boolean,
-          value: false,
-        },
+
         dateField8Label: {
           type: String,
         },
-        dateField9Visible: {
-          type: Boolean,
-          value: false,
-        },
+
         dateField9Label: {
           type: String,
         },
-        dateField10Visible: {
-          type: Boolean,
-          value: false,
-        },
+
         dateField10Label: {
           type: String,
         },
-        dateField11Visible: {
-          type: Boolean,
-          value: false,
-        },
+
         dateField11Label: {
           type: String,
         },
-        dateField12Visible: {
-          type: Boolean,
-          value: false,
-        },
+
         dateField12Label: {
           type: String,
         },
-        dateField13Visible: {
-          type: Boolean,
-          value: false,
-        },
+
         dateField13Label: {
           type: String,
         },
-        dateField14Visible: {
-          type: Boolean,
-          value: false,
-        },
+
         dateField14Label: {
           type: String,
         },
-        dateField15Visible: {
-          type: Boolean,
-          value: false,
-        },
+
         dateField15Label: {
           type: String,
         },
-        dateField16Visible: {
-          type: Boolean,
-          value: false,
-        },
+
         dateField16Label: {
           type: String,
         },
-        dateField17Visible: {
-          type: Boolean,
-          value: false,
-        },
+
         dateField17Label: {
           type: String,
         },
-        dateField18Visible: {
-          type: Boolean,
-          value: false,
-        },
+
         dateField18Label: {
           type: String,
         },
 
-        dateField19Visible: {
-          type: Boolean,
-          value: false,
-        },
         dateField19Label: {
           type: String,
         },
 
-        dateField20Visible: {
-          type: Boolean,
-          value: false,
-        },
+
         dateField20Label: {
           type: String,
         },
 
-        integerField1Visible: {
-          type: Boolean,
-          value: false,
-        },
+
         integerField1Label: {
           type: String,
         },
-        integerField2Visible: {
-          type: Boolean,
-          value: false,
-        },
+
         integerField2Label: {
           type: String,
         },
-        integerField3Visible: {
-          type: Boolean,
-          value: false,
-        },
+
         integerField3Label: {
           type: String,
         },
-        integerField4Visible: {
-          type: Boolean,
-          value: false,
-        },
+
         integerField4Label: {
           type: String,
         },
-        integerField5Visible: {
-          type: Boolean,
-          value: false,
-        },
+
         integerField5Label: {
           type: String,
         },
-        integerField6Visible: {
-          type: Boolean,
-          value: false,
-        },
+
         integerField6Label: {
           type: String,
         },
-        integerField7Visible: {
-          type: Boolean,
-          value: false,
-        },
+
         integerField7Label: {
           type: String,
         },
-        integerField8Visible: {
-          type: Boolean,
-          value: false,
-        },
+
         integerField8Label: {
           type: String,
         },
-        integerField9Visible: {
-          type: Boolean,
-          value: false,
-        },
+
         integerField9Label: {
           type: String,
         },
-        integerField10Visible: {
-          type: Boolean,
-          value: false,
-        },
+
         integerField10Label: {
           type: String,
         },
 
-        booleanField1Visible: {
-          type: Boolean,
-          value: false,
-        },
+
         booleanField1Label: {
           type: String,
         },
-        booleanField2Visible: {
-          type: Boolean,
-          value: false,
-        },
+
         booleanField2Label: {
           type: String,
         },
-        booleanField3Visible: {
-          type: Boolean,
-          value: false,
-        },
+
         booleanField3Label: {
           type: String,
         },
-        booleanField4Visible: {
-          type: Boolean,
-          value: false,
-        },
+
         booleanField4Label: {
           type: String,
         },
-        booleanField5Visible: {
-          type: Boolean,
-          value: false,
-        },
+
         booleanField5Label: {
           type: String,
         },
-        booleanField6Visible: {
-          type: Boolean,
-          value: false,
-        },
+
         booleanField6Label: {
           type: String,
         },
-        booleanField7Visible: {
-          type: Boolean,
-          value: false,
-        },
+
         booleanField7Label: {
           type: String,
         },
-        booleanField8Visible: {
-          type: Boolean,
-          value: false,
-        },
+
         booleanField8Label: {
           type: String,
         },
-        booleanField9Visible: {
-          type: Boolean,
-          value: false,
-        },
+
         booleanField9Label: {
           type: String,
         },
-        booleanField10Visible: {
-          type: Boolean,
-          value: false,
-        },
+
         booleanField10Label: {
           type: String,
         },
-        documentField1Visible: {
-          type: Boolean,
-          value: false,
-        },
+
         documentField1Label: {
           type: String,
         },
-        documentField2Visible: {
-          type: Boolean,
-          value: false,
-        },
+
         documentField2Label: {
           type: String,
         },
-        documentField3Visible: {
-          type: Boolean,
-          value: false,
-        },
+
         documentField3Label: {
           type: String,
         },
-        documentField4Visible: {
-          type: Boolean,
-          value: false,
-        },
+
         documentField4Label: {
           type: String,
         },
-        documentField5Visible: {
-          type: Boolean,
-          value: false,
-        },
+
         documentField5Label: {
           type: String,
         },
-        documentField6Visible: {
-          type: Boolean,
-          value: false,
-        },
+
         documentField6Label: {
           type: String,
         },
-        documentField7Visible: {
-          type: Boolean,
-          value: false,
-        },
+
         documentField7Label: {
           type: String,
         },
-        documentField8Visible: {
-          type: Boolean,
-          value: false,
-        },
+
         documentField8Label: {
           type: String,
         },
-        documentField9Visible: {
-          type: Boolean,
-          value: false,
-        },
+
         documentField9Label: {
           type: String,
         },
-        documentField10Visible: {
-          type: Boolean,
-          value: false,
-        },
+
         documentField10Label: {
           type: String,
         },
-        userField1Visible: {
-          type: Boolean,
-          value: false,
-        },
+
         userField1Label: {
           type: String,
         },
-        userField2Visible: {
-          type: Boolean,
-          value: false,
-        },
+
         userField2Label: {
           type: String,
         },
-        userField3Visible: {
-          type: Boolean,
-          value: false,
-        },
+
         userField3Label: {
           type: String,
         },
-        userField4Visible: {
-          type: Boolean,
-          value: false,
-        },
+
         userField4Label: {
           type: String,
         },
-        userField5Visible: {
-          type: Boolean,
-          value: false,
-        },
+
         userField5Label: {
           type: String,
         },
-        userField6Visible: {
-          type: Boolean,
-          value: false,
-        },
+
         userField6Label: {
           type: String,
         },
-        userField7Visible: {
-          type: Boolean,
-          value: false,
-        },
+
         userField7Label: {
           type: String,
         },
-        userField8Visible: {
-          type: Boolean,
-          value: false,
-        },
+
         userField8Label: {
           type: String,
         },
-        userField9Visible: {
-          type: Boolean,
-          value: false,
-        },
+
         userField9Label: {
           type: String,
         },
-        userField10Visible: {
-          type: Boolean,
-          value: false,
-        },
+
         userField10Label: {
           type: String,
         },
-        vocabularyField1Visible: {
-          type: Boolean,
-          value: false,
-        },
+
         vocabularyField1Label: {
           type: String,
         },
 
-        vocabularyField2Visible: {
-          type: Boolean,
-          value: false,
-        },
+
         vocabularyField2Label: {
           type: String,
         },
 
-        vocabularyField3Visible: {
-          type: Boolean,
-          value: false,
-        },
+
         vocabularyField3Label: {
           type: String,
         },
 
-        vocabularyField4Visible: {
-          type: Boolean,
-          value: false,
-        },
+
         vocabularyField4Label: {
           type: String,
         },
 
-        vocabularyField5Visible: {
-          type: Boolean,
-          value: false,
-        },
         vocabularyField5Label: {
           type: String,
         },
 
-        vocabularyField6Visible: {
-          type: Boolean,
-          value: false,
-        },
+
         vocabularyField6Label: {
           type: String,
         },
-        vocabularyField7Visible: {
-          type: Boolean,
-          value: false,
-        },
+
         vocabularyField7Label: {
           type: String,
         },
 
-        vocabularyField8Visible: {
-          type: Boolean,
-          value: false,
-        },
+
         vocabularyField8Label: {
           type: String,
         },
-        vocabularyField9Visible: {
-          type: Boolean,
-          value: false,
-        },
+
         vocabularyField9Label: {
           type: String,
         },
-        vocabularyField10Visible: {
-          type: Boolean,
-          value: false,
-        },
+
         vocabularyField10Label: {
           type: String,
-        },
+        }
       },
 
-      ready: async function () {
 
-        /* If the `nxDataTable` is not defined, the first `nuxeo-table-table` found will be chosen. */
-        await     this._getCustomFields(this.document);
-
-
+      ready: function () {
         let nxDocContent = this.domHost.shadowRoot.querySelector("nuxeo-document-content");
         if (nxDocContent !== null) {
           this.nxDataTable = nxDocContent.shadowRoot.querySelector("nuxeo-data-table");
@@ -1415,781 +1074,448 @@
 
         if (elTable !== null) {
           this.nxDataTable = elTable;
-          this._nxDataTableChanged();
         }
-
-
-
-
-
-
-        //console.log(this.custom);
-
-
       },
 
       _getValue: function(metadata){
-
         return this.document["custom:"+metadata];
       },
-      _getCustomFields: async function (item) {
 
-
-        if (item) {
-          //  let nxCellNbFiles = this.nxDataTable.querySelector('#nbFiles_' + item.uid);
+      _getCustomFields: function () {
+        if(this.document){
           this.$.getResultListCustomFields.params = {
-            context: {
-              documentType: item
-            },
+                context: {
+                  documentType: this.document
+                },
           };
-          await  this.$.getResultListCustomFields.execute().then(
-                  function (entries) {
-                    this.custom = entries;
-                    this.custom.forEach((item, i) => {
-                      if(item.fieldName == "stringField1"){
-                        this.stringField1Visible=true;
-                        this.stringField1Label=item.label;
-                        return;
-                      }
-                      if(item.fieldName == "stringField2"){
-                        this.stringField2Visible=true;
-                        this.stringField2Label=item.label;
-                      }
-                      if(item.fieldName == "stringField3"){
-                        this.stringField3Visible=true;
-                        this.stringField3Label=item.label;
-                      }
-                      if(item.fieldName == "stringField4"){
-                        this.stringField4Visible=true;
-                        this.stringField4Label=item.label;
-                      }
-                      if(item.fieldName == "stringField5"){
-                        this.stringField5Visible=true;
-                        this.stringField5Label=item.label;
-                      }
-                      if(item.fieldName == "stringField6"){
-                        this.stringField6Visible=true;
-                        this.stringField6Label=item.label;
-                      }
-                      if(item.fieldName == "stringField7"){
-                        this.stringField7Visible=true;
-                        this.stringField7Label=item.label;
-                      }
-                      if(item.fieldName == "stringField8"){
-                        this.stringField8Visible=true;
-                        this.stringField8Label=item.label;
-                      }
-                      if(item.fieldName == "stringField9"){
-                        this.stringField9Visible=true;
-                        this.stringField9Label=item.label;
-                      }
-                      if(item.fieldName == "stringField10"){
-                        this.stringField10Visible=true;
-                        this.stringField10Label=item.label;
-                      }
-                      if(item.fieldName == "stringField11"){
-                        this.stringField11Visible=true;
-                        this.stringField11Label=item.label;
-                      }
-                      if(item.fieldName == "stringField12"){
-                        this.stringField12Visible=true;
-                        this.stringField12Label=item.label;
-                      }
-                      if(item.fieldName == "stringField13"){
-                        this.stringField13Visible=true;
-                        this.stringField13Label=item.label;
-                      }
-                      if(item.fieldName == "stringField14"){
-                        this.stringField14Visible=true;
-                        this.stringField14Label=item.label;
-                      }
-                      if(item.fieldName == "stringField15"){
-                        this.stringField15Visible=true;
-                        this.stringField15Label=item.label;
-                      }
-                      if(item.fieldName == "stringField16"){
-                        this.stringField16Visible=true;
-                        this.stringField16Label=item.label;
-                      }
-                      if(item.fieldName == "stringField17"){
-                        this.stringField17Visible=true;
-                        this.stringField17Label=item.label;
-                      }
-                      if(item.fieldName == "stringField18"){
-                        this.stringField18Visible=true;
-                        this.stringField18Label=item.label;
-                      }
-                      if(item.fieldName == "stringField19"){
-                        this.stringField19Visible=true;
-                        this.stringField19Label=item.label;
-                      }
-                      if(item.fieldName == "stringField20"){
-                        this.stringField20Visible=true;
-                        this.stringField20Label=item.label;
-                      }
-                      if(item.fieldName == "dateField1"){
-                        this.dateField1Visible=true;
-                        this.dateField1Label=item.label;
-                      }
-                      if(item.fieldName == "dateField2"){
-                        this.dateField2Visible=true;
-                        this.dateField2Label=item.label;
-                      }
-                      if(item.fieldName == "dateField3"){
-                        this.dateField3Visible=true;
-                        this.dateField3Label=item.label;
-                      }
-                      if(item.fieldName == "dateField4"){
-                        this.dateField4Visible=true;
-                        this.dateField4Label=item.label;
-                      }
-                      if(item.fieldName == "dateField5"){
-                        this.dateField5Visible=true;
-                        this.dateField5Label=item.label;
-                      }
-                      if(item.fieldName == "dateField6"){
-                        this.dateField6Visible=true;
-                        this.dateField6Label=item.label;
-                      }
-                      if(item.fieldName == "dateField7"){
-                        this.dateField7Visible=true;
-                        this.dateField7Label=item.label;
-                      }
-                      if(item.fieldName == "dateField8"){
-                        this.dateField8Visible=true;
-                        this.dateField8Label=item.label;
-                      }
-                      if(item.fieldName == "dateField9"){
-                        this.dateField9Visible=true;
-                        this.dateField9Label=item.label;
-                      }
-                      if(item.fieldName == "dateField10"){
-                        this.dateField10Visible=true;
-                        this.dateField10Label=item.label;
-                      }
-                      if(item.fieldName == "dateField11"){
-                        this.dateField11Visible=true;
-                        this.dateField11Label=item.label;
-                      }
-                      if(item.fieldName == "dateField12"){
-                        this.dateField12Visible=true;
-                        this.dateField12Label=item.label;
-                      }
-                      if(item.fieldName == "dateField13"){
-                        this.dateField13Visible=true;
-                        this.dateField13Label=item.label;
-                      }
-                      if(item.fieldName == "dateField14"){
-                        this.dateField14Visible=true;
-                        this.dateField14Label=item.label;
-                      }
-                      if(item.fieldName == "dateField15"){
-                        this.dateField15Visible=true;
-                        this.dateField15Label=item.label;
-                      }
-                      if(item.fieldName == "dateField16"){
-                        this.dateField16Label=item.label;
-                      }
-                      if(item.fieldName == "dateField17"){
-                        this.dateField17Visible=true;
-                        this.dateField17Label=item.label;
-                      }
-                      if(item.fieldName == "dateField18"){
-                        this.dateField18Visible=true;
-                        this.dateField18Label=item.label;
-                      }
-                      if(item.fieldName == "dateField19"){
-                        this.dateField19Visible=true;
-                        this.dateField19Label=item.label;
-                      }
-                      if(item.fieldName == "dateField20"){
-                        this.dateField20Visible=true;
-                        this.dateField20Label=item.label;
-                      }
-                      if(item.fieldName == "booleanField1"){
-                        this.booleanField1Visible=true;
-                        this.booleanField1Label=item.label;
-                      }
+          this.$.getResultListCustomFields.execute().then(
+            function (entries) {
+              var cols = this.nxDataTable.querySelectorAll("nuxeo-data-table-column");
+              var colTitle = Array.from(cols).filter(col => col.field == "dc:title")[0];
 
-                      if(item.fieldName == "booleanField2"){
-                        this.booleanField2Visible=true;
-                        this.booleanField2Label=item.label;
-                      }
-                      if(item.fieldName == "booleanField3"){
-                        this.booleanField3Visible=true;
-                        this.booleanField3Label=item.label;
-                      }
-                      if(item.fieldName == "booleanField4"){
-                        this.booleanField4Visible=true;
-                        this.booleanField4Label=item.label;
-                      }
-                      if(item.fieldName == "booleanField5"){
-                        this.booleanField5Visible=true;
-                        this.booleanField5Label=item.label;
-                      }
-                      if(item.fieldName == "booleanField6"){
-                        this.booleanField6Visible=true;
-                        this.booleanField6Label=item.label;
-                      }
-                      if(item.fieldName == "booleanField7"){
-                        this.booleanField7Visible=true;
-                        this.booleanField7Label=item.label;
-                      }
-                      if(item.fieldName == "booleanField8"){
-                        this.booleanField8Visible=true;
-                        this.booleanField8Label=item.label;
-                      }
-                      if(item.fieldName == "booleanField9"){
-                        this.booleanField9Visible=true;
-                        this.booleanField9Label=item.label;
-                      }
-                      if(item.fieldName == "booleanField10"){
-                        this.booleanField10Visible=true;
-                        this.booleanField10Label=item.label;
-                      }
-                      if(item.fieldName == "doubleField1"){
-                        this.doubleField1Visible=true;
-                        this.doubleField1Label=item.label;
-                      }
-                      if(item.fieldName == "doubleField1"){
-                        this.doubleField1Visible=true;
-                        this.doubleField1Label=item.label;
-                      }
-                      if(item.fieldName == "doubleField2"){
-                        this.doubleField2Visible=true;
-                        this.doubleField2Label=item.label;
-                      }
-                      if(item.fieldName == "doubleField3"){
-                        this.doubleField3Visible=true;
-                        this.doubleField3Label=item.label;
-                      }
-                      if(item.fieldName == "doubleField4"){
-                        this.doubleField4Visible=true;
-                        this.doubleField4Label=item.label;
-                      }
-                      if(item.fieldName == "doubleField5"){
-                        this.doubleField5Visible=true;
-                        this.doubleField5Label=item.label;
-                      }
-                      if(item.fieldName == "doubleField6"){
-                        this.doubleField6Visible=true;
-                        this.doubleField6Label=item.label;
-                      }
-                      if(item.fieldName == "doubleField7"){
-                        this.doubleField7Visible=true;
-                        this.doubleField7Label=item.label;
-                      }
-                      if(item.fieldName == "doubleField8"){
-                        this.doubleField8Visible=true;
-                        this.doubleField8Label=item.label;
-                      }
-                      if(item.fieldName == "doubleField9"){
-                        this.doubleField9Visible=true;
-                        this.doubleField9Label=item.label;
-                      }
-                      if(item.fieldName == "doubleField10"){
-                        this.doubleField10Visible=true;
-                        this.doubleField10Label=item.label;
-                      }
-                      if(item.fieldName == "integerField1"){
-                        this.integerField1Visible=true;
-                        this.integerField1Label=item.label;
-                      }
-                      if(item.fieldName == "integerField2"){
-                        this.integerField2Visible=true;
-                        this.integerField2Label=item.label;
-                      }
-                      if(item.fieldName == "integerField3"){
-                        this.integerField3Visible=true;
-                        this.integerField3Label=item.label;
-                      }
-                      if(item.fieldName == "integerField5"){
-                        this.integerField5Visible=true;
-                        this.integerField5Label=item.label;
-                      }
-                      if(item.fieldName == "integerField4"){
-                        this.integerField4Visible=true;
-                        this.integerField4Label=item.label;
-                      }
-                      if(item.fieldName == "integerField6"){
-                        this.integerField6Visible=true;
-                        this.integerField6Label=item.label;
-                      }
-                      if(item.fieldName == "integerField7"){
-                        this.integerField7Visible=true;
-                        this.integerField7Label=item.label;
-                      }
-                      if(item.fieldName == "integerField8"){
-                        this.integerField8Visible=true;
-                        this.integerField8Label=item.label;
-                      }
-                      if(item.fieldName == "integerField9"){
-                        this.integerField9Visible=true;
-                        this.integerField9Label=item.label;
-                      }
-                      if(item.fieldName == "integerField10"){
-                        this.integerField10Visible=true;
-                        this.integerField10Label=item.label;
-                      }
-                      if(item.fieldName == "vocabularyField1"){
-                        this.vocabularyField1Visible=true;
-                        this.vocabularyField1Label=item.label;
-                      }
+              entries.forEach((item, i) => {
+                if(item.fieldName == "stringField1"){
+                  this.nxDataTable.insertBefore(this.$.stringField1, colTitle.nextSibling);
+                  //this.stringField1Visible=true;
+                  this.stringField1Label=item.label;
+                  return;
+                }
+                if(item.fieldName == "stringField2"){
+                  this.nxDataTable.insertBefore(this.$.stringField2, colTitle.nextSibling);
+                  //this.stringField2Visible=true;
+                  this.stringField2Label=item.label;
+                  return;
+                }
+                if(item.fieldName == "stringField3"){
+                  this.nxDataTable.insertBefore(this.$.stringField3, colTitle.nextSibling);
+                  this.stringField3Label=item.label;
+                }
+                if(item.fieldName == "stringField4"){
+                  this.nxDataTable.insertBefore(this.$.stringField4, colTitle.nextSibling);
+                  this.stringField4Label=item.label;
+                }
+                if(item.fieldName == "stringField5"){
+                  this.nxDataTable.insertBefore(this.$.stringField5, colTitle.nextSibling);
+                  this.stringField5Label=item.label;
+                }
+                if(item.fieldName == "stringField6"){
+                  this.nxDataTable.insertBefore(this.$.stringField6, colTitle.nextSibling);
+                  this.stringField6Label=item.label;
+                }
+                if(item.fieldName == "stringField7"){
+                  this.nxDataTable.insertBefore(this.$.stringField7, colTitle.nextSibling);
+                  this.stringField7Label=item.label;
+                }
+                if(item.fieldName == "stringField8"){
+                  this.nxDataTable.insertBefore(this.$.stringField8, colTitle.nextSibling);
+                  this.stringField8Label=item.label;
+                }
+                if(item.fieldName == "stringField9"){
+                  this.nxDataTable.insertBefore(this.$.stringField9, colTitle.nextSibling);
+                  this.stringField9Label=item.label;
+                }
+                if(item.fieldName == "stringField10"){
+                  this.nxDataTable.insertBefore(this.$.stringField10, colTitle.nextSibling);
+                  this.stringField10Label=item.label;
+                }
+                if(item.fieldName == "stringField11"){
+                  this.nxDataTable.insertBefore(this.$.stringField11, colTitle.nextSibling);
+                  this.stringField11Label=item.label;
+                }
+                if(item.fieldName == "stringField12"){
+                  this.nxDataTable.insertBefore(this.$.stringField12, colTitle.nextSibling);
+                  this.stringField12Label=item.label;
+                }
+                if(item.fieldName == "stringField13"){
+                  this.nxDataTable.insertBefore(this.$.stringField13, colTitle.nextSibling);
+                  this.stringField13Label=item.label;
+                }
+                if(item.fieldName == "stringField14"){
+                  this.nxDataTable.insertBefore(this.$.stringField14, colTitle.nextSibling);
+                  this.stringField14Label=item.label;
+                }
+                if(item.fieldName == "stringField15"){
+                  this.nxDataTable.insertBefore(this.$.stringField15, colTitle.nextSibling);
+                  this.stringField15Label=item.label;
+                }
+                if(item.fieldName == "stringField16"){
+                  this.nxDataTable.insertBefore(this.$.stringField16, colTitle.nextSibling);
+                  this.stringField16Label=item.label;
+                }
+                if(item.fieldName == "stringField17"){
+                  this.nxDataTable.insertBefore(this.$.stringField17, colTitle.nextSibling);
+                  this.stringField17Label=item.label;
+                }
+                if(item.fieldName == "stringField18"){
+                  this.nxDataTable.insertBefore(this.$.stringField18, colTitle.nextSibling);
+                  this.stringField18Label=item.label;
+                }
+                if(item.fieldName == "stringField19"){
+                  this.nxDataTable.insertBefore(this.$.stringField19, colTitle.nextSibling);
+                  this.stringField19Label=item.label;
+                }
+                if(item.fieldName == "stringField20"){
+                  this.nxDataTable.insertBefore(this.$.stringField20, colTitle.nextSibling);
+                  this.stringField20Label=item.label;
+                }
+                if(item.fieldName == "dateField1"){
+                  this.nxDataTable.insertBefore(this.$.dateField1, colTitle.nextSibling);
+                  this.dateField1Label=item.label;
+                }
+                if(item.fieldName == "dateField2"){
+                  this.nxDataTable.insertBefore(this.$.dateField2, colTitle.nextSibling);
+                  this.dateField2Label=item.label;
+                }
+                if(item.fieldName == "dateField3"){
+                  this.nxDataTable.insertBefore(this.$.dateField3, colTitle.nextSibling);
+                  this.dateField3Label=item.label;
+                }
+                if(item.fieldName == "dateField4"){
+                  this.nxDataTable.insertBefore(this.$.dateField4, colTitle.nextSibling);
+                  this.dateField4Label=item.label;
+                }
+                if(item.fieldName == "dateField5"){
+                  this.nxDataTable.insertBefore(this.$.dateField5, colTitle.nextSibling);
+                  this.dateField5Label=item.label;
+                }
+                if(item.fieldName == "dateField6"){
+                  this.nxDataTable.insertBefore(this.$.dateField6, colTitle.nextSibling);
+                  this.dateField6Label=item.label;
+                }
+                if(item.fieldName == "dateField7"){
+                  this.nxDataTable.insertBefore(this.$.dateField7, colTitle.nextSibling);
+                  this.dateField7Label=item.label;
+                }
+                if(item.fieldName == "dateField8"){
+                  this.nxDataTable.insertBefore(this.$.dateField8, colTitle.nextSibling);
+                  this.dateField8Label=item.label;
+                }
+                if(item.fieldName == "dateField9"){
+                  this.nxDataTable.insertBefore(this.$.dateField9, colTitle.nextSibling);
+                  this.dateField9Label=item.label;
+                }
+                if(item.fieldName == "dateField10"){
+                  this.nxDataTable.insertBefore(this.$.dateField10, colTitle.nextSibling);
+                  this.dateField10Label=item.label;
+                }
+                if(item.fieldName == "dateField11"){
+                  this.nxDataTable.insertBefore(this.$.dateField11, colTitle.nextSibling);
+                  this.dateField11Label=item.label;
+                }
+                if(item.fieldName == "dateField12"){
+                  this.nxDataTable.insertBefore(this.$.dateField12, colTitle.nextSibling);
+                  this.dateField12Label=item.label;
+                }
+                if(item.fieldName == "dateField13"){
+                  this.nxDataTable.insertBefore(this.$.dateField13, colTitle.nextSibling);
+                  this.dateField13Label=item.label;
+                }
+                if(item.fieldName == "dateField14"){
+                  this.nxDataTable.insertBefore(this.$.dateField14, colTitle.nextSibling);
+                  this.dateField14Label=item.label;
+                }
+                if(item.fieldName == "dateField15"){
+                  this.nxDataTable.insertBefore(this.$.dateField15, colTitle.nextSibling);
+                  this.dateField15Label=item.label;
+                }
+                if(item.fieldName == "dateField16"){
+                  this.nxDataTable.insertBefore(this.$.dateField16, colTitle.nextSibling);
+                  this.dateField16Label=item.label;
+                }
+                if(item.fieldName == "dateField17"){
+                  this.nxDataTable.insertBefore(this.$.dateField17, colTitle.nextSibling);
+                  this.dateField17Label=item.label;
+                }
+                if(item.fieldName == "dateField18"){
+                  this.nxDataTable.insertBefore(this.$.dateField18, colTitle.nextSibling);
+                  this.dateField18Label=item.label;
+                }
+                if(item.fieldName == "dateField19"){
+                  this.nxDataTable.insertBefore(this.$.dateField19, colTitle.nextSibling);
+                  this.dateField19Label=item.label;
+                }
+                if(item.fieldName == "dateField20"){
+                  this.nxDataTable.insertBefore(this.$.dateField20, colTitle.nextSibling);
+                  this.dateField20Label=item.label;
+                }
+                if(item.fieldName == "booleanField1"){
+                  this.nxDataTable.insertBefore(this.$.booleanField1, colTitle.nextSibling);
+                  this.booleanField1Label=item.label;
+                }
 
-                      if(item.fieldName == "vocabularyField3"){
-                        this.vocabularyField3Visible=true;
-                        this.vocabularyField3Label=item.label;
-                      }
-                      if(item.fieldName == "vocabularyField4"){
-                        this.vocabularyField4Visible=true;
-                        this.vocabularyField4Label=item.label;
-                      }
-                      if(item.fieldName == "vocabularyField5"){
-                        this.vocabularyField5Visible=true;
-                        this.vocabularyField5Label=item.label;
-                      }
-                      if(item.fieldName == "vocabularyField2"){
-                        this.vocabularyField2Visible=true;
-                        this.vocabularyField2Label=item.label;
-                      }
-                      if(item.fieldName == "vocabularyField6"){
-                        this.vocabularyField6Visible=true;
-                        this.vocabularyField6Label=item.label;
-                      }
-                      if(item.fieldName == "vocabularyField7"){
-                        this.vocabularyField7Visible=true;
-                        this.vocabularyField7Label=item.label;
-                      }
-                      if(item.fieldName == "vocabularyField8"){
-                        this.vocabularyField8Visible=true;
-                        this.vocabularyField8Label=item.label;
-                      }
-                      if(item.fieldName == "vocabularyField9"){
-                        this.vocabularyField9Visible=true;
-                        this.vocabularyField9Label=item.label;
-                      }
-                      if(item.fieldName == "vocabularyField10"){
-                        this.vocabularyField10Visible=true;
-                        this.vocabularyField10Label=item.label;
-                      }
-                      if(item.fieldName == "userField1"){
-                        this.userField1Visible=true;
-                        this.userField1Label=item.label;
-                      }
-                      if(item.fieldName == "userField2"){
-                        this.userField2Visible=true;
-                        this.userField2Label=item.label;
-                      }
-                      if(item.fieldName == "userField3"){
-                        this.userField3Visible=true;
-                        this.userField3Label=item.label;
-                      }
-                      if(item.fieldName == "userField4"){
-                        this.userField4Visible=true;
-                        this.userField4Label=item.label;
-                      }
-                      if(item.fieldName == "userField5"){
-                        this.userField5Visible=true;
-                        this.userField5Label=item.label;
-                      }
-                      if(item.fieldName == "userField6"){
-                        this.userField6Visible=true;
-                        this.userField6Label=item.label;
-                      }
-                      if(item.fieldName == "userField7"){
-                        this.userField7Visible=true;
-                        this.userField7Label=item.label;
-                      }
-                      if(item.fieldName == "userField8"){
-                        this.userField8Visible=true;
-                        this.userField8Label=item.label;
-                      }
-                      if(item.fieldName == "userField9"){
-                        this.userField9Visible=true;
-                        this.userField9Label=item.label;
-                      }
-                      if(item.fieldName == "userField10"){
-                        this.userField10Visible=true;
-                        this.userField10Label=item.label;
-                      }
-                      if(item.fieldName == "documentField1"){
-                        this.documentField1Visible=true;
-                        this.documentField1Label=item.label;
-                      }
-                      if(item.fieldName == "documentField2"){
-                        this.documentField2Visible=true;
-                        this.documentField2Label=item.label;
-                      }
-                      if(item.fieldName == "documentField3"){
-                        this.documentField3Visible=true;
-                        this.documentField3Label=item.label;
+                if(item.fieldName == "booleanField2"){
+                  this.nxDataTable.insertBefore(this.$.booleanField2, colTitle.nextSibling);
+                  this.booleanField2Label=item.label;
+                }
+                if(item.fieldName == "booleanField3"){
+                  this.nxDataTable.insertBefore(this.$.booleanField3, colTitle.nextSibling);
+                  this.booleanField3Label=item.label;
+                }
+                if(item.fieldName == "booleanField4"){
+                  this.nxDataTable.insertBefore(this.$.booleanField4, colTitle.nextSibling);
+                  this.booleanField4Label=item.label;
+                }
+                if(item.fieldName == "booleanField5"){
+                  this.nxDataTable.insertBefore(this.$.booleanField5, colTitle.nextSibling);
+                  this.booleanField5Label=item.label;
+                }
+                if(item.fieldName == "booleanField6"){
+                  this.nxDataTable.insertBefore(this.$.booleanField6, colTitle.nextSibling);
+                  this.booleanField6Label=item.label;
+                }
+                if(item.fieldName == "booleanField7"){
+                  this.nxDataTable.insertBefore(this.$.booleanField7, colTitle.nextSibling);
+                  this.booleanField7Label=item.label;
+                }
+                if(item.fieldName == "booleanField8"){
+                  this.nxDataTable.insertBefore(this.$.booleanField8, colTitle.nextSibling);
+                  this.booleanField8Label=item.label;
+                }
+                if(item.fieldName == "booleanField9"){
+                  this.nxDataTable.insertBefore(this.$.booleanField9, colTitle.nextSibling);
+                  this.booleanField9Label=item.label;
+                }
+                if(item.fieldName == "booleanField10"){
+                  this.nxDataTable.insertBefore(this.$.booleanField10, colTitle.nextSibling);
+                  this.booleanField10Label=item.label;
+                }
+                if(item.fieldName == "doubleField1"){
+                  this.nxDataTable.insertBefore(this.$.doubleField1, colTitle.nextSibling);
+                  this.doubleField1Label=item.label;
+                }
+                if(item.fieldName == "doubleField2"){
+                  this.nxDataTable.insertBefore(this.$.doubleField2, colTitle.nextSibling);
+                  this.doubleField2Label=item.label;
+                }
+                if(item.fieldName == "doubleField3"){
+                  this.nxDataTable.insertBefore(this.$.doubleField3, colTitle.nextSibling);
+                  this.doubleField3Label=item.label;
+                }
+                if(item.fieldName == "doubleField4"){
+                  this.nxDataTable.insertBefore(this.$.doubleField4, colTitle.nextSibling);
+                  this.doubleField4Label=item.label;
+                }
+                if(item.fieldName == "doubleField5"){
+                  this.nxDataTable.insertBefore(this.$.doubleField5, colTitle.nextSibling);
+                  this.doubleField5Label=item.label;
+                }
+                if(item.fieldName == "doubleField6"){
+                  this.nxDataTable.insertBefore(this.$.doubleField6, colTitle.nextSibling);
+                  this.doubleField6Label=item.label;
+                }
+                if(item.fieldName == "doubleField7"){
+                  this.nxDataTable.insertBefore(this.$.doubleField7, colTitle.nextSibling);
+                  this.doubleField7Label=item.label;
+                }
+                if(item.fieldName == "doubleField8"){
+                  this.nxDataTable.insertBefore(this.$.doubleField8, colTitle.nextSibling);
+                  this.doubleField8Label=item.label;
+                }
+                if(item.fieldName == "doubleField9"){
+                  this.nxDataTable.insertBefore(this.$.doubleField9, colTitle.nextSibling);
+                  this.doubleField9Label=item.label;
+                }
+                if(item.fieldName == "doubleField10"){
+                  this.nxDataTable.insertBefore(this.$.doubleField10, colTitle.nextSibling);
+                  this.doubleField10Label=item.label;
+                }
+                if(item.fieldName == "integerField1"){
+                  this.nxDataTable.insertBefore(this.$.integerField1, colTitle.nextSibling);
+                  this.integerField1Label=item.label;
+                }
+                if(item.fieldName == "integerField2"){
+                  this.nxDataTable.insertBefore(this.$.integerField2, colTitle.nextSibling);
+                  this.integerField2Label=item.label;
+                }
+                if(item.fieldName == "integerField3"){
+                  this.nxDataTable.insertBefore(this.$.integerField3, colTitle.nextSibling);
+                  this.integerField3Label=item.label;
+                }
+                if(item.fieldName == "integerField4"){
+                  this.nxDataTable.insertBefore(this.$.integerField4, colTitle.nextSibling);
+                  this.integerField4Label=item.label;
+                }
+                if(item.fieldName == "integerField5"){
+                  this.nxDataTable.insertBefore(this.$.integerField5, colTitle.nextSibling);
+                  this.integerField5Label=item.label;
+                }
+                if(item.fieldName == "integerField6"){
+                  this.nxDataTable.insertBefore(this.$.integerField6, colTitle.nextSibling);
+                  this.integerField6Label=item.label;
+                }
+                if(item.fieldName == "integerField7"){
+                  this.nxDataTable.insertBefore(this.$.integerField7, colTitle.nextSibling);
+                  this.integerField7Label=item.label;
+                }
+                if(item.fieldName == "integerField8"){
+                  this.nxDataTable.insertBefore(this.$.integerField8, colTitle.nextSibling);
+                  this.integerField8Label=item.label;
+                }
+                if(item.fieldName == "integerField9"){
+                  this.nxDataTable.insertBefore(this.$.integerField9, colTitle.nextSibling);
+                  this.integerField9Label=item.label;
+                }
+                if(item.fieldName == "integerField10"){
+                  this.nxDataTable.insertBefore(this.$.integerField10, colTitle.nextSibling);
+                  this.integerField10Label=item.label;
+                }
+                if(item.fieldName == "vocabularyField1"){
+                  this.nxDataTable.insertBefore(this.$.vocabularyField1, colTitle.nextSibling);
+                  this.vocabularyField1Label=item.label;
+                }
+                if(item.fieldName == "vocabularyField2"){
+                  this.nxDataTable.insertBefore(this.$.vocabularyField2, colTitle.nextSibling);
+                  this.vocabularyField2Label=item.label;
+                }
+                if(item.fieldName == "vocabularyField3"){
+                  this.nxDataTable.insertBefore(this.$.vocabularyField3, colTitle.nextSibling);
+                  this.vocabularyField3Label=item.label;
+                }
+                if(item.fieldName == "vocabularyField4"){
+                  this.nxDataTable.insertBefore(this.$.vocabularyField4, colTitle.nextSibling);
+                  this.vocabularyField4Label=item.label;
+                }
+                if(item.fieldName == "vocabularyField5"){
+                  this.nxDataTable.insertBefore(this.$.vocabularyField5, colTitle.nextSibling);
+                  this.vocabularyField5Label=item.label;
+                }
+                if(item.fieldName == "vocabularyField6"){
+                  this.nxDataTable.insertBefore(this.$.vocabularyField6, colTitle.nextSibling);
+                  this.vocabularyField6Label=item.label;
+                }
+                if(item.fieldName == "vocabularyField7"){
+                  this.nxDataTable.insertBefore(this.$.vocabularyField7, colTitle.nextSibling);
+                  this.vocabularyField7Label=item.label;
+                }
+                if(item.fieldName == "vocabularyField8"){
+                  this.nxDataTable.insertBefore(this.$.vocabularyField8, colTitle.nextSibling);
+                  this.vocabularyField8Label=item.label;
+                }
+                if(item.fieldName == "vocabularyField9"){
+                  this.nxDataTable.insertBefore(this.$.vocabularyField9, colTitle.nextSibling);
+                  this.vocabularyField9Label=item.label;
+                }
+                if(item.fieldName == "vocabularyField10"){
+                  this.nxDataTable.insertBefore(this.$.vocabularyField10, colTitle.nextSibling);
+                  this.vocabularyField10Label=item.label;
+                }
+                if(item.fieldName == "userField1"){
+                  this.nxDataTable.insertBefore(this.$.userField1, colTitle.nextSibling);
+                  this.userField1Label=item.label;
+                }
+                if(item.fieldName == "userField2"){
+                  this.nxDataTable.insertBefore(this.$.userField2, colTitle.nextSibling);
+                  this.userField2Label=item.label;
+                }
+                if(item.fieldName == "userField3"){
+                  tthis.nxDataTable.insertBefore(this.$.userField3, colTitle.nextSibling);
+                  this.userField3Label=item.label;
+                }
+                if(item.fieldName == "userField4"){
+                  this.nxDataTable.insertBefore(this.$.userField4, colTitle.nextSibling);
+                  this.userField4Label=item.label;
+                }
+                if(item.fieldName == "userField5"){
+                  this.nxDataTable.insertBefore(this.$.userField5, colTitle.nextSibling);
+                  this.userField5Label=item.label;
+                }
+                if(item.fieldName == "userField6"){
+                  this.nxDataTable.insertBefore(this.$.userField6, colTitle.nextSibling);
+                  this.userField6Label=item.label;
+                }
+                if(item.fieldName == "userField7"){
+                  this.nxDataTable.insertBefore(this.$.userField7, colTitle.nextSibling);
+                  this.userField7Label=item.label;
+                }
+                if(item.fieldName == "userField8"){
+                  this.nxDataTable.insertBefore(this.$.userField8, colTitle.nextSibling);
+                  this.userField8Label=item.label;
+                }
+                if(item.fieldName == "userField9"){
+                  this.nxDataTable.insertBefore(this.$.userField9, colTitle.nextSibling);
+                  this.userField9Label=item.label;
+                }
+                if(item.fieldName == "userField10"){
+                  this.nxDataTable.insertBefore(this.$.userField10, colTitle.nextSibling);
+                  this.userField10Label=item.label;
+                }
+                if(item.fieldName == "documentField1"){
+                  this.nxDataTable.insertBefore(this.$.documentField1, colTitle.nextSibling);
+                  this.documentField1Label=item.label;
+                }
+                if(item.fieldName == "documentField2"){
+                  his.nxDataTable.insertBefore(this.$.documentField2, colTitle.nextSibling);
+                  this.documentField2Label=item.label;
+                }
+                if(item.fieldName == "documentField3"){
+                  his.nxDataTable.insertBefore(this.$.documentField3, colTitle.nextSibling);
+                  this.documentField3Label=item.label;
 
-                      }
-                      if(item.fieldName == "documentField4"){
-                        this.documentField4Visible=true;
-                        this.documentField4Label=item.label;
-                      }
-                      if(item.fieldName == "documentField5"){
-                        this.documentField5Visible=true;
-                        this.documentField5Label=item.label;
-                      }
-                      if(item.fieldName == "documentField6"){
-                        this.documentField6Visible=true;
-                        this.documentField6Label=item.label;
-                      }
-                      if(item.fieldName == "documentField7"){
-                        this.documentField7Visible=true;
-                        this.documentField7Label=item.label;
-                      }
-                      if(item.fieldName == "documentField8"){
-                        this.documentField8Visible=true;
-                        this.documentField8Label=item.label;
-                      }
-                      if(item.fieldName == "documentField9"){
-                        this.documentField9Visible=true;
-                        this.documentField9Label=item.label;
-                      }
-                      if(item.fieldName == "documentField10"){
-                        this.documentField10Visible=true;
-                        this.documentField10Label=item.label;
-                      }
-
-                    });
-
-                    //                this._nxDataTableChanged();
-                  }.bind(this)
-
-          );
-
-        }
-
-      },
-
-
-      _nxDataTableChanged: function () {
-        var cols = this.nxDataTable.querySelectorAll("nuxeo-data-table-column");
-        var colTitle = Array.from(cols).filter(col => col.field == "dc:title")[0];
-
-
-        if(this.stringField1Visible){
-          this.nxDataTable.insertBefore(this.$.stringField1, colTitle.nextSibling);
+                }
+                if(item.fieldName == "documentField4"){
+                  his.nxDataTable.insertBefore(this.$.documentField4, colTitle.nextSibling);
+                  this.documentField4Label=item.label;
+                }
+                if(item.fieldName == "documentField5"){
+                  his.nxDataTable.insertBefore(this.$.documentField5, colTitle.nextSibling);
+                  this.documentField5Label=item.label;
+                }
+                if(item.fieldName == "documentField6"){
+                  his.nxDataTable.insertBefore(this.$.documentField6, colTitle.nextSibling);
+                  this.documentField6Label=item.label;
+                }
+                if(item.fieldName == "documentField7"){
+                  his.nxDataTable.insertBefore(this.$.documentField7, colTitle.nextSibling);
+                  this.documentField7Label=item.label;
+                }
+                if(item.fieldName == "documentField8"){
+                  his.nxDataTable.insertBefore(this.$.documentField8, colTitle.nextSibling);
+                  this.documentField8Label=item.label;
+                }
+                if(item.fieldName == "documentField9"){
+                  his.nxDataTable.insertBefore(this.$.documentField9, colTitle.nextSibling);
+                  this.documentField9Label=item.label;
+                }
+                if(item.fieldName == "documentField10"){
+                  this.nxDataTable.insertBefore(this.$.documentField10, colTitle.nextSibling);
+                  this.documentField10Label=item.label;
+                }
+              });
+              //Cleanup Header
+              setTimeout(function() {
+              this.nxDataTable.querySelector("nuxeo-data-table-row").querySelectorAll("nuxeo-data-table-cell").forEach((item, i) => {
+                  if(item.querySelectorAll("nuxeo-data-table-column-filter").length>1){
+                    item.querySelectorAll("nuxeo-data-table-column-filter")[1].remove();
+                  }
+                  if(item.querySelectorAll("div").length>1){
+                    item.querySelectorAll("div")[1].remove();
+                  }
+              });
+              }.bind(this), 1000);
+          }.bind(this));
 
         }
-        if(this.stringField2Visible){
-          this.nxDataTable.insertBefore(this.$.stringField2, colTitle.nextSibling);
-
-
-
-        }
-        if(this.stringField3Visible){
-          this.nxDataTable.insertBefore(this.$.stringField3, colTitle.nextSibling);
-        }
-
-        if(this.stringField4Visible){
-          this.nxDataTable.insertBefore(this.$.stringField4, colTitle.nextSibling);
-        }
-
-        if(this.stringField5Visible){
-          this.nxDataTable.insertBefore(this.$.stringField5, colTitle.nextSibling);
-        }
-        if(this.stringField6Visible){
-          this.nxDataTable.insertBefore(this.$.stringField6, colTitle.nextSibling);
-        }
-        if(this.stringField7Visible){
-          this.nxDataTable.insertBefore(this.$.stringField7, colTitle.nextSibling);
-
-
-        }
-        if(this.stringField8Visible){
-          this.nxDataTable.insertBefore(this.$.stringField8, colTitle.nextSibling);
-        }
-        if(this.stringField9Visible){
-          this.nxDataTable.insertBefore(this.$.stringField9, colTitle.nextSibling);
-        }
-        if(this.stringField10Visible){
-          this.nxDataTable.insertBefore(this.$.stringField10, colTitle.nextSibling);
-        }
-        if(this.stringField11Visible){
-          this.nxDataTable.insertBefore(this.$.stringField11, colTitle.nextSibling);
-        }
-        if(this.stringField12Visible){
-          this.nxDataTable.insertBefore(this.$.stringField12, colTitle.nextSibling);
-        }
-        if(this.stringField13Visible){
-          this.nxDataTable.insertBefore(this.$.stringField13, colTitle.nextSibling);
-        }
-        if(this.stringField14Visible){
-          this.nxDataTable.insertBefore(this.$.stringField14, colTitle.nextSibling);
-        }
-        if(this.stringField15Visible){
-          this.nxDataTable.insertBefore(this.$.stringField15, colTitle.nextSibling);
-        }
-        if(this.stringField16Visible){
-          this.nxDataTable.insertBefore(this.$.stringField16, colTitle.nextSibling);
-        }
-        if(this.stringField17Visible){
-          this.nxDataTable.insertBefore(this.$.stringField17, colTitle.nextSibling);
-        }
-        if(this.stringField18Visible){
-          this.nxDataTable.insertBefore(this.$.stringField18, colTitle.nextSibling);
-        }
-        if(this.stringField19Visible){
-          this.nxDataTable.insertBefore(this.$.stringField19, colTitle.nextSibling);
-        }
-        if(this.stringField20Visible){
-          this.nxDataTable.insertBefore(this.$.stringField20, colTitle.nextSibling);
-        }
-        if(this.booleanField1Visible){
-          this.nxDataTable.insertBefore(this.$.booleanField1, colTitle.nextSibling);
-        }
-        if(this.booleanField3Visible){
-          this.nxDataTable.insertBefore(this.$.booleanField3, colTitle.nextSibling);
-        }
-        if(this.booleanField4Visible){
-          this.nxDataTable.insertBefore(this.$.booleanField4, colTitle.nextSibling);
-        }
-        if(this.booleanField5Visible){
-          this.nxDataTable.insertBefore(this.$.booleanField5, colTitle.nextSibling);
-        }
-        if(this.booleanField6Visible){
-          this.nxDataTable.insertBefore(this.$.booleanField6, colTitle.nextSibling);
-        }
-        if(this.booleanField7Visible){
-          this.nxDataTable.insertBefore(this.$.booleanField7, colTitle.nextSibling);
-        }
-        if(this.booleanField8Visible){
-          this.nxDataTable.insertBefore(this.$.booleanField8, colTitle.nextSibling);
-        }
-        if(this.booleanField9Visible){
-          this.nxDataTable.insertBefore(this.$.booleanField9, colTitle.nextSibling);
-        }
-        if(this.booleanField10Visible){
-          this.nxDataTable.insertBefore(this.$.booleanField10, colTitle.nextSibling);
-        }
-        if(this.booleanField2Visible){
-          this.nxDataTable.insertBefore(this.$.booleanField2, colTitle.nextSibling);
-        }
-        if(this.doubleField1Visible){
-          this.nxDataTable.insertBefore(this.$.doubleField1, colTitle.nextSibling);
-        }
-        if(this.doubleField2Visible){
-          this.nxDataTable.insertBefore(this.$.doubleField2, colTitle.nextSibling);
-        }
-        if(this.doubleField3Visible){
-          this.nxDataTable.insertBefore(this.$.doubleField3, colTitle.nextSibling);
-        }
-        if(this.doubleField4Visible){
-          this.nxDataTable.insertBefore(this.$.doubleField4, colTitle.nextSibling);
-        }
-        if(this.doubleField5Visible){
-          this.nxDataTable.insertBefore(this.$.doubleField5, colTitle.nextSibling);
-        }
-        if(this.doubleField6Visible){
-          this.nxDataTable.insertBefore(this.$.doubleField6, colTitle.nextSibling);
-        }
-        if(this.doubleField7Visible){
-          this.nxDataTable.insertBefore(this.$.doubleField7, colTitle.nextSibling);
-        }
-        if(this.doubleField8Visible){
-          this.nxDataTable.insertBefore(this.$.doubleField8, colTitle.nextSibling);
-        }
-        if(this.doubleField9Visible){
-          this.nxDataTable.insertBefore(this.$.doubleField9, colTitle.nextSibling);
-        }
-        if(this.doubleField10Visible){
-          this.nxDataTable.insertBefore(this.$.doubleField10, colTitle.nextSibling);
-        }
-        if(this.dateField1Visible){
-          this.nxDataTable.insertBefore(this.$.dateField1, colTitle.nextSibling);
-        }
-        if(this.dateField2Visible){
-          this.nxDataTable.insertBefore(this.$.dateField2, colTitle.nextSibling);
-        }
-        if(this.dateField3Visible){
-          this.nxDataTable.insertBefore(this.$.dateField3, colTitle.nextSibling);
-        }
-        if(this.dateField4Visible){
-          this.nxDataTable.insertBefore(this.$.dateField4, colTitle.nextSibling);
-        }
-        if(this.dateField5Visible){
-          this.nxDataTable.insertBefore(this.$.dateField5, colTitle.nextSibling);
-        }
-        if(this.dateField6Visible){
-          this.nxDataTable.insertBefore(this.$.dateField6, colTitle.nextSibling);
-        }
-        if(this.dateField7Visible){
-          this.nxDataTable.insertBefore(this.$.dateField7, colTitle.nextSibling);
-        }
-        if(this.dateField8Visible){
-          this.nxDataTable.insertBefore(this.$.dateField8, colTitle.nextSibling);
-        }
-        if(this.dateField9Visible){
-          this.nxDataTable.insertBefore(this.$.dateField9, colTitle.nextSibling);
-        }
-        if(this.dateField10Visible){
-          this.nxDataTable.insertBefore(this.$.dateField10, colTitle.nextSibling);
-        }
-        if(this.dateField11Visible){
-          this.nxDataTable.insertBefore(this.$.dateField11, colTitle.nextSibling);
-        }
-        if(this.dateField12Visible){
-          this.nxDataTable.insertBefore(this.$.dateField12, colTitle.nextSibling);
-        }
-        if(this.dateField13Visible){
-          this.nxDataTable.insertBefore(this.$.dateField13, colTitle.nextSibling);
-        }
-        if(this.dateField14Visible){
-          this.nxDataTable.insertBefore(this.$.dateField14, colTitle.nextSibling);
-        }
-        if(this.dateField15Visible){
-          this.nxDataTable.insertBefore(this.$.dateField15, colTitle.nextSibling);
-        }
-        if(this.dateField16Visible){
-          this.nxDataTable.insertBefore(this.$.dateField16, colTitle.nextSibling);
-        }
-        if(this.dateField17Visible){
-          this.nxDataTable.insertBefore(this.$.dateField17, colTitle.nextSibling);
-        }
-        if(this.dateField18Visible){
-          this.nxDataTable.insertBefore(this.$.dateField18, colTitle.nextSibling);
-        }
-        if(this.dateField19Visible){
-          this.nxDataTable.insertBefore(this.$.dateField19, colTitle.nextSibling);
-        }
-        if(this.dateField20Visible){
-          this.nxDataTable.insertBefore(this.$.dateField20, colTitle.nextSibling);
-        }
-
-
-        if(this.vocabularyField1Visible){
-          this.nxDataTable.insertBefore(this.$.vocabularyField1, colTitle.nextSibling);
-        }
-        if(this.vocabularyField9Visible){
-          this.nxDataTable.insertBefore(this.$.vocabularyField9, colTitle.nextSibling);
-        }
-        if(this.vocabularyField8Visible){
-          this.nxDataTable.insertBefore(this.$.vocabularyField8, colTitle.nextSibling);
-        }
-        if(this.vocabularyField7Visible){
-          this.nxDataTable.insertBefore(this.$.vocabularyField7, colTitle.nextSibling);
-        }
-        if(this.vocabularyField6Visible){
-          this.nxDataTable.insertBefore(this.$.vocabularyField6, colTitle.nextSibling);
-        }
-        if(this.vocabularyField5Visible){
-          this.nxDataTable.insertBefore(this.$.vocabularyField5, colTitle.nextSibling);
-        }
-        if(this.vocabularyField4Visible){
-          this.nxDataTable.insertBefore(this.$.vocabularyField4, colTitle.nextSibling);
-        }
-        if(this.vocabularyField3Visible){
-          this.nxDataTable.insertBefore(this.$.vocabularyField3, colTitle.nextSibling);
-        }
-        if(this.vocabularyField2Visible){
-          this.nxDataTable.insertBefore(this.$.vocabularyField2, colTitle.nextSibling);
-        }
-        if(this.vocabularyField10Visible){
-          this.nxDataTable.insertBefore(this.$.vocabularyField10, colTitle.nextSibling);
-        }
-        if(this.integerField2Visible){
-          this.nxDataTable.insertBefore(this.$.integerField2, colTitle.nextSibling);
-        }
-        if(this.integerField3Visible){
-          this.nxDataTable.insertBefore(this.$.integerField3, colTitle.nextSibling);
-        }
-        if(this.integerField4Visible){
-          this.nxDataTable.insertBefore(this.$.integerField4, colTitle.nextSibling);
-        }
-        if(this.integerField1Visible){
-          this.nxDataTable.insertBefore(this.$.integerField1, colTitle.nextSibling);
-        }
-        if(this.integerField5Visible){
-          this.nxDataTable.insertBefore(this.$.integerField5, colTitle.nextSibling);
-        }
-        if(this.integerField6Visible){
-          this.nxDataTable.insertBefore(this.$.integerField6, colTitle.nextSibling);
-        }
-        if(this.integerField7Visible){
-          this.nxDataTable.insertBefore(this.$.integerField7, colTitle.nextSibling);
-        }
-        if(this.integerField8Visible){
-          this.nxDataTable.insertBefore(this.$.integerField8, colTitle.nextSibling);
-        }
-        if(this.integerField9Visible){
-          this.nxDataTable.insertBefore(this.$.integerField9, colTitle.nextSibling);
-        }
-        if(this.integerField10Visible){
-          this.nxDataTable.insertBefore(this.$.integerField10, colTitle.nextSibling);
-        }
-
-        if(this.userField1Visible){
-          this.nxDataTable.insertBefore(this.$.userFiel1, colTitle.nextSibling);
-        }
-        if(this.userField2Visible){
-          this.nxDataTable.insertBefore(this.$.userField2, colTitle.nextSibling);
-        }
-        if(this.userField3Visible){
-          this.nxDataTable.insertBefore(this.$.userField3, colTitle.nextSibling);
-        }
-        if(this.userField4Visible){
-          this.nxDataTable.insertBefore(this.$.userField4, colTitle.nextSibling);
-        }
-        if(this.userField5Visible){
-
-
-          this.nxDataTable.insertBefore(this.$.userField5, colTitle.nextSibling);
-
-        }
-        if(this.userField6Visible){
-          this.nxDataTable.insertBefore(this.$.userField6, colTitle.nextSibling);
-        }
-        if(this.userField7Visible){
-          this.nxDataTable.insertBefore(this.$.userField7, colTitle.nextSibling);
-        }
-        if(this.userField8Visible){
-          this.nxDataTable.insertBefore(this.$.userField8, colTitle.nextSibling);
-        }
-        if(this.userField9Visible){
-          this.nxDataTable.insertBefore(this.$.userField9, colTitle.nextSibling);
-        }
-        if(this.userField10Visible){
-          this.nxDataTable.insertBefore(this.$.userField10, colTitle.nextSibling);
-        }
-        if(this.documentField1Visible){
-          this.nxDataTable.insertBefore(this.$.documentField1, colTitle.nextSibling);
-        }
-        if(this.documentField2Visible){
-          this.nxDataTable.insertBefore(this.$.documentField2, colTitle.nextSibling);
-        }
-        if(this.documentField3Visible){
-          this.nxDataTable.insertBefore(this.$.documentField3, colTitle.nextSibling);
-        }
-        if(this.documentField4Visible){
-          this.nxDataTable.insertBefore(this.$.documentField4, colTitle.nextSibling);
-        }
-        if(this.documentField5Visible){
-          this.nxDataTable.insertBefore(this.$.documentField5, colTitle.nextSibling);
-        }
-        if(this.documentField6Visible){
-          this.nxDataTable.insertBefore(this.$.documentField6, colTitle.nextSibling);
-        }
-        if(this.documentField7Visible){
-          this.nxDataTable.insertBefore(this.$.documentField7, colTitle.nextSibling);
-        }
-        if(this.documentField8Visible){
-          this.nxDataTable.insertBefore(this.$.documentField8, colTitle.nextSibling);
-        }
-        if(this.documentField9Visible){
-          this.nxDataTable.insertBefore(this.$.documentField9, colTitle.nextSibling);
-        }
-        if(this.documentField10Visible){
-          this.nxDataTable.insertBefore(this.$.documentField10, colTitle.nextSibling);
-        }
-
-
-
-      },
-
+      }
     });
   </script>
 </dom-module>

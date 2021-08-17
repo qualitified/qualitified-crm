@@ -6,24 +6,23 @@
 <link rel="import" href="../../shared-css.html">
 <link rel="import" href="../../elements/qualitified-pipeline.html">
 <link rel="import" href="../../elements/qualitified-result-columns.html">
-
-<dom-module id="nuxeo-opportunity_list-search-results" assetpath="nuxeo-results/">
+<dom-module id="nuxeo-opportunity_list-search-results">
     <template>
         <style include="nuxeo-styles shared-css">
-            nuxeo-data-table,
-            nuxeo-data-grid,
-            nuxeo-data-list {
-                display: block;
-                position: relative;
-                min-height: calc(100vh - 130px - var(--nuxeo-app-top));
-            }
+        nuxeo-data-table,
+        nuxeo-data-grid,
+        nuxeo-data-list {
+          display: block;
+          position: relative;
+          min-height: calc(100vh - 130px - var(--nuxeo-app-top));
+        }
 
-            @media screen and (max-width: 1050px) {
-                .resize2 {
-                    display: none;
+        @media screen and (max-width: 1050px) {
+            .resize2 {
+                display: none;
 
-                }
             }
+        }
 
         </style>
         <div class="resize2">
@@ -88,99 +87,97 @@
             </nuxeo-data-table>
         </nuxeo-results>
         <qualitified-result-columns document="Opportunity"></qualitified-result-columns>
-
     </template>
     <script>
-        Polymer({
-            is: 'nuxeo-opportunity_list-search-results',
-            behaviors: [Nuxeo.LayoutBehavior],
-            properties: {
-                /**
-                 * @schema dublincore
-                 */
-                nxProvider: {
-                    type: Object,
-                    observer: "_nxProviderObserver"
-                },
-                opportunityList: {
-                    type: Array,
-                    notify: true,
-                },
-                currencyFormat:{
-                    type: String
-                },
-                currency:{
-                    type: String
-                }
-            },
+  Polymer({
+    is: 'nuxeo-opportunity_list-search-results',
+    behaviors: [Nuxeo.LayoutBehavior],
+    properties: {
+      /**
+         * @schema dublincore
+         */
+      nxProvider: {
+        type: Object,
+        observer: "_nxProviderObserver"
+        },
+      opportunityList: {
+        type: Array,
+        notify: true,
+        },
+      currencyFormat:{
+          type: String
+        },
+      currency:{
+          type: String
+        }
+    },
 
 
-             _navigate: function(e) {
-                this.fire('navigate', { doc: (e.model || e.detail).item, index: (e.model || e.detail).index });
-             },
-            _nxProviderObserver: function() {
-                this._getOpportunityListFromResults();
+   _navigate: function(e) {
+        this.fire('navigate', { doc: (e.model || e.detail).item, index: (e.model || e.detail).index });
+      },
+   _nxProviderObserver: function() {
+        this._getOpportunityListFromResults();
 
-                this.nxProvider.addEventListener('update', e => {
-                    this._getOpportunityListFromResults();
-                });
-            },
-
-            _getOpportunityListFromResults: function() {
-                this.opportunityList = [];
-                setTimeout(function() {
-                    this.opportunityList = this.$.nxResultsOpportunity.items;
-                }.bind(this), 600);
-            },
-            _formatCurrency: function(val,format) {
-                if(val == null){
-                    return "";
-                }
-                if((typeof this.currency !== "undefined") && (typeof format !== "undefined") ){
-                    return val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, format)+' '+this.currency+'';
-                }
-                else {
-                    setTimeout(function(){  let nuxeoApp = document.querySelector('nuxeo-app');
-                        var searchForm = nuxeoApp.$.drawer.querySelector('nuxeo-search-form[name="opportunity-list"');
-                        if(searchForm){
-                            searchForm._search();} }, 1000);
-                }
-
-            },
-            ready: async function () {
-                const format = await this._getCurrencyFormat();
-                this.currencyFormat = format;
-                const curr = await this._getCurrency();
-                this.currency = curr;
-            },
-            _getCurrencyFormat: async function(){
-                let params = {};
-                params.name = "CurrencyFormat";
-                this.$.getOption.params = params;
-                let result = await this.$.getOption.execute().then(function(response){
-                    if(response === null){
-                        return ",";
-                    }else{
-                        return response.value;
-                    }
-                }.bind(this));
-                return result;
-            },
-            _getCurrency: async function(){
-                let params = {};
-                params.name = "Currency";
-                this.$.getOption.params = params;
-                let result = await this.$.getOption.execute().then(function(response){
-                    if(response === null){
-                        return "$";
-                    }else{
-                        return response.value;
-                    }
-                }.bind(this));
-                return result;
-            },
-
+        this.nxProvider.addEventListener('update', e => {
+        this._getOpportunityListFromResults();
         });
+       },
+
+      _getOpportunityListFromResults: function() {
+      this.opportunityList = [];
+      setTimeout(function() {
+        this.opportunityList = this.$.nxResultsOpportunity.items;
+      }.bind(this), 600);
+       },
+        _formatCurrency: function(val,format) {
+        if(val == null){
+          return "";
+        }
+         if((typeof this.currency !== "undefined") && (typeof format !== "undefined") ){
+        return val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, format)+' '+this.currency+'';
+        }
+        else {
+          setTimeout(function(){  let nuxeoApp = document.querySelector('nuxeo-app');
+        var searchForm = nuxeoApp.$.drawer.querySelector('nuxeo-search-form[name="opportunity-list"');
+        if(searchForm){
+        searchForm._search();} }, 1000);
+        }
+
+      },
+      ready: async function () {
+        const format = await this._getCurrencyFormat();
+        this.currencyFormat = format;
+        const curr = await this._getCurrency();
+        this.currency = curr;
+      },
+       _getCurrencyFormat: async function(){
+               let params = {};
+               params.name = "CurrencyFormat";
+               this.$.getOption.params = params;
+               let result = await this.$.getOption.execute().then(function(response){
+                   if(response === null){
+                      return ",";
+                   }else{
+                      return response.value;
+                   }
+               }.bind(this));
+               return result;
+        },
+       _getCurrency: async function(){
+               let params = {};
+               params.name = "Currency";
+               this.$.getOption.params = params;
+               let result = await this.$.getOption.execute().then(function(response){
+                   if(response === null){
+                      return "$";
+                   }else{
+                      return response.value;
+                   }
+               }.bind(this));
+               return result;
+        },
+  });
 
 
     </script>
