@@ -35,7 +35,7 @@
 
     <nuxeo-input role="widget"
                  value="{{document.properties.dc:title}}"
-                 label="[[i18n('label.metadata.interaction.title')]]">
+                 label="[[i18n('label.metadata.interaction.title')]]"  required="true">
     </nuxeo-input>
 
     <template is="dom-if" if="[[!document.properties.note:note]]">

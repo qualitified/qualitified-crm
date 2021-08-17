@@ -1,0 +1,146 @@
+<link rel="import" href="../../elements/qualitified-time-picker.html">
+<link rel="import" href="../qualitified-custom-fields.html">
+
+<dom-module id="email-interaction-create-layout">
+  <template>
+    <style include="nuxeo-styles">
+      *[role=widget] {
+        padding: 5px;
+      }
+
+      .dateFields {
+        align-items: start;
+        display: flex;
+        flex-direction: column;
+        margin-bottom: 20px;
+      }
+    </style>
+
+
+    <paper-toast id="operationToast"></paper-toast>
+    <nuxeo-operation id="getContactDoc" op="Repository.GetDocument"></nuxeo-operation>
+    <nuxeo-operation id="getCurrentUser" op="User.Get"></nuxeo-operation>
+    <nuxeo-connection id="nxcon" user="{{currentUser}}">
+    </nuxeo-connection>
+    <!-- custom interaction layout for activity email-->
+    <div role="widget">
+      <label style="margin-bottom: 8px;">From</label>
+
+      <nuxeo-user-tag user="[[currentUser]]"
+                      id="IntResponsible"
+      >
+      </nuxeo-user-tag>
+    </div>
+    <qualitified-document-suggestion id="IntContact"
+                                     role="widget"
+                                     value="{{document.properties.interaction:contact}}"
+                                     multiple="true"
+                                     label="To"
+                                     page-provider="documents"
+                                     min-chars="0"
+                                     params='{ "namedParameters": "system_primaryType=Contact"}'>
+    </qualitified-document-suggestion>
+    <div hidden$="[[!isEmailNull]]">
+      <h style="color:red;">Please check contact's emails!</h><br />
+    </div>
+    <nuxeo-input role="widget"
+                 value="{{document.properties.dc:title}}"
+                 label="Subject"
+                 required="true">
+    </nuxeo-input>
+
+    <nuxeo-textarea role="widget"
+                    value="{{document.properties.note:note}}"
+                    label="Content">
+    </nuxeo-textarea>
+    <nuxeo-directory-suggestion role="widget"
+                                value="{{document.properties.interaction:status}}"
+                                label="[[i18n('label.metadata.status')]]"
+                                required="true"
+                                directory-name="IntStatus"
+                                min-chars="0">
+    </nuxeo-directory-suggestion>
+
+    <template is="dom-if" if="[[canSend]]">
+      <paper-toggle-button id="emailBtn" on-tap="_validateSend" checked="{{document.properties.custom:booleanField2}}">Send email
+      </paper-toggle-button>
+    </template>
+
+  </template>
+
+  <script>
+    (function () {
+      'use strict';
+      Polymer({
+        is: 'email-interaction-create-layout',
+        behaviors: [Nuxeo.LayoutBehavior,Nuxeo.FormatBehavior],
+        properties: {
+
+          /**
+             * @doctype Interaction
+             */
+          document: {
+            type: Object
+          },
+          currentUser: {
+            type: Object,
+            observer: '_canSend'
+          },
+          canSend: {
+            type: Boolean,
+            value: false
+          },
+          isEmailNull: {
+            type: Boolean,
+            value: false
+          },
+          contactsEmail: {
+            type: Array,
+            value: []
+          }
+
+        },
+
+        _canSend: function () {
+          if (this.document) {
+            var responsible = this.document.properties['interaction:responsible'];
+            if (responsible.length === 1  &&  responsible[0] === this.currentUser.id) {
+              this.canSend = true;
+            } else {
+              this.canSend = false;
+            };
+          }
+        },
+
+        _validateSend: async function () {
+          if (this.document.properties['custom:booleanField2'] === true) {
+            var contacts = this.document.properties['interaction:contact'];
+            var op = this.$.getContactDoc;
+            var contactsEmails = [];
+            for (const contactId of contacts) {
+              op.params = {
+                'value': contactId
+              };
+              var contactEmail = await op.execute().then(function (result) {
+                return result.properties['person:email'];
+              });
+              contactsEmails.push(contactEmail);
+            };
+            this._validateContactsEmail(contactsEmails);
+          }
+        },
+
+        _validateContactsEmail: function (contactsEmails) {
+          if (contactsEmails.indexOf(null) !== -1) {
+            this.isEmailNull = true;
+            this.set('document.properties.custom:booleanField2', false);
+          } else {
+            this.isEmailNull = false;
+            this.set('document.properties.custom:booleanField2', true);
+          }
+        }
+
+      });
+    })();
+  </script>
+</dom-module>
