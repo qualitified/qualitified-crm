@@ -126,6 +126,11 @@
             <div>[[item.editable]]</div>
           </template>
         </nuxeo-data-table-column>
+        <nuxeo-data-table-column name="[[i18n('label.metadata.custom.ShowInResultList')]]">
+          <template>
+            <div>[[item.ShowInResultList]]</div>
+          </template>
+        </nuxeo-data-table-column>
         <nuxeo-data-table-column name="[[i18n('label.metadata.custom.copy')]]">
           <template>
             <div>[[item.copy]]</div>
@@ -203,6 +208,8 @@
               <paper-checkbox checked="{{_selectedEntry.link}}"></paper-checkbox> Link <br/>
               <paper-checkbox checked="{{_selectedEntry.copy}}"></paper-checkbox> Copyable <br/>
               <paper-checkbox checked="{{_selectedEntry.editable}}"></paper-checkbox> Editable <br/>
+              <paper-checkbox checked="{{_selectedEntry.showInResultList}}"></paper-checkbox> ShowInResultList <br/>
+
               <!--nuxeo-directory-suggestion role="widget" value="{{document.properties.custom:columns}}"
                                           label="[[i18n('label.metadata.custom.columns')]]" directory-name="Columns"
                                           min-chars="0" ></nuxeo-directory-suggestion-->
@@ -369,6 +376,7 @@
             "required": null,
             "parentId": null,
             "multivalue": null,
+            "showInResultList": null,
             "path": null,
             "hiddenGroup": null,
             "primaryType": null,

@@ -1208,6 +1208,11 @@
         <param type="serializable" name="value">expr:@{Context["goal"]}</param>
       </operation>
     </chain>
+    <chain id="getResultListCustomFieldsChain">
+      <operation id="Qualitified.GetResultListCustomFields">
+        <param type="string" name="documentType">expr:@{Context["documentType"]}</param>
+      </operation>
+    </chain>
     <chain id="getCustomFieldsChain">
       <operation id="Qualitified.GetCustomFields">
         <param type="string" name="documentType">expr:@{Context["documentType"]}</param>

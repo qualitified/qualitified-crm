@@ -1,0 +1,1521 @@
+<link rel="import" href="../document/qualitified-custom-fields.html">
+
+<dom-module id="qualitified-result-columns">
+  <template>
+
+    <nuxeo-operation id="getResultListCustomFields" input="[[document.uid]]" op="getResultListCustomFieldsChain"></nuxeo-operation>
+
+    <nuxeo-data-table-column id="stringField1"  field="custom:stringField1"  name="{{stringField1Label}}"  flex="50">
+
+      <template>
+        {{item.properties.custom:stringField1}}
+      </template>
+    </nuxeo-data-table-column>
+
+    <nuxeo-data-table-column id="stringField2"   field="custom:stringField2"  name="{{stringField2Label}}"  flex="50">
+
+      <template>
+        {{item.properties.custom:stringField2}}
+      </template>
+    </nuxeo-data-table-column>
+    <nuxeo-data-table-column id="stringField3"  field="custom:stringField3"  name="{{stringField3Label}}"  flex="50">
+
+      <template>
+        {{item.properties.custom:stringField3}}
+      </template>
+    </nuxeo-data-table-column>
+    <nuxeo-data-table-column id="stringField4"  field="custom:stringField4"  name="{{stringField4Label}}"  flex="50">
+
+      <template>
+        {{item.properties.custom:stringField4}}
+      </template>
+    </nuxeo-data-table-column>
+    <nuxeo-data-table-column id="stringField5"  field="custom:stringField5"  name="{{stringField5Label}}"  flex="50">
+
+      <template>
+        {{item.properties.custom:stringField5}}
+      </template>
+    </nuxeo-data-table-column>
+    <nuxeo-data-table-column id="stringField6"  field="custom:stringField6"  name="{{stringField6Label}}"  flex="50">
+
+      <template>
+        {{item.properties.custom:stringField6}}
+      </template>
+    </nuxeo-data-table-column>
+    <nuxeo-data-table-column id="stringField7" field="custom:stringField7"  name="{{stringField7Label}}"  flex="50">
+
+      <template>
+        {{item.properties.custom:stringField7}}
+      </template>
+    </nuxeo-data-table-column>
+    <nuxeo-data-table-column id="stringField8"  field="custom:stringField8"  name="{{stringField8Label}}"  flex="50">
+
+      <template>
+        {{item.properties.custom:stringField8}}
+      </template>
+    </nuxeo-data-table-column>
+    <nuxeo-data-table-column id="stringField9"  field="custom:stringField9"  name="{{stringField9Label}}"  flex="50">
+
+      <template>
+        {{item.properties.custom:stringField9}}
+      </template>
+    </nuxeo-data-table-column>
+
+    <nuxeo-data-table-column id="stringField10"  field="custom:stringField10"  name="{{stringField10Label}}"  flex="50">
+
+      <template>
+        {{item.properties.custom:stringField10}}
+      </template>
+    </nuxeo-data-table-column>
+    <nuxeo-data-table-column id="stringField11"  field="custom:stringField11"  name="{{stringField11Label}}"  flex="50">
+
+      <template>
+        {{item.properties.custom:stringField11}}
+      </template>
+    </nuxeo-data-table-column>
+    <nuxeo-data-table-column id="stringField12"  field="custom:stringField12"  name="{{stringField12Label}}"  flex="50">
+
+      <template>
+        {{item.properties.custom:stringField12}}
+      </template>
+    </nuxeo-data-table-column>
+    <nuxeo-data-table-column id="stringField13"  field="custom:stringField13"  name="{{stringField13Label}}"  flex="50">
+
+      <template>
+        {{item.properties.custom:stringField13}}
+      </template>
+    </nuxeo-data-table-column>
+    <nuxeo-data-table-column id="stringField14"  field="custom:stringField14"  name="{{stringField14Label}}"  flex="50">
+
+      <template>
+        {{item.properties.custom:stringField14}}
+      </template>
+    </nuxeo-data-table-column>
+    <nuxeo-data-table-column id="stringField15"  field="custom:stringField15"  name="{{stringField15Label}}"  flex="50">
+
+      <template>
+        {{item.properties.custom:stringField15}}
+      </template>
+    </nuxeo-data-table-column>
+    <nuxeo-data-table-column id="stringField16"  field="custom:stringField16"  name="{{stringField16Label}}"  flex="50">
+
+      <template>
+        {{item.properties.custom:stringField16}}
+      </template>
+    </nuxeo-data-table-column>
+    <nuxeo-data-table-column id="stringField17"  field="custom:stringField17"  name="{{stringField17Label}}"  flex="50">
+
+      <template>
+        {{item.properties.custom:stringField17}}
+      </template>
+    </nuxeo-data-table-column>
+    <nuxeo-data-table-column id="stringField18"  field="custom:stringField18"  name="{{stringField18Label}}"  flex="50">
+
+      <template>
+        {{item.properties.custom:stringField18}}
+      </template>
+    </nuxeo-data-table-column>
+    <nuxeo-data-table-column id="stringField19"  field="custom:stringField19"  name="{{stringField19Label}}"  flex="50">
+
+      <template>
+        {{item.properties.custom:stringField19}}
+      </template>
+    </nuxeo-data-table-column>
+    <nuxeo-data-table-column id="stringField20"  field="custom:stringField20"  name="{{stringField20Label}}"  flex="50">
+
+      <template>
+        {{item.properties.custom:stringField20}}
+      </template>
+    </nuxeo-data-table-column>
+    <nuxeo-data-table-column id="dateField1"  field="custom:dateField1"  name="{{dateField1Label}}"  flex="50">
+
+      <template>
+        {{formatDate(item.properties.custom:dateField1)}}
+      </template>
+    </nuxeo-data-table-column>
+
+
+    <nuxeo-data-table-column id="dateField2"  field="custom:dateField2"  name="{{dateField2Label}}"  flex="50">
+
+      <template>
+        {{formatDate(item.properties.custom:dateField2)}}
+      </template>
+
+    </nuxeo-data-table-column>
+    <nuxeo-data-table-column id="dateField3"  field="custom:dateField3"  name="{{dateField3Label}}"  flex="50">
+
+      <template>
+        {{formatDate(item.properties.custom:dateField3)}}
+      </template>
+
+    </nuxeo-data-table-column>
+    <nuxeo-data-table-column id="dateField4"  field="custom:dateField4"  name="{{dateField4Label}}"  flex="50">
+
+      <template>
+        {{formatDate(item.properties.custom:dateField4)}}
+      </template>
+
+    </nuxeo-data-table-column>
+    <nuxeo-data-table-column id="dateField5"  field="custom:dateField5"  name="{{dateField5Label}}"  flex="50">
+
+      <template>
+        {{formatDate(item.properties.custom:dateField5)}}
+      </template>
+
+    </nuxeo-data-table-column>
+    <nuxeo-data-table-column id="dateField6"  field="custom:dateField6"  name="{{dateField6Label}}"  flex="50">
+
+      <template>
+        {{formatDate(item.properties.custom:dateField6)}}
+      </template>
+
+    </nuxeo-data-table-column>
+    <nuxeo-data-table-column id="dateField7"  field="custom:dateField7"  name="{{dateField7Label}}"  flex="50">
+
+      <template>
+        {{formatDate(item.properties.custom:dateField7)}}
+      </template>
+
+    </nuxeo-data-table-column>
+    <nuxeo-data-table-column id="dateField8"  field="custom:dateField8"  name="{{dateField8Label}}"  flex="50">
+
+      <template>
+        {{formatDate(item.properties.custom:dateField8)}}
+      </template>
+
+    </nuxeo-data-table-column>
+    <nuxeo-data-table-column id="dateField9"  field="custom:dateField9"  name="{{dateField9Label}}"  flex="50">
+
+      <template>
+        {{formatDate(item.properties.custom:dateField9)}}
+      </template>
+
+    </nuxeo-data-table-column>
+    <nuxeo-data-table-column id="dateField10"  field="custom:dateField10"  name="{{dateField10Label}}"  flex="50">
+
+      <template>
+        {{formatDate(item.properties.custom:dateField10)}}
+      </template>
+    </nuxeo-data-table-column>
+    <nuxeo-data-table-column id="dateField11"  field="custom:dateField11"  name="{{dateField11Label}}"  flex="50">
+
+      <template>
+        {{formatDate(item.properties.custom:dateField11)}}
+      </template>
+    </nuxeo-data-table-column>
+    <nuxeo-data-table-column id="dateField12"  field="custom:dateField12"  name="{{dateField12Label}}"  flex="50">
+
+      <template>
+        {{formatDate(item.properties.custom:dateField12)}}
+      </template>
+    </nuxeo-data-table-column>
+    <nuxeo-data-table-column id="dateField13"  field="custom:dateField13"  name="{{dateField13Label}}"  flex="50">
+
+      <template>
+        {{formatDate(item.properties.custom:dateField13)}}
+      </template>
+    </nuxeo-data-table-column>
+    <nuxeo-data-table-column id="dateField14"  field="custom:dateField14"  name="{{dateField14Label}}"  flex="50">
+
+      <template>
+        {{formatDate(item.properties.custom:dateField14)}}
+      </template>
+    </nuxeo-data-table-column>
+    <nuxeo-data-table-column id="dateField15"  field="custom:dateField15"  name="{{dateField15Label}}"  flex="50">
+
+      <template>
+        {{formatDate(item.properties.custom:dateField15)}}
+      </template>
+    </nuxeo-data-table-column>
+    <nuxeo-data-table-column id="dateField16"  field="custom:dateField16"  name="{{dateField16Label}}"  flex="50">
+
+      <template>
+        {{formatDate(item.properties.custom:dateField16)}}
+      </template>
+    </nuxeo-data-table-column>
+    <nuxeo-data-table-column id="dateField17"  field="custom:dateField17"  name="{{dateField17Label}}"  flex="50">
+
+      <template>
+        {{formatDate(item.properties.custom:dateField17)}}
+      </template>
+    </nuxeo-data-table-column>
+    <nuxeo-data-table-column id="dateField18"  field="custom:dateField18"  name="{{dateField18Label}}"  flex="50">
+
+      <template>
+        {{formatDate(item.properties.custom:dateField18)}}
+      </template>
+    </nuxeo-data-table-column>
+    <nuxeo-data-table-column id="dateField19"  field="custom:dateField19"  name="{{dateField19Label}}"  flex="50">
+
+      <template>
+        {{formatDate(item.properties.custom:dateField19)}}
+      </template>
+    </nuxeo-data-table-column>
+    <nuxeo-data-table-column id="dateField20"  field="custom:dateField20"  name="{{dateField20Label}}"  flex="50">
+
+      <template>
+        {{formatDate(item.properties.custom:dateField20)}}
+      </template>
+    </nuxeo-data-table-column>
+    <nuxeo-data-table-column id="booleanField1"  field="custom:booleanField1"  name="{{booleanField1Label}}"  flex="50">
+
+      <template>
+        {{item.properties.custom:booleanField1}}
+      </template>
+    </nuxeo-data-table-column>
+
+    <nuxeo-data-table-column id="booleanField2"  field="custom:booleanField2"  name="{{booleanField2Label}}"  flex="50">
+
+      <template>
+        {{item.properties.custom:booleanField2}}
+      </template>
+    </nuxeo-data-table-column>
+    <nuxeo-data-table-column id="booleanField3"  field="custom:booleanField3"  name="{{booleanField3Label}}"  flex="50">
+
+      <template>
+        {{item.properties.custom:booleanField3}}
+      </template>
+    </nuxeo-data-table-column>
+    <nuxeo-data-table-column id="booleanField4"  field="custom:booleanField4"  name="{{booleanField4Label}}"  flex="50">
+
+      <template>
+        {{item.properties.custom:booleanField4}}
+      </template>
+    </nuxeo-data-table-column>
+    <nuxeo-data-table-column id="booleanField5"  field="custom:booleanField5"  name="{{booleanField5Label}}"  flex="50">
+
+      <template>
+        {{item.properties.custom:booleanField5}}
+      </template>
+    </nuxeo-data-table-column>
+    <nuxeo-data-table-column id="booleanField6"  field="custom:booleanField6"  name="{{booleanField6Label}}"  flex="50">
+
+      <template>
+        {{item.properties.custom:booleanField6}}
+      </template>
+    </nuxeo-data-table-column>
+    <nuxeo-data-table-column id="booleanField7"  field="custom:booleanField7"  name="{{booleanField7Label}}"  flex="50">
+
+      <template>
+        {{item.properties.custom:booleanField7}}
+      </template>
+    </nuxeo-data-table-column>
+    <nuxeo-data-table-column id="booleanField8"  field="custom:booleanField8"  name="{{booleanField8Label}}"  flex="50">
+
+      <template>
+        {{item.properties.custom:booleanField8}}
+      </template>
+    </nuxeo-data-table-column>
+    <nuxeo-data-table-column id="booleanField9" added="false" field="custom:booleanField9"  name="{{booleanField9Label}}"  flex="50">
+
+      <template>
+        {{item.properties.custom:booleanField9}}
+      </template>
+    </nuxeo-data-table-column>
+    <nuxeo-data-table-column id="booleanField10"  field="custom:booleanField10"  name="{{booleanField10Label}}"  flex="50">
+
+      <template>
+        {{item.properties.custom:booleanField10}}
+      </template>
+    </nuxeo-data-table-column>
+    <nuxeo-data-table-column id="integerField1"  field="custom:integerField1"  name="{{integerField1Label}}"  flex="50">
+
+      <template>
+        {{item.properties.custom:integerField1}}
+      </template>
+    </nuxeo-data-table-column>
+
+    <nuxeo-data-table-column id="integerField2"  field="custom:integerField2"  name="{{integerField2Label}}"  flex="50">
+
+      <template>
+        {{item.properties.custom:integerField2}}
+      </template>
+    </nuxeo-data-table-column>
+    <nuxeo-data-table-column id="integerField3"  field="custom:integerField3"  name="{{integerField3Label}}"  flex="50">
+
+      <template>
+        {{item.properties.custom:integerField3}}
+      </template>
+    </nuxeo-data-table-column>
+    <nuxeo-data-table-column id="integerField4"  field="custom:integerField4"  name="{{integerField4Label}}"  flex="50">
+
+      <template>
+        {{item.properties.custom:integerField4}}
+      </template>
+    </nuxeo-data-table-column>
+    <nuxeo-data-table-column id="integerField5"  field="custom:integerField5"  name="{{integerField5Label}}"  flex="50">
+
+      <template>
+        {{item.properties.custom:integerField5}}
+      </template>
+    </nuxeo-data-table-column>
+    <nuxeo-data-table-column id="integerField6"  field="custom:integerField6"  name="{{integerField6Label}}"  flex="50">
+
+      <template>
+        {{item.properties.custom:integerField6}}
+      </template>
+    </nuxeo-data-table-column>
+    <nuxeo-data-table-column id="integerField7"  field="custom:integerField7"  name="{{integerField7Label}}"  flex="50">
+
+      <template>
+        {{item.properties.custom:integerField7}}
+      </template>
+    </nuxeo-data-table-column>
+    <nuxeo-data-table-column id="integerField8"  field="custom:integerField8"  name="{{integerField8Label}}"  flex="50">
+
+      <template>
+        {{item.properties.custom:integerField8}}
+      </template>
+    </nuxeo-data-table-column>
+    <nuxeo-data-table-column id="integerField9"  field="custom:integerField9"  name="{{integerField9Label}}"  flex="50">
+
+      <template>
+        {{item.properties.custom:integerField9}}
+      </template>
+    </nuxeo-data-table-column>
+    <nuxeo-data-table-column id="integerField10"  field="custom:integerField10"  name="{{integerField10Label}}"  flex="50">
+
+      <template>
+        {{item.properties.custom:integerField10}}
+      </template>
+    </nuxeo-data-table-column>
+    <nuxeo-data-table-column id="doubleField1"  field="custom:doubleField1"  name="{{doubleField1Label}}"  flex="50">
+
+      <template>
+        {{item.properties.custom:doubleField1}}
+      </template>
+    </nuxeo-data-table-column>
+    <nuxeo-data-table-column id="doubleField2"  field="custom:doubleField2"  name="{{doubleField2Label}}"  flex="50">
+
+      <template>
+        {{item.properties.custom:doubleField2}}
+      </template>
+    </nuxeo-data-table-column>
+    <nuxeo-data-table-column id="doubleField3"  field="custom:doubleField3"  name="{{doubleField3Label}}"  flex="50">
+
+      <template>
+        {{item.properties.custom:doubleField3}}
+      </template>
+    </nuxeo-data-table-column>
+    <nuxeo-data-table-column id="doubleField4"  field="custom:doubleField4"  name="{{doubleField4Label}}"  flex="50">
+
+      <template>
+        {{item.properties.custom:doubleField4}}
+      </template>
+    </nuxeo-data-table-column>
+    <nuxeo-data-table-column id="doubleField5"  field="custom:doubleField5"  name="{{doubleField5Label}}"  flex="50">
+
+      <template>
+        {{item.properties.custom:doubleField5}}
+      </template>
+    </nuxeo-data-table-column>
+    <nuxeo-data-table-column id="doubleField6"  field="custom:doubleField6"  name="{{doubleField6Label}}"  flex="50">
+
+      <template>
+        {{item.properties.custom:doubleField6}}
+      </template>
+    </nuxeo-data-table-column>
+    <nuxeo-data-table-column id="doubleField7"  field="custom:doubleField7"  name="{{doubleField7Label}}"  flex="50">
+
+      <template>
+        {{item.properties.custom:doubleField7}}
+      </template>
+    </nuxeo-data-table-column>
+    <nuxeo-data-table-column id="doubleField8"  field="custom:doubleField8"  name="{{doubleField8Label}}"  flex="50">
+
+      <template>
+        {{item.properties.custom:doubleField8}}
+      </template>
+    </nuxeo-data-table-column>
+    <nuxeo-data-table-column id="doubleField9"  field="custom:doubleField9"  name="{{doubleField9Label}}"  flex="50">
+
+      <template>
+        {{item.properties.custom:doubleField9}}
+      </template>
+    </nuxeo-data-table-column>
+    <nuxeo-data-table-column id="doubleField10"  field="custom:doubleField10"  name="{{doubleField10Label}}"  flex="50">
+
+      <template>
+        {{item.properties.custom:doubleField10}}
+      </template>
+    </nuxeo-data-table-column>
+    <nuxeo-data-table-column id="vocabularyField1"  field="custom:vocabularyField1"  name="{{vocabularyField1Label}}"  flex="50">
+
+      <template>
+        {{formatDirectory(item.properties.custom:vocabularyField1)}}
+      </template>
+    </nuxeo-data-table-column>
+    <nuxeo-data-table-column id="vocabularyField2"  field="custom:vocabularyField2"  name="{{vocabularyField2Label}}"  flex="50">
+
+      <template>
+        {{formatDirectory(item.properties.custom:vocabularyField2)}}
+      </template>
+    </nuxeo-data-table-column>
+    <nuxeo-data-table-column id="vocabularyField3"  field="custom:vocabularyField3"  name="{{vocabularyField3Label}}"  flex="50">
+
+      <template>
+        {{formatDirectory(item.properties.custom:vocabularyField3)}}
+      </template>
+    </nuxeo-data-table-column>
+    <nuxeo-data-table-column id="vocabularyField4"  field="custom:vocabularyField4"  name="{{vocabularyField4Label}}"  flex="50">
+
+      <template>
+        {{formatDirectory(item.properties.custom:vocabularyField4)}}
+      </template>
+    </nuxeo-data-table-column>
+    <nuxeo-data-table-column id="vocabularyField5"  field="custom:vocabularyField5"  name="{{vocabularyField5Label}}"  flex="50">
+
+      <template>
+        {{formatDirectory(item.properties.custom:vocabularyField5)}}
+      </template>
+    </nuxeo-data-table-column>
+    <nuxeo-data-table-column id="vocabularyField6"  field="custom:vocabularyField6"  name="{{vocabularyField6Label}}"  flex="50">
+
+      <template>
+        {{formatDirectory(item.properties.custom:vocabularyField6)}}
+      </template>
+    </nuxeo-data-table-column>
+    <nuxeo-data-table-column id="vocabularyField7"  field="custom:vocabularyField7"  name="{{vocabularyField7Label}}"  flex="50">
+
+      <template>
+        {{formatDirectory(item.properties.custom:vocabularyField7)}}
+      </template>
+    </nuxeo-data-table-column>
+    <nuxeo-data-table-column id="vocabularyField8"  field="custom:vocabularyField8"  name="{{vocabularyField8Label}}"  flex="50">
+
+      <template>
+        {{formatDirectory(item.properties.custom:vocabularyField8)}}
+      </template>
+    </nuxeo-data-table-column>
+    <nuxeo-data-table-column id="vocabularyField9"  field="custom:vocabularyField9"  name="{{vocabularyField9Label}}"  flex="50">
+
+      <template>
+        {{formatDirectory(item.properties.custom:vocabularyField9)}}
+      </template>
+    </nuxeo-data-table-column>
+    <nuxeo-data-table-column id="vocabularyField10"  field="custom:vocabularyField10"  name="{{vocabularyField10Label}}"  flex="50">
+
+      <template>
+        {{formatDirectory(item.properties.custom:vocabularyField)10}}
+      </template>
+    </nuxeo-data-table-column>
+    <nuxeo-data-table-column id="documentField1"  field="custom:documentField1"  name="{{documentField1Label}}"  flex="50">
+
+      <template>
+        {{item.properties.custom:documentField1}}
+      </template>
+    </nuxeo-data-table-column>
+
+    <nuxeo-data-table-column id="documentField2"  field="custom:documentField2"  name="{{documentField2Label}}"  flex="50">
+
+      <template>
+        {{item.properties.custom:documentField2}}
+      </template>
+    </nuxeo-data-table-column>
+    <nuxeo-data-table-column id="documentField3"  field="custom:documentField3"  name="{{documentField3Label}}"  flex="50">
+
+      <template>
+        {{item.properties.custom:documentField3}}
+      </template>
+    </nuxeo-data-table-column>
+    <nuxeo-data-table-column id="documentField4"  field="custom:documentField4"  name="{{documentField4Label}}"  flex="50">
+
+      <template>
+        {{item.properties.custom:documentField4}}
+      </template>
+    </nuxeo-data-table-column>
+    <nuxeo-data-table-column id="documentField5"  field="custom:documentField5"  name="{{documentField5Label}}"  flex="50">
+
+      <template>
+        {{item.properties.custom:documentField5}}
+      </template>
+    </nuxeo-data-table-column>
+    <nuxeo-data-table-column id="documentField6"  field="custom:documentField6"  name="{{documentField6Label}}"  flex="50">
+
+      <template>
+        {{item.properties.custom:documentField6}}
+      </template>
+    </nuxeo-data-table-column>
+    <nuxeo-data-table-column id="documentField7"  field="custom:documentField7"  name="{{documentField7Label}}"  flex="50">
+
+      <template>
+        {{item.properties.custom:documentField7}}
+      </template>
+    </nuxeo-data-table-column>
+    <nuxeo-data-table-column id="documentField8"  field="custom:documentField8"  name="{{documentField8Label}}"  flex="50">
+
+      <template>
+        {{item.properties.custom:documentField8}}
+      </template>
+    </nuxeo-data-table-column>
+    <nuxeo-data-table-column id="documentField9"  field="custom:documentField9"  name="{{documentField9Label}}"  flex="50">
+
+      <template>
+        {{item.properties.custom:documentField9}}
+      </template>
+    </nuxeo-data-table-column>
+    <nuxeo-data-table-column id="documentField10"  field="custom:documentField10"  name="{{documentField10Label}}"  flex="50">
+
+      <template>
+        {{item.properties.custom:documentField10}}
+      </template>
+    </nuxeo-data-table-column>
+    <nuxeo-data-table-column id="userField2"  field="custom:userField2"  name="{{userField2Label}}"  flex="50">
+
+      <template>
+        <div>
+          <nuxeo-user-tag user="[[document.properties.custom:userField2]]"></nuxeo-user-tag>
+        </div>
+      </template>
+    </nuxeo-data-table-column>
+
+    <nuxeo-data-table-column id="userField3"  field="custom:userField3"  name="{{userField3Label}}"  flex="50">
+
+      <template>
+        <div>
+          <nuxeo-user-tag user="[[document.properties.custom:userField3]]"></nuxeo-user-tag>
+        </div>
+      </template>
+    </nuxeo-data-table-column>
+    <nuxeo-data-table-column id="userField1"  field="custom:userField1"  name="{{userField1Label}}"  flex="50">
+
+      <template>
+        <div>
+          <nuxeo-user-tag user="[[document.properties.custom:userField1]]"></nuxeo-user-tag>
+        </div>
+      </template>
+    </nuxeo-data-table-column>
+    <nuxeo-data-table-column id="userField4"  field="custom:userField4"  name="{{userField4Label}}"  flex="50">
+
+      <template>
+        <div>
+          <nuxeo-user-tag user="[[document.properties.custom:userField4]]"></nuxeo-user-tag>
+        </div>
+      </template>
+    </nuxeo-data-table-column>
+    <nuxeo-data-table-column id="userField5"  field="custom:userField5"  name="{{userField5Label}}"  flex="50">
+
+      <template>
+        <div>
+          <nuxeo-user-tag user="[[document.properties.custom:userField5]]"></nuxeo-user-tag>
+        </div>
+      </template>
+    </nuxeo-data-table-column>
+    <nuxeo-data-table-column id="userField6"  field="custom:userField6"  name="{{userField6Label}}"  flex="50">
+
+      <template>
+        <div>
+          <nuxeo-user-tag user="[[document.properties.custom:userField6]]"></nuxeo-user-tag>
+        </div>
+      </template>
+    </nuxeo-data-table-column>
+    <nuxeo-data-table-column id="userField7"  field="custom:userField7"  name="{{userField7Label}}"  flex="50">
+
+      <template>
+        <div>
+          <nuxeo-user-tag user="[[document.properties.custom:userField7]]"></nuxeo-user-tag>
+        </div>
+      </template>
+    </nuxeo-data-table-column>
+    <nuxeo-data-table-column id="userField8"  field="custom:userField8"  name="{{userField8Label}}"  flex="50">
+
+      <template>
+        <div>
+          <nuxeo-user-tag user="[[document.properties.custom:userField8]]"></nuxeo-user-tag>
+        </div>
+      </template>
+    </nuxeo-data-table-column>
+    <nuxeo-data-table-column id="userField9"  field="custom:userField9"  name="{{userField9Label}}"  flex="50">
+
+      <template>
+        <div>
+          <nuxeo-user-tag user="[[document.properties.custom:userField9]]"></nuxeo-user-tag>
+        </div>
+      </template>
+    </nuxeo-data-table-column>
+    <nuxeo-data-table-column id="userField10"  field="custom:userField10"  name="{{userField10Label}}"  flex="50">
+
+      <template>
+        <div>
+          <nuxeo-user-tag user="[[document.properties.custom:userField10]]"></nuxeo-user-tag>
+        </div>
+      </template>
+    </nuxeo-data-table-column>
+  </template>
+  <script>
+    Polymer({
+      is: 'qualitified-result-columns',
+      behaviors: [Nuxeo.FiltersBehavior, Nuxeo.LayoutBehavior],
+      properties: {
+        document: {
+          type: String,
+          notify: true,
+          observer: "_getCustomFields",
+
+        },
+        params: {
+          type: Object,
+          value: {},
+        },
+        nxDataTable: {
+          type: Object
+          //  observer: "_nxDataTableChanged"
+
+        },
+        stringField1Label: {
+          type: String,
+          value:""
+        },
+        stringField2Label: {
+          type: String,
+          value:""
+        },
+        stringField3Label: {
+          type: String,
+          value:""
+        },
+        stringField4Label: {
+          type: String,
+          value:""
+        },
+        stringField5Label: {
+          type: String,
+          value:""
+        },
+        stringField6Label: {
+          type: String,
+          value:""
+        },
+        stringField7Label: {
+          type: String,
+          value:""
+        },
+        stringField8Label: {
+          type: String,
+          value:""
+        },
+        stringField9Label: {
+          type: String,
+          value:""
+        },
+        stringField10Label: {
+          type: String,
+          value:""
+        },
+        stringField11Label: {
+          type: String,
+          value:""
+        },
+        stringField12Label: {
+          type: String,
+          value:""
+        },
+        stringField13Label: {
+          type: String,
+          value:""
+        },
+        stringField14Label: {
+          type: String,
+          value:""
+        },
+        stringField15Label: {
+          type: String,
+          value:""
+        },
+        stringField16Label: {
+          type: String,
+          value:""
+        },
+        stringField17Label: {
+          type: String,
+          value:""
+        },
+        stringField18Label: {
+          type: String,
+          value:""
+        },
+        stringField19Label: {
+          type: String,
+          value:""
+        },
+        stringField20Label: {
+          type: String,
+          value:""
+        },
+        doubleField1Label: {
+          type: String,
+        },
+        doubleField2Label: {
+          type: String,
+        },
+        doubleField3Label: {
+          type: String,
+        },
+        doubleField4Label: {
+          type: String,
+        },
+        doubleField5Label: {
+          type: String,
+        },
+        doubleField6Label: {
+          type: String,
+        },
+        doubleField7Label: {
+          type: String,
+        },
+        doubleField8Label: {
+          type: String,
+        },
+        doubleField9Label: {
+          type: String,
+        },
+        doubleField10Label: {
+          type: String,
+        },
+
+        dateField1Label: {
+          type: String,
+        },
+
+        dateField2Label: {
+          type: String,
+        },
+
+        dateField3Label: {
+          type: String,
+        },
+
+
+        dateField4Label: {
+          type: String,
+        },
+
+        dateField5Label: {
+          type: String,
+        },
+
+        dateField6Label: {
+          type: String,
+        },
+
+        dateField7Label: {
+          type: String,
+        },
+
+        dateField8Label: {
+          type: String,
+        },
+
+        dateField9Label: {
+          type: String,
+        },
+
+        dateField10Label: {
+          type: String,
+        },
+
+        dateField11Label: {
+          type: String,
+        },
+
+        dateField12Label: {
+          type: String,
+        },
+
+        dateField13Label: {
+          type: String,
+        },
+
+        dateField14Label: {
+          type: String,
+        },
+
+        dateField15Label: {
+          type: String,
+        },
+
+        dateField16Label: {
+          type: String,
+        },
+
+        dateField17Label: {
+          type: String,
+        },
+
+        dateField18Label: {
+          type: String,
+        },
+
+        dateField19Label: {
+          type: String,
+        },
+
+
+        dateField20Label: {
+          type: String,
+        },
+
+
+        integerField1Label: {
+          type: String,
+        },
+
+        integerField2Label: {
+          type: String,
+        },
+
+        integerField3Label: {
+          type: String,
+        },
+
+        integerField4Label: {
+          type: String,
+        },
+
+        integerField5Label: {
+          type: String,
+        },
+
+        integerField6Label: {
+          type: String,
+        },
+
+        integerField7Label: {
+          type: String,
+        },
+
+        integerField8Label: {
+          type: String,
+        },
+
+        integerField9Label: {
+          type: String,
+        },
+
+        integerField10Label: {
+          type: String,
+        },
+
+
+        booleanField1Label: {
+          type: String,
+        },
+
+        booleanField2Label: {
+          type: String,
+        },
+
+        booleanField3Label: {
+          type: String,
+        },
+
+        booleanField4Label: {
+          type: String,
+        },
+
+        booleanField5Label: {
+          type: String,
+        },
+
+        booleanField6Label: {
+          type: String,
+        },
+
+        booleanField7Label: {
+          type: String,
+        },
+
+        booleanField8Label: {
+          type: String,
+        },
+
+        booleanField9Label: {
+          type: String,
+        },
+
+        booleanField10Label: {
+          type: String,
+        },
+
+        documentField1Label: {
+          type: String,
+        },
+
+        documentField2Label: {
+          type: String,
+        },
+
+        documentField3Label: {
+          type: String,
+        },
+
+        documentField4Label: {
+          type: String,
+        },
+
+        documentField5Label: {
+          type: String,
+        },
+
+        documentField6Label: {
+          type: String,
+        },
+
+        documentField7Label: {
+          type: String,
+        },
+
+        documentField8Label: {
+          type: String,
+        },
+
+        documentField9Label: {
+          type: String,
+        },
+
+        documentField10Label: {
+          type: String,
+        },
+
+        userField1Label: {
+          type: String,
+        },
+
+        userField2Label: {
+          type: String,
+        },
+
+        userField3Label: {
+          type: String,
+        },
+
+        userField4Label: {
+          type: String,
+        },
+
+        userField5Label: {
+          type: String,
+        },
+
+        userField6Label: {
+          type: String,
+        },
+
+        userField7Label: {
+          type: String,
+        },
+
+        userField8Label: {
+          type: String,
+        },
+
+        userField9Label: {
+          type: String,
+        },
+
+        userField10Label: {
+          type: String,
+        },
+
+        vocabularyField1Label: {
+          type: String,
+        },
+
+
+        vocabularyField2Label: {
+          type: String,
+        },
+
+
+        vocabularyField3Label: {
+          type: String,
+        },
+
+
+        vocabularyField4Label: {
+          type: String,
+        },
+
+        vocabularyField5Label: {
+          type: String,
+        },
+
+
+        vocabularyField6Label: {
+          type: String,
+        },
+
+        vocabularyField7Label: {
+          type: String,
+        },
+
+
+        vocabularyField8Label: {
+          type: String,
+        },
+
+        vocabularyField9Label: {
+          type: String,
+        },
+
+        vocabularyField10Label: {
+          type: String,
+        }
+      },
+
+
+      ready: function () {
+        let nxDocContent = this.domHost.shadowRoot.querySelector("nuxeo-document-content");
+        if (nxDocContent !== null) {
+          this.nxDataTable = nxDocContent.shadowRoot.querySelector("nuxeo-data-table");
+        }
+
+        let elTable = this.domHost.shadowRoot.querySelector("nuxeo-data-table");
+
+        if (elTable !== null) {
+          this.nxDataTable = elTable;
+        }
+      },
+
+      _getValue: function(metadata){
+        return this.document["custom:"+metadata];
+      },
+
+      _getCustomFields: function () {
+        if(this.document){
+          this.$.getResultListCustomFields.params = {
+                context: {
+                  documentType: this.document
+                },
+          };
+          this.$.getResultListCustomFields.execute().then(
+            function (entries) {
+              var cols = this.nxDataTable.querySelectorAll("nuxeo-data-table-column");
+              var colTitle = Array.from(cols).filter(col => col.field == "dc:title")[0];
+
+              entries.forEach((item, i) => {
+                if(item.fieldName == "stringField1"){
+                  this.nxDataTable.insertBefore(this.$.stringField1, colTitle.nextSibling);
+                  //this.stringField1Visible=true;
+                  this.stringField1Label=item.label;
+                  return;
+                }
+                if(item.fieldName == "stringField2"){
+                  this.nxDataTable.insertBefore(this.$.stringField2, colTitle.nextSibling);
+                  //this.stringField2Visible=true;
+                  this.stringField2Label=item.label;
+                  return;
+                }
+                if(item.fieldName == "stringField3"){
+                  this.nxDataTable.insertBefore(this.$.stringField3, colTitle.nextSibling);
+                  this.stringField3Label=item.label;
+                }
+                if(item.fieldName == "stringField4"){
+                  this.nxDataTable.insertBefore(this.$.stringField4, colTitle.nextSibling);
+                  this.stringField4Label=item.label;
+                }
+                if(item.fieldName == "stringField5"){
+                  this.nxDataTable.insertBefore(this.$.stringField5, colTitle.nextSibling);
+                  this.stringField5Label=item.label;
+                }
+                if(item.fieldName == "stringField6"){
+                  this.nxDataTable.insertBefore(this.$.stringField6, colTitle.nextSibling);
+                  this.stringField6Label=item.label;
+                }
+                if(item.fieldName == "stringField7"){
+                  this.nxDataTable.insertBefore(this.$.stringField7, colTitle.nextSibling);
+                  this.stringField7Label=item.label;
+                }
+                if(item.fieldName == "stringField8"){
+                  this.nxDataTable.insertBefore(this.$.stringField8, colTitle.nextSibling);
+                  this.stringField8Label=item.label;
+                }
+                if(item.fieldName == "stringField9"){
+                  this.nxDataTable.insertBefore(this.$.stringField9, colTitle.nextSibling);
+                  this.stringField9Label=item.label;
+                }
+                if(item.fieldName == "stringField10"){
+                  this.nxDataTable.insertBefore(this.$.stringField10, colTitle.nextSibling);
+                  this.stringField10Label=item.label;
+                }
+                if(item.fieldName == "stringField11"){
+                  this.nxDataTable.insertBefore(this.$.stringField11, colTitle.nextSibling);
+                  this.stringField11Label=item.label;
+                }
+                if(item.fieldName == "stringField12"){
+                  this.nxDataTable.insertBefore(this.$.stringField12, colTitle.nextSibling);
+                  this.stringField12Label=item.label;
+                }
+                if(item.fieldName == "stringField13"){
+                  this.nxDataTable.insertBefore(this.$.stringField13, colTitle.nextSibling);
+                  this.stringField13Label=item.label;
+                }
+                if(item.fieldName == "stringField14"){
+                  this.nxDataTable.insertBefore(this.$.stringField14, colTitle.nextSibling);
+                  this.stringField14Label=item.label;
+                }
+                if(item.fieldName == "stringField15"){
+                  this.nxDataTable.insertBefore(this.$.stringField15, colTitle.nextSibling);
+                  this.stringField15Label=item.label;
+                }
+                if(item.fieldName == "stringField16"){
+                  this.nxDataTable.insertBefore(this.$.stringField16, colTitle.nextSibling);
+                  this.stringField16Label=item.label;
+                }
+                if(item.fieldName == "stringField17"){
+                  this.nxDataTable.insertBefore(this.$.stringField17, colTitle.nextSibling);
+                  this.stringField17Label=item.label;
+                }
+                if(item.fieldName == "stringField18"){
+                  this.nxDataTable.insertBefore(this.$.stringField18, colTitle.nextSibling);
+                  this.stringField18Label=item.label;
+                }
+                if(item.fieldName == "stringField19"){
+                  this.nxDataTable.insertBefore(this.$.stringField19, colTitle.nextSibling);
+                  this.stringField19Label=item.label;
+                }
+                if(item.fieldName == "stringField20"){
+                  this.nxDataTable.insertBefore(this.$.stringField20, colTitle.nextSibling);
+                  this.stringField20Label=item.label;
+                }
+                if(item.fieldName == "dateField1"){
+                  this.nxDataTable.insertBefore(this.$.dateField1, colTitle.nextSibling);
+                  this.dateField1Label=item.label;
+                }
+                if(item.fieldName == "dateField2"){
+                  this.nxDataTable.insertBefore(this.$.dateField2, colTitle.nextSibling);
+                  this.dateField2Label=item.label;
+                }
+                if(item.fieldName == "dateField3"){
+                  this.nxDataTable.insertBefore(this.$.dateField3, colTitle.nextSibling);
+                  this.dateField3Label=item.label;
+                }
+                if(item.fieldName == "dateField4"){
+                  this.nxDataTable.insertBefore(this.$.dateField4, colTitle.nextSibling);
+                  this.dateField4Label=item.label;
+                }
+                if(item.fieldName == "dateField5"){
+                  this.nxDataTable.insertBefore(this.$.dateField5, colTitle.nextSibling);
+                  this.dateField5Label=item.label;
+                }
+                if(item.fieldName == "dateField6"){
+                  this.nxDataTable.insertBefore(this.$.dateField6, colTitle.nextSibling);
+                  this.dateField6Label=item.label;
+                }
+                if(item.fieldName == "dateField7"){
+                  this.nxDataTable.insertBefore(this.$.dateField7, colTitle.nextSibling);
+                  this.dateField7Label=item.label;
+                }
+                if(item.fieldName == "dateField8"){
+                  this.nxDataTable.insertBefore(this.$.dateField8, colTitle.nextSibling);
+                  this.dateField8Label=item.label;
+                }
+                if(item.fieldName == "dateField9"){
+                  this.nxDataTable.insertBefore(this.$.dateField9, colTitle.nextSibling);
+                  this.dateField9Label=item.label;
+                }
+                if(item.fieldName == "dateField10"){
+                  this.nxDataTable.insertBefore(this.$.dateField10, colTitle.nextSibling);
+                  this.dateField10Label=item.label;
+                }
+                if(item.fieldName == "dateField11"){
+                  this.nxDataTable.insertBefore(this.$.dateField11, colTitle.nextSibling);
+                  this.dateField11Label=item.label;
+                }
+                if(item.fieldName == "dateField12"){
+                  this.nxDataTable.insertBefore(this.$.dateField12, colTitle.nextSibling);
+                  this.dateField12Label=item.label;
+                }
+                if(item.fieldName == "dateField13"){
+                  this.nxDataTable.insertBefore(this.$.dateField13, colTitle.nextSibling);
+                  this.dateField13Label=item.label;
+                }
+                if(item.fieldName == "dateField14"){
+                  this.nxDataTable.insertBefore(this.$.dateField14, colTitle.nextSibling);
+                  this.dateField14Label=item.label;
+                }
+                if(item.fieldName == "dateField15"){
+                  this.nxDataTable.insertBefore(this.$.dateField15, colTitle.nextSibling);
+                  this.dateField15Label=item.label;
+                }
+                if(item.fieldName == "dateField16"){
+                  this.nxDataTable.insertBefore(this.$.dateField16, colTitle.nextSibling);
+                  this.dateField16Label=item.label;
+                }
+                if(item.fieldName == "dateField17"){
+                  this.nxDataTable.insertBefore(this.$.dateField17, colTitle.nextSibling);
+                  this.dateField17Label=item.label;
+                }
+                if(item.fieldName == "dateField18"){
+                  this.nxDataTable.insertBefore(this.$.dateField18, colTitle.nextSibling);
+                  this.dateField18Label=item.label;
+                }
+                if(item.fieldName == "dateField19"){
+                  this.nxDataTable.insertBefore(this.$.dateField19, colTitle.nextSibling);
+                  this.dateField19Label=item.label;
+                }
+                if(item.fieldName == "dateField20"){
+                  this.nxDataTable.insertBefore(this.$.dateField20, colTitle.nextSibling);
+                  this.dateField20Label=item.label;
+                }
+                if(item.fieldName == "booleanField1"){
+                  this.nxDataTable.insertBefore(this.$.booleanField1, colTitle.nextSibling);
+                  this.booleanField1Label=item.label;
+                }
+
+                if(item.fieldName == "booleanField2"){
+                  this.nxDataTable.insertBefore(this.$.booleanField2, colTitle.nextSibling);
+                  this.booleanField2Label=item.label;
+                }
+                if(item.fieldName == "booleanField3"){
+                  this.nxDataTable.insertBefore(this.$.booleanField3, colTitle.nextSibling);
+                  this.booleanField3Label=item.label;
+                }
+                if(item.fieldName == "booleanField4"){
+                  this.nxDataTable.insertBefore(this.$.booleanField4, colTitle.nextSibling);
+                  this.booleanField4Label=item.label;
+                }
+                if(item.fieldName == "booleanField5"){
+                  this.nxDataTable.insertBefore(this.$.booleanField5, colTitle.nextSibling);
+                  this.booleanField5Label=item.label;
+                }
+                if(item.fieldName == "booleanField6"){
+                  this.nxDataTable.insertBefore(this.$.booleanField6, colTitle.nextSibling);
+                  this.booleanField6Label=item.label;
+                }
+                if(item.fieldName == "booleanField7"){
+                  this.nxDataTable.insertBefore(this.$.booleanField7, colTitle.nextSibling);
+                  this.booleanField7Label=item.label;
+                }
+                if(item.fieldName == "booleanField8"){
+                  this.nxDataTable.insertBefore(this.$.booleanField8, colTitle.nextSibling);
+                  this.booleanField8Label=item.label;
+                }
+                if(item.fieldName == "booleanField9"){
+                  this.nxDataTable.insertBefore(this.$.booleanField9, colTitle.nextSibling);
+                  this.booleanField9Label=item.label;
+                }
+                if(item.fieldName == "booleanField10"){
+                  this.nxDataTable.insertBefore(this.$.booleanField10, colTitle.nextSibling);
+                  this.booleanField10Label=item.label;
+                }
+                if(item.fieldName == "doubleField1"){
+                  this.nxDataTable.insertBefore(this.$.doubleField1, colTitle.nextSibling);
+                  this.doubleField1Label=item.label;
+                }
+                if(item.fieldName == "doubleField2"){
+                  this.nxDataTable.insertBefore(this.$.doubleField2, colTitle.nextSibling);
+                  this.doubleField2Label=item.label;
+                }
+                if(item.fieldName == "doubleField3"){
+                  this.nxDataTable.insertBefore(this.$.doubleField3, colTitle.nextSibling);
+                  this.doubleField3Label=item.label;
+                }
+                if(item.fieldName == "doubleField4"){
+                  this.nxDataTable.insertBefore(this.$.doubleField4, colTitle.nextSibling);
+                  this.doubleField4Label=item.label;
+                }
+                if(item.fieldName == "doubleField5"){
+                  this.nxDataTable.insertBefore(this.$.doubleField5, colTitle.nextSibling);
+                  this.doubleField5Label=item.label;
+                }
+                if(item.fieldName == "doubleField6"){
+                  this.nxDataTable.insertBefore(this.$.doubleField6, colTitle.nextSibling);
+                  this.doubleField6Label=item.label;
+                }
+                if(item.fieldName == "doubleField7"){
+                  this.nxDataTable.insertBefore(this.$.doubleField7, colTitle.nextSibling);
+                  this.doubleField7Label=item.label;
+                }
+                if(item.fieldName == "doubleField8"){
+                  this.nxDataTable.insertBefore(this.$.doubleField8, colTitle.nextSibling);
+                  this.doubleField8Label=item.label;
+                }
+                if(item.fieldName == "doubleField9"){
+                  this.nxDataTable.insertBefore(this.$.doubleField9, colTitle.nextSibling);
+                  this.doubleField9Label=item.label;
+                }
+                if(item.fieldName == "doubleField10"){
+                  this.nxDataTable.insertBefore(this.$.doubleField10, colTitle.nextSibling);
+                  this.doubleField10Label=item.label;
+                }
+                if(item.fieldName == "integerField1"){
+                  this.nxDataTable.insertBefore(this.$.integerField1, colTitle.nextSibling);
+                  this.integerField1Label=item.label;
+                }
+                if(item.fieldName == "integerField2"){
+                  this.nxDataTable.insertBefore(this.$.integerField2, colTitle.nextSibling);
+                  this.integerField2Label=item.label;
+                }
+                if(item.fieldName == "integerField3"){
+                  this.nxDataTable.insertBefore(this.$.integerField3, colTitle.nextSibling);
+                  this.integerField3Label=item.label;
+                }
+                if(item.fieldName == "integerField4"){
+                  this.nxDataTable.insertBefore(this.$.integerField4, colTitle.nextSibling);
+                  this.integerField4Label=item.label;
+                }
+                if(item.fieldName == "integerField5"){
+                  this.nxDataTable.insertBefore(this.$.integerField5, colTitle.nextSibling);
+                  this.integerField5Label=item.label;
+                }
+                if(item.fieldName == "integerField6"){
+                  this.nxDataTable.insertBefore(this.$.integerField6, colTitle.nextSibling);
+                  this.integerField6Label=item.label;
+                }
+                if(item.fieldName == "integerField7"){
+                  this.nxDataTable.insertBefore(this.$.integerField7, colTitle.nextSibling);
+                  this.integerField7Label=item.label;
+                }
+                if(item.fieldName == "integerField8"){
+                  this.nxDataTable.insertBefore(this.$.integerField8, colTitle.nextSibling);
+                  this.integerField8Label=item.label;
+                }
+                if(item.fieldName == "integerField9"){
+                  this.nxDataTable.insertBefore(this.$.integerField9, colTitle.nextSibling);
+                  this.integerField9Label=item.label;
+                }
+                if(item.fieldName == "integerField10"){
+                  this.nxDataTable.insertBefore(this.$.integerField10, colTitle.nextSibling);
+                  this.integerField10Label=item.label;
+                }
+                if(item.fieldName == "vocabularyField1"){
+                  this.nxDataTable.insertBefore(this.$.vocabularyField1, colTitle.nextSibling);
+                  this.vocabularyField1Label=item.label;
+                }
+                if(item.fieldName == "vocabularyField2"){
+                  this.nxDataTable.insertBefore(this.$.vocabularyField2, colTitle.nextSibling);
+                  this.vocabularyField2Label=item.label;
+                }
+                if(item.fieldName == "vocabularyField3"){
+                  this.nxDataTable.insertBefore(this.$.vocabularyField3, colTitle.nextSibling);
+                  this.vocabularyField3Label=item.label;
+                }
+                if(item.fieldName == "vocabularyField4"){
+                  this.nxDataTable.insertBefore(this.$.vocabularyField4, colTitle.nextSibling);
+                  this.vocabularyField4Label=item.label;
+                }
+                if(item.fieldName == "vocabularyField5"){
+                  this.nxDataTable.insertBefore(this.$.vocabularyField5, colTitle.nextSibling);
+                  this.vocabularyField5Label=item.label;
+                }
+                if(item.fieldName == "vocabularyField6"){
+                  this.nxDataTable.insertBefore(this.$.vocabularyField6, colTitle.nextSibling);
+                  this.vocabularyField6Label=item.label;
+                }
+                if(item.fieldName == "vocabularyField7"){
+                  this.nxDataTable.insertBefore(this.$.vocabularyField7, colTitle.nextSibling);
+                  this.vocabularyField7Label=item.label;
+                }
+                if(item.fieldName == "vocabularyField8"){
+                  this.nxDataTable.insertBefore(this.$.vocabularyField8, colTitle.nextSibling);
+                  this.vocabularyField8Label=item.label;
+                }
+                if(item.fieldName == "vocabularyField9"){
+                  this.nxDataTable.insertBefore(this.$.vocabularyField9, colTitle.nextSibling);
+                  this.vocabularyField9Label=item.label;
+                }
+                if(item.fieldName == "vocabularyField10"){
+                  this.nxDataTable.insertBefore(this.$.vocabularyField10, colTitle.nextSibling);
+                  this.vocabularyField10Label=item.label;
+                }
+                if(item.fieldName == "userField1"){
+                  this.nxDataTable.insertBefore(this.$.userField1, colTitle.nextSibling);
+                  this.userField1Label=item.label;
+                }
+                if(item.fieldName == "userField2"){
+                  this.nxDataTable.insertBefore(this.$.userField2, colTitle.nextSibling);
+                  this.userField2Label=item.label;
+                }
+                if(item.fieldName == "userField3"){
+                  tthis.nxDataTable.insertBefore(this.$.userField3, colTitle.nextSibling);
+                  this.userField3Label=item.label;
+                }
+                if(item.fieldName == "userField4"){
+                  this.nxDataTable.insertBefore(this.$.userField4, colTitle.nextSibling);
+                  this.userField4Label=item.label;
+                }
+                if(item.fieldName == "userField5"){
+                  this.nxDataTable.insertBefore(this.$.userField5, colTitle.nextSibling);
+                  this.userField5Label=item.label;
+                }
+                if(item.fieldName == "userField6"){
+                  this.nxDataTable.insertBefore(this.$.userField6, colTitle.nextSibling);
+                  this.userField6Label=item.label;
+                }
+                if(item.fieldName == "userField7"){
+                  this.nxDataTable.insertBefore(this.$.userField7, colTitle.nextSibling);
+                  this.userField7Label=item.label;
+                }
+                if(item.fieldName == "userField8"){
+                  this.nxDataTable.insertBefore(this.$.userField8, colTitle.nextSibling);
+                  this.userField8Label=item.label;
+                }
+                if(item.fieldName == "userField9"){
+                  this.nxDataTable.insertBefore(this.$.userField9, colTitle.nextSibling);
+                  this.userField9Label=item.label;
+                }
+                if(item.fieldName == "userField10"){
+                  this.nxDataTable.insertBefore(this.$.userField10, colTitle.nextSibling);
+                  this.userField10Label=item.label;
+                }
+                if(item.fieldName == "documentField1"){
+                  this.nxDataTable.insertBefore(this.$.documentField1, colTitle.nextSibling);
+                  this.documentField1Label=item.label;
+                }
+                if(item.fieldName == "documentField2"){
+                  his.nxDataTable.insertBefore(this.$.documentField2, colTitle.nextSibling);
+                  this.documentField2Label=item.label;
+                }
+                if(item.fieldName == "documentField3"){
+                  his.nxDataTable.insertBefore(this.$.documentField3, colTitle.nextSibling);
+                  this.documentField3Label=item.label;
+
+                }
+                if(item.fieldName == "documentField4"){
+                  his.nxDataTable.insertBefore(this.$.documentField4, colTitle.nextSibling);
+                  this.documentField4Label=item.label;
+                }
+                if(item.fieldName == "documentField5"){
+                  his.nxDataTable.insertBefore(this.$.documentField5, colTitle.nextSibling);
+                  this.documentField5Label=item.label;
+                }
+                if(item.fieldName == "documentField6"){
+                  his.nxDataTable.insertBefore(this.$.documentField6, colTitle.nextSibling);
+                  this.documentField6Label=item.label;
+                }
+                if(item.fieldName == "documentField7"){
+                  his.nxDataTable.insertBefore(this.$.documentField7, colTitle.nextSibling);
+                  this.documentField7Label=item.label;
+                }
+                if(item.fieldName == "documentField8"){
+                  his.nxDataTable.insertBefore(this.$.documentField8, colTitle.nextSibling);
+                  this.documentField8Label=item.label;
+                }
+                if(item.fieldName == "documentField9"){
+                  his.nxDataTable.insertBefore(this.$.documentField9, colTitle.nextSibling);
+                  this.documentField9Label=item.label;
+                }
+                if(item.fieldName == "documentField10"){
+                  this.nxDataTable.insertBefore(this.$.documentField10, colTitle.nextSibling);
+                  this.documentField10Label=item.label;
+                }
+              });
+              //Cleanup Header
+              setTimeout(function() {
+              this.nxDataTable.querySelector("nuxeo-data-table-row").querySelectorAll("nuxeo-data-table-cell").forEach((item, i) => {
+                  if(item.querySelectorAll("nuxeo-data-table-column-filter").length>1){
+                    item.querySelectorAll("nuxeo-data-table-column-filter")[1].remove();
+                  }
+                  if(item.querySelectorAll("div").length>1){
+                    item.querySelectorAll("div")[1].remove();
+                  }
+              });
+              }.bind(this), 1000);
+          }.bind(this));
+
+        }
+      }
+    });
+  </script>
+</dom-module>

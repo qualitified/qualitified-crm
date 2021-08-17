@@ -20,16 +20,14 @@ import java.util.Map;
  * Created by mgena on 11/11/2017.
  * Modified by mmakni on 19/11/2018.
  */
-@Operation(id=GetCustomFields.ID, category= Constants.CAT_EXECUTION, label="GetCustomFields", description="")
-public class GetCustomFields {
-    public static final String ID = "Qualitified.GetCustomFields";
-    private Log logger = LogFactory.getLog(GetCustomFields.class);
+@Operation(id=GetResultListCustomFields.ID, category= Constants.CAT_EXECUTION, label="GetResultListCustomFields", description="")
+public class GetResultListCustomFields {
+    public static final String ID = "Qualitified.GetResultListCustomFields";
+    private Log logger = LogFactory.getLog(GetResultListCustomFields.class);
     @Context
     protected OperationContext ctx;
     @Param(name = "documentType")
     protected String documentType;
-    @Param(name = "column",required = false)
-    protected String column;
     @OperationMethod
     public Blob run() throws Exception {
         LoginContext lc = Framework.loginAsUser("Administrator");
@@ -39,29 +37,27 @@ public class GetCustomFields {
         String JSONArray= "";
         if(customDocuments.size()>0){
             DocumentModel customDocument = customDocuments.get(0);
-            List<Map<String,String>> customFieldList  = (List<Map<String,String>>)customDocument.getPropertyValue("custom:field");
-            List<Map<String, String>> customFieldList2 = new ArrayList<>();
+            List<Map<String,Object>> customFieldList  = (List<Map<String,Object>>)customDocument.getPropertyValue("custom:field");
+            List<Map<String, Object>> customFieldList2 = new ArrayList<>();
 
-            if (column.equals("")){
-                for (Map<String, String> listItem : customFieldList) {
+
+
+                for (Map<String, Object> listItem : customFieldList) {
+                   /* if(listItem.containsKey("showInResultList")){
+                        if(Boolean.parseBoolean(listItem.get("showInResultList"))){
+                            customFieldList2.add(listItem);
+                        }
+                    }*/
                     listItem.entrySet().forEach((entry) -> {
-                                if (entry.getValue() != null) {
+                                if (entry.getKey().equals("showInResultList") && entry.getValue() != null && (Boolean) entry.getValue()) {
+
+                                   // customFieldList2.add(listItem);
                                     customFieldList2.add(listItem);
                                 }
                             }
                     );
                 }
-            }
-            if (column != null) {
-                for (Map<String, String> listItem : customFieldList) {
-                    listItem.entrySet().forEach((entry) -> {
-                                if (entry.getKey().equals("column") && entry.getValue() != null && entry.getValue().equals(column)) {
-                                    customFieldList2.add(listItem);
-                                }
-                            }
-                    );
-                }
-            }
+
 
             ObjectMapper object = new ObjectMapper();
             JSONArray = object.writeValueAsString(customFieldList2);
