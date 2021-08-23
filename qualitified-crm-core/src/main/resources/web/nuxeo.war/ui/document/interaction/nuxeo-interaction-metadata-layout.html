@@ -20,6 +20,9 @@
                 box-sizing: border-box;
                 margin-right: 8px;
             }
+            .statusIcon {
+                margin-bottom: 4px;
+            }
 
             paper-toggle-button {
                 pointer-events: none;
@@ -28,7 +31,7 @@
         <div role="widget" class="title">
             <h1 directory-name="IntActivity">
                 [[formatDirectory(document.properties.interaction:activity)]] - [[document.properties.dc:title]] -
-                [[formatDirectory(document.properties.interaction:status)]]
+                <iron-icon class="statusIcon" icon="[[_getStatusIcon(document.properties.interaction:status)]]"></iron-icon>
             </h1>
         </div>
         <div role="widget">
@@ -98,8 +101,8 @@
                                      metadata="document">
             </qualitified-inline-edit>
         </div>
-        <template is="dom-if" if="[[document.properties.custom:booleanField1]]">
-            <paper-toggle-button id="synchBtn" checked="{{document.properties.custom:booleanField1}}">
+        <template is="dom-if" if="[[document.properties.interaction:toSync]]">
+            <paper-toggle-button id="synchBtn" checked="{{document.properties.interaction:toSync}}">
                 Synced with google calendar
             </paper-toggle-button>
         </template>
@@ -135,6 +138,13 @@
                         return value;
                     }
                 },
+
+                _getStatusIcon: function(status){
+                  if (status.id === 'DONE') {
+                   return 'icons:assignment-turned-in';
+                  } else return 'icons:event';
+                },
+
                 formatDate: function (date) {
                     return moment(date).format('MMMM D, YYYY');
                 },

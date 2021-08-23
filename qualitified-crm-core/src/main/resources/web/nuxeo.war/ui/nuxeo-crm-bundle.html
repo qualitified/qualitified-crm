@@ -45,7 +45,7 @@
 <!-- Contribution of element 'nuxeo-search-form' for slot 'DRAWER_PAGES' -->
 <nuxeo-slot-content name="opportunity-list" slot="DRAWER_PAGES" >
     <template>
-        <nuxeo-search-form provider="opportunity_list" schemas="opportunity" search-name="opportunity_list" name="opportunity-list" auto="true"></nuxeo-search-form>
+        <nuxeo-search-form provider="opportunity_list" schemas="opportunity,custom" search-name="opportunity_list" name="opportunity-list" auto="true"></nuxeo-search-form>
     </template>
 </nuxeo-slot-content>
 <!-- Contribution of element 'nuxeo-menu-icon' for slot 'SEARCH_MENU_BUTTONS' -->
@@ -56,7 +56,7 @@
 </nuxeo-slot-content>
 <nuxeo-slot-content name="targeting-list" slot="DRAWER_PAGES" >
     <template>
-        <nuxeo-search-form provider="targeting_list" schemas="targeting,dublincore,contact,person,address,silhouette,person_list_pp,silhouette_list_pp" search-name="targeting_list" name="targeting-list" auto="true"></nuxeo-search-form>
+        <nuxeo-search-form provider="targeting_list" schemas="targeting,dublincore,contact,person,address,silhouette,person_list_pp,silhouette_list_pp,custom" search-name="targeting_list" name="targeting-list" auto="true"></nuxeo-search-form>
     </template>
 </nuxeo-slot-content>
 <!-- Contribution of element 'nuxeo-menu-icon' for slot 'SEARCH_MENU_BUTTONS' -->
@@ -99,7 +99,7 @@
 <!-- Contribution of element 'nuxeo-search-form' for slot 'DRAWER_PAGES' -->
 <nuxeo-slot-content name="search-for-contacts" slot="DRAWER_PAGES" >
     <template>
-        <nuxeo-search-form provider="person_list" schemas="person,dublincore" search-name="person_list" auto="true" display-auto-control="true" name="search-for-contacts" ></nuxeo-search-form>
+        <nuxeo-search-form provider="person_list" schemas="person,dublincore,custom" search-name="person_list" auto="true" display-auto-control="true" name="search-for-contacts" ></nuxeo-search-form>
     </template>
 </nuxeo-slot-content>
 
@@ -111,14 +111,14 @@
 <!-- Contribution of element 'nuxeo-search-form' for slot 'DRAWER_PAGES' -->
 <nuxeo-slot-content name="search-for-interaction" slot="DRAWER_PAGES">
     <template>
-        <nuxeo-search-form provider="interaction_list" schemas="interaction,dublincore" enrichers="interactionDocEnricher,thumbnail,permissions,highlight" search-name="interaction_list" auto="true" display-auto-control="true" name="search-for-interaction" ></nuxeo-search-form>
+        <nuxeo-search-form provider="interaction_list" schemas="interaction,dublincore,custom" enrichers="interactionDocEnricher,thumbnail,permissions,highlight" search-name="interaction_list" auto="true" display-auto-control="true" name="search-for-interaction" ></nuxeo-search-form>
     </template>
 </nuxeo-slot-content>
 
 <!-- Contribution of element 'nuxeo-search-form' for slot 'DRAWER_PAGES' -->
 <nuxeo-slot-content name="solicitation-list" slot="DRAWER_PAGES" >
     <template>
-        <nuxeo-search-form provider="solicitation_list" schemas="solicitation" search-name="solicitation_list" name="solicitation-list" auto="true"></nuxeo-search-form>
+        <nuxeo-search-form provider="solicitation_list" schemas="solicitation,custom" search-name="solicitation_list" name="solicitation-list" auto="true"></nuxeo-search-form>
     </template>
 </nuxeo-slot-content>
 <!-- Contribution of element 'nuxeo-menu-icon' for slot 'SEARCH_MENU_BUTTONS' -->
@@ -141,7 +141,7 @@
 
 <nuxeo-slot-content name="silhouette-list" slot="DRAWER_PAGES" >
     <template>
-        <nuxeo-search-form provider="silhouette_list" schemas="silhouette,dublincore,person,address" search-name="silhouette_list" name="silhouette-list" auto="true"></nuxeo-search-form>
+        <nuxeo-search-form provider="silhouette_list" schemas="silhouette,dublincore,person,address,custom" search-name="silhouette_list" name="silhouette-list" auto="true"></nuxeo-search-form>
     </template>
 </nuxeo-slot-content>
 
@@ -152,7 +152,7 @@
 </nuxeo-slot-content>
 <nuxeo-slot-content name="automation-list" slot="DRAWER_PAGES" >
     <template>
-        <nuxeo-search-form provider="automation_list" schemas="automation,dublincore,person,address" search-name="automation_list" name="automation-list" auto="true"></nuxeo-search-form>
+        <nuxeo-search-form provider="automation_list" schemas="automation,dublincore,person,address,custom" search-name="automation_list" name="automation-list" auto="true"></nuxeo-search-form>
     </template>
 </nuxeo-slot-content>
 
@@ -164,18 +164,18 @@
 
 <nuxeo-slot-content name="note-list" slot="DRAWER_PAGES" >
     <template>
-        <nuxeo-search-form provider="note_list" schemas="note,custom,dublincore" search-name="note_list" name="note-list" auto="true"></nuxeo-search-form>
+        <nuxeo-search-form provider="note_list" schemas="note,custom,dublincore,custom" search-name="note_list" name="note-list" auto="true"></nuxeo-search-form>
     </template>
 </nuxeo-slot-content>
 <nuxeo-slot-content name="email-list" slot="DRAWER_PAGES" >
     <template>
-        <nuxeo-search-form provider="email_list" schemas="email,custom,dublincore" search-name="email_list" name="email-list" auto="true"></nuxeo-search-form>
+        <nuxeo-search-form provider="email_list" schemas="email,custom,dublincore,custom" search-name="email_list" name="email-list" auto="true"></nuxeo-search-form>
     </template>
 </nuxeo-slot-content>
 <!-- Contribution of element 'nuxeo-search-form' for slot 'DRAWER_PAGES' -->
 <nuxeo-slot-content name="account-list" slot="DRAWER_PAGES" >
     <template>
-        <nuxeo-search-form provider="account_list" schemas="account" search-name="account_list" name="account-list" auto="true"></nuxeo-search-form>
+        <nuxeo-search-form provider="account_list" schemas="account,custom" search-name="account_list" name="account-list" auto="true"></nuxeo-search-form>
     </template>
 </nuxeo-slot-content>
 <!-- Contribution of element 'nuxeo-menu-icon' for slot 'SEARCH_MENU_BUTTONS' -->

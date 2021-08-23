@@ -3,6 +3,7 @@
 @group Nuxeo UI
 @element nuxeo-interaction_list-search-results
 -->
+<link rel="import" href="../../elements/qualitified-result-columns.html">
 <link rel="import" href="../../elements/interaction-calendar-view.html">
 <dom-module id="nuxeo-interaction_list-search-results">
     <template>
@@ -150,6 +151,7 @@
                 </template>
             </nuxeo-data-grid>
         </nuxeo-results>
+        <qualitified-result-columns document="Interaction"></qualitified-result-columns>
     </template>
     <script>
         Polymer({

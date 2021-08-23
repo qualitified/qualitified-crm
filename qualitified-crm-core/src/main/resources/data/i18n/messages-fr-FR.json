@@ -119,6 +119,7 @@
   "label.metadata.solicitation.status": "Statut",
   "label.metadata.solicitation.title": "Titre",
   "label.metadata.title": "Titre",
+  "label.metadata.custom.ShowInResultList": "Afficher dans la liste des résultats",
   "label.metadata.custom.title": "Nom",
   "label.metadata.custom.label": "Libellé",
   "label.metadata.custom.fieldname": "Nom du champ",

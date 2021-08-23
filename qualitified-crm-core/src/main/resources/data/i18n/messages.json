@@ -125,6 +125,7 @@
   "label.metadata.solicitation.status": "Status",
   "label.metadata.solicitation.title": "Title",
   "label.metadata.title": "Title",
+  "label.metadata.custom.ShowInResultList": "Show in result list",
   "label.metadata.custom.title": "Name",
   "label.metadata.custom.label": "Label",
   "label.metadata.custom.fieldname": "Field Name",
