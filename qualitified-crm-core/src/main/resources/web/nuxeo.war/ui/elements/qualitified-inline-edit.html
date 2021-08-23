@@ -1,5 +1,9 @@
 <link rel="import" href="qualitified-document-create.html">
 <link rel="import" href="qualitified-amount.html">
+<link rel="import" href="qualitified-user-suggestion.html">
+<link rel="import" href="qualitified-user-tag.html">
+
+
 <dom-module id="qualitified-inline-edit">
     <template>
         <style include="nuxeo-styles">
@@ -74,15 +78,15 @@
             </template>
             <template is="dom-if" if="[[_isUser(metadata)]]">
                 <div style="margin-top: 5px;">
-                    <nuxeo-user-tag user="{{value}}">
-                    </nuxeo-user-tag>
+                    <qualitified-user-tag user="{{value}}">
+                    </qualitified-user-tag>
                 </div>
             </template>
             <template is="dom-if" if="[[_isUsers(metadata)]]">
                 <div style="margin-top: 5px;">
                     <template is="dom-repeat" items="[[value]]">
-                        <nuxeo-user-tag user="[[item]]">
-                        </nuxeo-user-tag>
+                        <qualitified-user-tag user="[[item]]">
+                        </qualitified-user-tag>
                     </template>
                 </div>
             </template>
@@ -158,21 +162,21 @@
                 </nuxeo-date-picker>
             </template>
             <template is="dom-if" if="[[_isUser(metadata)]]">
-                <nuxeo-user-suggestion id="userId"
-                                       role="widget"
-                                       value="{{newValue}}"
-                                       search-type="USER_TYPE"
-                                       min-chars="0">
-                </nuxeo-user-suggestion>
+                <qualitified-user-suggestion id="userId"
+                                             role="widget"
+                                             value="{{newValue}}"
+                                             search-type="USER_TYPE"
+                                             min-chars="0">
+                </qualitified-user-suggestion>
             </template>
             <template is="dom-if" if="[[_isUsers(metadata)]]">
-                <nuxeo-user-suggestion id="userId"
-                                       role="widget"
-                                       value="{{newValue}}"
-                                       search-type="USER_TYPE"
-                                       multiple="[[multiple]]"
-                                       min-chars="0">
-                </nuxeo-user-suggestion>
+                <qualitified-user-suggestion id="userId"
+                                             role="widget"
+                                             value="{{newValue}}"
+                                             search-type="USER_TYPE"
+                                             multiple="[[multiple]]"
+                                             min-chars="0">
+                </qualitified-user-suggestion>
             </template>
             <template is="dom-if" if="[[_isDocument(metadata)]]">
                 <qualitified-document-suggestion role="widget"

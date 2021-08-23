@@ -82,7 +82,11 @@
           return moment(date).format('MMMM D, YYYY');
         },
         validate: function() {
-          if(this.document.properties['dc:title']){
+          if (this.document.properties['opportunity:responsible']){
+            var resp = this.document.properties['opportunity:responsible'];
+            this.set('document.properties.opportunity:responsible',resp.id);
+          }
+          if (this.document.properties['dc:title']){
              var title =this.document.properties['dc:title'].trim();
              this.set('document.properties.dc:title',title);
             return true ;
