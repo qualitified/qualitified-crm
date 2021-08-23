@@ -50,10 +50,9 @@
     <schema name="email" prefix="email" override="true" src="data/schemas/email.xsd"/>
     <schema name="email_list_pp" prefix="email_list_pp" override="true" src="data/schemas/email_list_pp.xsd"/>
     <schema name="picture_list_pp" prefix="picture_list_pp" override="true" src="data/schemas/picture_list_pp.xsd"/>
-
     <schema name="targeting" prefix="targeting" override="true" src="data/schemas/targeting.xsd"/>
     <schema name="public" prefix="public" override="true" src="data/schemas/public.xsd"/>
-
+    <schema name="branding" prefix="branding" override="true" src="data/schemas/branding.xsd"/>
 
 
   </extension>
@@ -195,6 +194,7 @@
       <schema name="admin"/>
       <subtypes>
         <type>TemplateRoot</type>
+        <type>Branding</type>
         <type>Objects</type>
         <type>Scripts</type>
         <type>Calendar</type>
@@ -410,6 +410,12 @@
       <subtypes>
         <type>Custom</type>
       </subtypes>
+      <facet name="NXTag"/>
+    </doctype>
+    <doctype name="Branding" extends="Folder">
+      <schema name="branding"/>
+      <schema name="picture"/>
+      <facet name="Folderish"/>
       <facet name="NXTag"/>
     </doctype>
     <doctype name="Scripts" extends="Folder">
@@ -637,6 +643,9 @@
     <types>
       <type name="Link">default</type>
     </types>
+    <types>
+      <type name="Branding">default</type>
+    </types>
   </extension>
   <extension target="org.nuxeo.ecm.platform.types.TypeService" point="types">
     <type id="Calendar">
@@ -771,6 +780,12 @@
       <label>Objects</label>
       <icon>/img/ic_text_fields_black_24dp_1x.png</icon>
       <bigIcon>/img/ic_text_fields_black_24dp_2x.png</bigIcon>
+      <description></description>
+    </type>
+    <type id="Branding">
+      <label>Branding</label>
+      <icon>/img/outline_palette_black_1x.png</icon>
+      <bigIcon>/img/outline_palette_black_2x.png</bigIcon>
       <description></description>
     </type>
     <type id="Solicitation">
@@ -2089,6 +2104,8 @@
         <templateItem typeName="Scripts" id="Scripts" title="Scripts" description=""/>
         <templateItem typeName="Calendar" id="Calendar.conf" title="Calendar.conf" description=""/>
         <templateItem typeName="Options" id="Options" title="Options" description=""/>
+        <templateItem typeName="Branding" id="Branding" title="Branding" description=""/>
+
       </template>
     </factoryBinding>
     <factoryBinding name="OptionFactory" factoryName="SimpleTemplateFactory" targetType="Options">
