@@ -23,6 +23,19 @@ public class Copy implements EventListener {
 
         DocumentEventContext docCtx = (DocumentEventContext) ctx;
         DocumentModel doc = docCtx.getSourceDocument();
+        if(doc.getType().equals("Branding")){
+            OperationContext operationContext = new OperationContext(docCtx.getCoreSession());
+            operationContext.setInput(doc);
+            AutomationService automationService = Framework.getService(AutomationService.class);
+            try {
+                automationService.run(operationContext, "Qualitified.CopyBlob");
+            } catch (OperationException e) {
+                logger.error("Error while running operation Qualitified.CopyBlob", e);
+            }
+        }
+
+
+
         if (doc.getPath().toString().startsWith("/Marketing/Resources/") && doc.getType().equals("Picture")) {
             OperationContext operationContext = new OperationContext(docCtx.getCoreSession());
             operationContext.setInput(doc);

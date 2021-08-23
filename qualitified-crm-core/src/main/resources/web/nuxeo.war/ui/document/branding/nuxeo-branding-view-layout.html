@@ -1,0 +1,27 @@
+<!--
+`nuxeo-branding-view-layout`
+@group Nuxeo UI
+@element nuxeo-branding-view-layout
+-->
+<dom-module id="nuxeo-branding-view-layout">
+  <template>
+    <style include="nuxeo-styles"></style>
+  </template>
+
+  <script>
+    Polymer({
+      is: 'nuxeo-branding-view-layout',
+      behaviors: [Nuxeo.LayoutBehavior],
+      properties: {
+
+        /**
+         * @doctype Branding
+         */
+        document: {
+          type: Object,
+        },
+
+      }
+    });
+  </script>
+</dom-module>

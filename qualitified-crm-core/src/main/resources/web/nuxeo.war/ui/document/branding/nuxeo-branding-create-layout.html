@@ -1,0 +1,83 @@
+<!--
+`nuxeo-branding-create-layout`
+@group Nuxeo UI
+@element nuxeo-branding-create-layout
+-->
+<dom-module id="nuxeo-branding-create-layout">
+  <template>
+    <style include="nuxeo-styles"></style>
+    <nuxeo-input role="widget" value="{{document.properties.dc:title}}" label="Title" type="text" required="true" name="title"></nuxeo-input>
+
+    <nuxeo-input role="widget" value="{{document.properties.dc:description}}" label="Description" type="text" name="description"></nuxeo-input>
+
+    <div role="widget">
+      <label id="backgroundImageField">Background Image</label>
+      <nuxeo-file value="{{document.properties.branding:backgroundImage}}" aria-labelledby="backgroundImageField" name="backgroundImage"></nuxeo-file>
+    </div>
+
+    <div role="widget">
+      <label id="dashboardLogoField">Dashboard Logo</label>
+      <nuxeo-file value="{{document.properties.branding:dashboardLogo}}" aria-labelledby="dashboardLogoField" name="dashboardLogo"></nuxeo-file>
+    </div>
+
+    <div role="widget">
+      <label id="faviconIcoField">Favicon Ico</label>
+      <nuxeo-file value="{{document.properties.branding:faviconIco}}" aria-labelledby="faviconIcoField" name="faviconIco"></nuxeo-file>
+    </div>
+
+    <div role="widget">
+      <label id="faviconPngField">Favicon Png</label>
+      <nuxeo-file value="{{document.properties.branding:faviconPng}}" aria-labelledby="faviconPngField" name="faviconPng"></nuxeo-file>
+    </div>
+
+    <div role="widget">
+      <label id="loginLogoField">Login Logo</label>
+      <nuxeo-file value="{{document.properties.branding:loginLogo}}" aria-labelledby="loginLogoField" name="loginLogo"></nuxeo-file>
+    </div>
+
+    <nuxeo-input role="widget" value="{{document.properties.branding:loginBackgroundColor}}" label="Login Background Color" type="text"  name="loginBackgroundColor"></nuxeo-input>
+
+
+    <nuxeo-data-table role="widget" label="Styles" items="{{document.properties.branding:styles}}" orderable="true" editable="true" name="styles">
+
+      <nuxeo-data-table-column name="Name">
+        <template>
+          [[item.name]]
+        </template>
+      </nuxeo-data-table-column>
+
+      <nuxeo-data-table-column name="Value">
+        <template>
+          [[item.value]]
+        </template>
+      </nuxeo-data-table-column>
+
+      <nuxeo-data-table-form>
+        <template>
+          <nuxeo-input value="{{item.name}}" label="Name" type="text" name="name"></nuxeo-input>
+          <nuxeo-input value="{{item.value}}" label="Value" type="text" name="value"></nuxeo-input>
+        </template>
+      </nuxeo-data-table-form>
+    </nuxeo-data-table>
+
+
+
+  </template>
+
+  <script>
+  Polymer({
+    is: 'nuxeo-branding-create-layout',
+    behaviors: [Nuxeo.LayoutBehavior],
+    properties: {
+
+      /**
+         * @doctype Branding
+         */
+      document: {
+        type: Object,
+      },
+
+    }
+  });
+  </script>
+</dom-module>
