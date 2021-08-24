@@ -1,9 +1,14 @@
 <link rel="import" href="../../shared-css.html">
+<link rel="import" href="../../elements/qualitified-document-attachments.html">
+<link rel="import" href="../../qualitified-icons.html">
 <dom-module id="nuxeo-contact-view-layout">
   <template>
     <style include="nuxeo-styles shared-css">
+
+
       *[role=widget] {
-        padding: 5px;
+        padding: 40px;
+        flex: 80%;
       }
 
       nuxeo-data-table {
@@ -35,13 +40,193 @@
         /* min-height: calc(60vh - 14em); */
         /*margin-top: 8px;*/
       }
+
+
+
+      .results.dragging {
+        border: 2px dashed var(--nuxeo-primary-color);
+      }
+
+
+      .capitalize {
+        text-transform: capitalize;
+      }
+
+
     </style>
     <nuxeo-connection id="nxcon"></nuxeo-connection>
+    <nuxeo-page-provider role="widget"
+                         id="interactionTodoProvider"
+                         auto
+                         query="SELECT * FROM Interaction WHERE ecm:currentLifeCycleState != 'deleted' and ecm:isTrashed = 0 and  interaction:contact IN ('[[document.uid]]') AND ecm:currentLifeCycleState = 'todo' ORDER BY interaction:date DESC"
+                         page-size="1"
+                         params="[[params]]"
+                         aggregations="{{interactionTodoAggregations}}"
+                         current-page="{{interactionsTodo}}">
+    </nuxeo-page-provider>
+    <template is="dom-repeat" items="[[interactionsTodo]]">
+      <nuxeo-card role="widget" icon="qualitified:idea" heading="[[i18n('label.next.best.action')]]">
+        <div>
+          <a href$="#!/browse[[item.path]]">
+            <template is="dom-if" if="[[_isCall(item.properties.interaction:activity)]]">
+              <iron-icon icon="icons:settings-phone"></iron-icon>
+            </template>
+            <template is="dom-if" if="[[_isMeeting(item.properties.interaction:activity)]]">
+              <iron-icon icon="icons:perm-contact-calendar"></iron-icon>
+            </template>
+            <template is="dom-if" if="[[_isChat(item.properties.interaction:activity)]]">
+              <iron-icon icon="icons:supervisor-account"></iron-icon>
+            </template>
+            <template is="dom-if" if="[[_isEmail(item.properties.interaction:activity)]]">
+              <iron-icon icon="icons:mail"></iron-icon>
+            </template>
+            <template is="dom-if" if="[[_isNote(item.properties.interaction:activity)]]">
+              <iron-icon icon="icons:speaker-notes"></iron-icon>
+            </template>
+            <template is="dom-if" if="[[_isSms(item.properties.interaction:activity)]]">
+              <iron-icon icon="icons:perm-phone-msg"></iron-icon>
+            </template>
+            - [[item.title]]
+          </a>
+          <div style="margin-bottom:-14px; margin-top:10px;">
+            <qualitified-inline-edit document="[[item]]"
+                                     value="[[item.properties.interaction:contact]]"
+                                     property="interaction:contact"
+                                     parent-to-select="Account"
+                                     multiple
+                                     clickable
+                                     label="[[i18n('label.metadata.contact')]]"
+                                     params='{ "namedParameters": "system_primaryType=Contact"}'
+                                     metadata="document">
+            </qualitified-inline-edit>
+          </div>
+          <qualitified-inline-edit document="[[item]]"
+                                   property="interaction:activity"
+                                   label="label.metadata.activity"
+                                   directory="IntActivity"
+                                   metadata="directory">
+          </qualitified-inline-edit>
+
+          <template if="[[!item.properties.note:note]]" is="dom-if">
+            <qualitified-inline-edit document="[[item]]"
+                                     property="dc:description"
+                                     label="label.metadata.interaction.description"
+                                     metadata="textarea">
+            </qualitified-inline-edit>
+          </template>
+          <template if="[[item.properties.note:note]]" is="dom-if">
+            <qualitified-inline-edit document="[[item]]"
+                                     property="note:note"
+                                     label="label.metadata.interaction.description"
+                                     metadata="textarea">
+            </qualitified-inline-edit>
+          </template>
+
+          <qualitified-inline-edit document="[[item]]"
+                                   property="interaction:date"
+                                   parent-providers="[[providers]]"
+                                   label="label.metadata.date"
+                                   metadata="date">
+          </qualitified-inline-edit>
+          <qualitified-inline-edit document="[[item]]"
+                                   property="interaction:status"
+                                   label="label.metadata.status"
+                                   parent-providers="[[providers]]"
+                                   directory="IntStatus"
+                                   metadata="directory">
+          </qualitified-inline-edit>
+
+        </div>
+      </nuxeo-card>
+    </template>
+
+    <paper-card role="widget">
+      <h3>
+        [[i18n('label.activities')]]
+      </h3>
+
+
+
+      <!-- /Create a new Link -->
+
+      <div className="dataTable">
+        <nuxeo-page-provider role="widget"
+                             id="interactionProvider"
+                             auto
+                             query="SELECT * FROM Interaction WHERE ecm:currentLifeCycleState != 'deleted' and ecm:isTrashed = 0 and  interaction:contact IN ('[[document.uid]]') AND ecm:currentLifeCycleState = 'done' ORDER BY interaction:date DESC"
+                             page-size="40"
+                             params="[[params]]"
+                             aggregations="{{interactionAggregations}}"
+                             current-page="{{interactions}}">
+        </nuxeo-page-provider>
+
+        <template is="dom-repeat" items="[[interactions]]">
+          <div class="border-bottom">
+
+            <!-- <div>[[_formatDate(item.properties.interaction:date)]]</div>
+            </br> -->
+            <div>
+              <a href$="#!/browse[[item.path]]">
+                <template is="dom-if" if="[[_isCall(item.properties.interaction:activity)]]">
+                  <iron-icon icon="icons:settings-phone"></iron-icon>
+                </template>
+                <template is="dom-if" if="[[_isMeeting(item.properties.interaction:activity)]]">
+                  <iron-icon icon="icons:perm-contact-calendar"></iron-icon>
+                </template>
+                <template is="dom-if" if="[[_isChat(item.properties.interaction:activity)]]">
+                  <iron-icon icon="icons:supervisor-account"></iron-icon>
+                </template>
+                <template is="dom-if" if="[[_isEmail(item.properties.interaction:activity)]]">
+                  <iron-icon icon="icons:mail"></iron-icon>
+                </template>
+                <template is="dom-if" if="[[_isNote(item.properties.interaction:activity)]]">
+                  <iron-icon icon="icons:speaker-notes"></iron-icon>
+                </template>
+                <template is="dom-if" if="[[_isSms(item.properties.interaction:activity)]]">
+                  <iron-icon icon="icons:perm-phone-msg"></iron-icon>
+                </template>
+                - [[_formatDate(item.properties.interaction:date)]] - [[item.title]]
+              </a>
+              <template is="dom-if" if="[[_isSendingEmail(item.properties.interaction:activity,item.properties.custom:booleanField2)]]">
+                <template is="dom-if" if="[[_isSent(item.properties.interaction:isSent)]]">
+                  <iron-icon id="notSent-[[item.uid]]" style="float: right;color: #2bd670;" icon="icons:check-circle"></iron-icon>
+                  <paper-tooltip for="notSent-[[item.uid]]">Mail is sent</paper-tooltip>
+                </template>
+                <template is="dom-if" if="[[!_isSent(item.properties.interaction:isSent)]]">
+                  <iron-icon id="notSent-[[item.uid]]" style="float: right;color: #e83e34;" icon="icons:info-outline"></iron-icon>
+                  <paper-tooltip for="notSent-[[item.uid]]">Mail is not sent</paper-tooltip>
+                </template>
+              </template>
+            </div>
+            </br>
+            <qualitified-document-suggestion value="[[item.properties.interaction:contact]]"
+                                             display-style="viewInlineStyle"
+                                             multiple
+                                             clickable
+                                             readOnly>
+            </qualitified-document-suggestion>
+            <div hidden$=[[_hasNote(item)]]>
+              <pre class="wrap">[[item.properties.dc:description]]</pre>
+            </div>
+            <iron-collapse hidden$=[[!_hasNote(item)]] id="collapse-[[item.uid]]">
+              <div>
+                <pre class="wrap">[[item.properties.note:note]]</pre>
+              </div>
+            </iron-collapse>
+
+            <button hidden$=[[!_hasNote(item)]] id="button-[[item.uid]]" on-click="toggle" data-id$="[[item.uid]]">
+              ...
+            </button>
+            <qualitified-document-attachments document="[[item]]"></qualitified-document-attachments>
+            <br />
+          </div>
+        </template>
+      </div>
+    </paper-card>
     <paper-card role="widget">
 
       <paper-tabs selected="{{selected}}" scrollable>
         <paper-tab>[[i18n('Opportunities')]]</paper-tab>
-        <paper-tab>[[i18n('Interactions')]]</paper-tab>
         <paper-tab>[[i18n('Solicitations')]]</paper-tab>
         <paper-tab>[[i18n('Attachments')]]</paper-tab>
       </paper-tabs>
@@ -340,11 +525,15 @@
 
 
             <!-- Table view -->
-            <nuxeo-data-table class="results" name="table" icon="nuxeo:view-list"
+            <nuxeo-data-table class="results"
+                              name="table"
+                              icon="nuxeo:view-list"
                               settings-enabled
                               empty-label="[[emptyLabel]]"
                               empty-label-when-filtered="[[emptyLabelWhenFiltered]]"
                               selection-enabled
+                              draggable$="[[_hasWritePermission(document)]]"
+                              drop-target-filter="[[_dropTargetFilter]]"
                               display-quick-filters
                               on-row-clicked="_navigate">
 
@@ -415,78 +604,97 @@
   </template>
 
   <script>
-  (function() {
-    'use strict';
-    Polymer({
-      is: 'nuxeo-contact-view-layout',
-      behaviors: [Nuxeo.LayoutBehavior],
-      properties: {
+    (function() {
+      'use strict';
+      Polymer({
+        is: 'nuxeo-contact-view-layout',
+        behaviors: [Nuxeo.LayoutBehavior, Nuxeo.DocumentContentBehavior],
+        properties: {
 
-        /**
+          /**
            * @doctype Contact
            */
-        document: {
-          type: Object
+          document: {
+            type: Object
+          },
+          params: {
+            type: Object,
+            value: {},
+            notify: true
+          }
         },
-        params: {
-          type: Object,
-          value: {},
-          notify: true
-        }
-      },
-      observers: [
-        '_refresh(params)',
-        '_observeDocument(document)'
-      ],
-      ready: function() {
-        this.selected = 0;
-        if (this.document) {
-          this.params = {'ecm_parentId': this.document.uid};
-        }
+        observers: [
+          '_refresh(params)',
+          '_observeDocument(document)'
+        ],
+        ready: function() {
+          this.selected = 0;
+          if (this.document) {
+            this.params = {'ecm_parentId': this.document.uid};
+          }
 
-        this.opportunityProvider = this.$.opportunityProvider;
-        this.interactionProvider = this.$.interactionProvider;
-        this.sollicitationProvider = this.$.sollicitationProvider;
-        this.documentProvider = this.$.documentProvider;
-      },
-      _formatCurrency: function(val) {
-        if(val == null){
-          return "";
-        }
-        return val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ");
-      },
-      _thumbnail: function(doc) {
-        if (doc && doc.uid) {
-          if (doc.contextParameters && doc.contextParameters.thumbnail.url) {
-            return doc.contextParameters.thumbnail.url;
-          } else {
-            var baseUrl = this.$.nxcon.url;
-            return baseUrl + '/api/v1/id/' + doc.uid + '/@rendition/thumbnail';
+          this.opportunityProvider = this.$.opportunityProvider;
+          this.interactionProvider = this.$.interactionProvider;
+          this.sollicitationProvider = this.$.sollicitationProvider;
+          this.documentProvider = this.$.documentProvider;
+        },
+        _formatCurrency: function(val) {
+          if(val == null){
+            return "";
           }
-        }
-      },
-      /**
-       * Returns the label for the given directory entry.
-       */
-      formatDirectory: function(value) {
-        if (value && value['entity-type'] && value['entity-type'] === 'directoryEntry') {
-          if (value.properties && value.properties.label) {
-            return value.properties.label;
-          } else {
-            var label = 'label_' + ((window.nuxeo.I18n.language) ? window.nuxeo.I18n.language.split('-')[0] : 'en');
-            return value.properties[label] || value.properties['label_en']
+          return val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ");
+        },
+        _thumbnail: function(doc) {
+          if (doc && doc.uid) {
+            if (doc.contextParameters && doc.contextParameters.thumbnail.url) {
+              return doc.contextParameters.thumbnail.url;
+            } else {
+              var baseUrl = this.$.nxcon.url;
+              return baseUrl + '/api/v1/id/' + doc.uid + '/@rendition/thumbnail';
+            }
           }
-        } else {
-          return value;
+        },
+        /**
+         * Returns the label for the given directory entry.
+         */
+        formatDirectory: function(value) {
+          if (value && value['entity-type'] && value['entity-type'] === 'directoryEntry') {
+            if (value.properties && value.properties.label) {
+              return value.properties.label;
+            } else {
+              var label = 'label_' + ((window.nuxeo.I18n.language) ? window.nuxeo.I18n.language.split('-')[0] : 'en');
+              return value.properties[label] || value.properties['label_en']
+            }
+          } else {
+            return value;
+          }
+        },
+        _isCall: function (value) {
+          return value == 'Call';
+        },
+
+        _isMeeting: function (value) {
+          return value == 'Meeting';
+        },
+        _isChat: function (value) {
+          return value == 'Chat';
+        },
+        _isEmail: function (value) {
+          return value == 'Email';
+        },
+        _isNote: function (value) {
+          return value == 'Note';
+        },
+        _isSms: function (value) {
+          return value == 'SMS';
+        },
+        _hasProfileImg: function(value){
+          if(value != null){
+            return true;
+          }
+          return false;
         }
-      },
-      _hasProfileImg: function(value){
-        if(value != null){
-          return true;
-        }
-        return false;
-      }
-    });
-  })();
+      });
+    })();
   </script>
 </dom-module>
