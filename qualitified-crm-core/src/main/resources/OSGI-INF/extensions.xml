@@ -415,7 +415,7 @@
     <doctype name="Branding" extends="Folder">
       <schema name="branding"/>
       <schema name="picture"/>
-      <facet name="Folderish"/>
+      <!--facet name="Folderish"/-->
       <facet name="NXTag"/>
     </doctype>
     <doctype name="Scripts" extends="Folder">

@@ -1,6 +1,4 @@
 package org.qualitified.crm.operation;
-
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.json.JSONException;
@@ -13,7 +11,6 @@ import org.nuxeo.ecm.core.api.Blob;
 import org.nuxeo.ecm.core.api.CoreSession;
 import org.nuxeo.ecm.core.api.DocumentModel;
 import org.nuxeo.runtime.api.Framework;
-
 import java.io.*;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
@@ -34,42 +31,32 @@ public class CopyBlob {
 
     @Context
     protected CoreSession session;
-    @Context
-    protected CoreSession documentManager;
 
     @OperationMethod()
     public void run(DocumentModel image) throws IOException, OperationException, JSONException {
 
+        if(folderPath == null){
+            logger.error("nuxeo.war.dir is not defined. Unable to copy Branding images to nuxeo.war.");
+            return;
+        }
+
         Blob backgroundImage = (Blob) image.getPropertyValue("branding:backgroundImage");
+        copyImage(backgroundImage, folderPath + "/img/background.png");
+
         Blob loginLogo = (Blob) image.getPropertyValue("branding:loginLogo");
+        copyImage(loginLogo, folderPath + "/img/logo.png");
+
         Blob dashboardLogo = (Blob) image.getPropertyValue("branding:dashboardLogo");
+        copyImage(dashboardLogo, folderPath + "/img/logo.png");
+
         Blob faviconPng = (Blob) image.getPropertyValue("branding:faviconPng");
+        copyImage(faviconPng, folderPath + "/img/favicon-32x32.png");
+
         Blob faviconIco = (Blob) image.getPropertyValue("branding:faviconIco");
+        copyImage(faviconIco, folderPath + "/img/favicon.ico");
 
-        backgroundImage.setFilename("background.png");
-        loginLogo.setFilename("logo.png");
-        dashboardLogo.setFilename("logo.png");
-        faviconPng.setFilename("favicon-32x32.png");
-        faviconIco.setFilename("favicon.ico");
-
-
-        File dest = new File(folderPath + "/img/" + backgroundImage.getFilename());
-        File logoDest = new File(folderPath + "/img/" + loginLogo.getFilename());
-        File dashboardDest = new File(folderPath + "/ui/themes/default/" + dashboardLogo.getFilename());
-        File faviconPngDest = new File(folderPath + "/ui/images/touch/" + faviconPng.getFilename());
-        File faviconIcoDest = new File(folderPath + "/icons/" + faviconIco.getFilename());
-        backgroundImage.transferTo(dest);
-        loginLogo.transferTo(logoDest);
-        dashboardLogo.transferTo(dashboardDest);
-        faviconPng.transferTo(faviconPngDest);
-        faviconIco.transferTo(faviconIcoDest);
         String loginFilePath=folderPath+"/login.jsp";
         String filePath = folderPath+"/ui/themes/default/theme.html";
-        StringBuilder stringBuilder = new StringBuilder();
-        FileReader fr = new FileReader(filePath);  //Creation of File Reader object
-        //BufferedReader br = new BufferedReader(fr); //Creation of BufferedReader object
-        FileReader login = new FileReader(loginFilePath);
-        //BufferedReader bufferedReader = new BufferedReader(login);
         List<Map<String, String>> complexValuesList = new ArrayList<Map<String, String>>();
         List<Map<String,String>> styles  = (List<Map<String,String>>)image.getPropertyValue("branding:styles");
         Path path1=Paths.get(loginFilePath);
@@ -87,11 +74,14 @@ public class CopyBlob {
 
         }
     }
+
+    private static void copyImage(Blob image, String path) throws IOException {
+        if(image != null){
+            File dest = new File(path);
+            image.transferTo(dest);
+        }
+    }
 }
-
-
-
-
 
 
 
