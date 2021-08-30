@@ -36,27 +36,27 @@
 </div>
     <nuxeo-input role="widget" value="{{document.properties.branding:loginBackgroundColor}}" label="Login Background Color" type="text"  name="loginBackgroundColor"></nuxeo-input>
 
-    <nuxeo-data-table role="widget" label="Styles" items="{{document.properties.branding:styles}}" orderable="true" editable="true" name="styles">
+      <nuxeo-data-table role="widget" label="Styles" items="{{document.properties.branding:styles}}" orderable="true" editable="true" name="styles">
 
-<nuxeo-data-table-column name="Name">
-<template>
-[[item.name]]
-</template>
-</nuxeo-data-table-column>
+          <nuxeo-data-table-column name="Name">
+              <template>
+                  <nuxeo-directory-suggestion role="widget" value="[[item.name]]" label="Name" readonly="true" directory-name="theme" name="name"></nuxeo-directory-suggestion>
+              </template>
+          </nuxeo-data-table-column>
 
-<nuxeo-data-table-column name="Value">
-<template>
-[[item.value]]
-</template>
-</nuxeo-data-table-column>
+          <nuxeo-data-table-column name="Value">
+              <template>
+                  [[item.value]]
+              </template>
+          </nuxeo-data-table-column>
 
-<nuxeo-data-table-form>
-  <template>
-    <nuxeo-input value="{{item.name}}" label="Name" type="text" name="name"></nuxeo-input>
-    <nuxeo-input value="{{item.value}}" label="Value" type="text" name="value"></nuxeo-input>
-  </template>
-</nuxeo-data-table-form>
-</nuxeo-data-table>
+          <nuxeo-data-table-form>
+              <template>
+                  <nuxeo-directory-suggestion value="{{item.name}}" label="Name" min-chars="0" directory-name="theme" name="name"></nuxeo-directory-suggestion>
+                  <nuxeo-input value="{{item.value}}" label="Value" type="text" name="value"></nuxeo-input>
+              </template>
+          </nuxeo-data-table-form>
+      </nuxeo-data-table>
 
   </template>
 

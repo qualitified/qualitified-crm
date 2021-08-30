@@ -42,7 +42,7 @@
 
       <nuxeo-data-table-column name="Name">
         <template>
-          [[item.name]]
+          <nuxeo-directory-suggestion role="widget" value="[[item.name]]" label="Name" readonly="true" directory-name="theme" name="name"></nuxeo-directory-suggestion>
         </template>
       </nuxeo-data-table-column>
 
@@ -54,7 +54,7 @@
 
       <nuxeo-data-table-form>
         <template>
-          <nuxeo-input value="{{item.name}}" label="Name" type="text" name="name"></nuxeo-input>
+          <nuxeo-directory-suggestion value="{{item.name}}" label="Name" min-chars="0" directory-name="theme" name="name"></nuxeo-directory-suggestion>
           <nuxeo-input value="{{item.value}}" label="Value" type="text" name="value"></nuxeo-input>
         </template>
       </nuxeo-data-table-form>

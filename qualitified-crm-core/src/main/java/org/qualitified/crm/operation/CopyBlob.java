@@ -82,7 +82,7 @@ public class CopyBlob {
         Files.write(path1, loginContent.getBytes(charset));
         content = new String(Files.readAllBytes(path), charset);
         for (int i = 0; i < styles.size(); i++) {
-            content = content.replaceAll(styles.get(i).get("name")+": .*;" , styles.get(i).get("name")+": "+styles.get(i).get("value")+";");
+            content = content.replaceAll(styles.get(i).get("name").split("/")[1] +": .*;" , styles.get(i).get("name").split("/")[1]+": "+styles.get(i).get("value")+";");
             Files.write(path, content.getBytes(charset));
 
         }
