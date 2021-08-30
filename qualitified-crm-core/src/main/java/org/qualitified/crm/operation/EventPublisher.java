@@ -108,10 +108,10 @@ public class EventPublisher {
 
             GregorianCalendar interStartDateTime = (GregorianCalendar) interactionDoc.getPropertyValue("interaction:date");
             GregorianCalendar interEndDateTime = (GregorianCalendar) interStartDateTime.clone();
-            String eventDuration = (String) interactionDoc.getPropertyValue("custom:stringField3");
+            String eventDuration = (String) interactionDoc.getPropertyValue("interaction:eventDuration");
 
             interEndDateTime.add(GregorianCalendar.MINUTE, Integer.parseInt(eventDuration));
-            String interEventId = (String) interactionDoc.getPropertyValue("custom:stringField1");
+            String interEventId = (String) interactionDoc.getPropertyValue("interaction:eventId");
 
             DateTime startDateTime = new DateTime(interStartDateTime.getTime());
             EventDateTime start = new EventDateTime()
@@ -140,8 +140,8 @@ public class EventPublisher {
                 event.setReminders(reminders);
 
                 event = service.events().insert(calendarId, event).setSendUpdates("all").execute();
-                interactionDoc.setPropertyValue("custom:stringField1", event.getId());
-                interactionDoc.setPropertyValue("custom:stringField2", event.getEtag());
+                interactionDoc.setPropertyValue("interaction:eventId", event.getId());
+                interactionDoc.setPropertyValue("interaction:eventEtag", event.getEtag());
                 // disable publish event listener
                 //interactionDoc.putContextData("custom:booleanField2", Boolean.TRUE);
                 logger.warn("Event created: " + event.getHtmlLink());
@@ -157,8 +157,8 @@ public class EventPublisher {
                         .setEnd(end);
                 // Update the event
                 Event updatedEvent = service.events().update(calendarId, event.getId(), event).execute();
-                interactionDoc.setPropertyValue("custom:stringField1", updatedEvent.getId());
-                interactionDoc.setPropertyValue("custom:stringField2", updatedEvent.getEtag());
+                interactionDoc.setPropertyValue("interaction:eventId", updatedEvent.getId());
+                interactionDoc.setPropertyValue("interaction:eventEtag", updatedEvent.getEtag());
                 // disable publish event listener
                 //interactionDoc.putContextData("custom:booleanField2", Boolean.TRUE);
                 logger.warn("Event updated: " + event.getHtmlLink());

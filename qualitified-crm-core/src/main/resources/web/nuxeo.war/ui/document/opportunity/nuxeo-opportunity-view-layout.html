@@ -222,7 +222,18 @@
                                 <template is="dom-if" if="[[_isSms(item.properties.interaction:activity)]]">
                                     <iron-icon icon="icons:perm-phone-msg"></iron-icon>
                                 </template>
-                                - [[_formatDate(item.properties.interaction:date)]] - [[item.title]]</a>
+                                - [[_formatDate(item.properties.interaction:date)]] - [[item.title]]
+                            </a>
+                            <template is="dom-if" if="[[_isSendingEmail(item.properties.interaction:activity,item.properties.custom:booleanField2)]]">
+                                <template is="dom-if" if="[[_isSent(item.properties.interaction:isSent)]]">
+                                    <iron-icon id="notSent-[[item.uid]]" style="float: right;color: #2bd670;" icon="icons:check-circle"></iron-icon>
+                                    <paper-tooltip for="notSent-[[item.uid]]">Mail is sent</paper-tooltip>
+                                </template>
+                                <template is="dom-if" if="[[!_isSent(item.properties.interaction:isSent)]]">
+                                    <iron-icon id="notSent-[[item.uid]]" style="float: right;color: #e83e34;" icon="icons:info-outline"></iron-icon>
+                                    <paper-tooltip for="notSent-[[item.uid]]">Mail is not sent</paper-tooltip>
+                                </template>
+                            </template>
                         </div>
                         </br>
                         <qualitified-document-suggestion value="[[item.properties.interaction:contact]]"
@@ -434,6 +445,12 @@
                    var oppContacts= [];
                    oppContacts.push(this.document.properties["opportunity:mainContact"]);
                    return oppContacts;
+                },
+                _isSendingEmail: function(activity,toSent) {
+                   return activity === 'Email' && toSent === true;
+                },
+                _isSent: function(isSent) {
+                    return isSent && isSent === 1;
                 },
                 _openDialogCall: function () {
                     this.$.createPopup._createActivity('Call',this._getOppContact());
