@@ -211,14 +211,16 @@
       </nuxeo-card>
 
     </section>
-    <div role="widget">
+
+    <div role="widget" hidden$="[[!document.properties.dc:description]]">
       <qualitified-inline-edit document="[[document]]"
                                property="dc:description"
                                value="[[document.properties.dc:description]]"
-                               label="[[i18n('label.metadata.description')]]"
-      >
+                               label="[[i18n('label.metadata.description')]]">
       </qualitified-inline-edit>
     </div>
+    <qualitified-custom-fields document="{{document}}" column="showUnderNote" mode="view"></qualitified-custom-fields>
+
   </template>
 
   <script>
