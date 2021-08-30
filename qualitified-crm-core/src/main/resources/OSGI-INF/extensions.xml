@@ -2244,7 +2244,22 @@
       <cacheEntryName>vocab-Type-cache</cacheEntryName>
       <cacheEntryWithoutReferencesName>vocab-Type-cache-without-references</cacheEntryWithoutReferencesName>
     </directory>
+    <directory name="theme" extends="template-xvocabulary">
+      <autoincrementIdField>false</autoincrementIdField>
+      <createTablePolicy>on_missing_columns</createTablePolicy>
+      <dataLoadingPolicy>skip_duplicate</dataLoadingPolicy>
+      <table>studio_vocabulary_theme</table>
+      <dataFile>data/vocabularies/theme.csv</dataFile>
+      <parentDirectory>theme</parentDirectory>
+      <cacheEntryName>vocab-theme-cache</cacheEntryName>
+      <cacheEntryWithoutReferencesName>vocab-theme-cache-without-references</cacheEntryWithoutReferencesName>
+      <deleteConstraint class="org.nuxeo.ecm.directory.HierarchicalDirectoryDeleteConstraint">
+        <property name="targetDirectory">theme</property>
+        <property name="targetDirectoryField">parent</property>
+      </deleteConstraint>
+    </directory>
   </extension>
+
   <extension target="org.nuxeo.ecm.directory.sql.SQLDirectoryFactory" point="directories">
     <!--directory name="userDirectory">
       <passwordField>password</passwordField>
