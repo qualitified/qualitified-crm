@@ -2246,7 +2246,7 @@
     </directory>
     <directory name="theme" extends="template-xvocabulary">
       <autoincrementIdField>false</autoincrementIdField>
-      <createTablePolicy>on_missing_columns</createTablePolicy>
+      <createTablePolicy>always</createTablePolicy>
       <dataLoadingPolicy>skip_duplicate</dataLoadingPolicy>
       <table>studio_vocabulary_theme</table>
       <dataFile>data/vocabularies/theme.csv</dataFile>
