@@ -62,12 +62,6 @@
                     return ['_valueChanged(value, _editor)', '_readOnlyChanged(readOnly, _editor)'];
                 }
 
-                /*static get importMeta() {
-                    return import.meta;
-                }*/
-
-
-
                 ready() {
                     super.ready();
                     // init editor
@@ -102,10 +96,7 @@
                 _valueChanged() {
                     if (this._editor && !this._internalChange) {
                         const delta = this._editor.clipboard.convert('<div class=\'ql-editor\' style="white-space: normal;">'+this.value+'<p><br></p></div>');
-                        //const delta = this._editor.clipboard.convert({ html: this.value });
                         this._editor.setContents(delta);
-                        //this._editor.setContents(delta, Quill.sources.USER);
-                        //this._editor.setSelection(0, Quill.sources.SILENT);
                     }
                 }
 

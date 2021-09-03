@@ -215,7 +215,6 @@
 
             _resultFormatter: function (item) {
                 if (item.type && (item.type === 'USER_TYPE' || item.type === 'GROUP_TYPE')) {
-                    console.log(item);
 
                     return `<nuxeo-user-group-formatter entity='${this.escapeHTML(JSON.stringify(item))}'></nuxeo-user-group-formatter>`;
                 }

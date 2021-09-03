@@ -175,7 +175,6 @@
         this.$.calendar.addEventListener("view-render", function(e) {
           var caldView = this.parentNode.parentNode.host;
           var currentYear = this.getDate()._i[0];
-          //console.log(currentYear);
           if (caldView.year == null) {
             caldView.year = currentYear;
           } else {
