@@ -20,9 +20,13 @@ limitations under the License.
 @group Nuxeo UI
 @element nuxeo-scriptnote-metadata-layout
 -->
+<link rel="import" href="../../elements/operation-suggestion.html">
+
 <dom-module id="nuxeo-scriptnote-metadata-layout">
 
   <template>
+    <operation-suggestion role="widget" user="Administrator" pass="Administrator"></operation-suggestion>
+
     <div role="widget">
       <label>[[i18n('label.dublincore.title')]]</label>
       <div name="title">[[document.properties.dc:title]]</div>
@@ -41,6 +45,7 @@ limitations under the License.
       <label>Order</label>
       <div name="order">[[document.properties.scriptnote:order]]</div>
     </div>
+
   </template>
 
   <script>
