@@ -1,0 +1,100 @@
+<!--
+`nuxeo-branding-metadata-layout`
+@group Nuxeo UI
+@element nuxeo-branding-metadata-layout
+-->
+<dom-module id="nuxeo-branding-metadata-layout">
+  <template>
+    <style include="nuxeo-styles">
+  nuxeo-document-preview{
+  display: block;
+  margin-left: auto;
+  margin-right: 70%;
+  width: 30%;
+  }
+    </style>
+    <div role="widget">
+      <label>Title</label>
+      <div name="title">[[document.properties.dc:title]]</div>
+    </div>
+
+    <div role="widget">
+      <label>Description</label>
+      <div name="description">[[document.properties.dc:description]]</div>
+    </div>
+
+    <div role="widget">
+      <label>Background Image</label>
+      <nuxeo-document-preview  document="[[document]]" xpath="branding:backgroundImage" name="backgroundImage"></nuxeo-document-preview>
+      <nuxeo-document-blob document="[[document]]" xpath="branding:backgroundImage" ></nuxeo-document-blob>
+    </div>
+
+
+    <div role="widget">
+      <label>Dashboard Logo</label>
+      <nuxeo-document-preview  document="[[document]]" xpath="branding:dashboardLogo" name="dashboardLogo"></nuxeo-document-preview>
+      <nuxeo-document-blob document="[[document]]" xpath="branding:dashboardLogo" ></nuxeo-document-blob>
+
+    </div>
+
+    <div role="widget">
+      <label>Favicon Ico</label>
+      <nuxeo-document-preview    document="[[document]]" xpath="branding:faviconIco" name="faviconIco"></nuxeo-document-preview>
+      <nuxeo-document-blob document="[[document]]" xpath="branding:faviconIco" ></nuxeo-document-blob>
+
+    </div>
+
+    <div role="widget">
+      <label>Favicon Png</label>
+      <nuxeo-document-preview document="[[document]]" xpath="branding:faviconPng" name="faviconPng"></nuxeo-document-preview>
+      <nuxeo-document-blob document="[[document]]" xpath="branding:faviconPng" ></nuxeo-document-blob>
+
+    </div>
+
+    <div role="widget">
+      <label>Login Logo</label>
+      <nuxeo-document-preview   document="[[document]]" xpath="branding:loginLogo" name="loginLogo"></nuxeo-document-preview>
+      <nuxeo-document-blob document="[[document]]" xpath="branding:loginLogo" ></nuxeo-document-blob>
+    </div>
+
+    <nuxeo-data-table role="widget" label="Styles" items="{{document.properties.branding:styles}}" name="styles">
+
+      <nuxeo-data-table-column name="Name">
+        <template>
+          [[item.name]]
+        </template>
+      </nuxeo-data-table-column>
+
+      <nuxeo-data-table-column name="Value">
+        <template>
+          [[item.value]]
+        </template>
+      </nuxeo-data-table-column>
+
+      <nuxeo-data-table-form>
+        <template>
+          <nuxeo-input value="{{item.name}}" label="Name" type="text" name="name"></nuxeo-input>
+          <nuxeo-input value="{{item.value}}" label="Value" type="text" name="value"></nuxeo-input>
+        </template>
+      </nuxeo-data-table-form>
+    </nuxeo-data-table>
+
+  </template>
+
+  <script>
+  Polymer({
+    is: 'nuxeo-branding-metadata-layout',
+    behaviors: [Nuxeo.LayoutBehavior],
+    properties: {
+
+      /**
+         * @doctype Branding
+         */
+      document: {
+        type: Object,
+      },
+
+    }
+  });
+  </script>
+</dom-module>

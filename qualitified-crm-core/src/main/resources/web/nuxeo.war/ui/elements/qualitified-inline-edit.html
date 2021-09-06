@@ -41,6 +41,9 @@
                 overflow: hidden;
                 text-overflow: ellipsis;
             }
+            div.multiline {
+                white-space: pre-line;
+            }
         </style>
         <nuxeo-operation id="setProperty" op="Document.SetProperty" input="[[document]]" params="[[params]]"></nuxeo-operation>
         <nuxeo-operation id="updateDoc" op="Document.Update" input="[[document]]" params="[[params]]"></nuxeo-operation>
@@ -65,7 +68,9 @@
                 </qualitified-amount>
             </template>
             <template is="dom-if" if="[[_isText(metadata)]]">
-                [[value]]
+                <div class="multiline">[[value]]</div>
+
+
             </template>
             <template is="dom-if" if="[[_isLink(metadata)]]">
                 <u><a href="[[value]]"style="color:blue;">[[value]]</a></u>

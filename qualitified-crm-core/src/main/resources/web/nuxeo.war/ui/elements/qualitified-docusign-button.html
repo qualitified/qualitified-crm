@@ -100,7 +100,6 @@
         this.$.operationToast.text = "Sending ...";
         this.$.operationToast.open();
         op.execute().then(function(result) {
-        console.log(result);
           if (result.value==='Document sent') {
               this.isValid = true;
               this.isHidden = false;

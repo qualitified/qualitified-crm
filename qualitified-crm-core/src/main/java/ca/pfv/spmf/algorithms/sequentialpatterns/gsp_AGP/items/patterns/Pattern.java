@@ -62,7 +62,6 @@ public class Pattern implements Comparable<Pattern> {
         this.elements = elements;
         this.appearingIn = new BitSet();
     }
-
     /**
      * Constructor that creates a pattern with the only element passed as a parameter
      * @param pair 
@@ -72,7 +71,6 @@ public class Pattern implements Comparable<Pattern> {
         this.elements.add(pair);
         this.appearingIn = new BitSet();
     }
-
     /**
      * Get the string representation of this itemset
      * @return the string representation
@@ -252,10 +250,7 @@ public class Pattern implements Comparable<Pattern> {
     public boolean equals(Object arg) {
         if (arg instanceof Pattern) {
             Pattern p = (Pattern) arg;
-            if (this.compareTo(p) == 0) {
-                return true;
-            }
-            return false;
+            return this.compareTo(p) == 0;
         }
         return false;
     }

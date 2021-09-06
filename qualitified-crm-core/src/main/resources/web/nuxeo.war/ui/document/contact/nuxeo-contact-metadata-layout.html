@@ -15,7 +15,20 @@
                 box-sizing: border-box;
                 margin-right: 8px;
             }
+            nuxeo-card {
+                min-width: 20em;
+                width: 30%;
+            }
 
+            .section  {
+                display: block;
+            }
+            .dashboard {
+                display: flex;
+                flex-direction: row;
+                flex-wrap: wrap;
+                justify-content: space-between;
+            }
         </style>
 
         <div role="widget" class="title">
@@ -27,108 +40,122 @@
                 [[document.properties.dc:title]]
             </h1>
         </div>
+        <section class="dashboard">
+            <nuxeo-card>
+                <div role="widget">
+                    <qualitified-inline-edit document="[[document]]"
+                                             property="person:Role"
+                                             label="[[i18n('label.metadata.role')]]"
+                                             metadata="directory"
+                                             directory="Role"
+                                             value="[[formatDirectory(document.properties.person:Role)]]"
+                    >
 
-        <div role="widget">
+                    </qualitified-inline-edit>
+                </div>
+
+                <div role="widget">
+                    <qualitified-inline-edit document="[[document]]"
+                                             property="person:email"
+                                             value="[[document.properties.person:email]]"
+                                             label="[[i18n('label.metadata.email')]]"
+                    >
+                    </qualitified-inline-edit>
+                </div>
+                <div role="widget">
+                    <qualitified-inline-edit document="[[document]]"
+                                             property="person:phoneNumber"
+                                             value="[[document.properties.person:phoneNumber]]"
+                                             label="[[i18n('label.metadata.phone')]]"
+                    >
+                    </qualitified-inline-edit>
+                </div>
+                <qualitified-custom-fields document="{{document}}" column="Column1" mode="view"></qualitified-custom-fields>
+
+            </nuxeo-card>
+            <nuxeo-card>
+
+                <div role="widget">
+                    <qualitified-inline-edit document="[[document]]"
+                                             property="address:address1"
+                                             value="[[document.properties.address:address1]]"
+                                             label="[[i18n('label.metadata.address')]] 1"
+                    >
+                    </qualitified-inline-edit>
+                    <qualitified-inline-edit document="[[document]]"
+                                             property="address:address2"
+                                             value="[[document.properties.address:address2]]"
+                                             label="[[i18n('label.metadata.address')]] 2"
+
+                    >
+                    </qualitified-inline-edit>
+                    <qualitified-inline-edit document="[[document]]"
+                                             property="address:address3"
+                                             value="[[document.properties.address:address3]]"
+                                             label="[[i18n('label.metadata.address')]] 3"
+                    >
+                    </qualitified-inline-edit>
+                    <qualitified-inline-edit document="[[document]]"
+                                             property="address:zipCode"
+                                             value="[[document.properties.address:zipCode]]"
+                                             label="[[i18n('label.metadata.zipCode')]]"
+                    >
+                    </qualitified-inline-edit>
+                    <qualitified-inline-edit document="[[document]]"
+                                             property="address:city"
+                                             value="[[document.properties.address:city]]"
+                                             label="[[i18n('label.metadata.city')]]"
+                    >
+                    </qualitified-inline-edit>
+                    <qualitified-inline-edit document="[[document]]"
+                                             property="address:country"
+                                             value="[[document.properties.address:country]]"
+                                             label="[[i18n('label.metadata.country')]]"
+                    >
+                    </qualitified-inline-edit>
+
+                </div>
+                <qualitified-custom-fields document="{{document}}" column="Column2" mode="view"></qualitified-custom-fields>
+
+            </nuxeo-card>
+            <nuxeo-card>
+                <div role="widget">
+                    <div role="widget">
+                        <qualitified-inline-edit document="[[document]]"
+                                                 value="[[item.properties.contact:responsible]]"
+                                                 property="contact:responsible"
+                                                 label="label.metadata.responsible"
+                                                 metadata="user"></qualitified-inline-edit>
+
+
+                    </div>
+
+                    <div role="widget" hidden$="[[!document.properties.person:language]]" >
+                        <qualitified-inline-edit document="[[document]]"
+                                                 property="person:language"
+                                                 label="[[i18n('label.metadata.language')]]"
+                                                 metadata="directory"
+                                                 directory="contactLanguage"
+                                                 value="[[formatDirectory(document.properties.person:language)]]"
+                        >
+
+                        </qualitified-inline-edit>
+
+                    </div>
+                    <qualitified-custom-fields document="{{document}}" column="Column3" mode="view"></qualitified-custom-fields>
+                </div>
+            </nuxeo-card>
+        </section>
+        <div role="widget" hidden$="[[!document.properties.dc:description]]">
             <qualitified-inline-edit document="[[document]]"
-                                     property="person:Role"
-                                     label="[[i18n('label.metadata.role')]]"
-                                     metadata="directory"
-                                     directory="Role"
-                                     value="[[formatDirectory(document.properties.person:Role)]]"
-            >
-
+                                     property="dc:description"
+                                     metadata="textarea"
+                                     value="[[document.properties.dc:description]]"
+                                     label="[[i18n('label.metadata.description')]]">
             </qualitified-inline-edit>
         </div>
+        <qualitified-custom-fields document="{{document}}" column="showUnderNote" mode="view"></qualitified-custom-fields>
 
-        <div role="widget">
-            <qualitified-inline-edit document="[[document]]"
-                                     property="person:email"
-                                     value="[[document.properties.person:email]]"
-                                     label="[[i18n('label.metadata.email')]]"
-            >
-            </qualitified-inline-edit>
-        </div>
-
-        <div role="widget">
-            <qualitified-inline-edit document="[[document]]"
-                                     property="person:phoneNumber"
-                                     value="[[document.properties.person:phoneNumber]]"
-                                     label="[[i18n('label.metadata.phone')]]"
-            >
-            </qualitified-inline-edit>
-        </div>
-        <div role="widget">
-            <qualitified-inline-edit document="[[document]]"
-                                     property="address:address1"
-                                     value="[[document.properties.address:address1]]"
-                                     label="[[i18n('label.metadata.address')]] 1"
-            >
-            </qualitified-inline-edit>
-            <qualitified-inline-edit document="[[document]]"
-                                     property="address:address2"
-                                     value="[[document.properties.address:address2]]"
-                                     label="[[i18n('label.metadata.address')]] 2"
-
-            >
-            </qualitified-inline-edit>
-            <qualitified-inline-edit document="[[document]]"
-                                     property="address:address3"
-                                     value="[[document.properties.address:address3]]"
-                                     label="[[i18n('label.metadata.address')]] 3"
-            >
-            </qualitified-inline-edit>
-            <qualitified-inline-edit document="[[document]]"
-                                     property="address:zipCode"
-                                     value="[[document.properties.address:zipCode]]"
-                                     label="[[i18n('label.metadata.zipCode')]]"
-            >
-            </qualitified-inline-edit>
-            <qualitified-inline-edit document="[[document]]"
-                                     property="address:city"
-                                     value="[[document.properties.address:city]]"
-                                     label="[[i18n('label.metadata.city')]]"
-            >
-            </qualitified-inline-edit>
-            <qualitified-inline-edit document="[[document]]"
-                                     property="address:country"
-                                     value="[[document.properties.address:country]]"
-                                     label="[[i18n('label.metadata.country')]]"
-            >
-            </qualitified-inline-edit>
-
-        </div>
-        <div role="widget">
-            <div role="widget">
-                <qualitified-inline-edit document="[[document]]"
-                                         value="[[item.properties.contact:responsible]]"
-                                         property="contact:responsible"
-                                         label="label.metadata.responsible"
-                                         metadata="user"></qualitified-inline-edit>
-
-
-            </div>
-
-            <div role="widget" hidden$="[[!document.properties.person:language]]" >
-                <qualitified-inline-edit document="[[document]]"
-                                         property="person:language"
-                                         label="[[i18n('label.metadata.language')]]"
-                                         metadata="directory"
-                                         directory="contactLanguage"
-                                         value="[[formatDirectory(document.properties.person:language)]]"
-                >
-
-                </qualitified-inline-edit>
-
-            </div>
-            <div role="widget">
-                <qualitified-inline-edit document="[[document]]"
-                                         property="dc:description"
-                                         value="[[document.properties.dc:description]]"
-                                         label="[[i18n('label.metadata.description')]]"
-                >
-                </qualitified-inline-edit>
-            </div>
-            <qualitified-custom-fields document="{{document}}" mode="view"></qualitified-custom-fields>
     </template>
 
     <script>

@@ -35,7 +35,9 @@
         <operation class="org.qualitified.crm.operation.EventPublisher"/>
         <operation class="org.qualitified.crm.operation.FetchEvent"/>
         <operation class="org.qualitified.crm.operation.EventSyncProcess"/>
+        <operation class="org.qualitified.crm.operation.CopyBlob"/>
         <operation class="org.qualitified.crm.operation.SendEmailFromInteraction"/>
+
 
     </extension>
  </component>

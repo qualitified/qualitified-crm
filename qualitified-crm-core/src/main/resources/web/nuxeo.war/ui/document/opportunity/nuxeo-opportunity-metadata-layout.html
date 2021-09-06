@@ -108,11 +108,12 @@
 
             </nuxeo-card>
         </section>
-        <qualitified-custom-fields document="{{document}}" mode="view"></qualitified-custom-fields>
+        <qualitified-custom-fields document="{{document}}" column="showUnderNote" mode="view"></qualitified-custom-fields>
 
         <div role="widget" hidden$="[[!document.properties.dc:description]]">
             <qualitified-inline-edit document="[[document]]"
                                      property="dc:description"
+                                     metadata="textarea"
                                      value="[[document.properties.dc:description]]"
                                      label="[[i18n('label.metadata.description')]]">
             </qualitified-inline-edit>

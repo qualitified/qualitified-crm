@@ -4830,7 +4830,7 @@
                     return false;
                 }
 
-                if (this._isMode("read") && readGroup !== null && readGroup !== "") {
+                if ( readGroup !== null && readGroup !== "") {
                     var readGroups = readGroup.split(",");
                     for (var i = 0; i < readGroups.length; i++) {
                         if (this._hasPermission(readGroups[i])) {

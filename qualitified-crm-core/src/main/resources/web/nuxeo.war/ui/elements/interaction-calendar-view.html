@@ -185,7 +185,6 @@
       },
       ready: function() {
         /* Click Event */
-        console.log(this.publishedEvents)
         this.$.calendar.addEventListener("event-click", function(e) {
           var caldView = this.parentNode.parentNode.host;
           caldView.eventTitle = e.detail.calEvent.title;
@@ -207,7 +206,6 @@
         this.$.calendar.addEventListener("view-render", function(e) {
           var caldView = this.parentNode.parentNode.host;
           var currentYear = this.getDate()._i[0];
-          //console.log(currentYear);
           if (caldView.year == null) {
             caldView.year = currentYear;
           } else {

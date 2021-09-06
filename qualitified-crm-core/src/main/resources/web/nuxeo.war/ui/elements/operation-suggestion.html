@@ -1,0 +1,164 @@
+
+<dom-module id="operation-suggestion" assetpath="nuxeo-document-actions/">
+
+  <template>
+    <style is="custom-style">
+            .iconsAction {
+                display: inline-flex;
+                float:right;
+            }
+            .labelAction {
+                display: inline-flex;
+            }
+            .json-pre {
+                color:green;
+                font-size: 12px;
+                font-weight: bold;
+                white-space: pre-wrap;
+            }
+            paper-icon-button {
+                padding: 0px;
+                margin: -2px 6px;
+                flex: 0 1 auto;
+                width: 24px;
+                height: 24px;
+                color: #868585a8;
+            }
+       </style>
+
+    <!-- <iron-ajax url="elements/operation.json" handle-as="json" last-response="{{operationData}}" auto>
+    </iron-ajax> -->
+    <iron-ajax
+            id="xhr"
+            method="GET"
+            url="https://ccm-uat.qualitified.com/nuxeo/site/automation/"
+            handle-as="json"
+            with-credentials="true"
+            headers="[[headers]]"
+            last-response="{{response}}">
+    </iron-ajax>
+
+
+    <label>Operation</label>
+    <div class="iconsAction">
+      <paper-icon-button id="insertButton" icon="icons:settings-ethernet" hidden$="[[hidden]]" on-tap="_insertIntoEditor">
+      </paper-icon-button>
+      <paper-tooltip for="insertButton" position="left">Insert into script</paper-tooltip>
+    </div>
+
+    <nuxeo-selectivity data="[[response.operations]]" on-value-changed="[[_getItem(selectedItem)]]" placeholder="Select a value." selected-item="{{selectedItem}}" min-chars="[[minChars]]" result-formatter="[[resultFormatter]]" selection-formatter="[[selectionFormatter]]" placeholder="[[placeholder]]" value="{{value}}">
+    </nuxeo-selectivity>
+
+    <template is="dom-if" if="[[canInsert]]">
+      <h style="color:red;">Please select the edit mode to insert.</h><br/>
+    </template>
+    <template is="dom-if" if="[[!hidden]]">
+      <pre class="json-pre">[[OpDefinition]]</pre>
+    </template>
+  </template>
+  <script>
+    Polymer({
+      is: "operation-suggestion",
+      behaviors: [Nuxeo.I18nBehavior, Nuxeo.FiltersBehavior],
+      properties: {
+            operationData: {
+             type: Array,
+             observer:'_jsonDataReady'
+            },
+
+            OpDefinition: {
+             type: String
+            },
+            textToInsert: {
+             type: String
+            },
+            hidden: {
+             type: Boolean,
+             value: true
+            },
+            canInsert: {
+             type: Boolean,
+             value: false
+            },
+            /**
+             * Formatter for suggested entries.
+             */
+             resultFormatter: {
+              type: Function,
+              value() {
+                return this._resultFormatter.bind(this);
+              },
+            },
+            selectionFormatter: {
+              type: Function,
+              value() {
+                return this._selectionFormatter.bind(this);
+              },
+            },
+            headers: {
+                type: Object,
+                value: function() { return {}; }
+            },
+            user: String,
+            pass: String
+       },
+       observers: ['_setBasicAuth(user, pass)'],
+
+       _jsonDataReady:function(){
+           console.log(this.operationData);
+       },
+       _resultFormatter:function(item) {
+          return item.label +' - (id: '+ item.id +')';
+        },
+        _selectionFormatter:function(item) {
+            return item.label +' - (id: '+ item.id +')';
+        },
+
+        _insertIntoEditor:function(){
+            var scriptEditor = document.querySelector("body > nuxeo-app").shadowRoot.querySelector("#browser").shadowRoot.querySelector("#nxContent > iron-pages > nuxeo-document-page").shadowRoot.querySelector("div > div.main > nuxeo-document-view").shadowRoot
+           .querySelector("nuxeo-document-layout").shadowRoot
+           .querySelector("#layout").shadowRoot
+           .querySelector("#container > nuxeo-scriptnote-view-layout").shadowRoot
+           .querySelector("qualitified-script-editor");
+
+           if (scriptEditor._viewMode !== true) {
+            this.canInsert = false;
+            scriptEditor.shadowRoot.querySelector("#fileEditor").editor.insert(this.textToInsert);
+           } else {
+            this.canInsert = true;
+           }
+        },
+        _makeHeaders:function(user, pass) {
+            return "Basic " + window.btoa(user + ":" + pass);
+        },
+        _setBasicAuth:function(user, pass){
+            // might be needed
+            this.headers['X-Requested-With'] = "XMLHttpRequest";
+            // this sets your Auth header
+            this.headers['Authorization'] = this._makeHeaders(user, pass);
+            this.$.xhr.generateRequest();
+        },
+        _getItem:function(selectedItem) {
+            this.canInsert = false;
+           if (selectedItem) {
+            this.OpDefinition = JSON.stringify(selectedItem,undefined,4);
+            this.hidden = false;
+            var idText = selectedItem.id;
+            var params = selectedItem.params;
+            var paramsText = '';
+            if (params && params.length > 0) {
+                params.forEach(param => {
+                    paramsText += '"'+ param.name+'": null,';
+                });
+            }
+            this.textToInsert = idText+ '(input,{'+paramsText.slice(0, -1)+'});';
+           } else {
+            this.OpDefinition = null;
+            this.hidden = true;
+           }
+
+        },
+
+    });
+  </script>
+</dom-module>
