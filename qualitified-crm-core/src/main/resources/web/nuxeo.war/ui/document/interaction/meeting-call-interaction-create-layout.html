@@ -42,7 +42,7 @@
                                     min-chars="0">
         </nuxeo-directory-suggestion>
 
-        <nuxeo-user-suggestion role="widget"
+        <qualitified-user-suggestion role="widget"
                                id="IntResponsible"
                                value="{{document.properties.interaction:responsible}}"
                                on-value-changed="_isCurrentUser"
@@ -50,7 +50,7 @@
                                search-type="USER_TYPE"
                                min-chars="0"
                                multiple="true">
-        </nuxeo-user-suggestion>
+        </qualitified-user-suggestion>
 
         <qualitified-document-suggestion id="IntContact"
                                          role="widget"
