@@ -83,7 +83,7 @@
         <nuxeo-connection id="nx" user="{{currentUser}}">
 
         </nuxeo-connection>
-        <nuxeo-document doc-path="/Sales/" enrichers="permissions, subtypes" id="defaultDoc" response="{{parent}}">
+        <nuxeo-document doc-path="[[parentPath]]" enrichers="permissions, subtypes" id="defaultDoc" response="{{parent}}">
         </nuxeo-document>
 
         <paper-dialog id="createDocDialog" modal="" no-auto-focus="" opened="{{opened}}">
@@ -91,7 +91,7 @@
                 <iron-pages attr-for-selected="name" selected="[[selectedTab]]" selected-attribute="visible">
                     <nuxeo-slot model="[[importContext]]" slot="CREATE_POPUP_PAGES"></nuxeo-slot>
                     <qualitified-document-create-layout created-document="{{creartedDoc}}" id="simpleCreation" name="create"
-                                                        parent="[[parent]]" target-path="/Sales/"></qualitified-document-create-layout>
+                                                        parent="[[parent]]" target-path="[[parentPath]]"></qualitified-document-create-layout>
 
                 </iron-pages>
             </div>
@@ -188,7 +188,7 @@
                     "facets": ["Folderish", "NXTag", "Picture"],
                     "id": this.type.toLowerCase()
                 };
-                this.parentPath = this.parentNode.parentNode.host.__data.document.path;
+                this.parentPath = this.parentNode.parentNode.host.__data.document.path.replace(this.parentNode.parentNode.host.__data.document.title.split(' ').join('_'),'');
 
                 this.selectedTab = "create";
                 this._showTabs = false;
