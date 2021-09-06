@@ -1,6 +1,8 @@
 <link rel="import" href="../../shared-css.html">
 <link rel="import" href="../../elements/qualitified-document-attachments.html">
 <link rel="import" href="../../qualitified-icons.html">
+<link rel="import" href="../../elements/nuxeo-document-create-popup-modified.html">
+<link rel="import" href="../../elements/qualitified-create-interaction-contact.html">
 <dom-module id="nuxeo-contact-view-layout">
   <template>
     <style include="nuxeo-styles shared-css">
@@ -51,7 +53,14 @@
       .capitalize {
         text-transform: capitalize;
       }
+      .activity-bar{
+        margin-bottom: 10px;
+      }
 
+      .border-bottom {
+        border-top: 1px solid var(--nuxeo-border);
+        padding: 8px 0;
+      }
 
     </style>
     <nuxeo-connection id="nxcon"></nuxeo-connection>
@@ -144,8 +153,40 @@
       <h3>
         [[i18n('label.activities')]]
       </h3>
-
-
+      <qualitified-create-interaction-contact id="createPopup" type="Interaction">
+      </qualitified-create-interaction-contact>
+      <div class="activity-bar">
+        <paper-button style="border-radius: 25px;" noink="" id="new"
+                      className="primary horizontal layout center" on-tap="_openDialogCall" elevation="0">
+          <iron-icon icon="qualitified:call"></iron-icon>
+          [[i18n('label.call')]]
+        </paper-button>
+        <paper-button style="border-radius: 25px;" noink="" id="new"
+                      className="primary horizontal layout center" on-tap="_openDialogChat" elevation="0">
+          <iron-icon icon="qualitified:chat"></iron-icon>
+          [[i18n('label.chat')]]
+        </paper-button>
+        <paper-button style="border-radius: 25px;" noink="" id="new"
+                      className="primary horizontal layout center" on-tap="_openDialogEmailing" elevation="0">
+          <iron-icon icon="qualitified:emailing"></iron-icon>
+          [[i18n('label.emailing')]]
+        </paper-button>
+        <paper-button style="border-radius: 25px;" noink="" id="new"
+                      className="primary horizontal layout center" on-tap="_openDialogMeeting" elevation="0">
+          <iron-icon icon="qualitified:meeting"></iron-icon>
+          [[i18n('label.meeting')]]
+        </paper-button>
+        <paper-button style="border-radius: 25px;" noink="" id="new"
+                      className="primary horizontal layout center" on-tap="_openDialogNote" elevation="0">
+          <iron-icon icon="qualitified:note"></iron-icon>
+          [[i18n('label.note')]]
+        </paper-button>
+        <paper-button style="border-radius: 25px;" noink="" id="new"
+                      className="primary horizontal layout center" on-tap="_openDialogSMS" elevation="0">
+          <iron-icon icon="qualitified:sms"></iron-icon>
+          [[i18n('label.sms')]]
+        </paper-button>
+      </div>
 
       <!-- /Create a new Link -->
 
@@ -604,6 +645,40 @@
             return true;
           }
           return false;
+        },
+        _getOppContact: function(){
+          var oppContacts= [];
+          oppContacts.push(this.document.uid);
+          return oppContacts;
+        },
+        _isSendingEmail: function(activity,toSent) {
+          return activity === 'Email' && toSent === true;
+        },
+        _isSent: function(isSent) {
+          return isSent && isSent === 1;
+        },
+        _openDialogCall: function () {
+          this.$.createPopup._createActivity('Call',this._getOppContact());
+        },
+        _openDialogChat: function () {
+          this.$.createPopup._createActivity('Chat',this._getOppContact());
+
+        },
+        _openDialogEmailing: function () {
+          this.$.createPopup._createActivity('Email',this._getOppContact());
+
+        },
+        _openDialogMeeting: function () {
+          this.$.createPopup._createActivity('Meeting',this._getOppContact());
+
+        },
+        _openDialogNote: function () {
+          this.$.createPopup._createActivity('Note',this._getOppContact());
+
+        },
+        _openDialogSMS: function () {
+          this.$.createPopup._createActivity('SMS',this._getOppContact());
+
         }
       });
     })();

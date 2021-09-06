@@ -18,8 +18,8 @@
                      role="widget"></nuxeo-input>
         <nuxeo-input value="{{document.properties.person:phoneNumber}}" label="[[i18n('label.metadata.phone')]]"
                      role="widget"></nuxeo-input>
-        <nuxeo-input value="{{document.properties.dc:description}}" label="[[i18n('label.metadata.description')]]"
-                     role="widget"></nuxeo-input>
+        <nuxeo-textarea role="widget" value="{{document.properties.dc:description}}"
+                        label="[[i18n('label.metadata.description')]]">
         <nuxeo-input value="{{document.properties.address:address1}}" label="[[i18n('label.metadata.address')]]"
                      type="text"
                      role="widget"></nuxeo-input>

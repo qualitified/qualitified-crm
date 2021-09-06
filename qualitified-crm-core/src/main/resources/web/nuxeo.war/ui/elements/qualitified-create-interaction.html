@@ -178,7 +178,6 @@
             self.parentNode.parentNode.getElementById('interactionProvider').fetch();
           }, 1000);
           this.$.createDocDialog.toggle();
-          //this._showTabs = true;
         }
       },
 
@@ -203,8 +202,6 @@
               });
             } else {
               this.$$("#simpleCreation").init(docTypeObj);
-              // this.$$('#bulkCreation').init();
-
               this.$.createDocDialog.toggle();
               let self = this;
               setTimeout(function () {
