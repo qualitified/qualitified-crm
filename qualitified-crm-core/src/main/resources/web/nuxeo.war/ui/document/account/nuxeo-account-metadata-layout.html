@@ -190,12 +190,16 @@
           <qualitified-inline-edit document="[[document]]"
                                    value="document.properties.account:mainContact"
                                    property="account:mainContact"
+                                   parent-to-select="Account"
+                                   addable
+                                   clickable
                                    label="[[i18n('label.metadata.mainContact')]]"
                                    params='{ "namedParameters": "system_primaryType=Contact"}'
                                    metadata="document"></qualitified-inline-edit>
 
 
         </div>
+
         <div role="widget">
           <qualitified-inline-edit document="[[document]]"
                                    value="[[item.properties.account:responsible]]"

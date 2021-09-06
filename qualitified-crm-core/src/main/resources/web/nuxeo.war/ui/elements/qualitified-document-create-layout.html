@@ -278,14 +278,16 @@
         this.$.docRequest.post().then(function(response) {
           this.$.creationStats.storeType(this.selectedDocType.id);
           this._clear();
-          //this.navigateTo('browse', response.path);
+               //window.location.reload(false);
+
+         // this.navigateTo('browse', response.path);
          // window.open("#!/browse"+response.path);
           this.createdDocument=response;
           this.document=undefined;
           this._notify(response);
           this.set('creating', false);
         }.bind(this)).catch(function(err) {
-          this.set('creating', false);
+          this.set('creating', true);
           this.fire('notify', {message: this.i18n('documentCreationForm.createError')});
           console.error(err);
         }.bind(this));

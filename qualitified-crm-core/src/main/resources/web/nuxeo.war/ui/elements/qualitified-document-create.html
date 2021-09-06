@@ -239,15 +239,23 @@
           op.params = {
             type: this.parentToSelect
           };
-          this.parentPath = await op.execute().then(function(response){
-            if (response && response.status && response.status == 204) {
-              return "/"
+          console.log(this.document);
+          if (this.document.type === 'Account'){
+            if (this.document.uid === null) {
+              this.parentPath = '/Sales';
             } else {
-              return response.path;
+              this.parentPath = this.document.path;
             }
-          }.bind(this));
+          } else {
+            this.parentPath = await op.execute().then(function(response){
+              if (response && response.status && response.status == 204) {
+                return "/"
+              } else {
+                return response.path;
+              }
+            }.bind(this));
+          }
       },
-
       toggleDialogImport: function (files) {
         this.selectedTab = "import";
         this._fetchParent().then(
