@@ -39,9 +39,9 @@
                                   label="[[i18n('label.metadata.status')]]" required="true" directory-name="IntStatus" min-chars="0">
       </nuxeo-directory-suggestion>
 
-      <nuxeo-user-suggestion role="widget" id="IntResponsible" value="{{document.properties.interaction:responsible}}"
+      <qualitified-user-suggestion role="widget" id="IntResponsible" value="{{document.properties.interaction:responsible}}"
                              label="[[i18n('label.metadata.responsible')]]" search-type="USER_TYPE" min-chars="0" multiple="true">
-      </nuxeo-user-suggestion>
+      </qualitified-user-suggestion>
 
       <qualitified-document-suggestion id="IntContact" role="widget" value="{{document.properties.interaction:contact}}"
                                        multiple="true" label="[[i18n('label.metadata.contact')]]" page-provider="documents" min-chars="0"

@@ -69,14 +69,14 @@
                                 min-chars="0">
     </nuxeo-directory-suggestion>
 
-    <nuxeo-user-suggestion value="{{document.properties.interaction:responsible}}"
+    <qualitified-user-suggestion value="{{document.properties.interaction:responsible}}"
                            on-value-changed="_isCurrentUser"
                            label="[[i18n('label.metadata.responsible')]]"
                            search-type="USER_TYPE"
                            role="widget"
                            min-chars="0"
                            multiple="true">
-    </nuxeo-user-suggestion>
+    </qualitified-user-suggestion>
 
     <qualitified-document-suggestion role="widget"
                                      value="{{document.properties.interaction:contact}}"

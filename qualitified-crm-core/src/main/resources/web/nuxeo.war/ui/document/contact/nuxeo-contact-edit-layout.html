@@ -57,8 +57,8 @@
                      type="text"
                      role="widget"></nuxeo-input>
 
-        <nuxeo-user-suggestion  value="{{document.properties.contact:responsible}}" label="[[i18n('label.metadata.responsible')]]" search-type="USER_TYPE" role="widget" min-chars="0">
-        </nuxeo-user-suggestion>
+        <qualitified-user-suggestion  value="{{document.properties.contact:responsible}}" label="[[i18n('label.metadata.responsible')]]" search-type="USER_TYPE" role="widget" min-chars="0">
+        </qualitified-user-suggestion>
         <qualitified-custom-fields document="{{document}}" mode="edit"></qualitified-custom-fields>
         <nuxeo-directory-suggestion role="widget" value="{{document.properties.person:language}}"
                                     label="[[i18n('label.metadata.language')]]" directory-name="contactLanguage"
