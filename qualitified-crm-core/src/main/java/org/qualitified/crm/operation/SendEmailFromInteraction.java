@@ -62,8 +62,8 @@ public class SendEmailFromInteraction {
             mailDetails.put("fromEmail", senderEmail);
             mailDetails.put("fromName", senderName);
             mailDetails.put("subject", interactionDoc.getTitle());
-            mailDetails.put("textPart", interactionDoc.getPropertyValue("note:note"));
-            mailDetails.put("htmlPart", "");
+            mailDetails.put("htmlPart", interactionDoc.getPropertyValue("note:note"));
+            mailDetails.put("textPart", "");
             for (String contact : contacts) {
                 DocumentModel contactDoc = documentManager.getDocument(new IdRef(contact));
                 contactsEmail.add((String) contactDoc.getPropertyValue("person:email"));
