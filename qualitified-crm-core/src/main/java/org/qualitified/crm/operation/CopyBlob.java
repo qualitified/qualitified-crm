@@ -47,13 +47,13 @@ public class CopyBlob {
         copyImage(loginLogo, folderPath + "/img/logo.png");
 
         Blob dashboardLogo = (Blob) image.getPropertyValue("branding:dashboardLogo");
-        copyImage(dashboardLogo, folderPath + "/img/logo.png");
+        copyImage(dashboardLogo, folderPath + "/ui/themes/default/logo.png");
 
         Blob faviconPng = (Blob) image.getPropertyValue("branding:faviconPng");
-        copyImage(faviconPng, folderPath + "/img/favicon-32x32.png");
+        copyImage(faviconPng, folderPath + "/icons/favicon.png");
 
         Blob faviconIco = (Blob) image.getPropertyValue("branding:faviconIco");
-        copyImage(faviconIco, folderPath + "/img/favicon.ico");
+        copyImage(faviconIco, folderPath + "/icons/favicon.ico");
 
         String loginFilePath=folderPath+"/login.jsp";
         String filePath = folderPath+"/ui/themes/default/theme.html";
