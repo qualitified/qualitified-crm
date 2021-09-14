@@ -590,6 +590,9 @@
           this.sollicitationProvider = this.$.sollicitationProvider;
           this.documentProvider = this.$.documentProvider;
         },
+        _formatDate: function (date) {
+          return moment(date).format('MMMM D, YYYY');
+        },
         _formatCurrency: function(val) {
           if(val == null){
             return "";
