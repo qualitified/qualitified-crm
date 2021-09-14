@@ -140,6 +140,11 @@
                         <nuxeo-user-tag user="[[item.properties.dc:lastContributor]]"></nuxeo-user-tag>
                     </template>
                 </nuxeo-data-table-column>
+                <nuxeo-data-table-column  name="[[i18n('label.metadata.responsible')]]" field="interaction:responsible" sort-by="interaction:responsible" flex="50">
+                    <template>
+                        <nuxeo-user-tag user="[[item.properties.interaction:responsible]]"></nuxeo-user-tag>
+                    </template>
+                </nuxeo-data-table-column>
             </nuxeo-data-table>
             <nuxeo-data-grid class="results" empty-label="[[i18n('searchResults.noResults')]]" selection-enabled=""
                              icon="nuxeo:view-thumbnails" name="grid">

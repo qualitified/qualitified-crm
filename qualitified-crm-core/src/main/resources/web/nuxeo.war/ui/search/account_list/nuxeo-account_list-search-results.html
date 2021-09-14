@@ -86,6 +86,11 @@
           </template>
         </nuxeo-data-table-column>
 
+        <nuxeo-data-table-column  name="[[i18n('label.metadata.responsible')]]" field="account:responsible" sort-by="account:responsible" flex="50">
+          <template>
+            <nuxeo-user-tag user="[[item.properties.account:responsible]]"></nuxeo-user-tag>
+          </template>
+        </nuxeo-data-table-column>
         <nuxeo-data-table-column name="[[i18n('label.metadata.turnover')]]" field="account:turnover" sort-by="account:turnover"
                                  flex="60">
           <template>

@@ -82,6 +82,11 @@
                         [[formatDirectory(item.properties.opportunity:zone)]]
                     </template>
                 </nuxeo-data-table-column>
+                <nuxeo-data-table-column  name="[[i18n('label.metadata.responsible')]]" field="opportunity:responsible" sort-by="opportunity:responsible" flex="50">
+                    <template>
+                        <nuxeo-user-tag user="[[item.properties.opportunity:responsible]]"></nuxeo-user-tag>
+                    </template>
+                </nuxeo-data-table-column>
 
 
             </nuxeo-data-table>
