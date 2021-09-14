@@ -184,18 +184,15 @@
                 </qualitified-user-suggestion>
             </template>
             <template is="dom-if" if="[[_isDocument(metadata)]]">
-                <qualitified-document-suggestion role="widget"
-                                                 id="inlineSugst"
-                                                 value="{{newValue}}"
-                                                 page-provider="documents"
-                                                 multiple="[[multiple]]"
-                                                 display-style="editInlineStyle"
-                                                 min-chars="0"
-
-                                                 parent-to-select="Sales"
-                                                 document="[[document]]"
-                                                 params="{{params}}">
-                </qualitified-document-suggestion>
+               <qualitified-document-suggestion role="widget"
+                                       id="inlineSugst"
+                                       value="{{newValue}}"
+                                       page-provider="documents"
+                                       multiple="[[multiple]]"
+                                       display-style="editInlineStyle"
+                                       min-chars="0"
+                                       params="{{params}}">
+              </qualitified-document-suggestion>
             </template>
             <div hidden$="[[!displayButtons]]" class="buttons">
                 <paper-button noink dialog-dismiss on-tap="_cancel">Cancel</paper-button>

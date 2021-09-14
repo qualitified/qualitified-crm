@@ -7,3 +7,5 @@ nuxeo.template.includes=common
 # org.nuxeo.ecm.instance.description=Nuxeo ECM customized with Qualitified CRM Package
 qualitified.config.path=/Admin
 session.timeout=480
+
+nuxeo.war.dir=/var/lib/nuxeo/server/nxserver/nuxeo.war

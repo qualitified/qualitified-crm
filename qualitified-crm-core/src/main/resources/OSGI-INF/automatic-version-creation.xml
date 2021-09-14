@@ -10,7 +10,7 @@
     <policy id="note-as-wiki" increment="MINOR" order="50">
         <filter-id>note-filter</filter-id>
     </policy>
-    <policy beforeUpdate="true" id="collaborative-save" increment="MINOR" order="100">
+    <policy beforeUpdate="true" id="collaborative-save" increment="NONE" order="100">
         <filter-id>last-contributor-different-filter</filter-id>
     </policy>
     <policy beforeUpdate="true" id="no-versioning-for-collection-before-update" increment="NONE" order="2">

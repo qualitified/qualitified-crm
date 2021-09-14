@@ -136,7 +136,7 @@
         <type>Solicitation</type>
       </subtypes>
     </doctype>
-    <doctype name="Folder" append="true">
+    <!--doctype name="Folder" append="true">
       <subtypes>
         <type>Account</type>
       </subtypes>
@@ -145,7 +145,7 @@
       <subtypes>
         <type>Account</type>
       </subtypes>
-    </doctype>
+    </doctype-->
     <doctype name="Root" append="true">
       <subtypes>
         <type>Account</type>
