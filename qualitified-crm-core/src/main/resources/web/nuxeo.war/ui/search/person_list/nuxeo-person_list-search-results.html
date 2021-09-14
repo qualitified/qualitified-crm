@@ -44,7 +44,11 @@
 
                     </template>
                 </nuxeo-data-table-column>
-
+                <nuxeo-data-table-column  name="[[i18n('label.metadata.responsible')]]" field="contact:responsible" sort-by="contact:responsible" flex="50">
+                    <template>
+                        <nuxeo-user-tag user="[[item.properties.contact:responsible]]"></nuxeo-user-tag>
+                    </template>
+                </nuxeo-data-table-column>
                 <nuxeo-data-table-column name="Role" field="person:Role" sort-by="person:Role" flex="60">
                     <template>
                         [[formatDirectory(item.properties.person:Role)]]
