@@ -1,4 +1,4 @@
-<link rel="import" href="qualitified-document-create.html">
+<link rel="import" href="qualitified-document-create-css-changes.html">
 <link rel="import" href="qualitified-amount.html">
 <link rel="import" href="qualitified-user-suggestion.html">
 <link rel="import" href="qualitified-user-tag.html">
@@ -117,10 +117,10 @@
             <div hidden$="[[displayButtons]]" class="iconsAction">
                 <template is="dom-if" if="[[_isAddable(metadata,addable)]]">
                     <qualitified-document-create style="margin-right:-14px;"
-                                                 create-from="metadata-layout"
-                                                 document="[[document]]"
-                                                 parent-to-select="[[parentToSelect]]"
-                                                 type="[[_getSuggType(params)]]">
+                                                             create-from="metadata-layout"
+                                                             document="[[document]]"
+                                                             parent-to-select="[[parentToSelect]]"
+                                                             type="[[_getSuggType(params)]]">
                     </qualitified-document-create>
                 </template>
                 <paper-icon-button style="left:8px;" icon="icons:save" on-tap="_update"></paper-icon-button>
@@ -191,7 +191,7 @@
                                                  multiple="[[multiple]]"
                                                  display-style="editInlineStyle"
                                                  min-chars="0"
-                                                 addable
+
                                                  parent-to-select="Sales"
                                                  document="[[document]]"
                                                  params="{{params}}">
