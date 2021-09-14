@@ -26,19 +26,6 @@
             }
        </style>
 
-    <!-- <iron-ajax url="elements/operation.json" handle-as="json" last-response="{{operationData}}" auto>
-    </iron-ajax> -->
-    <iron-ajax
-            id="xhr"
-            method="GET"
-            url="https://ccm-uat.qualitified.com/nuxeo/site/automation/"
-            handle-as="json"
-            with-credentials="true"
-            headers="[[headers]]"
-            last-response="{{response}}">
-    </iron-ajax>
-
-
     <label>Operation</label>
     <div class="iconsAction">
       <paper-icon-button id="insertButton" icon="icons:settings-ethernet" hidden$="[[hidden]]" on-tap="_insertIntoEditor">
@@ -46,7 +33,7 @@
       <paper-tooltip for="insertButton" position="left">Insert into script</paper-tooltip>
     </div>
 
-    <nuxeo-selectivity data="[[response.operations]]" on-value-changed="[[_getItem(selectedItem)]]" placeholder="Select a value." selected-item="{{selectedItem}}" min-chars="[[minChars]]" result-formatter="[[resultFormatter]]" selection-formatter="[[selectionFormatter]]" placeholder="[[placeholder]]" value="{{value}}">
+    <nuxeo-selectivity data="[[operationData]]" on-value-changed="[[_getOpDefinition(selectedItem)]]" placeholder="Select a value." selected-item="{{selectedItem}}" min-chars="[[minChars]]" result-formatter="[[resultFormatter]]" selection-formatter="[[selectionFormatter]]" placeholder="[[placeholder]]" value="{{value}}">
     </nuxeo-selectivity>
 
     <template is="dom-if" if="[[canInsert]]">
@@ -62,8 +49,7 @@
       behaviors: [Nuxeo.I18nBehavior, Nuxeo.FiltersBehavior],
       properties: {
             operationData: {
-             type: Array,
-             observer:'_jsonDataReady'
+             type: Array
             },
 
             OpDefinition: {
@@ -94,18 +80,15 @@
               value() {
                 return this._selectionFormatter.bind(this);
               },
-            },
-            headers: {
-                type: Object,
-                value: function() { return {}; }
-            },
-            user: String,
-            pass: String
+            }
        },
-       observers: ['_setBasicAuth(user, pass)'],
 
-       _jsonDataReady:function(){
-           console.log(this.operationData);
+       ready:function(){
+            fetch(window.location.origin + '/nuxeo/site/automation')
+                .then((resp) => resp.json())
+                .then(function(data) {
+                  this.operationData = data.operations;
+            }.bind(this));
        },
        _resultFormatter:function(item) {
           return item.label +' - (id: '+ item.id +')';
@@ -128,17 +111,8 @@
             this.canInsert = true;
            }
         },
-        _makeHeaders:function(user, pass) {
-            return "Basic " + window.btoa(user + ":" + pass);
-        },
-        _setBasicAuth:function(user, pass){
-            // might be needed
-            this.headers['X-Requested-With'] = "XMLHttpRequest";
-            // this sets your Auth header
-            this.headers['Authorization'] = this._makeHeaders(user, pass);
-            this.$.xhr.generateRequest();
-        },
-        _getItem:function(selectedItem) {
+
+        _getOpDefinition:function(selectedItem) {
             this.canInsert = false;
            if (selectedItem) {
             this.OpDefinition = JSON.stringify(selectedItem,undefined,4);
