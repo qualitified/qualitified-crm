@@ -45,7 +45,7 @@
           <span>Add</span>
         </paper-button>
       </div>
-      <nuxeo-data-table class="results" id="customTable" items="{{document.properties.custom:field}}" role="widget">
+      <nuxeo-data-table class="results" id="customTable" items="{{document.properties.custom:field}}" role="widget" orderable="true" editable="true">
         <nuxeo-data-table-column name="[[i18n('label.metadata.custom.label')]]">
           <template>
             <div>{{item.label}}</div>
