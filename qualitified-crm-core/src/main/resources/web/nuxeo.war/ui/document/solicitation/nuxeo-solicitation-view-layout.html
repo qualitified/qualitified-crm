@@ -2,7 +2,8 @@
   <template>
     <style>
       *[role=widget] {
-        padding: 5px;
+        padding: 40px;
+        flex: 80%;
       }
       nuxeo-data-table {
         height: 100%;
@@ -44,14 +45,14 @@
 
       <div class="dataTable">
         <nuxeo-page-provider
-                             role="widget"
-                             id="interactionProvider"
+                role="widget"
+                id="interactionProvider"
 
-                             query="SELECT * FROM Interaction WHERE ecm:currentLifeCycleState != 'deleted' and ecm:isTrashed = 0 and ecm:parentId = '[[document.uid]]' ORDER BY interaction:date DESC"
-                             page-size="5"
-                             params="[[params]]"
-                             aggregations="{{interactionAggregations}}"
-                             current-page="{{interactions}}">
+                query="SELECT * FROM Interaction WHERE ecm:currentLifeCycleState != 'deleted' and ecm:isTrashed = 0 and ecm:parentId = '[[document.uid]]' ORDER BY interaction:date DESC"
+                page-size="5"
+                params="[[params]]"
+                aggregations="{{interactionAggregations}}"
+                current-page="{{interactions}}">
         </nuxeo-page-provider>
 
         <template is="dom-repeat" items="[[interactions]]">
@@ -61,57 +62,61 @@
           <br/>
         </template>
 
-      <h3>
-        [[i18n('label.attachments')]]
-      </h3>
-      <div class="dataTable">
-        <nuxeo-page-provider
-                             role="widget"
-                             id="documentProvider"
-                             query="select * from Document where ecm:primaryType in ('File', 'Folder', 'Picture', 'Audio', 'Note', 'Video') and ecm:isTrashed = 0 and ecm:currentLifeCycleState != 'deleted' and ecm:parentId = '[[document.uid]]'"
-                             page-size="5"
-                             params="[[params]]"
-                             aggregations="{{documentAggregations}}"
-                             current-page="{{documents}}">
-        </nuxeo-page-provider>
-        <nuxeo-data-table class="results" role="widget" id="datatable" items="[[documents]]" on-row-clicked="_navigate">
-          <nuxeo-data-table-column name="Full text search" flex="100" filter-by="ecm_fulltext" sort-by="dc:title">
-            <template>
-              <img class="queue-thumbnail" src="[[_thumbnail(item)]]">
-              <a class="title ellipsis" href$="#!/browse[[item.path]]" on-tap="_navigate">[[item.title]]</a>
-            </template>
-          </nuxeo-data-table-column>
-          <nuxeo-data-table-column filter-by="dc_modified_agg" flex="50" sort-by="dc:modified">
-            <template is="header">
-              <nuxeo-dropdown-aggregation
-                                          placeholder="Modified"
-                                          data="[[documentAggregations.dc_modified_agg]]"
-                                          value="{{column.filterValue}}" multiple>
-              </nuxeo-dropdown-aggregation>
-            </template>
-            <template>
-              [[_formatDate(item.properties.dc:modified)]]
-            </template>
-          </nuxeo-data-table-column>
-          <nuxeo-data-table-column filter-by="dc_creator_agg" flex="50">
-            <template is="header">
-              <nuxeo-dropdown-aggregation
-                                          placeholder="Author"
-                                          data="[[documentAggregations.dc_creator_agg]]"
-                                          value="{{column.filterValue}}" multiple>
-              </nuxeo-dropdown-aggregation>
-            </template>
-            <template>
-              <nuxeo-user-tag user="[[item.properties.dc:creator]]"></nuxeo-user-tag>
-            </template>
-          </nuxeo-data-table-column>
-        </nuxeo-data-table>
+        <h3>
+          [[i18n('label.attachments')]]
+        </h3>
+        <div class="dataTable">
+          <nuxeo-page-provider
+                  role="widget"
+                  id="documentProvider"
+                  query="select * from Document where ecm:primaryType in ('File', 'Folder', 'Picture', 'Audio', 'Note', 'Video') and ecm:isTrashed = 0 and ecm:currentLifeCycleState != 'deleted' and ecm:parentId = '[[document.uid]]'"
+                  page-size="5"
+                  params="[[params]]"
+                  aggregations="{{documentAggregations}}"
+                  current-page="{{documents}}">
+          </nuxeo-page-provider>
+          <nuxeo-data-table class="results" role="widget" id="datatable" items="[[documents]]" on-row-clicked="_navigate">
+            <nuxeo-data-table-column name="Full text search" flex="100" filter-by="ecm_fulltext" sort-by="dc:title">
+              <template>
+                <img class="queue-thumbnail" src="[[_thumbnail(item)]]">
+                <a class="title ellipsis" href$="#!/browse[[item.path]]" on-tap="_navigate">[[item.title]]</a>
+              </template>
+            </nuxeo-data-table-column>
+            <nuxeo-data-table-column filter-by="dc_modified_agg" flex="50" sort-by="dc:modified">
+              <template is="header">
+                <nuxeo-dropdown-aggregation
+                        placeholder="Modified"
+                        data="[[documentAggregations.dc_modified_agg]]"
+                        value="{{column.filterValue}}" multiple>
+                </nuxeo-dropdown-aggregation>
+              </template>
+              <template>
+                [[_formatDate(item.properties.dc:modified)]]
+              </template>
+            </nuxeo-data-table-column>
+            <nuxeo-data-table-column filter-by="dc_creator_agg" flex="50">
+              <template is="header">
+                <nuxeo-dropdown-aggregation
+                        placeholder="Author"
+                        data="[[documentAggregations.dc_creator_agg]]"
+                        value="{{column.filterValue}}" multiple>
+                </nuxeo-dropdown-aggregation>
+              </template>
+              <template>
+                <nuxeo-user-tag user="[[item.properties.dc:creator]]"></nuxeo-user-tag>
+              </template>
+            </nuxeo-data-table-column>
+          </nuxeo-data-table>
+        </div>
+
       </div>
+      <paper-card role="widget">
+        <h3>[[i18n('label.comments')]]</h3>
+        <nuxeo-document-comment-thread uid="[[document.uid]]"></nuxeo-document-comment-thread>
+      </paper-card>
+  </template>
 
-    </div>
-      </template>
-
-    <script>
+  <script>
     (function() {
       'use strict';
       Polymer({
@@ -179,4 +184,4 @@
       });
     })();
     </script>
-    </dom-module>
+</dom-module>

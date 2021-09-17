@@ -57,6 +57,7 @@
   "label.metadata.description": "Note",
   "label.activities": "Activities",
   "label.attachments": "Attachments",
+  "label.comments": "Comments",
   "label.metadata.account.title": "Name",
   "label.metadata.turnover":"Revenue",
   "label.metadata.website":"Web Site",
