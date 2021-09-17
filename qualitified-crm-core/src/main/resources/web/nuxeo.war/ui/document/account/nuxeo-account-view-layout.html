@@ -4,7 +4,8 @@
   <template>
     <style include="nuxeo-styles shared-css">
       *[role=widget] {
-        padding: 5px;
+        padding: 40px;
+        flex: 80%;
       }
 
       nuxeo-data-table {
@@ -492,6 +493,10 @@
         </div>
 
       </iron-pages>
+    </paper-card>
+    <paper-card role="widget">
+      <h3>[[i18n('label.comments')]]</h3>
+      <nuxeo-document-comment-thread uid="[[document.uid]]"></nuxeo-document-comment-thread>
     </paper-card>
   </template>
 
