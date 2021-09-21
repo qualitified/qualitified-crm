@@ -43,32 +43,41 @@
         <section class="dashboard">
             <nuxeo-card>
                 <div role="widget">
-                    <qualitified-inline-edit document="[[document]]"
-                                             property="person:Role"
-                                             label="[[i18n('label.metadata.role')]]"
-                                             metadata="directory"
-                                             directory="Role"
-                                             value="[[formatDirectory(document.properties.person:Role)]]"
-                    >
+                    <template if="[[document.properties.person:Role]]" is="dom-if">
+                        <qualitified-inline-edit document="[[document]]"
+                                                 property="person:Role"
+                                                 label="[[i18n('label.metadata.role')]]"
+                                                 metadata="directory"
+                                                 directory="Role"
+                                                 value="[[formatDirectory(document.properties.person:Role)]]"
+                        >
 
-                    </qualitified-inline-edit>
+                        </qualitified-inline-edit>
+                    </template>
+
                 </div>
 
                 <div role="widget">
-                    <qualitified-inline-edit document="[[document]]"
-                                             property="person:email"
-                                             value="[[document.properties.person:email]]"
-                                             label="[[i18n('label.metadata.email')]]"
-                    >
-                    </qualitified-inline-edit>
+                    <template if="[[document.properties.person:email]]" is="dom-if">
+
+                        <qualitified-inline-edit document="[[document]]"
+                                                 property="person:email"
+                                                 value="[[document.properties.person:email]]"
+                                                 label="[[i18n('label.metadata.email')]]"
+                        >
+                        </qualitified-inline-edit>
+                    </template>
                 </div>
                 <div role="widget">
-                    <qualitified-inline-edit document="[[document]]"
-                                             property="person:phoneNumber"
-                                             value="[[document.properties.person:phoneNumber]]"
-                                             label="[[i18n('label.metadata.phone')]]"
-                    >
-                    </qualitified-inline-edit>
+                    <template if="[[document.properties.person:phoneNumber]]" is="dom-if">
+                        <qualitified-inline-edit document="[[document]]"
+                                                 property="person:phoneNumber"
+                                                 value="[[document.properties.person:phoneNumber]]"
+                                                 label="[[i18n('label.metadata.phone')]]"
+                        >
+                        </qualitified-inline-edit>
+                    </template>
+
                 </div>
                 <qualitified-custom-fields document="{{document}}" column="Column1" mode="view"></qualitified-custom-fields>
 
@@ -76,43 +85,61 @@
             <nuxeo-card>
 
                 <div role="widget">
-                    <qualitified-inline-edit document="[[document]]"
-                                             property="address:address1"
-                                             value="[[document.properties.address:address1]]"
-                                             label="[[i18n('label.metadata.address')]] 1"
-                    >
-                    </qualitified-inline-edit>
-                    <qualitified-inline-edit document="[[document]]"
-                                             property="address:address2"
-                                             value="[[document.properties.address:address2]]"
-                                             label="[[i18n('label.metadata.address')]] 2"
+                    <template if="[[document.properties.address:address1]]" is="dom-if">
 
-                    >
-                    </qualitified-inline-edit>
-                    <qualitified-inline-edit document="[[document]]"
-                                             property="address:address3"
-                                             value="[[document.properties.address:address3]]"
-                                             label="[[i18n('label.metadata.address')]] 3"
-                    >
-                    </qualitified-inline-edit>
-                    <qualitified-inline-edit document="[[document]]"
-                                             property="address:zipCode"
-                                             value="[[document.properties.address:zipCode]]"
-                                             label="[[i18n('label.metadata.zipCode')]]"
-                    >
-                    </qualitified-inline-edit>
-                    <qualitified-inline-edit document="[[document]]"
-                                             property="address:city"
-                                             value="[[document.properties.address:city]]"
-                                             label="[[i18n('label.metadata.city')]]"
-                    >
-                    </qualitified-inline-edit>
-                    <qualitified-inline-edit document="[[document]]"
-                                             property="address:country"
-                                             value="[[document.properties.address:country]]"
-                                             label="[[i18n('label.metadata.country')]]"
-                    >
-                    </qualitified-inline-edit>
+                        <qualitified-inline-edit document="[[document]]"
+                                                 property="address:address1"
+                                                 value="[[document.properties.address:address1]]"
+                                                 label="[[i18n('label.metadata.address')]] 1"
+                        >
+                        </qualitified-inline-edit>
+                    </template>
+                    <template if="[[document.properties.address:address2]]" is="dom-if">
+                        <qualitified-inline-edit document="[[document]]"
+                                                 property="address:address2"
+                                                 value="[[document.properties.address:address2]]"
+                                                 label="[[i18n('label.metadata.address')]] 2"
+
+                        >
+                        </qualitified-inline-edit>
+                    </template>
+
+                    <template if="[[document.properties.address:address3]]" is="dom-if">
+                        <qualitified-inline-edit document="[[document]]"
+                                                 property="address:address3"
+                                                 value="[[document.properties.address:address3]]"
+                                                 label="[[i18n('label.metadata.address')]] 3"
+                        >
+                        </qualitified-inline-edit>
+                    </template>
+
+                    <template if="[[document.properties.address:zipCode]]" is="dom-if">
+                        <qualitified-inline-edit document="[[document]]"
+                                                 property="address:zipCode"
+                                                 value="[[document.properties.address:zipCode]]"
+                                                 label="[[i18n('label.metadata.zipCode')]]"
+                        >
+                        </qualitified-inline-edit>
+                    </template>
+
+                    <template if="[[document.properties.address:city]]" is="dom-if">
+                        <qualitified-inline-edit document="[[document]]"
+                                                 property="address:city"
+                                                 value="[[document.properties.address:city]]"
+                                                 label="[[i18n('label.metadata.city')]]"
+                        >
+                        </qualitified-inline-edit>
+                    </template>
+
+                    <template if="[[document.properties.address:country]]" is="dom-if">
+                        <qualitified-inline-edit document="[[document]]"
+                                                 property="address:country"
+                                                 value="[[document.properties.address:country]]"
+                                                 label="[[i18n('label.metadata.country')]]"
+                        >
+                        </qualitified-inline-edit>
+                    </template>
+
 
                 </div>
                 <qualitified-custom-fields document="{{document}}" column="Column2" mode="view"></qualitified-custom-fields>
@@ -121,13 +148,13 @@
             <nuxeo-card>
                 <div role="widget">
                     <div role="widget">
-                        <qualitified-inline-edit document="[[document]]"
-                                                 value="[[item.properties.contact:responsible]]"
-                                                 property="contact:responsible"
-                                                 label="label.metadata.responsible"
-                                                 metadata="user"></qualitified-inline-edit>
-
-
+                        <template if="[[[item.properties.contact:responsible]]" is="dom-if">
+                            <qualitified-inline-edit document="[[document]]"
+                                                     value="[[item.properties.contact:responsible]]"
+                                                     property="contact:responsible"
+                                                     label="label.metadata.responsible"
+                                                     metadata="user"></qualitified-inline-edit>
+                        </template>
                     </div>
 
                     <div role="widget" hidden$="[[!document.properties.person:language]]" >

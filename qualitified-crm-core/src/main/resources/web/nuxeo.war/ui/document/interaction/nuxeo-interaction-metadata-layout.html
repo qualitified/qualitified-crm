@@ -35,29 +35,38 @@
             </h1>
         </div>
         <div role="widget">
-            <qualitified-inline-edit document="[[document]]"
-                                     property="interaction:activity"
-                                     label="[[i18n('label.metadata.activity')]]"
-                                     metadata="directory"
-                                     directory="IntActivity"
-                                     value="[[formatDirectory(document.properties.interaction:activity)]]">
-            </qualitified-inline-edit>
+            <template if="[[document.properties.interaction:activity]]" is="dom-if">
+                <qualitified-inline-edit document="[[document]]"
+                                         property="interaction:activity"
+                                         label="[[i18n('label.metadata.activity')]]"
+                                         metadata="directory"
+                                         directory="IntActivity"
+                                         value="[[formatDirectory(document.properties.interaction:activity)]]">
+                </qualitified-inline-edit>
+            </template>
+
         </div>
         <div role="widget">
-            <qualitified-inline-edit document="[[document]]"
-                                     property="interaction:status"
-                                     label="[[i18n('label.metadata.status')]]"
-                                     metadata="directory"
-                                     directory="IntStatus"
-                                     value="[[formatDirectory(document.properties.interaction:status)]]">
-            </qualitified-inline-edit>
+            <template if="[[document.properties.interaction:status]]" is="dom-if">
+                <qualitified-inline-edit document="[[document]]"
+                                         property="interaction:status"
+                                         label="[[i18n('label.metadata.status')]]"
+                                         metadata="directory"
+                                         directory="IntStatus"
+                                         value="[[formatDirectory(document.properties.interaction:status)]]">
+                </qualitified-inline-edit>
+            </template>
+
         </div>
         <div role="widget">
-            <qualitified-inline-edit document="[[document]]"
-                                     property="interaction:date"
-                                     label="label.metadata.date"
-                                     metadata="date">
-            </qualitified-inline-edit>
+            <template if="[[document.properties.interaction:date]]" is="dom-if">
+                <qualitified-inline-edit document="[[document]]"
+                                         property="interaction:date"
+                                         label="label.metadata.date"
+                                         metadata="date">
+                </qualitified-inline-edit>
+            </template>
+
         </div>
 
         <template if="[[!document.properties.note:note]]" is="dom-if">

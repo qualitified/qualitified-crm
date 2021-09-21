@@ -188,7 +188,7 @@
                     "facets": ["Folderish", "NXTag", "Picture"],
                     "id": this.type.toLowerCase()
                 };
-                this.parentPath = this.parentNode.parentNode.host.__data.document.path.replace(this.parentNode.parentNode.host.__data.document.title.split(' ').join('_'),'');
+                this.parentPath = this.parentNode.parentNode.host.__data.document.path.replace(this.parentNode.parentNode.host.__data.document.title,'');
 
                 this.selectedTab = "create";
                 this._showTabs = false;
