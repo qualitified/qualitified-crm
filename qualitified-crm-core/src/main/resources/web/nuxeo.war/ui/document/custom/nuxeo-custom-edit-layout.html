@@ -21,10 +21,9 @@
         height: 400px;
       }
       .paper-item{
-      background: var(--nuxeo-primary-color);}
-
+        background: var(--nuxeo-primary-color);}
       .paper-listbox{
-      padding: 20px;}
+        padding: 20px;}
       .label {
         display: var(--nuxeo-label_-_display);
         opacity: var(--nuxeo-label_-_opacity);
@@ -33,19 +32,17 @@
         text-overflow: var(--nuxeo-label_-_text-overflow);
         font-weight: var(--nuxeo-label_-_font-weight) !important;
         letter-spacing: var(--nuxeo-label_-_letter-spacing) !important;
-    }
-
+      }
     </style>
     <h1>[[document.properties.dc:title]]</h1>
     <div class="vertical layout">
       <nuxeo-resource auto on-response="_handleDocTypes" path="config/types/"></nuxeo-resource>
-
       <div class="layout horizontal center end-justified" style="float: right;">
         <paper-button class="primary" id="addEntry" on-tap="_addEntry">
           <span>Add</span>
         </paper-button>
       </div>
-      <nuxeo-data-table class="results" id="customTable" items="{{document.properties.custom:field}}" role="widget">
+      <nuxeo-data-table class="results" id="customTable" orderable="true" items="{{document.properties.custom:field}}" role="widget">
         <nuxeo-data-table-column name="[[i18n('label.metadata.custom.label')]]">
           <template>
             <div>{{item.label}}</div>
@@ -143,6 +140,22 @@
         </nuxeo-data-table-column>
         <nuxeo-data-table-column key="[[col.key]]" name="[[i18n(col.name)]]">
           <template>
+            <dom-if if="[[isUpVisible(index)]]">
+              <template>
+                <paper-icon-button noink="" id="upButton" icon="icons:arrow-upward" on-tap="_moveItemUpward"></paper-icon-button>
+                <nuxeo-tooltip for="upButton" position="left">[[i18n('command.moveUpward')]]</nuxeo-tooltip>
+              </template>
+            </dom-if>
+            <dom-if if="[[isDownVisible(index)]]">
+              <template>
+                <paper-icon-button noink="" id="downButton" icon="icons:arrow-downward" on-tap="_moveItemDownward"></paper-icon-button>
+                <nuxeo-tooltip for="downButton" position="left">[[i18n('command.moveDownward')]]</nuxeo-tooltip>
+              </template>
+            </dom-if>
+          </template>
+        </nuxeo-data-table-column>
+        <nuxeo-data-table-column key="[[col.key]]" name="[[i18n(col.name)]]">
+          <template>
             <paper-icon-button icon="nuxeo:edit" name="edit" on-tap="_editEntry" title="Edit"></paper-icon-button>
             <paper-icon-button icon="nuxeo:delete" name="delete" on-tap="_deleteEntry" title="Delete"></paper-icon-button>
           </template>
@@ -194,22 +207,19 @@
                                      value="{{_selectedEntry.hiddenGroup}}"></nuxeo-user-suggestion>
               <!--paper-checkbox checked="{{_selectedEntry.multivalue}}"></paper-checkbox> Multivalue <br><br-->
               <div hidden$="[[!hidden]]">
-
-              <label>Primary Type</label>
-              <nuxeo-selectivity data="[[docTypes]]"
-                                 min-chars=0
-                                 placeholder="[[i18n('templateRenderingPage.validDocTypes.placeholder')]]"
-                                 value="{{_selectedEntry.primaryType}}" ></nuxeo-selectivity>
-
-              <!--nuxeo-input role="widget" value="{{_selectedEntry.primaryType}}" label="Primary Type"></nuxeo-input-->
-              <nuxeo-input label="Path" role="widget" value="{{_selectedEntry.path}}"></nuxeo-input>
+                <label>Primary Type</label>
+                <nuxeo-selectivity data="[[docTypes]]"
+                                   min-chars=0
+                                   placeholder="[[i18n('templateRenderingPage.validDocTypes.placeholder')]]"
+                                   value="{{_selectedEntry.primaryType}}" ></nuxeo-selectivity>
+                <!--nuxeo-input role="widget" value="{{_selectedEntry.primaryType}}" label="Primary Type"></nuxeo-input-->
+                <nuxeo-input label="Path" role="widget" value="{{_selectedEntry.path}}"></nuxeo-input>
                 <nuxeo-input label="Parent Id" role="widget" value="{{_selectedEntry.parentId}}"></nuxeo-input></div>
               <!--paper-checkbox checked="{{_selectedEntry.multiline}}"></paper-checkbox> Multiline <br/-->
               <paper-checkbox checked="{{_selectedEntry.link}}"></paper-checkbox> Link <br/>
               <paper-checkbox checked="{{_selectedEntry.copy}}"></paper-checkbox> Copyable <br/>
               <paper-checkbox checked="{{_selectedEntry.editable}}"></paper-checkbox> Editable <br/>
               <paper-checkbox checked="{{_selectedEntry.showInResultList}}"></paper-checkbox> ShowInResultList <br/>
-
               <!--nuxeo-directory-suggestion role="widget" value="{{document.properties.custom:columns}}"
                                           label="[[i18n('label.metadata.custom.columns')]]" directory-name="Columns"
                                           min-chars="0" ></nuxeo-directory-suggestion-->
@@ -221,6 +231,7 @@
               </nuxeo-directory-suggestion>
             </form>
           </iron-form>
+          15 h 14
         </paper-dialog-scrollable>
         <div class="buttons">
           <paper-button dialog-dismiss="" id="cancel" name="cancel" noink="">[[i18n('command.cancel')]]</paper-button>
@@ -242,12 +253,12 @@
             type: Object
           },
           vocabEntries:{
-          type: Array,
-          value: []
+            type: Array,
+            value: []
           },
           newList: {
-          type: Array,
-          value: []
+            type: Array,
+            value: []
           },
           isHidden: {
             type:Boolean
@@ -256,11 +267,11 @@
             type:Boolean
           },
           customFields: {
-           type: Array,
-           value: []
+            type: Array,
+            value: []
           },
           _selectedEntry: {
-          type: Object
+            type: Object
           },
           docTypes: Array,
           selectedIndex: {
@@ -270,93 +281,91 @@
             type: Boolean
           }
         },
-
-      _handleDocTypes: function(e) {
-        var docTypes = [{
-          id: 'all',
-          text: this.i18n('templateRenderingPage.label.document.type.all'),
-          displayLabel: this.i18n('templateRenderingPage.label.document.type.all')
-        }];
-        Object.keys(e.detail.response.doctypes).sort().forEach(function(docType) {
-          docTypes.push({
-            id: docType,
-            text: docType,
-            displayLabel: docType
+        _handleDocTypes: function(e) {
+          var docTypes = [{
+            id: 'all',
+            text: this.i18n('templateRenderingPage.label.document.type.all'),
+            displayLabel: this.i18n('templateRenderingPage.label.document.type.all')
+          }];
+          Object.keys(e.detail.response.doctypes).sort().forEach(function(docType) {
+            docTypes.push({
+              id: docType,
+              text: docType,
+              displayLabel: docType
+            });
           });
-        });
-        this.set('docTypes', docTypes);
-      },
-      /*attached: function () {
-       if(this.$.field.detail.value=="Date"){
-              this.isHidden=true;
-            } else {
-             this.isHidden=false;
-            }
-        },*/
-
-      _getAvailableFields:function(onEdit){
-      var newList=[];
-      var vocabs=this.vocabEntries;
-      var customField= this.document.properties["custom:field"];
-      var fieldNameList=[];
-      var field = this._selectedEntry.fieldName;
-        if (onEdit == true) {
+          this.set('docTypes', docTypes);
+        },
+        /*attached: function () {
+         if(this.$.field.detail.value=="Date"){
+                this.isHidden=true;
+              } else {
+               this.isHidden=false;
+              }
+          },*/
+        _getAvailableFields:function(onEdit){
+          var newList=[];
+          var vocabs=this.vocabEntries;
+          var customField= this.document.properties["custom:field"];
+          var fieldNameList=[];
+          var field = this._selectedEntry.fieldName;
+          if (onEdit == true) {
             newList.push({id:field,label:field});
           }
-        for(var j=0;j<customField.length;j++){
-          fieldNameList.push(customField[j].fieldName);
-        }
-        for(var i=0;i<vocabs.length;i++){
-          if (fieldNameList.indexOf(vocabs[i].id) === -1) {
-            newList.push({id:vocabs[i].id,label:vocabs[i].id});
+          for(var j=0;j<customField.length;j++){
+            fieldNameList.push(customField[j].fieldName);
           }
-          else if (customField.indexOf(vocabs[i].id) > -1) {
-            console.log(vocabs[i] + ' already exists in the customField collection.');
+          for(var i=0;i<vocabs.length;i++){
+            if (fieldNameList.indexOf(vocabs[i].id) === -1) {
+              newList.push({id:vocabs[i].id,label:vocabs[i].id});
+            }
+            else if (customField.indexOf(vocabs[i].id) > -1) {
+              console.log(vocabs[i] + ' already exists in the customField collection.');
+            }
           }
-        }
-      this.newList=newList;
-    },
-    _getVocabOnCreate: function(e) {
-      var onEdit= false;
-      var selection= e.detail.value;
-      this.$.field.setAttribute("directory-Name", selection);
-      if(selection=="Date"){
-        this.isHidden=true;
-        }
-      else {
-         this.isHidden=false;
-      }
-      if(selection=="Document"){
-      this.hidden=true;
-        }
-      else {
-         this.hidden=false;
-      }
-      fetch(window.location.origin + '/nuxeo/api/v1/directory/'+selection)
-      .then((resp) => resp.json())
-      .then(function(data) {
-      this.vocabEntries = data.entries;
-      this._getAvailableFields(onEdit);
-      }.bind(this));
-    },
-    _getVocabOnEdit: function(selectedType) {
-      var onEdit= true;
-      fetch(window.location.origin + '/nuxeo/api/v1/directory/'+selectedType)
-      .then((resp) => resp.json())
-      .then(function(data) {
-      this.vocabEntries = data.entries;
-      this._getAvailableFields(onEdit);
-      }.bind(this));
-    },
+          this.newList=newList;
+        },
+        _getVocabOnCreate: function(e) {
+          var onEdit= false;
+          var selection= e.detail.value;
+          this.$.field.setAttribute("directory-Name", selection);
+          if(selection=="Date"){
+            this.isHidden=true;
+          }
+          else {
+            this.isHidden=false;
+          }
+          if(selection=="Document"){
+            this.hidden=true;
+          }
+          else {
+            this.hidden=false;
+          }
+          fetch(window.location.origin + '/nuxeo/api/v1/directory/'+selection)
+                  .then((resp) => resp.json())
+                  .then(function(data) {
+                    this.vocabEntries = data.entries;
+                    this._getAvailableFields(onEdit);
+                  }.bind(this));
+        },
+        _getVocabOnEdit: function(selectedType) {
+          var onEdit= true;
+          fetch(window.location.origin + '/nuxeo/api/v1/directory/'+selectedType)
+                  .then((resp) => resp.json())
+                  .then(function(data) {
+                    this.vocabEntries = data.entries;
+                    this._getAvailableFields(onEdit);
+                  }.bind(this));
+        },
         _editEntry: function(e) {
-            var item =  e.target.parentNode.item;
-            this.selectedIndex = this.document.properties['custom:field'].indexOf(item);
-            this._isNew = false;
-            this._selectedEntry = JSON.parse(JSON.stringify(item));
-            this._getVocabOnEdit(this._selectedEntry.type);
-            console.log(this._selectedEntry);
-            console.log(this.vocabEntries);
-            this.$.dialog.toggle();
+          var item =  e.target.parentNode.item;
+          this.selectedIndex = this.document.properties['custom:field'].indexOf(item);
+          this._isNew = false;
+          this._selectedEntry = JSON.parse(JSON.stringify(item));
+          this._getVocabOnEdit(this._selectedEntry.type);
+          console.log(this._selectedEntry);
+          console.log(this.vocabEntries);
+          this.$.dialog.toggle();
         },
         _addEntry: function() {
           this._isNew = true;
@@ -388,25 +397,51 @@
         },
         _save: function() {
           var valid = this.$.form.validate();
-            if (this._isNew) {
-              this._create(this._selectedEntry);
-            } else {
-              this._update(this._selectedEntry);
-            }
+          if (this._isNew) {
+            this._create(this._selectedEntry);
+          } else {
+            this._update(this._selectedEntry);
+          }
+        },
+        isUpVisible: function(index) {
+          return index > 0;
+        },
+        isDownVisible: function(index) {
+          return index < this.document.properties['custom:field'].length - 1;
+        },
+        _moveItemUpward: function(e) {
+          e.stopPropagation();
+          var item =  e.target.parentNode.item;
+          var selectedIndex = this.document.properties['custom:field'].indexOf(item);
+          if (selectedIndex > 0) {
+            this.splice('document.properties.custom:field', selectedIndex, 1);
+            this.splice('document.properties.custom:field', selectedIndex - 1, 0, item);
+            //this.notifyResize();
+          }
+        },
+        _moveItemDownward: function(e) {
+          e.stopPropagation();
+          var item =  e.target.parentNode.item;
+          var selectedIndex = this.document.properties['custom:field'].indexOf(item);
+          if ((this.document.properties['custom:field'].length - 1) > selectedIndex) {
+            this.splice('document.properties.custom:field', selectedIndex, 1);
+            this.splice('document.properties.custom:field', selectedIndex + 1, 0, item);
+            // this.notifyResize();
+          }
         },
         _create: function(entry) {
-         this.push('document.properties.custom:field',entry);
-         this.$.dialog.toggle();
+          this.push('document.properties.custom:field',entry);
+          this.$.dialog.toggle();
         },
         _update: function(entry) {
           this.splice('document.properties.custom:field',this.selectedIndex, 1, entry);
-                                  console.log("entry  "+entry);
+          console.log("entry  "+entry);
           this.$.dialog.toggle();
         },
         _deleteEntry: function(e) {
-           var item =  e.target.parentNode.item;
-           var selectedIndex = this.document.properties['custom:field'].indexOf(item);
-           this.splice('document.properties.custom:field',selectedIndex, 1)
+          var item =  e.target.parentNode.item;
+          var selectedIndex = this.document.properties['custom:field'].indexOf(item);
+          this.splice('document.properties.custom:field',selectedIndex, 1)
         }
       });
     })();

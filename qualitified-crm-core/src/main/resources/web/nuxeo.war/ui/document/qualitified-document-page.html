@@ -29,7 +29,7 @@ Contributors:
 
 <dom-module id="qualitified-document-page">
   <template>
-    <style>
+    <style include="nuxeo-styles">
 
       .page {
         @apply(--layout-horizontal);
@@ -44,6 +44,15 @@ Contributors:
       .page .side {
         @apply(--layout-vertical);
         @apply(--layout-flex);
+      }
+
+      *[role=widget] {
+        padding: 40px;
+        flex: 80%;
+      }
+
+      .label {
+        text-transform: uppercase;
       }
 
       @media (max-width: 1024px) {
@@ -121,6 +130,10 @@ Contributors:
           <!--nuxeo-document-info document="[[document]]"></nuxeo-document-info-->
         </paper-card>
         <nuxeo-document-view document="[[document]]"></nuxeo-document-view>
+        <paper-card role="widget">
+          <h3 class="label">[[i18n('label.comments')]]</h3>
+          <nuxeo-document-comment-thread uid="[[document.uid]]"></nuxeo-document-comment-thread>
+        </paper-card>
       </div>
     </div>
 

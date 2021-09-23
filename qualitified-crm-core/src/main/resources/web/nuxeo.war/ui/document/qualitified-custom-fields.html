@@ -2174,6 +2174,313 @@
                                 <nuxeo-user-tag user="[[document.properties.custom:userField1]]"></nuxeo-user-tag>
                             </div>
                         </template>
+
+                </div>
+                <template if="[[document.properties.custom:vocabularyField1]]" is="dom-if">
+                    <template if="[[vocabularyField1Editable]]" is="dom-if">
+                        <qualitified-inline-edit  document="[[document]]"
+                                                  property="custom:vocabularyField1"
+                                                  directory="[[vocabularyField1Name]]"
+                                                  label="[[vocabularyField1Label]]"
+                                                  min-chars="0"
+                                                  role="widget"
+                                                  metadata="directory"
+                                                  value="{{document.properties.custom:vocabularyField1}}">
+                        </qualitified-inline-edit>
+                    </template>
+                    <template if="[[!vocabularyField1Editable]]" is="dom-if">
+                        <div class="sortable" hidden$="[[!vocabularyField1Visible]]" id="[[vocabularyField1Order]]"
+                             role="widget">
+                            <label>[[vocabularyField1Label]]</label>
+                            <div style="display: none">
+                                [[formatDirectory(document.properties.custom:vocabularyField1,
+                                vocabularyField1Name, "vocabularyField1")]]
+                            </div>
+                            <div>[[vocabularyField1Value]]</div>
+                        </div>
+                    </template>
+                </template>
+
+                <template if="[[document.properties.custom:vocabularyField2]]" is="dom-if">
+                    <template if="[[vocabularyField2Editable]]" is="dom-if">
+                        <qualitified-inline-edit  document="[[document]]"
+                                                  property="custom:vocabularyField2"
+                                                  directory="[[vocabularyField2Name]]"
+                                                  label="[[vocabularyField2Label]]"
+                                                  min-chars="0"
+                                                  role="widget"
+                                                  metadata="directory"
+                                                  value="{{document.properties.custom:vocabularyField2}}">
+                        </qualitified-inline-edit>
+                    </template>
+                    <template if="[[!vocabularyField2Editable]]" is="dom-if">
+                        <div class="sortable" hidden$="[[!vocabularyField2Visible]]" id="[[vocabularyField2Order]]"
+                             role="widget">
+                            <label>[[vocabularyField2Label]]</label>
+                            <div style="display: none">
+                                [[formatDirectory(document.properties.custom:vocabularyField2,
+                                vocabularyField2Name, "vocabularyField2")]]
+                            </div>
+                            <div>[[vocabularyField2Value]]</div>
+                        </div>
+                    </template>
+                </template>
+
+                <template if="[[document.properties.custom:vocabularyField3]]" is="dom-if">
+                    <template if="[[vocabularyField3Editable]]" is="dom-if">
+                        <qualitified-inline-edit  document="[[document]]"
+                                                  property="custom:vocabularyField3"
+                                                  directory="[[vocabularyField3Name]]"
+                                                  label="[[vocabularyField3Label]]"
+                                                  min-chars="0"
+                                                  role="widget"
+                                                  metadata="directory"
+                                                  value="{{document.properties.custom:vocabularyField3}}">
+                        </qualitified-inline-edit>
+                    </template>
+                    <template if="[[!vocabularyField3Editable]]" is="dom-if">
+                        <div class="sortable" hidden$="[[!vocabularyField3Visible]]" id="[[vocabularyField3Order]]"
+                             role="widget">
+                            <label>[[vocabularyField3Label]]</label>
+                            <div style="display: none">
+                                [[formatDirectory(document.properties.custom:vocabularyField3,
+                                vocabularyField3Name, "vocabularyField3")]]
+                            </div>
+                            <div>[[vocabularyField3Value]]</div>
+                        </div>
+                    </template>
+                </template>
+
+                <template if="[[document.properties.custom:vocabularyField4]]" is="dom-if">
+                    <template if="[[vocabularyField4Editable]]" is="dom-if">
+                        <qualitified-inline-edit  document="[[document]]"
+                                                  property="custom:vocabularyField4"
+                                                  directory="[[vocabularyField4Name]]"
+                                                  label="[[vocabularyField4Label]]"
+                                                  min-chars="0"
+                                                  role="widget"
+                                                  metadata="directory"
+                                                  value="{{document.properties.custom:vocabularyField4}}">
+                        </qualitified-inline-edit>
+                    </template>
+                    <template if="[[!vocabularyField4Editable]]" is="dom-if">
+                        <div class="sortable" hidden$="[[!vocabularyField4Visible]]" id="[[vocabularyField4Order]]"
+                             role="widget">
+                            <label>[[vocabularyField4Label]]</label>
+                            <div style="display: none">
+                                [[formatDirectory(document.properties.custom:vocabularyField4,
+                                vocabularyField4Name, "vocabularyField4")]]
+                            </div>
+                            <div>[[vocabularyField4Value]]</div>
+                        </div>
+                    </template>
+                </template>
+
+                <template if="[[document.properties.custom:vocabularyField5]]" is="dom-if">
+                    <template if="[[vocabularyField5Editable]]" is="dom-if">
+                        <qualitified-inline-edit  document="[[document]]"
+                                                  property="custom:vocabularyField5"
+                                                  directory="[[vocabularyField5Name]]"
+                                                  label="[[vocabularyField5Label]]"
+                                                  min-chars="0"
+                                                  role="widget"
+                                                  metadata="directory"
+                                                  value="{{document.properties.custom:vocabularyField5}}">
+                        </qualitified-inline-edit>
+                    </template>
+                    <template if="[[!vocabularyField5Editable]]" is="dom-if">
+                        <div class="sortable" hidden$="[[!vocabularyField5Visible]]" id="[[vocabularyField5Order]]"
+                             role="widget">
+                            <label>[[vocabularyField5Label]]</label>
+                            <div style="display: none">
+                                [[formatDirectory(document.properties.custom:vocabularyField5,
+                                vocabularyField5Name, "vocabularyField5")]]
+                            </div>
+                            <div>[[vocabularyField5Value]]</div>
+                        </div>
+                    </template>
+                </template>
+
+                <template if="[[document.properties.custom:vocabularyField6]]" is="dom-if">
+                    <template if="[[vocabularyField6Editable]]" is="dom-if">
+                        <qualitified-inline-edit  document="[[document]]"
+                                                  property="custom:vocabularyField6"
+                                                  directory="[[vocabularyField6Name]]"
+                                                  label="[[vocabularyField6Label]]"
+                                                  min-chars="0"
+                                                  role="widget"
+                                                  metadata="directory"
+                                                  value="{{document.properties.custom:vocabularyField6}}">
+                        </qualitified-inline-edit>
+                    </template>
+                    <template if="[[!vocabularyField6Editable]]" is="dom-if">
+                        <div class="sortable" hidden$="[[!vocabularyField6Visible]]" id="[[vocabularyField6Order]]"
+                             role="widget">
+                            <label>[[vocabularyField6Label]]</label>
+                            <div style="display: none">
+                                [[formatDirectory(document.properties.custom:vocabularyField6,
+                                vocabularyField6Name, "vocabularyField6")]]
+                            </div>
+                            <div>[[vocabularyField6Value]]</div>
+                        </div>
+                    </template>
+                </template>
+
+                <template if="[[document.properties.custom:vocabularyField7]]" is="dom-if">
+                    <template if="[[vocabularyField7Editable]]" is="dom-if">
+                        <qualitified-inline-edit  document="[[document]]"
+                                                  property="custom:vocabularyField7"
+                                                  directory="[[vocabularyField7Name]]"
+                                                  label="[[vocabularyField7Label]]"
+                                                  min-chars="0"
+                                                  role="widget"
+                                                  metadata="directory"
+                                                  value="{{document.properties.custom:vocabularyField7}}">
+                        </qualitified-inline-edit>
+                    </template>
+                    <template if="[[!vocabularyField7Editable]]" is="dom-if">
+                        <div class="sortable" hidden$="[[!vocabularyField7Visible]]" id="[[vocabularyField7Order]]"
+                             role="widget">
+                            <label>[[vocabularyField7Label]]</label>
+                            <div style="display: none">
+                                [[formatDirectory(document.properties.custom:vocabularyField7,
+                                vocabularyField7Name, "vocabularyField7")]]
+                            </div>
+                            <div>[[vocabularyField7Value]]</div>
+                        </div>
+                    </template>
+                </template>
+
+                <template if="[[document.properties.custom:vocabularyField8]]" is="dom-if">
+                    <template if="[[vocabularyField8Editable]]" is="dom-if">
+                        <qualitified-inline-edit  document="[[document]]"
+                                                  property="custom:vocabularyField8"
+                                                  directory="[[vocabularyField8Name]]"
+                                                  label="[[vocabularyField8Label]]"
+                                                  min-chars="0"
+                                                  role="widget"
+                                                  metadata="directory"
+                                                  value="{{document.properties.custom:vocabularyField8}}">
+                        </qualitified-inline-edit>
+                    </template>
+                    <template if="[[!vocabularyField8Editable]]" is="dom-if">
+                        <div class="sortable" hidden$="[[!vocabularyField8Visible]]" id="[[vocabularyField8Order]]"
+                             role="widget">
+                            <label>[[vocabularyField8Label]]</label>
+                            <div style="display: none">
+                                [[formatDirectory(document.properties.custom:vocabularyField8,
+                                vocabularyField8Name, "vocabularyField8")]]
+                            </div>
+                            <div>[[vocabularyField8Value]]</div>
+                        </div>
+                    </template>
+                </template>
+
+                <template if="[[document.properties.custom:vocabularyField9]]" is="dom-if">
+                    <template if="[[vocabularyField9Editable]]" is="dom-if">
+                        <qualitified-inline-edit  document="[[document]]"
+                                                  property="custom:vocabularyField9"
+                                                  directory="[[vocabularyField9Name]]"
+                                                  label="[[vocabularyField9Label]]"
+                                                  min-chars="0"
+                                                  role="widget"
+                                                  metadata="directory"
+                                                  value="{{document.properties.custom:vocabularyField9}}">
+                        </qualitified-inline-edit>
+                    </template>
+                    <template if="[[!vocabularyField9Editable]]" is="dom-if">
+                        <div class="sortable" hidden$="[[!vocabularyField9Visible]]" id="[[vocabularyField9Order]]"
+                             role="widget">
+                            <label>[[vocabularyField9Label]]</label>
+                            <div style="display: none">
+                                [[formatDirectory(document.properties.custom:vocabularyField9,
+                                vocabularyField9Name, "vocabularyField9")]]
+                            </div>
+                            <div>[[vocabularyField2Value]]</div>
+                        </div>
+                    </template>
+                </template>
+
+                <template if="[[document.properties.custom:vocabularyField10]]" is="dom-if">
+                    <template if="[[vocabularyField10Editable]]" is="dom-if">
+                        <qualitified-inline-edit  document="[[document]]"
+                                                  property="custom:vocabularyField10"
+                                                  directory="[[vocabularyField10Name]]"
+                                                  label="[[vocabularyField10Label]]"
+                                                  min-chars="0"
+                                                  role="widget"
+                                                  metadata="directory"
+                                                  value="{{document.properties.custom:vocabularyField10}}">
+                        </qualitified-inline-edit>
+                    </template>
+                    <template if="[[!vocabularyField10Editable]]" is="dom-if">
+                        <div class="sortable" hidden$="[[!vocabularyField10Visible]]" id="[[vocabularyField10Order]]"
+                             role="widget">
+                            <label>[[vocabularyField10Label]]</label>
+                            <div style="display: none">
+                                [[formatDirectory(document.properties.custom:vocabularyField10,
+                                vocabularyField10Name, "vocabularyField10")]]
+                            </div>
+                            <div>[[vocabularyField10Value]]</div>
+                        </div>
+                    </template>
+                </template>
+
+                <template if="[[doubleField1Editable]]" is="dom-if">
+                    <qualitified-inline-edit document="[[document]]" property="custom:doubleField1"
+                                             label="[[doubleField1Label]]">
+                    </qualitified-inline-edit>
+                </template>
+                <template if="[[doubleField2Editable]]" is="dom-if">
+                    <qualitified-inline-edit document="[[document]]" property="custom:doubleField2"
+                                             label="[[doubleField2Label]]">
+                    </qualitified-inline-edit>
+                </template>
+                <template if="[[doubleField3Editable]]" is="dom-if">
+                    <qualitified-inline-edit document="[[document]]" property="custom:doubleField3"
+                                             label="[[doubleField3Label]]">
+                    </qualitified-inline-edit>
+                </template>
+                <template if="[[doubleField4Editable]]" is="dom-if">
+                    <qualitified-inline-edit document="[[document]]" property="custom:doubleField4"
+                                             label="[[doubleField4Label]]">
+                    </qualitified-inline-edit>
+                </template>
+                <template if="[[doubleField5Editable]]" is="dom-if">
+                    <qualitified-inline-edit document="[[document]]" property="custom:doubleField5"
+                                             label="[[doubleField5Label]]">
+                    </qualitified-inline-edit>
+                </template>
+                <template if="[[doubleField6Editable]]" is="dom-if">
+                    <qualitified-inline-edit document="[[document]]" property="custom:doubleField1"
+                                             label="[[doubleField1Label]]">
+                    </qualitified-inline-edit>
+                </template>
+                <template if="[[doubleField7Editable]]" is="dom-if">
+                    <qualitified-inline-edit document="[[document]]" property="custom:doubleField1"
+                                             label="[[doubleField1Label]]">
+                    </qualitified-inline-edit>
+                </template>
+                <template if="[[doubleField8Editable]]" is="dom-if">
+                    <qualitified-inline-edit document="[[document]]" property="custom:doubleField1"
+                                             label="[[doubleField1Label]]">
+                    </qualitified-inline-edit>
+                </template>
+                <template if="[[doubleField9Editable]]" is="dom-if">
+                    <qualitified-inline-edit document="[[document]]" property="custom:doubleField1"
+                                             label="[[doubleField1Label]]">
+                    </qualitified-inline-edit>
+                </template>
+                <template if="[[doubleField10Editable]]" is="dom-if">
+                    <qualitified-inline-edit document="[[document]]" property="custom:doubleField1"
+                                             label="[[doubleField1Label]]">
+                    </qualitified-inline-edit>
+                </template>
+                <template if="[[!doubleField1Editable]]" is="dom-if">
+                    <div class="sortable" hidden$="[[!doubleField1Visible]]" id="[[doubleField1Order]]" role="widget">
+                        <label>[[doubleField1Label]]</label>
+                        <div>[[document.properties.custom:doubleField1]]</div>
+
                     </div>
                 </template>
 
@@ -3132,6 +3439,7 @@
                 },
                 vocabularyField1Name: {
                     type: String,
+                    value: "",
                 },
                 vocabularyField1Value: {
                     type: String,
@@ -5080,6 +5388,48 @@
                     type: Boolean,
                     value: false,
                 },
+                vocabularyField1Editable: {
+                    type: Boolean,
+                    value: false,
+                },
+                vocabularyField2Editable: {
+                    type: Boolean,
+                    value: false,
+                },
+                vocabularyField3Editable: {
+                    type: Boolean,
+                    value: false,
+                },
+                vocabularyField4Editable: {
+                    type: Boolean,
+                    value: false,
+                },
+                vocabularyField5Editable: {
+                    type: Boolean,
+                    value: false,
+                },
+                vocabularyField6Editable: {
+                    type: Boolean,
+                    value: false,
+                },
+                vocabularyField7Editable: {
+                    type: Boolean,
+                    value: false,
+                },
+                vocabularyField8Editable: {
+                    type: Boolean,
+                    value: false,
+                },
+                vocabularyField9Editable: {
+                    type: Boolean,
+                    value: false,
+                },
+                vocabularyField10Editable: {
+                    type: Boolean,
+                    value: false,
+                },
+
+
                 stringField2Editable: {
                     type: Boolean,
                     value: false,
@@ -6283,6 +6633,8 @@
                                     : false;
                                 this.vocabularyField1Order = i;
                                 this.vocabularyField1Multivalue = field.multivalue;
+                                this.vocabularyField1Editable =
+                                    field.editable !== null ? field.editable : false;
                             }
                             if (field.fieldName === "vocabularyField2") {
                                 this.vocabularyField2Visible = this._isVisible(
@@ -6299,6 +6651,8 @@
                                 )
                                     ? field.required
                                     : false;
+                                this.vocabularyField2Editable =
+                                    field.editable !== null ? field.editable : false;
                                 this.vocabularyField2Order = i;
                                 this.vocabularyField2Multivalue = field.multivalue;
                             }
@@ -6317,6 +6671,8 @@
                                 )
                                     ? field.required
                                     : false;
+                                this.vocabularyField3Editable =
+                                    field.editable !== null ? field.editable : false;
                                 this.vocabularyField3Order = i;
                                 this.vocabularyField3Multivalue = field.multivalue;
                             }
@@ -6335,6 +6691,8 @@
                                 )
                                     ? field.required
                                     : false;
+                                this.vocabularyField4Editable =
+                                    field.editable !== null ? field.editable : false;
                                 this.vocabularyField4Order = i;
                                 this.vocabularyField4Multivalue = field.multivalue;
                             }
@@ -6353,6 +6711,8 @@
                                 )
                                     ? field.required
                                     : false;
+                                this.vocabularyField5Editable =
+                                    field.editable !== null ? field.editable : false;
                                 this.vocabularyField5Order = i;
                                 this.vocabularyField5Multivalue = field.multivalue;
                             }
@@ -6371,6 +6731,8 @@
                                 )
                                     ? field.required
                                     : false;
+                                this.vocabularyField6Editable =
+                                    field.editable !== null ? field.editable : false;
                                 this.vocabularyField6Order = i;
                                 this.vocabularyField6Multivalue = field.multivalue;
                             }
@@ -6389,6 +6751,8 @@
                                 )
                                     ? field.required
                                     : false;
+                                this.vocabularyField7Editable =
+                                    field.editable !== null ? field.editable : false;
                                 this.vocabularyField7Order = i;
                                 this.vocabularyField7Multivalue = field.multivalue;
                             }
@@ -6407,6 +6771,8 @@
                                 )
                                     ? field.required
                                     : false;
+                                this.vocabularyField8Editable =
+                                    field.editable !== null ? field.editable : false;
                                 this.vocabularyField8Order = i;
                                 this.vocabularyField8Multivalue = field.multivalue;
                             }
@@ -6425,6 +6791,8 @@
                                 )
                                     ? field.required
                                     : false;
+                                this.vocabularyField9Editable =
+                                    field.editable !== null ? field.editable : false;
                                 this.vocabularyField9Order = i;
                                 this.vocabularyField9Multivalue = field.multivalue;
                             }
@@ -6443,6 +6811,8 @@
                                 )
                                     ? field.required
                                     : false;
+                                this.vocabularyField10Editable =
+                                    field.editable !== null ? field.editable : false;
                                 this.vocabularyField10Order = i;
                                 this.vocabularyField10Multivalue = field.multivalue;
                             }
