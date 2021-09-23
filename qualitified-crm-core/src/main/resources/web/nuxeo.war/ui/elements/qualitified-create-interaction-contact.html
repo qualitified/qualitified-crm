@@ -189,6 +189,7 @@
                     "id": this.type.toLowerCase()
                 };
                 this.parentPath = this.parentNode.parentNode.host.__data.document.path.replace(this.parentNode.parentNode.host.__data.document.title,'');
+
                 this.selectedTab = "create";
                 this._showTabs = false;
                 this._fetchParent().then(

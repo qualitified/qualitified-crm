@@ -44,83 +44,103 @@
     </div>
     <section class="dashboard">
       <nuxeo-card>
-        <qualitified-inline-edit document="[[document]]"
-                                 property="account:accountType"
-                                 label="[[i18n('label.metadata.type')]]"
-                                 metadata="directory"
-                                 directory="AccountType"
-                                 value="[[formatDirectory(document.properties.account:accountType)]]"
-        >
+        <template if="[[document.properties.account:accountType]]" is="dom-if">
+          <qualitified-inline-edit document="[[document]]"
+                                   property="account:accountType"
+                                   label="[[i18n('label.metadata.type')]]"
+                                   metadata="directory"
+                                   directory="AccountType"
+                                   value="[[formatDirectory(document.properties.account:accountType)]]"
+          >
 
-        </qualitified-inline-edit>
+          </qualitified-inline-edit>
+        </template>
 
-        <qualitified-inline-edit document="[[document]]"
-                                 property="account:typeOfIndustry"
-                                 label="[[i18n('label.metadata.typeOfIndustry')]]"
-                                 metadata="directory"
-                                 directory="Industry"
-                                 value="[[formatDirectory(document.properties.account:typeOfIndustry)]]"
-        >
+        <template if="[[document.properties.account:typeOfIndustry]]" is="dom-if">
+          <qualitified-inline-edit document="[[document]]"
+                                   property="account:typeOfIndustry"
+                                   label="[[i18n('label.metadata.typeOfIndustry')]]"
+                                   metadata="directory"
+                                   directory="Industry"
+                                   value="[[formatDirectory(document.properties.account:typeOfIndustry)]]"
+          >
 
-        </qualitified-inline-edit>
-
-
-        <qualitified-inline-edit document="[[document]]"
-                                 property="account:zone"
-                                 label="[[i18n('label.metadata.zone')]]"
-                                 metadata="directory"
-                                 directory="Zone"
-                                 value="[[formatDirectory(document.properties.account:zone)]]"
-        >
-
-        </qualitified-inline-edit>
+          </qualitified-inline-edit>
+        </template>
 
 
-        <qualitified-inline-edit document="[[document]]"
-                                 value="[[document.properties.account:turnover]]"
-                                 metadata="amount"
-                                 property="account:turnover"
-                                 label="[[i18n('label.metadata.turnover')]]">
-        </qualitified-inline-edit>
+        <template if="[[document.properties.account:zone]]" is="dom-if">
+          <qualitified-inline-edit document="[[document]]"
+                                   property="account:zone"
+                                   label="[[i18n('label.metadata.zone')]]"
+                                   metadata="directory"
+                                   directory="Zone"
+                                   value="[[formatDirectory(document.properties.account:zone)]]"
+          >
+
+          </qualitified-inline-edit>
+        </template>
 
 
-        <qualitified-inline-edit document="[[document]]"
-                                 property="account:website"
-                                 value="[[document.properties.account:website]]"
-                                 label="[[i18n('label.metadata.website')]]"
-                                 metadata="link"
-        >
-        </qualitified-inline-edit>
+        <template if="[[document.properties.account:turnover]]" is="dom-if">
+          <qualitified-inline-edit document="[[document]]"
+                                   value="[[document.properties.account:turnover]]"
+                                   metadata="amount"
+                                   property="account:turnover"
+                                   label="[[i18n('label.metadata.turnover')]]">
+          </qualitified-inline-edit>
+        </template>
+
+
+        <template if="[[document.properties.account:website]]" is="dom-if">
+          <qualitified-inline-edit document="[[document]]"
+                                   property="account:website"
+                                   value="[[document.properties.account:website]]"
+                                   label="[[i18n('label.metadata.website')]]"
+                                   metadata="link"
+          >
+          </qualitified-inline-edit>
+        </template>
+
         <qualitified-custom-fields document="{{document}}" column="Column1" mode="view"></qualitified-custom-fields>
 
       </nuxeo-card>
 
       <nuxeo-card>
         <div role="widget">
-          <qualitified-inline-edit document="[[document]]"
-                                   property="account:nbEmployees"
-                                   value="[[document.properties.account:nbEmployees]]"
-                                   label="[[i18n('label.metadata.nbemployees')]]"
-          >
-          </qualitified-inline-edit>
+          <template if="[[document.properties.account:nbEmployees]]" is="dom-if">
+            <qualitified-inline-edit document="[[document]]"
+                                     property="account:nbEmployees"
+                                     value="[[document.properties.account:nbEmployees]]"
+                                     label="[[i18n('label.metadata.nbemployees')]]"
+            >
+            </qualitified-inline-edit>
+          </template>
+
 
         </div>
         <div role="widget">
-          <qualitified-inline-edit document="[[document]]"
-                                   property="account:phoneNumber"
-                                   value="[[document.properties.account:phoneNumber]]"
-                                   label="[[i18n('label.metadata.phone')]]"
-          >
-          </qualitified-inline-edit>
+          <template if="[[document.properties.account:phoneNumber]]" is="dom-if">
+            <qualitified-inline-edit document="[[document]]"
+                                     property="account:phoneNumber"
+                                     value="[[document.properties.account:phoneNumber]]"
+                                     label="[[i18n('label.metadata.phone')]]"
+            >
+            </qualitified-inline-edit>
+          </template>
+
 
         </div>
         <div role="widget">
-          <qualitified-inline-edit document="[[document]]"
-                                   property="account:email"
-                                   value="[[document.properties.account:email]]"
-                                   label="[[i18n('label.metadata.email')]]"
-          >
-          </qualitified-inline-edit>
+          <template if="[[document.properties.account:email]]" is="dom-if">
+            <qualitified-inline-edit document="[[document]]"
+                                     property="account:email"
+                                     value="[[document.properties.account:email]]"
+                                     label="[[i18n('label.metadata.email')]]"
+            >
+            </qualitified-inline-edit>
+          </template>
+
 
         </div>
         <div role="widget">
@@ -128,43 +148,61 @@
           </qualitified-inline-edit>
 
 
-          <qualitified-inline-edit document="[[document]]"
-                                   property="address:address1"
-                                   value="[[document.properties.address:address1]]"
-                                   label="[[i18n('label.metadata.address')]] 1"
-          >
-          </qualitified-inline-edit>
-          <qualitified-inline-edit document="[[document]]"
-                                   property="address:address2"
-                                   value="[[document.properties.address:address2]]"
-                                   label="[[i18n('label.metadata.address')]] 2"
+          <template if="[[document.properties.address:address1]]" is="dom-if">
+            <qualitified-inline-edit document="[[document]]"
+                                     property="address:address1"
+                                     value="[[document.properties.address:address1]]"
+                                     label="[[i18n('label.metadata.address')]] 1"
+            >
+            </qualitified-inline-edit>
+          </template>
 
-          >
-          </qualitified-inline-edit>
-          <qualitified-inline-edit document="[[document]]"
-                                   property="address:address3"
-                                   value="[[document.properties.address:address3]]"
-                                   label="[[i18n('label.metadata.address')]] 3"
-          >
-          </qualitified-inline-edit>
-          <qualitified-inline-edit document="[[document]]"
-                                   property="address:zipCode"
-                                   value="[[document.properties.address:zipCode]]"
-                                   label="[[i18n('label.metadata.zipCode')]]"
-          >
-          </qualitified-inline-edit>
-          <qualitified-inline-edit document="[[document]]"
-                                   property="address:city"
-                                   value="[[document.properties.address:city]]"
-                                   label="[[i18n('label.metadata.city')]]"
-          >
-          </qualitified-inline-edit>
-          <qualitified-inline-edit document="[[document]]"
-                                   property="address:country"
-                                   value="[[document.properties.address:country]]"
-                                   label="[[i18n('label.metadata.country')]]"
-          >
-          </qualitified-inline-edit>
+
+          <template if="[[document.properties.address:address2]]" is="dom-if">
+            <qualitified-inline-edit document="[[document]]"
+                                     property="address:address2"
+                                     value="[[document.properties.address:address2]]"
+                                     label="[[i18n('label.metadata.address')]] 2"
+
+            >
+            </qualitified-inline-edit>
+          </template>
+          <template if="[[document.properties.address:address3]]" is="dom-if">
+            <qualitified-inline-edit document="[[document]]"
+                                     property="address:address3"
+                                     value="[[document.properties.address:address3]]"
+                                     label="[[i18n('label.metadata.address')]] 3"
+            >
+            </qualitified-inline-edit>
+          </template>
+
+          <template if="[[document.properties.address:zipCode]]" is="dom-if">
+            <qualitified-inline-edit document="[[document]]"
+                                     property="address:zipCode"
+                                     value="[[document.properties.address:zipCode]]"
+                                     label="[[i18n('label.metadata.zipCode')]]"
+            >
+            </qualitified-inline-edit>
+          </template>
+
+          <template if="[[document.properties.address:city]]" is="dom-if">
+            <qualitified-inline-edit document="[[document]]"
+                                     property="address:city"
+                                     value="[[document.properties.address:city]]"
+                                     label="[[i18n('label.metadata.city')]]"
+            >
+            </qualitified-inline-edit>
+          </template>
+
+          <template if="[[document.properties.address:country]]" is="dom-if">
+            <qualitified-inline-edit document="[[document]]"
+                                     property="address:country"
+                                     value="[[document.properties.address:country]]"
+                                     label="[[i18n('label.metadata.country')]]"
+            >
+            </qualitified-inline-edit>
+          </template>
+
 
 
         </div>
@@ -175,6 +213,8 @@
       <nuxeo-card>
 
         <div role="widget">
+          <template if="[[document.properties.account:status]]" is="dom-if">
+          </template>
           <qualitified-inline-edit document="[[document]]"
                                    property="account:status"
                                    label="[[i18n('label.metadata.status')]]"
@@ -186,6 +226,8 @@
           </qualitified-inline-edit>
 
         </div>
+        <template if="[[document.properties.account:mainContact]]" is="dom-if">
+        </template>
         <div role="widget" hidden$="[[!document.properties.account:mainContact]">
           <qualitified-inline-edit document="[[document]]"
                                    value="document.properties.account:mainContact"
@@ -199,6 +241,8 @@
 
         </div>
         <div role="widget">
+          <template if="[[item.properties.account:responsible]]" is="dom-if">
+          </template>
           <qualitified-inline-edit document="[[document]]"
                                    value="[[item.properties.account:responsible]]"
                                    property="account:responsible"

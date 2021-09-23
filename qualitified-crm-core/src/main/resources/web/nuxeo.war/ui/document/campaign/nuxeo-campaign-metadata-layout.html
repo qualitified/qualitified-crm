@@ -123,10 +123,12 @@
             </qualitified-inline-edit>
         </div>
         <div role="widget" style="width:60%;">
+            <div  hidden$="[[!document.properties.campaign:sendDate]]">
             <qualitified-inline-edit document="[[document]]"
                                      property="campaign:sendDate"
                                      label="label.metadata.date"
                                      metadata="date"></qualitified-inline-edit>
+            </div>
         </div>
 
     </template>
