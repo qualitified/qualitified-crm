@@ -66,6 +66,8 @@ public class CopyBlob {
         String loginContent=null;
         loginContent = new String(Files.readAllBytes(path1), charset);
         loginContent = loginContent.replaceFirst(".*loginButtonBackgroundColor.*","String loginButtonBackgroundColor = LoginScreenHelper.getValueWithDefault(screenConfig.getLoginButtonBackgroundColor(),\" "+ image.getPropertyValue("branding:loginBackgroundColor") +"\");");
+        //loginContent = loginContent.replaceAll(" <%= loginButtonBackgroundColor %>", (String)image.getPropertyValue("branding:loginBackgroundColor"));
+
         Files.write(path1, loginContent.getBytes(charset));
         content = new String(Files.readAllBytes(path), charset);
         for (int i = 0; i < styles.size(); i++) {
