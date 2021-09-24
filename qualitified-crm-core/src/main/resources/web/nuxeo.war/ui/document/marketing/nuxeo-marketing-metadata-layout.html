@@ -12,8 +12,14 @@
     </style>
     <nuxeo-input role="widget" value="{{document.properties.dc:title}}" label="Title"></nuxeo-input>
 
-    <nuxeo-textarea role="widget" value="{{document.properties.dc:description}}" label="Description"></nuxeo-textarea>
-
+    <div role="widget" hidden$="[[!document.properties.dc:description]]">
+      <qualitified-inline-edit document="[[document]]"
+                               property="dc:description"
+                               metadata="textarea"
+                               value="[[document.properties.dc:description]]"
+                               label="[[i18n('label.metadata.description')]]">
+      </qualitified-inline-edit>
+    </div>
   </template>
 
   <script>

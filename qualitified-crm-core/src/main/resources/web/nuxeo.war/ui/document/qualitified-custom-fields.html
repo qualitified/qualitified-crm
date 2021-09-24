@@ -1248,6 +1248,7 @@
                 </template>
 
                 <template if="[[document.properties.custom:vocabularyField1]]" is="dom-if">
+
                     <div class="sortable" hidden$="[[!vocabularyField1Visible]]" id="[[vocabularyField1Order]]"  role="widget">
 
                     <template if="[[vocabularyField1Editable]]" is="dom-if">
@@ -1505,6 +1506,7 @@
                     </template>
                     </div>
                 </template>
+
                 <template if="[[document.properties.custom:doubleField1]]" is="dom-if">
                     <template if="[[doubleField1Editable]]" is="dom-if">
                         <qualitified-inline-edit document="[[document]]" property="custom:doubleField1"
@@ -2920,7 +2922,7 @@
                         </template></template>
                 </template>
 
-            </div>
+                </div>
         </iron-pages>
     </template>
     <script>
@@ -3282,45 +3284,45 @@
                     type: Number,
                 },
                 vocabularyField1Editable: {
-                    type: Boolean,
-                    value: false,
-                },
-                vocabularyField2Editable: {
-                    type: Boolean,
-                    value: false,
-                },
-                vocabularyField3Editable: {
-                    type: Boolean,
-                    value: false,
-                },
-                vocabularyField4Editable: {
-                    type: Boolean,
-                    value: false,
-                },
-                vocabularyField5Editable: {
-                    type: Boolean,
-                    value: false,
-                },
-                vocabularyField6Editable: {
-                    type: Boolean,
-                    value: false,
-                },
-                vocabularyField7Editable: {
-                    type: Boolean,
-                    value: false,
-                },
-                vocabularyField8Editable: {
-                    type: Boolean,
-                    value: false,
-                },
-                vocabularyField9Editable: {
-                    type: Boolean,
-                    value: false,
-                },
-                vocabularyField10Editable: {
-                    type: Boolean,
-                    value: false,
-                },
+                                   type: Boolean,
+                                   value: false,
+                               },
+                               vocabularyField2Editable: {
+                                   type: Boolean,
+                                   value: false,
+                               },
+                               vocabularyField3Editable: {
+                                   type: Boolean,
+                                   value: false,
+                               },
+                               vocabularyField4Editable: {
+                                   type: Boolean,
+                                   value: false,
+                               },
+                               vocabularyField5Editable: {
+                                   type: Boolean,
+                                   value: false,
+                               },
+                               vocabularyField6Editable: {
+                                   type: Boolean,
+                                   value: false,
+                               },
+                               vocabularyField7Editable: {
+                                   type: Boolean,
+                                   value: false,
+                               },
+                               vocabularyField8Editable: {
+                                   type: Boolean,
+                                   value: false,
+                               },
+                               vocabularyField9Editable: {
+                                   type: Boolean,
+                                   value: false,
+                               },
+                               vocabularyField10Editable: {
+                                   type: Boolean,
+                                   value: false,
+                               },
                 vocabularyField1Visible: {
                     type: Boolean,
                     value: false,
@@ -6469,205 +6471,205 @@
                             }
 
                             if (field.fieldName === "vocabularyField1") {
-                                this.vocabularyField1Visible = this._isVisible(
-                                    field.readGroup,
-                                    field.editGroup,
-                                    field.hiddenGroup
-                                );
-                                this.vocabularyField1Label = field.label;
-                                this.vocabularyField1Name = field.vocabularyName;
-                                this.vocabularyField1Required = this._isVisible(
-                                    field.readGroup,
-                                    field.editGroup,
-                                    field.hiddenGroup
-                                )
-                                    ? field.required
-                                    : false;
-                                this.vocabularyField1Order = i;
-                                this.vocabularyField1Multivalue = field.multivalue;
-                                this.vocabularyField1Editable =
-                                    field.editable !== null ? field.editable : false;
-                            }
-                            if (field.fieldName === "vocabularyField2") {
-                                this.vocabularyField2Visible = this._isVisible(
-                                    field.readGroup,
-                                    field.editGroup,
-                                    field.hiddenGroup
-                                );
-                                this.vocabularyField2Label = field.label;
-                                this.vocabularyField2Name = field.vocabularyName;
-                                this.vocabularyField2Required = this._isVisible(
-                                    field.readGroup,
-                                    field.editGroup,
-                                    field.hiddenGroup
-                                )
-                                    ? field.required
-                                    : false;
-                                this.vocabularyField2Editable =
-                                    field.editable !== null ? field.editable : false;
-                                this.vocabularyField2Order = i;
-                                this.vocabularyField2Multivalue = field.multivalue;
-                            }
-                            if (field.fieldName === "vocabularyField3") {
-                                this.vocabularyField3Visible = this._isVisible(
-                                    field.readGroup,
-                                    field.editGroup,
-                                    field.hiddenGroup
-                                );
-                                this.vocabularyField3Label = field.label;
-                                this.vocabularyField3Name = field.vocabularyName;
-                                this.vocabularyField3Required = this._isVisible(
-                                    field.readGroup,
-                                    field.editGroup,
-                                    field.hiddenGroup
-                                )
-                                    ? field.required
-                                    : false;
-                                this.vocabularyField3Editable =
-                                    field.editable !== null ? field.editable : false;
-                                this.vocabularyField3Order = i;
-                                this.vocabularyField3Multivalue = field.multivalue;
-                            }
-                            if (field.fieldName === "vocabularyField4") {
-                                this.vocabularyField4Visible = this._isVisible(
-                                    field.readGroup,
-                                    field.editGroup,
-                                    field.hiddenGroup
-                                );
-                                this.vocabularyField4Label = field.label;
-                                this.vocabularyField4Name = field.vocabularyName;
-                                this.vocabularyField4Required = this._isVisible(
-                                    field.readGroup,
-                                    field.editGroup,
-                                    field.hiddenGroup
-                                )
-                                    ? field.required
-                                    : false;
-                                this.vocabularyField4Editable =
-                                    field.editable !== null ? field.editable : false;
-                                this.vocabularyField4Order = i;
-                                this.vocabularyField4Multivalue = field.multivalue;
-                            }
-                            if (field.fieldName === "vocabularyField5") {
-                                this.vocabularyField5Visible = this._isVisible(
-                                    field.readGroup,
-                                    field.editGroup,
-                                    field.hiddenGroup
-                                );
-                                this.vocabularyField5Label = field.label;
-                                this.vocabularyField5Name = field.vocabularyName;
-                                this.vocabularyField5Required = this._isVisible(
-                                    field.readGroup,
-                                    field.editGroup,
-                                    field.hiddenGroup
-                                )
-                                    ? field.required
-                                    : false;
-                                this.vocabularyField5Editable =
-                                    field.editable !== null ? field.editable : false;
-                                this.vocabularyField5Order = i;
-                                this.vocabularyField5Multivalue = field.multivalue;
-                            }
-                            if (field.fieldName === "vocabularyField6") {
-                                this.vocabularyField6Visible = this._isVisible(
-                                    field.readGroup,
-                                    field.editGroup,
-                                    field.hiddenGroup
-                                );
-                                this.vocabularyField6Label = field.label;
-                                this.vocabularyField6Name = field.vocabularyName;
-                                this.vocabularyField6Required = this._isVisible(
-                                    field.readGroup,
-                                    field.editGroup,
-                                    field.hiddenGroup
-                                )
-                                    ? field.required
-                                    : false;
-                                this.vocabularyField6Editable =
-                                    field.editable !== null ? field.editable : false;
-                                this.vocabularyField6Order = i;
-                                this.vocabularyField6Multivalue = field.multivalue;
-                            }
-                            if (field.fieldName === "vocabularyField7") {
-                                this.vocabularyField7Visible = this._isVisible(
-                                    field.readGroup,
-                                    field.editGroup,
-                                    field.hiddenGroup
-                                );
-                                this.vocabularyField7Label = field.label;
-                                this.vocabularyField7Name = field.vocabularyName;
-                                this.vocabularyField7Required = this._isVisible(
-                                    field.readGroup,
-                                    field.editGroup,
-                                    field.hiddenGroup
-                                )
-                                    ? field.required
-                                    : false;
-                                this.vocabularyField7Editable =
-                                    field.editable !== null ? field.editable : false;
-                                this.vocabularyField7Order = i;
-                                this.vocabularyField7Multivalue = field.multivalue;
-                            }
-                            if (field.fieldName === "vocabularyField8") {
-                                this.vocabularyField8Visible = this._isVisible(
-                                    field.readGroup,
-                                    field.editGroup,
-                                    field.hiddenGroup
-                                );
-                                this.vocabularyField8Label = field.label;
-                                this.vocabularyField8Name = field.vocabularyName;
-                                this.vocabularyField8Required = this._isVisible(
-                                    field.readGroup,
-                                    field.editGroup,
-                                    field.hiddenGroup
-                                )
-                                    ? field.required
-                                    : false;
-                                this.vocabularyField8Editable =
-                                    field.editable !== null ? field.editable : false;
-                                this.vocabularyField8Order = i;
-                                this.vocabularyField8Multivalue = field.multivalue;
-                            }
-                            if (field.fieldName === "vocabularyField9") {
-                                this.vocabularyField9Visible = this._isVisible(
-                                    field.readGroup,
-                                    field.editGroup,
-                                    field.hiddenGroup
-                                );
-                                this.vocabularyField9Label = field.label;
-                                this.vocabularyField9Name = field.vocabularyName;
-                                this.vocabularyField9Required = this._isVisible(
-                                    field.readGroup,
-                                    field.editGroup,
-                                    field.hiddenGroup
-                                )
-                                    ? field.required
-                                    : false;
-                                this.vocabularyField9Editable =
-                                    field.editable !== null ? field.editable : false;
-                                this.vocabularyField9Order = i;
-                                this.vocabularyField9Multivalue = field.multivalue;
-                            }
-                            if (field.fieldName === "vocabularyField10") {
-                                this.vocabularyField10Visible = this._isVisible(
-                                    field.readGroup,
-                                    field.editGroup,
-                                    field.hiddenGroup
-                                );
-                                this.vocabularyField10Label = field.label;
-                                this.vocabularyField10Name = field.vocabularyName;
-                                this.vocabularyField10Required = this._isVisible(
-                                    field.readGroup,
-                                    field.editGroup,
-                                    field.hiddenGroup
-                                )
-                                    ? field.required
-                                    : false;
-                                this.vocabularyField10Editable =
-                                    field.editable !== null ? field.editable : false;
-                                this.vocabularyField10Order = i;
-                                this.vocabularyField10Multivalue = field.multivalue;
-                            }
+                                 this.vocabularyField1Visible = this._isVisible(
+                                     field.readGroup,
+                                     field.editGroup,
+                                     field.hiddenGroup
+                                 );
+                                 this.vocabularyField1Label = field.label;
+                                 this.vocabularyField1Name = field.vocabularyName;
+                                 this.vocabularyField1Required = this._isVisible(
+                                     field.readGroup,
+                                     field.editGroup,
+                                     field.hiddenGroup
+                                 )
+                                     ? field.required
+                                     : false;
+                                 this.vocabularyField1Order = i;
+                                 this.vocabularyField1Multivalue = field.multivalue;
+                                 this.vocabularyField1Editable =
+                                     field.editable !== null ? field.editable : false;
+                             }
+                             if (field.fieldName === "vocabularyField2") {
+                                 this.vocabularyField2Visible = this._isVisible(
+                                     field.readGroup,
+                                     field.editGroup,
+                                     field.hiddenGroup
+                                 );
+                                 this.vocabularyField2Label = field.label;
+                                 this.vocabularyField2Name = field.vocabularyName;
+                                 this.vocabularyField2Required = this._isVisible(
+                                     field.readGroup,
+                                     field.editGroup,
+                                     field.hiddenGroup
+                                 )
+                                     ? field.required
+                                     : false;
+                                 this.vocabularyField2Editable =
+                                     field.editable !== null ? field.editable : false;
+                                 this.vocabularyField2Order = i;
+                                 this.vocabularyField2Multivalue = field.multivalue;
+                             }
+                             if (field.fieldName === "vocabularyField3") {
+                                 this.vocabularyField3Visible = this._isVisible(
+                                     field.readGroup,
+                                     field.editGroup,
+                                     field.hiddenGroup
+                                 );
+                                 this.vocabularyField3Label = field.label;
+                                 this.vocabularyField3Name = field.vocabularyName;
+                                 this.vocabularyField3Required = this._isVisible(
+                                     field.readGroup,
+                                     field.editGroup,
+                                     field.hiddenGroup
+                                 )
+                                     ? field.required
+                                     : false;
+                                 this.vocabularyField3Editable =
+                                     field.editable !== null ? field.editable : false;
+                                 this.vocabularyField3Order = i;
+                                 this.vocabularyField3Multivalue = field.multivalue;
+                             }
+                             if (field.fieldName === "vocabularyField4") {
+                                 this.vocabularyField4Visible = this._isVisible(
+                                     field.readGroup,
+                                     field.editGroup,
+                                     field.hiddenGroup
+                                 );
+                                 this.vocabularyField4Label = field.label;
+                                 this.vocabularyField4Name = field.vocabularyName;
+                                 this.vocabularyField4Required = this._isVisible(
+                                     field.readGroup,
+                                     field.editGroup,
+                                     field.hiddenGroup
+                                 )
+                                     ? field.required
+                                     : false;
+                                 this.vocabularyField4Editable =
+                                     field.editable !== null ? field.editable : false;
+                                 this.vocabularyField4Order = i;
+                                 this.vocabularyField4Multivalue = field.multivalue;
+                             }
+                             if (field.fieldName === "vocabularyField5") {
+                                 this.vocabularyField5Visible = this._isVisible(
+                                     field.readGroup,
+                                     field.editGroup,
+                                     field.hiddenGroup
+                                 );
+                                 this.vocabularyField5Label = field.label;
+                                 this.vocabularyField5Name = field.vocabularyName;
+                                 this.vocabularyField5Required = this._isVisible(
+                                     field.readGroup,
+                                     field.editGroup,
+                                     field.hiddenGroup
+                                 )
+                                     ? field.required
+                                     : false;
+                                 this.vocabularyField5Editable =
+                                     field.editable !== null ? field.editable : false;
+                                 this.vocabularyField5Order = i;
+                                 this.vocabularyField5Multivalue = field.multivalue;
+                             }
+                             if (field.fieldName === "vocabularyField6") {
+                                 this.vocabularyField6Visible = this._isVisible(
+                                     field.readGroup,
+                                     field.editGroup,
+                                     field.hiddenGroup
+                                 );
+                                 this.vocabularyField6Label = field.label;
+                                 this.vocabularyField6Name = field.vocabularyName;
+                                 this.vocabularyField6Required = this._isVisible(
+                                     field.readGroup,
+                                     field.editGroup,
+                                     field.hiddenGroup
+                                 )
+                                     ? field.required
+                                     : false;
+                                 this.vocabularyField6Editable =
+                                     field.editable !== null ? field.editable : false;
+                                 this.vocabularyField6Order = i;
+                                 this.vocabularyField6Multivalue = field.multivalue;
+                             }
+                             if (field.fieldName === "vocabularyField7") {
+                                 this.vocabularyField7Visible = this._isVisible(
+                                     field.readGroup,
+                                     field.editGroup,
+                                     field.hiddenGroup
+                                 );
+                                 this.vocabularyField7Label = field.label;
+                                 this.vocabularyField7Name = field.vocabularyName;
+                                 this.vocabularyField7Required = this._isVisible(
+                                     field.readGroup,
+                                     field.editGroup,
+                                     field.hiddenGroup
+                                 )
+                                     ? field.required
+                                     : false;
+                                 this.vocabularyField7Editable =
+                                     field.editable !== null ? field.editable : false;
+                                 this.vocabularyField7Order = i;
+                                 this.vocabularyField7Multivalue = field.multivalue;
+                             }
+                             if (field.fieldName === "vocabularyField8") {
+                                 this.vocabularyField8Visible = this._isVisible(
+                                     field.readGroup,
+                                     field.editGroup,
+                                     field.hiddenGroup
+                                 );
+                                 this.vocabularyField8Label = field.label;
+                                 this.vocabularyField8Name = field.vocabularyName;
+                                 this.vocabularyField8Required = this._isVisible(
+                                     field.readGroup,
+                                     field.editGroup,
+                                     field.hiddenGroup
+                                 )
+                                     ? field.required
+                                     : false;
+                                 this.vocabularyField8Editable =
+                                     field.editable !== null ? field.editable : false;
+                                 this.vocabularyField8Order = i;
+                                 this.vocabularyField8Multivalue = field.multivalue;
+                             }
+                             if (field.fieldName === "vocabularyField9") {
+                                 this.vocabularyField9Visible = this._isVisible(
+                                     field.readGroup,
+                                     field.editGroup,
+                                     field.hiddenGroup
+                                 );
+                                 this.vocabularyField9Label = field.label;
+                                 this.vocabularyField9Name = field.vocabularyName;
+                                 this.vocabularyField9Required = this._isVisible(
+                                     field.readGroup,
+                                     field.editGroup,
+                                     field.hiddenGroup
+                                 )
+                                     ? field.required
+                                     : false;
+                                 this.vocabularyField9Editable =
+                                     field.editable !== null ? field.editable : false;
+                                 this.vocabularyField9Order = i;
+                                 this.vocabularyField9Multivalue = field.multivalue;
+                             }
+                             if (field.fieldName === "vocabularyField10") {
+                                 this.vocabularyField10Visible = this._isVisible(
+                                     field.readGroup,
+                                     field.editGroup,
+                                     field.hiddenGroup
+                                 );
+                                 this.vocabularyField10Label = field.label;
+                                 this.vocabularyField10Name = field.vocabularyName;
+                                 this.vocabularyField10Required = this._isVisible(
+                                     field.readGroup,
+                                     field.editGroup,
+                                     field.hiddenGroup
+                                 )
+                                     ? field.required
+                                     : false;
+                                 this.vocabularyField10Editable =
+                                     field.editable !== null ? field.editable : false;
+                                 this.vocabularyField10Order = i;
+                                 this.vocabularyField10Multivalue = field.multivalue;
+                             }
 
                             if (field.fieldName === "doubleField1") {
                                 this.doubleField1Visible = this._isVisible(

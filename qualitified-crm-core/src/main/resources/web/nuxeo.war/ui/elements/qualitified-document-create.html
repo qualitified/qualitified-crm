@@ -234,18 +234,22 @@
         );
       },
 
-      _setParentPath: async function(){
+     _setParentPath: async function(){
           var op = this.$.getAncestorDoc;
           op.params = {
             type: this.parentToSelect
           };
-          this.parentPath = await op.execute().then(function(response){
-            if (response && response.status && response.status == 204) {
-              return "/"
-            } else {
-              return response.path;
-            }
-          }.bind(this));
+          if (this.document.type === 'Account'){
+            this.parentPath = this.document.path;
+          } else {
+            this.parentPath = await op.execute().then(function(response){
+              if (response && response.status && response.status == 204) {
+                return "/"
+              } else {
+                return response.path;
+              }
+            }.bind(this));
+          }
       },
 
       toggleDialogImport: function (files) {
