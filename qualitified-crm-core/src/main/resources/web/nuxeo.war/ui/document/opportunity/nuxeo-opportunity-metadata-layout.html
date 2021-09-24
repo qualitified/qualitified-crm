@@ -32,61 +32,80 @@
         <section class="dashboard">
             <nuxeo-card>
                 <div role="widget">
-                    <qualitified-inline-edit document="[[document]]"
-                                             property="opportunity:step"
-                                             label="[[i18n('label.metadata.step')]]"
-                                             metadata="directory"
-                                             directory="OppStep"
-                                             value="[[formatDirectory(document.properties.opportunity:step)]]">
-                    </qualitified-inline-edit>
+                    <template if="[[document.properties.opportunity:step]]" is="dom-if">
+                        <qualitified-inline-edit document="[[document]]"
+                                                 property="opportunity:step"
+                                                 label="[[i18n('label.metadata.step')]]"
+                                                 metadata="directory"
+                                                 directory="OppStep"
+                                                 value="[[formatDirectory(document.properties.opportunity:step)]]">
+                        </qualitified-inline-edit>
+                    </template>
+
 
                 </div>
                 <div role="widget">
-                    <qualitified-inline-edit document="[[document]]"
-                                             property="opportunity:typeOfIndustry"
-                                             label="[[i18n('label.metadata.typeOfIndustry')]]"
-                                             metadata="directory"
-                                             directory="Industry"
-                                             value="[[formatDirectory(document.properties.opportunity:typeOfIndustry)]]">
-                    </qualitified-inline-edit>
+
+                    <template if="[[document.properties.opportunity:typeOfIndustry]]" is="dom-if">
+                        <qualitified-inline-edit document="[[document]]"
+                                                 property="opportunity:typeOfIndustry"
+                                                 label="[[i18n('label.metadata.typeOfIndustry')]]"
+                                                 metadata="directory"
+                                                 directory="Industry"
+                                                 value="[[formatDirectory(document.properties.opportunity:typeOfIndustry)]]">
+                        </qualitified-inline-edit>
+                    </template>
+
 
                 </div>
                 <div role="widget">
-                    <qualitified-inline-edit document="[[document]]"
-                                             property="opportunity:zone"
-                                             label="[[i18n('label.metadata.zone')]]"
-                                             metadata="directory"
-                                             directory="Zone"
-                                             value="[[formatDirectory(document.properties.opportunity:zone)]]">
-                    </qualitified-inline-edit>
+                    <template if="[[document.properties.opportunity:zone]]" is="dom-if">
+                        <qualitified-inline-edit document="[[document]]"
+                                                 property="opportunity:zone"
+                                                 label="[[i18n('label.metadata.zone')]]"
+                                                 metadata="directory"
+                                                 directory="Zone"
+                                                 value="[[formatDirectory(document.properties.opportunity:zone)]]">
+                        </qualitified-inline-edit>
+                    </template>
+
                 </div>
                 <qualitified-custom-fields document="{{document}}" column="Column1" mode="view"></qualitified-custom-fields>
 
             </nuxeo-card>
             <nuxeo-card>
                 <div role="widget">
-                    <qualitified-inline-edit document="[[document]]"
-                                             value="[[document.properties.opportunity:amount]]"
-                                             metadata="amount"
-                                             property="opportunity:amount"
-                                             label="[[i18n('label.metadata.amount')]]">
-                    </qualitified-inline-edit>
+                    <template if="[[document.properties.opportunity:amount]]" is="dom-if">
+                        <qualitified-inline-edit document="[[document]]"
+                                                 value="[[document.properties.opportunity:amount]]"
+                                                 metadata="amount"
+                                                 property="opportunity:amount"
+                                                 label="[[i18n('label.metadata.amount')]]">
+                        </qualitified-inline-edit>
+                    </template>
+
                 </div>
 
                 <div role="widget">
-                    <qualitified-inline-edit document="[[document]]"
-                                             property="opportunity:closeDate"
-                                             label="label.metadata.closedate"
-                                             metadata="date">
-                    </qualitified-inline-edit>
+                    <template if="[[document.properties.opportunity:closeDate]]" is="dom-if">
+                        <qualitified-inline-edit document="[[document]]"
+                                                 property="opportunity:closeDate"
+                                                 label="label.metadata.closedate"
+                                                 metadata="date">
+                        </qualitified-inline-edit>
+                    </template>
+
                 </div>
                 <div role="widget">
-                    <qualitified-inline-edit document="[[document]]"
-                                             value="[[item.properties.opportunity:responsible]]"
-                                             property="opportunity:responsible"
-                                             label="label.metadata.responsible"
-                                             metadata="user">
-                    </qualitified-inline-edit>
+                    <template if="[[document.properties.opportunity:responsible]]" is="dom-if">
+                        <qualitified-inline-edit document="[[document]]"
+                                                 value="[[item.properties.opportunity:responsible]]"
+                                                 property="opportunity:responsible"
+                                                 label="label.metadata.responsible"
+                                                 metadata="user">
+                        </qualitified-inline-edit>
+                    </template>
+
                 </div>
                 <qualitified-custom-fields document="{{document}}" column="Column2" mode="view"></qualitified-custom-fields>
 
