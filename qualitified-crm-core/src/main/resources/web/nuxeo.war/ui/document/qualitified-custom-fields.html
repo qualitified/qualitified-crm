@@ -1248,8 +1248,8 @@
                 </template>
 
                 <template if="[[document.properties.custom:vocabularyField1]]" is="dom-if">
-                    <div class="sortable" hidden$="[[!vocabularyField1Visible]]" id="[[vocabularyField1Order]]"  role="widget">
-
+                    <div role="widget">
+                        <template if="[[vocabularyField1Visible]]" is="dom-if">
                     <template if="[[vocabularyField1Editable]]" is="dom-if">
                         <qualitified-inline-edit  document="[[document]]"
                                                   property="custom:vocabularyField1"
@@ -1269,13 +1269,17 @@
                             </div>
                             <div>[[vocabularyField1Value]]</div>
                     </template>
+                        </template>
             </div>
                 </template>
 
                 <template if="[[document.properties.custom:vocabularyField2]]" is="dom-if">
-                    <div class="sortable" hidden$="[[!vocabularyField2Visible]]" id="[[vocabularyField2Order]]"
-                         role="widget">
-                    <template if="[[vocabularyField2Editable]]" is="dom-if">
+                    <div role="widget">
+                        <template if="[[vocabularyField2Visible]]" is="dom-if">
+
+                        <template if="[[document.properties.custom:vocabularyField2]]" is="dom-if">
+
+                        <template if="[[vocabularyField2Editable]]" is="dom-if">
                         <qualitified-inline-edit  document="[[document]]"
                                                   property="custom:vocabularyField2"
                                                   directory="[[vocabularyField2Name]]"
@@ -1295,13 +1299,15 @@
                             <div>[[vocabularyField2Value]]</div>
 
                     </template>
+                        </template>
                     </div>
                 </template>
 
                 <template if="[[document.properties.custom:vocabularyField3]]" is="dom-if">
-                    <div class="sortable" hidden$="[[!vocabularyField3Visible]]" id="[[vocabularyField3Order]]"
-                         role="widget">
-                    <template if="[[vocabularyField3Editable]]" is="dom-if">
+                    <div role="widget">
+                        <template if="[[vocabularyField3Visible]]" is="dom-if">
+
+                        <template if="[[vocabularyField3Editable]]" is="dom-if">
                         <qualitified-inline-edit  document="[[document]]"
                                                   property="custom:vocabularyField3"
                                                   directory="[[vocabularyField3Name]]"
@@ -1321,13 +1327,14 @@
                             <div>[[vocabularyField3Value]]</div>
 
                     </template>
+                        </template>
                     </div>
                 </template>
 
                 <template if="[[document.properties.custom:vocabularyField4]]" is="dom-if">
-                    <div class="sortable" hidden$="[[!vocabularyField4Visible]]" id="[[vocabularyField4Order]]"
-                         role="widget">
-                    <template if="[[vocabularyField4Editable]]" is="dom-if">
+                    <div role="widget">
+                        <template if="[[vocabularyField4Visible]]" is="dom-if">
+                        <template if="[[vocabularyField4Editable]]" is="dom-if">
                         <qualitified-inline-edit  document="[[document]]"
                                                   property="custom:vocabularyField4"
                                                   directory="[[vocabularyField4Name]]"
@@ -1347,13 +1354,15 @@
                             <div>[[vocabularyField4Value]]</div>
 
                     </template>
+                        </template>
                     </div>
                 </template>
 
                 <template if="[[document.properties.custom:vocabularyField5]]" is="dom-if">
-                    <div class="sortable" hidden$="[[!vocabularyField5Visible]]" id="[[vocabularyField5Order]]"
-                         role="widget">
-                    <template if="[[vocabularyField5Editable]]" is="dom-if">
+                    <div role="widget">
+                        <template if="[[vocabularyField5Visible]]" is="dom-if">
+
+                        <template if="[[vocabularyField5Editable]]" is="dom-if">
                         <qualitified-inline-edit  document="[[document]]"
                                                   property="custom:vocabularyField5"
                                                   directory="[[vocabularyField5Name]]"
@@ -1372,14 +1381,16 @@
                             </div>
                             <div>[[vocabularyField5Value]]</div>
                     </template>
+                        </template>
                     </div>
 
                 </template>
 
                 <template if="[[document.properties.custom:vocabularyField6]]" is="dom-if">
-                    <div class="sortable" hidden$="[[!vocabularyField6Visible]]" id="[[vocabularyField6Order]]"
-                         role="widget">
-                    <template if="[[vocabularyField6Editable]]" is="dom-if">
+                    <div role="widget">
+                        <template if="[[vocabularyField6Visible]]" is="dom-if">
+
+                        <template if="[[vocabularyField6Editable]]" is="dom-if">
                         <qualitified-inline-edit  document="[[document]]"
                                                   property="custom:vocabularyField6"
                                                   directory="[[vocabularyField6Name]]"
@@ -1399,13 +1410,15 @@
                             <div>[[vocabularyField6Value]]</div>
 
                     </template>
+                        </template>
                     </div>
                 </template>
 
                 <template if="[[document.properties.custom:vocabularyField7]]" is="dom-if">
-                    <div class="sortable" hidden$="[[!vocabularyField7Visible]]" id="[[vocabularyField7Order]]"
-                         role="widget">
-                    <template if="[[vocabularyField7Editable]]" is="dom-if">
+                    <div role="widget">
+                        <template if="[[vocabularyField7Visible]]" is="dom-if">
+
+                        <template if="[[vocabularyField7Editable]]" is="dom-if">
                         <qualitified-inline-edit  document="[[document]]"
                                                   property="custom:vocabularyField7"
                                                   directory="[[vocabularyField7Name]]"
@@ -1425,14 +1438,16 @@
                             </div>
                             <div>[[vocabularyField7Value]]</div>
                     </template>
+                        </template>
                     </div>
 
                 </template>
 
                 <template if="[[document.properties.custom:vocabularyField8]]" is="dom-if">
-                    <div class="sortable" hidden$="[[!vocabularyField8Visible]]" id="[[vocabularyField8Order]]"
-                         role="widget">
-                    <template if="[[vocabularyField8Editable]]" is="dom-if">
+                    <div role="widget">
+                        <template if="[[vocabularyField8Visible]]" is="dom-if">
+
+                        <template if="[[vocabularyField8Editable]]" is="dom-if">
                         <qualitified-inline-edit  document="[[document]]"
                                                   property="custom:vocabularyField8"
                                                   directory="[[vocabularyField8Name]]"
@@ -1451,14 +1466,16 @@
                             </div>
                             <div>[[vocabularyField8Value]]</div>
                     </template>
+                        </template>
                     </div>
 
                 </template>
 
                 <template if="[[document.properties.custom:vocabularyField9]]" is="dom-if">
-                    <div class="sortable" hidden$="[[!vocabularyField9Visible]]" id="[[vocabularyField9Order]]"
-                         role="widget">
-                    <template if="[[vocabularyField9Editable]]" is="dom-if">
+                    <div role="widget">
+                        <template if="[[vocabularyField9Visible]]" is="dom-if">
+
+                        <template if="[[vocabularyField9Editable]]" is="dom-if">
                         <qualitified-inline-edit  document="[[document]]"
                                                   property="custom:vocabularyField9"
                                                   directory="[[vocabularyField9Name]]"
@@ -1476,15 +1493,16 @@
                                 [[document.properties.custom:vocabularyField9]]
                             </div>
                             <div>[[vocabularyField2Value]]</div>
-                        </div>
                     </template>
+                        </template>
             </div>
                 </template>
 
                 <template if="[[document.properties.custom:vocabularyField10]]" is="dom-if">
-                    <div class="sortable" hidden$="[[!vocabularyField10Visible]]" id="[[vocabularyField10Order]]"
-                         role="widget">
-                    <template if="[[vocabularyField10Editable]]" is="dom-if">
+                    <div role="widget">
+                        <template if="[[vocabularyField10Visible]]" is="dom-if">
+
+                        <template if="[[vocabularyField10Editable]]" is="dom-if">
                         <qualitified-inline-edit  document="[[document]]"
                                                   property="custom:vocabularyField10"
                                                   directory="[[vocabularyField10Name]]"
@@ -1503,6 +1521,7 @@
                             </div>
                             <div>[[vocabularyField10Value]]</div>
                     </template>
+                        </template>
                     </div>
                 </template>
                 <template if="[[document.properties.custom:doubleField1]]" is="dom-if">
