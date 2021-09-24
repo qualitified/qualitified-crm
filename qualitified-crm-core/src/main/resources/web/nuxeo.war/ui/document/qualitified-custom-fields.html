@@ -1248,6 +1248,8 @@
                 </template>
 
                 <template if="[[document.properties.custom:vocabularyField1]]" is="dom-if">
+                    <div class="sortable" hidden$="[[!vocabularyField1Visible]]" id="[[vocabularyField1Order]]"  role="widget">
+
                     <template if="[[vocabularyField1Editable]]" is="dom-if">
                         <qualitified-inline-edit  document="[[document]]"
                                                   property="custom:vocabularyField1"
@@ -1260,18 +1262,19 @@
                         </qualitified-inline-edit>
                     </template>
                     <template if="[[!vocabularyField1Editable]]" is="dom-if">
-                        <div class="sortable" hidden$="[[!vocabularyField1Visible]]" id="[[vocabularyField1Order]]"
-                             role="widget">
+
                             <label>[[vocabularyField1Label]]</label>
                             <div >
                                 [[document.properties.custom:vocabularyField1]]
                             </div>
                             <div>[[vocabularyField1Value]]</div>
-                        </div>
                     </template>
+            </div>
                 </template>
 
                 <template if="[[document.properties.custom:vocabularyField2]]" is="dom-if">
+                    <div class="sortable" hidden$="[[!vocabularyField2Visible]]" id="[[vocabularyField2Order]]"
+                         role="widget">
                     <template if="[[vocabularyField2Editable]]" is="dom-if">
                         <qualitified-inline-edit  document="[[document]]"
                                                   property="custom:vocabularyField2"
@@ -1284,19 +1287,20 @@
                         </qualitified-inline-edit>
                     </template>
                     <template if="[[!vocabularyField2Editable]]" is="dom-if">
-                        <div class="sortable" hidden$="[[!vocabularyField2Visible]]" id="[[vocabularyField2Order]]"
-                             role="widget">
+
                             <label>[[vocabularyField2Label]]</label>
                             <div style="display: none">
-                                [[formatDirectory(document.properties.custom:vocabularyField2,
-                                vocabularyField2Name, "vocabularyField2")]]
+                                [[document.properties.custom:vocabularyField2]]
                             </div>
                             <div>[[vocabularyField2Value]]</div>
-                        </div>
+
                     </template>
+                    </div>
                 </template>
 
                 <template if="[[document.properties.custom:vocabularyField3]]" is="dom-if">
+                    <div class="sortable" hidden$="[[!vocabularyField3Visible]]" id="[[vocabularyField3Order]]"
+                         role="widget">
                     <template if="[[vocabularyField3Editable]]" is="dom-if">
                         <qualitified-inline-edit  document="[[document]]"
                                                   property="custom:vocabularyField3"
@@ -1309,19 +1313,20 @@
                         </qualitified-inline-edit>
                     </template>
                     <template if="[[!vocabularyField3Editable]]" is="dom-if">
-                        <div class="sortable" hidden$="[[!vocabularyField3Visible]]" id="[[vocabularyField3Order]]"
-                             role="widget">
+
                             <label>[[vocabularyField3Label]]</label>
-                            <div style="display: none">
-                                [[formatDirectory(document.properties.custom:vocabularyField3,
-                                vocabularyField3Name, "vocabularyField3")]]
+                            <div>
+                                [[document.properties.custom:vocabularyField3]]
                             </div>
                             <div>[[vocabularyField3Value]]</div>
-                        </div>
+
                     </template>
+                    </div>
                 </template>
 
                 <template if="[[document.properties.custom:vocabularyField4]]" is="dom-if">
+                    <div class="sortable" hidden$="[[!vocabularyField4Visible]]" id="[[vocabularyField4Order]]"
+                         role="widget">
                     <template if="[[vocabularyField4Editable]]" is="dom-if">
                         <qualitified-inline-edit  document="[[document]]"
                                                   property="custom:vocabularyField4"
@@ -1334,19 +1339,20 @@
                         </qualitified-inline-edit>
                     </template>
                     <template if="[[!vocabularyField4Editable]]" is="dom-if">
-                        <div class="sortable" hidden$="[[!vocabularyField4Visible]]" id="[[vocabularyField4Order]]"
-                             role="widget">
+
                             <label>[[vocabularyField4Label]]</label>
-                            <div style="display: none">
-                                [[formatDirectory(document.properties.custom:vocabularyField4,
-                                vocabularyField4Name, "vocabularyField4")]]
+                            <div>
+                                [[document.properties.custom:vocabularyField4]]
                             </div>
                             <div>[[vocabularyField4Value]]</div>
-                        </div>
+
                     </template>
+                    </div>
                 </template>
 
                 <template if="[[document.properties.custom:vocabularyField5]]" is="dom-if">
+                    <div class="sortable" hidden$="[[!vocabularyField5Visible]]" id="[[vocabularyField5Order]]"
+                         role="widget">
                     <template if="[[vocabularyField5Editable]]" is="dom-if">
                         <qualitified-inline-edit  document="[[document]]"
                                                   property="custom:vocabularyField5"
@@ -1359,19 +1365,20 @@
                         </qualitified-inline-edit>
                     </template>
                     <template if="[[!vocabularyField5Editable]]" is="dom-if">
-                        <div class="sortable" hidden$="[[!vocabularyField5Visible]]" id="[[vocabularyField5Order]]"
-                             role="widget">
+
                             <label>[[vocabularyField5Label]]</label>
-                            <div style="display: none">
-                                [[formatDirectory(document.properties.custom:vocabularyField5,
-                                vocabularyField5Name, "vocabularyField5")]]
+                            <div>
+                                [[document.properties.custom:vocabularyField5]]
                             </div>
                             <div>[[vocabularyField5Value]]</div>
-                        </div>
                     </template>
+                    </div>
+
                 </template>
 
                 <template if="[[document.properties.custom:vocabularyField6]]" is="dom-if">
+                    <div class="sortable" hidden$="[[!vocabularyField6Visible]]" id="[[vocabularyField6Order]]"
+                         role="widget">
                     <template if="[[vocabularyField6Editable]]" is="dom-if">
                         <qualitified-inline-edit  document="[[document]]"
                                                   property="custom:vocabularyField6"
@@ -1384,19 +1391,20 @@
                         </qualitified-inline-edit>
                     </template>
                     <template if="[[!vocabularyField6Editable]]" is="dom-if">
-                        <div class="sortable" hidden$="[[!vocabularyField6Visible]]" id="[[vocabularyField6Order]]"
-                             role="widget">
+
                             <label>[[vocabularyField6Label]]</label>
-                            <div style="display: none">
-                                [[formatDirectory(document.properties.custom:vocabularyField6,
-                                vocabularyField6Name, "vocabularyField6")]]
+                            <div >
+                                [[document.properties.custom:vocabularyField6]]
                             </div>
                             <div>[[vocabularyField6Value]]</div>
-                        </div>
+
                     </template>
+                    </div>
                 </template>
 
                 <template if="[[document.properties.custom:vocabularyField7]]" is="dom-if">
+                    <div class="sortable" hidden$="[[!vocabularyField7Visible]]" id="[[vocabularyField7Order]]"
+                         role="widget">
                     <template if="[[vocabularyField7Editable]]" is="dom-if">
                         <qualitified-inline-edit  document="[[document]]"
                                                   property="custom:vocabularyField7"
@@ -1409,19 +1417,20 @@
                         </qualitified-inline-edit>
                     </template>
                     <template if="[[!vocabularyField7Editable]]" is="dom-if">
-                        <div class="sortable" hidden$="[[!vocabularyField7Visible]]" id="[[vocabularyField7Order]]"
-                             role="widget">
+
                             <label>[[vocabularyField7Label]]</label>
-                            <div style="display: none">
-                                [[formatDirectory(document.properties.custom:vocabularyField7,
-                                vocabularyField7Name, "vocabularyField7")]]
+                            <div >
+                                [[document.properties.custom:vocabularyField7]]
                             </div>
                             <div>[[vocabularyField7Value]]</div>
-                        </div>
                     </template>
+                    </div>
+
                 </template>
 
                 <template if="[[document.properties.custom:vocabularyField8]]" is="dom-if">
+                    <div class="sortable" hidden$="[[!vocabularyField8Visible]]" id="[[vocabularyField8Order]]"
+                         role="widget">
                     <template if="[[vocabularyField8Editable]]" is="dom-if">
                         <qualitified-inline-edit  document="[[document]]"
                                                   property="custom:vocabularyField8"
@@ -1434,19 +1443,20 @@
                         </qualitified-inline-edit>
                     </template>
                     <template if="[[!vocabularyField8Editable]]" is="dom-if">
-                        <div class="sortable" hidden$="[[!vocabularyField8Visible]]" id="[[vocabularyField8Order]]"
-                             role="widget">
+
                             <label>[[vocabularyField8Label]]</label>
-                            <div style="display: none">
-                                [[formatDirectory(document.properties.custom:vocabularyField8,
-                                vocabularyField8Name, "vocabularyField8")]]
+                            <div >
+                                [[document.properties.custom:vocabularyField8]]
                             </div>
                             <div>[[vocabularyField8Value]]</div>
-                        </div>
                     </template>
+                    </div>
+
                 </template>
 
                 <template if="[[document.properties.custom:vocabularyField9]]" is="dom-if">
+                    <div class="sortable" hidden$="[[!vocabularyField9Visible]]" id="[[vocabularyField9Order]]"
+                         role="widget">
                     <template if="[[vocabularyField9Editable]]" is="dom-if">
                         <qualitified-inline-edit  document="[[document]]"
                                                   property="custom:vocabularyField9"
@@ -1459,18 +1469,20 @@
                         </qualitified-inline-edit>
                     </template>
                     <template if="[[!vocabularyField9Editable]]" is="dom-if">
-                        <div class="sortable" hidden$="[[!vocabularyField9Visible]]" id="[[vocabularyField9Order]]"
-                             role="widget">
+
                             <label>[[vocabularyField9Label]]</label>
-                            <div style="display: none">
+                            <div >
                                 [[document.properties.custom:vocabularyField9]]
                             </div>
                             <div>[[vocabularyField2Value]]</div>
                         </div>
                     </template>
+            </div>
                 </template>
 
                 <template if="[[document.properties.custom:vocabularyField10]]" is="dom-if">
+                    <div class="sortable" hidden$="[[!vocabularyField10Visible]]" id="[[vocabularyField10Order]]"
+                         role="widget">
                     <template if="[[vocabularyField10Editable]]" is="dom-if">
                         <qualitified-inline-edit  document="[[document]]"
                                                   property="custom:vocabularyField10"
@@ -1483,15 +1495,14 @@
                         </qualitified-inline-edit>
                     </template>
                     <template if="[[!vocabularyField10Editable]]" is="dom-if">
-                        <div class="sortable" hidden$="[[!vocabularyField10Visible]]" id="[[vocabularyField10Order]]"
-                             role="widget">
+
                             <label>[[vocabularyField10Label]]</label>
-                            <div style="display: none">
+                            <div >
                                 [[document.properties.custom:vocabularyField10]]
                             </div>
                             <div>[[vocabularyField10Value]]</div>
-                        </div>
                     </template>
+                    </div>
                 </template>
                 <template if="[[document.properties.custom:doubleField1]]" is="dom-if">
                     <template if="[[doubleField1Editable]]" is="dom-if">
@@ -2235,11 +2246,13 @@
                     </template>
                 </template>
                 <template if="[[document.properties.custom:userField1]]" is="dom-if">
+                    <div class="sortable" hidden$="[[!userField1Visible]]" id="[[userField1Order]]" role="widget">
                     <template if="[[userField1Editable]]" is="dom-if">
                         <qualitified-inline-edit document="[[document]]" property="custom:userField1"
                                                  value="[[document.properties.custom:userField1]]" label="[[userField1Label]]" metadata="user">
                         </qualitified-inline-edit>
                     </template>
+                    </div>
                 </template>
 
 
