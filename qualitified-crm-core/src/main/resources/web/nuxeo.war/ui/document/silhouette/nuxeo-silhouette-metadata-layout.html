@@ -28,18 +28,24 @@
     </div>
 
     <div role="widget">
-      <qualitified-inline-edit document="[[document]]"
-                               property="person:Role"
-                               label="[[i18n('label.metadata.role')]]"
-                               metadata="directory"
-                               directory="Role"
-                               value="[[formatDirectory(document.properties.person:Role)]]"
-      >
+      <template if="[[document.properties.person:Role]]" is="dom-if">
+        <qualitified-inline-edit document="[[document]]"
+                                 property="person:Role"
+                                 label="[[i18n('label.metadata.role')]]"
+                                 metadata="directory"
+                                 directory="Role"
+                                 value="[[formatDirectory(document.properties.person:Role)]]"
+        >
 
-      </qualitified-inline-edit>
+        </qualitified-inline-edit>
+      </template>
+
     </div>
 
     <div role="widget">
+      <template if="[[document.properties.person:email]]" is="dom-if">
+
+      </template>
       <qualitified-inline-edit document="[[document]]"
                                property="person:email"
                                value="[[document.properties.person:email]]"
@@ -49,6 +55,9 @@
     </div>
 
     <div role="widget">
+      <template if="[[document.properties.person:phoneNumber]]" is="dom-if">
+
+      </template>
       <qualitified-inline-edit document="[[document]]"
                                property="person:phoneNumber"
                                value="[[document.properties.person:phoneNumber]]"
@@ -57,44 +66,60 @@
       </qualitified-inline-edit>
     </div>
     <div role="widget">
-      <label>[[i18n('label.metadata.address')]]</label>
-      <qualitified-inline-edit document="[[document]]"
-                               property="address:address1"
-                               value="[[document.properties.address:address1]]"
-                               label="[[i18n('label.metadata.address')]] 1"
-      >
-      </qualitified-inline-edit>
-      <qualitified-inline-edit document="[[document]]"
-                               property="address:address2"
-                               value="[[document.properties.address:address2]]"
-                               label="[[i18n('label.metadata.address')]] 2"
+      <template if="[[document.properties.address:address1]]" is="dom-if">
+        <qualitified-inline-edit document="[[document]]"
+                                 property="address:address1"
+                                 value="[[document.properties.address:address1]]"
+                                 label="[[i18n('label.metadata.address')]] 1"
+        >
+        </qualitified-inline-edit>
+      </template>
 
-      >
-      </qualitified-inline-edit>
-      <qualitified-inline-edit document="[[document]]"
-                               property="address:address3"
-                               value="[[document.properties.address:address3]]"
-                               label="[[i18n('label.metadata.address')]] 3"
-      >
-      </qualitified-inline-edit>
+
+      <template if="[[document.properties.address:address2]]" is="dom-if">
+        <qualitified-inline-edit document="[[document]]"
+                                 property="address:address2"
+                                 value="[[document.properties.address:address2]]"
+                                 label="[[i18n('label.metadata.address')]] 2"
+
+        >
+        </qualitified-inline-edit>
+      </template>
+      <template if="[[document.properties.address:address3]]" is="dom-if">
+        <qualitified-inline-edit document="[[document]]"
+                                 property="address:address3"
+                                 value="[[document.properties.address:address3]]"
+                                 label="[[i18n('label.metadata.address')]] 3"
+        >
+        </qualitified-inline-edit>
+      </template>
+
+      <template if="[[document.properties.address:zipCode]]" is="dom-if">
+      </template>
       <qualitified-inline-edit document="[[document]]"
                                property="address:zipCode"
                                value="[[document.properties.address:zipCode]]"
                                label="[[i18n('label.metadata.zipCode')]]"
       >
       </qualitified-inline-edit>
+      <template if="[[document.properties.address:city]]" is="dom-if">
+      </template>
       <qualitified-inline-edit document="[[document]]"
                                property="address:city"
                                value="[[document.properties.address:city]]"
                                label="[[i18n('label.metadata.city')]]"
       >
       </qualitified-inline-edit>
+      <template if="[[document.properties.address:country]]" is="dom-if">
+      </template>
       <qualitified-inline-edit document="[[document]]"
                                property="address:country"
                                value="[[document.properties.address:country]]"
                                label="[[i18n('label.metadata.country')]]"
       >
       </qualitified-inline-edit>
+
+
 
     </div>
     <div role="widget">
@@ -113,13 +138,12 @@
       </nuxeo-directory-suggestion>
     </div>
 
-    <div role="widget">
+    <div role="widget" hidden$="[[!document.properties.dc:description]]">
       <qualitified-inline-edit document="[[document]]"
                                property="dc:description"
                                metadata="textarea"
                                value="[[document.properties.dc:description]]"
-                               label="[[i18n('label.metadata.description')]]"
-      >
+                               label="[[i18n('label.metadata.description')]]">
       </qualitified-inline-edit>
     </div>
     <qualitified-custom-fields document="{{document}}" mode="view"></qualitified-custom-fields>

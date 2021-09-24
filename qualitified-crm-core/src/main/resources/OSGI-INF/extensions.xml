@@ -929,7 +929,7 @@
       <footerStyle>display: none;</footerStyle>
       <loginBoxBackgroundStyle>none 0 0 null</loginBoxBackgroundStyle>
       <loginBoxWidth>300px</loginBoxWidth>
-      <loginButtonBackgroundColor>#ff7f00</loginButtonBackgroundColor>
+      <!--loginButtonBackgroundColor>#ff7f00</loginButtonBackgroundColor-->
       <videos loop="false" muted="true">
         <video src=""/>
       </videos>

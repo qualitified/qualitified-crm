@@ -8,7 +8,8 @@
         <event>documentCreatedByCopy</event>
         <filters>
           <doctype>Picture</doctype>
-          <attribute>Regular Document</attribute>
+            <doctype>Branding</doctype>
+            <attribute>Regular Document</attribute>
         </filters>
     </listener>
   </extension>
