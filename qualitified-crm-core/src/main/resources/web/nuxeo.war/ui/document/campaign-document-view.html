@@ -241,7 +241,7 @@
                                      headers='{"X-NXfetch.document": "properties", "X-NXtranslate.directoryEntry": "label"}'
                                      page="[[pageNumber]]"
                                      page-size="40"
-                                     query="select * from Interaction where ecm:currentLifeCycleState != 'deleted' and ecm:isTrashed = 0 and custom:documentField10 = '[[idEmail]]' and interaction:campaignId = '[[document.uid]]'"
+                                     query="select * from Interaction where ecm:currentLifeCycleState != 'deleted' and ecm:isTrashed = 0 and interaction:emailId = '[[idEmail]]' and interaction:campaignId = '[[document.uid]]'"
                                      results-count="{{resultsCount}}"
                                      schemas="interaction,dublincore,common,custom">
                 </nuxeo-page-provider>
@@ -479,7 +479,7 @@
                     var must = [];
                     where1["interaction:campaignId"] = campaignId;
                     where2["ecm:isTrashed"] = "false";
-                    where3["custom:documentField10"] = emailId;
+                    where3["interaction:emailId"] = emailId;
 
                     term1["term"] = where1;
                     term2["term"] = where2;

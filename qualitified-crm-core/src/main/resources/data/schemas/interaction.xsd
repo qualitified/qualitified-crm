@@ -88,6 +88,11 @@
       <xs:restriction base="xs:string" ref:resolver="documentResolver" ref:store="id"/>
     </xs:simpleType>
   </xs:element>
+  <xs:element name="emailId">
+    <xs:simpleType>
+      <xs:restriction base="xs:string" ref:resolver="documentResolver" ref:store="id"/>
+    </xs:simpleType>
+  </xs:element>
   <xs:element name="data" type="nxs:interaction_dataListType"/>
   <xs:complexType name="interaction_dataListType">
     <xs:sequence>
