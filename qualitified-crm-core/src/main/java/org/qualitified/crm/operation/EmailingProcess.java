@@ -113,22 +113,22 @@ public class EmailingProcess {
         DocumentModel automationDoc = documentManager.getDocument(automationDocId);
         IdRef emailDocId;
         DocumentModel emailDoc;
-        String emailStepZero = (String) automationDoc.getPropertyValue("custom:documentField1");
-        String emailStepOne = (String) automationDoc.getPropertyValue("custom:documentField2");
-        String emailStepTwo = (String) automationDoc.getPropertyValue("custom:documentField3");
-        String emailStepThree = (String) automationDoc.getPropertyValue("custom:documentField4");
+        String emailStepZero = (String) automationDoc.getPropertyValue("automation:startupEmail");
+        String emailStepOne = (String) automationDoc.getPropertyValue("automation:firstEmail");
+        String emailStepTwo = (String) automationDoc.getPropertyValue("automation:secondEmail");
+        String emailStepThree = (String) automationDoc.getPropertyValue("automation:thirdEmail");
 
-        int waitStepOneAmount = automationDoc.getPropertyValue("custom:integerField1")!= null
-                ? Math.toIntExact((long) automationDoc.getPropertyValue("custom:integerField1"))
+        int waitStepOneAmount = automationDoc.getPropertyValue("automation:firstEmailWaitTime")!= null
+                ? Math.toIntExact((long) automationDoc.getPropertyValue("automation:firstEmailWaitTime"))
                 : 0 ;
-        int waitStepTwoAmount = automationDoc.getPropertyValue("custom:integerField2")!= null
-                ? Math.toIntExact((long) automationDoc.getPropertyValue("custom:integerField2"))
+        int waitStepTwoAmount = automationDoc.getPropertyValue("automation:secondEmailWaitTime")!= null
+                ? Math.toIntExact((long) automationDoc.getPropertyValue("automation:secondEmailWaitTime"))
                 : 0 ;
-        int waitStepThreeAmount = automationDoc.getPropertyValue("custom:integerField3")!= null
-                ? Math.toIntExact((long) automationDoc.getPropertyValue("custom:integerField3"))
+        int waitStepThreeAmount = automationDoc.getPropertyValue("automation:thirdEmailWaitTime")!= null
+                ? Math.toIntExact((long) automationDoc.getPropertyValue("automation:thirdEmailWaitTime"))
                 : 0 ;
-        int currentStep = campaignDoc.getPropertyValue("custom:integerField10")!= null
-                ? Math.toIntExact((long) campaignDoc.getPropertyValue("custom:integerField10"))
+        int currentStep = campaignDoc.getPropertyValue("campaign:automationStep")!= null
+                ? Math.toIntExact((long) campaignDoc.getPropertyValue("campaign:automationStep"))
                 : 0 ;
         GregorianCalendar currentSendDate = (GregorianCalendar) campaignDoc.getPropertyValue("campaign:sendDate");
         if (emailStepZero != null) {
@@ -180,8 +180,8 @@ public class EmailingProcess {
         if ( emailNextStep != null && contactsQuery != null ) {
             Date nextSendDate = addDaysCalendar(currentSendDate, waitNextStepAmount);
             campaignDoc.setPropertyValue("campaign:sendDate", nextSendDate);
-            campaignDoc.setPropertyValue("custom:integerField10",nextStep);
-            campaignDoc.setPropertyValue("custom:documentField9",emailNextStep);
+            campaignDoc.setPropertyValue("campaign:automationStep",nextStep);
+            campaignDoc.setPropertyValue("campaign:automationEmail",emailNextStep);
             if ( nextStep == 0 ) {
                 campaignDoc.setPropertyValue("campaign:status", "Sent");
 
@@ -190,8 +190,8 @@ public class EmailingProcess {
             }
 
         } else {
-                campaignDoc.setPropertyValue("custom:integerField10",previousStep);
-                campaignDoc.setPropertyValue("custom:documentField9",emailPreviousStep);
+                campaignDoc.setPropertyValue("campaign:automationStep",previousStep);
+                campaignDoc.setPropertyValue("campaign:automationEmail",emailPreviousStep);
                 campaignDoc.setPropertyValue("campaign:status", "Sent");
 
         }
@@ -211,7 +211,7 @@ public class EmailingProcess {
         if ( doFilter == true ){
             DocumentModelList interactionDocuments = documentManager
                     .query("SELECT * FROM Interaction WHERE interaction:campaignId= '"+ campaignId+ "' " +
-                            "AND custom:documentField10= '"+ emailId+ "' " +
+                            "AND interaction:emailId= '"+ emailId+ "' " +
                             "AND interaction:isOpened = 1 " +
                             "AND interaction:activity= 'Emailing' " +
                             "AND interaction:status= 'DONE' " +

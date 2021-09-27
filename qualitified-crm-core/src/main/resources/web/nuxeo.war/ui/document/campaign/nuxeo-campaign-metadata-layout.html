@@ -50,84 +50,83 @@
                 [[document.properties.dc:title]]
             </h1>
 
-
-            <nuxeo-document auto doc-id="[[document.properties.campaign:automationId]]" response="{{automation}}"></nuxeo-document>
-
-            <div style="float:right" hidden$="[[_isAllStatsAvailable(data,selectedStep)]]">
-                <paper-dropdown-menu class="custom" label="">
-
-                    <paper-tabs slot="dropdown-content" class="dropdown-content" selected="{{selectedStep}}">
-                        <paper-tab>[[i18n('All')]]</paper-tab>
-
-                        <nuxeo-document auto doc-id="[[automation.properties.custom:documentField1]]" response="{{email0}}"></nuxeo-document>
-                        <paper-tab>[[email0.title]]</paper-tab>
-
-                        <nuxeo-document auto doc-id="[[automation.properties.custom:documentField2]]" response="{{email1}}"></nuxeo-document>
-                        <paper-tab>[[email1.title]]</paper-tab>
-
-                        <nuxeo-document auto doc-id="[[automation.properties.custom:documentField3]]" response="{{email2}}"></nuxeo-document>
-                        <paper-tab>[[email2.title]]</paper-tab>
-
-                        <nuxeo-document auto doc-id="[[automation.properties.custom:documentField4]]" response="{{email3}}"></nuxeo-document>
-                        <paper-tab>[[email3.title]]</paper-tab>
-
-                    </paper-tabs>
-                </paper-dropdown-menu>
-                <nuxeo-repository-data ecm-primary-type="Interaction"
-                                       where="[[_setWhereTerm(document.uid,automation,selectedStep)]]"
-                                       grouped-by="interaction:statusMail"
-                                       data="{{data}}"
-                >
-                </nuxeo-repository-data>
-                <div style="margin-left:80px;margin-top:80px;" hidden$="[[_isStatsAvailable(data,selectedStep)]]">[[i18n('stats.info')]]</div>
-                <div class="card-content" style="margin-right:130px;margin-top:15px;">
-                    <chart-pie values="[[_values(data)]]"
-                               series="[[_series(data)]]"
-                               labels="[[_labels(data)]]"
-                               colors="[[colors]]"
-                               options='{"responsive": true, "animation": true}'>
-                    </chart-pie>
-                </div>
-            </div>
-
         </div>
-        <div role="widget" hidden$="[[!document.properties.campaign:automationId]]" style="width:60%;">
+        <nuxeo-document auto doc-id="[[document.properties.campaign:automationId]]" response="{{automation}}"></nuxeo-document>
 
+        <div style="float:right" hidden$="[[_isAllStatsAvailable(data,selectedStep)]]">
+            <paper-dropdown-menu class="custom" label="">
+
+                <paper-tabs slot="dropdown-content" class="dropdown-content" selected="{{selectedStep}}">
+                    <paper-tab>[[i18n('All')]]</paper-tab>
+
+                    <nuxeo-document auto doc-id="[[automation.properties.automation:startupEmail]]" response="{{email0}}"></nuxeo-document>
+                    <paper-tab>[[email0.title]]</paper-tab>
+
+                    <nuxeo-document auto doc-id="[[automation.properties.automation:firstEmail]]" response="{{email1}}"></nuxeo-document>
+                    <paper-tab>[[email1.title]]</paper-tab>
+
+                    <nuxeo-document auto doc-id="[[automation.properties.automation:secondEmail]]" response="{{email2}}"></nuxeo-document>
+                    <paper-tab>[[email2.title]]</paper-tab>
+
+                    <nuxeo-document auto doc-id="[[automation.properties.automation:thirdEmail]]" response="{{email3}}"></nuxeo-document>
+                    <paper-tab>[[email3.title]]</paper-tab>
+
+                </paper-tabs>
+            </paper-dropdown-menu>
+            <nuxeo-repository-data ecm-primary-type="Interaction"
+                                   where="[[_setWhereTerm(document.uid,automation,selectedStep)]]"
+                                   grouped-by="interaction:statusMail"
+                                   data="{{data}}"
+            >
+            </nuxeo-repository-data>
+            <div style="margin-left:80px;margin-top:80px;" hidden$="[[_isStatsAvailable(data,selectedStep)]]">[[i18n('stats.info')]]</div>
+            <div class="card-content" style="margin-right:130px;margin-top:15px;">
+                <chart-pie values="[[_values(data)]]"
+                           series="[[_series(data)]]"
+                           labels="[[_labels(data)]]"
+                           colors="[[colors]]"
+                           options='{"responsive": true, "animation": true}'>
+                </chart-pie>
+            </div>
+        </div>
+
+        <div role="widget" hidden$="[[!document.properties.campaign:automationId]]" style="width:30%;">
             <qualitified-inline-edit document="[[document]]"
                                      value="document.properties.campaign:automationId"
                                      property="campaign:automationId"
                                      label="Automation"
                                      params='{ "namedParameters": "system_primaryType=Automation"}'
-                                     metadata="document"></qualitified-inline-edit>
+                                     metadata="document">
+            </qualitified-inline-edit>
         </div>
 
-        <div role="widget" hidden$="[[!document.properties.custom:documentField9]]" style="width:60%;">
-            <label>[[_getStepStatus(document.properties.campaign:status)]]</label>
+        <div role="widget" hidden$="[[!document.properties.campaign:automationEmail]]" style="width:30%;">
             <qualitified-document-suggestion role="widget"
-                                             value="[[document.properties.custom:documentField9]]"
+                                             label="[[_getStepStatus(document.properties.campaign:status)]]"
+                                             value="[[document.properties.campaign:automationEmail]]"
+                                             display-style="readonlyFieldStyle"
                                              min-chars="0"
                                              clickable="true"
                                              readOnly>
             </qualitified-document-suggestion>
         </div>
 
-        <div role="widget" hidden$="[[!document.properties.campaign:status]]" style="width:60%;">
+        <div role="widget" hidden$="[[!document.properties.campaign:status]]" style="width:30%;">
             <qualitified-inline-edit document="[[document]]"
                                      property="campaign:status"
                                      label="[[i18n('label.metadata.status')]]"
                                      metadata="directory"
                                      directory="StatusCampaign"
-                                     value="[[formatDirectory(document.properties.campaign:status)]]"
-            >
-
+                                     value="[[formatDirectory(document.properties.campaign:status)]]">
             </qualitified-inline-edit>
         </div>
-        <div role="widget" style="width:60%;">
+        <div role="widget" style="width:30%;">
             <div  hidden$="[[!document.properties.campaign:sendDate]]">
-            <qualitified-inline-edit document="[[document]]"
-                                     property="campaign:sendDate"
-                                     label="label.metadata.date"
-                                     metadata="date"></qualitified-inline-edit>
+                <qualitified-inline-edit document="[[document]]"
+                                         property="campaign:sendDate"
+                                         label="label.metadata.date"
+                                         metadata="date">
+                </qualitified-inline-edit>
             </div>
         </div>
 
@@ -148,16 +147,16 @@
                     },
                     colors: {
                         type: Array,
-                        value: []
+                        value: ['#E67E22','#F5CBA7']
                     }
                 },
                 _documentReady: function(doc){
                 },
                 ready: function () {
                     this.selectedStep = 0;
-                    var canvas1Color = getComputedStyle(document.documentElement).getPropertyValue('--chart-pie-canvas-1-color');
+                   /*  var canvas1Color = getComputedStyle(document.documentElement).getPropertyValue('--chart-pie-canvas-1-color');
                     var canvas2Color = getComputedStyle(document.documentElement).getPropertyValue('--chart-pie-canvas-2-color');
-                    this.colors =[canvas1Color,canvas2Color];
+                    this.colors =[canvas1Color,canvas2Color]; */
                 },
 
                 _getPartialPercent: function(partialCount,totalCount){
@@ -209,22 +208,22 @@
                         term2["term"] = where2;
                         switch (selectedStep) {
                             case 1:
-                                where3["custom:documentField10"] = automation.properties['custom:documentField1'];
+                                where3["interaction:emailId"] = automation.properties['automation:startupEmail'];
                                 term3["term"] = where3;
                                 must=[term1,term2,term3];
                                 break;
                             case 2:
-                                where3["custom:documentField10"] = automation.properties['custom:documentField2'];
+                                where3["interaction:emailId"] = automation.properties['automation:firstEmail'];
                                 term3["term"] = where3;
                                 must=[term1,term2,term3];
                                 break;
                             case 3:
-                                where3["custom:documentField10"] = automation.properties['custom:documentField3'];
+                                where3["interaction:emailId"] = automation.properties['automation:secondEmail'];
                                 term3["term"] = where3;
                                 must=[term1,term2,term3];
                                 break;
                             case 4:
-                                where3["custom:documentField10"] = automation.properties['custom:documentField4'];
+                                where3["interaction:emailId"] = automation.properties['automation:thirdEmail'];
                                 term3["term"] = where3;
                                 must=[term1,term2,term3];
                                 break;

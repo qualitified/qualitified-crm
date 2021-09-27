@@ -44,8 +44,8 @@ public class SendMail {
     protected String mailHtmlPart;
 
     private Log logger = LogFactory.getLog(SendMail.class);
-    private String fromEmail=Framework.getProperty("mailjetService.fromEmail");
-    private String fromName=Framework.getProperty("mailjetService.fromName");
+    private String fromEmail = Framework.getProperty("mailjetService.fromEmail");
+    private String fromName = Framework.getProperty("mailjetService.fromName");
     private String nuxeoUrl = Framework.getProperty("nuxeo.url");
 
     private String MessageID;
@@ -98,7 +98,7 @@ public class SendMail {
                      interactionDoc.setPropertyValue("interaction:date", Calendar.getInstance());
                      interactionDoc.setPropertyValue("interaction:campaignId",campaignId);
                      interactionDoc.setPropertyValue("interaction:messageID",MessageID);
-                     interactionDoc.setPropertyValue("custom:documentField10",emailId);
+                     interactionDoc.setPropertyValue("interaction:emailId",emailId);
                      interactionDoc.setPropertyValue("interaction:isSent", 1);
 
                      contacts.add(contactDoc.getId());

@@ -65,11 +65,11 @@
                     [[i18n('Target')]]
                 </paper-tab>
                 <iron-icon class="icon" icon="icons:chevron-right"></iron-icon>
-                <template is="dom-if" if="[[_isNull(automation.properties.custom:documentField1)]]">
-                    <nuxeo-document auto doc-id="[[automation.properties.custom:documentField1]]" response="{{email0}}"></nuxeo-document>
+                <template is="dom-if" if="[[_isNull(automation.properties.automation:startupEmail)]]">
+                    <nuxeo-document auto doc-id="[[automation.properties.automation:startupEmail]]" response="{{email0}}"></nuxeo-document>
 
                     <paper-tab>
-                        <div style="[[_getStepColor(document.properties.custom:integerField10,0)]]">[[email0.title]]</div>
+                        <div style="[[_getStepColor(document.properties.campaign:automationStep,0)]]">[[email0.title]]</div>
                         <!--<qualitified-document-suggestion role="widget"
                                                          value="[[automation.properties.custom:documentField1]]"
                                                          min-chars="0"
@@ -78,11 +78,11 @@
                     </paper-tab>
                     <iron-icon class="icon" icon="icons:chevron-right"></iron-icon>
                 </template>
-                <template is="dom-if" if="[[_isNull(automation.properties.custom:documentField2)]]">
-                    <nuxeo-document auto doc-id="[[automation.properties.custom:documentField2]]" response="{{email1}}"></nuxeo-document>
+                <template is="dom-if" if="[[_isNull(automation.properties.automation:firstEmail)]]">
+                    <nuxeo-document auto doc-id="[[automation.properties.automation:firstEmail]]" response="{{email1}}"></nuxeo-document>
 
                     <paper-tab>
-                        <div style="[[_getStepColor(document.properties.custom:integerField10,1)]]">[[email1.title]]</div>
+                        <div style="[[_getStepColor(document.properties.campaign:automationStep,1)]]">[[email1.title]]</div>
 
                         <!--<qualitified-document-suggestion role="widget"
                                                          value="[[automation.properties.custom:documentField2]]"
@@ -94,11 +94,11 @@
 
                 <iron-icon class="icon" icon="icons:chevron-right"></iron-icon>
 
-                <template is="dom-if" if="[[_isNull(automation.properties.custom:documentField3)]]">
-                    <nuxeo-document auto doc-id="[[automation.properties.custom:documentField3]]" response="{{email2}}"></nuxeo-document>
+                <template is="dom-if" if="[[_isNull(automation.properties.automation:secondEmail)]]">
+                    <nuxeo-document auto doc-id="[[automation.properties.automation:secondEmail]]" response="{{email2}}"></nuxeo-document>
 
                     <paper-tab>
-                        <div style="[[_getStepColor(document.properties.custom:integerField10,2)]]">[[email2.title]]</div>
+                        <div style="[[_getStepColor(document.properties.campaign:automationStep,2)]]">[[email2.title]]</div>
 
                         <!--<qualitified-document-suggestion role="widget"
                                                          value="[[automation.properties.custom:documentField3]]"
@@ -109,11 +109,11 @@
                 </template>
                 <iron-icon class="icon" icon="icons:chevron-right"></iron-icon>
 
-                <template is="dom-if" if="[[_isNull(automation.properties.custom:documentField4)]]">
-                    <nuxeo-document auto doc-id="[[automation.properties.custom:documentField4]]" response="{{email3}}"></nuxeo-document>
+                <template is="dom-if" if="[[_isNull(automation.properties.automation:thirdEmail)]]">
+                    <nuxeo-document auto doc-id="[[automation.properties.automation:thirdEmail]]" response="{{email3}}"></nuxeo-document>
 
                     <paper-tab>
-                        <div style="[[_getStepColor(document.properties.custom:integerField10,3)]]">[[email3.title]]</div>
+                        <div style="[[_getStepColor(document.properties.campaign:automationStep,3)]]">[[email3.title]]</div>
 
                         <!--<qualitified-document-suggestion role="widget"
                                                          value="[[automation.properties.custom:documentField4]]"
@@ -198,17 +198,17 @@
                 </div>
 
                 <campaign-document-view document="[[document]]"
-                                        id-email="[[automation.properties.custom:documentField1]]">
+                                        id-email="[[automation.properties.automation:startupEmail]]">
                 </campaign-document-view>
 
                 <campaign-document-view document="[[document]]"
-                                        id-email="[[automation.properties.custom:documentField2]]">
+                                        id-email="[[automation.properties.automation:firstEmail]]">
                 </campaign-document-view>
                 <campaign-document-view document="[[document]]"
-                                        id-email="[[automation.properties.custom:documentField3]]">
+                                        id-email="[[automation.properties.automation:secondEmail]]">
                 </campaign-document-view>
                 <campaign-document-view document="[[document]]"
-                                        id-email="[[automation.properties.custom:documentField4]]">
+                                        id-email="[[automation.properties.automation:thirdEmail]]">
                 </campaign-document-view>
             </iron-pages>
 

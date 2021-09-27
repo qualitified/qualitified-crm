@@ -57,6 +57,12 @@
             <xs:restriction base="xs:string" ref:resolver="documentResolver" ref:store="path"/>
         </xs:simpleType>
     </xs:element>
+    <xs:element name="automationEmail">
+        <xs:simpleType>
+            <xs:restriction base="xs:string" ref:resolver="documentResolver" ref:store="path"/>
+        </xs:simpleType>
+    </xs:element>
+    <xs:element name="automationStep" type="xs:integer"/>
     <xs:element name="person">
         <xs:simpleType>
             <xs:restriction base="xs:string" ref:resolver="documentResolver" ref:store="path"/>

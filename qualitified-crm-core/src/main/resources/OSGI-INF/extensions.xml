@@ -4,6 +4,7 @@
   <require>org.nuxeo.runtime.started</require>
   <extension target="org.nuxeo.ecm.core.schema.TypeService" point="schema">
     <schema name="campaign" prefix="campaign" override="true" src="data/schemas/campaign.xsd"/>
+    <schema name="automation" prefix="automation" override="true" src="data/schemas/automation.xsd"/>
     <schema name="calendar" prefix="calendar" override="true" src="data/schemas/calendar.xsd"/>
     <schema name="account" prefix="account" override="true" src="data/schemas/account.xsd"/>
     <schema name="folder" prefix="folder" override="true" src="data/schemas/folder.xsd"/>
@@ -479,6 +480,7 @@
       <schema name="campaign"/>
     </doctype>
     <doctype name="Automation" extends="Document">
+      <schema name="automation"/>
       <schema name="dublincore"/>
       <schema name="common"/>
       <schema name="uid"/>

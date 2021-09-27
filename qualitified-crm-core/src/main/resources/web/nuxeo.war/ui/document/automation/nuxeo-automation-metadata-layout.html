@@ -34,17 +34,11 @@
         </style>
         <paper-toast id="linkToast"></paper-toast>
         <div role="widget" class="title">
-            <qualitified-inline-edit document="[[document]]"
-                                     property="dc:title"
-                                     value="[[document.properties.dc:title]]"
-                                     label="[[i18n('label.metadata.title')]]"
-            >
-            </qualitified-inline-edit>
             <h1>
                 [[document.properties.dc:title]]
             </h1>
-        </div>
 
+        </div>
         <div role="widget" hidden$="[[!document.properties.dc:description]]">
             <qualitified-inline-edit document="[[document]]"
                                      property="dc:description"
@@ -59,24 +53,24 @@
         <div style="width:100%;text-align:center">
             <div>
                 <!--Start-->
-                <a href="/nuxeo/ui/#!/doc/[[document.properties.custom:documentField1]]" target="_blank"><paper-icon-button id="documentField1" class="icon-color" icon="icons:home"></paper-icon-button></a>
-                <paper-tooltip for="documentField1">[[i18n('label.metadata.automation.send.tooltip')]]</paper-tooltip>
-                <qualitified-inline-edit document="[[document]]" value="document.properties.custom:documentField1" property="custom:documentField1" label="" params='{ "namedParameters": "system_primaryType=Email"}' display-buttons metadata="document"></qualitified-inline-edit>
+                <a href="/nuxeo/ui/#!/doc/[[document.properties.automation:startupEmail]]" target="_blank"><paper-icon-button id="©©" class="icon-color" icon="icons:home"></paper-icon-button></a>
+                <paper-tooltip for="startupEmail">[[i18n('label.metadata.automation.send.tooltip')]]</paper-tooltip>
+                <qualitified-inline-edit document="[[document]]" value="document.properties.automation:startupEmail" property="automation:startupEmail" label="" params='{ "namedParameters": "system_primaryType=Email"}' display-buttons metadata="document"></qualitified-inline-edit>
                 <div>
                     <paper-icon-button icon="icons:arrow-downward"></paper-icon-button>
                 </div>
                 <!--Wait-->
-                <paper-icon-button id="integerField1" icon="icons:query-builder"></paper-icon-button>
-                <paper-tooltip for="integerField1">[[i18n('label.metadata.automation.wait.tooltip')]] [[document.properties.custom:integerField1]] [[i18n('label.metadata.automation.days.tooltip')]]</paper-tooltip>
-                <qualitified-inline-edit document="[[document]]" property="custom:integerField1" display-buttons label=""></qualitified-inline-edit>
+                <paper-icon-button id="firstEmailWaitTime" icon="icons:query-builder"></paper-icon-button>
+                <paper-tooltip for="firstEmailWaitTime">[[i18n('label.metadata.automation.wait.tooltip')]] [[document.properties.automation:firstEmailWaitTime]] [[i18n('label.metadata.automation.days.tooltip')]]</paper-tooltip>
+                <qualitified-inline-edit document="[[document]]" property="automation:firstEmailWaitTime" display-buttons label=""></qualitified-inline-edit>
                 <div>
                     <paper-icon-button icon="icons:arrow-downward"></paper-icon-button>
                 </div>
                 <div>
                     <!--Send-->
-                    <a href="/nuxeo/ui/#!/doc/[[document.properties.custom:documentField2]]" target="_blank"><paper-icon-button id="send1" class="icon-color" icon="icons:send"></paper-icon-button></a>
+                    <a href="/nuxeo/ui/#!/doc/[[document.properties.automation:firstEmail]]" target="_blank"><paper-icon-button id="firstEmail" class="icon-color" icon="icons:send"></paper-icon-button></a>
                     <paper-tooltip for="send1">[[i18n('label.metadata.automation.send1.tooltip')]]</paper-tooltip>
-                    <qualitified-inline-edit document="[[document]]" value="document.properties.custom:documentField2" property="custom:documentField2" label="" params='{ "namedParameters": "system_primaryType=Email"}' display-buttons metadata="document"></qualitified-inline-edit>
+                    <qualitified-inline-edit document="[[document]]" value="document.properties.automation:firstEmail" property="automation:firstEmail" label="" params='{ "namedParameters": "system_primaryType=Email"}' display-buttons metadata="document"></qualitified-inline-edit>
                 </div>
             </div>
             <div style="width:58.5%;text-align:right" >
@@ -101,20 +95,20 @@
                     </div>
                     <div>
                         <!--Wait-->
-                        <paper-icon-button id="integerField2" icon="icons:query-builder"></paper-icon-button>
-                        <paper-tooltip for="integerField2">[[i18n('label.metadata.automation.wait.tooltip')]] [[document.properties.custom:integerField2]] [[i18n('label.metadata.automation.days.tooltip')]]</paper-tooltip>
+                        <paper-icon-button id="secondEmailWaitTime" icon="icons:query-builder"></paper-icon-button>
+                        <paper-tooltip for="secondEmailWaitTime">[[i18n('label.metadata.automation.wait.tooltip')]] [[document.properties.automation:secondEmailWaitTime]] [[i18n('label.metadata.automation.days.tooltip')]]</paper-tooltip>
                     </div>
                     <div style="padding-right:16px">
-                        <qualitified-inline-edit document="[[document]]" property="custom:integerField2" display-buttons label=""></qualitified-inline-edit>
+                        <qualitified-inline-edit document="[[document]]" property="automation:secondEmailWaitTime" display-buttons label=""></qualitified-inline-edit>
                     </div>
                     <div>
                         <paper-icon-button icon="icons:arrow-downward"></paper-icon-button>
                     </div>
                     <div>
                         <!--Send-->
-                        <a href="/nuxeo/ui/#!/doc/[[document.properties.custom:documentField3]]" target="_blank"><paper-icon-button id="send2" class="icon-color" icon="icons:send"></paper-icon-button></a>
+                        <a href="/nuxeo/ui/#!/doc/[[document.properties.automation:secondEmail]]" target="_blank"><paper-icon-button id="send2" class="icon-color" icon="icons:send"></paper-icon-button></a>
                         <paper-tooltip for="send2">[[i18n('label.metadata.automation.send2.tooltip')]]</paper-tooltip>
-                        <qualitified-inline-edit document="[[document]]" value="document.properties.custom:documentField3" property="custom:documentField3" label="" params='{ "namedParameters": "system_primaryType=Email"}' display-buttons metadata="document"></qualitified-inline-edit>
+                        <qualitified-inline-edit document="[[document]]" value="document.properties.automation:secondEmail" property="automation:secondEmail" label="" params='{ "namedParameters": "system_primaryType=Email"}' display-buttons metadata="document"></qualitified-inline-edit>
                     </div>
 
                 </div>
@@ -143,20 +137,20 @@
                     </div>
                     <div>
                         <!--Wait-->
-                        <paper-icon-button id="integerField3" icon="icons:query-builder"></paper-icon-button>
-                        <paper-tooltip for="integerField3">[[i18n('label.metadata.automation.wait.tooltip')]] [[document.properties.custom:integerField3]] [[i18n('label.metadata.automation.days.tooltip')]]</paper-tooltip>
+                        <paper-icon-button id="thirdEmailWaitTime" icon="icons:query-builder"></paper-icon-button>
+                        <paper-tooltip for="thirdEmailWaitTime">[[i18n('label.metadata.automation.wait.tooltip')]] [[document.properties.automation:thirdEmailWaitTime]] [[i18n('label.metadata.automation.days.tooltip')]]</paper-tooltip>
                     </div>
                     <div style="padding-right:16px">
-                        <qualitified-inline-edit document="[[document]]" property="custom:integerField3" display-buttons label=""></qualitified-inline-edit>
+                        <qualitified-inline-edit document="[[document]]" property="automation:thirdEmailWaitTime" display-buttons label=""></qualitified-inline-edit>
                     </div>
                     <div>
                         <paper-icon-button icon="icons:arrow-downward"></paper-icon-button>
                     </div>
                     <div>
                         <!--Send-->
-                        <a href="/nuxeo/ui/#!/doc/[[document.properties.custom:documentField4]]" target="_blank"><paper-icon-button id="send3" class="icon-color" icon="icons:send"></paper-icon-button></a>
+                        <a href="/nuxeo/ui/#!/doc/[[document.properties.automation:thirdEmail]]" target="_blank"><paper-icon-button id="send3" class="icon-color" icon="icons:send"></paper-icon-button></a>
                         <paper-tooltip for="send3">[[i18n('label.metadata.automation.send3.tooltip')]]</paper-tooltip>
-                        <qualitified-inline-edit document="[[document]]" value="document.properties.custom:documentField4" property="custom:documentField4" label="" params='{ "namedParameters": "system_primaryType=Email"}' display-buttons metadata="document"></qualitified-inline-edit>
+                        <qualitified-inline-edit document="[[document]]" value="document.properties.automation:thirdEmail" property="automation:thirdEmail" label="" params='{ "namedParameters": "system_primaryType=Email"}' display-buttons metadata="document"></qualitified-inline-edit>
 
                     </div>
                     <div>
