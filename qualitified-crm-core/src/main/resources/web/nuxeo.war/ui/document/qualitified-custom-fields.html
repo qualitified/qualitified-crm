@@ -1278,26 +1278,26 @@
                         <template if="[[vocabularyField2Visible]]" is="dom-if">
 
 
-                        <template if="[[vocabularyField2Editable]]" is="dom-if">
-                        <qualitified-inline-edit  document="[[document]]"
-                                                  property="custom:vocabularyField2"
-                                                  directory="[[vocabularyField2Name]]"
-                                                  label="[[vocabularyField2Label]]"
-                                                  min-chars="0"
-                                                  role="widget"
-                                                  metadata="directory"
-                                                  value="{{document.properties.custom:vocabularyField2}}">
-                        </qualitified-inline-edit>
-                    </template>
-                    <template if="[[!vocabularyField2Editable]]" is="dom-if">
+                            <template if="[[vocabularyField2Editable]]" is="dom-if">
+                                <qualitified-inline-edit  document="[[document]]"
+                                                          property="custom:vocabularyField2"
+                                                          directory="[[vocabularyField2Name]]"
+                                                          label="[[vocabularyField2Label]]"
+                                                          min-chars="0"
+                                                          role="widget"
+                                                          metadata="directory"
+                                                          value="{{document.properties.custom:vocabularyField2}}">
+                                </qualitified-inline-edit>
+                            </template>
+                            <template if="[[!vocabularyField2Editable]]" is="dom-if">
 
-                            <label>[[vocabularyField2Label]]</label>
-                            <div style="display: none">
-                                [[document.properties.custom:vocabularyField2]]
-                            </div>
-                            <div>[[vocabularyField2Value]]</div>
+                                <label>[[vocabularyField2Label]]</label>
+                                <div style="display: none">
+                                    [[document.properties.custom:vocabularyField2]]
+                                </div>
+                                <div>[[vocabularyField2Value]]</div>
 
-                    </template>
+                            </template>
                         </template>
                     </div>
                 </template>

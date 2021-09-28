@@ -3,11 +3,11 @@
   <parent>
     <groupId>org.qualitified.crm</groupId>
     <artifactId>qualitified-crm-parent</artifactId>
-    <version>5.2-SNAPSHOT</version>
+    <version>5.2</version>
   </parent>
   <artifactId>qualitified-crm-restapi</artifactId>
   <name>Qualitified CRM Rest API</name>
-  <version>5.2-SNAPSHOT</version>
+  <version>5.2</version>
   <description></description>
 
   <dependencies>
