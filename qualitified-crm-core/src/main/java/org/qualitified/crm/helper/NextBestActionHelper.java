@@ -1,7 +1,6 @@
 package org.qualitified.crm.helper;
 
-import ca.pfv.spmf.tools.dataset_converter.Formats;
-import ca.pfv.spmf.tools.dataset_converter.SequenceDatabaseConverter;
+
 import org.nuxeo.ecm.automation.AutomationService;
 import org.nuxeo.ecm.automation.OperationContext;
 import org.nuxeo.ecm.automation.OperationException;
@@ -39,9 +38,10 @@ public class NextBestActionHelper {
         }
         output.close();
         File tempSMPFFile = Framework.createTempFile("training_sequences_spmf", ".txt");
-        SequenceDatabaseConverter converter = new SequenceDatabaseConverter();
+        /*SequenceDatabaseConverter converter = new SequenceDatabaseConverter();
         converter.convert(tempFile.getPath(), tempSMPFFile.getPath(), Formats.Snake, 29, null);
-        return tempSMPFFile.getPath();
+        return tempSMPFFile.getPath();*/
+        return null;
     }
 
     public String getCurrentSequence(CoreSession session, String opportunityId) throws OperationException {
