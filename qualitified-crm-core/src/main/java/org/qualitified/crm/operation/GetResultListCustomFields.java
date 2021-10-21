@@ -17,8 +17,7 @@ import javax.security.auth.login.LoginContext;
 import java.util.*;
 import java.util.Map;
 /**
- * Created by mgena on 11/11/2017.
- * Modified by mmakni on 19/11/2018.
+ * this file is used to retrieve all the custom fields that contains the option "show in result list"
  */
 @Operation(id=GetResultListCustomFields.ID, category= Constants.CAT_EXECUTION, label="GetResultListCustomFields", description="")
 public class GetResultListCustomFields {
