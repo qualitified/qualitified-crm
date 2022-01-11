@@ -6,7 +6,7 @@
 <dom-module id="categories-element">
     <template>
         <style>
-             :host {
+            :host {
                 display: block;
             }
 
@@ -32,17 +32,17 @@
 
     <script>
         /**
-        * @customElement
-        * @polymer
-        * @extends HTMLElement
-        */
-        class CategoriesElement extends Polymer.Element {
+         * @customElement
+         * @polymer
+         * @extends HTMLElement
+         */
+        class CategoriesElement extends PolymerElement {
             static get is() { return 'categories-element'; }
             static get properties() {
                 return {
                     /**
-                    * list of category
-                    **/
+                     * list of category
+                     **/
                     items: Array
                 }
 
@@ -54,9 +54,9 @@
 
 
             /**
-            * Fired when a category is clicked
-            *
-            */
+             * Fired when a category is clicked
+             *
+             */
             _clickOnCategory(e) {
                 let selectedCategory = Polymer.dom(e).localTarget,
                     disabledValue = selectedCategory.disabled,

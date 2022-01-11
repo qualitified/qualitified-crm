@@ -4,7 +4,7 @@
 <dom-module id="category-element">
     <template>
         <style>
-             :host {
+            :host {
                 display: block;
                 cursor: pointer;
             }
@@ -39,11 +39,11 @@
 
     <script>
         /**
-        * @customElement
-        * @polymer
-        * @extends HTMLElement
-        */
-        class CategoryElement extends Polymer.Element {
+         * @customElement
+         * @polymer
+         * @extends HTMLElement
+         */
+        class CategoryElement extends PolymerElement {
             static get is() { return 'category-element'; }
             static get properties() {
                 return {
@@ -82,10 +82,10 @@
             }
 
             /**
-            * Observes disabled value change.
-            * Add /remove disabled class based on the newValue property
-            *
-            */
+             * Observes disabled value change.
+             * Add /remove disabled class based on the newValue property
+             *
+             */
             _disabledChange(newValue, oldValue) {
                 if (newValue) {
                     this.$.categoryContainer.classList.add('disabled');

@@ -1191,22 +1191,8 @@
         <param type="string" name="value">to_done</param>
       </operation>
     </chain>
-    <chain id="interactionPostSave">
-      <operation id="Context.FetchDocument"/>
-      <operation id="Context.SetVar">
-        <param type="string" name="name">intStatus</param>
-        <param type="object" name="value">expr:Document.lifeCycle</param>
-      </operation>
-      <operation id="javascript.interactionSaved"/>
-    </chain>
-    <chain id="opportunityPostSave">
-      <operation id="Context.FetchDocument"/>
-      <operation id="Context.SetVar">
-        <param type="string" name="name">oppStatus</param>
-        <param type="object" name="value">expr:Document.lifeCycle</param>
-      </operation>
-      <operation id="javascript.opportunitySaved"/>
-    </chain>
+
+
     <chain id="updateSettings">
       <operation id="Context.FetchDocument"/>
       <operation id="Document.SetProperty">
@@ -1236,14 +1222,7 @@
         <param type="string" name="column">expr:@{Context["column"]}</param>
       </operation>
     </chain>
-    <chain id="postCreateChain">
-      <operation id="Context.FetchDocument"/>
-      <operation id="Auth.LoginAs">
-        <param type="string" name="name">Administrator</param>
-      </operation>
-      <operation id="javascript.postCreate"/>
-      <operation id="Auth.Logout"/>
-    </chain>
+
     <chain id="preSaveChain">
       <operation id="Context.FetchDocument"/>
       <operation id="Auth.LoginAs">

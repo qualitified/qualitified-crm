@@ -11,7 +11,7 @@
 <dom-module id="scheduler-component">
   <template>
     <style include="full-calendar">
-       :host {
+      :host {
         display: block;
       }
 
@@ -23,26 +23,27 @@
         display: block !important;
       }
     </style>
-    <div id="calendar"></div> 
+    <div id="calendar"></div>
     <template is="dom-if" if="{{_showCategoriesContainer}}">
       <categories-element
-        id="categories"
-        items="{{categories}}"
-        on-category-click="_categoryClicked"
+              id="categories"
+              items="{{categories}}"
+              on-category-click="_categoryClicked"
       ></categories-element>
     </template>
   </template>
 
   <script>
     /**
-       * `scheduler-component`
-       * A Web Component wrapper for FullCalendar library that uses Polymer version 2.0 and ES6.
-       *
-       * @customElement
-       * @polymer
-       * @demo demo/index.html
-       */
-    class SchedulerComponent extends Polymer.Element {
+     * `scheduler-component`
+     * A Web Component wrapper for FullCalendar library that uses Polymer version 2.0 and ES6.
+     *
+     * @customElement
+     * @polymer
+     * @demo demo/index.html
+     */
+
+    class SchedulerComponent extends PolymerElement {
       static get is() { return 'scheduler-component'; }
       static get properties() {
         return {
@@ -182,8 +183,8 @@
         return ["#1abc9c", "#3498db", "#f1c40f", "#8e44ad", "#e74c3c", "#d35400", "#2c3e50", "#7f8c8d"];
       }
       /**
-      * ready callback
-      */
+       * ready callback
+       */
       ready() {
         super.ready();
         // Construct calendar's config object
@@ -295,10 +296,10 @@
       }
 
       /**
-      * This will initialize the calendar component
-      */
+       * This will initialize the calendar component
+       */
       _initialize() {
-        Polymer.flush();
+        /*Polymer.flush();*/
         let calendar = this.$.calendar;
         //initialize fullCalendar component
         this._scheduler = jQuery(calendar);
@@ -308,10 +309,10 @@
       }
 
       /**
-      * Interates over each event from the events property
-      * in order to update its structure and data.
-      *
-      */
+       * Interates over each event from the events property
+       * in order to update its structure and data.
+       *
+       */
       _updateEvents(events) {
         let updatedEvents = [...events];
         updatedEvents.forEach(event => {
@@ -331,129 +332,129 @@
       }
 
       /**
-      * Adds events to the scheduler.
-      *
-      **/
+       * Adds events to the scheduler.
+       *
+       **/
       _refetchEvents() {
         let schedulerEvents = this._updateEvents(this.events);
         this._scheduler.fullCalendar('addEventSource', { events: schedulerEvents, color: this.eventColor, textColor: this.textColor });
       }
 
       /**
-      * Removes events from the scheduler
-      *
-      **/
+       * Removes events from the scheduler
+       *
+       **/
       _removeEvents() {
         this._scheduler.fullCalendar('removeEvents');
       }
 
       /**
-      * Event color is calculated based on category property.
-      *
-      */
+       * Event color is calculated based on category property.
+       *
+       */
       _getEventColor() {
 
       }
 
       /**
-      * Returns the current view of the scheduler.
-      *
-      * @return {string} the current view
-      */
+       * Returns the current view of the scheduler.
+       *
+       * @return {string} the current view
+       */
       getView() {
         return this._scheduler.fullCalendar('getView');
       }
 
       /**
-      * Changes the scheduler view.
-      *
-      * @param {string} viewname the view name
-      * @return {void}
-      */
+       * Changes the scheduler view.
+       *
+       * @param {string} viewname the view name
+       * @return {void}
+       */
       changeView(viewName) {
         this._scheduler.fullCalendar('changeView', viewName);
       }
 
       /**
-      * Get the current date of the scheduler.
-      *
-      * @return {string} a string representation of the current date
-      */
+       * Get the current date of the scheduler.
+       *
+       * @return {string} a string representation of the current date
+       */
       getDate() {
         return this._scheduler.fullCalendar('getDate');
       }
 
       /**
-      * Navigates to the given date
-      *
-      * @param {string} target date
-      * @return {void}
-      */
+       * Navigates to the given date
+       *
+       * @param {string} target date
+       * @return {void}
+       */
       goToDate(date) {
         this._scheduler.fullCalendar('gotoDate', date);
       }
 
       /**
-      * Navigates to the previous date based on the current view.
-      *
-      * @return {void}
-      */
+       * Navigates to the previous date based on the current view.
+       *
+       * @return {void}
+       */
       prev() {
         this._scheduler.fullCalendar('prev');
       }
 
       /**
-      * Navigates to the next date based on the current view.
-      *
-      * @return {void}
-      */
+       * Navigates to the next date based on the current view.
+       *
+       * @return {void}
+       */
       next() {
         this._scheduler.fullCalendar('next');
       }
 
       /**
-      * Navigates to the previous year.
-      *
-      * @return {void}
-      */
+       * Navigates to the previous year.
+       *
+       * @return {void}
+       */
       prevYear() {
         this._scheduler.fullCalendar('prevYear');
       }
 
       /**
-      * Navigates to the next year.
-      *
-      * @return {void}
-      */
+       * Navigates to the next year.
+       *
+       * @return {void}
+       */
       nextYear() {
         this._scheduler.fullCalendar('nextYear');
       }
 
 
       /**
-      * Navigates to current date
-      *
-      * @return {void}
-      */
+       * Navigates to current date
+       *
+       * @return {void}
+       */
       today() {
         this._scheduler.fullCalendar('today');
       }
 
       /**
-      * High-level Rendering
-      *
-      * @return {void}
-      */
+       * High-level Rendering
+       *
+       * @return {void}
+       */
       render() {
         this._scheduler.fullCalendar('render');
       }
 
       /**
-      * Increments the date displayed on the scheduler by the given duration
-      *
-      * @param {string} duration in milliseconds
-      * @return {void}
-      */
+       * Increments the date displayed on the scheduler by the given duration
+       *
+       * @param {string} duration in milliseconds
+       * @return {void}
+       */
       incrementDate(duration) {
         this.schedule.fullCalendar('incrementDate', duration);
       }
@@ -479,9 +480,9 @@
       }
 
       /**
-      * Observer method for events property.
-      * re-render events on the scheduler when the events property changes.
-      */
+       * Observer method for events property.
+       * re-render events on the scheduler when the events property changes.
+       */
       _eventsChanged(newValue, oldValue) {
         // make sure that the oldValue is not undefined.
         // For thr first call, the newValue will have the currentValue of the property
@@ -493,9 +494,9 @@
       }
 
       /**
-      * Fired when a category is clicked
-      *
-      */
+       * Fired when a category is clicked
+       *
+       */
       _categoryClicked(e) {
         e = e.detail;
         let isCategoryDisabled = e.disabled;
@@ -509,37 +510,37 @@
       }
 
       /**
-      * Shows Events that belongs to the given category
-      *
-      */
+       * Shows Events that belongs to the given category
+       *
+       */
       _showEvents(categoryName) {
         let clientEvents = this._scheduler.fullCalendar('clientEvents');
         clientEvents.filter(event => event.category === categoryName)
-          .forEach(event => {
-            event.className.pop('hide');
-            event.className.push('show');
-            this._scheduler.fullCalendar('updateEvent', event);
-          });
+                .forEach(event => {
+                  event.className.pop('hide');
+                  event.className.push('show');
+                  this._scheduler.fullCalendar('updateEvent', event);
+                });
       }
 
       /**
-      * Hides Events that belongs to the given category
-      *
-      */
+       * Hides Events that belongs to the given category
+       *
+       */
       _hideEvents(categoryName) {
         let clientEvents = this._scheduler.fullCalendar('clientEvents');
         clientEvents.filter(event => event.category === categoryName)
-          .forEach(event => {
-            event.className.pop('show');
-            event.className.push('hide');
-            this._scheduler.fullCalendar('updateEvent', event);
-          });
+                .forEach(event => {
+                  event.className.pop('show');
+                  event.className.push('hide');
+                  this._scheduler.fullCalendar('updateEvent', event);
+                });
       }
 
       /**
-      * Compute the value of _showCategoriesContainer proerty
-      *
-      */
+       * Compute the value of _showCategoriesContainer proerty
+       *
+       */
       _computeShowCategories(showCategories, schedulerCategories) {
         return showCategories && schedulerCategories.length > 0;
       }

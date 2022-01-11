@@ -4,93 +4,93 @@
 <dom-module id="interaction-calendar-view">
   <template include="nuxeo-styles">
     <style>
-        *[role=widget] {
-          padding: 5px;
-        }
-        #calendar{
-          max-width: 900px;
-          margin: 0px auto;
-          display: block;
-        }
-        #popup{
-          position: absolute;
-          width: 300px;
-          z-index: 999;
-          display: none;
-          /* top:150px;
-          left: 100px; */
-          background-color: #fff;
-          border: 1px solid #ddd;
-          border-radius: 5px;
-          box-shadow: 0 24px 38px 3px rgba(0,0,0,0.14), 0 9px 46px 8px rgba(0,0,0,0.12), 0 11px 15px -7px rgba(0,0,0,0.2);
-          overflow: hidden;
-          padding: 10px;
-        }
-        .pop{
-          display: flex;
-          -webkit-flex-direction: column;
-          flex-direction: column;
-          overflow: hidden;
-        }
-        .actions{
-          height: 44px;
-          padding: 6px 6px 0 6px;
-          display: -webkit-box;
-          display: -moz-box;
-          display: -webkit-flex;
-          display: -ms-flexbox;
-          display: flex;
-          -webkit-flex-flow: row-reverse;
-          flex-flow: row-reverse;
-        }
-        .popupBody{
-          height: 100px;
-          margin: 0px 12px auto;
-        }
-        .popTitle{
-          font-size: 22px;
-          font-weight: 400;
-        }
-        .calendar-actions{
-          display: flex;
-          margin-left: 60px;
-          margin-right: 10px;
-          flex-direction: column;
-          margin-top: 20px;
-        }
-        .popDate{
-          font-size: 12px;
-          font-weight: 400;
-          letter-spacing: .2px;
-          line-height: 18px;
-          color: #3C4043;
-          margin-top: 5px;
-        }
-        .gg-button{
-          bottom: 15px;
-          margin-right: 20px;
-          width: 156px;
-          border-radius: 6px;
-        }
-        .target-date {
-          bottom: 4px;
-        }
-        .gg-title{
-          color: #5F6368;
-          opacity: 1;
-          inline-size: max-content;
-          margin-left: 4px;
-          margin-top: 2px;
-        }
-        .gg-content{
-          display: flex;
-          margin-left: -10px;
-        }
-        paper-card{
-          flex-direction: row;
-          display: flex;
-        }
-      </style>
+      *[role=widget] {
+        padding: 5px;
+      }
+      #calendar{
+        max-width: 900px;
+        margin: 0px auto;
+        display: block;
+      }
+      #popup{
+        position: absolute;
+        width: 300px;
+        z-index: 999;
+        display: none;
+        /* top:150px;
+        left: 100px; */
+        background-color: #fff;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        box-shadow: 0 24px 38px 3px rgba(0,0,0,0.14), 0 9px 46px 8px rgba(0,0,0,0.12), 0 11px 15px -7px rgba(0,0,0,0.2);
+        overflow: hidden;
+        padding: 10px;
+      }
+      .pop{
+        display: flex;
+        -webkit-flex-direction: column;
+        flex-direction: column;
+        overflow: hidden;
+      }
+      .actions{
+        height: 44px;
+        padding: 6px 6px 0 6px;
+        display: -webkit-box;
+        display: -moz-box;
+        display: -webkit-flex;
+        display: -ms-flexbox;
+        display: flex;
+        -webkit-flex-flow: row-reverse;
+        flex-flow: row-reverse;
+      }
+      .popupBody{
+        height: 100px;
+        margin: 0px 12px auto;
+      }
+      .popTitle{
+        font-size: 22px;
+        font-weight: 400;
+      }
+      .calendar-actions{
+        display: flex;
+        margin-left: 60px;
+        margin-right: 10px;
+        flex-direction: column;
+        margin-top: 20px;
+      }
+      .popDate{
+        font-size: 12px;
+        font-weight: 400;
+        letter-spacing: .2px;
+        line-height: 18px;
+        color: #3C4043;
+        margin-top: 5px;
+      }
+      .gg-button{
+        bottom: 15px;
+        margin-right: 20px;
+        width: 156px;
+        border-radius: 6px;
+      }
+      .target-date {
+        bottom: 4px;
+      }
+      .gg-title{
+        color: #5F6368;
+        opacity: 1;
+        inline-size: max-content;
+        margin-left: 4px;
+        margin-top: 2px;
+      }
+      .gg-content{
+        display: flex;
+        margin-left: -10px;
+      }
+      paper-card{
+        flex-direction: row;
+        display: flex;
+      }
+    </style>
     <paper-toast id="operationToast"></paper-toast>
     <nuxeo-operation id="getSchema" op="Document.GetSchemaFromPrefix" params="[[params]]"></nuxeo-operation>
     <nuxeo-operation id="fetchEvents" op="Qualitified.FetchFromCalendar"></nuxeo-operation>
@@ -149,8 +149,10 @@
   <script>
     Polymer({
       is: 'interaction-calendar-view',
+
       behaviors: [Nuxeo.LayoutBehavior],
       properties: {
+        params:Object,
         document: {
           type: Object,
           observer: 'docObserver'
@@ -245,39 +247,39 @@
       }, */
       /* Get documents and fill the 'events' attribute */
       _getEvents: function() {
-          var events = [];
-          for (var i = 0; i < this.calendarItems.length; i++) {
-            var event = {};
-            event.title = this.calendarItems[i].title;
-            event.start = moment(this.calendarItems[i].properties[this.document.properties['calendar:docMetadata']]).format('YYYY-MM-DD');
-            event.allDay = true;
-            event.uid = this.calendarItems[i].uid;
-            events.push(event);
-          }
-          this.$.calendar.setAttribute("events", JSON.stringify(events));
+        var events = [];
+        for (var i = 0; i < this.calendarItems.length; i++) {
+          var event = {};
+          event.title = this.calendarItems[i].title;
+          event.start = moment(this.calendarItems[i].properties[this.document.properties['calendar:docMetadata']]).format('YYYY-MM-DD');
+          event.allDay = true;
+          event.uid = this.calendarItems[i].uid;
+          events.push(event);
+        }
+        this.$.calendar.setAttribute("events", JSON.stringify(events));
       },
       //fetch events from google account calendar
       _fetchEvents: function(e){
         var op = this.$.fetchEvents;
         op.params = {
-           "calendarId": this.document.uid
-         };
+          "calendarId": this.document.uid
+        };
         this.$.operationToast.text = "Synchronizing ...";
         this.$.operationToast.open();
         op.execute().then(function(result) {
           if (result.value === "Nothing updated") {
-              this.$.operationToast.text = "Calendar is already up to date!";
-              this.$.operationToast.open();
-           } else {
-              this.$.operationToast.text = result.value+" events has been changed!";
-              this.$.operationToast.open();
-              this._getEvents();
-            }
-        }.bind(this))
-        .catch(function (error){
-            this.$.operationToast.text = "Error while sycnchronizing!";
+            this.$.operationToast.text = "Calendar is already up to date!";
             this.$.operationToast.open();
-        }.bind(this));
+          } else {
+            this.$.operationToast.text = result.value+" events has been changed!";
+            this.$.operationToast.open();
+            this._getEvents();
+          }
+        }.bind(this))
+                .catch(function (error){
+                  this.$.operationToast.text = "Error while sycnchronizing!";
+                  this.$.operationToast.open();
+                }.bind(this));
       },
       /* Open the document in a new tab */
       _goToEvent: function(e) {
@@ -295,7 +297,7 @@
       },
       _isHidden: function(publishedEventsCount) {
         if (publishedEventsCount>0) {
-           hidden = false;
+          hidden = false;
         } else return true;
       },
       _resize:function () {
