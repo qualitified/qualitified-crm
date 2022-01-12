@@ -79,6 +79,8 @@ public class TestPostSaveAsync {
         eventService.waitForAsyncCompletion();
         TransactionHelper.startTransaction();
 
+        file = coreSession.getDocument(file.getRef());
+
         assertNotNull(file.getId());
         assertEquals("AsyncDone", file.getPropertyValue("dc:description"));
         assertEquals(false, file.getPropertyValue("custom:booleanField1"));
