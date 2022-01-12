@@ -1,3 +1,4 @@
+
 <!--
 @license
 (C) Copyright Nuxeo Corp. (http://nuxeo.com/)
@@ -14,26 +15,30 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 -->
+<%@ page trimDirectiveWhitespaces="true" %>
 <%@ page contentType="text/html; charset=UTF-8" %>
-<%@ page import="java.util.List"%>
-<%@ page import="java.lang.management.ManagementFactory"%>
 <%@ page import="org.nuxeo.common.Environment"%>
 <%@ page import="org.nuxeo.runtime.api.Framework"%>
-<%@ page import="org.nuxeo.runtime.services.config.ConfigurationService"%>
-<%@ page import="org.nuxeo.ecm.web.resources.api.Resource"%>
-<%@ page import="org.nuxeo.ecm.web.resources.api.ResourceContextImpl"%>
-<%@ page import="org.nuxeo.ecm.web.resources.api.service.WebResourceManager"%>
 <%@ page import="org.nuxeo.ecm.core.api.repository.RepositoryManager"%>
 <%@ page import="org.nuxeo.common.utils.UserAgentMatcher"%>
 
-<% WebResourceManager wrm = Framework.getService(WebResourceManager.class); %>
-<% RepositoryManager rm = Framework.getService(RepositoryManager.class); %>
-<% ConfigurationService cs = Framework.getService(ConfigurationService.class); %>
-<% String ua = request.getHeader("user-agent"); %>
-<% String context = request.getContextPath(); %>
+<%
+  String ua = request.getHeader("user-agent");
+  String context = request.getContextPath();
+  String defaultRepository = Framework.getService(RepositoryManager.class).getDefaultRepositoryName();
+  String repository = (String) request.getAttribute("NXREPOSITORY");
+  String baseUrl;
+
+  if (repository == null) {
+    repository = defaultRepository;
+    baseUrl = context + "/ui/";
+  } else {
+    baseUrl = context + "/repo/" + repository + "/ui/";
+  }
+%>
 
 <!DOCTYPE html>
-<html lang="">
+<html>
 
 <head>
   <meta charset="UTF-8">
@@ -80,12 +85,11 @@ limitations under the License.
 </head>
 
 <body>
-  <nuxeo-connection url="<%= context %>"
-                    repository-name="<%= rm.getDefaultRepositoryName() %>"></nuxeo-connection>
-  <nuxeo-app base-url="<%= request.getRequestURI() %>"
-             product-name="<%= Framework.getProperty(Environment.PRODUCT_NAME) %>" unresolved>
+  <nuxeo-connection url="<%= context %>" repository-name="<%= repository %>"></nuxeo-connection>
+  <nuxeo-app base-url="<%= baseUrl %>"
+    product-name="<%= Framework.getProperty(Environment.PRODUCT_NAME) %>" unresolved>
     <div id="sidebar">
-      <img src="themes/default/logo.png">
+      <img src="themes/default/logo.png" alt="logo" />
     </div>
     <div id="container">
       <div id="toolbar">
@@ -94,32 +98,16 @@ limitations under the License.
     </div>
   </nuxeo-app>
 
-  <script src="bower_components/webcomponentsjs/webcomponents-loader.js"></script>
-  
-  <script type="text/javascript" src="bower_components/nuxeo-ui-elements/widgets/alloy-editor/alloy-editor-all.js"></script>
+  <script src="vendor/webcomponentsjs/webcomponents-loader.js"></script>
 
-  <script>
-    var Nuxeo = Nuxeo || {};
-    Nuxeo.UI = Nuxeo.UI || {};
-    Nuxeo.UI.config = <%= cs.getPropertiesAsJson("org.nuxeo.web.ui") %>;
-  </script>
+  <script src="vendor/html-imports/html-imports.min.js"></script>
 
-  <% for (Resource resource : wrm.getResources(new ResourceContextImpl(), "web-ui", "import")) { %>
-  <link rel="import" href="<%= context %><%= resource.getURI() %>">
-  <% } %>
+  <script src="vendor/web-animations/web-animations-next-lite.min.js"></script>
 
-  <!-- routing -->
-  <link rel="import" href="routing.html">
+  <script src="config.jsp"></script>
 
-  <% if (!Framework.isDevModeSet()) { %>
-  <script>
-    if ('serviceWorker' in navigator) {
-      window.addEventListener('load', function () {
-        navigator.serviceWorker.register('sw.js?ts=<%= ManagementFactory.getRuntimeMXBean().getStartTime() %>');
-      });
-    }
-  </script>
-  <% } %>
+  <script src="main.bundle.js"></script>
+
 </body>
 
 </html>
