@@ -42,7 +42,7 @@
        * @polymer
        * @demo demo/index.html
        */
-    class SchedulerComponent extends Polymer.Element {
+    class SchedulerComponent extends PolymerElement {
       static get is() { return 'scheduler-component'; }
       static get properties() {
         return {
@@ -298,7 +298,7 @@
       * This will initialize the calendar component
       */
       _initialize() {
-        Polymer.flush();
+      //  Polymer.flush();
         let calendar = this.$.calendar;
         //initialize fullCalendar component
         this._scheduler = jQuery(calendar);
