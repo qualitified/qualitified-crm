@@ -1,9 +1,6 @@
 package org.qualitified.crm.operation;
 
-import ca.pfv.spmf.algorithms.sequenceprediction.ipredict.database.Item;
-import ca.pfv.spmf.algorithms.sequenceprediction.ipredict.database.Sequence;
-import ca.pfv.spmf.algorithms.sequenceprediction.ipredict.database.SequenceDatabase;
-import ca.pfv.spmf.algorithms.sequenceprediction.ipredict.predictor.CPT.CPT.CPTPredictor;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.nuxeo.ecm.automation.OperationContext;
@@ -29,7 +26,7 @@ public class NextBestAction {
 
     @OperationMethod
     public String run(DocumentModel doc) throws Exception {
-        LoginContext lc = Framework.loginAsUser("Administrator");
+        /*LoginContext lc = Framework.loginAsUser("Administrator");
         ctx.getLoginStack().push(lc);
         NextBestActionHelper nbaHelper = new NextBestActionHelper();
         String trainingSequencesSPMF = nbaHelper.generateTrainingSequences(ctx.getCoreSession());
@@ -57,6 +54,7 @@ public class NextBestAction {
             activityType = nbaHelper.getActivityTypeFromAlpha(alpha);
         }
         ctx.getLoginStack().pop();
-        return "{\"activityType\":\""+activityType+"\"}";
+        return "{\"activityType\":\""+activityType+"\"}";*/
+        return "{}";
     }
 }

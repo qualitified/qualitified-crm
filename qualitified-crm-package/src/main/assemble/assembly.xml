@@ -5,6 +5,7 @@
 
   <target name="build" description="Build Nuxeo Package">
     <property name="outdir" value="${maven.project.build.directory}"/>
+    <property name="nuxeo.distribution.version" value="11.5.154" />
     <!-- Include your artifacts in the graph adding your groupId to groupPrefixes -->
     <artifact:nuxeo-expand includeTestScope="true" groupPrefixes="org.nuxeo,org.qualitified.crm"/>
     <!-- For Nuxeo IDE being able to use that distribution as a SDK -->
