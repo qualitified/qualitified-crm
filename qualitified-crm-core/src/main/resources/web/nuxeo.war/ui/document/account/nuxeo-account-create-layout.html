@@ -84,6 +84,9 @@
                 role="widget"
                 min-chars="0">
         </qualitified-user-suggestion>
+        <nuxeo-directory-suggestion role="widget" value="{{document.properties.custom:stringMultivaluedField1}}"
+                                    label="status" directory-name="StatusAccount"
+                                    min-chars="0" multiple="true"></nuxeo-directory-suggestion>
       
         <nuxeo-directory-suggestion role="widget" value="{{document.properties.account:status}}"
                                     label="status" directory-name="StatusAccount"

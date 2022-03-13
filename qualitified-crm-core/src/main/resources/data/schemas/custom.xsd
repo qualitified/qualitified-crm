@@ -226,6 +226,8 @@
   <xs:element name="systemField9" type="xs:string"/>
   <xs:element name="systemField10" type="xs:string"/>
 
+  <xs:element name="stringMultivaluedField1" type="nxs:stringList"/>
+
   <xs:element name="documentField1">
     <xs:simpleType>
       <xs:restriction base="xs:string" ref:resolver="documentResolver" ref:store="path"/>
