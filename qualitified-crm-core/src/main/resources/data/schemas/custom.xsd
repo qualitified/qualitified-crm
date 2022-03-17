@@ -226,6 +226,17 @@
   <xs:element name="systemField9" type="xs:string"/>
   <xs:element name="systemField10" type="xs:string"/>
 
+  <xs:element name="stringMultivaluedField1" type="nxs:stringList"/>
+  <xs:element name="stringMultivaluedField2" type="nxs:stringList"/>
+  <xs:element name="stringMultivaluedField3" type="nxs:stringList"/>
+  <xs:element name="stringMultivaluedField4" type="nxs:stringList"/>
+  <xs:element name="stringMultivaluedField5" type="nxs:stringList"/>
+  <xs:element name="stringMultivaluedField6" type="nxs:stringList"/>
+  <xs:element name="stringMultivaluedField7" type="nxs:stringList"/>
+  <xs:element name="stringMultivaluedField8" type="nxs:stringList"/>
+  <xs:element name="stringMultivaluedField9" type="nxs:stringList"/>
+  <xs:element name="stringMultivaluedField10" type="nxs:stringList"/>
+
   <xs:element name="documentField1">
     <xs:simpleType>
       <xs:restriction base="xs:string" ref:resolver="documentResolver" ref:store="path"/>
