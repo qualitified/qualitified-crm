@@ -3,11 +3,10 @@
   <parent>
     <groupId>org.qualitified.crm</groupId>
     <artifactId>qualitified-crm-parent</artifactId>
-    <version>5.3-SNAPSHOT</version>
+    <version>5.10</version>
   </parent>
   <artifactId>qualitified-crm-restapi</artifactId>
   <name>Qualitified CRM Rest API</name>
-  <version>5.3-SNAPSHOT</version>
   <description></description>
 
   <dependencies>
@@ -31,11 +30,11 @@
       <groupId>org.nuxeo.ecm.platform</groupId>
       <artifactId>nuxeo-usermapper</artifactId>
     </dependency>
-    <dependency>
+    <!--dependency>
       <groupId>org.nuxeo.ecm.platform</groupId>
       <artifactId>nuxeo-platform-tag-core</artifactId>
       <version>10.10</version>
-    </dependency>
+    </dependency-->
     <dependency>
       <groupId>javax.servlet</groupId>
       <artifactId>javax.servlet-api</artifactId>
@@ -95,11 +94,11 @@
       <artifactId>nuxeo-automation-test</artifactId>
       <scope>test</scope>
     </dependency>
-    <dependency>
+    <!--dependency>
       <groupId>org.nuxeo.ecm.platform</groupId>
       <artifactId>nuxeo-platform-userworkspace-types</artifactId>
       <scope>test</scope>
-    </dependency>
+    </dependency-->
     <dependency>
       <groupId>org.nuxeo.ecm.platform</groupId>
       <artifactId>nuxeo-rest-api-io</artifactId>
@@ -113,25 +112,25 @@
       <artifactId>nuxeo-platform-default-config</artifactId>
       <scope>test</scope>
     </dependency>
-    <dependency>
+    <!--dependency>
       <groupId>org.nuxeo.ecm.platform</groupId>
       <artifactId>nuxeo-platform-url-core</artifactId>
       <scope>test</scope>
-    </dependency>
-    <dependency>
+    </dependency-->
+    <!--dependency>
       <groupId>org.nuxeo.ecm.platform</groupId>
       <artifactId>nuxeo-platform-tag-api</artifactId>
       <scope>test</scope>
-    </dependency>
+    </dependency-->
     <dependency>
       <groupId>org.nuxeo.ecm.platform</groupId>
       <artifactId>nuxeo-rest-api-server</artifactId>
     </dependency>
-    <dependency>
+    <!--dependency>
       <groupId>org.qualitified.crm</groupId>
       <artifactId>qualitified-crm-core</artifactId>
       <scope>test</scope>
-    </dependency>
+    </dependency-->
       <dependency>
           <groupId>com.google.api-client</groupId>
           <artifactId>google-api-client</artifactId>

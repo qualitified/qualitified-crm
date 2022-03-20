@@ -2,10 +2,8 @@ package org.qualitified.crm.operation;
 
 import com.mailjet.client.errors.MailjetException;
 import com.mailjet.client.errors.MailjetSocketTimeoutException;
-import fr.opensagres.xdocreport.document.json.JSONArray;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.joda.time.DateTime;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.nuxeo.ecm.automation.OperationContext;

@@ -63,6 +63,8 @@ public class TestPostSave {
         folder.setPropertyValue("dc:title", "My New Folder Title");
         coreSession.saveDocument(folder);
 
+        file = coreSession.getDocument(file.getRef());
+
         assertNotNull(file.getId());
         assertEquals(folder.getTitle(), file.getPropertyValue("dc:description"));
         assertEquals(false, file.getPropertyValue("custom:booleanField1"));
@@ -120,6 +122,8 @@ public class TestPostSave {
         folder.setPropertyValue("dc:title", "My New Folder Title");
         folder.setPropertyValue("dc:description", "My New Folder Description");
         coreSession.saveDocument(folder);
+
+        file = coreSession.getDocument(file.getRef());
 
         assertEquals(folder.getTitle(), file.getPropertyValue("dc:title"));
         assertEquals(folder.getPropertyValue("dc:description"), file.getPropertyValue("dc:description"));

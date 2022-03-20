@@ -27,7 +27,7 @@ public class ElementResourceTest extends BaseTest {
 
     @Before public void createElement() {
 
-        DocumentModel element = session.createDocumentModel("/Admin/", "Element","ScriptNote");
+        /*DocumentModel element = session.createDocumentModel("/Admin/", "Element","ScriptNote");
         element.setPropertyValue("dc:title", "nuxeo-account-edit-layout");
         element.setPropertyValue("note:mime_type", "text/plain");
         element.setPropertyValue("note:note", "<dom-module id=\"nuxeo-account-edit-layout\">...</dom-module>");
@@ -35,7 +35,7 @@ public class ElementResourceTest extends BaseTest {
         session.save();
 
         TransactionHelper.commitOrRollbackTransaction();
-        TransactionHelper.startTransaction();
+        TransactionHelper.startTransaction();*/
     }
 
     @Test public void getElementByName() throws Exception {

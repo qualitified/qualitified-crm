@@ -20,7 +20,7 @@ import org.nuxeo.runtime.test.runner.*;
  */
 @Features({RestServerFeature.class, CoreFeature.class, TransactionalFeature.class, PlatformFeature.class,
 		AutomationFeature.class, DirectoryFeature.class})
-@Deploy("studio.extensions.crm")
+//@Deploy("studio.extensions.crm")
 @Deploy("org.qualitified.crm.qualitified-crm-restapi")
 @Deploy("org.nuxeo.ecm.platform.test")
 @Deploy("org.nuxeo.ecm.default.config")

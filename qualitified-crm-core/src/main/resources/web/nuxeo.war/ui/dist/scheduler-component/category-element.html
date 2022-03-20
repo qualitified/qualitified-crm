@@ -3,102 +3,120 @@
  -->
 <dom-module id="category-element">
     <template>
-        <style>
-             :host {
-                display: block;
-                cursor: pointer;
-            }
+      <style>
+           :host {
+              display: block;
+              cursor: pointer;
+          }
+      .category {
+        display: inline-block;
+        padding-left: 2px;
+        height: inherit;
+        text-align: center;
+      }
 
+      .category-shape {
+        height: 15px;
+        width: 15px;
+        border-radius: 50%;
+        display: inline-block;
+        vertical-align: top;
+      }
 
-            .category {
-                display: inline-block;
-                padding-left: 2px;
-                height: inherit;
-                text-align: center;
-            }
+      .disabled {
+        pointer-events: none !important;
+        cursor: none !important;
+        opacity: 0.3;
+      }
+    </style>
+    <div id="categoryContainer" class$="category {{disabledStyle()}}">
+      <div style$="background-color: {{color}};" class="category-shape"></div>
+      <div style="display: inline-block">[[label]]</div>
+    </div>
+  </template>
 
-            .category-shape {
-                height: 15px;
-                width: 15px;
-                border-radius: 50%;
-                display: inline-block;
-                vertical-align: top;
-            }
-
-            .disabled {
-                pointer-events: none !important;
-                cursor: none !important;
-                opacity: 0.3;
-            }
-        </style>
-        <div id="categoryContainer" class$="category {{disabledStyle()}}">
-            <div style$="background-color: {{color}};" class="category-shape"></div>
-            <div style="display:inline-block;">[[label]]</div>
-        </div>
-    </template>
-
-    <script>
-        /**
-        * @customElement
-        * @polymer
-        * @extends HTMLElement
-        */
-        class CategoryElement extends Polymer.Element {
-            static get is() { return 'category-element'; }
-            static get properties() {
-                return {
-                    label: String,
-                    color: String,
-                    disabled: {
-                        type: Boolean,
-                        value: false,
-                        observer: '_disabledChange'
-                    }
-                }
-
-            }
-
-            ready() {
-                super.ready();
-                this.addEventListener('click', e => this._clickListener(e));
-            }
-
-            /*
-            * Listens to click events on the host element.
-            *
-            */
-            _clickListener(event) {
-                this.dispatchEvent(new CustomEvent('category-clicked', { detail: event }));
-
-            }
-
-            /*
-            * Returns  the style of the host element
-            * based on the disabled property.
-            *
-            */
-            disabledStyle() {
-                return this.disabled ? 'disabled' : '';
-            }
-
-            /**
-            * Observes disabled value change.
-            * Add /remove disabled class based on the newValue property
-            *
-            */
-            _disabledChange(newValue, oldValue) {
-                if (newValue) {
-                    this.$.categoryContainer.classList.add('disabled');
-                }
-                else {
-                    this.$.categoryContainer.classList.remove('disabled');
-
+  <script>
+    /**
+    * @customElement
+    * @polymer
+    * @extends HTMLElement
+    */
+    class CategoryElement extends PolymerElement {
+        static get is() { return 'category-element'; }
+        static get properties() {
+            return {
+                label: String,
+                color: String,
+                disabled: {
+                    type: Boolean,
+                    value: false,
+                    observer: '_disabledChange'
                 }
             }
-
 
         }
 
-        window.customElements.define(CategoryElement.is, CategoryElement);
-    </script>
+        ready() {
+            super.ready();
+            this.addEventListener('click', e => this._clickListener(e));
+        }
+
+        /*
+        * Listens to click events on the host element.
+        *
+        */
+        _clickListener(event) {
+            this.dispatchEvent(new CustomEvent('category-clicked', { detail: event }));
+
+        }
+
+        /*
+        * Returns  the style of the host element
+        * based on the disabled property.
+        *
+        */
+        disabledStyle() {
+            return this.disabled ? 'disabled' : '';
+        }
+
+        /**
+        * Observes disabled value change.
+        * Add /remove disabled class based on the newValue property
+        *
+        */
+        _disabledChange(newValue, oldValue) {
+            if (newValue) {
+                this.$.categoryContainer.classList.add('disabled');
+            }
+            else {
+                this.$.categoryContainer.classList.remove('disabled');
+
+            }
+        }
+
+      /*
+       * Returns  the style of the host element
+       * based on the disabled property.
+       *
+       */
+      disabledStyle() {
+        return this.disabled ? "disabled" : "";
+      }
+
+      /**
+       * Observes disabled value change.
+       * Add /remove disabled class based on the newValue property
+       *
+       */
+      _disabledChange(newValue, oldValue) {
+        if (newValue) {
+          this.$.categoryContainer.classList.add("disabled");
+        } else {
+          this.$.categoryContainer.classList.remove("disabled");
+        }
+      }
+    }
+
+    window.customElements.define(CategoryElement.is, CategoryElement);
+  </script>
 </dom-module>

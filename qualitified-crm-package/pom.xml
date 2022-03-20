@@ -3,13 +3,18 @@
   <parent>
     <groupId>org.qualitified.crm</groupId>
     <artifactId>qualitified-crm-parent</artifactId>
-    <version>5.3-SNAPSHOT</version>
+    <version>5.10</version>
     <relativePath>../pom.xml</relativePath>
   </parent>
 
   <artifactId>qualitified-crm-package</artifactId>
   <packaging>zip</packaging>
   <name>Qualitified CRM Package</name>
+
+  <properties>
+    <enforcer.skip>true</enforcer.skip>
+  </properties>
+
 
   <dependencies>
     <!-- Base distribution(s) for the MP -->
