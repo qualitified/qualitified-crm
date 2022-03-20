@@ -92,7 +92,7 @@
       }
     </style>
     <paper-toast id="operationToast"></paper-toast>
-    <nuxeo-operation id="getSchema" op="Document.GetSchemaFromPrefix" params="[[params]]"></nuxeo-operation>
+    <nuxeo-operation id="getSchema" op="Document.GetSchemaFromPrefix" ></nuxeo-operation>
     <nuxeo-operation id="fetchEvents" op="Qualitified.FetchFromCalendar"></nuxeo-operation>
     <nuxeo-page-provider  id="provider"
                           query="SELECT * FROM Document WHERE ecm:currentLifeCycleState != 'deleted' AND ecm:isTrashed = 0 AND ecm:primaryType = '[[document.properties.calendar:docType]]' AND [[document.properties.calendar:docMetadata]] >= DATE '{{yearM}}-12-15' AND [[document.properties.calendar:docMetadata]] <= DATE '{{yearP}}-01-15'"
@@ -152,7 +152,7 @@
 
       behaviors: [Nuxeo.LayoutBehavior],
       properties: {
-        params:Object,
+
         document: {
           type: Object,
           observer: 'docObserver'
@@ -177,9 +177,7 @@
       },
       /* Retrieve documents with the required schema */
       _getSchemaAndEvents: function(docMetadata) {
-        this.params = {
-          xpath: docMetadata
-        };
+        this.$.getSchema.params.xpath=docMetadata;
         this.$.getSchema.execute().then(function(schema) {
           this.schema = schema.value;
           this._getEvents();
