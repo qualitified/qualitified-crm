@@ -49,6 +49,7 @@ public class CopyBlob {
 
         Blob faviconPng = (Blob) image.getPropertyValue("branding:faviconPng");
         copyImage(faviconPng, folderPath + "/icons/favicon.png");
+        copyImage(faviconPng, folderPath +"/ui/images/touch/favicon-32x32.png");
 
         Blob faviconIco = (Blob) image.getPropertyValue("branding:faviconIco");
         copyImage(faviconIco, folderPath + "/icons/favicon.ico");
