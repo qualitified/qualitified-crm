@@ -2,11 +2,14 @@
 <link rel="import" href="../polymer/lib/utils/flush.html"> -->
 <!-- <script src="../moment/min/moment.min.js"></script> -->
 
-<link rel="import" href="categories-element.html">
+<link rel="import" href="categories-element.html" />
 <!-- <script src="../jquery/dist/jquery.min.js"></script> -->
-<script src="https://code.jquery.com/jquery-3.3.1.min.js" crossorigin="anonymous"></script>
+<script
+  src="https://code.jquery.com/jquery-3.3.1.min.js"
+  crossorigin="anonymous"
+></script>
 <script src="../fullcalendar/dist/fullcalendar.min.js"></script>
-<link rel="import" href="../fullcalendar/dist/full-calendar.html">
+<link rel="import" href="../fullcalendar/dist/full-calendar.html" />
 
 <dom-module id="scheduler-component">
   <template>
@@ -43,108 +46,110 @@
        * @demo demo/index.html
        */
     class SchedulerComponent extends PolymerElement {
-      static get is() { return 'scheduler-component'; }
+      static get is() {
+        return "scheduler-component";
+      }
       static get properties() {
         return {
           header: {
             type: Object,
-            observer: '_headerChanged'
+            observer: "_headerChanged",
           },
           showCategories: {
             type: Boolean,
-            value: false
+            value: false,
           },
           events: {
             type: Array,
             value: [],
-            observer: '_eventsChanged'
+            observer: "_eventsChanged",
           },
           weekends: Boolean,
           rtl: {
             type: Boolean,
-            value: false
+            value: false,
           },
           hiddenDays: Array,
           disableFixedWeekCount: {
             type: Boolean,
-            value: false
+            value: false,
           },
           weekNumbers: {
             type: Boolean,
-            value: false
+            value: false,
           },
           businessHours: Object,
           height: Number,
           defaultDate: Object,
           editable: {
             type: Boolean,
-            value: false
+            value: false,
           },
           selectable: {
             type: Boolean,
-            value: false
+            value: false,
           },
           selectHelper: {
             type: Boolean,
-            value: false
+            value: false,
           },
           droppable: {
             type: Boolean,
-            value: false
+            value: false,
           },
           aspectRatio: {
             type: Number,
-            value: 1.35
+            value: 1.35,
           },
           eventStartEditable: Boolean,
           eventDurationEditable: Boolean,
           defaultView: {
             type: String,
-            value: 'month',
-            observer: '_viewChanged'
+            value: "month",
+            observer: "_viewChanged",
           },
           allDaySlot: {
             type: Boolean,
-            value: false
+            value: false,
           },
           allDayText: {
             type: String,
-            value: 'all-day'
+            value: "all-day",
           },
           slotDuration: {
             type: String,
-            value: '00:30:00'
+            value: "00:30:00",
           },
           slotLabelInterval: Object,
           snapDuration: Object,
           scrollTime: {
             type: String,
-            value: '06:00:00'
+            value: "06:00:00",
           },
           minTime: {
             type: String,
-            value: '00:00:00'
+            value: "00:00:00",
           },
           maxTime: {
             type: String,
-            value: '24:00:00'
+            value: "24:00:00",
           },
           slotEventOverlap: {
             type: Boolean,
-            value: false
+            value: false,
           },
           nowIndicator: Boolean,
           dragRevertDuration: {
             type: Number,
-            value: 500
+            value: 500,
           },
           dragOpacity: {
             type: Number,
-            value: .75
+            value: 0.75,
           },
           dragScroll: {
             type: Boolean,
-            value: false
+            value: false,
           },
           eventOverlap: Object,
           eventConstraint: Object,
@@ -156,30 +161,49 @@
           textColor: String,
           eventRender: {
             type: Object,
-            value: () => { }
+            value: () => {},
           },
           dayRender: {
             type: Object,
-            value: () => { }
+            value: () => {},
           },
           options: Object,
           categories: {
             type: Array,
-            value: []
+            value: [],
           },
           _config: Object,
           _scheduler: Object,
           _showCategoriesContainer: {
             type: Boolean,
-            computed: '_computeShowCategories(showCategories,categories)'
-          }
+            computed: "_computeShowCategories(showCategories,categories)",
+          },
         };
       }
       static get availabeViews() {
-        return ["month", "basicDay", "basicWeek", "agendaWeek", "agendaDay", "listYear", "listMonth", "listWeek", "listDay"];
+        return [
+          "month",
+          "basicDay",
+          "basicWeek",
+          "agendaWeek",
+          "agendaDay",
+          "listYear",
+          "listMonth",
+          "listWeek",
+          "listDay",
+        ];
       }
       static get defaultColors() {
-        return ["#1abc9c", "#3498db", "#f1c40f", "#8e44ad", "#e74c3c", "#d35400", "#2c3e50", "#7f8c8d"];
+        return [
+          "#1abc9c",
+          "#3498db",
+          "#f1c40f",
+          "#8e44ad",
+          "#e74c3c",
+          "#d35400",
+          "#2c3e50",
+          "#7f8c8d",
+        ];
       }
       /**
       * ready callback
@@ -230,63 +254,106 @@
           selectable: this.selectable,
           selectHelper: this.selectHelper,
           select: (start, end, jsEvent, view) => {
-            this.dispatchEvent(new CustomEvent('select', { detail: { start, end, jsEvent, view } }));
+            this.dispatchEvent(
+              new CustomEvent("select", {
+                detail: { start, end, jsEvent, view },
+              })
+            );
           },
           dayClick: (date, jsEvent, view) => {
             // shorthand object is used to construct the detail of the dispatched event
-            this.dispatchEvent(new CustomEvent('day-click', { detail: { date, jsEvent, view } }));
+            this.dispatchEvent(
+              new CustomEvent("day-click", { detail: { date, jsEvent, view } })
+            );
           },
           drop: (date, jsEvent, ui, resourceId) => {
-            this.dispatchEvent(new CustomEvent('drop', { detail: { date, jsEvent, ui, resourceId } }));
+            this.dispatchEvent(
+              new CustomEvent("drop", {
+                detail: { date, jsEvent, ui, resourceId },
+              })
+            );
           },
           eventClick: (calEvent, jsEvent, view) => {
-            this.dispatchEvent(new CustomEvent('event-click', { detail: { calEvent, jsEvent, view } }));
+            this.dispatchEvent(
+              new CustomEvent("event-click", {
+                detail: { calEvent, jsEvent, view },
+              })
+            );
           },
           eventMouseover: (calEvent, jsEvent, view) => {
-            this.dispatchEvent(new CustomEvent('event-mouse-over', { detail: { calEvent, jsEvent, view } }));
+            this.dispatchEvent(
+              new CustomEvent("event-mouse-over", {
+                detail: { calEvent, jsEvent, view },
+              })
+            );
           },
           eventMouseout: (calEvent, jsEvent, view) => {
-            this.dispatchEvent(new CustomEvent('event-mouse-out', { detail: { calEvent, jsEvent, view } }));
-
+            this.dispatchEvent(
+              new CustomEvent("event-mouse-out", {
+                detail: { calEvent, jsEvent, view },
+              })
+            );
           },
           eventDragStart: (event, jsEvent, ui, view) => {
-            this.dispatchEvent(new CustomEvent('event-drag-start', { detail: { event, jsEvent, ui, view } }));
-
+            this.dispatchEvent(
+              new CustomEvent("event-drag-start", {
+                detail: { event, jsEvent, ui, view },
+              })
+            );
           },
           eventDragStop: (event, jsEvent, ui, view) => {
-            this.dispatchEvent(new CustomEvent('event-drag-end', { detail: { event, jsEvent, ui, view } }));
-
+            this.dispatchEvent(
+              new CustomEvent("event-drag-end", {
+                detail: { event, jsEvent, ui, view },
+              })
+            );
           },
           eventDrop: (event, delta, revertFunc, jsEvent, ui, view) => {
-            this.dispatchEvent(new CustomEvent('event-drop', { detail: { event, delta, revertFunc, jsEvent, ui, view } }));
-
+            this.dispatchEvent(
+              new CustomEvent("event-drop", {
+                detail: { event, delta, revertFunc, jsEvent, ui, view },
+              })
+            );
           },
           eventResizeStart: (event, jsEvent, ui, view) => {
-            this.dispatchEvent(new CustomEvent('event-resize-start', { detail: { event, jsEvent, ui, view } }));
-
+            this.dispatchEvent(
+              new CustomEvent("event-resize-start", {
+                detail: { event, jsEvent, ui, view },
+              })
+            );
           },
           eventResizeStop: (event, jsEvent, ui, view) => {
-            this.dispatchEvent(new CustomEvent('event-resize-stop', { detail: { event, jsEvent, ui, view } }));
-
+            this.dispatchEvent(
+              new CustomEvent("event-resize-stop", {
+                detail: { event, jsEvent, ui, view },
+              })
+            );
           },
           eventResize: (event, delta, revertFunc, jsEvent, ui, view) => {
-            this.dispatchEvent(new CustomEvent('event-resize', { detail: { event, delta, revertFunc, jsEvent, ui, view } }));
-
+            this.dispatchEvent(
+              new CustomEvent("event-resize", {
+                detail: { event, delta, revertFunc, jsEvent, ui, view },
+              })
+            );
           },
           viewRender: (view, element) => {
-            this.dispatchEvent(new CustomEvent('view-render', { detail: { view, element } }));
+            this.dispatchEvent(
+              new CustomEvent("view-render", { detail: { view, element } })
+            );
             if (view.activeRange == null) return;
 
             const start = view.activeRange.start.toISOString();
             const end = view.activeRange.end.toISOString();
-            this.dispatchEvent(new CustomEvent('date-range-changed', { detail: { start, end } }));
+            this.dispatchEvent(
+              new CustomEvent("date-range-changed", { detail: { start, end } })
+            );
           },
           viewDestroy: (view, element) => {
-            this.dispatchEvent(new CustomEvent('view-destroy', { detail: { view, element } }));
-
-          }
-
-        }
+            this.dispatchEvent(
+              new CustomEvent("view-destroy", { detail: { view, element } })
+            );
+          },
+        };
         this._initialize();
       }
 
@@ -298,7 +365,7 @@
       * This will initialize the calendar component
       */
       _initialize() {
-      //  Polymer.flush();
+        //Polymer.flush();
         let calendar = this.$.calendar;
         //initialize fullCalendar component
         this._scheduler = jQuery(calendar);
@@ -314,17 +381,20 @@
       */
       _updateEvents(events) {
         let updatedEvents = [...events];
-        updatedEvents.forEach(event => {
+        updatedEvents.forEach((event) => {
           if (event.category) {
-            let eventCategory = this.categories.find(category => event.category.toUpperCase() === category.label.toUpperCase());
+            let eventCategory = this.categories.find(
+              (category) =>
+                event.category.toUpperCase() === category.label.toUpperCase()
+            );
             if (eventCategory) {
-              event.backgroundColor = eventCategory.color || event.backgroundColor;
+              event.backgroundColor =
+                eventCategory.color || event.backgroundColor;
               event.borderColor = eventCategory.color || event.borderColor;
               if (eventCategory.hidden === true) {
-                event.className = ['hide'];
+                event.className = ["hide"];
               }
             }
-
           }
         });
         return updatedEvents;
@@ -336,7 +406,11 @@
       **/
       _refetchEvents() {
         let schedulerEvents = this._updateEvents(this.events);
-        this._scheduler.fullCalendar('addEventSource', { events: schedulerEvents, color: this.eventColor, textColor: this.textColor });
+        this._scheduler.fullCalendar("addEventSource", {
+          events: schedulerEvents,
+          color: this.eventColor,
+          textColor: this.textColor,
+        });
       }
 
       /**
@@ -344,7 +418,7 @@
       *
       **/
       _removeEvents() {
-        this._scheduler.fullCalendar('removeEvents');
+        this._scheduler.fullCalendar("removeEvents");
       }
 
       /**
@@ -354,14 +428,13 @@
       _getEventColor() {
 
       }
-
       /**
       * Returns the current view of the scheduler.
       *
       * @return {string} the current view
       */
       getView() {
-        return this._scheduler.fullCalendar('getView');
+        return this._scheduler.fullCalendar("getView");
       }
 
       /**
@@ -371,7 +444,7 @@
       * @return {void}
       */
       changeView(viewName) {
-        this._scheduler.fullCalendar('changeView', viewName);
+        this._scheduler.fullCalendar("changeView", viewName);
       }
 
       /**
@@ -380,7 +453,7 @@
       * @return {string} a string representation of the current date
       */
       getDate() {
-        return this._scheduler.fullCalendar('getDate');
+        return this._scheduler.fullCalendar("getDate");
       }
 
       /**
@@ -390,7 +463,7 @@
       * @return {void}
       */
       goToDate(date) {
-        this._scheduler.fullCalendar('gotoDate', date);
+        this._scheduler.fullCalendar("gotoDate", date);
       }
 
       /**
@@ -399,7 +472,7 @@
       * @return {void}
       */
       prev() {
-        this._scheduler.fullCalendar('prev');
+        this._scheduler.fullCalendar("prev");
       }
 
       /**
@@ -408,7 +481,7 @@
       * @return {void}
       */
       next() {
-        this._scheduler.fullCalendar('next');
+        this._scheduler.fullCalendar("next");
       }
 
       /**
@@ -417,7 +490,7 @@
       * @return {void}
       */
       prevYear() {
-        this._scheduler.fullCalendar('prevYear');
+        this._scheduler.fullCalendar("prevYear");
       }
 
       /**
@@ -426,9 +499,8 @@
       * @return {void}
       */
       nextYear() {
-        this._scheduler.fullCalendar('nextYear');
+        this._scheduler.fullCalendar("nextYear");
       }
-
 
       /**
       * Navigates to current date
@@ -436,7 +508,7 @@
       * @return {void}
       */
       today() {
-        this._scheduler.fullCalendar('today');
+        this._scheduler.fullCalendar("today");
       }
 
       /**
@@ -445,7 +517,7 @@
       * @return {void}
       */
       render() {
-        this._scheduler.fullCalendar('render');
+        this._scheduler.fullCalendar("render");
       }
 
       /**
@@ -455,28 +527,28 @@
       * @return {void}
       */
       incrementDate(duration) {
-        this.schedule.fullCalendar('incrementDate', duration);
+        this.schedule.fullCalendar("incrementDate", duration);
       }
 
       /*
-      * Observer method for the defaultView attribute.
-      *
-      */
+       * Observer method for the defaultView attribute.
+       *
+       */
       _viewChanged(newValue, oldValue) {
         if (SchedulerComponent.availabeViews.indexOf(newValue) < 0) {
-          throw new Error("Inavlid value for the attribute defaultView - Available views are " + SchedulerComponent.availabeViews.join());
+          throw new Error(
+            "Inavlid value for the attribute defaultView - Available views are " +
+              SchedulerComponent.availabeViews.join()
+          );
         }
       }
 
       /*
-     * Observer method for the header attribute.
-     * The aim of this method is to validate the value of the header.
-     *
-     */
-      _headerChanged(newValue, oldValue) {
-
-
-      }
+       * Observer method for the header attribute.
+       * The aim of this method is to validate the value of the header.
+       *
+       */
+      _headerChanged(newValue, oldValue) {}
 
       /**
       * Observer method for events property.
@@ -501,11 +573,9 @@
         let isCategoryDisabled = e.disabled;
         if (isCategoryDisabled) {
           this._hideEvents(e.category.label);
-        }
-        else {
+        } else {
           this._showEvents(e.category.label);
         }
-
       }
 
       /**
