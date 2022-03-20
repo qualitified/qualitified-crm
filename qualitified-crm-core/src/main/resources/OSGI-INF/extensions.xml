@@ -1239,7 +1239,6 @@
     <!-- <chain id="postCreateChain">
        <operation id="Context.FetchDocument"/>
        <operation id="Auth.LoginAs">
-
          <param type="string" name="name">Administrator</param>
        </operation>
        <operation id="javascript.postCreate"/>

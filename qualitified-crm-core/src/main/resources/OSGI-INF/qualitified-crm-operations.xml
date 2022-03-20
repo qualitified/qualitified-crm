@@ -1,4 +1,5 @@
-<component name="org.qualitified.crm.operations">
+<component name="org.qualitified.crm.operation">
+    <require>org.nuxeo.ecm.platform.routing.operations</require>
     <extension target="org.nuxeo.ecm.core.operation.OperationServiceComponent" point="operations" >
         <operation class="org.qualitified.crm.operation.GetCustomFields"/>
         <operation class="org.qualitified.crm.operation.GetResultListCustomFields"/>
@@ -37,7 +38,6 @@
         <operation class="org.qualitified.crm.operation.EventSyncProcess"/>
         <operation class="org.qualitified.crm.operation.CopyBlob"/>
         <operation class="org.qualitified.crm.operation.SendEmailFromInteraction"/>
-
 
     </extension>
  </component>

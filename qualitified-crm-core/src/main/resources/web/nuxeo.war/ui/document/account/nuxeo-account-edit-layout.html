@@ -5,7 +5,6 @@
 -->
 <link rel="import" href="../qualitified-custom-fields.html">
 <link rel="import" href="../../elements/qualitified-search-images.html">
-<link rel="import" href="../../elements/qualitified-document-create.html">
 
 <dom-module id="nuxeo-account-edit-layout">
     <template>
@@ -76,8 +75,8 @@
                                          parent-to-select="Sales"
                                          document="[[document]]"
                                          params='{ "namedParameters": "system_primaryType=Contact"}'>
-       </qualitified-document-suggestion>
-      
+        </qualitified-document-suggestion>
+
         <qualitified-user-suggestion
                 value="{{document.properties.account:responsible}}"
                 label="[[i18n('label.metadata.responsible')]]"
@@ -85,7 +84,7 @@
                 role="widget"
                 min-chars="0">
         </qualitified-user-suggestion>
-      
+
         <nuxeo-directory-suggestion role="widget" value="{{document.properties.account:status}}"
                                     label="status" directory-name="StatusAccount"
                                     min-chars="0" ></nuxeo-directory-suggestion>
