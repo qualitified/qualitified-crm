@@ -251,9 +251,16 @@
 
 
         </div>
-        <nuxeo-directory-suggestion role="widget" value="{{document.properties.custom:stringMultivaluedField1}}"
-                                    label="status" directory-name="StatusAccount"
-                                    readonly="true" multiple="true"></nuxeo-directory-suggestion>
+        <div role="widget" hidden$="[[!document.properties.custom:stringMultivaluedField1]]">
+          <qualitified-inline-edit document="[[document]]"
+                                   property="custom:stringMultivaluedField1"
+                                   metadata="directory"
+                                   directory="StatusAccount"
+                                   value="[[formatDirectory(document.properties.custom:stringMultivaluedField1)]]"
+                                   multiple="true"
+                                   label="[[i18n('label.metadata.status')]]">
+          </qualitified-inline-edit>
+        </div>
         <qualitified-custom-fields document="{{document}}" column="Column3" mode="view"></qualitified-custom-fields>
 
 
@@ -269,6 +276,7 @@
                                label="[[i18n('label.metadata.description')]]">
       </qualitified-inline-edit>
     </div>
+
     <qualitified-custom-fields document="{{document}}" column="showUnderNote" mode="view"></qualitified-custom-fields>
 
   </template>
