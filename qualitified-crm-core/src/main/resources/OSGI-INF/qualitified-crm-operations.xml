@@ -37,7 +37,7 @@
         <operation class="org.qualitified.crm.operation.EventSyncProcess"/>
         <operation class="org.qualitified.crm.operation.CopyBlob"/>
         <operation class="org.qualitified.crm.operation.SendEmailFromInteraction"/>
-
+        <operation class="org.qualitified.crm.operation.CopyContentToFolder"/>
 
     </extension>
  </component>
