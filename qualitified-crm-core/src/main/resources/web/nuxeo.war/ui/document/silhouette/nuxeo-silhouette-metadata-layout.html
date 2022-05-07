@@ -119,7 +119,17 @@
       >
       </qualitified-inline-edit>
 
+    </div>
+    <div role="widget">
+      <template if="[[document.properties.silhouette:company]]" is="dom-if">
+        <qualitified-inline-edit document="[[document]]"
+                                 property="silhouette:company"
+                                 label="[[i18n('label.metadata.company')]]"
+                                 value="[[document.properties.silhouette:company]]"
+        >
 
+        </qualitified-inline-edit>
+      </template>
 
     </div>
     <div role="widget">
