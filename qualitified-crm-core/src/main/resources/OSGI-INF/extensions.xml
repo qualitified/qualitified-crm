@@ -1510,6 +1510,13 @@
             <property name="size">0</property>
           </properties>
         </aggregate>
+        <aggregate id="stringMultivaluedField1_agg" type="terms" parameter="custom:stringMultivaluedField1">
+          <field schema="account_list_pp" name="stringMultivaluedField1_agg"/>
+          <properties>
+            <property name="order">count desc</property>
+            <property name="size">0</property>
+          </properties>
+        </aggregate>
         <aggregate id="account_industry_type_agg" type="terms" parameter="account:typeOfIndustry">
           <field schema="account_list_pp" name="account_industry_type_agg"/>
           <properties>
