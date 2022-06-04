@@ -17,6 +17,7 @@
           <doctype>Interaction</doctype>
           <doctype>Solicitation</doctype>
           <doctype>MailMessage</doctype>
+          <doctype>Comment</doctype>
           <attribute>Regular Document</attribute>
         </filters>
     </listener>
