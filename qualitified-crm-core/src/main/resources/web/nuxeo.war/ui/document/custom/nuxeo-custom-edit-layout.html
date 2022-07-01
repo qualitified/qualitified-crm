@@ -113,6 +113,11 @@
             <div>[[item.multiline]]</div>
           </template>
         </nuxeo-data-table-column-->
+        <nuxeo-data-table-column name="[[i18n('label.metadata.custom.displayAsAgregate')]]">
+          <template>
+            <div>[[item.displayAsAgregate]]</div>
+          </template>
+        </nuxeo-data-table-column>
         <nuxeo-data-table-column name="[[i18n('label.metadata.custom.link')]]">
           <template>
             <div>[[item.link]]</div>
@@ -216,6 +221,7 @@
                 <nuxeo-input label="Path" role="widget" value="{{_selectedEntry.path}}"></nuxeo-input>
                 <nuxeo-input label="Parent Id" role="widget" value="{{_selectedEntry.parentId}}"></nuxeo-input></div>
               <!--paper-checkbox checked="{{_selectedEntry.multiline}}"></paper-checkbox> Multiline <br/-->
+              <paper-checkbox checked="{{_selectedEntry.displayAsAgregate}}"></paper-checkbox> DisplayAsAgregate <br/>
               <paper-checkbox checked="{{_selectedEntry.link}}"></paper-checkbox> Link <br/>
               <paper-checkbox checked="{{_selectedEntry.copy}}"></paper-checkbox> Copyable <br/>
               <paper-checkbox checked="{{_selectedEntry.editable}}"></paper-checkbox> Editable <br/>
@@ -378,6 +384,7 @@
             "editGroup": null,
             "format": null,
             "link": null,
+            "displayAsAgregate": null,
             "vocabularyName": null,
             "label": null,
             "type": null,

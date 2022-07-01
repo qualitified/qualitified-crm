@@ -1510,6 +1510,13 @@
             <property name="size">0</property>
           </properties>
         </aggregate>
+        <aggregate id="stringMultivaluedField1_agg" type="terms" parameter="custom:stringMultivaluedField1">
+          <field schema="account_list_pp" name="stringMultivaluedField1_agg"/>
+          <properties>
+            <property name="order">count desc</property>
+            <property name="size">0</property>
+          </properties>
+        </aggregate>
         <aggregate id="account_industry_type_agg" type="terms" parameter="account:typeOfIndustry">
           <field schema="account_list_pp" name="account_industry_type_agg"/>
           <properties>
@@ -2165,6 +2172,15 @@
       <parentDirectory>Type</parentDirectory>
       <cacheEntryName>vocab-String-cache</cacheEntryName>
       <cacheEntryWithoutReferencesName>vocab-String-cache-without-references</cacheEntryWithoutReferencesName>
+    </directory>
+    <directory name="StringMultivalued" extends="template-xvocabulary">
+      <autoincrementIdField>false</autoincrementIdField>
+      <createTablePolicy>always</createTablePolicy>
+      <table>studio_vocabulary_StringMultivalued</table>
+      <dataFile>data/vocabularies/StringMultivalued.csv</dataFile>
+      <parentDirectory>Type</parentDirectory>
+      <cacheEntryName>vocab-StringMultivalued-cache</cacheEntryName>
+      <cacheEntryWithoutReferencesName>vocab-StringMultivalued-cache-without-references</cacheEntryWithoutReferencesName>
     </directory>
     <directory name="Boolean" extends="template-xvocabulary">
       <autoincrementIdField>false</autoincrementIdField>

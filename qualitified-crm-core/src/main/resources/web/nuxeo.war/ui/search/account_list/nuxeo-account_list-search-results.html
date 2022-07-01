@@ -73,6 +73,16 @@
             [[item.properties.account:country]]
           </template>
         </nuxeo-data-table-column>
+        <nuxeo-data-table-column
+                name="test"
+                field="custom:stringMultivaluedField1"
+                sort-by="custom:stringMultivaluedField1"
+                flex="50"
+        >
+          <template>
+            [[formatDirectory(item.properties.custom:stringMultivaluedField1)]]
+          </template>
+        </nuxeo-data-table-column>
         <nuxeo-data-table-column name="status" field="account:status" sort-by="account:status"
                                  flex="50">
           <template>

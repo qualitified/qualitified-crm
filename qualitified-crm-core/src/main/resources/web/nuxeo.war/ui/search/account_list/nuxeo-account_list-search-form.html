@@ -91,6 +91,15 @@
       <nuxeo-dropdown-aggregation data="[[aggregations.responsible_agg]]" multiple="" value="{{params.responsible_agg}}">
       </nuxeo-dropdown-aggregation>
     </div>
+      <div class="layout vertical row">
+        <label>multivalued </label>
+        <nuxeo-checkbox-aggregation
+                data="[[aggregations.stringMultivaluedField1_agg]]"
+                value="{{params.stringMultivaluedField1_agg}}"
+                multiple="true"
+        >
+        </nuxeo-checkbox-aggregation>
+      </div>
     <div class="layout vertical row">
       <label>status</label>
       <nuxeo-checkbox-aggregation

@@ -1,0 +1,11 @@
+id,label,obsolete,ordering
+stringMultivaluedField1,stringMultivaluedField1,0,0
+stringMultivaluedField2,stringMultivaluedField2,0,10
+stringMultivaluedField3,stringMultivaluedField3,0,20
+stringMultivaluedField4,stringMultivaluedField4,0,30
+stringMultivaluedField5,stringMultivaluedField5,0,40
+stringMultivaluedField6,stringMultivaluedField6,0,50
+stringMultivaluedField7,stringMultivaluedField7,0,60
+stringMultivaluedField8,stringMultivaluedField8,0,70
+stringMultivaluedField9,stringMultivaluedField9,0,80
+stringMultivaluedField10,stringMultivaluedField10,0,90

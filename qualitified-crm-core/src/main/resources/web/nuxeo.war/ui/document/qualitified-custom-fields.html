@@ -235,6 +235,126 @@
                                     label="[[stringField11Label]]" required="[[stringField11Required]]" role="widget"
                                     value="{{document.properties.custom:stringField11}}"></nuxeo-textarea>
                 </template>
+                <nuxeo-directory-suggestion
+                        class="sortableEdit"
+                        directory-name="[[stringMultivaluedField1Name]]"
+                        multiple="true"
+                        hidden$="[[!stringMultivaluedField1Visible]]"
+                        id="[[stringMultivaluedField1Order]]"
+                        label="[[stringMultivaluedField1Label]]"
+                        min-chars="0"
+                        required="[[stringMultivaluedField1Required]]"
+                        role="widget"
+                        value="{{document.properties.custom:stringMultivaluedField1}}"
+                ></nuxeo-directory-suggestion>
+                <nuxeo-directory-suggestion
+                        class="sortableEdit"
+                        directory-name="[[stringMultivaluedField2Name]]"
+                        multiple="true"
+                        hidden$="[[!stringMultivaluedField2Visible]]"
+                        id="[[stringMultivaluedField2Order]]"
+                        label="[[stringMultivaluedField2Label]]"
+                        min-chars="0"
+                        required="[[stringMultivaluedField2Required]]"
+                        role="widget"
+                        value="{{document.properties.custom:stringMultivaluedField2}}"
+                ></nuxeo-directory-suggestion>
+                <nuxeo-directory-suggestion
+                        class="sortableEdit"
+                        directory-name="[[stringMultivaluedField3Name]]"
+                        multiple="true"
+                        hidden$="[[!stringMultivaluedField3Visible]]"
+                        id="[[stringMultivaluedField3Order]]"
+                        label="[[stringMultivaluedField3Label]]"
+                        min-chars="0"
+                        required="[[stringMultivaluedField3Required]]"
+                        role="widget"
+                        value="{{document.properties.custom:stringMultivaluedField3}}"
+                ></nuxeo-directory-suggestion>
+                <nuxeo-directory-suggestion
+                        class="sortableEdit"
+                        directory-name="[[stringMultivaluedField4Name]]"
+                        multiple="true"
+                        hidden$="[[!stringMultivaluedField4Visible]]"
+                        id="[[stringMultivaluedField4Order]]"
+                        label="[[stringMultivaluedField4Label]]"
+                        min-chars="0"
+                        required="[[stringMultivaluedField4Required]]"
+                        role="widget"
+                        value="{{document.properties.custom:stringMultivaluedField4}}"
+                ></nuxeo-directory-suggestion>
+                <nuxeo-directory-suggestion
+                        class="sortableEdit"
+                        directory-name="[[stringMultivaluedField5Name]]"
+                        multiple="true"
+                        hidden$="[[!stringMultivaluedField5Visible]]"
+                        id="[[stringMultivaluedField5Order]]"
+                        label="[[stringMultivaluedField5Label]]"
+                        min-chars="0"
+                        required="[[stringMultivaluedField5Required]]"
+                        role="widget"
+                        value="{{document.properties.custom:stringMultivaluedField5}}"
+                ></nuxeo-directory-suggestion>
+                <nuxeo-directory-suggestion
+                        class="sortableEdit"
+                        directory-name="[[stringMultivaluedField6Name]]"
+                        multiple="true"
+                        hidden$="[[!stringMultivaluedField6Visible]]"
+                        id="[[stringMultivaluedField6Order]]"
+                        label="[[stringMultivaluedField6Label]]"
+                        min-chars="0"
+                        required="[[stringMultivaluedField6Required]]"
+                        role="widget"
+                        value="{{document.properties.custom:stringMultivaluedField6}}"
+                ></nuxeo-directory-suggestion>
+                <nuxeo-directory-suggestion
+                        class="sortableEdit"
+                        directory-name="[[stringMultivaluedField7Name]]"
+                        multiple="true"
+                        hidden$="[[!stringMultivaluedField7Visible]]"
+                        id="[[stringMultivaluedField7Order]]"
+                        label="[[stringMultivaluedField7Label]]"
+                        min-chars="0"
+                        required="[[stringMultivaluedField7Required]]"
+                        role="widget"
+                        value="{{document.properties.custom:stringMultivaluedField7}}"
+                ></nuxeo-directory-suggestion>
+                <nuxeo-directory-suggestion
+                        class="sortableEdit"
+                        directory-name="[[stringMultivaluedField8Name]]"
+                        multiple="true"
+                        hidden$="[[!stringMultivaluedField8Visible]]"
+                        id="[[stringMultivaluedField8Order]]"
+                        label="[[stringMultivaluedField8Label]]"
+                        min-chars="0"
+                        required="[[stringMultivaluedField8Required]]"
+                        role="widget"
+                        value="{{document.properties.custom:stringMultivaluedField8}}"
+                ></nuxeo-directory-suggestion>
+                <nuxeo-directory-suggestion
+                        class="sortableEdit"
+                        directory-name="[[stringMultivaluedField9Name]]"
+                        multiple="true"
+                        hidden$="[[!stringMultivaluedField9Visible]]"
+                        id="[[stringMultivaluedField9Order]]"
+                        label="[[stringMultivaluedField9Label]]"
+                        min-chars="0"
+                        required="[[stringMultivaluedField9Required]]"
+                        role="widget"
+                        value="{{document.properties.custom:stringMultivaluedField9}}"
+                ></nuxeo-directory-suggestion>
+                <nuxeo-directory-suggestion
+                        class="sortableEdit"
+                        directory-name="[[stringMultivaluedField10Name]]"
+                        multiple="true"
+                        hidden$="[[!stringMultivaluedField10Visible]]"
+                        id="[[stringMultivaluedField10Order]]"
+                        label="[[stringMultivaluedField10Label]]"
+                        min-chars="0"
+                        required="[[stringMultivaluedField10Required]]"
+                        role="widget"
+                        value="{{document.properties.custom:stringMultivaluedField10}}"
+                ></nuxeo-directory-suggestion>
 
                 <nuxeo-directory-suggestion class="sortableEdit" directory-name="[[vocabularyField1Name]]"
                                             hidden$="[[!vocabularyField1Visible]]" id="[[vocabularyField1Order]]"
@@ -286,6 +406,7 @@
                                             label="[[vocabularyField10Label]]" min-chars="0" multiple="[[vocabularyField10Multivalue]]"
                                             required="[[vocabularyField10Required]]" role="widget"
                                             value="{{document.properties.custom:vocabularyField10}}"></nuxeo-directory-suggestion>
+
 
                 <nuxeo-user-suggestion class="sortableEdit" hidden$="[[!userField1Visible]]" id="[[userField1Order]]"
                                        label="[[userField1Label]]" min-chars="0" required="[[userField1Required]]" role="widget"
@@ -1243,6 +1364,286 @@
                             <qualitified-inline-edit document="[[document]]" property="custom:stringField20"
                                                      value="[[document.properties.custom:stringField20]]" label="[[stringField20Label]]">
                             </qualitified-inline-edit>
+                        </template>
+                    </div>
+                </template>
+                <template
+                        if="[[document.properties.custom:stringMultivaluedField1]]"
+                        is="dom-if"
+                >
+                    <div role="widget">
+                        <template if="[[stringMultivaluedField1Visible]]" is="dom-if">
+                            <template if="[[stringMultivaluedField1Editable]]" is="dom-if">
+                                <qualitified-inline-edit
+                                        document="[[document]]"
+                                        property="custom:stringMultivaluedField1"
+                                        directory="[[stringMultivaluedField1Name]]"
+                                        label="[[stringMultivaluedField1Label]]"
+                                        min-chars="0"
+                                        role="widget"
+                                        metadata="directory"
+                                        multiple="true"
+                                        value="{{document.properties.custom:stringMultivaluedField1}}"
+                                >
+                                </qualitified-inline-edit>
+                            </template>
+                            <template if="[[!stringMultivaluedField1Editable]]" is="dom-if">
+                                <label>[[stringMultivaluedField1Label]]</label>
+                                <div>[[document.properties.custom:stringMultivaluedField1]]</div>
+                                <div>[[stringMultivaluedField1Value]]</div>
+                            </template>
+                        </template>
+                    </div>
+                </template>
+                <template
+                        if="[[document.properties.custom:stringMultivaluedField2]]"
+                        is="dom-if"
+                >
+                    <div role="widget">
+                        <template if="[[stringMultivaluedField2Visible]]" is="dom-if">
+                            <template if="[[stringMultivaluedField2Editable]]" is="dom-if">
+                                <qualitified-inline-edit
+                                        document="[[document]]"
+                                        property="custom:stringMultivaluedField2"
+                                        directory="[[stringMultivaluedField2Name]]"
+                                        label="[[stringMultivaluedField2Label]]"
+                                        min-chars="0"
+                                        role="widget"
+                                        metadata="directory"
+                                        multiple="true"
+                                        value="{{document.properties.custom:stringMultivaluedField2}}"
+                                >
+                                </qualitified-inline-edit>
+                            </template>
+                            <template if="[[!stringMultivaluedField2Editable]]" is="dom-if">
+                                <label>[[stringMultivaluedField2Label]]</label>
+                                <div>[[document.properties.custom:stringMultivaluedField2]]</div>
+                                <div>[[stringMultivaluedField2Value]]</div>
+                            </template>
+                        </template>
+                    </div>
+                </template>
+                <template
+                        if="[[document.properties.custom:stringMultivaluedField3]]"
+                        is="dom-if"
+                >
+                    <div role="widget">
+                        <template if="[[stringMultivaluedField3Visible]]" is="dom-if">
+                            <template if="[[stringMultivaluedField3Editable]]" is="dom-if">
+                                <qualitified-inline-edit
+                                        document="[[document]]"
+                                        property="custom:stringMultivaluedField3"
+                                        directory="[[stringMultivaluedField3Name]]"
+                                        label="[[stringMultivaluedField3Label]]"
+                                        min-chars="0"
+                                        role="widget"
+                                        metadata="directory"
+                                        multiple="true"
+                                        value="{{document.properties.custom:stringMultivaluedField3}}"
+                                >
+                                </qualitified-inline-edit>
+                            </template>
+                            <template if="[[!stringMultivaluedField3Editable]]" is="dom-if">
+                                <label>[[stringMultivaluedField3Label]]</label>
+                                <div>[[document.properties.custom:stringMultivaluedField3]]</div>
+                                <div>[[stringMultivaluedField3Value]]</div>
+                            </template>
+                        </template>
+                    </div>
+                </template>
+                <template
+                        if="[[document.properties.custom:stringMultivaluedField4]]"
+                        is="dom-if"
+                >
+                    <div role="widget">
+                        <template if="[[stringMultivaluedField4Visible]]" is="dom-if">
+                            <template if="[[stringMultivaluedField4Editable]]" is="dom-if">
+                                <qualitified-inline-edit
+                                        document="[[document]]"
+                                        property="custom:stringMultivaluedField4"
+                                        directory="[[stringMultivaluedField4Name]]"
+                                        label="[[stringMultivaluedField4Label]]"
+                                        min-chars="0"
+                                        role="widget"
+                                        metadata="directory"
+                                        multiple="true"
+                                        value="{{document.properties.custom:stringMultivaluedField4}}"
+                                >
+                                </qualitified-inline-edit>
+                            </template>
+                            <template if="[[!stringMultivaluedField4Editable]]" is="dom-if">
+                                <label>[[stringMultivaluedField4Label]]</label>
+                                <div>[[document.properties.custom:stringMultivaluedField4]]</div>
+                                <div>[[stringMultivaluedField4Value]]</div>
+                            </template>
+                        </template>
+                    </div>
+                </template>
+                <template
+                        if="[[document.properties.custom:stringMultivaluedField5]]"
+                        is="dom-if"
+                >
+                    <div role="widget">
+                        <template if="[[stringMultivaluedField5Visible]]" is="dom-if">
+                            <template if="[[stringMultivaluedField5Editable]]" is="dom-if">
+                                <qualitified-inline-edit
+                                        document="[[document]]"
+                                        property="custom:stringMultivaluedField5"
+                                        directory="[[stringMultivaluedField5Name]]"
+                                        label="[[stringMultivaluedField5Label]]"
+                                        min-chars="0"
+                                        role="widget"
+                                        metadata="directory"
+                                        multiple="true"
+                                        value="{{document.properties.custom:stringMultivaluedField5}}"
+                                >
+                                </qualitified-inline-edit>
+                            </template>
+                            <template if="[[!stringMultivaluedField5Editable]]" is="dom-if">
+                                <label>[[stringMultivaluedField5Label]]</label>
+                                <div>[[document.properties.custom:stringMultivaluedField5]]</div>
+                                <div>[[stringMultivaluedField5Value]]</div>
+                            </template>
+                        </template>
+                    </div>
+                </template>
+                <template
+                        if="[[document.properties.custom:stringMultivaluedField6]]"
+                        is="dom-if"
+                >
+                    <div role="widget">
+                        <template if="[[stringMultivaluedField6Visible]]" is="dom-if">
+                            <template if="[[stringMultivaluedField6Editable]]" is="dom-if">
+                                <qualitified-inline-edit
+                                        document="[[document]]"
+                                        property="custom:stringMultivaluedField6"
+                                        directory="[[stringMultivaluedField6Name]]"
+                                        label="[[stringMultivaluedField6Label]]"
+                                        min-chars="0"
+                                        role="widget"
+                                        metadata="directory"
+                                        multiple="true"
+                                        value="{{document.properties.custom:stringMultivaluedField6}}"
+                                >
+                                </qualitified-inline-edit>
+                            </template>
+                            <template if="[[!stringMultivaluedField6Editable]]" is="dom-if">
+                                <label>[[stringMultivaluedField6Label]]</label>
+                                <div>[[document.properties.custom:stringMultivaluedField6]]</div>
+                                <div>[[stringMultivaluedField6Value]]</div>
+                            </template>
+                        </template>
+                    </div>
+                </template>
+                <template
+                        if="[[document.properties.custom:stringMultivaluedField7]]"
+                        is="dom-if"
+                >
+                    <div role="widget">
+                        <template if="[[stringMultivaluedField7Visible]]" is="dom-if">
+                            <template if="[[stringMultivaluedField7Editable]]" is="dom-if">
+                                <qualitified-inline-edit
+                                        document="[[document]]"
+                                        property="custom:stringMultivaluedField7"
+                                        directory="[[stringMultivaluedField7Name]]"
+                                        label="[[stringMultivaluedField7Label]]"
+                                        min-chars="0"
+                                        role="widget"
+                                        metadata="directory"
+                                        multiple="true"
+                                        value="{{document.properties.custom:stringMultivaluedField7}}"
+                                >
+                                </qualitified-inline-edit>
+                            </template>
+                            <template if="[[!stringMultivaluedField7Editable]]" is="dom-if">
+                                <label>[[stringMultivaluedField7Label]]</label>
+                                <div>[[document.properties.custom:stringMultivaluedField7]]</div>
+                                <div>[[stringMultivaluedField7Value]]</div>
+                            </template>
+                        </template>
+                    </div>
+                </template>
+                <template
+                        if="[[document.properties.custom:stringMultivaluedField8]]"
+                        is="dom-if"
+                >
+                    <div role="widget">
+                        <template if="[[stringMultivaluedField8Visible]]" is="dom-if">
+                            <template if="[[stringMultivaluedField8Editable]]" is="dom-if">
+                                <qualitified-inline-edit
+                                        document="[[document]]"
+                                        property="custom:stringMultivaluedField8"
+                                        directory="[[stringMultivaluedField8Name]]"
+                                        label="[[stringMultivaluedField8Label]]"
+                                        min-chars="0"
+                                        role="widget"
+                                        metadata="directory"
+                                        multiple="true"
+                                        value="{{document.properties.custom:stringMultivaluedField8}}"
+                                >
+                                </qualitified-inline-edit>
+                            </template>
+                            <template if="[[!stringMultivaluedField8Editable]]" is="dom-if">
+                                <label>[[stringMultivaluedField8Label]]</label>
+                                <div>[[document.properties.custom:stringMultivaluedField8]]</div>
+                                <div>[[stringMultivaluedField8Value]]</div>
+                            </template>
+                        </template>
+                    </div>
+                </template>
+                <template
+                        if="[[document.properties.custom:stringMultivaluedField9]]"
+                        is="dom-if"
+                >
+                    <div role="widget">
+                        <template if="[[stringMultivaluedField9Visible]]" is="dom-if">
+                            <template if="[[stringMultivaluedField9Editable]]" is="dom-if">
+                                <qualitified-inline-edit
+                                        document="[[document]]"
+                                        property="custom:stringMultivaluedField9"
+                                        directory="[[stringMultivaluedField9Name]]"
+                                        label="[[stringMultivaluedField9Label]]"
+                                        min-chars="0"
+                                        role="widget"
+                                        metadata="directory"
+                                        multiple="true"
+                                        value="{{document.properties.custom:stringMultivaluedField9}}"
+                                >
+                                </qualitified-inline-edit>
+                            </template>
+                            <template if="[[!stringMultivaluedField9Editable]]" is="dom-if">
+                                <label>[[stringMultivaluedField9Label]]</label>
+                                <div>[[document.properties.custom:stringMultivaluedField9]]</div>
+                                <div>[[stringMultivaluedField9Value]]</div>
+                            </template>
+                        </template>
+                    </div>
+                </template>
+                <template
+                        if="[[document.properties.custom:stringMultivaluedField10]]"
+                        is="dom-if"
+                >
+                    <div role="widget">
+                        <template if="[[stringMultivaluedField10Visible]]" is="dom-if">
+                            <template if="[[stringMultivaluedField10Editable]]" is="dom-if">
+                                <qualitified-inline-edit
+                                        document="[[document]]"
+                                        property="custom:stringMultivaluedField10"
+                                        directory="[[stringMultivaluedField10Name]]"
+                                        label="[[stringMultivaluedField10Label]]"
+                                        min-chars="0"
+                                        role="widget"
+                                        metadata="directory"
+                                        multiple="true"
+                                        value="{{document.properties.custom:stringMultivaluedField10}}"
+                                >
+                                </qualitified-inline-edit>
+                            </template>
+                            <template if="[[!stringMultivaluedField10Editable]]" is="dom-if">
+                                <label>[[stringMultivaluedField10Label]]</label>
+                                <div>[[document.properties.custom:stringMultivaluedField10]]</div>
+                                <div>[[stringMultivaluedField10Value]]</div>
+                            </template>
                         </template>
                     </div>
                 </template>
@@ -5456,6 +5857,226 @@
                     type: Boolean,
                     value: false,
                 },
+                stringMultivaluedField1Name: {
+                    type: Boolean,
+                    value: false,
+                },
+                stringMultivaluedField1Editable: {
+                    type: Boolean,
+                    value: false,
+                 },
+                stringMultivaluedField1Required: {
+                    type: Boolean,
+                    value: false,
+                 },
+                stringMultivaluedField1Order: {
+                    type: Number,
+                },
+                stringMultivaluedField1Visible: {
+                    type: Boolean,
+                    value: false,
+                },
+                stringMultivaluedField1Label: {
+                    type: String,
+                },
+                stringMultivaluedField2Name: {
+                    type: Boolean,
+                    value: false,
+                },
+                stringMultivaluedField2Editable: {
+                    type: Boolean,
+                    value: false,
+                 },
+                stringMultivaluedField2Required: {
+                    type: Boolean,
+                    value: false,
+                 },
+                stringMultivaluedField2Order: {
+                    type: Number,
+                },
+                stringMultivaluedField2Visible: {
+                    type: Boolean,
+                    value: false,
+                },
+                stringMultivaluedField2Label: {
+                    type: String,
+                },
+                stringMultivaluedField3Name: {
+                    type: Boolean,
+                    value: false,
+                },
+                stringMultivaluedField3Editable: {
+                    type: Boolean,
+                    value: false,
+                 },
+                stringMultivaluedField3Required: {
+                    type: Boolean,
+                    value: false,
+                 },
+                stringMultivaluedField3Order: {
+                    type: Number,
+                },
+                stringMultivaluedField3Visible: {
+                    type: Boolean,
+                    value: false,
+                },
+                stringMultivaluedField3Label: {
+                    type: String,
+                },
+                stringMultivaluedField4Name: {
+                    type: Boolean,
+                    value: false,
+                },
+                stringMultivaluedField4Editable: {
+                    type: Boolean,
+                    value: false,
+                 },
+                stringMultivaluedField4Required: {
+                    type: Boolean,
+                    value: false,
+                 },
+                stringMultivaluedField4Order: {
+                    type: Number,
+                },
+                stringMultivaluedField4Visible: {
+                    type: Boolean,
+                    value: false,
+                },
+                stringMultivaluedField4Label: {
+                    type: String,
+                },
+                stringMultivaluedField5Name: {
+                    type: Boolean,
+                    value: false,
+                },
+                stringMultivaluedField5Editable: {
+                    type: Boolean,
+                    value: false,
+                 },
+                stringMultivaluedField5Required: {
+                    type: Boolean,
+                    value: false,
+                 },
+                stringMultivaluedField5Order: {
+                    type: Number,
+                },
+                stringMultivaluedField5Visible: {
+                    type: Boolean,
+                    value: false,
+                },
+                stringMultivaluedField5Label: {
+                    type: String,
+                },
+                stringMultivaluedField6Name: {
+                    type: Boolean,
+                    value: false,
+                },
+                stringMultivaluedField6Editable: {
+                    type: Boolean,
+                    value: false,
+                 },
+                stringMultivaluedField6Required: {
+                    type: Boolean,
+                    value: false,
+                 },
+                stringMultivaluedField6Order: {
+                    type: Number,
+                },
+                stringMultivaluedField6Visible: {
+                    type: Boolean,
+                    value: false,
+                },
+                stringMultivaluedField6Label: {
+                    type: String,
+                },
+                stringMultivaluedField7Name: {
+                    type: Boolean,
+                    value: false,
+                },
+                stringMultivaluedField7Editable: {
+                    type: Boolean,
+                    value: false,
+                 },
+                stringMultivaluedField7Required: {
+                    type: Boolean,
+                    value: false,
+                 },
+                stringMultivaluedField7Order: {
+                    type: Number,
+                },
+                stringMultivaluedField7Visible: {
+                    type: Boolean,
+                    value: false,
+                },
+                stringMultivaluedField7Label: {
+                    type: String,
+                },
+                stringMultivaluedField8Name: {
+                    type: Boolean,
+                    value: false,
+                },
+                stringMultivaluedField8Editable: {
+                    type: Boolean,
+                    value: false,
+                 },
+                stringMultivaluedField8Required: {
+                    type: Boolean,
+                    value: false,
+                 },
+                stringMultivaluedField8Order: {
+                    type: Number,
+                },
+                stringMultivaluedField8Visible: {
+                    type: Boolean,
+                    value: false,
+                },
+                stringMultivaluedField8Label: {
+                    type: String,
+                },
+                stringMultivaluedField9Name: {
+                    type: Boolean,
+                    value: false,
+                },
+                stringMultivaluedField9Editable: {
+                    type: Boolean,
+                    value: false,
+                 },
+                stringMultivaluedField9Required: {
+                    type: Boolean,
+                    value: false,
+                 },
+                stringMultivaluedField9Order: {
+                    type: Number,
+                },
+                stringMultivaluedField9Visible: {
+                    type: Boolean,
+                    value: false,
+                },
+                stringMultivaluedField9Label: {
+                    type: String,
+                },
+                stringMultivaluedField10Name: {
+                    type: Boolean,
+                    value: false,
+                },
+                stringMultivaluedField10Editable: {
+                    type: Boolean,
+                    value: false,
+                 },
+                stringMultivaluedField10Required: {
+                    type: Boolean,
+                    value: false,
+                 },
+                stringMultivaluedField10Order: {
+                    type: Number,
+                },
+                stringMultivaluedField10Visible: {
+                    type: Boolean,
+                    value: false,
+                },
+                stringMultivaluedField10Label: {
+                    type: String,
+                },
             },
             ready: function () { },
 
@@ -6484,6 +7105,196 @@
                                     field.copy !== null ? field.copy : false;
                                 this.stringField20Editable =
                                     field.editable !== null ? field.editable : false;
+                            }
+                            if (field.fieldName === "stringMultivaluedField1") {
+                                this.stringMultivaluedField1Visible = this._isVisible(
+                                    field.readGroup,
+                                    field.editGroup,
+                                    field.hiddenGroup
+                                );
+                               this.stringMultivaluedField1Label = field.label;
+                               this.stringMultivaluedField1Name = field.vocabularyName;
+                               this.stringMultivaluedField1Required = this._isVisible(
+                                   field.readGroup,
+                                   field.editGroup,
+                                   field.hiddenGroup
+                               )
+                                  ? field.required
+                                  : false;
+                               this.stringMultivaluedField1Order = i;
+                               this.stringMultivaluedField1Editable =
+                                   field.editable !== null ? field.editable : false;
+                            }
+                            if (field.fieldName === "stringMultivaluedField2") {
+                                this.stringMultivaluedField2Visible = this._isVisible(
+                                    field.readGroup,
+                                    field.editGroup,
+                                    field.hiddenGroup
+                                );
+                               this.stringMultivaluedField2Label = field.label;
+                               this.stringMultivaluedField2Name = field.vocabularyName;
+                               this.stringMultivaluedField2Required = this._isVisible(
+                                   field.readGroup,
+                                   field.editGroup,
+                                   field.hiddenGroup
+                               )
+                                  ? field.required
+                                  : false;
+                               this.stringMultivaluedField2Order = i;
+                               this.stringMultivaluedField2Editable =
+                                   field.editable !== null ? field.editable : false;
+                            }
+                            if (field.fieldName === "stringMultivaluedField3") {
+                                this.stringMultivaluedField3Visible = this._isVisible(
+                                    field.readGroup,
+                                    field.editGroup,
+                                    field.hiddenGroup
+                                );
+                               this.stringMultivaluedField3Label = field.label;
+                               this.stringMultivaluedField3Name = field.vocabularyName;
+                               this.stringMultivaluedField3Required = this._isVisible(
+                                   field.readGroup,
+                                   field.editGroup,
+                                   field.hiddenGroup
+                               )
+                                  ? field.required
+                                  : false;
+                               this.stringMultivaluedField3Order = i;
+                               this.stringMultivaluedField3Editable =
+                                   field.editable !== null ? field.editable : false;
+                            }
+                            if (field.fieldName === "stringMultivaluedField4") {
+                                this.stringMultivaluedField4Visible = this._isVisible(
+                                    field.readGroup,
+                                    field.editGroup,
+                                    field.hiddenGroup
+                                );
+                               this.stringMultivaluedField4Label = field.label;
+                               this.stringMultivaluedField4Name = field.vocabularyName;
+                               this.stringMultivaluedField4Required = this._isVisible(
+                                   field.readGroup,
+                                   field.editGroup,
+                                   field.hiddenGroup
+                               )
+                                  ? field.required
+                                  : false;
+                               this.stringMultivaluedField4Order = i;
+                               this.stringMultivaluedField4Editable =
+                                   field.editable !== null ? field.editable : false;
+                            }
+                            if (field.fieldName === "stringMultivaluedField5") {
+                                this.stringMultivaluedField5Visible = this._isVisible(
+                                    field.readGroup,
+                                    field.editGroup,
+                                    field.hiddenGroup
+                                );
+                               this.stringMultivaluedField5Label = field.label;
+                               this.stringMultivaluedField5Name = field.vocabularyName;
+                               this.stringMultivaluedField5Required = this._isVisible(
+                                   field.readGroup,
+                                   field.editGroup,
+                                   field.hiddenGroup
+                               )
+                                  ? field.required
+                                  : false;
+                               this.stringMultivaluedField5Order = i;
+                               this.stringMultivaluedField5Editable =
+                                   field.editable !== null ? field.editable : false;
+                            }
+                            if (field.fieldName === "stringMultivaluedField6") {
+                                this.stringMultivaluedField6Visible = this._isVisible(
+                                    field.readGroup,
+                                    field.editGroup,
+                                    field.hiddenGroup
+                                );
+                               this.stringMultivaluedField6Label = field.label;
+                               this.stringMultivaluedField6Name = field.vocabularyName;
+                               this.stringMultivaluedField6Required = this._isVisible(
+                                   field.readGroup,
+                                   field.editGroup,
+                                   field.hiddenGroup
+                               )
+                                  ? field.required
+                                  : false;
+                               this.stringMultivaluedField6Order = i;
+                               this.stringMultivaluedField6Editable =
+                                   field.editable !== null ? field.editable : false;
+                            }
+                            if (field.fieldName === "stringMultivaluedField7") {
+                                this.stringMultivaluedField7Visible = this._isVisible(
+                                    field.readGroup,
+                                    field.editGroup,
+                                    field.hiddenGroup
+                                );
+                               this.stringMultivaluedField7Label = field.label;
+                               this.stringMultivaluedField7Name = field.vocabularyName;
+                               this.stringMultivaluedField7Required = this._isVisible(
+                                   field.readGroup,
+                                   field.editGroup,
+                                   field.hiddenGroup
+                               )
+                                  ? field.required
+                                  : false;
+                               this.stringMultivaluedField7Order = i;
+                               this.stringMultivaluedField7Editable =
+                                   field.editable !== null ? field.editable : false;
+                            }
+                            if (field.fieldName === "stringMultivaluedField8") {
+                                this.stringMultivaluedField8Visible = this._isVisible(
+                                    field.readGroup,
+                                    field.editGroup,
+                                    field.hiddenGroup
+                                );
+                               this.stringMultivaluedField8Label = field.label;
+                               this.stringMultivaluedField8Name = field.vocabularyName;
+                               this.stringMultivaluedField8Required = this._isVisible(
+                                   field.readGroup,
+                                   field.editGroup,
+                                   field.hiddenGroup
+                               )
+                                  ? field.required
+                                  : false;
+                               this.stringMultivaluedField8Order = i;
+                               this.stringMultivaluedField8Editable =
+                                   field.editable !== null ? field.editable : false;
+                            }
+                            if (field.fieldName === "stringMultivaluedField9") {
+                                this.stringMultivaluedField9Visible = this._isVisible(
+                                    field.readGroup,
+                                    field.editGroup,
+                                    field.hiddenGroup
+                                );
+                               this.stringMultivaluedField9Label = field.label;
+                               this.stringMultivaluedField9Name = field.vocabularyName;
+                               this.stringMultivaluedField9Required = this._isVisible(
+                                   field.readGroup,
+                                   field.editGroup,
+                                   field.hiddenGroup
+                               )
+                                  ? field.required
+                                  : false;
+                               this.stringMultivaluedField9Order = i;
+                               this.stringMultivaluedField9Editable =
+                                   field.editable !== null ? field.editable : false;
+                            }
+                            if (field.fieldName === "stringMultivaluedField10") {
+                                this.stringMultivaluedField10Visible = this._isVisible(
+                                    field.readGroup,
+                                    field.editGroup,
+                                    field.hiddenGroup
+                                );
+                               this.stringMultivaluedField10Label = field.label;
+                               this.stringMultivaluedField10Name = field.vocabularyName;
+                               this.stringMultivaluedField10Required = this._isVisible(
+                                   field.readGroup,
+                                   field.editGroup,
+                                   field.hiddenGroup
+                               )
+                                  ? field.required
+                                  : false;
+                               this.stringMultivaluedField10Order = i;
+                               this.stringMultivaluedField10Editable =
+                                   field.editable !== null ? field.editable : false;
                             }
 
                             if (field.fieldName === "vocabularyField1") {

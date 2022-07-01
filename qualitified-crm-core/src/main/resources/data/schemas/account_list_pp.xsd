@@ -41,4 +41,15 @@
   <xs:element name="nbEmployees_agg" type="nxs:stringList"/>
   <xs:element name="turnover_agg" type="nxs:stringList"/>
   <xs:element name="account_status_agg" type="nxs:stringList"/>
+
+  <xs:element name="stringMultivaluedField1_agg" type="nxs:stringList"/>
+  <xs:element name="stringMultivaluedField2_agg" type="nxs:stringList"/>
+  <xs:element name="stringMultivaluedField3_agg" type="nxs:stringList"/>
+  <xs:element name="stringMultivaluedField4_agg" type="nxs:stringList"/>
+  <xs:element name="stringMultivaluedField5_agg" type="nxs:stringList"/>
+  <xs:element name="stringMultivaluedField6_agg" type="nxs:stringList"/>
+  <xs:element name="stringMultivaluedField7_agg" type="nxs:stringList"/>
+  <xs:element name="stringMultivaluedField8_agg" type="nxs:stringList"/>
+  <xs:element name="stringMultivaluedField9_agg" type="nxs:stringList"/>
+  <xs:element name="stringMultivaluedField10_agg" type="nxs:stringList"/>
 </xs:schema>
