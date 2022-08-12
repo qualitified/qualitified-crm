@@ -127,6 +127,10 @@
         }
       },
 
+      _search: function(e) {
+        this.fire('trigger-search');
+      },
+
       clear: function() {
         this.searchTerm = '';
       },
