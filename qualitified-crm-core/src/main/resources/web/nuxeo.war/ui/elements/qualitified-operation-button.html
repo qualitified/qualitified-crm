@@ -52,24 +52,32 @@
           type: String,
           value: "Done!"
         },
+        javascript: {
+          type: String,
+          value: "this.navigateTo('browse', this.document.path)"
+        }
       },
       _runOperation: function(){
-        this.params = {
-          params: {},
-          context: {},
-          input: this.document.uid
-        };
-        this.$.operation.execute().then(function(result) {
-          this.$.operationToast.text = this.message;
-          this.$.operationToast.open();
-          this.navigateTo('browse', this.document.path);
-        }.bind(this))
-        .catch(function (error){
-            console.log(error);
-            this.$.operationToast.text = error;
-            this.navigateTo('browse', this.document.path);
+        if(this.operation == ""){
+          eval(this.javascript);
+        }else{
+          this.params = {
+            params: {},
+            context: {},
+            input: this.document.uid
+          };
+          this.$.operation.execute().then(function(result) {
+            this.$.operationToast.text = this.message;
             this.$.operationToast.open();
-        }.bind(this));
+            eval(this.javascript);
+          }.bind(this))
+          .catch(function (error){
+              console.log(error);
+              this.$.operationToast.text = error;
+              this.navigateTo('browse', this.document.path);
+              this.$.operationToast.open();
+          }.bind(this));
+        }
       }
     });
   </script>

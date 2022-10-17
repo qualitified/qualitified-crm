@@ -314,6 +314,16 @@
     </template>
 </nuxeo-slot-content>
 
+<nuxeo-slot-content name="RunFunctionalTest" slot="DOCUMENT_ACTIONS">
+    <template>
+        <nuxeo-filter document="[[document]]" type="ScriptNote" expression="document.title.startsWith('FunctionalTest')">
+            <template>
+                <qualitified-operation-button document="[[document]]" operation="Qualitified.LoadFunctionalTest" icon="icons:trending-up" label="Run Functional Test" javascript="window.open(window.location.origin+window.location.pathname+'#!/home?test='+Date.now());"></qualitified-operation-button>
+            </template>
+        </nuxeo-filter>
+    </template>
+</nuxeo-slot-content>
+
 <nuxeo-slot-content name="Deploy" slot="DOCUMENT_ACTIONS">
     <template>
         <nuxeo-filter document="[[document]]" type="Admin,Objects,Custom,Scripts,ScriptNote,TemplateRoot,Options,Option">

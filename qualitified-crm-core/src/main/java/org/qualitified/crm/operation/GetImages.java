@@ -36,6 +36,9 @@ public class GetImages {
 
     @OperationMethod
     public Blob run() throws Exception {
+        if("".equals(query) || query == null){
+            return new StringBlob("", "application/json");
+        }
         LoginContext lc = Framework.loginAsUser("Administrator");
         ctx.getLoginStack().push(lc);
         String url = "https://www.googleapis.com/customsearch/v1?q="+ URLEncoder.encode(query, "UTF-8")+"&key="+Framework.getProperty("google.key")+"&cx="+Framework.getProperty("google.cx")+"&searchType=image&alt=json";
@@ -46,7 +49,6 @@ public class GetImages {
         String result = writer.toString();
         ctx.getLoginStack().pop();
         return new StringBlob(result, "application/json");
-
     }
 
 }

@@ -38,6 +38,6 @@
         <operation class="org.qualitified.crm.operation.CopyBlob"/>
         <operation class="org.qualitified.crm.operation.SendEmailFromInteraction"/>
         <operation class="org.qualitified.crm.operation.CopyContentToFolder"/>
-
+        <operation class="org.qualitified.crm.operation.LoadFunctionalTest"/>
     </extension>
  </component>
