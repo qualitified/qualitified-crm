@@ -99,6 +99,10 @@
       <artifactId>nuxeo-platform-oauth</artifactId>
       <version>10.10</version>
     </dependency>
+      <dependency>
+          <groupId>org.nuxeo.elasticsearch</groupId>
+          <artifactId>nuxeo-elasticsearch-core</artifactId>
+      </dependency>
   </dependencies>
 
 
