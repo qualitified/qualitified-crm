@@ -15,7 +15,8 @@ Nuxeo-Component: OSGI-INF/extensions.xml,
  OSGI-INF/person-enricher-contrib.xml,
  OSGI-INF/copy-listener-contrib.xml,
  OSGI-INF/mailjet-emailing-service.xml,
- OSGI-INF/automatic-version-creation.xml
+ OSGI-INF/automatic-version-creation.xml,
+ OSGI-INF/elasticsearch-defaultconfig-override.xml
 Bundle-ManifestVersion: 2
 Created-By: Qualitified
 Bundle-SymbolicName: studio.extensions.crm

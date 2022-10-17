@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component name="org.nuxeo.elasticsearch.defaultConfig.override">
+    <require>org.nuxeo.elasticsearch.defaultConfig</require>
+    <extension point="elasticSearchIndex" target="org.nuxeo.elasticsearch.ElasticSearchComponent">
+        <elasticSearchIndex name="nuxeo" repository="default" type="doc">
+            <fetchFromSource>
+                <include>ecm:*</include>
+                <include>dc:*</include>
+                <!--include custom schema-->
+                <include>custom:*</include>
+                <exclude>ecm:binarytext</exclude>
+            </fetchFromSource>
+            <settings file="elasticsearch-doc-settings.json"/>
+            <mapping file="elasticsearch-doc-mapping.json"/>
+        </elasticSearchIndex>
+    </extension>
+</component>
