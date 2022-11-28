@@ -41,6 +41,95 @@
     </template>
 </nuxeo-slot-content>
 
+<!-- Redefinition of 'documentViewPage' and 'documentCollapsiblePage' for slot 'DOCUMENT_VIEWS_PAGES' declared in nuxeo-web-ui-bundle.html-->
+<nuxeo-slot-content name="documentViewPage" slot="DOCUMENT_VIEWS_PAGES" order="10" priority="10">
+  <template>
+    <nuxeo-filter document="[[document]]" expression="document.facets.indexOf('Folderish') === -1
+                                                      &amp;&amp; document.facets.indexOf('Collection') === -1
+                                                      &amp;&amp; document.type != 'Account'
+                                                      &amp;&amp; document.type != 'Email'
+                                                      &amp;&amp; document.type != 'Campaign'
+                                                      &amp;&amp; document.type != 'Link'
+                                                      &amp;&amp; document.type != 'Opportunity'
+                                                      &amp;&amp; document.type != 'Contact'
+                                                      &amp;&amp; document.type != 'Silhouette'
+                                                      &amp;&amp; document.type != 'Automation'
+                                                      &amp;&amp; document.type != 'Interaction'
+                                                      &amp;&amp; document.type != 'Solicitation'
+                                                      &amp;&amp; document.type != 'File'
+                                                      &amp;&amp; document.type != 'Custom'
+                                                      &amp;&amp; document.type != 'Objects'
+                                                      &amp;&amp; document.type != 'Scripts'
+                                                      &amp;&amp; document.type != 'Options'
+                                                      &amp;&amp; document.type != 'Option'
+                                                      &amp;&amp; document.type != 'Note'
+                                                      &amp;&amp; document.type != 'Targeting'
+                                                      &amp;&amp; document.type != 'Branding'">
+
+      <template>
+        <nuxeo-document-page name="view" document="[[document]]" opened=""></nuxeo-document-page>
+      </template>
+    </nuxeo-filter>
+  </template>
+</nuxeo-slot-content>
+
+
+<nuxeo-slot-content name="documentCollapsiblePage" slot="DOCUMENT_VIEWS_PAGES" order="10" priority="10">
+  <template>
+    <nuxeo-filter document="[[document]]" facet="Folderish,Collection" expression="document.type != 'Account'
+                                                                                   &amp;&amp; document.type != 'Email'
+                                                                                   &amp;&amp; document.type != 'Campaign'
+                                                                                   &amp;&amp; document.type != 'Link'
+                                                                                   &amp;&amp; document.type != 'Opportunity'
+                                                                                   &amp;&amp; document.type != 'Contact'
+                                                                                   &amp;&amp; document.type != 'Silhouette'
+                                                                                   &amp;&amp; document.type != 'Automation'
+                                                                                   &amp;&amp; document.type != 'Interaction'
+                                                                                   &amp;&amp; document.type != 'Solicitation'
+                                                                                   &amp;&amp; document.type != 'File'
+                                                                                   &amp;&amp; document.type != 'Custom'
+                                                                                   &amp;&amp; document.type != 'Objects'
+                                                                                   &amp;&amp; document.type != 'Scripts'
+                                                                                   &amp;&amp; document.type != 'Options'
+                                                                                   &amp;&amp; document.type != 'Option'
+                                                                                   &amp;&amp; document.type != 'Note'
+                                                                                   &amp;&amp; document.type != 'Targeting'
+                                                                                   &amp;&amp; document.type != 'Branding'">
+      <template>
+        <nuxeo-collapsible-document-page name="view" document="[[document]]"></nuxeo-collapsible-document-page>
+      </template>
+    </nuxeo-filter>
+  </template>
+</nuxeo-slot-content>
+
+<!-- Redefinition of 'pictureDocumentViewPage' for slot 'DOCUMENT_VIEWS_PAGES' declared in nuxeo-dam.html-->
+<nuxeo-slot-content name="pictureDocumentViewPage" slot="DOCUMENT_VIEWS_PAGES" order="5" priority="10">
+  <template>
+    <nuxeo-filter document="[[document]]" facet="Picture" expression="document.type != 'Account'
+                                                                      &amp;&amp; document.type != 'Email'
+                                                                      &amp;&amp; document.type != 'Campaign'
+                                                                      &amp;&amp; document.type != 'Link'
+                                                                      &amp;&amp; document.type != 'Opportunity'
+                                                                      &amp;&amp; document.type != 'Contact'
+                                                                      &amp;&amp; document.type != 'Silhouette'
+                                                                      &amp;&amp; document.type != 'Automation'
+                                                                      &amp;&amp; document.type != 'Interaction'
+                                                                      &amp;&amp; document.type != 'Solicitation'
+                                                                      &amp;&amp; document.type != 'File'
+                                                                      &amp;&amp; document.type != 'Custom'
+                                                                      &amp;&amp; document.type != 'Objects'
+                                                                      &amp;&amp; document.type != 'Scripts'
+                                                                      &amp;&amp; document.type != 'Options'
+                                                                      &amp;&amp; document.type != 'Option'
+                                                                      &amp;&amp; document.type != 'Note'
+                                                                      &amp;&amp; document.type != 'Targeting'
+                                                                      &amp;&amp; document.type != 'Branding'">
+      <template>
+        <nuxeo-picture-document-page name="view" document="[[document]]"></nuxeo-picture-document-page>
+      </template>
+    </nuxeo-filter>
+  </template>
+</nuxeo-slot-content>
 
 <!-- Contribution of element 'nuxeo-search-form' for slot 'DRAWER_PAGES' -->
 <nuxeo-slot-content name="opportunity-list" slot="DRAWER_PAGES" >
@@ -368,6 +457,3 @@
         </qualitified-add-to-campaign-button>
     </template>
 </nuxeo-slot-content>
-
-
-

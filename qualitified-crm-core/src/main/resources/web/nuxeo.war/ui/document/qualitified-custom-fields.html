@@ -13,6 +13,11 @@
             *[role="widget"] {
                 padding: 5px;
             }
+            .align-button{
+              display: flex;
+              width: 100px;
+              justify-content: space-between;
+            }
 
             #booleanField {
                 display: -webkit-box;
@@ -682,572 +687,1822 @@
                                     </template>
                                 </div>
                             </template></template>
+
+                        <template if="[[!stringField1Clickable]]" is="dom-if">
+                            <template if="[[!stringField1Copy]]" is="dom-if">
+                                <template if="[[stringField1Editable]]" is="dom-if">
+
+                                    <qualitified-inline-edit document="[[document]]" label="[[stringField1Label]]"
+                                                             property="custom:stringField1" value="[[document.properties.custom:stringField1]]">
+                                    </qualitified-inline-edit></template>
+                            </template></template>
+
+                        <template if="[[!stringField1Editable]]" is="dom-if">
+                            <template if="[[!stringField1Copy]]" is="dom-if">
+                                <template if="[[stringField1Clickable]]" is="dom-if">
+
+                                    <label>[[stringField1Label]]</label>
+                                    <div>
+                                        <a href="[[document.properties.custom:stringField1]]" style="color: blue"
+                                           target="_blank">[[document.properties.custom:stringField1]]</a>
+                                    </div>
+                                </template></template>
+                        </template>
+
+
                         <template if="[[stringField1Clickable]]" is="dom-if">
-                            <label>[[stringField1Label]]</label>
-                            <div>
+                            <div class="align-button" >
+                                <template if="[[stringField1Editable]]" is="dom-if">
+
+                                    <qualitified-inline-edit document="[[document]]" label="[[stringField1Label]]" metadata="link" property="custom:stringField1"
+                                                             style="width: 100px;" value="[[document.properties.custom:stringField1]]">
+                                    </qualitified-inline-edit>  </template>
+                                <template if="[[stringField1Copy]]" is="dom-if">
+                                    <copy-to-clipboard clipboard-value-copied="{{copiedValue}}"
+                                                       clipboard-value-to-copy="[[document.properties.custom:stringField1]]"
+                                                       id="copyToClipboard1"></copy-to-clipboard>
+                                </template></div>
+                        </template>
+                        <template if="[[!stringField1Copy]]" is="dom-if">
+                            <template if="[[stringField1Clickable]]" is="dom-if">
+                                <template if="[[stringField1Editable]]" is="dom-if">
+                                    <qualitified-inline-edit document="[[document]]" label="[[stringField1Label]]" metadata="link" property="custom:stringField1"
+                                                             style="width: 100px;" value="[[document.properties.custom:stringField1]]">
+                                    </qualitified-inline-edit>
+                                </template>
+                            </template>
+                        </template>
+
+                        <template if="[[!stringField1Clickable]]" is="dom-if">
+                            <div class="align-button" >
+                            <template if="[[stringField1Copy]]" is="dom-if">
+                                    <template if="[[stringField1Editable]]" is="dom-if">
+
+                                        <qualitified-inline-edit document="[[document]]" label="[[stringField1Label]]"  property="custom:stringField1"
+                                                                 style="width: 100px;" value="[[document.properties.custom:stringField1]]">
+                                        </qualitified-inline-edit></template>  <copy-to-clipboard clipboard-value-copied="{{copiedValue}}"
+                                                                                                  clipboard-value-to-copy="[[document.properties.custom:stringField1]]" id="copyToClipboard1"></copy-to-clipboard>
+                            </template></div>
+                </template>
+
+                <template if="[[!stringField1Editable]]" is="dom-if">
+                    <div>
+                        <template if="[[stringField1Copy]]" is="dom-if">
+                            <template if="[[stringField1Clickable]]" is="dom-if">
                                 <a href="[[document.properties.custom:stringField1]]" style="color: blue"
                                    target="_blank">[[document.properties.custom:stringField1]]</a>
-                            </div>
-                        </template>
-                        <template if="[[stringField1Editable]]" is="dom-if">
-                            <qualitified-inline-edit document="[[document]]" property="custom:stringField1"
-                                                     value="[[document.properties.custom:stringField1]]" label="[[stringField1Label]]">
-                            </qualitified-inline-edit>
-                        </template>
-                    </div>
-                </template>
-                <template if="[[document.properties.custom:stringField2]]" is="dom-if">
-                    <div class="sortable" hidden$="[[!stringField2Visible]]" id="[[stringField2Order]]" role="widget">
-                        <template if="[[!stringField2Clickable]]" is="dom-if">
-                            <template if="[[!stringField2Editable]]" is="dom-if">
-                                <label>[[stringField2Label]]</label>
-                                <div>
-                                    [[document.properties.custom:stringField2]]
-                                    <template if="[[stringField2Copy]]" is="dom-if">
-                                        <copy-to-clipboard clipboard-value-copied="{{copiedValue}}"
-                                                           clipboard-value-to-copy="[[document.properties.custom:stringField2]]"
-                                                           id="copyToClipboard2"></copy-to-clipboard>
-                                    </template>
-                                </div>
-                            </template></template>
-                        <template if="[[stringField2Clickable]]" is="dom-if">
-                            <label>[[stringField2Label]]</label>
-                            <div>
-                                <a href="[[document.properties.custom:stringField2]]" style="color: blue"
-                                   target="_blank">[[document.properties.custom:stringField2]]</a>
-                            </div>
-                        </template>
-                        <template if="[[stringField2Editable]]" is="dom-if">
-                            <qualitified-inline-edit document="[[document]]" property="custom:stringField2"
-                                                     value="[[document.properties.custom:stringField2]]" label="[[stringField2Label]]">
-                            </qualitified-inline-edit>
-                        </template>
-                    </div>
-                </template>
-                <template if="[[document.properties.custom:stringField3]]"  is="dom-if">
-                    <div class="sortable" hidden$="[[!stringField3Visible]]" id="[[stringField3Order]]" role="widget">
-                        <template if="[[!stringField3Clickable]]" is="dom-if">
-                            <template if="[[!stringField3Editable]]" is="dom-if">
-                                <label>[[stringField3Label]]</label>
-                                <div>
-                                    [[document.properties.custom:stringField3]]
-                                    <template if="[[stringField3Copy]]" is="dom-if">
-                                        <copy-to-clipboard clipboard-value-copied="{{copiedValue}}"
-                                                           clipboard-value-to-copy="[[document.properties.custom:stringField3]]"
-                                                           id="copyToClipboard3"></copy-to-clipboard>
-                                    </template>
-                                </div>
-                            </template></template>
-                        <template if="[[stringField3Clickable]]" is="dom-if">
-                            <label>[[stringField3Label]]</label>
-                            <div>
-                                <a href="[[document.properties.custom:stringField3]]" style="color: blue"
-                                   target="_blank">[[document.properties.custom:stringField3]]</a>
-                            </div>
-                        </template>
-                        <template if="[[stringField3Editable]]" is="dom-if">
-                            <qualitified-inline-edit document="[[document]]" property="custom:stringField3"
-                                                     value="[[document.properties.custom:stringField3]]" label="[[stringField3Label]]">
-                            </qualitified-inline-edit>
-                        </template>
-                    </div>
-                </template>
-
-                <template if="[[document.properties.custom:stringField4]]" is="dom-if">
-                    <div class="sortable" hidden$="[[!stringField4Visible]]" id="[[stringField4Order]]" role="widget">
-                        <template if="[[!stringField4Clickable]]" is="dom-if">
-                            <template if="[[!stringField4Editable]]" is="dom-if">
-                                <label>[[stringField4Label]]</label>
-                                <div>
-                                    [[document.properties.custom:stringField4]]
-                                    <template if="[[stringField4Copy]]" is="dom-if">
-                                        <copy-to-clipboard clipboard-value-copied="{{copiedValue}}"
-                                                           clipboard-value-to-copy="[[document.properties.custom:stringField4]]"
-                                                           id="copyToClipboard4"></copy-to-clipboard>
-                                    </template>
-                                </div>
-                            </template></template>
-
-                        <template if="[[stringField4Clickable]]" is="dom-if" is="dom-if">
-                            <label>[[stringField4Label]]</label>
-                            <div>
-                                <a href="[[document.properties.custom:stringField4]]" style="color: blue"
-                                   target="_blank">[[document.properties.custom:stringField4]]</a>
-                            </div>
-                        </template>
-                        <template if="[[stringField4Editable]]" is="dom-if">
-                            <qualitified-inline-edit document="[[document]]" property="custom:stringField4"
-                                                     value="[[document.properties.custom:stringField4]]" label="[[stringField4Label]]">
-                            </qualitified-inline-edit>
-                        </template>
-                    </div>
-                </template>
-
-                <template if="[[document.properties.custom:stringField5]]" is="dom-if">
-                    <div class="sortable" hidden$="[[!stringField5Visible]]" id="[[stringField5Order]]" role="widget">
-                        <template if="[[!stringField5Clickable]]" is="dom-if">
-                            <template if="[[!stringField5Editable]]" is="dom-if">
-                                <label>[[stringField5Label]]</label>
-                                <div>
-                                    [[document.properties.custom:stringField5]]
-                                    <template if="[[stringField5Copy]]" is="dom-if">
-                                        <copy-to-clipboard clipboard-value-copied="{{copiedValue}}"
-                                                           clipboard-value-to-copy="[[document.properties.custom:stringField5]]"
-                                                           id="copyToClipboard5"></copy-to-clipboard>
-                                    </template>
-                                </div>
-                            </template></template>
-                        <template if="[[stringField5Clickable]]" is="dom-if">
-                            <label>[[stringField5Label]]</label>
-                            <div>
-                                <a href="[[document.properties.custom:stringField5]]" style="color: blue"
-                                   target="_blank">[[document.properties.custom:stringField5]]</a>
-                            </div>
-                        </template>
-                        <template if="[[stringField5Editable]]" is="dom-if">
-                            <qualitified-inline-edit document="[[document]]" property="custom:stringField5"
-                                                     value="[[document.properties.custom:stringField5]]" label="[[stringField5Label]]">
-                            </qualitified-inline-edit>
-                        </template>
-                    </div>
-                </template>
-
-                <template if="[[document.properties.custom:stringField6]]" is="dom-if">
-                    <div class="sortable" hidden$="[[!stringField6Visible]]" id="[[stringField6Order]]" role="widget">
-                        <template if="[[!stringField6Clickable]]" is="dom-if">
-                            <template if="[[!stringField6Editable]]" is="dom-if">
-                                <label>[[stringField6Label]]</label>
-                                <div>
-                                    [[document.properties.custom:stringField6]]
-                                    <template if="[[stringField6Copy]]" is="dom-if">
-                                        <copy-to-clipboard clipboard-value-copied="{{copiedValue}}"
-                                                           clipboard-value-to-copy="[[document.properties.custom:stringField6]]"
-                                                           id="copyToClipboard6"></copy-to-clipboard>
-                                    </template>
-                                </div>
-                            </template></template>
-                        <template if="[[stringField6Clickable]]" is="dom-if">
-                            <label>[[stringField6Label]]</label>
-                            <div>
-                                <a href="[[document.properties.custom:stringField6]]" style="color: blue"
-                                   target="_blank">[[document.properties.custom:stringField6]]</a>
-                            </div>
-                        </template>
-                        <template if="[[stringField6Editable]]" is="dom-if">
-                            <qualitified-inline-edit document="[[document]]" property="custom:stringField6"
-                                                     value="[[document.properties.custom:stringField6]]" label="[[stringField6Label]]">
-                            </qualitified-inline-edit>
-                        </template>
-                    </div>
-                </template>
-
-                <template if="[[document.properties.custom:stringField7]]" is="dom-if">
-                    <div class="sortable" hidden$="[[!stringField7Visible]]" id="[[stringField7Order]]" role="widget">
-                        <template if="[[!stringField7Clickable]]" is="dom-if">
-                            <template if="[[!stringField7Editable]]" is="dom-if">
-                                <label>[[stringField7Label]]</label>
-                                <div>
-                                    [[document.properties.custom:stringField7]]
-                                    <template if="[[stringField7Copy]]" is="dom-if">
-                                        <copy-to-clipboard clipboard-value-copied="{{copiedValue}}"
-                                                           clipboard-value-to-copy="[[document.properties.custom:stringField7]]"
-                                                           id="copyToClipboard7"></copy-to-clipboard>
-                                    </template>
-                                </div>
-                            </template></template>
-                        <template if="[[stringField7Clickable]]" is="dom-if">
-                            <label>[[stringField7Label]]</label>
-                            <div>
-                                <a href="[[document.properties.custom:stringField7]]" style="color: blue"
-                                   target="_blank">[[document.properties.custom:stringField7]]</a>
-                            </div>
-                        </template>
-                        <template if="[[stringField7Editable]]" is="dom-if">
-                            <qualitified-inline-edit document="[[document]]" property="custom:stringField7"
-                                                     value="[[document.properties.custom:stringField7]]" label="[[stringField7Label]]">
-                            </qualitified-inline-edit>
-                        </template>
-                    </div>
-                </template>
-
-                <template if="[[document.properties.custom:stringField8]]" is="dom-if">
-                    <div class="sortable" hidden$="[[!stringField8Visible]]" id="[[stringField8Order]]" role="widget">
-                        <template if="[[!stringField8Clickable]]" is="dom-if">
-                            <template if="[[!stringField8Editable]]" is="dom-if">
-                                <label>[[stringField8Label]]</label>
-                                <div>
-                                    [[document.properties.custom:stringField8]]
-                                    <template if="[[stringField8Copy]]" is="dom-if">
-                                        <copy-to-clipboard clipboard-value-copied="{{copiedValue}}"
-                                                           clipboard-value-to-copy="[[document.properties.custom:stringField8]]"
-                                                           id="copyToClipboard8"></copy-to-clipboard>
-                                    </template>
-                                </div>
-                            </template></template>
-                        <template if="[[stringField8Clickable]]" is="dom-if">
-                            <label>[[stringField8Label]]</label>
-                            <div>
-                                <a href="[[document.properties.custom:stringField8]]" style="color: blue"
-                                   target="_blank">[[document.properties.custom:stringField8]]</a>
-                            </div>
-                        </template>
-                        <template if="[[stringField8Editable]]" is="dom-if">
-                            <qualitified-inline-edit document="[[document]]" property="custom:stringField8"
-                                                     value="[[document.properties.custom:stringField8]]" label="[[stringField8Label]]">
-                            </qualitified-inline-edit>
-                        </template>
-                    </div>
-                </template>
-
-                <template if="[[document.properties.custom:stringField9]]" is="dom-if">
-                    <div class="sortable" hidden$="[[!stringField9Visible]]" id="[[stringField9Order]]" role="widget">
-                        <template if="[[!stringField9Clickable]]" is="dom-if">
-                            <template if="[[!stringField9Editable]]" is="dom-if">
-                                <label>[[stringField9Label]]</label>
-                                <div>
-                                    [[document.properties.custom:stringField9]]
-                                    <template if="[[stringField9Copy]]" is="dom-if">
-                                        <copy-to-clipboard clipboard-value-copied="{{copiedValue}}"
-                                                           clipboard-value-to-copy="[[document.properties.custom:stringField9]]"
-                                                           id="copyToClipboard9"></copy-to-clipboard>
-                                    </template>
-                                </div>
-                            </template></template>
-                        <template if="[[stringField9Clickable]]" is="dom-if">
-                            <label>[[stringField9Label]]</label>
-                            <div>
-                                <a href="[[document.properties.custom:stringField9]]" style="color: blue"
-                                   target="_blank">[[document.properties.custom:stringField9]]</a>
-                            </div>
-                        </template>
-                        <template if="[[stringField9Editable]]" is="dom-if">
-                            <qualitified-inline-edit document="[[document]]" property="custom:stringField9"
-                                                     value="[[document.properties.custom:stringField9]]" label="[[stringField9Label]]">
-                            </qualitified-inline-edit>
-                        </template>
-                    </div>
-                </template>
-
-                <template if="[[document.properties.custom:stringField10]]" is="dom-if">
-                    <div class="sortable" hidden$="[[!stringField10Visible]]" id="[[stringField10Order]]" role="widget">
-                        <template if="[[!stringField10Clickable]]" is="dom-if">
-                            <template if="[[!stringField10Editable]]" is="dom-if">
-                                <label>[[stringField10Label]]</label>
-                                <div>
-                                    [[document.properties.custom:stringField10]]
-                                    <template if="[[stringField10Copy]]" is="dom-if">
-                                        <copy-to-clipboard clipboard-value-copied="{{copiedValue}}"
-                                                           clipboard-value-to-copy="[[document.properties.custom:stringField10]]"
-                                                           id="copyToClipboard10"></copy-to-clipboard>
-                                    </template>
-                                </div>
-                            </template></template>
-                        <template if="[[stringField10Clickable]]" is="dom-if">
-                            <label>[[stringField10Label]]</label>
-                            <div>
-                                <a href="[[document.properties.custom:stringField10]]" style="color: blue"
-                                   target="_blank">[[document.properties.custom:stringField10]]</a>
-                            </div>
-                        </template>
-                        <template if="[[stringField10Editable]]" is="dom-if">
-                            <qualitified-inline-edit document="[[document]]" property="custom:stringField10"
-                                                     value="[[document.properties.custom:stringField10]]" label="[[stringField10Label]]">
-                            </qualitified-inline-edit>
-                        </template>
-                    </div>
-                </template>
-
-                <template if="[[document.properties.custom:stringField11]]" is="dom-if">
-                    <div class="sortable" hidden$="[[!stringField11Visible]]" id="[[stringField11Order]]" role="widget">
-                        <template if="[[!stringField11Clickable]]" is="dom-if">
-                            <template if="[[!stringField11Editable]]" is="dom-if">
-                                <label>[[stringField11Label]]</label>
-                                <div>
-                                    [[document.properties.custom:stringField11]]
-                                    <template if="[[stringField11Copy]]" is="dom-if">
-                                        <copy-to-clipboard clipboard-value-copied="{{copiedValue}}"
-                                                           clipboard-value-to-copy="[[document.properties.custom:stringField11]]"
-                                                           id="copyToClipboard11"></copy-to-clipboard>
-                                    </template>
-                                </div>
-                            </template></template>
-                        <template if="[[stringField11Clickable]]" is="dom-if">
-                            <label>[[stringField11Label]]</label>
-                            <div>
-                                <a href="[[document.properties.custom:stringField11]]" style="color: blue"
-                                   target="_blank">[[document.properties.custom:stringField11]]</a>
-                            </div>
-                        </template>
-                        <template if="[[stringField11Editable]]" is="dom-if">
-                            <qualitified-inline-edit document="[[document]]" property="custom:stringField11"
-                                                     value="[[document.properties.custom:stringField11]]" label="[[stringField11Label]]">
-                            </qualitified-inline-edit>
-                        </template>
-                    </div>
-                </template>
-
-                <template if="[[document.properties.custom:stringField12]]" is="dom-if">
-                    <div class="sortable" hidden$="[[!stringField12Visible]]" id="[[stringField12Order]]" role="widget">
-                        <template if="[[!stringField12Clickable]]" is="dom-if">
-                            <template if="[[!stringField12Editable]]" is="dom-if">
-                                <label>[[stringField12Label]]</label>
-                                <div>
-                                    [[document.properties.custom:stringField12]]
-                                    <template if="[[stringField12Copy]]" is="dom-if">
-                                        <copy-to-clipboard clipboard-value-copied="{{copiedValue}}"
-                                                           clipboard-value-to-copy="[[document.properties.custom:stringField12]]"
-                                                           id="copyToClipboard12"></copy-to-clipboard>
-                                    </template>
-                                </div>
-                            </template></template>
-                        <template if="[[stringField12Clickable]]" is="dom-if">
-                            <label>[[stringField12Label]]</label>
-                            <div>
-                                <a href="[[document.properties.custom:stringField12]]" style="color: blue"
-                                   target="_blank">[[document.properties.custom:stringField12]]</a>
-                            </div>
-                        </template>
-                        <template if="[[stringField12Editable]]" is="dom-if">
-                            <qualitified-inline-edit document="[[document]]" property="custom:stringField12"
-                                                     value="[[document.properties.custom:stringField12]]" label="[[stringField12Label]]">
-                            </qualitified-inline-edit>
-                        </template>
-                    </div>
-                </template>
-
-                <template if="[[document.properties.custom:stringField13]]" is="dom-if">
-                    <div class="sortable" hidden$="[[!stringField13Visible]]" id="[[stringField13Order]]" role="widget">
-                        <template if="[!stringField13Clickable]]" is="dom-if">
-                            <template if="[[!stringField13Editable]]" is="dom-if">
-                                <label>[[stringField13Label]]</label>
-                                <div>
-                                    [[document.properties.custom:stringField13]]
-                                    <template if="[[stringField13Copy]]" is="dom-if">
-                                        <copy-to-clipboard clipboard-value-copied="{{copiedValue}}"
-                                                           clipboard-value-to-copy="[[document.properties.custom:stringField13]]"
-                                                           id="copyToClipboard13"></copy-to-clipboard>
-                                    </template>
-                                </div>
-                            </template></template>
-                        <template if="[[stringField13Clickable]]" is="dom-if">
-                            <label>[[stringField13Label]]</label>
-                            <div>
-                                <a href="[[document.properties.custom:stringField13]]" style="color: blue"
-                                   target="_blank">[[document.properties.custom:stringField13]]</a>
-                            </div>
-                        </template>
-                        <template if="[[stringField13Editable]]" is="dom-if">
-                            <qualitified-inline-edit document="[[document]]" property="custom:stringField13"
-                                                     value="[[document.properties.custom:stringField13]]" label="[[stringField13Label]]">
-                            </qualitified-inline-edit>
-                        </template>
-                    </div>
-                </template>
-
-                <template if="[[document.properties.custom:stringField14]]" is="dom-if">
-                    <div class="sortable" hidden$="[[!stringField14Visible]]" id="[[stringField14Order]]" role="widget">
-                        <template if="[[!stringField14Clickable]]" is="dom-if">
-                            <template if="[[!stringField14Editable]]" is="dom-if">
-                                <label>[[stringField14Label]]</label>
-                                <div>
-                                    [[document.properties.custom:stringField14]]
-                                    <template if="[[stringField14Copy]]" is="dom-if">
-                                        <copy-to-clipboard clipboard-value-copied="{{copiedValue}}"
-                                                           clipboard-value-to-copy="[[document.properties.custom:stringField14]]"
-                                                           id="copyToClipboard14"></copy-to-clipboard>
-                                    </template>
-                                </div>
-                            </template></template>
-                        <template if="[[stringField14Clickable]]" is="dom-if">
-                            <label>[[stringField14Label]]</label>
-                            <div>
-                                <a href="[[document.properties.custom:stringField14]]" style="color: blue"
-                                   target="_blank">[[document.properties.custom:stringField14]]</a>
-                            </div>
-                        </template>
-                        <template if="[[stringField14Editable]]" is="dom-if">
-                            <qualitified-inline-edit document="[[document]]" property="custom:stringField14"
-                                                     value="[[document.properties.custom:stringField14]]" label="[[stringField14Label]]">
-                            </qualitified-inline-edit>
-                        </template>
-                    </div>
-                </template>
-
-                <template if="[[document.properties.custom:stringField15]]" is="dom-if">
-                    <div class="sortable" hidden$="[[!stringField15Visible]]" id="[[stringField15Order]]" role="widget">
-                        <template if="[[!stringField15Clickable]]" is="dom-if">
-                            <template if="[[!stringField15Editable]]" is="dom-if">
-                                <label>[[stringField15Label]]</label>
-                                <div>
-                                    [[document.properties.custom:stringField15]]
-                                    <template if="[[stringField15Copy]]" is="dom-if">
-                                        <copy-to-clipboard clipboard-value-copied="{{copiedValue}}"
-                                                           clipboard-value-to-copy="[[document.properties.custom:stringField15]]"
-                                                           id="copyToClipboard15"></copy-to-clipboard>
-                                    </template>
-                                </div>
                             </template>
-                            <template if="[[stringField15Clickable]]" is="dom-if">
-                                <label>[[stringField15Label]]</label>
-                                <div>
-                                    <a href="[[document.properties.custom:stringField15]]" style="color: blue"
-                                       target="_blank">[[document.properties.custom:stringField15]]</a>
-                                </div>
-                            </template></template>
+                            <copy-to-clipboard clipboard-value-copied="{{copiedValue}}"
+                                               clipboard-value-to-copy="[[document.properties.custom:stringField1]]"
+                                               id="copyToClipboard1"></copy-to-clipboard>
+                        </template></div>
+                </template>
+
+            </div>
+         </template>
+
+    <template if="[[document.properties.custom:stringField2]]" is="dom-if">
+        <div class="sortable" hidden$="[[!stringField2Visible]]" id="[[stringField2Order]]" role="widget">
+            <template if="[[!stringField2Clickable]]" is="dom-if">
+                <template if="[[!stringField2Editable]]" is="dom-if">
+                    <label>[[stringField2Label]]</label>
+                    <div>
+                        [[document.properties.custom:stringField2]]
+                        <template if="[[stringField2Copy]]" is="dom-if">
+                            <copy-to-clipboard clipboard-value-copied="{{copiedValue}}"
+                                               clipboard-value-to-copy="[[document.properties.custom:stringField2]]"
+                                               id="copyToClipboard2"></copy-to-clipboard>
+                        </template>
+                    </div>
+                </template></template>
+
+            <template if="[[!stringField2Clickable]]" is="dom-if">
+                <template if="[[!stringField2Copy]]" is="dom-if">
+                    <template if="[[stringField2Editable]]" is="dom-if">
+
+                        <qualitified-inline-edit document="[[document]]" property="custom:stringField2"
+                                                 value="[[document.properties.custom:stringField2]]" label="[[stringField2Label]]">
+                        </qualitified-inline-edit></template>
+                </template></template>
+
+            <template if="[[!stringField2Editable]]" is="dom-if">
+                <template if="[[!stringField2Copy]]" is="dom-if">
+                    <template if="[[stringField2Clickable]]" is="dom-if">
+
+                        <label>[[stringField2Label]]</label>
+                        <div>
+                            <a href="[[document.properties.custom:stringField2]]" style="color: blue"
+                               target="_blank">[[document.properties.custom:stringField2]]</a>
+                        </div>
+                    </template></template>
+            </template>
+
+
+            <template if="[[stringField2Clickable]]" is="dom-if">
+                <div class="align-button" >
+                    <template if="[[stringField2Editable]]" is="dom-if">
+
+                        <qualitified-inline-edit document="[[document]]" property="custom:stringField2" metadata="link" style="width: 100px;"
+                                                 value="[[document.properties.custom:stringField2]]" label="[[stringField2Label]]">
+                        </qualitified-inline-edit>  </template>
+                    <template if="[[stringField2Copy]]" is="dom-if">
+                        <copy-to-clipboard clipboard-value-copied="{{copiedValue}}"
+                                           clipboard-value-to-copy="[[document.properties.custom:stringField2]]"
+                                           id="copyToClipboard2"></copy-to-clipboard></template></div>
+            </template>
+            <template if="[[!stringField2Copy]]" is="dom-if">
+                <template if="[[stringField2Clickable]]" is="dom-if">
+                    <template if="[[stringField2Editable]]" is="dom-if">
+                        <qualitified-inline-edit document="[[document]]" property="custom:stringField2" metadata="link" style="width: 100px;"
+                                                 value="[[document.properties.custom:stringField2]]" label="[[stringField2Label]]">
+                        </qualitified-inline-edit>
+                    </template>
+                </template>
+            </template>
+
+            <template if="[[!stringField2Clickable]]" is="dom-if">
+                    <div class="align-button" >
+                        <template if="[[stringField2Copy]]" is="dom-if">
+
+                        <template if="[[stringField2Editable]]" is="dom-if">
+
+                            <qualitified-inline-edit document="[[document]]" property="custom:stringField2"  style="width: 100px;"
+                                                     value="[[document.properties.custom:stringField2]]" label="[[stringField2Label]]">
+                            </qualitified-inline-edit></template>
+                        <copy-to-clipboard clipboard-value-copied="{{copiedValue}}"
+                                                                                      clipboard-value-to-copy="[[document.properties.custom:stringField2]]"
+                                                                                      id="copyToClipboard2"></copy-to-clipboard>
+                </template>
+            </div>
+
+
+    </template>
+
+
+    <template if="[[!stringField2Editable]]" is="dom-if">
+        <div>
+            <template if="[[stringField2Copy]]" is="dom-if">
+                <template if="[[stringField2Clickable]]" is="dom-if">
+                    <a href="[[document.properties.custom:stringField2]]" style="color: blue"
+                       target="_blank">[[document.properties.custom:stringField2]]</a>
+                </template>
+                <copy-to-clipboard clipboard-value-copied="{{copiedValue}}"
+                                   clipboard-value-to-copy="[[document.properties.custom:stringField2]]"
+                                   id="copyToClipboard2"></copy-to-clipboard>
+            </template></div>
+    </template>
+
+
+    </div>
+    </template>
+    <template if="[[document.properties.custom:stringField3]]" is="dom-if">
+        <div class="sortable" hidden$="[[!stringField3Visible]]" id="[[stringField3Order]]" role="widget">
+            <template if="[[!stringField3Clickable]]" is="dom-if">
+                <template if="[[!stringField3Editable]]" is="dom-if">
+                    <label>[[stringField3Label]]</label>
+                    <div>
+                        [[document.properties.custom:stringField3]]
+                        <template if="[[stringField3Copy]]" is="dom-if">
+                            <copy-to-clipboard clipboard-value-copied="{{copiedValue}}"
+                                               clipboard-value-to-copy="[[document.properties.custom:stringField3]]"
+                                               id="copyToClipboard3"></copy-to-clipboard>
+                        </template>
+                    </div>
+                </template></template>
+
+            <template if="[[!stringField3Clickable]]" is="dom-if">
+                <template if="[[!stringField3Copy]]" is="dom-if">
+                    <template if="[[stringField3Editable]]" is="dom-if">
+
+                        <qualitified-inline-edit document="[[document]]" property="custom:stringField3"
+                                                 value="[[document.properties.custom:stringField3]]" label="[[stringField3Label]]">
+                        </qualitified-inline-edit></template>
+                </template></template>
+
+            <template if="[[!stringField3Editable]]" is="dom-if">
+                <template if="[[!stringField3Copy]]" is="dom-if">
+                    <template if="[[stringField3Clickable]]" is="dom-if">
+
+                        <label>[[stringField3Label]]</label>
+                        <div>
+                            <a href="[[document.properties.custom:stringField3]]" style="color: blue"
+                               target="_blank">[[document.properties.custom:stringField3]]</a>
+                        </div>
+                    </template></template>
+            </template>
+
+
+            <template if="[[stringField3Clickable]]" is="dom-if">
+                <div class="align-button" >
+                    <template if="[[stringField3Editable]]" is="dom-if">
+
+                        <qualitified-inline-edit document="[[document]]" property="custom:stringField3" metadata="link" style="width: 100px;"
+                                                 value="[[document.properties.custom:stringField3]]" label="[[stringField3Label]]">
+                        </qualitified-inline-edit>  </template>
+                    <template if="[[stringField3Copy]]" is="dom-if">
+                        <copy-to-clipboard clipboard-value-copied="{{copiedValue}}"
+                                           clipboard-value-to-copy="[[document.properties.custom:stringField3]]"
+                                           id="copyToClipboard3"></copy-to-clipboard></template></div>
+            </template>
+            <template if="[[!stringField3Copy]]" is="dom-if">
+                <template if="[[stringField3Clickable]]" is="dom-if">
+                    <template if="[[stringField3Editable]]" is="dom-if">
+                        <qualitified-inline-edit document="[[document]]" property="custom:stringField3" metadata="link" style="width: 100px;"
+                                                 value="[[document.properties.custom:stringField3]]" label="[[stringField3Label]]">
+                        </qualitified-inline-edit>
+                    </template>
+                </template>
+            </template>
+
+            <template if="[[!stringField3Clickable]]" is="dom-if">
+                <div class="align-button" >
+
+                <template if="[[stringField3Copy]]" is="dom-if">
+                        <template if="[[stringField3Editable]]" is="dom-if">
+
+                            <qualitified-inline-edit document="[[document]]" property="custom:stringField3"  style="width: 100px;"
+                                                     value="[[document.properties.custom:stringField3]]" label="[[stringField3Label]]">
+                            </qualitified-inline-edit></template>
+                        <copy-to-clipboard clipboard-value-copied="{{copiedValue}}"
+                                                                                      clipboard-value-to-copy="[[document.properties.custom:stringField3]]"
+                                                                                      id="copyToClipboard3"></copy-to-clipboard>
+                </template>
+        </div>
+
+
+    </template>
+
+
+    <template if="[[!stringField3Editable]]" is="dom-if">
+        <div>
+            <template if="[[stringField3Copy]]" is="dom-if">
+                <template if="[[stringField3Clickable]]" is="dom-if">
+                    <a href="[[document.properties.custom:stringField3]]" style="color: blue"
+                       target="_blank">[[document.properties.custom:stringField3]]</a>
+                </template>
+                <copy-to-clipboard clipboard-value-copied="{{copiedValue}}"
+                                   clipboard-value-to-copy="[[document.properties.custom:stringField3]]"
+                                   id="copyToClipboard3"></copy-to-clipboard>
+            </template></div>
+    </template>
+
+
+    </div>
+    </template>
+
+    <template if="[[document.properties.custom:stringField4]]" is="dom-if">
+        <div class="sortable" hidden$="[[!stringField4Visible]]" id="[[stringField4Order]]" role="widget">
+            <template if="[[!stringField4Clickable]]" is="dom-if">
+                <template if="[[!stringField4Editable]]" is="dom-if">
+                    <label>[[stringField4Label]]</label>
+                    <div>
+                        [[document.properties.custom:stringField4]]
+                        <template if="[[stringField4Copy]]" is="dom-if">
+                            <copy-to-clipboard clipboard-value-copied="{{copiedValue}}"
+                                               clipboard-value-to-copy="[[document.properties.custom:stringField4]]"
+                                               id="copyToClipboard4"></copy-to-clipboard>
+                        </template>
+                    </div>
+                </template></template>
+
+            <template if="[[!stringField4Clickable]]" is="dom-if">
+                <template if="[[!stringField4Copy]]" is="dom-if">
+                    <template if="[[stringField4Editable]]" is="dom-if">
+
+                        <qualitified-inline-edit document="[[document]]" property="custom:stringField4"
+                                                 value="[[document.properties.custom:stringField4]]" label="[[stringField4Label]]">
+                        </qualitified-inline-edit></template>
+                </template></template>
+
+            <template if="[[!stringField4Editable]]" is="dom-if">
+                <template if="[[!stringField4Copy]]" is="dom-if">
+                    <template if="[[stringField4Clickable]]" is="dom-if">
+
+                        <label>[[stringField4Label]]</label>
+                        <div>
+                            <a href="[[document.properties.custom:stringField4]]" style="color: blue"
+                               target="_blank">[[document.properties.custom:stringField4]]</a>
+                        </div>
+                    </template></template>
+            </template>
+
+
+            <template if="[[stringField4Clickable]]" is="dom-if">
+                <div class="align-button" >
+                    <template if="[[stringField4Editable]]" is="dom-if">
+
+                        <qualitified-inline-edit document="[[document]]" property="custom:stringField4" metadata="link" style="width: 100px;"
+                                                 value="[[document.properties.custom:stringField4]]" label="[[stringField4Label]]">
+                        </qualitified-inline-edit>  </template>
+                    <template if="[[stringField4Copy]]" is="dom-if">
+                        <copy-to-clipboard clipboard-value-copied="{{copiedValue}}"
+                                           clipboard-value-to-copy="[[document.properties.custom:stringField4]]"
+                                           id="copyToClipboard4"></copy-to-clipboard></template></div>
+            </template>
+            <template if="[[!stringField4Copy]]" is="dom-if">
+                <template if="[[stringField4Clickable]]" is="dom-if">
+                    <template if="[[stringField4Editable]]" is="dom-if">
+                        <qualitified-inline-edit document="[[document]]" property="custom:stringField4" metadata="link" style="width: 100px;"
+                                                 value="[[document.properties.custom:stringField4]]" label="[[stringField4Label]]">
+                        </qualitified-inline-edit>
+                    </template>
+                </template>
+            </template>
+
+            <template if="[[!stringField4Clickable]]" is="dom-if">
+                <div class="align-button" >
+
+                    <template if="[[stringField4Copy]]" is="dom-if">
+                        <template if="[[stringField4Editable]]" is="dom-if">
+
+                            <qualitified-inline-edit document="[[document]]" property="custom:stringField4"  style="width: 100px;"
+                                                     value="[[document.properties.custom:stringField4]]" label="[[stringField4Label]]">
+                            </qualitified-inline-edit></template>
+                        <copy-to-clipboard clipboard-value-copied="{{copiedValue}}"
+                                           clipboard-value-to-copy="[[document.properties.custom:stringField4]]"
+                                           id="copyToClipboard4"></copy-to-clipboard>
+                    </template>
+                </div>
+            </template>
+
+
+            <template if="[[!stringField4Editable]]" is="dom-if">
+                <div>
+                    <template if="[[stringField4Copy]]" is="dom-if">
+                        <template if="[[stringField4Clickable]]" is="dom-if">
+                            <a href="[[document.properties.custom:stringField4]]" style="color: blue"
+                               target="_blank">[[document.properties.custom:stringField4]]</a>
+                        </template>
+                        <copy-to-clipboard clipboard-value-copied="{{copiedValue}}"
+                                           clipboard-value-to-copy="[[document.properties.custom:stringField4]]"
+                                           id="copyToClipboard4"></copy-to-clipboard>
+                    </template></div>
+            </template>
+        </div>
+    </template>
+
+
+    <template if="[[document.properties.custom:stringField5]]" is="dom-if">
+        <div class="sortable" hidden$="[[!stringField5Visible]]" id="[[stringField5Order]]" role="widget">
+            <template if="[[!stringField4Clickable]]" is="dom-if">
+                <template if="[[!stringField4Editable]]" is="dom-if">
+                    <label>[[stringField5Label]]</label>
+                    <div>
+                        [[document.properties.custom:stringField5]]
+                        <template if="[[stringField5Copy]]" is="dom-if">
+                            <copy-to-clipboard clipboard-value-copied="{{copiedValue}}"
+                                               clipboard-value-to-copy="[[document.properties.custom:stringField5]]"
+                                               id="copyToClipboard5"></copy-to-clipboard>
+                        </template>
+                    </div>
+                </template></template>
+
+            <template if="[[!stringField5Clickable]]" is="dom-if">
+                <template if="[[!stringField5Copy]]" is="dom-if">
+                    <template if="[[stringField5Editable]]" is="dom-if">
+
+                        <qualitified-inline-edit document="[[document]]" property="custom:stringField5"
+                                                 value="[[document.properties.custom:stringField5]]" label="[[stringField5Label]]">
+                        </qualitified-inline-edit></template>
+                </template></template>
+
+            <template if="[[!stringField5Editable]]" is="dom-if">
+                <template if="[[!stringField5Copy]]" is="dom-if">
+                    <template if="[[stringField5Clickable]]" is="dom-if">
+
+                        <label>[[stringField5Label]]</label>
+                        <div>
+                            <a href="[[document.properties.custom:stringField5]]" style="color: blue"
+                               target="_blank">[[document.properties.custom:stringField5]]</a>
+                        </div>
+                    </template></template>
+            </template>
+
+
+            <template if="[[stringField5Clickable]]" is="dom-if">
+                <div class="align-button" >
+                    <template if="[[stringField5Editable]]" is="dom-if">
+
+                        <qualitified-inline-edit document="[[document]]" property="custom:stringField5" metadata="link" style="width: 100px;"
+                                                 value="[[document.properties.custom:stringField5]]" label="[[stringField5Label]]">
+                        </qualitified-inline-edit>  </template>
+                    <template if="[[stringField5Copy]]" is="dom-if">
+                        <copy-to-clipboard clipboard-value-copied="{{copiedValue}}"
+                                           clipboard-value-to-copy="[[document.properties.custom:stringField5]]"
+                                           id="copyToClipboard5"></copy-to-clipboard></template></div>
+            </template>
+            <template if="[[!stringField5Copy]]" is="dom-if">
+                <template if="[[stringField5Clickable]]" is="dom-if">
+                    <template if="[[stringField5Editable]]" is="dom-if">
+                        <qualitified-inline-edit document="[[document]]" property="custom:stringField5" metadata="link" style="width: 100px;"
+                                                 value="[[document.properties.custom:stringField5]]" label="[[stringField5Label]]">
+                        </qualitified-inline-edit>
+                    </template>
+                </template>
+            </template>
+
+            <template if="[[!stringField5Clickable]]" is="dom-if">
+                <div class="align-button" >
+
+                    <template if="[[stringField5Copy]]" is="dom-if">
+                        <template if="[[stringField5Editable]]" is="dom-if">
+
+                            <qualitified-inline-edit document="[[document]]" property="custom:stringField5"  style="width: 100px;"
+                                                     value="[[document.properties.custom:stringField5]]" label="[[stringField5Label]]">
+                            </qualitified-inline-edit></template>
+                        <copy-to-clipboard clipboard-value-copied="{{copiedValue}}"
+                                           clipboard-value-to-copy="[[document.properties.custom:stringField5]]"
+                                           id="copyToClipboard5"></copy-to-clipboard>
+                    </template>
+                </div>
+            </template>
+
+
+            <template if="[[!stringField5Editable]]" is="dom-if">
+                <div>
+                    <template if="[[stringField5Copy]]" is="dom-if">
+                        <template if="[[stringField5Clickable]]" is="dom-if">
+                            <a href="[[document.properties.custom:stringField5]]" style="color: blue"
+                               target="_blank">[[document.properties.custom:stringField5]]</a>
+                        </template>
+                        <copy-to-clipboard clipboard-value-copied="{{copiedValue}}"
+                                           clipboard-value-to-copy="[[document.properties.custom:stringField5]]"
+                                           id="copyToClipboard5"></copy-to-clipboard>
+                    </template></div>
+            </template>
+        </div>
+    </template>
+
+
+    <template if="[[document.properties.custom:stringField6]]" is="dom-if">
+        <div class="sortable" hidden$="[[!stringField6Visible]]" id="[[stringField6Order]]" role="widget">
+            <template if="[[!stringField6Clickable]]" is="dom-if">
+                <template if="[[!stringField6Editable]]" is="dom-if">
+                    <label>[[stringField6Label]]</label>
+                    <div>
+                        [[document.properties.custom:stringField6]]
+                        <template if="[[stringField6Copy]]" is="dom-if">
+                            <copy-to-clipboard clipboard-value-copied="{{copiedValue}}"
+                                               clipboard-value-to-copy="[[document.properties.custom:stringField6]]"
+                                               id="copyToClipboard6"></copy-to-clipboard>
+                        </template>
+                    </div>
+                </template></template>
+
+            <template if="[[!stringField6Clickable]]" is="dom-if">
+                <template if="[[!stringField6Copy]]" is="dom-if">
+                    <template if="[[stringField6Editable]]" is="dom-if">
+
+                        <qualitified-inline-edit document="[[document]]" property="custom:stringField6"
+                                                 value="[[document.properties.custom:stringField6]]" label="[[stringField6Label]]">
+                        </qualitified-inline-edit></template>
+                </template></template>
+
+            <template if="[[!stringField6Editable]]" is="dom-if">
+                <template if="[[!stringField6Copy]]" is="dom-if">
+                    <template if="[[stringField6Clickable]]" is="dom-if">
+
+                        <label>[[stringField6Label]]</label>
+                        <div>
+                            <a href="[[document.properties.custom:stringField6]]" style="color: blue"
+                               target="_blank">[[document.properties.custom:stringField6]]</a>
+                        </div>
+                    </template></template>
+            </template>
+
+
+            <template if="[[stringField6Clickable]]" is="dom-if">
+                <div class="align-button" >
+                    <template if="[[stringField6Editable]]" is="dom-if">
+
+                        <qualitified-inline-edit document="[[document]]" property="custom:stringField6" metadata="link" style="width: 100px;"
+                                                 value="[[document.properties.custom:stringField6]]" label="[[stringField6Label]]">
+                        </qualitified-inline-edit>  </template>
+                    <template if="[[stringField6Copy]]" is="dom-if">
+                        <copy-to-clipboard clipboard-value-copied="{{copiedValue}}"
+                                           clipboard-value-to-copy="[[document.properties.custom:stringField6]]"
+                                           id="copyToClipboard6"></copy-to-clipboard></template></div>
+            </template>
+            <template if="[[!stringField6Copy]]" is="dom-if">
+                <template if="[[stringField6Clickable]]" is="dom-if">
+                    <template if="[[stringField6Editable]]" is="dom-if">
+                        <qualitified-inline-edit document="[[document]]" property="custom:stringField6" metadata="link" style="width: 100px;"
+                                                 value="[[document.properties.custom:stringField6]]" label="[[stringField6Label]]">
+                        </qualitified-inline-edit>
+                    </template>
+                </template>
+            </template>
+
+            <template if="[[!stringField6Clickable]]" is="dom-if">
+                <div class="align-button" >
+
+                    <template if="[[stringField6Copy]]" is="dom-if">
+                        <template if="[[stringField6Editable]]" is="dom-if">
+
+                            <qualitified-inline-edit document="[[document]]" property="custom:stringField6"  style="width: 100px;"
+                                                     value="[[document.properties.custom:stringField6]]" label="[[stringField6Label]]">
+                            </qualitified-inline-edit></template>
+                        <copy-to-clipboard clipboard-value-copied="{{copiedValue}}"
+                                           clipboard-value-to-copy="[[document.properties.custom:stringField6]]"
+                                           id="copyToClipboard6"></copy-to-clipboard>
+                    </template>
+                </div>
+            </template>
+
+
+            <template if="[[!stringField6Editable]]" is="dom-if">
+                <div>
+                    <template if="[[stringField6Copy]]" is="dom-if">
+                        <template if="[[stringField6Clickable]]" is="dom-if">
+                            <a href="[[document.properties.custom:stringField6]]" style="color: blue"
+                               target="_blank">[[document.properties.custom:stringField6]]</a>
+                        </template>
+                        <copy-to-clipboard clipboard-value-copied="{{copiedValue}}"
+                                           clipboard-value-to-copy="[[document.properties.custom:stringField6]]"
+                                           id="copyToClipboard6"></copy-to-clipboard>
+                    </template></div>
+            </template>
+        </div>
+    </template>
+
+
+    <template if="[[document.properties.custom:stringField7]]" is="dom-if">
+        <div class="sortable" hidden$="[[!stringField7Visible]]" id="[[stringField7Order]]" role="widget">
+            <template if="[[!stringField7Clickable]]" is="dom-if">
+                <template if="[[!stringField7Editable]]" is="dom-if">
+                    <label>[[stringField7Label]]</label>
+                    <div>
+                        [[document.properties.custom:stringField7]]
+                        <template if="[[stringField7Copy]]" is="dom-if">
+                            <copy-to-clipboard clipboard-value-copied="{{copiedValue}}"
+                                               clipboard-value-to-copy="[[document.properties.custom:stringField7]]"
+                                               id="copyToClipboard7"></copy-to-clipboard>
+                        </template>
+                    </div>
+                </template></template>
+
+            <template if="[[!stringField7Clickable]]" is="dom-if">
+                <template if="[[!stringField7Copy]]" is="dom-if">
+                    <template if="[[stringField7Editable]]" is="dom-if">
+
+                        <qualitified-inline-edit document="[[document]]" property="custom:stringField7"
+                                                 value="[[document.properties.custom:stringField7]]" label="[[stringField7Label]]">
+                        </qualitified-inline-edit></template>
+                </template></template>
+
+            <template if="[[!stringField7Editable]]" is="dom-if">
+                <template if="[[!stringField7Copy]]" is="dom-if">
+                    <template if="[[stringField7Clickable]]" is="dom-if">
+
+                        <label>[[stringField7Label]]</label>
+                        <div>
+                            <a href="[[document.properties.custom:stringField7]]" style="color: blue"
+                               target="_blank">[[document.properties.custom:stringField7]]</a>
+                        </div>
+                    </template></template>
+            </template>
+
+
+            <template if="[[stringField7Clickable]]" is="dom-if">
+                <div class="align-button" >
+                    <template if="[[stringField7Editable]]" is="dom-if">
+
+                        <qualitified-inline-edit document="[[document]]" property="custom:stringField7" metadata="link" style="width: 100px;"
+                                                 value="[[document.properties.custom:stringField7]]" label="[[stringField7Label]]">
+                        </qualitified-inline-edit>  </template>
+                    <template if="[[stringField7Copy]]" is="dom-if">
+                        <copy-to-clipboard clipboard-value-copied="{{copiedValue}}"
+                                           clipboard-value-to-copy="[[document.properties.custom:stringField7]]"
+                                           id="copyToClipboard7"></copy-to-clipboard></template></div>
+            </template>
+            <template if="[[!stringField7Copy]]" is="dom-if">
+                <template if="[[stringField7Clickable]]" is="dom-if">
+                    <template if="[[stringField7Editable]]" is="dom-if">
+                        <qualitified-inline-edit document="[[document]]" property="custom:stringField7" metadata="link" style="width: 100px;"
+                                                 value="[[document.properties.custom:stringField7]]" label="[[stringField7Label]]">
+                        </qualitified-inline-edit>
+                    </template>
+                </template>
+            </template>
+
+            <template if="[[!stringField7Clickable]]" is="dom-if">
+                <div class="align-button" >
+
+                    <template if="[[stringField7Copy]]" is="dom-if">
+                        <template if="[[stringField7Editable]]" is="dom-if">
+
+                            <qualitified-inline-edit document="[[document]]" property="custom:stringField7"  style="width: 100px;"
+                                                     value="[[document.properties.custom:stringField7]]" label="[[stringField7Label]]">
+                            </qualitified-inline-edit></template>
+                        <copy-to-clipboard clipboard-value-copied="{{copiedValue}}"
+                                           clipboard-value-to-copy="[[document.properties.custom:stringField7]]"
+                                           id="copyToClipboard7"></copy-to-clipboard>
+                    </template>
+                </div>
+            </template>
+
+
+            <template if="[[!stringField7Editable]]" is="dom-if">
+                <div>
+                    <template if="[[stringField7Copy]]" is="dom-if">
+                        <template if="[[stringField7Clickable]]" is="dom-if">
+                            <a href="[[document.properties.custom:stringField7]]" style="color: blue"
+                               target="_blank">[[document.properties.custom:stringField7]]</a>
+                        </template>
+                        <copy-to-clipboard clipboard-value-copied="{{copiedValue}}"
+                                           clipboard-value-to-copy="[[document.properties.custom:stringField7]]"
+                                           id="copyToClipboard7"></copy-to-clipboard>
+                    </template></div>
+            </template>
+        </div>
+    </template>
+
+    <template if="[[document.properties.custom:stringField8]]" is="dom-if">
+        <div class="sortable" hidden$="[[!stringField8Visible]]" id="[[stringField8Order]]" role="widget">
+            <template if="[[!stringField8Clickable]]" is="dom-if">
+                <template if="[[!stringField8Editable]]" is="dom-if">
+                    <label>[[stringField8Label]]</label>
+                    <div>
+                        [[document.properties.custom:stringField8]]
+                        <template if="[[stringField8Copy]]" is="dom-if">
+                            <copy-to-clipboard clipboard-value-copied="{{copiedValue}}"
+                                               clipboard-value-to-copy="[[document.properties.custom:stringField8]]"
+                                               id="copyToClipboard8"></copy-to-clipboard>
+                        </template>
+                    </div>
+                </template></template>
+
+            <template if="[[!stringField8Clickable]]" is="dom-if">
+                <template if="[[!stringField8Copy]]" is="dom-if">
+                    <template if="[[stringField8Editable]]" is="dom-if">
+
+                        <qualitified-inline-edit document="[[document]]" property="custom:stringField8"
+                                                 value="[[document.properties.custom:stringField8]]" label="[[stringField8Label]]">
+                        </qualitified-inline-edit></template>
+                </template></template>
+
+            <template if="[[!stringField8Editable]]" is="dom-if">
+                <template if="[[!stringField8Copy]]" is="dom-if">
+                    <template if="[[stringField8Clickable]]" is="dom-if">
+
+                        <label>[[stringField8Label]]</label>
+                        <div>
+                            <a href="[[document.properties.custom:stringField8]]" style="color: blue"
+                               target="_blank">[[document.properties.custom:stringField8]]</a>
+                        </div>
+                    </template></template>
+            </template>
+
+
+            <template if="[[stringField8Clickable]]" is="dom-if">
+                <div class="align-button" >
+                    <template if="[[stringField8Editable]]" is="dom-if">
+
+                        <qualitified-inline-edit document="[[document]]" property="custom:stringField8" metadata="link" style="width: 100px;"
+                                                 value="[[document.properties.custom:stringField8]]" label="[[stringField8Label]]">
+                        </qualitified-inline-edit>  </template>
+                    <template if="[[stringField8Copy]]" is="dom-if">
+                        <copy-to-clipboard clipboard-value-copied="{{copiedValue}}"
+                                           clipboard-value-to-copy="[[document.properties.custom:stringField8]]"
+                                           id="copyToClipboard8"></copy-to-clipboard></template></div>
+            </template>
+            <template if="[[!stringField8Copy]]" is="dom-if">
+                <template if="[[stringField8Clickable]]" is="dom-if">
+                    <template if="[[stringField8Editable]]" is="dom-if">
+                        <qualitified-inline-edit document="[[document]]" property="custom:stringField8" metadata="link" style="width: 100px;"
+                                                 value="[[document.properties.custom:stringField8]]" label="[[stringField8Label]]">
+                        </qualitified-inline-edit>
+                    </template>
+                </template>
+            </template>
+
+            <template if="[[!stringField8Clickable]]" is="dom-if">
+                <div class="align-button" >
+
+                    <template if="[[stringField8Copy]]" is="dom-if">
+                        <template if="[[stringField8Editable]]" is="dom-if">
+
+                            <qualitified-inline-edit document="[[document]]" property="custom:stringField8"  style="width: 100px;"
+                                                     value="[[document.properties.custom:stringField8]]" label="[[stringField8Label]]">
+                            </qualitified-inline-edit></template>
+                        <copy-to-clipboard clipboard-value-copied="{{copiedValue}}"
+                                           clipboard-value-to-copy="[[document.properties.custom:stringField8]]"
+                                           id="copyToClipboard8"></copy-to-clipboard>
+                    </template>
+                </div>
+            </template>
+
+
+            <template if="[[!stringField8Editable]]" is="dom-if">
+                <div>
+                    <template if="[[stringField8Copy]]" is="dom-if">
+                        <template if="[[stringField8Clickable]]" is="dom-if">
+                            <a href="[[document.properties.custom:stringField8]]" style="color: blue"
+                               target="_blank">[[document.properties.custom:stringField8]]</a>
+                        </template>
+                        <copy-to-clipboard clipboard-value-copied="{{copiedValue}}"
+                                           clipboard-value-to-copy="[[document.properties.custom:stringField8]]"
+                                           id="copyToClipboard8"></copy-to-clipboard>
+                    </template></div>
+            </template>
+        </div>
+    </template>
+
+    <template if="[[document.properties.custom:stringField9]]" is="dom-if">
+        <div class="sortable" hidden$="[[!stringField9Visible]]" id="[[stringField9Order]]" role="widget">
+            <template if="[[!stringField9Clickable]]" is="dom-if">
+                <template if="[[!stringField9Editable]]" is="dom-if">
+                    <label>[[stringField9Label]]</label>
+                    <div>
+                        [[document.properties.custom:stringField9]]
+                        <template if="[[stringField9Copy]]" is="dom-if">
+                            <copy-to-clipboard clipboard-value-copied="{{copiedValue}}"
+                                               clipboard-value-to-copy="[[document.properties.custom:stringField9]]"
+                                               id="copyToClipboard9"></copy-to-clipboard>
+                        </template>
+                    </div>
+                </template></template>
+
+            <template if="[[!stringField9Clickable]]" is="dom-if">
+                <template if="[[!stringField9Copy]]" is="dom-if">
+                    <template if="[[stringField9Editable]]" is="dom-if">
+
+                        <qualitified-inline-edit document="[[document]]" property="custom:stringField9"
+                                                 value="[[document.properties.custom:stringField9]]" label="[[stringField9Label]]">
+                        </qualitified-inline-edit></template>
+                </template></template>
+
+            <template if="[[!stringField9Editable]]" is="dom-if">
+                <template if="[[!stringField9Copy]]" is="dom-if">
+                    <template if="[[stringField9Clickable]]" is="dom-if">
+
+                        <label>[[stringField9Label]]</label>
+                        <div>
+                            <a href="[[document.properties.custom:stringField9]]" style="color: blue"
+                               target="_blank">[[document.properties.custom:stringField9]]</a>
+                        </div>
+                    </template></template>
+            </template>
+
+
+            <template if="[[stringField9Clickable]]" is="dom-if">
+                <div class="align-button" >
+                    <template if="[[stringField9Editable]]" is="dom-if">
+
+                        <qualitified-inline-edit document="[[document]]" property="custom:stringField9" metadata="link" style="width: 100px;"
+                                                 value="[[document.properties.custom:stringField9]]" label="[[stringField9Label]]">
+                        </qualitified-inline-edit>  </template>
+                    <template if="[[stringField9Copy]]" is="dom-if">
+                        <copy-to-clipboard clipboard-value-copied="{{copiedValue}}"
+                                           clipboard-value-to-copy="[[document.properties.custom:stringField9]]"
+                                           id="copyToClipboard9"></copy-to-clipboard></template></div>
+            </template>
+            <template if="[[!stringField9Copy]]" is="dom-if">
+                <template if="[[stringField9Clickable]]" is="dom-if">
+                    <template if="[[stringField9Editable]]" is="dom-if">
+                        <qualitified-inline-edit document="[[document]]" property="custom:stringField9" metadata="link" style="width: 100px;"
+                                                 value="[[document.properties.custom:stringField9]]" label="[[stringField9Label]]">
+                        </qualitified-inline-edit>
+                    </template>
+                </template>
+            </template>
+
+            <template if="[[!stringField9Clickable]]" is="dom-if">
+                <div class="align-button" >
+
+                    <template if="[[stringField9Copy]]" is="dom-if">
+                        <template if="[[stringField9Editable]]" is="dom-if">
+
+                            <qualitified-inline-edit document="[[document]]" property="custom:stringField9"  style="width: 100px;"
+                                                     value="[[document.properties.custom:stringField9]]" label="[[stringField9Label]]">
+                            </qualitified-inline-edit></template>
+                        <copy-to-clipboard clipboard-value-copied="{{copiedValue}}"
+                                           clipboard-value-to-copy="[[document.properties.custom:stringField9]]"
+                                           id="copyToClipboard9"></copy-to-clipboard>
+                    </template>
+                </div>
+            </template>
+
+
+            <template if="[[!stringField9Editable]]" is="dom-if">
+                <div>
+                    <template if="[[stringField9Copy]]" is="dom-if">
+                        <template if="[[stringField9Clickable]]" is="dom-if">
+                            <a href="[[document.properties.custom:stringField9]]" style="color: blue"
+                               target="_blank">[[document.properties.custom:stringField9]]</a>
+                        </template>
+                        <copy-to-clipboard clipboard-value-copied="{{copiedValue}}"
+                                           clipboard-value-to-copy="[[document.properties.custom:stringField9]]"
+                                           id="copyToClipboard9"></copy-to-clipboard>
+                    </template></div>
+            </template>
+        </div>
+    </template>
+
+    <template if="[[document.properties.custom:stringField10]]" is="dom-if">
+        <div class="sortable" hidden$="[[!stringField10Visible]]" id="[[stringField10Order]]" role="widget">
+            <template if="[[!stringField10Clickable]]" is="dom-if">
+                <template if="[[!stringField10Editable]]" is="dom-if">
+                    <label>[[stringField10Label]]</label>
+                    <div>
+                        [[document.properties.custom:stringField10]]
+                        <template if="[[stringField10Copy]]" is="dom-if">
+                            <copy-to-clipboard clipboard-value-copied="{{copiedValue}}"
+                                               clipboard-value-to-copy="[[document.properties.custom:stringField10]]"
+                                               id="copyToClipboard10"></copy-to-clipboard>
+                        </template>
+                    </div>
+                </template></template>
+
+            <template if="[[!stringField10Clickable]]" is="dom-if">
+                <template if="[[!stringField10Copy]]" is="dom-if">
+                    <template if="[[stringField10Editable]]" is="dom-if">
+
+                        <qualitified-inline-edit document="[[document]]" property="custom:stringField10"
+                                                 value="[[document.properties.custom:stringField10]]" label="[[stringField10Label]]">
+                        </qualitified-inline-edit></template>
+                </template></template>
+
+            <template if="[[!stringField10Editable]]" is="dom-if">
+                <template if="[[!stringField10Copy]]" is="dom-if">
+                    <template if="[[stringField10Clickable]]" is="dom-if">
+
+                        <label>[[stringField10Label]]</label>
+                        <div>
+                            <a href="[[document.properties.custom:stringField10]]" style="color: blue"
+                               target="_blank">[[document.properties.custom:stringField10]]</a>
+                        </div>
+                    </template></template>
+            </template>
+
+
+            <template if="[[stringField10Clickable]]" is="dom-if">
+                <div class="align-button" >
+                    <template if="[[stringField10Editable]]" is="dom-if">
+
+                        <qualitified-inline-edit document="[[document]]" property="custom:stringField10" metadata="link" style="width: 100px;"
+                                                 value="[[document.properties.custom:stringField10]]" label="[[stringField10Label]]">
+                        </qualitified-inline-edit>  </template>
+                    <template if="[[stringField10Copy]]" is="dom-if">
+                        <copy-to-clipboard clipboard-value-copied="{{copiedValue}}"
+                                           clipboard-value-to-copy="[[document.properties.custom:stringField10]]"
+                                           id="copyToClipboard10"></copy-to-clipboard></template></div>
+            </template>
+            <template if="[[!stringField10Copy]]" is="dom-if">
+                <template if="[[stringField10Clickable]]" is="dom-if">
+                    <template if="[[stringField10Editable]]" is="dom-if">
+                        <qualitified-inline-edit document="[[document]]" property="custom:stringField10" metadata="link" style="width: 100px;"
+                                                 value="[[document.properties.custom:stringField10]]" label="[[stringField10Label]]">
+                        </qualitified-inline-edit>
+                    </template>
+                </template>
+            </template>
+
+            <template if="[[!stringField10Clickable]]" is="dom-if">
+                <div class="align-button" >
+
+                    <template if="[[stringField10Copy]]" is="dom-if">
+                        <template if="[[stringField10Editable]]" is="dom-if">
+
+                            <qualitified-inline-edit document="[[document]]" property="custom:stringField10"  style="width: 100px;"
+                                                     value="[[document.properties.custom:stringField10]]" label="[[stringField10Label]]">
+                            </qualitified-inline-edit></template>
+                        <copy-to-clipboard clipboard-value-copied="{{copiedValue}}"
+                                           clipboard-value-to-copy="[[document.properties.custom:stringField10]]"
+                                           id="copyToClipboard10"></copy-to-clipboard>
+                    </template>
+                </div>
+            </template>
+
+
+            <template if="[[!stringField10Editable]]" is="dom-if">
+                <div>
+                    <template if="[[stringField10Copy]]" is="dom-if">
+                        <template if="[[stringField10Clickable]]" is="dom-if">
+                            <a href="[[document.properties.custom:stringField10]]" style="color: blue"
+                               target="_blank">[[document.properties.custom:stringField10]]</a>
+                        </template>
+                        <copy-to-clipboard clipboard-value-copied="{{copiedValue}}"
+                                           clipboard-value-to-copy="[[document.properties.custom:stringField10]]"
+                                           id="copyToClipboard10"></copy-to-clipboard>
+                    </template></div>
+            </template>
+        </div>
+    </template>
+
+    <template if="[[document.properties.custom:stringField11]]" is="dom-if">
+        <div class="sortable" hidden$="[[!stringField4Visible]]" id="[[stringField11Order]]" role="widget">
+            <template if="[[!stringField11Clickable]]" is="dom-if">
+                <template if="[[!stringField11Editable]]" is="dom-if">
+                    <label>[[stringField11Label]]</label>
+                    <div>
+                        [[document.properties.custom:stringField11]]
+                        <template if="[[stringField11Copy]]" is="dom-if">
+                            <copy-to-clipboard clipboard-value-copied="{{copiedValue}}"
+                                               clipboard-value-to-copy="[[document.properties.custom:stringField11]]"
+                                               id="copyToClipboard11"></copy-to-clipboard>
+                        </template>
+                    </div>
+                </template></template>
+
+            <template if="[[!stringField11Clickable]]" is="dom-if">
+                <template if="[[!stringField11Copy]]" is="dom-if">
+                    <template if="[[stringField11Editable]]" is="dom-if">
+
+                        <qualitified-inline-edit document="[[document]]" property="custom:stringField11"
+                                                 value="[[document.properties.custom:stringField11]]" label="[[stringField11Label]]">
+                        </qualitified-inline-edit></template>
+                </template></template>
+
+            <template if="[[!stringField11Editable]]" is="dom-if">
+                <template if="[[!stringField11Copy]]" is="dom-if">
+                    <template if="[[stringField11Clickable]]" is="dom-if">
+
+                        <label>[[stringField11Label]]</label>
+                        <div>
+                            <a href="[[document.properties.custom:stringField11]]" style="color: blue"
+                               target="_blank">[[document.properties.custom:stringField11]]</a>
+                        </div>
+                    </template></template>
+            </template>
+
+
+            <template if="[[stringField11Clickable]]" is="dom-if">
+                <div class="align-button" >
+                    <template if="[[stringField11Editable]]" is="dom-if">
+
+                        <qualitified-inline-edit document="[[document]]" property="custom:stringField11" metadata="link" style="width: 100px;"
+                                                 value="[[document.properties.custom:stringField11]]" label="[[stringField11Label]]">
+                        </qualitified-inline-edit>  </template>
+                    <template if="[[stringField11Copy]]" is="dom-if">
+                        <copy-to-clipboard clipboard-value-copied="{{copiedValue}}"
+                                           clipboard-value-to-copy="[[document.properties.custom:stringField11]]"
+                                           id="copyToClipboard11"></copy-to-clipboard></template></div>
+            </template>
+            <template if="[[!stringField11Copy]]" is="dom-if">
+                <template if="[[stringField11Clickable]]" is="dom-if">
+                    <template if="[[stringField11Editable]]" is="dom-if">
+                        <qualitified-inline-edit document="[[document]]" property="custom:stringField11" metadata="link" style="width: 100px;"
+                                                 value="[[document.properties.custom:stringField11]]" label="[[stringField11Label]]">
+                        </qualitified-inline-edit>
+                    </template>
+                </template>
+            </template>
+
+            <template if="[[!stringField11Clickable]]" is="dom-if">
+                <div class="align-button" >
+
+                    <template if="[[stringField11Copy]]" is="dom-if">
+                        <template if="[[stringField11Editable]]" is="dom-if">
+
+                            <qualitified-inline-edit document="[[document]]" property="custom:stringField11"  style="width: 100px;"
+                                                     value="[[document.properties.custom:stringField11]]" label="[[stringField11Label]]">
+                            </qualitified-inline-edit></template>
+                        <copy-to-clipboard clipboard-value-copied="{{copiedValue}}"
+                                           clipboard-value-to-copy="[[document.properties.custom:stringField11]]"
+                                           id="copyToClipboard11"></copy-to-clipboard>
+                    </template>
+                </div>
+            </template>
+
+
+            <template if="[[!stringField11Editable]]" is="dom-if">
+                <div>
+                    <template if="[[stringField11Copy]]" is="dom-if">
+                        <template if="[[stringField11Clickable]]" is="dom-if">
+                            <a href="[[document.properties.custom:stringField11]]" style="color: blue"
+                               target="_blank">[[document.properties.custom:stringField11]]</a>
+                        </template>
+                        <copy-to-clipboard clipboard-value-copied="{{copiedValue}}"
+                                           clipboard-value-to-copy="[[document.properties.custom:stringField11]]"
+                                           id="copyToClipboard11"></copy-to-clipboard>
+                    </template></div>
+            </template>
+        </div>
+    </template>
+
+    <template if="[[document.properties.custom:stringField12]]" is="dom-if">
+        <div class="sortable" hidden$="[[!stringField12Visible]]" id="[[stringField12Order]]" role="widget">
+            <template if="[[!stringField12Clickable]]" is="dom-if">
+                <template if="[[!stringField12Editable]]" is="dom-if">
+                    <label>[[stringField12Label]]</label>
+                    <div>
+                        [[document.properties.custom:stringField12]]
+                        <template if="[[stringField12Copy]]" is="dom-if">
+                            <copy-to-clipboard clipboard-value-copied="{{copiedValue}}"
+                                               clipboard-value-to-copy="[[document.properties.custom:stringField12]]"
+                                               id="copyToClipboard12"></copy-to-clipboard>
+                        </template>
+                    </div>
+                </template></template>
+
+            <template if="[[!stringField12Clickable]]" is="dom-if">
+                <template if="[[!stringField12Copy]]" is="dom-if">
+                    <template if="[[stringField12Editable]]" is="dom-if">
+
+                        <qualitified-inline-edit document="[[document]]" property="custom:stringField12"
+                                                 value="[[document.properties.custom:stringField12]]" label="[[stringField12Label]]">
+                        </qualitified-inline-edit></template>
+                </template></template>
+
+            <template if="[[!stringField12Editable]]" is="dom-if">
+                <template if="[[!stringField12Copy]]" is="dom-if">
+                    <template if="[[stringField12Clickable]]" is="dom-if">
+
+                        <label>[[stringField12Label]]</label>
+                        <div>
+                            <a href="[[document.properties.custom:stringField12]]" style="color: blue"
+                               target="_blank">[[document.properties.custom:stringField12]]</a>
+                        </div>
+                    </template></template>
+            </template>
+
+
+            <template if="[[stringField12Clickable]]" is="dom-if">
+                <div class="align-button" >
+                    <template if="[[stringField12Editable]]" is="dom-if">
+
+                        <qualitified-inline-edit document="[[document]]" property="custom:stringField12" metadata="link" style="width: 100px;"
+                                                 value="[[document.properties.custom:stringField12]]" label="[[stringField12Label]]">
+                        </qualitified-inline-edit>  </template>
+                    <template if="[[stringField12Copy]]" is="dom-if">
+                        <copy-to-clipboard clipboard-value-copied="{{copiedValue}}"
+                                           clipboard-value-to-copy="[[document.properties.custom:stringField12]]"
+                                           id="copyToClipboard12"></copy-to-clipboard></template></div>
+            </template>
+            <template if="[[!stringField12Copy]]" is="dom-if">
+                <template if="[[stringField12Clickable]]" is="dom-if">
+                    <template if="[[stringField12Editable]]" is="dom-if">
+                        <qualitified-inline-edit document="[[document]]" property="custom:stringField12" metadata="link" style="width: 100px;"
+                                                 value="[[document.properties.custom:stringField12]]" label="[[stringField12Label]]">
+                        </qualitified-inline-edit>
+                    </template>
+                </template>
+            </template>
+
+            <template if="[[!stringField12Clickable]]" is="dom-if">
+                <div class="align-button" >
+
+                    <template if="[[stringField12Copy]]" is="dom-if">
+                        <template if="[[stringField12Editable]]" is="dom-if">
+
+                            <qualitified-inline-edit document="[[document]]" property="custom:stringField12"  style="width: 100px;"
+                                                     value="[[document.properties.custom:stringField12]]" label="[[stringField12Label]]">
+                            </qualitified-inline-edit></template>
+                        <copy-to-clipboard clipboard-value-copied="{{copiedValue}}"
+                                           clipboard-value-to-copy="[[document.properties.custom:stringField12]]"
+                                           id="copyToClipboard12"></copy-to-clipboard>
+                    </template>
+                </div>
+            </template>
+
+
+            <template if="[[!stringField12Editable]]" is="dom-if">
+                <div>
+                    <template if="[[stringField12Copy]]" is="dom-if">
+                        <template if="[[stringField12Clickable]]" is="dom-if">
+                            <a href="[[document.properties.custom:stringField12]]" style="color: blue"
+                               target="_blank">[[document.properties.custom:stringField12]]</a>
+                        </template>
+                        <copy-to-clipboard clipboard-value-copied="{{copiedValue}}"
+                                           clipboard-value-to-copy="[[document.properties.custom:stringField12]]"
+                                           id="copyToClipboard12"></copy-to-clipboard>
+                    </template></div>
+            </template>
+        </div>
+    </template>
+
+    <template if="[[document.properties.custom:stringField13]]" is="dom-if">
+        <div class="sortable" hidden$="[[!stringField13Visible]]" id="[[stringField13Order]]" role="widget">
+            <template if="[[!stringField4Clickable]]" is="dom-if">
+                <template if="[[!stringField13Editable]]" is="dom-if">
+                    <label>[[stringField13Label]]</label>
+                    <div>
+                        [[document.properties.custom:stringField13]]
+                        <template if="[[stringField13Copy]]" is="dom-if">
+                            <copy-to-clipboard clipboard-value-copied="{{copiedValue}}"
+                                               clipboard-value-to-copy="[[document.properties.custom:stringField13]]"
+                                               id="copyToClipboard13"></copy-to-clipboard>
+                        </template>
+                    </div>
+                </template></template>
+
+            <template if="[[!stringField13Clickable]]" is="dom-if">
+                <template if="[[!stringField13Copy]]" is="dom-if">
+                    <template if="[[stringField13Editable]]" is="dom-if">
+
+                        <qualitified-inline-edit document="[[document]]" property="custom:stringField13"
+                                                 value="[[document.properties.custom:stringField13]]" label="[[stringField13Label]]">
+                        </qualitified-inline-edit></template>
+                </template></template>
+
+            <template if="[[!stringField13Editable]]" is="dom-if">
+                <template if="[[!stringField13Copy]]" is="dom-if">
+                    <template if="[[stringField13Clickable]]" is="dom-if">
+
+                        <label>[[stringField13Label]]</label>
+                        <div>
+                            <a href="[[document.properties.custom:stringField13]]" style="color: blue"
+                               target="_blank">[[document.properties.custom:stringField13]]</a>
+                        </div>
+                    </template></template>
+            </template>
+
+
+            <template if="[[stringField13Clickable]]" is="dom-if">
+                <div class="align-button" >
+                    <template if="[[stringField13Editable]]" is="dom-if">
+
+                        <qualitified-inline-edit document="[[document]]" property="custom:stringField13" metadata="link" style="width: 100px;"
+                                                 value="[[document.properties.custom:stringField13]]" label="[[stringField13Label]]">
+                        </qualitified-inline-edit>  </template>
+                    <template if="[[stringField13Copy]]" is="dom-if">
+                        <copy-to-clipboard clipboard-value-copied="{{copiedValue}}"
+                                           clipboard-value-to-copy="[[document.properties.custom:stringField13]]"
+                                           id="copyToClipboard13"></copy-to-clipboard></template></div>
+            </template>
+            <template if="[[!stringField13Copy]]" is="dom-if">
+                <template if="[[stringField13Clickable]]" is="dom-if">
+                    <template if="[[stringField13Editable]]" is="dom-if">
+                        <qualitified-inline-edit document="[[document]]" property="custom:stringField13" metadata="link" style="width: 100px;"
+                                                 value="[[document.properties.custom:stringField13]]" label="[[stringField13Label]]">
+                        </qualitified-inline-edit>
+                    </template>
+                </template>
+            </template>
+
+            <template if="[[!stringField13Clickable]]" is="dom-if">
+                <div class="align-button" >
+
+                    <template if="[[stringField13Copy]]" is="dom-if">
+                        <template if="[[stringField13Editable]]" is="dom-if">
+
+                            <qualitified-inline-edit document="[[document]]" property="custom:stringField13"  style="width: 100px;"
+                                                     value="[[document.properties.custom:stringField13]]" label="[[stringField13Label]]">
+                            </qualitified-inline-edit></template>
+                        <copy-to-clipboard clipboard-value-copied="{{copiedValue}}"
+                                           clipboard-value-to-copy="[[document.properties.custom:stringField13]]"
+                                           id="copyToClipboard13"></copy-to-clipboard>
+                    </template>
+                </div>
+            </template>
+
+
+            <template if="[[!stringField13Editable]]" is="dom-if">
+                <div>
+                    <template if="[[stringField13Copy]]" is="dom-if">
+                        <template if="[[stringField13Clickable]]" is="dom-if">
+                            <a href="[[document.properties.custom:stringField13]]" style="color: blue"
+                               target="_blank">[[document.properties.custom:stringField13]]</a>
+                        </template>
+                        <copy-to-clipboard clipboard-value-copied="{{copiedValue}}"
+                                           clipboard-value-to-copy="[[document.properties.custom:stringField13]]"
+                                           id="copyToClipboard13"></copy-to-clipboard>
+                    </template></div>
+            </template>
+        </div>
+    </template>
+
+    <template if="[[document.properties.custom:stringField14]]" is="dom-if">
+        <div class="sortable" hidden$="[[!stringField14Visible]]" id="[[stringField14Order]]" role="widget">
+            <template if="[[!stringField14Clickable]]" is="dom-if">
+                <template if="[[!stringField14Editable]]" is="dom-if">
+                    <label>[[stringField14Label]]</label>
+                    <div>
+                        [[document.properties.custom:stringField14]]
+                        <template if="[[stringField14Copy]]" is="dom-if">
+                            <copy-to-clipboard clipboard-value-copied="{{copiedValue}}"
+                                               clipboard-value-to-copy="[[document.properties.custom:stringField14]]"
+                                               id="copyToClipboard14"></copy-to-clipboard>
+                        </template>
+                    </div>
+                </template></template>
+
+            <template if="[[!stringField14Clickable]]" is="dom-if">
+                <template if="[[!stringField14Copy]]" is="dom-if">
+                    <template if="[[stringField14Editable]]" is="dom-if">
+
+                        <qualitified-inline-edit document="[[document]]" property="custom:stringField14"
+                                                 value="[[document.properties.custom:stringField14]]" label="[[stringField14Label]]">
+                        </qualitified-inline-edit></template>
+                </template></template>
+
+            <template if="[[!stringField14Editable]]" is="dom-if">
+                <template if="[[!stringField14Copy]]" is="dom-if">
+                    <template if="[[stringField14Clickable]]" is="dom-if">
+
+                        <label>[[stringField14Label]]</label>
+                        <div>
+                            <a href="[[document.properties.custom:stringField14]]" style="color: blue"
+                               target="_blank">[[document.properties.custom:stringField14]]</a>
+                        </div>
+                    </template></template>
+            </template>
+
+
+            <template if="[[stringField14Clickable]]" is="dom-if">
+                <div class="align-button" >
+                    <template if="[[stringField14Editable]]" is="dom-if">
+
+                        <qualitified-inline-edit document="[[document]]" property="custom:stringField14" metadata="link" style="width: 100px;"
+                                                 value="[[document.properties.custom:stringField14]]" label="[[stringField14Label]]">
+                        </qualitified-inline-edit>  </template>
+                    <template if="[[stringField14Copy]]" is="dom-if">
+                        <copy-to-clipboard clipboard-value-copied="{{copiedValue}}"
+                                           clipboard-value-to-copy="[[document.properties.custom:stringField14]]"
+                                           id="copyToClipboard14"></copy-to-clipboard></template></div>
+            </template>
+            <template if="[[!stringField14Copy]]" is="dom-if">
+                <template if="[[stringField14Clickable]]" is="dom-if">
+                    <template if="[[stringField14Editable]]" is="dom-if">
+                        <qualitified-inline-edit document="[[document]]" property="custom:stringField14" metadata="link" style="width: 100px;"
+                                                 value="[[document.properties.custom:stringField14]]" label="[[stringField14Label]]">
+                        </qualitified-inline-edit>
+                    </template>
+                </template>
+            </template>
+
+            <template if="[[!stringField14Clickable]]" is="dom-if">
+                <div class="align-button" >
+
+                    <template if="[[stringField14Copy]]" is="dom-if">
+                        <template if="[[stringField14Editable]]" is="dom-if">
+
+                            <qualitified-inline-edit document="[[document]]" property="custom:stringField14"  style="width: 100px;"
+                                                     value="[[document.properties.custom:stringField14]]" label="[[stringField14Label]]">
+                            </qualitified-inline-edit></template>
+                        <copy-to-clipboard clipboard-value-copied="{{copiedValue}}"
+                                           clipboard-value-to-copy="[[document.properties.custom:stringField14]]"
+                                           id="copyToClipboard14"></copy-to-clipboard>
+                    </template>
+                </div>
+            </template>
+
+
+            <template if="[[!stringField14Editable]]" is="dom-if">
+                <div>
+                    <template if="[[stringField14Copy]]" is="dom-if">
+                        <template if="[[stringField14Clickable]]" is="dom-if">
+                            <a href="[[document.properties.custom:stringField14]]" style="color: blue"
+                               target="_blank">[[document.properties.custom:stringField14]]</a>
+                        </template>
+                        <copy-to-clipboard clipboard-value-copied="{{copiedValue}}"
+                                           clipboard-value-to-copy="[[document.properties.custom:stringField14]]"
+                                           id="copyToClipboard14"></copy-to-clipboard>
+                    </template></div>
+            </template>
+        </div>
+    </template>
+
+    <template if="[[document.properties.custom:stringField15]]" is="dom-if">
+        <div class="sortable" hidden$="[[!stringField15Visible]]" id="[[stringField15Order]]" role="widget">
+            <template if="[[!stringField15Clickable]]" is="dom-if">
+                <template if="[[!stringField15Editable]]" is="dom-if">
+                    <label>[[stringField15Label]]</label>
+                    <div>
+                        [[document.properties.custom:stringField15]]
+                        <template if="[[stringField15Copy]]" is="dom-if">
+                            <copy-to-clipboard clipboard-value-copied="{{copiedValue}}"
+                                               clipboard-value-to-copy="[[document.properties.custom:stringField15]]"
+                                               id="copyToClipboard15"></copy-to-clipboard>
+                        </template>
+                    </div>
+                </template></template>
+
+            <template if="[[!stringField15Clickable]]" is="dom-if">
+                <template if="[[!stringField15Copy]]" is="dom-if">
+                    <template if="[[stringField15Editable]]" is="dom-if">
+
+                        <qualitified-inline-edit document="[[document]]" property="custom:stringField15"
+                                                 value="[[document.properties.custom:stringField15]]" label="[[stringField15Label]]">
+                        </qualitified-inline-edit></template>
+                </template></template>
+
+            <template if="[[!stringField15Editable]]" is="dom-if">
+                <template if="[[!stringField15Copy]]" is="dom-if">
+                    <template if="[[stringField15Clickable]]" is="dom-if">
+
+                        <label>[[stringField15Label]]</label>
+                        <div>
+                            <a href="[[document.properties.custom:stringField15]]" style="color: blue"
+                               target="_blank">[[document.properties.custom:stringField15]]</a>
+                        </div>
+                    </template></template>
+            </template>
+
+
+            <template if="[[stringField15Clickable]]" is="dom-if">
+                <div class="align-button" >
+                    <template if="[[stringField15Editable]]" is="dom-if">
+
+                        <qualitified-inline-edit document="[[document]]" property="custom:stringField15" metadata="link" style="width: 100px;"
+                                                 value="[[document.properties.custom:stringField15]]" label="[[stringField15Label]]">
+                        </qualitified-inline-edit>  </template>
+                    <template if="[[stringField15Copy]]" is="dom-if">
+                        <copy-to-clipboard clipboard-value-copied="{{copiedValue}}"
+                                           clipboard-value-to-copy="[[document.properties.custom:stringField15]]"
+                                           id="copyToClipboard15"></copy-to-clipboard></template></div>
+            </template>
+            <template if="[[!stringField15Copy]]" is="dom-if">
+                <template if="[[stringField15Clickable]]" is="dom-if">
+                    <template if="[[stringField15Editable]]" is="dom-if">
+                        <qualitified-inline-edit document="[[document]]" property="custom:stringField15" metadata="link" style="width: 100px;"
+                                                 value="[[document.properties.custom:stringField15]]" label="[[stringField15Label]]">
+                        </qualitified-inline-edit>
+                    </template>
+                </template>
+            </template>
+
+            <template if="[[!stringField15Clickable]]" is="dom-if">
+                <div class="align-button" >
+
+                    <template if="[[stringField15Copy]]" is="dom-if">
                         <template if="[[stringField15Editable]]" is="dom-if">
-                            <qualitified-inline-edit document="[[document]]" property="custom:stringField15"
+
+                            <qualitified-inline-edit document="[[document]]" property="custom:stringField15"  style="width: 100px;"
                                                      value="[[document.properties.custom:stringField15]]" label="[[stringField15Label]]">
-                            </qualitified-inline-edit>
+                            </qualitified-inline-edit></template>
+                        <copy-to-clipboard clipboard-value-copied="{{copiedValue}}"
+                                           clipboard-value-to-copy="[[document.properties.custom:stringField15]]"
+                                           id="copyToClipboard15"></copy-to-clipboard>
+                    </template>
+                </div>
+            </template>
+
+
+            <template if="[[!stringField15Editable]]" is="dom-if">
+                <div>
+                    <template if="[[stringField15Copy]]" is="dom-if">
+                        <template if="[[stringField15Clickable]]" is="dom-if">
+                            <a href="[[document.properties.custom:stringField15]]" style="color: blue"
+                               target="_blank">[[document.properties.custom:stringField15]]</a>
+                        </template>
+                        <copy-to-clipboard clipboard-value-copied="{{copiedValue}}"
+                                           clipboard-value-to-copy="[[document.properties.custom:stringField15]]"
+                                           id="copyToClipboard15"></copy-to-clipboard>
+                    </template></div>
+            </template>
+        </div>
+    </template>
+
+    <template if="[[document.properties.custom:stringField16]]" is="dom-if">
+        <div class="sortable" hidden$="[[!stringField16Visible]]" id="[[stringField16Order]]" role="widget">
+            <template if="[[!stringField16Clickable]]" is="dom-if">
+                <template if="[[!stringField16Editable]]" is="dom-if">
+                    <label>[[stringField16Label]]</label>
+                    <div>
+                        [[document.properties.custom:stringField16]]
+                        <template if="[[stringField16Copy]]" is="dom-if">
+                            <copy-to-clipboard clipboard-value-copied="{{copiedValue}}"
+                                               clipboard-value-to-copy="[[document.properties.custom:stringField16]]"
+                                               id="copyToClipboard16"></copy-to-clipboard>
                         </template>
                     </div>
-                </template>
+                </template></template>
 
-                <template if="[[document.properties.custom:stringField16]]" is="dom-if">
-                    <div class="sortable" hidden$="[[!stringField16Visible]]" id="[[stringField16Order]]" role="widget">
-                        <template if="[[!stringField16Clickable]]" is="dom-if">
-                            <template if="[[!stringField16Editable]]" is="dom-if">
-                                <label>[[stringField16Label]]</label>
-                                <div>
-                                    [[document.properties.custom:stringField16]]
-                                    <template if="[[stringField16Copy]]" is="dom-if">
-                                        <copy-to-clipboard clipboard-value-copied="{{copiedValue}}"
-                                                           clipboard-value-to-copy="[[document.properties.custom:stringField16]]"
-                                                           id="copyToClipboard16"></copy-to-clipboard>
-                                    </template>
-                                </div>
-                            </template></template>
-                        <template if="[[stringField16Clickable]]" is="dom-if">
-                            <label>[[stringField16Label]]</label>
-                            <div>
-                                <a href="[[document.properties.custom:stringField16]]" style="color: blue"
-                                   target="_blank">[[document.properties.custom:stringField16]]</a>
-                            </div>
-                        </template>
+            <template if="[[!stringField16Clickable]]" is="dom-if">
+                <template if="[[!stringField16Copy]]" is="dom-if">
+                    <template if="[[stringField16Editable]]" is="dom-if">
+
+                        <qualitified-inline-edit document="[[document]]" property="custom:stringField16"
+                                                 value="[[document.properties.custom:stringField16]]" label="[[stringField16Label]]">
+                        </qualitified-inline-edit></template>
+                </template></template>
+
+            <template if="[[!stringField16Editable]]" is="dom-if">
+                <template if="[[!stringField16Copy]]" is="dom-if">
+                    <template if="[[stringField16Clickable]]" is="dom-if">
+
+                        <label>[[stringField16Label]]</label>
+                        <div>
+                            <a href="[[document.properties.custom:stringField16]]" style="color: blue"
+                               target="_blank">[[document.properties.custom:stringField16]]</a>
+                        </div>
+                    </template></template>
+            </template>
+
+
+            <template if="[[stringField16Clickable]]" is="dom-if">
+                <div class="align-button" >
+                    <template if="[[stringField16Editable]]" is="dom-if">
+
+                        <qualitified-inline-edit document="[[document]]" property="custom:stringField16" metadata="link" style="width: 100px;"
+                                                 value="[[document.properties.custom:stringField16]]" label="[[stringField16Label]]">
+                        </qualitified-inline-edit>  </template>
+                    <template if="[[stringField16Copy]]" is="dom-if">
+                        <copy-to-clipboard clipboard-value-copied="{{copiedValue}}"
+                                           clipboard-value-to-copy="[[document.properties.custom:stringField16]]"
+                                           id="copyToClipboard16"></copy-to-clipboard></template></div>
+            </template>
+            <template if="[[!stringField16Copy]]" is="dom-if">
+                <template if="[[stringField16Clickable]]" is="dom-if">
+                    <template if="[[stringField16Editable]]" is="dom-if">
+                        <qualitified-inline-edit document="[[document]]" property="custom:stringField16" metadata="link" style="width: 100px;"
+                                                 value="[[document.properties.custom:stringField16]]" label="[[stringField16Label]]">
+                        </qualitified-inline-edit>
+                    </template>
+                </template>
+            </template>
+
+            <template if="[[!stringField16Clickable]]" is="dom-if">
+                <div class="align-button" >
+
+                    <template if="[[stringField16Copy]]" is="dom-if">
                         <template if="[[stringField16Editable]]" is="dom-if">
-                            <qualitified-inline-edit document="[[document]]" property="custom:stringField16"
+
+                            <qualitified-inline-edit document="[[document]]" property="custom:stringField16"  style="width: 100px;"
                                                      value="[[document.properties.custom:stringField16]]" label="[[stringField16Label]]">
-                            </qualitified-inline-edit>
+                            </qualitified-inline-edit></template>
+                        <copy-to-clipboard clipboard-value-copied="{{copiedValue}}"
+                                           clipboard-value-to-copy="[[document.properties.custom:stringField16]]"
+                                           id="copyToClipboard16"></copy-to-clipboard>
+                    </template>
+                </div>
+            </template>
+
+
+            <template if="[[!stringField16Editable]]" is="dom-if">
+                <div>
+                    <template if="[[stringField16Copy]]" is="dom-if">
+                        <template if="[[stringField16Clickable]]" is="dom-if">
+                            <a href="[[document.properties.custom:stringField16]]" style="color: blue"
+                               target="_blank">[[document.properties.custom:stringField16]]</a>
+                        </template>
+                        <copy-to-clipboard clipboard-value-copied="{{copiedValue}}"
+                                           clipboard-value-to-copy="[[document.properties.custom:stringField16]]"
+                                           id="copyToClipboard16"></copy-to-clipboard>
+                    </template></div>
+            </template>
+        </div>
+    </template>
+
+
+    <template if="[[document.properties.custom:stringField17]]" is="dom-if">
+        <div class="sortable" hidden$="[[!stringField17Visible]]" id="[[stringField17Order]]" role="widget">
+            <template if="[[!stringField17Clickable]]" is="dom-if">
+                <template if="[[!stringField17Editable]]" is="dom-if">
+                    <label>[[stringField17Label]]</label>
+                    <div>
+                        [[document.properties.custom:stringField17]]
+                        <template if="[[stringField17Copy]]" is="dom-if">
+                            <copy-to-clipboard clipboard-value-copied="{{copiedValue}}"
+                                               clipboard-value-to-copy="[[document.properties.custom:stringField17]]"
+                                               id="copyToClipboard17"></copy-to-clipboard>
                         </template>
                     </div>
-                </template>
+                </template></template>
 
-                <template if="[[document.properties.custom:stringField17]]" is="dom-if">
-                    <div class="sortable" hidden$="[[!stringField17Visible]]" id="[[stringField17Order]]" role="widget">
-                        <template if="[[!stringField17Clickable]]" is="dom-if">
-                            <template if="[[!stringField17Editable]]" is="dom-if">
-                                <label>[[stringField17Label]]</label>
-                                <div>
-                                    [[document.properties.custom:stringField17]]
-                                    <template if="[[stringField17Copy]]" is="dom-if">
-                                        <copy-to-clipboard clipboard-value-copied="{{copiedValue}}"
-                                                           clipboard-value-to-copy="[[document.properties.custom:stringField17]]"
-                                                           id="copyToClipboard17"></copy-to-clipboard>
-                                    </template>
-                                </div>
-                            </template></template>
-                        <template if="[[stringField17Clickable]]" is="dom-if">
-                            <label>[[stringField17Label]]</label>
-                            <div>
-                                <a href="[[document.properties.custom:stringField17]]" style="color: blue"
-                                   target="_blank">[[document.properties.custom:stringField17]]</a>
-                            </div>
-                        </template>
+            <template if="[[!stringField17Clickable]]" is="dom-if">
+                <template if="[[!stringField17Copy]]" is="dom-if">
+                    <template if="[[stringField17Editable]]" is="dom-if">
+
+                        <qualitified-inline-edit document="[[document]]" property="custom:stringField17"
+                                                 value="[[document.properties.custom:stringField17]]" label="[[stringField17Label]]">
+                        </qualitified-inline-edit></template>
+                </template></template>
+
+            <template if="[[!stringField17Editable]]" is="dom-if">
+                <template if="[[!stringField17Copy]]" is="dom-if">
+                    <template if="[[stringField17Clickable]]" is="dom-if">
+
+                        <label>[[stringField17Label]]</label>
+                        <div>
+                            <a href="[[document.properties.custom:stringField17]]" style="color: blue"
+                               target="_blank">[[document.properties.custom:stringField17]]</a>
+                        </div>
+                    </template></template>
+            </template>
+
+
+            <template if="[[stringField17Clickable]]" is="dom-if">
+                <div class="align-button" >
+                    <template if="[[stringField17Editable]]" is="dom-if">
+
+                        <qualitified-inline-edit document="[[document]]" property="custom:stringField17" metadata="link" style="width: 100px;"
+                                                 value="[[document.properties.custom:stringField17]]" label="[[stringField17Label]]">
+                        </qualitified-inline-edit>  </template>
+                    <template if="[[stringField17Copy]]" is="dom-if">
+                        <copy-to-clipboard clipboard-value-copied="{{copiedValue}}"
+                                           clipboard-value-to-copy="[[document.properties.custom:stringField17]]"
+                                           id="copyToClipboard17"></copy-to-clipboard></template></div>
+            </template>
+            <template if="[[!stringField17Copy]]" is="dom-if">
+                <template if="[[stringField17Clickable]]" is="dom-if">
+                    <template if="[[stringField17Editable]]" is="dom-if">
+                        <qualitified-inline-edit document="[[document]]" property="custom:stringField17" metadata="link" style="width: 100px;"
+                                                 value="[[document.properties.custom:stringField17]]" label="[[stringField17Label]]">
+                        </qualitified-inline-edit>
+                    </template>
+                </template>
+            </template>
+
+            <template if="[[!stringField17Clickable]]" is="dom-if">
+                <div class="align-button" >
+
+                    <template if="[[stringField17Copy]]" is="dom-if">
                         <template if="[[stringField17Editable]]" is="dom-if">
-                            <qualitified-inline-edit document="[[document]]" property="custom:stringField17"
+
+                            <qualitified-inline-edit document="[[document]]" property="custom:stringField17"  style="width: 100px;"
                                                      value="[[document.properties.custom:stringField17]]" label="[[stringField17Label]]">
-                            </qualitified-inline-edit>
+                            </qualitified-inline-edit></template>
+                        <copy-to-clipboard clipboard-value-copied="{{copiedValue}}"
+                                           clipboard-value-to-copy="[[document.properties.custom:stringField17]]"
+                                           id="copyToClipboard17"></copy-to-clipboard>
+                    </template>
+                </div>
+            </template>
+
+
+            <template if="[[!stringField17Editable]]" is="dom-if">
+                <div>
+                    <template if="[[stringField17Copy]]" is="dom-if">
+                        <template if="[[stringField17Clickable]]" is="dom-if">
+                            <a href="[[document.properties.custom:stringField17]]" style="color: blue"
+                               target="_blank">[[document.properties.custom:stringField17]]</a>
+                        </template>
+                        <copy-to-clipboard clipboard-value-copied="{{copiedValue}}"
+                                           clipboard-value-to-copy="[[document.properties.custom:stringField17]]"
+                                           id="copyToClipboard17"></copy-to-clipboard>
+                    </template></div>
+            </template>
+        </div>
+    </template>
+
+    <template if="[[document.properties.custom:stringField18]]" is="dom-if">
+        <div class="sortable" hidden$="[[!stringField18Visible]]" id="[[stringField18Order]]" role="widget">
+            <template if="[[!stringField4Clickable]]" is="dom-if">
+                <template if="[[!stringField18Editable]]" is="dom-if">
+                    <label>[[stringField18Label]]</label>
+                    <div>
+                        [[document.properties.custom:stringField18]]
+                        <template if="[[stringField18Copy]]" is="dom-if">
+                            <copy-to-clipboard clipboard-value-copied="{{copiedValue}}"
+                                               clipboard-value-to-copy="[[document.properties.custom:stringField18]]"
+                                               id="copyToClipboard18"></copy-to-clipboard>
                         </template>
                     </div>
-                </template>
+                </template></template>
 
-                <template if="[[document.properties.custom:stringField18]]" is="dom-if">
-                    <div class="sortable" hidden$="[[!stringField18Visible]]" id="[[stringField18Order]]" role="widget">
-                        <template if="[[!stringField18Clickable]]" is="dom-if">
-                            <template if="[[!stringField18Editable]]" is="dom-if">
-                                <label>[[stringField18Label]]</label>
-                                <div>
-                                    [[document.properties.custom:stringField18]]
-                                    <template if="[[stringField18Copy]]" is="dom-if">
-                                        <copy-to-clipboard clipboard-value-copied="{{copiedValue}}"
-                                                           clipboard-value-to-copy="[[document.properties.custom:stringField18]]"
-                                                           id="copyToClipboard18"></copy-to-clipboard>
-                                    </template>
-                                </div>
-                            </template></template>
-                        <template if="[[stringField18Clickable]]" is="dom-if">
-                            <label>[[stringField18Label]]</label>
-                            <div>
-                                <a href="[[document.properties.custom:stringField18]]" style="color: blue"
-                                   target="_blank">[[document.properties.custom:stringField18]]</a>
-                            </div>
-                        </template>
+            <template if="[[!stringField18Clickable]]" is="dom-if">
+                <template if="[[!stringField18Copy]]" is="dom-if">
+                    <template if="[[stringField18Editable]]" is="dom-if">
+
+                        <qualitified-inline-edit document="[[document]]" property="custom:stringField18"
+                                                 value="[[document.properties.custom:stringField18]]" label="[[stringField18Label]]">
+                        </qualitified-inline-edit></template>
+                </template></template>
+
+            <template if="[[!stringField18Editable]]" is="dom-if">
+                <template if="[[!stringField18Copy]]" is="dom-if">
+                    <template if="[[stringField18Clickable]]" is="dom-if">
+
+                        <label>[[stringField18Label]]</label>
+                        <div>
+                            <a href="[[document.properties.custom:stringField18]]" style="color: blue"
+                               target="_blank">[[document.properties.custom:stringField18]]</a>
+                        </div>
+                    </template></template>
+            </template>
+
+
+            <template if="[[stringField18Clickable]]" is="dom-if">
+                <div class="align-button" >
+                    <template if="[[stringField18Editable]]" is="dom-if">
+
+                        <qualitified-inline-edit document="[[document]]" property="custom:stringField18" metadata="link" style="width: 100px;"
+                                                 value="[[document.properties.custom:stringField18]]" label="[[stringField18Label]]">
+                        </qualitified-inline-edit>  </template>
+                    <template if="[[stringField18Copy]]" is="dom-if">
+                        <copy-to-clipboard clipboard-value-copied="{{copiedValue}}"
+                                           clipboard-value-to-copy="[[document.properties.custom:stringField18]]"
+                                           id="copyToClipboard18"></copy-to-clipboard></template></div>
+            </template>
+            <template if="[[!stringField18Copy]]" is="dom-if">
+                <template if="[[stringField18Clickable]]" is="dom-if">
+                    <template if="[[stringField18Editable]]" is="dom-if">
+                        <qualitified-inline-edit document="[[document]]" property="custom:stringField18" metadata="link" style="width: 100px;"
+                                                 value="[[document.properties.custom:stringField18]]" label="[[stringField18Label]]">
+                        </qualitified-inline-edit>
+                    </template>
+                </template>
+            </template>
+
+            <template if="[[!stringField18Clickable]]" is="dom-if">
+                <div class="align-button" >
+
+                    <template if="[[stringField18Copy]]" is="dom-if">
                         <template if="[[stringField18Editable]]" is="dom-if">
-                            <qualitified-inline-edit document="[[document]]" property="custom:stringField18"
+
+                            <qualitified-inline-edit document="[[document]]" property="custom:stringField18"  style="width: 100px;"
                                                      value="[[document.properties.custom:stringField18]]" label="[[stringField18Label]]">
-                            </qualitified-inline-edit>
+                            </qualitified-inline-edit></template>
+                        <copy-to-clipboard clipboard-value-copied="{{copiedValue}}"
+                                           clipboard-value-to-copy="[[document.properties.custom:stringField18]]"
+                                           id="copyToClipboard18"></copy-to-clipboard>
+                    </template>
+                </div>
+            </template>
+
+
+            <template if="[[!stringField18Editable]]" is="dom-if">
+                <div>
+                    <template if="[[stringField18Copy]]" is="dom-if">
+                        <template if="[[stringField18Clickable]]" is="dom-if">
+                            <a href="[[document.properties.custom:stringField18]]" style="color: blue"
+                               target="_blank">[[document.properties.custom:stringField18]]</a>
+                        </template>
+                        <copy-to-clipboard clipboard-value-copied="{{copiedValue}}"
+                                           clipboard-value-to-copy="[[document.properties.custom:stringField18]]"
+                                           id="copyToClipboard18"></copy-to-clipboard>
+                    </template></div>
+            </template>
+        </div>
+    </template>
+
+    <template if="[[document.properties.custom:stringField19]]" is="dom-if">
+        <div class="sortable" hidden$="[[!stringField19Visible]]" id="[[stringField19Order]]" role="widget">
+            <template if="[[!stringField19Clickable]]" is="dom-if">
+                <template if="[[!stringField19Editable]]" is="dom-if">
+                    <label>[[stringField19Label]]</label>
+                    <div>
+                        [[document.properties.custom:stringField19]]
+                        <template if="[[stringField19Copy]]" is="dom-if">
+                            <copy-to-clipboard clipboard-value-copied="{{copiedValue}}"
+                                               clipboard-value-to-copy="[[document.properties.custom:stringField19]]"
+                                               id="copyToClipboard19"></copy-to-clipboard>
                         </template>
                     </div>
-                </template>
+                </template></template>
 
-                <template if="[[document.properties.custom:stringField19]]" is="dom-if">
-                    <div class="sortable" hidden$="[[!stringField19Visible]]" id="[[stringField19Order]]" role="widget">
-                        <template if="[[!stringField19Clickable]]" is="dom-if">
-                            <template if="[[!stringField19Editable]]" is="dom-if">
-                                <label>[[stringField19Label]]</label>
-                                <div>
-                                    [[document.properties.custom:stringField19]]
-                                    <template if="[[stringField19Copy]]" is="dom-if">
-                                        <copy-to-clipboard clipboard-value-copied="{{copiedValue}}"
-                                                           clipboard-value-to-copy="[[document.properties.custom:stringField19]]"
-                                                           id="copyToClipboard19"></copy-to-clipboard>
-                                    </template>
-                                </div>
-                            </template></template>
-                        <template if="[[stringField19Clickable]]" is="dom-if">
-                            <label>[[stringField19Label]]</label>
-                            <div>
-                                <a href="[[document.properties.custom:stringField19]]" style="color: blue"
-                                   target="_blank">[[document.properties.custom:stringField19]]</a>
-                            </div>
-                        </template>
+            <template if="[[!stringField19Clickable]]" is="dom-if">
+                <template if="[[!stringField19Copy]]" is="dom-if">
+                    <template if="[[stringField19Editable]]" is="dom-if">
+
+                        <qualitified-inline-edit document="[[document]]" property="custom:stringField19"
+                                                 value="[[document.properties.custom:stringField19]]" label="[[stringField19Label]]">
+                        </qualitified-inline-edit></template>
+                </template></template>
+
+            <template if="[[!stringField19Editable]]" is="dom-if">
+                <template if="[[!stringField19Copy]]" is="dom-if">
+                    <template if="[[stringField19Clickable]]" is="dom-if">
+
+                        <label>[[stringField19Label]]</label>
+                        <div>
+                            <a href="[[document.properties.custom:stringField19]]" style="color: blue"
+                               target="_blank">[[document.properties.custom:stringField19]]</a>
+                        </div>
+                    </template></template>
+            </template>
+
+
+            <template if="[[stringField19Clickable]]" is="dom-if">
+                <div class="align-button" >
+                    <template if="[[stringField19Editable]]" is="dom-if">
+
+                        <qualitified-inline-edit document="[[document]]" property="custom:stringField19" metadata="link" style="width: 100px;"
+                                                 value="[[document.properties.custom:stringField19]]" label="[[stringField19Label]]">
+                        </qualitified-inline-edit>  </template>
+                    <template if="[[stringField19Copy]]" is="dom-if">
+                        <copy-to-clipboard clipboard-value-copied="{{copiedValue}}"
+                                           clipboard-value-to-copy="[[document.properties.custom:stringField19]]"
+                                           id="copyToClipboard19"></copy-to-clipboard></template></div>
+            </template>
+            <template if="[[!stringField19Copy]]" is="dom-if">
+                <template if="[[stringField19Clickable]]" is="dom-if">
+                    <template if="[[stringField19Editable]]" is="dom-if">
+                        <qualitified-inline-edit document="[[document]]" property="custom:stringField19" metadata="link" style="width: 100px;"
+                                                 value="[[document.properties.custom:stringField19]]" label="[[stringField19Label]]">
+                        </qualitified-inline-edit>
+                    </template>
+                </template>
+            </template>
+
+            <template if="[[!stringField19Clickable]]" is="dom-if">
+                <div class="align-button" >
+
+                    <template if="[[stringField19Copy]]" is="dom-if">
                         <template if="[[stringField19Editable]]" is="dom-if">
-                            <qualitified-inline-edit document="[[document]]" property="custom:stringField19"
+
+                            <qualitified-inline-edit document="[[document]]" property="custom:stringField19"  style="width: 100px;"
                                                      value="[[document.properties.custom:stringField19]]" label="[[stringField19Label]]">
-                            </qualitified-inline-edit>
+                            </qualitified-inline-edit></template>
+                        <copy-to-clipboard clipboard-value-copied="{{copiedValue}}"
+                                           clipboard-value-to-copy="[[document.properties.custom:stringField19]]"
+                                           id="copyToClipboard19"></copy-to-clipboard>
+                    </template>
+                </div>
+            </template>
+
+
+            <template if="[[!stringField19Editable]]" is="dom-if">
+                <div>
+                    <template if="[[stringField19Copy]]" is="dom-if">
+                        <template if="[[stringField19Clickable]]" is="dom-if">
+                            <a href="[[document.properties.custom:stringField19]]" style="color: blue"
+                               target="_blank">[[document.properties.custom:stringField19]]</a>
+                        </template>
+                        <copy-to-clipboard clipboard-value-copied="{{copiedValue}}"
+                                           clipboard-value-to-copy="[[document.properties.custom:stringField19]]"
+                                           id="copyToClipboard19"></copy-to-clipboard>
+                    </template></div>
+            </template>
+        </div>
+    </template>
+
+
+    <template if="[[document.properties.custom:stringField20]]" is="dom-if">
+        <div class="sortable" hidden$="[[!stringField20Visible]]" id="[[stringField20Order]]" role="widget">
+            <template if="[[!stringField20Clickable]]" is="dom-if">
+                <template if="[[!stringField20Editable]]" is="dom-if">
+                    <label>[[stringField20Label]]</label>
+                    <div>
+                        [[document.properties.custom:stringField20]]
+                        <template if="[[stringField20Copy]]" is="dom-if">
+                            <copy-to-clipboard clipboard-value-copied="{{copiedValue}}"
+                                               clipboard-value-to-copy="[[document.properties.custom:stringField20]]"
+                                               id="copyToClipboard20"></copy-to-clipboard>
                         </template>
                     </div>
-                </template>
+                </template></template>
 
-                <template if="[[document.properties.custom:stringField20]]" is="dom-if">
-                    <div class="sortable" hidden$="[[!stringField20Visible]]" id="[[stringField20Order]]" role="widget">
-                        <template if="[[!stringField20Clickable]]" is="dom-if">
-                            <template if="[[!stringField20Editable]]" is="dom-if">
-                                <label>[[stringField20Label]]</label>
-                                <div>
-                                    [[document.properties.custom:stringField20]]
-                                    <template if="[[stringField20Copy]]" is="dom-if">
-                                        <copy-to-clipboard clipboard-value-copied="{{copiedValue}}"
-                                                           clipboard-value-to-copy="[[document.properties.custom:stringField20]]"
-                                                           id="copyToClipboard20"></copy-to-clipboard>
-                                    </template>
-                                </div>
-                            </template></template>
-                        <template if="[[stringField20Clickable]]" is="dom-if">
-                            <label>[[stringField20Label]]</label>
-                            <div>
-                                <a href="[[document.properties.custom:stringField20]]" style="color: blue"
-                                   target="_blank">[[document.properties.custom:stringField20]]</a>
-                            </div>
-                        </template>
+            <template if="[[!stringField20Clickable]]" is="dom-if">
+                <template if="[[!stringField20Copy]]" is="dom-if">
+                    <template if="[[stringField20Editable]]" is="dom-if">
+
+                        <qualitified-inline-edit document="[[document]]" property="custom:stringField20"
+                                                 value="[[document.properties.custom:stringField20]]" label="[[stringField20Label]]">
+                        </qualitified-inline-edit></template>
+                </template></template>
+
+            <template if="[[!stringField20Editable]]" is="dom-if">
+                <template if="[[!stringField20Copy]]" is="dom-if">
+                    <template if="[[stringField20Clickable]]" is="dom-if">
+
+                        <label>[[stringField20Label]]</label>
+                        <div>
+                            <a href="[[document.properties.custom:stringField20]]" style="color: blue"
+                               target="_blank">[[document.properties.custom:stringField20]]</a>
+                        </div>
+                    </template></template>
+            </template>
+
+
+            <template if="[[stringField20Clickable]]" is="dom-if">
+                <div class="align-button" >
+                    <template if="[[stringField20Editable]]" is="dom-if">
+
+                        <qualitified-inline-edit document="[[document]]" property="custom:stringField20" metadata="link" style="width: 100px;"
+                                                 value="[[document.properties.custom:stringField20]]" label="[[stringField20Label]]">
+                        </qualitified-inline-edit>  </template>
+                    <template if="[[stringField20Copy]]" is="dom-if">
+                        <copy-to-clipboard clipboard-value-copied="{{copiedValue}}"
+                                           clipboard-value-to-copy="[[document.properties.custom:stringField20]]"
+                                           id="copyToClipboard20"></copy-to-clipboard></template></div>
+            </template>
+            <template if="[[!stringField20Copy]]" is="dom-if">
+                <template if="[[stringField20Clickable]]" is="dom-if">
+                    <template if="[[stringField20Editable]]" is="dom-if">
+                        <qualitified-inline-edit document="[[document]]" property="custom:stringField20" metadata="link" style="width: 100px;"
+                                                 value="[[document.properties.custom:stringField20]]" label="[[stringField20Label]]">
+                        </qualitified-inline-edit>
+                    </template>
+                </template>
+            </template>
+
+            <template if="[[!stringField20Clickable]]" is="dom-if">
+                <div class="align-button" >
+
+                    <template if="[[stringField20Copy]]" is="dom-if">
                         <template if="[[stringField20Editable]]" is="dom-if">
-                            <qualitified-inline-edit document="[[document]]" property="custom:stringField20"
-                                                     value="[[document.properties.custom:stringField20]]" label="[[stringField20Label]]">
-                            </qualitified-inline-edit>
-                        </template>
-                    </div>
-                </template>
 
-                <template if="[[document.properties.custom:vocabularyField1]]" is="dom-if">
+                            <qualitified-inline-edit document="[[document]]" property="custom:stringField20"  style="width: 100px;"
+                                                     value="[[document.properties.custom:stringField20]]" label="[[stringField20Label]]">
+                            </qualitified-inline-edit></template>
+                        <copy-to-clipboard clipboard-value-copied="{{copiedValue}}"
+                                           clipboard-value-to-copy="[[document.properties.custom:stringField20]]"
+                                           id="copyToClipboard20"></copy-to-clipboard>
+                    </template>
+                </div>
+            </template>
+
+
+            <template if="[[!stringField20Editable]]" is="dom-if">
+                <div>
+                    <template if="[[stringField20Copy]]" is="dom-if">
+                        <template if="[[stringField20Clickable]]" is="dom-if">
+                            <a href="[[document.properties.custom:stringField20]]" style="color: blue"
+                               target="_blank">[[document.properties.custom:stringField20]]</a>
+                        </template>
+                        <copy-to-clipboard clipboard-value-copied="{{copiedValue}}"
+                                           clipboard-value-to-copy="[[document.properties.custom:stringField20]]"
+                                           id="copyToClipboard20"></copy-to-clipboard>
+                    </template></div>
+            </template>
+        </div>
+    </template>
+
+    <template if="[[document.properties.custom:vocabularyField1]]" is="dom-if">
                     <div role="widget">
                         <template if="[[vocabularyField1Visible]]" is="dom-if">
                     <template if="[[vocabularyField1Editable]]" is="dom-if">

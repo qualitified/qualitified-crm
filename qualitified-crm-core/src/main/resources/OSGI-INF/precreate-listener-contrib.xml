@@ -18,6 +18,7 @@
           <doctype>Email</doctype>
           <doctype>Campaign</doctype>
           <doctype>MailMessage</doctype>
+          <doctype>Comment</doctype>
           <attribute>Regular Document</attribute>
         </filters>
     </listener>

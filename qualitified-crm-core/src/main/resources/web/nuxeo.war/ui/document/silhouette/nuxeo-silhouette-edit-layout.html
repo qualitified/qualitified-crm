@@ -54,9 +54,9 @@
         <nuxeo-input value="{{document.properties.address:country}}" label="[[i18n('label.metadata.country')]]"
                      type="text"
                      role="widget"></nuxeo-input>
-
-        <!--nuxeo-user-suggestion  value="{{document.properties.silhouette:responsible}}" label="[[i18n('label.metadata.responsible')]]" search-type="USER_TYPE" role="widget" min-chars="0">
-        </nuxeo-user-suggestion-->
+        <nuxeo-input role="widget" value="{{document.properties.silhouette:company}}" label="[[i18n('label.metadata.company')]]"></nuxeo-input>
+        <nuxeo-user-suggestion  value="{{document.properties.silhouette:responsible}}" label="[[i18n('label.metadata.responsible')]]" search-type="USER_TYPE" role="widget" min-chars="0">
+        </nuxeo-user-suggestion>
         <nuxeo-directory-suggestion role="widget" value="{{document.properties.silhouette:language}}"
                                     label="[[i18n('label.metadata.language')]]" directory-name="contactLanguage"
                                     min-chars="0"  required="true" ></nuxeo-directory-suggestion>

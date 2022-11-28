@@ -4,7 +4,7 @@
   <parent>
     <groupId>org.qualitified.crm</groupId>
     <artifactId>qualitified-crm-parent</artifactId>
-    <version>5.10</version>
+    <version>5.10.1-SNAPSHOT</version>
   </parent>
   <artifactId>qualitified-crm-custom</artifactId>
   <name>Qualitified CRM custom</name>
@@ -38,5 +38,38 @@
       <artifactId>jsch</artifactId>
       <version>0.1.55</version>
     </dependency>
+    <dependency>
+      <groupId>org.nuxeo.ecm.platform</groupId>
+      <artifactId>nuxeo-platform-imaging-api</artifactId>
+      <version>10.10</version>
+    </dependency>
+    <dependency>
+      <groupId>com.mailjet</groupId>
+      <artifactId>mailjet-client</artifactId>
+      <version>4.2.0</version>
+    </dependency>
+    <dependency>
+      <groupId>com.google.apis</groupId>
+      <artifactId>google-api-services-calendar</artifactId>
+      <version>v3-rev20201028-1.30.10</version>
+    </dependency>
+    <dependency>
+      <groupId>org.nuxeo.ecm.core</groupId>
+      <artifactId>nuxeo-core-api</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.jboss.seam</groupId>
+      <artifactId>jboss-seam</artifactId>
+      <version>2.3.1.Final.NX02</version>
+    </dependency>
+    <dependency>
+      <groupId>org.nuxeo.ecm.platform</groupId>
+      <artifactId>nuxeo-platform-oauth</artifactId>
+      <version>10.10</version>
+    </dependency>
+      <dependency>
+          <groupId>org.nuxeo.elasticsearch</groupId>
+          <artifactId>nuxeo-elasticsearch-core</artifactId>
+      </dependency>
   </dependencies>
 </project>

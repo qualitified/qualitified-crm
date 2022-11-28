@@ -1,4 +1,5 @@
 package org.qualitified.crm.operation;
+
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -12,9 +13,13 @@ import org.nuxeo.ecm.core.api.Blob;
 import org.nuxeo.ecm.core.api.DocumentModel;
 import org.nuxeo.ecm.core.api.DocumentModelList;
 import org.nuxeo.ecm.core.api.impl.blob.StringBlob;
+import org.nuxeo.elasticsearch.api.ElasticSearchService;
+import org.nuxeo.elasticsearch.query.NxQueryBuilder;
 import org.nuxeo.runtime.api.Framework;
+
 import javax.security.auth.login.LoginContext;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 /**
  * Created by mgena on 11/11/2017.
@@ -35,7 +40,13 @@ public class GetCustomFields {
         LoginContext lc = Framework.loginAsUser("Administrator");
         ctx.getLoginStack().push(lc);
         String adminPath = Framework.getProperty("qualitified.config.path", "/Admin");
-        DocumentModelList customDocuments = ctx.getCoreSession().query("SELECT * FROM Custom WHERE ecm:path STARTSWITH '"+adminPath+"' AND ecm:isProxy = 0 AND ecm:isTrashed = 0 AND ecm:isCheckedInVersion = 0 AND ecm:currentLifeCycleState != 'deleted' AND dc:title='"+documentType+"'", "NXQL", null, 0, 0, false);
+
+        //DocumentModelList customDocuments = ctx.getCoreSession().query("SELECT * FROM Custom WHERE ecm:path STARTSWITH '"+adminPath+"' AND ecm:isProxy = 0 AND ecm:isTrashed = 0 AND ecm:isCheckedInVersion = 0 AND ecm:currentLifeCycleState != 'deleted' AND dc:title='"+documentType+"'", "NXQL", null, 0, 0, false);
+        String nxql ="SELECT * FROM Custom WHERE ecm:path STARTSWITH '"+adminPath+"' AND ecm:isProxy = 0 AND ecm:isTrashed = 0 AND ecm:isCheckedInVersion = 0 AND ecm:currentLifeCycleState != 'deleted' AND dc:title='"+documentType+"'";
+        NxQueryBuilder qB = new NxQueryBuilder(ctx.getCoreSession()).nxql(nxql).fetchFromElasticsearch();
+        ElasticSearchService ess = Framework.getService(ElasticSearchService.class);
+        DocumentModelList customDocuments = ess.query(qB);
+
         String JSONArray= "";
         if(customDocuments.size()>0){
             DocumentModel customDocument = customDocuments.get(0);
@@ -65,7 +76,6 @@ public class GetCustomFields {
 
             ObjectMapper object = new ObjectMapper();
             JSONArray = object.writeValueAsString(customFieldList2);
-
         }
         ctx.getLoginStack().pop();
         return new StringBlob(JSONArray, "application/json");
