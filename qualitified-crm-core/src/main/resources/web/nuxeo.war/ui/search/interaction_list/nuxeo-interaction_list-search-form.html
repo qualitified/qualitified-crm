@@ -134,7 +134,7 @@
         console.log(this.searchTerm);
         this.set('params.system_fulltext', this.searchTerm + '*');
       } else {
-        if (this.params.system_fulltext) {
+        if (this.params && this.params.system_fulltext) {
           this.set('params.system_fulltext', '');
           delete this.params.system_fulltext;
         }
@@ -145,6 +145,10 @@
         this.fire('trigger-search');
       }
     },
+    _search: function(e) {
+      this.fire('trigger-search');
+    },
+
     _setDatesMaxMin: function () {
       if(moment().format('M') > 6){
         this.set('params.interaction_closeDate_min', moment().format('YYYY')+'-07-01');

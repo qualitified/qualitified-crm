@@ -151,7 +151,7 @@
                     console.log(this.searchTerm);
                     this.set('params.system_fulltext', this.searchTerm + '*');
                 } else {
-                    if (this.params.system_fulltext) {
+                    if (this.params && this.params.system_fulltext) {
                         this.set('params.system_fulltext', '');
                         delete this.params.system_fulltext;
                     }
@@ -166,6 +166,10 @@
                 if (e.keyCode === 13) {
                     this.fire('trigger-search');
                 }
+            },
+
+            _search: function(e) {
+                this.fire('trigger-search');
             },
 
             clear: function() {

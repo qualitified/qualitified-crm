@@ -23,8 +23,6 @@ import java.util.*;
 @Operation(id = CopyBlob.ID, category = Constants.CAT_EXECUTION, label = "Copy blob", description = "...")
 
 public class CopyBlob {
-
-
     public final static String ID = "Qualitified.CopyBlob";
     String folderPath = Framework.getProperty("nuxeo.war.dir");
     private Log logger = LogFactory.getLog(org.qualitified.crm.operation.CopyBlob.class);

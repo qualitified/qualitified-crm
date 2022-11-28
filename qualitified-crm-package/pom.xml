@@ -11,6 +11,11 @@
   <packaging>zip</packaging>
   <name>Qualitified CRM Package</name>
 
+  <properties>
+    <enforcer.skip>true</enforcer.skip>
+  </properties>
+
+
   <dependencies>
     <!-- Base distribution(s) for the MP -->
     <dependency>

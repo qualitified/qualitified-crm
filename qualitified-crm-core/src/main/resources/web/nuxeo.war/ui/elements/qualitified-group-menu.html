@@ -255,6 +255,20 @@
 
             _open: function (e) {
                 var chosenMenu = e.currentTarget.dataset.item;
+
+                if (chosenMenu == "account-list"){ setTimeout(function () {
+                    document.querySelector("body > nuxeo-app").shadowRoot.querySelector("#drawer-pages > nuxeo-search-form.iron-selected").shadowRoot.querySelector("#layout").shadowRoot.querySelector("#layout").shadowRoot.querySelector("#container > nuxeo-account_list-search-form")._search();
+                    }.bind(this),200 );};
+                if (chosenMenu == "opportunity-list"){ setTimeout(function () {
+                    document.querySelector("body > nuxeo-app").shadowRoot.querySelector("#drawer-pages > nuxeo-search-form.iron-selected").shadowRoot.querySelector("#layout").shadowRoot.querySelector("#layout").shadowRoot.querySelector("#container > nuxeo-opportunity_list-search-form")._search();
+                    }.bind(this),200 );};
+                if (chosenMenu == "search-for-contacts"){ setTimeout(function () {
+                    document.querySelector("body > nuxeo-app").shadowRoot.querySelector("#drawer-pages > nuxeo-search-form.iron-selected").shadowRoot.querySelector("#layout").shadowRoot.querySelector("#layout").shadowRoot.querySelector("#container > nuxeo-person_list-search-form")._search();
+                    }.bind(this),200 );};
+                if (chosenMenu == "search-for-interaction"){ setTimeout(function () {
+                    document.querySelector("body > nuxeo-app").shadowRoot.querySelector("#drawer-pages > nuxeo-search-form.iron-selected").shadowRoot.querySelector("#layout").shadowRoot.querySelector("#layout").shadowRoot.querySelector("#container > nuxeo-interaction_list-search-form")._search();
+                    }.bind(this),200 );};
+
                 setTimeout(function () {
                     var app = document.querySelector('nuxeo-app');
                     var el = app.root.querySelector('paper-drawer-panel').querySelector('paper-listbox');
