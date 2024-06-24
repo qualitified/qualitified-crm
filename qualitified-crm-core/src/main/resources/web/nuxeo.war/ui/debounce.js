@@ -1,3 +1,5 @@
+//this script is used in alloy.html that allows you to wait an amount of time set by the user
+// before executing a function
 (function(b, c) {
     var $ = b.jQuery || b.Cowboy || (b.Cowboy = {}),
         a;

@@ -1,4 +1,6 @@
 <?xml version="1.0"?>
+<!-- this contribution is used to disable automatic version creation
+-->
 <component name="org.qualitified.crm.automatic.version.creation">
 <extension point="policies" target="org.nuxeo.ecm.core.api.versioning.VersioningService">
     <policy beforeUpdate="true" id="no-versioning-for-system-before-update" increment="NONE" order="1">

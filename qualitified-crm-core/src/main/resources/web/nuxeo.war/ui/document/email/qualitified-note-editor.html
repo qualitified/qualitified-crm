@@ -97,6 +97,8 @@
         ></nuxeo-operation>
 
         <div class="main">
+            <!-- Button "bt2" is used to open a popup that allows you to add pictures under marketing
+            -->
             <div class="action" on-tap="_toggleDialog2">
                 <paper-icon-button icon="nuxeo:add" id="bt2"></paper-icon-button>
                 <paper-tooltip for="bt2" position="right"
@@ -104,6 +106,8 @@
                 >
                 <span class="label"></span>
             </div>
+            <!-- Button "bt" is used to open a popup that contains the content of the email
+            -->
             <div class="action" on-tap="_toggleDialog">
                 <paper-icon-button icon="nuxeo:preview" id="bt"></paper-icon-button>
                 <paper-tooltip for="bt" position="right"
@@ -155,8 +159,8 @@
             <paper-dialog id="dialog2" style="min-height: 500px; min-width: 900px">
                 <paper-dialog-scrollable>
                     <nuxeo-results
-                            name="[[document.uid]]"
                             id="pictureResult"
+                            name="[[document.uid]]"
                             nx-provider="[[pictureProvider]]"
                             selected-items="{{selectedItems}}"
                     >
@@ -214,31 +218,31 @@
             </nuxeo-dialog>
             <nuxeo-dialog
                     id="addDialog"
-                    with-backdrop=""
-                    on-iron-overlay-closed=""
                     no-auto-focus=""
+                    on-iron-overlay-closed=""
+                    with-backdrop=""
             >
                 <h1>Add a picture</h1>
 
                 <div class="content">
                     <nuxeo-input
-                            role="widget"
+                            autofocus
                             label="[[i18n('title')]]"
                             name="title"
-                            value="{{pictureTitle}}"
-                            autofocus
                             required
+                            role="widget"
+                            value="{{pictureTitle}}"
                     >
                     </nuxeo-input>
 
                     <nuxeo-textarea
-                            role="widget"
                             label="[[i18n('label.description')]]"
                             name="description"
+                            role="widget"
                             value="{{pictureDescription}}"
                     >
                     </nuxeo-textarea>
-                    <nuxeo-file id="fileId" required value="{{pictureContent}}" on-value-changed="_getFileTitle"></nuxeo-file>
+                    <nuxeo-file id="fileId" on-value-changed="_getFileTitle" required value="{{pictureContent}}"></nuxeo-file>
                     <!--
                               <nuxeo-dropzone role="widget"
                                               label="[[i18n('file.content')]]"
@@ -248,10 +252,10 @@
                               </nuxeo-dropzone> -->
                 </div>
                 <div class="buttons">
-                    <paper-button dialog-dismiss="" on-click="_resetDialog" noink="">
+                    <paper-button dialog-dismiss="" noink="" on-click="_resetDialog">
                         Cancel
                     </paper-button>
-                    <paper-button class="primary" name="add" disabled$="[[_canCreate(pictureTitle,pictureContent)]]" on-click="_createPicture">
+                    <paper-button class="primary" disabled$="[[_canCreate(pictureTitle,pictureContent)]]" name="add" on-click="_createPicture">
                         Add
                     </paper-button>
                 </div>
