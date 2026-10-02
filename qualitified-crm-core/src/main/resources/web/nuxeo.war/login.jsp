@@ -67,7 +67,7 @@ String currentYear = new DateTime().toString("Y");
 boolean hasVideos = screenConfig.hasVideos();
 String muted = screenConfig.getVideoMuted() ? "muted " : "";
 String loop = screenConfig.getVideoLoop() ? "loop " : "";
-
+boolean displayMobileBanner = false;
 //boolean displayMobileBanner = !"false".equals(request.getParameter("displayMobileBanner"));
 boolean displayMobileBanner = false;
 %>
@@ -519,65 +519,6 @@ a.mobileAppLink:hover {
     <%=productVersion%>
   </footer>
 </div>
-<% if (displayMobileBanner) {
-    String androidApplicationURL = MobileBannerHelper.getURLForAndroidApplication(request);
-    String iOSApplicationURL = MobileBannerHelper.getURLForIOSApplication(request);
-    String appStoreURL = MobileBannerHelper.getAppStoreURL();
-    RepositoryManager repositoryManager = Framework.getService(RepositoryManager.class);
-    String defaultRepositoryName = repositoryManager.getDefaultRepositoryName();
-
-    String requestedUrlFragment = null;
-    Cookie[] cookies = request.getCookies();
-    if (cookies != null) {
-        for (Cookie cookie : cookies) {
-            if (NXAuthConstants.START_PAGE_FRAGMENT_KEY.equals(cookie.getName())) {
-                requestedUrlFragment = StringEscapeUtils.escapeEcmaScript(cookie.getValue());
-            }
-        }
-    }
-%>
-<div id="mobileBanner">
-  <a id="androidAppLink" class="mobileAppLink" href="<%=androidApplicationURL%>">
-    <fmt:message bundle="${messages}" key="label.mobile.openInApp" />
-  </a>
-  <a id="iOSAppLink" class="mobileAppLink"
-    data-action="<%=iOSApplicationURL%>"
-    onclick="nuxeo.mobile.openIOSAppOrAppStore(this.getAttribute('data-action'), '<%=appStoreURL%>');">
-    <fmt:message bundle="${messages}" key="label.mobile.openInApp" />
-  </a>
-</div>
-
-<script type="text/javascript">
-  // Build mobile app links if the mobile banner is displayed
-  <% if (StringUtils.isNotBlank(requestedUrlFragment)) { %>
-
-  var urlFragment = decodeURIComponent('<%=requestedUrlFragment%>');
-  var docPart;
-  if (urlFragment.startsWith('!/browse')) {
-    // no repository name for 'browse' URL
-    docPart = urlFragment.replace('!/browse/', '<%=defaultRepositoryName%>/path/');
-  } else {
-    // !/doc/ URL
-    var parts = urlFragment.split('/');
-    if (parts.length === 3) {
-      // no server in URL
-      docPart = "<%=defaultRepositoryName%>/id/" + parts[2];
-    } else if (parts.length === 4) {
-      docPart = parts[2] + "/id/" + parts[3];
-    }
-  }
-
-  if (docPart) {
-    var androidAppLink = document.getElementById('androidAppLink');
-    var iOSAppLink = document.getElementById('iOSAppLink');
-    androidAppLink.href += docPart;
-    iOSAppLink.setAttribute('data-action', iOSAppLink.getAttribute('data-action') + docPart);
-  }
-
-  nuxeo.mobile.displayMobileBanner('mobileBanner', 'flex', 'androidAppLink', 'iOSAppLink');
-  <% } %>
-</script>
-<% } %>
 
 <script type="text/javascript">
   document.getElementById('username').focus();

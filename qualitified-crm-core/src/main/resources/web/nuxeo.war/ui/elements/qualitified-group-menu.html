@@ -255,26 +255,15 @@
 
             _open: function (e) {
                 var chosenMenu = e.currentTarget.dataset.item;
-
-                if (chosenMenu == "account-list"){ setTimeout(function () {
-                    document.querySelector("body > nuxeo-app").shadowRoot.querySelector("#drawer-pages > nuxeo-search-form.iron-selected").shadowRoot.querySelector("#layout").shadowRoot.querySelector("#layout").shadowRoot.querySelector("#container > nuxeo-account_list-search-form")._search();
-                    }.bind(this),200 );};
-                if (chosenMenu == "opportunity-list"){ setTimeout(function () {
-                    document.querySelector("body > nuxeo-app").shadowRoot.querySelector("#drawer-pages > nuxeo-search-form.iron-selected").shadowRoot.querySelector("#layout").shadowRoot.querySelector("#layout").shadowRoot.querySelector("#container > nuxeo-opportunity_list-search-form")._search();
-                    }.bind(this),200 );};
-                if (chosenMenu == "search-for-contacts"){ setTimeout(function () {
-                    document.querySelector("body > nuxeo-app").shadowRoot.querySelector("#drawer-pages > nuxeo-search-form.iron-selected").shadowRoot.querySelector("#layout").shadowRoot.querySelector("#layout").shadowRoot.querySelector("#container > nuxeo-person_list-search-form")._search();
-                    }.bind(this),200 );};
-                if (chosenMenu == "search-for-interaction"){ setTimeout(function () {
-                    document.querySelector("body > nuxeo-app").shadowRoot.querySelector("#drawer-pages > nuxeo-search-form.iron-selected").shadowRoot.querySelector("#layout").shadowRoot.querySelector("#layout").shadowRoot.querySelector("#container > nuxeo-interaction_list-search-form")._search();
-                    }.bind(this),200 );};
-
-                setTimeout(function () {
-                    var app = document.querySelector('nuxeo-app');
-                    var el = app.root.querySelector('paper-drawer-panel').querySelector('paper-listbox');
-                    el.select(chosenMenu);
+                var app = document.querySelector('nuxeo-app');
+                if (app && app.$ && app.$['drawer-pages']) {
+                    app.selectedTab = chosenMenu;
                     app._openDrawer();
-                }, 20);
+                    var form = app.$['drawer-pages'].querySelector('nuxeo-search-form[name="' + chosenMenu + '"]');
+                    if (form && form._search) {
+                        form._search();
+                    }
+                }
                 this.$.content.style.display = 'none';
             },
             _getCount:function(){

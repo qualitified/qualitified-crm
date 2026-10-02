@@ -4,7 +4,7 @@
   <parent>
     <groupId>org.nuxeo</groupId>
     <artifactId>nuxeo-parent</artifactId>
-    <version>11.5.154</version>
+    <version>2025.9.26</version>
   </parent>
 
   <groupId>org.qualitified.crm</groupId>
@@ -15,7 +15,7 @@
   <packaging>pom</packaging>
 
   <properties>
-    <enforcer.skip>true</enforcer.skip>
+    <nuxeo.skip.enforcer>true</nuxeo.skip.enforcer>
   </properties>
 
   <modules>
@@ -40,25 +40,14 @@
       </snapshots>
     </repository>
     <repository>
-      <id>maven-internal</id>
-      <url>https://packages.nuxeo.com/repository/maven-internal/</url>
+      <id>maven-private</id>
+      <url>https://packages.nuxeo.com/repository/maven-private/</url>
       <releases>
         <enabled>true</enabled>
       </releases>
       <snapshots>
+        <enabled>true</enabled>
         <updatePolicy>always</updatePolicy>
-        <enabled>true</enabled>
-      </snapshots>
-    </repository>
-    <repository>
-      <id>nuxeo-studio</id>
-      <url>https://connect.nuxeo.com/nuxeo/site/studio/maven</url>
-      <releases>
-        <enabled>true</enabled>
-      </releases>
-      <snapshots>
-        <updatePolicy>always</updatePolicy>
-        <enabled>true</enabled>
       </snapshots>
     </repository>
   </repositories>

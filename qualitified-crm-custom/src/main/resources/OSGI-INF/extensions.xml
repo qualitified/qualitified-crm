@@ -35,16 +35,6 @@
       <description></description>
     </type-->
   </extension>
-  <extension target="org.nuxeo.ecm.core.versioning.VersioningService" point="versioningRules">
-    <!--versioningRule typeName="Account_Custom">
-      <initialState major="0" minor="0"/>
-      <options lifeCycleState="*">
-        <none default="true"/>
-        <minor/>
-        <major/>
-      </options>
-    </versioningRule-->
-  </extension>
   <extension target="org.nuxeo.ecm.platform.ui.web.auth.service.PluggableAuthenticationService" point="loginScreen">
     <loginScreenConfig>
       <backgroundImage>no_poster_image</backgroundImage>

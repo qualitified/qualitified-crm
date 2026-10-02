@@ -1,6 +1,5 @@
 package org.qualitified.crm.functions;
 
-import com.sun.jersey.api.core.ParentRef;
 import org.nuxeo.ecm.automation.AutomationService;
 import org.nuxeo.ecm.automation.OperationContext;
 import org.nuxeo.ecm.automation.OperationException;

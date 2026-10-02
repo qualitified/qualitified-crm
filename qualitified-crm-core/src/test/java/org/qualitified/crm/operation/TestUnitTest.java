@@ -22,7 +22,7 @@ import org.nuxeo.template.api.adapters.TemplateBasedDocument;
 import org.nuxeo.template.api.adapters.TemplateSourceDocument;
 import org.nuxeo.template.processors.xdocreport.ZipXmlHelper;
 
-import javax.inject.Inject;
+import jakarta.inject.Inject;
 import java.io.File;
 import java.io.IOException;
 import java.io.Serializable;

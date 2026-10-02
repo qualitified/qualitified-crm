@@ -8,4 +8,4 @@ nuxeo.template.includes=common
 qualitified.config.path=/Admin
 session.timeout=480
 
-nuxeo.war.dir=/var/lib/nuxeo/server/nxserver/nuxeo.war
+nuxeo.war.dir=${nuxeo.home}/nxserver/nuxeo.war

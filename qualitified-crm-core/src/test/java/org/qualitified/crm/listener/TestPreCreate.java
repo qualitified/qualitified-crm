@@ -29,7 +29,7 @@ public class TestPreCreate {
     @Inject
     protected EventService s;
 
-    @javax.inject.Inject
+    @jakarta.inject.Inject
     CoreSession coreSession;
 
     @Test
