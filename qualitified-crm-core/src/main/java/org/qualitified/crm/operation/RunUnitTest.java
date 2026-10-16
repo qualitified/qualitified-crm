@@ -16,7 +16,6 @@ import org.nuxeo.ecm.core.api.NuxeoException;
 import org.nuxeo.runtime.api.Framework;
 import org.nuxeo.runtime.transaction.TransactionHelper;
 
-import javax.sql.rowset.spi.TransactionalWriter;
 import java.util.*;
 
 /**

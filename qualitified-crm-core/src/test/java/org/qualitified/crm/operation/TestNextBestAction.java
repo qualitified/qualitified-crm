@@ -1,5 +1,4 @@
 package org.qualitified.crm.operation;
-import org.apache.chemistry.opencmis.commons.impl.IOUtils;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.junit.Assert;
@@ -19,7 +18,7 @@ import org.nuxeo.runtime.test.runner.Deploy;
 import org.nuxeo.runtime.test.runner.Features;
 import org.nuxeo.runtime.test.runner.FeaturesRunner;
 
-import javax.inject.Inject;
+import jakarta.inject.Inject;
 import javax.security.auth.login.LoginException;
 import java.io.IOException;
 import java.util.HashMap;

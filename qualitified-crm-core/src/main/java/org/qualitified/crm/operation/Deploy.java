@@ -1,6 +1,5 @@
 package org.qualitified.crm.operation;
 
-import com.sun.jersey.core.util.Base64;
 import fr.opensagres.xdocreport.core.io.IOUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -30,6 +29,8 @@ import org.nuxeo.ecm.core.api.impl.blob.StringBlob;
 import org.nuxeo.runtime.api.Framework;
 import javax.security.auth.login.LoginContext;
 import java.io.*;
+import java.nio.charset.StandardCharsets;
+import java.util.Base64;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -87,7 +88,7 @@ public class Deploy {
         //Upload zipExport and get batchId
         CloseableHttpClient httpClient = HttpClients.createDefault();
         HttpPost getBatchId = new HttpPost(url+"/api/v1/upload/");
-        getBatchId.setHeader("Authorization", "Basic " + new String(Base64.encode(login+":"+password), "ASCII"));
+        getBatchId.setHeader("Authorization", "Basic " + Base64.getEncoder().encodeToString((login + ":" + password).getBytes(StandardCharsets.US_ASCII)));
         CloseableHttpResponse response = httpClient.execute(getBatchId);
         HttpEntity responseEntity = response.getEntity();
         String batchId = "";
@@ -115,7 +116,7 @@ public class Deploy {
 
         HttpEntity multipart = builder.build();
         uploadFile.setEntity(multipart);
-        uploadFile.setHeader("Authorization", "Basic " + new String(Base64.encode(login+":"+password), "ASCII"));
+        uploadFile.setHeader("Authorization", "Basic " + Base64.getEncoder().encodeToString((login + ":" + password).getBytes(StandardCharsets.US_ASCII)));
         uploadFile.setHeader("X-File-Name", "export.zip");
         uploadFile.setHeader("X-File-Type", "application/zip");
         CloseableHttpResponse uploadResponse = httpClient.execute(uploadFile);
@@ -142,7 +143,7 @@ public class Deploy {
         StringEntity jsonEntity = new StringEntity(json.toString());
         jsonEntity.setContentType(String.valueOf(ContentType.APPLICATION_JSON));
         importZip.setEntity(jsonEntity);
-        importZip.setHeader("Authorization", "Basic " + new String(Base64.encode(login+":"+password), "ASCII"));
+        importZip.setHeader("Authorization", "Basic " + Base64.getEncoder().encodeToString((login + ":" + password).getBytes(StandardCharsets.US_ASCII)));
         importZip.setHeader("Content-Type", "application/json");
 
         CloseableHttpResponse importZipResponse = httpClient.execute(importZip);

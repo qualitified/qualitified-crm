@@ -21,7 +21,6 @@ import org.nuxeo.ecm.platform.oauth2.providers.OAuth2ServiceProvider;
 import org.nuxeo.ecm.platform.oauth2.providers.OAuth2ServiceProviderRegistry;
 import org.nuxeo.runtime.api.Framework;
 
-import javax.persistence.RollbackException;
 import javax.security.auth.login.LoginContext;
 import javax.security.auth.login.LoginException;
 import java.util.HashMap;
@@ -83,7 +82,7 @@ public class SendToDocusign {
    }
 
    @OperationMethod()
-   public String run(DocumentModel doc) throws LoginException, OperationException,RollbackException {
+   public String run(DocumentModel doc) throws LoginException, OperationException {
        String currentUser = session.getPrincipal().getActingUser();
 
        LoginContext lc = Framework.loginAsUser(currentUser);

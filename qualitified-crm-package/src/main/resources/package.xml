@@ -15,21 +15,17 @@
   <!-- Production State: production_ready | testing | proto -->
   <production-state>production_ready</production-state>
   <supported>false</supported>
-  <platforms>
-    <platform>server-@DISTRIB_VERSION@</platform>
-    <platform>server-@DISTRIB_VERSION@-HF*</platform>
-  </platforms>
-  <!-- Dependencies on other packages -->
-  <!-- <dependencies> -->
-  <!-- <package>another-package:1.0.0:1.0.0</package> -->
-  <package>nuxeo-template-rendering</package>
-  <package>nuxeo-imap-connector</package>
-  <package>nuxeo-dam</package>
-  <!-- If you require JSF UI package:  -->
-  <!-- <package>nuxeo-jsf-ui</package> -->
-  <!-- If you require WEB UI package:  -->
-  <!-- <package>nuxeo-web-ui</package> -->
-  <!-- </dependencies> -->
+  <target-platform>
+    <name>lts</name>
+    <version>[2025.0,2026.0)</version>
+  </target-platform>
+  <dependencies>
+    <package>nuxeo-template-rendering</package>
+    <package>nuxeo-imap-connector</package>
+  </dependencies>
+  <optional-dependencies>
+    <package>nuxeo-web-ui</package>
+  </optional-dependencies>
   <!-- Conflicts with other packages -->
   <!-- <conflicts> -->
   <!-- <package>a-conflicting-package:1.0.0:1.0.0</package> -->

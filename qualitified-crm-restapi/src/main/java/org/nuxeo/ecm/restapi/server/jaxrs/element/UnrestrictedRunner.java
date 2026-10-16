@@ -2,7 +2,7 @@ package org.nuxeo.ecm.restapi.server.jaxrs.element;
 
 import javax.security.auth.login.LoginContext;
 import javax.security.auth.login.LoginException;
-import javax.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletRequest;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -11,8 +11,6 @@ import org.nuxeo.ecm.core.api.CloseableCoreSession;
 import org.nuxeo.ecm.core.api.CoreInstance;
 import org.nuxeo.ecm.core.api.CoreSession;
 import org.nuxeo.ecm.core.api.DocumentModel;
-import org.nuxeo.ecm.platform.web.common.RequestCleanupHandler;
-import org.nuxeo.ecm.platform.web.common.RequestContext;
 import org.nuxeo.ecm.platform.web.common.RequestCleanupHandler;
 import org.nuxeo.ecm.platform.web.common.RequestContext;
 import org.nuxeo.runtime.api.Framework;

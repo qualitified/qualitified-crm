@@ -13,8 +13,8 @@ import org.nuxeo.ecm.core.api.Blob;
 import org.nuxeo.ecm.core.api.DocumentModel;
 import org.nuxeo.ecm.core.api.DocumentModelList;
 import org.nuxeo.ecm.core.api.impl.blob.StringBlob;
-import org.nuxeo.elasticsearch.api.ElasticSearchService;
-import org.nuxeo.elasticsearch.query.NxQueryBuilder;
+import org.nuxeo.ecm.core.search.SearchQuery;
+import org.nuxeo.ecm.core.search.SearchService;
 import org.nuxeo.runtime.api.Framework;
 
 import javax.security.auth.login.LoginContext;
@@ -43,9 +43,9 @@ public class GetCustomFields {
 
         //DocumentModelList customDocuments = ctx.getCoreSession().query("SELECT * FROM Custom WHERE ecm:path STARTSWITH '"+adminPath+"' AND ecm:isProxy = 0 AND ecm:isTrashed = 0 AND ecm:isCheckedInVersion = 0 AND ecm:currentLifeCycleState != 'deleted' AND dc:title='"+documentType+"'", "NXQL", null, 0, 0, false);
         String nxql ="SELECT * FROM Custom WHERE ecm:path STARTSWITH '"+adminPath+"' AND ecm:isProxy = 0 AND ecm:isTrashed = 0 AND ecm:isCheckedInVersion = 0 AND ecm:currentLifeCycleState != 'deleted' AND dc:title='"+documentType+"'";
-        NxQueryBuilder qB = new NxQueryBuilder(ctx.getCoreSession()).nxql(nxql).fetchFromElasticsearch();
-        ElasticSearchService ess = Framework.getService(ElasticSearchService.class);
-        DocumentModelList customDocuments = ess.query(qB);
+        SearchService searchService = Framework.getService(SearchService.class);
+        SearchQuery searchQuery = SearchQuery.builder(nxql, ctx.getCoreSession()).build();
+        DocumentModelList customDocuments = searchService.search(searchQuery).loadDocuments(ctx.getCoreSession());
 
         String JSONArray= "";
         if(customDocuments.size()>0){

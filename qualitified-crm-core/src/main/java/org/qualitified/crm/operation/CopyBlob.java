@@ -54,25 +54,21 @@ public class CopyBlob {
         Blob faviconIco = (Blob) image.getPropertyValue("branding:faviconIco");
         copyImage(faviconIco, folderPath + "/icons/favicon.ico");
 
-        String loginFilePath=folderPath+"/login.jsp";
-        String filePath = folderPath+"/ui/themes/default/theme.html";
-        List<Map<String, String>> complexValuesList = new ArrayList<Map<String, String>>();
         List<Map<String,String>> styles  = (List<Map<String,String>>)image.getPropertyValue("branding:styles");
-        Path path1=Paths.get(loginFilePath);
-        Path path = Paths.get(filePath);
         Charset charset = StandardCharsets.UTF_8;
-        String content = null;
-        String loginContent=null;
-        loginContent = new String(Files.readAllBytes(path1), charset);
-        loginContent = loginContent.replaceFirst(".*loginButtonBackgroundColor.*","String loginButtonBackgroundColor = LoginScreenHelper.getValueWithDefault(screenConfig.getLoginButtonBackgroundColor(),\" "+ image.getPropertyValue("branding:loginBackgroundColor") +"\");");
-        //loginContent = loginContent.replaceAll(" <%= loginButtonBackgroundColor %>", (String)image.getPropertyValue("branding:loginBackgroundColor"));
-
-        Files.write(path1, loginContent.getBytes(charset));
-        content = new String(Files.readAllBytes(path), charset);
-        for (int i = 0; i < styles.size(); i++) {
-            content = content.replaceAll(styles.get(i).get("name").split("/")[1] +": .*;" , styles.get(i).get("name").split("/")[1]+": "+styles.get(i).get("value")+";");
-            Files.write(path, content.getBytes(charset));
-
+        Path loginPage = Paths.get(folderPath, "login.jsp");
+        if (Files.isRegularFile(loginPage)) {
+            String loginContent = new String(Files.readAllBytes(loginPage), charset);
+            loginContent = loginContent.replaceFirst(".*loginButtonBackgroundColor.*","String loginButtonBackgroundColor = LoginScreenHelper.getValueWithDefault(screenConfig.getLoginButtonBackgroundColor(),\" "+ image.getPropertyValue("branding:loginBackgroundColor") +"\");");
+            Files.write(loginPage, loginContent.getBytes(charset));
+        }
+        Path themePage = Paths.get(folderPath, "ui", "themes", "default", "theme.html");
+        if (styles != null && Files.isRegularFile(themePage)) {
+            String content = new String(Files.readAllBytes(themePage), charset);
+            for (int i = 0; i < styles.size(); i++) {
+                content = content.replaceAll(styles.get(i).get("name").split("/")[1] +": .*;" , styles.get(i).get("name").split("/")[1]+": "+styles.get(i).get("value")+";");
+                Files.write(themePage, content.getBytes(charset));
+            }
         }
     }
 

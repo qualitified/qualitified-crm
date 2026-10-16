@@ -35,16 +35,6 @@
       <description></description>
     </type-->
   </extension>
-  <extension target="org.nuxeo.ecm.core.versioning.VersioningService" point="versioningRules">
-    <!--versioningRule typeName="Account_Custom">
-      <initialState major="0" minor="0"/>
-      <options lifeCycleState="*">
-        <none default="true"/>
-        <minor/>
-        <major/>
-      </options>
-    </versioningRule-->
-  </extension>
   <extension target="org.nuxeo.ecm.platform.ui.web.auth.service.PluggableAuthenticationService" point="loginScreen">
     <loginScreenConfig>
       <backgroundImage>no_poster_image</backgroundImage>
@@ -144,7 +134,7 @@
   </extension>
 
   <extension target="org.nuxeo.ecm.platform.query.api.PageProviderService" point="providers">
-    <!--genericPageProvider class="org.nuxeo.elasticsearch.provider.ElasticSearchNxqlPageProvider" name="opportunity_list_custom">
+    <!--genericPageProvider class="org.nuxeo.ecm.platform.query.nxql.SearchServicePageProvider" name="opportunity_list_custom">
       <property name="coreSession">#{documentManager}</property>
       <whereClause>
         <fixedPart>ecm:mixinType != 'HiddenInNavigation' AND ecm:isCheckedInVersion = 0 AND ecm:isTrashed = 0 AND ecm:currentLifeCycleState != 'deleted' AND ecm:primaryType = 'Opportunity'</fixedPart>

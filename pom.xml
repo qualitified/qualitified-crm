@@ -4,7 +4,7 @@
   <parent>
     <groupId>org.nuxeo</groupId>
     <artifactId>nuxeo-parent</artifactId>
-    <version>11.5.154</version>
+    <version>2025.9.26</version>
   </parent>
 
   <groupId>org.qualitified.crm</groupId>
@@ -16,6 +16,7 @@
 
   <properties>
     <enforcer.skip>true</enforcer.skip>
+    <nuxeo.platform.version>2025.9.26</nuxeo.platform.version>
   </properties>
 
   <modules>
@@ -114,6 +115,11 @@
         <groupId>com.google.apis</groupId>
         <artifactId>google-api-services-calendar</artifactId>
         <version>v3-rev20201028-1.30.10</version>
+      </dependency>
+      <dependency>
+        <groupId>com.google.api-client</groupId>
+        <artifactId>google-api-client</artifactId>
+        <version>1.30.10</version>
       </dependency>
     </dependencies>
   </dependencyManagement>
