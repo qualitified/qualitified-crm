@@ -153,6 +153,9 @@
                 mouseIsOverBtnOrMenu: Boolean,
             },
             ready: function () {
+                this.addEventListener('tap', function (e) {
+                    e.stopPropagation();
+                });
                 this.$.btn.addEventListener("mouseover", function (e) {
                     this.$.content.style.top = this.$.btn.getBoundingClientRect().top + "px";
                     this.$.content.style.display = 'inline-block';
@@ -187,37 +190,63 @@
                     }.bind(this), 5);
                 }.bind(this));
             },
-            _openReducedDrawer: function () {
-                document.querySelector('nuxeo-app')._openDrawer();
-                document.querySelector('nuxeo-app').drawerWidth="52px";
+            _openReducedDrawer: function (e) {
+                if (e && e.stopPropagation) {
+                    e.stopPropagation();
+                }
+                var app = document.querySelector('nuxeo-app');
+                if (app) {
+                    app.drawerWidth = '52px';
+                }
             },
             _open: function (e) {
+                if (e && e.stopPropagation) {
+                    e.stopPropagation();
+                }
                 var chosenMenu = e.currentTarget.dataset.item;
-
-                if (chosenMenu == "targeting-list"){ setTimeout(function () {
-                    document.querySelector("body > nuxeo-app").shadowRoot.querySelector("#drawer-pages > nuxeo-search-form.iron-selected").shadowRoot.querySelector("#layout").shadowRoot.querySelector("#layout").shadowRoot.querySelector("#container > nuxeo-targeting_list-search-form")._search();
-                    }.bind(this),200 );};
-                if (chosenMenu == "campaign-list"){ setTimeout(function () {
-                    document.querySelector("body > nuxeo-app").shadowRoot.querySelector("#drawer-pages > nuxeo-search-form.iron-selected").shadowRoot.querySelector("#layout").shadowRoot.querySelector("#layout").shadowRoot.querySelector("#container > nuxeo-campaign_list-search-form")._search();
-                    }.bind(this),200 );};
-                if (chosenMenu == "link-list"){ setTimeout(function () {
-                    document.querySelector("body > nuxeo-app").shadowRoot.querySelector("#drawer-pages > nuxeo-search-form.iron-selected").shadowRoot.querySelector("#layout").shadowRoot.querySelector("#layout").shadowRoot.querySelector("#container > nuxeo-link_list-search-form")._search();
-                    }.bind(this),200 );};
-                if (chosenMenu == "automation-list"){ setTimeout(function () {
-                    document.querySelector("body > nuxeo-app").shadowRoot.querySelector("#drawer-pages > nuxeo-search-form.iron-selected").shadowRoot.querySelector("#layout").shadowRoot.querySelector("#layout").shadowRoot.querySelector("#container > nuxeo-automation_list-search-form")._search();
-                    }.bind(this),200 );};
-                if (chosenMenu == "email-list"){ setTimeout(function () {
-                    document.querySelector("body > nuxeo-app").shadowRoot.querySelector("#drawer-pages > nuxeo-search-form.iron-selected").shadowRoot.querySelector("#layout").shadowRoot.querySelector("#layout").shadowRoot.querySelector("#container > nuxeo-email_list-search-form")._search();
-                    }.bind(this),200 );};
-
-                setTimeout(function () {
-                    var app = document.querySelector('nuxeo-app');
-                    var el = app.root.querySelector('paper-drawer-panel').querySelector('paper-listbox');
-                    el.select(chosenMenu);
-                    app._openDrawer();
-                }, 20);
+                var app = document.querySelector('nuxeo-app');
+                if (app && chosenMenu) {
+                    app.selectedTab = chosenMenu;
+                    if (app._openDrawer) {
+                        app._openDrawer();
+                    }
+                    app.selectedTab = chosenMenu;
+                    setTimeout(function () {
+                        this._triggerSearch(app, chosenMenu);
+                    }.bind(this), 200);
+                }
                 this.$.content.style.display = 'none';
-
+            },
+            _triggerSearch: function (app, chosenMenu) {
+                var pages = app.$ && app.$['drawer-pages'];
+                if (!pages) {
+                    return;
+                }
+                var form = pages.querySelector('nuxeo-search-form[name="' + chosenMenu + '"]');
+                if (!form) {
+                    return;
+                }
+                var target = null;
+                var queue = [form];
+                var seen = [];
+                while (queue.length) {
+                    var node = queue.shift();
+                    if (!node || seen.indexOf(node) !== -1) {
+                        continue;
+                    }
+                    seen.push(node);
+                    if (node !== form && node.localName && node.localName.indexOf('search-form') !== -1 && typeof node._search === 'function') {
+                        target = node;
+                    }
+                    if (node.shadowRoot) {
+                        for (var i = 0; i < node.shadowRoot.children.length; i++) {
+                            queue.push(node.shadowRoot.children[i]);
+                        }
+                    }
+                }
+                if (target) {
+                    target._search();
+                }
             }
         });
     </script>

@@ -1,7 +1,7 @@
-
 <!--
 @license
-(C) Copyright Nuxeo Corp. (http://nuxeo.com/)
+©2023 Hyland Software, Inc. and its affiliates. All rights reserved. 
+All Hyland product names are registered or unregistered trademarks of Hyland Software, Inc. or its affiliates.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -17,10 +17,13 @@ limitations under the License.
 -->
 <%@ page trimDirectiveWhitespaces="true" %>
 <%@ page contentType="text/html; charset=UTF-8" %>
+<%@ page import="java.util.UUID"%>
 <%@ page import="org.nuxeo.common.Environment"%>
 <%@ page import="org.nuxeo.runtime.api.Framework"%>
 <%@ page import="org.nuxeo.ecm.core.api.repository.RepositoryManager"%>
 <%@ page import="org.nuxeo.common.utils.UserAgentMatcher"%>
+<%@ page import="jakarta.servlet.http.HttpServletResponse" %>
+
 
 <%
   String ua = request.getHeader("user-agent");
@@ -35,10 +38,48 @@ limitations under the License.
   } else {
     baseUrl = context + "/repo/" + repository + "/ui/";
   }
+  HttpServletResponse resp = (HttpServletResponse) pageContext.getResponse();
+  String NX_NONCE_VALUE = UUID.randomUUID().toString();
+  String updatedScriptSrcStr = "'self' 'strict-dynamic' 'nonce-" + NX_NONCE_VALUE + "'";
+  String cspHeader = resp.getHeader("Content-Security-Policy");
+  String newCspHeader = "";
+  boolean isExistingCspHeaderEmpty = false;
+  if(cspHeader == null || cspHeader.trim().isEmpty()) { 
+    isExistingCspHeaderEmpty = true;
+    cspHeader = "";
+   }
+  String scriptSrc = "";
+  String directive = null;
+  // Replace non-breaking spaces with regular spaces
+  cspHeader = cspHeader.replaceAll("\u00A0", " ");  // Normalizing non-breaking spaces
+  String[] directives = cspHeader.trim().replaceAll("\\s+", " ").split(";");
+  boolean foundScriptSrcMatch = false;
+  boolean foundObjectSrcMatch = false;
+  for (int i = 0; i < directives.length; i++) {
+    directive = directives[i].trim();
+    if (directive.startsWith("script-src ")) {
+        foundScriptSrcMatch = true;
+        directive = directive.trim() + " " + updatedScriptSrcStr;
+        directives[i] = directive;
+    }
+    if (directive.startsWith("object-src ")) {
+      foundObjectSrcMatch = true;
+    }
+  }
+  if(foundScriptSrcMatch) {
+    newCspHeader =  String.join(";", directives);
+  }
+  else {
+    newCspHeader = cspHeader.trim() + (isExistingCspHeaderEmpty ? " script-src " : "; script-src ") + updatedScriptSrcStr;
+  }
+  if(!foundObjectSrcMatch){
+    newCspHeader = newCspHeader.trim() + "; object-src 'none'";
+  }
+  resp.setHeader("Content-Security-Policy", newCspHeader);
 %>
 
 <!DOCTYPE html>
-<html>
+<html lang="">
 
 <head>
   <meta charset="UTF-8">
@@ -78,11 +119,14 @@ limitations under the License.
   <meta name="msapplication-TileImage" content="images/touch/ms-touch-icon-144x144-precomposed.png">
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
-
   <style>
     <%@include file="index.css"%>
   </style>
 </head>
+
+<script nonce="<%= NX_NONCE_VALUE %>">
+  const NuxeoNonce = "<%= NX_NONCE_VALUE %>";
+</script>
 
 <body>
   <nuxeo-connection url="<%= context %>" repository-name="<%= repository %>"></nuxeo-connection>
@@ -98,15 +142,31 @@ limitations under the License.
     </div>
   </nuxeo-app>
 
-  <script src="vendor/webcomponentsjs/webcomponents-loader.js"></script>
+  <script nonce="<%= NX_NONCE_VALUE %>">
+    window.nuxeo = window.nuxeo || {};
+    window.nuxeo.I18n = window.nuxeo.I18n || {};
+    const userLanguage = navigator.language || navigator.userLanguage || 'en';
+    if(userLanguage) {
+      const rtlLanguages = ['ar', 'he', 'fa', 'ur'];
+      const isRTL = rtlLanguages.some((lang) => userLanguage?.startsWith(lang));
+      window.nuxeo.I18n.direction = isRTL ? 'rtl' : 'ltr';
+      document.documentElement.setAttribute('dir', window.nuxeo.I18n.direction || 'ltr');
+      const nuxeoApp = document.querySelector('nuxeo-app');
+      if (nuxeoApp) {
+        nuxeoApp.setAttribute('dir', window.nuxeo.I18n.direction || 'ltr');
+      }
+    }
+  </script>
 
-  <script src="vendor/html-imports/html-imports.min.js"></script>
+  <script src="vendor/webcomponentsjs/webcomponents-loader.js"  nonce="<%= NX_NONCE_VALUE %>"></script>
 
-  <script src="vendor/web-animations/web-animations-next-lite.min.js"></script>
+  <script src="vendor/html-imports/html-imports.min.js" nonce="<%= NX_NONCE_VALUE %>"></script>
 
-  <script src="config.jsp"></script>
+  <script src="vendor/web-animations/web-animations-next-lite.min.js"  nonce="<%= NX_NONCE_VALUE %>"></script>
 
-  <script src="main.bundle.js"></script>
+  <script src="config.jsp"  nonce="<%= NX_NONCE_VALUE %>"></script>
+
+  <script src="main.bundle.js"  nonce="<%= NX_NONCE_VALUE %>"></script>
 
 </body>
 
