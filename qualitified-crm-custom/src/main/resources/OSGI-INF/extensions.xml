@@ -185,10 +185,8 @@
   </extension>
 
   <!--require>org.nuxeo.ecm.directory.sql.storage</require-->
-  <extension target="org.nuxeo.ecm.directory.sql.SQLDirectoryFactory" point="directories">
-    <directory name="customVocabulary1">
-        <schema>vocabulary</schema>
-        <dataSource>java:/nxsqldirectory</dataSource>
+  <extension target="org.nuxeo.ecm.directory.GenericDirectory" point="directories">
+    <directory name="customVocabulary1" extends="template-vocabulary">
         <cacheTimeout>3600</cacheTimeout>
         <cacheMaxSize>1000</cacheMaxSize>
         <idField>id</idField>
@@ -197,9 +195,7 @@
         <table>studio_vocabulary_customVocabulary1</table>
         <dataFile>data/vocabularies/customVocabulary1.csv</dataFile>
       </directory>
-      <directory name="customVocabulary2">
-        <schema>vocabulary</schema>
-        <dataSource>java:/nxsqldirectory</dataSource>
+      <directory name="customVocabulary2" extends="template-vocabulary">
         <cacheTimeout>3600</cacheTimeout>
         <cacheMaxSize>1000</cacheMaxSize>
         <idField>id</idField>
@@ -208,9 +204,7 @@
         <table>studio_vocabulary_customVocabulary2</table>
         <dataFile>data/vocabularies/customVocabulary2.csv</dataFile>
       </directory>
-      <directory name="customVocabulary3">
-        <schema>vocabulary</schema>
-        <dataSource>java:/nxsqldirectory</dataSource>
+      <directory name="customVocabulary3" extends="template-vocabulary">
         <cacheTimeout>3600</cacheTimeout>
         <cacheMaxSize>1000</cacheMaxSize>
         <idField>id</idField>
@@ -219,9 +213,7 @@
         <table>studio_vocabulary_customVocabulary3</table>
         <dataFile>data/vocabularies/customVocabulary3.csv</dataFile>
       </directory>
-      <directory name="customVocabulary4">
-        <schema>vocabulary</schema>
-        <dataSource>java:/nxsqldirectory</dataSource>
+      <directory name="customVocabulary4" extends="template-vocabulary">
         <cacheTimeout>3600</cacheTimeout>
         <cacheMaxSize>1000</cacheMaxSize>
         <idField>id</idField>
@@ -230,9 +222,7 @@
         <table>studio_vocabulary_customVocabulary4</table>
         <dataFile>data/vocabularies/customVocabulary4.csv</dataFile>
       </directory>
-      <directory name="customVocabulary5">
-        <schema>vocabulary</schema>
-        <dataSource>java:/nxsqldirectory</dataSource>
+      <directory name="customVocabulary5" extends="template-vocabulary">
         <cacheTimeout>3600</cacheTimeout>
         <cacheMaxSize>1000</cacheMaxSize>
         <idField>id</idField>
@@ -241,9 +231,7 @@
         <table>studio_vocabulary_customVocabulary5</table>
         <dataFile>data/vocabularies/customVocabulary5.csv</dataFile>
       </directory>
-      <directory name="customVocabulary6">
-        <schema>vocabulary</schema>
-        <dataSource>java:/nxsqldirectory</dataSource>
+      <directory name="customVocabulary6" extends="template-vocabulary">
         <cacheTimeout>3600</cacheTimeout>
         <cacheMaxSize>1000</cacheMaxSize>
         <idField>id</idField>
@@ -252,9 +240,7 @@
         <table>studio_vocabulary_customVocabulary6</table>
         <dataFile>data/vocabularies/customVocabulary6.csv</dataFile>
       </directory>
-      <directory name="customVocabulary7">
-        <schema>vocabulary</schema>
-        <dataSource>java:/nxsqldirectory</dataSource>
+      <directory name="customVocabulary7" extends="template-vocabulary">
         <cacheTimeout>3600</cacheTimeout>
         <cacheMaxSize>1000</cacheMaxSize>
         <idField>id</idField>
@@ -263,9 +249,7 @@
         <table>studio_vocabulary_customVocabulary7</table>
         <dataFile>data/vocabularies/customVocabulary7.csv</dataFile>
       </directory>
-      <directory name="customVocabulary8">
-        <schema>vocabulary</schema>
-        <dataSource>java:/nxsqldirectory</dataSource>
+      <directory name="customVocabulary8" extends="template-vocabulary">
         <cacheTimeout>3600</cacheTimeout>
         <cacheMaxSize>1000</cacheMaxSize>
         <idField>id</idField>
@@ -274,9 +258,7 @@
         <table>studio_vocabulary_customVocabulary8</table>
         <dataFile>data/vocabularies/customVocabulary8.csv</dataFile>
       </directory>
-      <directory name="customVocabulary9">
-        <schema>vocabulary</schema>
-        <dataSource>java:/nxsqldirectory</dataSource>
+      <directory name="customVocabulary9" extends="template-vocabulary">
         <cacheTimeout>3600</cacheTimeout>
         <cacheMaxSize>1000</cacheMaxSize>
         <idField>id</idField>
@@ -285,9 +267,7 @@
         <table>studio_vocabulary_customVocabulary9</table>
         <dataFile>data/vocabularies/customVocabulary9.csv</dataFile>
       </directory>
-      <directory name="customVocabulary10">
-        <schema>vocabulary</schema>
-        <dataSource>java:/nxsqldirectory</dataSource>
+      <directory name="customVocabulary10" extends="template-vocabulary">
         <cacheTimeout>3600</cacheTimeout>
         <cacheMaxSize>1000</cacheMaxSize>
         <idField>id</idField>
@@ -296,9 +276,7 @@
         <table>studio_vocabulary_customVocabulary10</table>
         <dataFile>data/vocabularies/customVocabulary10.csv</dataFile>
       </directory>
-      <directory name="customVocabulary11">
-        <schema>vocabulary</schema>
-        <dataSource>java:/nxsqldirectory</dataSource>
+      <directory name="customVocabulary11" extends="template-vocabulary">
         <cacheTimeout>3600</cacheTimeout>
         <cacheMaxSize>1000</cacheMaxSize>
         <idField>id</idField>
@@ -307,9 +285,7 @@
         <table>studio_vocabulary_customVocabulary11</table>
         <dataFile>data/vocabularies/customVocabulary11.csv</dataFile>
       </directory>
-      <directory name="customVocabulary12">
-        <schema>vocabulary</schema>
-        <dataSource>java:/nxsqldirectory</dataSource>
+      <directory name="customVocabulary12" extends="template-vocabulary">
         <cacheTimeout>3600</cacheTimeout>
         <cacheMaxSize>1000</cacheMaxSize>
         <idField>id</idField>
@@ -318,9 +294,7 @@
         <table>studio_vocabulary_customVocabulary12</table>
         <dataFile>data/vocabularies/customVocabulary12.csv</dataFile>
       </directory>
-      <directory name="customVocabulary13">
-        <schema>vocabulary</schema>
-        <dataSource>java:/nxsqldirectory</dataSource>
+      <directory name="customVocabulary13" extends="template-vocabulary">
         <cacheTimeout>3600</cacheTimeout>
         <cacheMaxSize>1000</cacheMaxSize>
         <idField>id</idField>
@@ -329,9 +303,7 @@
         <table>studio_vocabulary_customVocabulary13</table>
         <dataFile>data/vocabularies/customVocabulary13.csv</dataFile>
       </directory>
-      <directory name="customVocabulary14">
-        <schema>vocabulary</schema>
-        <dataSource>java:/nxsqldirectory</dataSource>
+      <directory name="customVocabulary14" extends="template-vocabulary">
         <cacheTimeout>3600</cacheTimeout>
         <cacheMaxSize>1000</cacheMaxSize>
         <idField>id</idField>
@@ -340,9 +312,7 @@
         <table>studio_vocabulary_customVocabulary14</table>
         <dataFile>data/vocabularies/customVocabulary14.csv</dataFile>
       </directory>
-      <directory name="customVocabulary15">
-        <schema>vocabulary</schema>
-        <dataSource>java:/nxsqldirectory</dataSource>
+      <directory name="customVocabulary15" extends="template-vocabulary">
         <cacheTimeout>3600</cacheTimeout>
         <cacheMaxSize>1000</cacheMaxSize>
         <idField>id</idField>
@@ -351,9 +321,7 @@
         <table>studio_vocabulary_customVocabulary15</table>
         <dataFile>data/vocabularies/customVocabulary15.csv</dataFile>
       </directory>
-      <directory name="customVocabulary16">
-        <schema>vocabulary</schema>
-        <dataSource>java:/nxsqldirectory</dataSource>
+      <directory name="customVocabulary16" extends="template-vocabulary">
         <cacheTimeout>3600</cacheTimeout>
         <cacheMaxSize>1000</cacheMaxSize>
         <idField>id</idField>
@@ -362,9 +330,7 @@
         <table>studio_vocabulary_customVocabulary16</table>
         <dataFile>data/vocabularies/customVocabulary16.csv</dataFile>
       </directory>
-      <directory name="customVocabulary17">
-        <schema>vocabulary</schema>
-        <dataSource>java:/nxsqldirectory</dataSource>
+      <directory name="customVocabulary17" extends="template-vocabulary">
         <cacheTimeout>3600</cacheTimeout>
         <cacheMaxSize>1000</cacheMaxSize>
         <idField>id</idField>
@@ -373,9 +339,7 @@
         <table>studio_vocabulary_customVocabulary17</table>
         <dataFile>data/vocabularies/customVocabulary17.csv</dataFile>
       </directory>
-      <directory name="customVocabulary18">
-        <schema>vocabulary</schema>
-        <dataSource>java:/nxsqldirectory</dataSource>
+      <directory name="customVocabulary18" extends="template-vocabulary">
         <cacheTimeout>3600</cacheTimeout>
         <cacheMaxSize>1000</cacheMaxSize>
         <idField>id</idField>
@@ -384,9 +348,7 @@
         <table>studio_vocabulary_customVocabulary18</table>
         <dataFile>data/vocabularies/customVocabulary18.csv</dataFile>
       </directory>
-      <directory name="customVocabulary19">
-        <schema>vocabulary</schema>
-        <dataSource>java:/nxsqldirectory</dataSource>
+      <directory name="customVocabulary19" extends="template-vocabulary">
         <cacheTimeout>3600</cacheTimeout>
         <cacheMaxSize>1000</cacheMaxSize>
         <idField>id</idField>
@@ -395,9 +357,7 @@
         <table>studio_vocabulary_customVocabulary19</table>
         <dataFile>data/vocabularies/customVocabulary19.csv</dataFile>
       </directory>
-      <directory name="customVocabulary20">
-        <schema>vocabulary</schema>
-        <dataSource>java:/nxsqldirectory</dataSource>
+      <directory name="customVocabulary20" extends="template-vocabulary">
         <cacheTimeout>3600</cacheTimeout>
         <cacheMaxSize>1000</cacheMaxSize>
         <idField>id</idField>

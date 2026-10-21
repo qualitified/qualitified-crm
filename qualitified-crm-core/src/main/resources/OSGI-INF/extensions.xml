@@ -2262,188 +2262,126 @@
     </directory>
   </extension>
 
-  <extension target="org.nuxeo.ecm.directory.sql.SQLDirectoryFactory" point="directories">
-    <!--directory name="userDirectory">
-      <passwordField>password</passwordField>
-      <dataFile>data/users.csv</dataFile>
-      <createTablePolicy>never</createTablePolicy>
-      <references>
-        <inverseReference field="groups" directory="groupDirectory" dualReferenceField="members"/>
-      </references>
-    </directory>
-    <directory name="groupDirectory">
-      <dataFile>data/groups.csv</dataFile>
-      <createTablePolicy>never</createTablePolicy>
-      <referencs>
-        <inverseReference field="parentGroups" directory="groupDirectory" dualReferenceField="subGroups"/>
-        <tableReference field="members" directory="userDirectory" table="user2group" sourceColumn="groupId" targetColumn="userId" schema="user2group" dataFile="data/user2group.csv"/>
-        <tableReference field="subGroups" directory="groupDirectory" table="group2group" sourceColumn="parentGroupId" targetColumn="childGroupId" schema="group2group"/>
-      </references>
-    </directory-->
-    <directory name="Civility">
-      <schema>vocabulary</schema>
-      <dataSource>java:/nxsqldirectory</dataSource>
-      <cacheTimeout>3600</cacheTimeout>
-      <cacheMaxSize>1000</cacheMaxSize>
-      <idField>id</idField>
+  <extension target="org.nuxeo.ecm.directory.GenericDirectory" point="directories">
+    <directory name="Civility" extends="template-vocabulary">
       <autoincrementIdField>false</autoincrementIdField>
       <createTablePolicy>on_missing_columns</createTablePolicy>
       <table>studio_vocabulary_Civility</table>
       <dataFile>data/vocabularies/Civility.csv</dataFile>
+      <cacheEntryName>vocab-Civility-cache</cacheEntryName>
+      <cacheEntryWithoutReferencesName>vocab-Civility-cache-without-references</cacheEntryWithoutReferencesName>
     </directory>
-    <directory name="Columns">
-      <schema>vocabulary</schema>
-      <dataSource>java:/nxsqldirectory</dataSource>
-      <cacheTimeout>3600</cacheTimeout>
-      <cacheMaxSize>1000</cacheMaxSize>
-      <idField>id</idField>
+    <directory name="Columns" extends="template-vocabulary">
       <autoincrementIdField>false</autoincrementIdField>
       <createTablePolicy>always</createTablePolicy>
       <table>studio_vocabulary_Columns</table>
       <dataFile>data/vocabularies/Columns.csv</dataFile>
+      <cacheEntryName>vocab-Columns-cache</cacheEntryName>
+      <cacheEntryWithoutReferencesName>vocab-Columns-cache-without-references</cacheEntryWithoutReferencesName>
     </directory>
-    <directory name="IntActivity">
-      <schema>vocabulary</schema>
-      <dataSource>java:/nxsqldirectory</dataSource>
-      <cacheTimeout>3600</cacheTimeout>
-      <cacheMaxSize>1000</cacheMaxSize>
-      <idField>id</idField>
+    <directory name="IntActivity" extends="template-vocabulary">
       <autoincrementIdField>false</autoincrementIdField>
       <createTablePolicy>on_missing_columns</createTablePolicy>
       <table>studio_vocabulary_IntActivity</table>
       <dataFile>data/vocabularies/IntActivity.csv</dataFile>
+      <cacheEntryName>vocab-IntActivity-cache</cacheEntryName>
+      <cacheEntryWithoutReferencesName>vocab-IntActivity-cache-without-references</cacheEntryWithoutReferencesName>
     </directory>
-    <directory name="StatusCampaign">
-      <schema>vocabulary</schema>
-      <dataSource>java:/nxsqldirectory</dataSource>
-      <cacheTimeout>3600</cacheTimeout>
-      <cacheMaxSize>1000</cacheMaxSize>
-      <idField>id</idField>
+    <directory name="StatusCampaign" extends="template-vocabulary">
       <autoincrementIdField>false</autoincrementIdField>
       <createTablePolicy>always</createTablePolicy>
       <table>studio_vocabulary_StatusCampaign</table>
       <dataFile>data/vocabularies/StatusCampaign.csv</dataFile>
+      <cacheEntryName>vocab-StatusCampaign-cache</cacheEntryName>
+      <cacheEntryWithoutReferencesName>vocab-StatusCampaign-cache-without-references</cacheEntryWithoutReferencesName>
     </directory>
-    <directory name="contactLanguage">
-      <schema>vocabulary</schema>
-      <dataSource>java:/nxsqldirectory</dataSource>
-      <cacheTimeout>3600</cacheTimeout>
-      <cacheMaxSize>1000</cacheMaxSize>
-      <idField>id</idField>
+    <directory name="contactLanguage" extends="template-vocabulary">
       <autoincrementIdField>false</autoincrementIdField>
       <createTablePolicy>on_missing_columns</createTablePolicy>
       <table>studio_vocabulary_contactLanguage</table>
       <dataFile>data/vocabularies/contactLanguage.csv</dataFile>
+      <cacheEntryName>vocab-contactLanguage-cache</cacheEntryName>
+      <cacheEntryWithoutReferencesName>vocab-contactLanguage-cache-without-references</cacheEntryWithoutReferencesName>
     </directory>
-    <directory name="IntStatus">
-      <schema>vocabulary</schema>
-      <dataSource>java:/nxsqldirectory</dataSource>
-      <cacheTimeout>3600</cacheTimeout>
-      <cacheMaxSize>1000</cacheMaxSize>
-      <idField>id</idField>
+    <directory name="IntStatus" extends="template-vocabulary">
       <autoincrementIdField>false</autoincrementIdField>
       <createTablePolicy>on_missing_columns</createTablePolicy>
       <table>studio_vocabulary_IntStatus</table>
       <dataFile>data/vocabularies/IntStatus.csv</dataFile>
+      <cacheEntryName>vocab-IntStatus-cache</cacheEntryName>
+      <cacheEntryWithoutReferencesName>vocab-IntStatus-cache-without-references</cacheEntryWithoutReferencesName>
     </directory>
-    <directory name="OppStep">
-      <schema>vocabulary</schema>
-      <dataSource>java:/nxsqldirectory</dataSource>
-      <cacheTimeout>3600</cacheTimeout>
-      <cacheMaxSize>1000</cacheMaxSize>
-      <idField>id</idField>
+    <directory name="OppStep" extends="template-vocabulary">
       <autoincrementIdField>false</autoincrementIdField>
       <createTablePolicy>on_missing_columns</createTablePolicy>
       <table>studio_vocabulary_OppStep</table>
       <dataFile>data/vocabularies/OppStep.csv</dataFile>
+      <cacheEntryName>vocab-OppStep-cache</cacheEntryName>
+      <cacheEntryWithoutReferencesName>vocab-OppStep-cache-without-references</cacheEntryWithoutReferencesName>
     </directory>
-    <directory name="Zone">
-      <schema>vocabulary</schema>
-      <dataSource>java:/nxsqldirectory</dataSource>
-      <cacheTimeout>3600</cacheTimeout>
-      <cacheMaxSize>1000</cacheMaxSize>
-      <idField>id</idField>
+    <directory name="Zone" extends="template-vocabulary">
       <autoincrementIdField>false</autoincrementIdField>
       <createTablePolicy>on_missing_columns</createTablePolicy>
       <table>studio_vocabulary_Zone</table>
       <dataFile>data/vocabularies/Zone.csv</dataFile>
+      <cacheEntryName>vocab-Zone-cache</cacheEntryName>
+      <cacheEntryWithoutReferencesName>vocab-Zone-cache-without-references</cacheEntryWithoutReferencesName>
     </directory>
-    <directory name="targetEmailStatus">
-      <schema>vocabulary</schema>
-      <dataSource>java:/nxsqldirectory</dataSource>
-      <cacheTimeout>3600</cacheTimeout>
-      <cacheMaxSize>1000</cacheMaxSize>
-      <idField>id</idField>
+    <directory name="targetEmailStatus" extends="template-vocabulary">
       <autoincrementIdField>false</autoincrementIdField>
       <createTablePolicy>always</createTablePolicy>
       <table>studio_vocabulary_targetEmailStatus</table>
       <dataFile>data/vocabularies/targetEmailStatus.csv</dataFile>
+      <cacheEntryName>vocab-targetEmailStatus-cache</cacheEntryName>
+      <cacheEntryWithoutReferencesName>vocab-targetEmailStatus-cache-without-references</cacheEntryWithoutReferencesName>
     </directory>
-    <directory name="Role">
-      <schema>vocabulary</schema>
-      <dataSource>java:/nxsqldirectory</dataSource>
-      <cacheTimeout>3600</cacheTimeout>
-      <cacheMaxSize>1000</cacheMaxSize>
-      <idField>id</idField>
+    <directory name="Role" extends="template-vocabulary">
       <autoincrementIdField>false</autoincrementIdField>
       <createTablePolicy>on_missing_columns</createTablePolicy>
       <table>studio_vocabulary_Role</table>
       <dataFile>data/vocabularies/Role.csv</dataFile>
+      <cacheEntryName>vocab-Role-cache</cacheEntryName>
+      <cacheEntryWithoutReferencesName>vocab-Role-cache-without-references</cacheEntryWithoutReferencesName>
     </directory>
-    <directory name="AccountType">
-      <schema>vocabulary</schema>
-      <dataSource>java:/nxsqldirectory</dataSource>
-      <cacheTimeout>3600</cacheTimeout>
-      <cacheMaxSize>1000</cacheMaxSize>
-      <idField>id</idField>
+    <directory name="AccountType" extends="template-vocabulary">
       <autoincrementIdField>false</autoincrementIdField>
       <createTablePolicy>on_missing_columns</createTablePolicy>
       <table>studio_vocabulary_AccountType</table>
       <dataFile>data/vocabularies/AccountType.csv</dataFile>
+      <cacheEntryName>vocab-AccountType-cache</cacheEntryName>
+      <cacheEntryWithoutReferencesName>vocab-AccountType-cache-without-references</cacheEntryWithoutReferencesName>
     </directory>
-    <directory name="StatusAccount">
-      <schema>vocabulary</schema>
-      <dataSource>java:/nxsqldirectory</dataSource>
-      <cacheTimeout>3600</cacheTimeout>
-      <cacheMaxSize>1000</cacheMaxSize>
-      <idField>id</idField>
+    <directory name="StatusAccount" extends="template-vocabulary">
       <autoincrementIdField>false</autoincrementIdField>
       <createTablePolicy>on_missing_columns</createTablePolicy>
       <table>studio_vocabulary_StatusAccount</table>
       <dataFile>data/vocabularies/StatusAccount.csv</dataFile>
+      <cacheEntryName>vocab-StatusAccount-cache</cacheEntryName>
+      <cacheEntryWithoutReferencesName>vocab-StatusAccount-cache-without-references</cacheEntryWithoutReferencesName>
     </directory>
-    <directory name="Industry">
-      <schema>vocabulary</schema>
-      <dataSource>java:/nxsqldirectory</dataSource>
-      <cacheTimeout>3600</cacheTimeout>
-      <cacheMaxSize>1000</cacheMaxSize>
-      <idField>id</idField>
+    <directory name="Industry" extends="template-vocabulary">
       <autoincrementIdField>false</autoincrementIdField>
       <createTablePolicy>on_missing_columns</createTablePolicy>
       <table>studio_vocabulary_Industry</table>
       <dataFile>data/vocabularies/Industry.csv</dataFile>
+      <cacheEntryName>vocab-Industry-cache</cacheEntryName>
+      <cacheEntryWithoutReferencesName>vocab-Industry-cache-without-references</cacheEntryWithoutReferencesName>
     </directory>
-    <directory name="SolicitationCategory">
-      <schema>vocabulary</schema>
-      <dataSource>java:/nxsqldirectory</dataSource>
-      <cacheTimeout>3600</cacheTimeout>
-      <cacheMaxSize>1000</cacheMaxSize>
-      <idField>id</idField>
+    <directory name="SolicitationCategory" extends="template-vocabulary">
       <autoincrementIdField>false</autoincrementIdField>
       <createTablePolicy>on_missing_columns</createTablePolicy>
       <table>studio_vocabulary_SolicitationCategory</table>
       <dataFile>data/vocabularies/SolicitationCategory.csv</dataFile>
+      <cacheEntryName>vocab-SolicitationCategory-cache</cacheEntryName>
+      <cacheEntryWithoutReferencesName>vocab-SolicitationCategory-cache-without-references</cacheEntryWithoutReferencesName>
     </directory>
-    <directory name="SolicitationStatus">
-      <schema>vocabulary</schema>
-      <dataSource>java:/nxsqldirectory</dataSource>
-      <cacheTimeout>3600</cacheTimeout>
-      <cacheMaxSize>1000</cacheMaxSize>
-      <idField>id</idField>
+    <directory name="SolicitationStatus" extends="template-vocabulary">
       <autoincrementIdField>false</autoincrementIdField>
       <createTablePolicy>on_missing_columns</createTablePolicy>
       <table>studio_vocabulary_SolicitationStatus</table>
       <dataFile>data/vocabularies/SolicitationStatus.csv</dataFile>
+      <cacheEntryName>vocab-SolicitationStatus-cache</cacheEntryName>
+      <cacheEntryWithoutReferencesName>vocab-SolicitationStatus-cache-without-references</cacheEntryWithoutReferencesName>
     </directory>
   </extension>
   <extension target="org.nuxeo.ecm.platform.routing.service" point="routeModelImporter">
