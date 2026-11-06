@@ -1837,7 +1837,8 @@
     <coreQueryPageProvider class="org.nuxeo.ecm.platform.query.nxql.SearchServicePageProvider" name="expired_search">
       <trackUsage>true</trackUsage>
       <property name="maxResults">DEFAULT_NAVIGATION_RESULTS</property>
-      <whereClause docType="ExpiredSearch">
+      <searchDocumentType>ExpiredSearch</searchDocumentType>
+      <whereClause>
         <fixedPart>
           ecm:isVersion = 0
           AND ecm:mixinType != 'HiddenInNavigation'
